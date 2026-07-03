@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- launchd user agent. Install:
+       cp deploy/com.sebi-rag.plist ~/Library/LaunchAgents/
+       launchctl load ~/Library/LaunchAgents/com.sebi-rag.plist
+     Stop:  launchctl unload ~/Library/LaunchAgents/com.sebi-rag.plist
+     Edit the WorkingDirectory/ProgramArguments paths and SEBI_RAG_API_KEY first. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.sebi-rag</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/ianpinto/sebi_circular_sota_rag/SEBI circular RAG/run.sh</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>/Users/ianpinto/sebi_circular_sota_rag/SEBI circular RAG</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>SEBI_RAG_API_KEY</key>
+    <string>CHANGE_ME</string>
+    <key>PORT</key>
+    <string>8000</string>
+  </dict>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>/tmp/sebi-rag.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/sebi-rag.err.log</string>
+</dict>
+</plist>

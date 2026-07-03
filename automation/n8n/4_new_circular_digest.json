@@ -1,0 +1,44 @@
+{
+  "name": "SEBI RAG - New Circular Digest (daily)",
+  "nodes": [
+    {
+      "parameters": { "rule": { "interval": [ { "field": "cronExpression", "expression": "0 7 * * *" } ] } },
+      "id": "trigger-digest",
+      "name": "Daily 07:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [ 240, 300 ]
+    },
+    {
+      "parameters": { "url": "http://127.0.0.1:8765/discover", "options": { "timeout": 180000 } },
+      "id": "run-discover",
+      "name": "GET /discover",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 480, 300 ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": { "jsCode": "const d=$input.first().json;if(!d||d.error||d.seeded||!d.new_count)return [];const t=(d.items||[]).map(x=>x.title).join('; ').split('\"').join('');return [{json:{title:'SEBI RAG '+d.new_count+' new circular(s)',message:t.slice(0,220)}}];" },
+      "id": "parse-digest",
+      "name": "Any new?",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 720, 300 ]
+    },
+    {
+      "parameters": { "method": "POST", "url": "http://127.0.0.1:8765/notify", "sendQuery": true, "queryParameters": { "parameters": [ { "name": "title", "value": "={{ $json.title }}" }, { "name": "message", "value": "={{ $json.message }}" } ] }, "options": {} },
+      "id": "notify-digest",
+      "name": "Notify",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 960, 300 ]
+    }
+  ],
+  "connections": {
+    "Daily 07:00": { "main": [ [ { "node": "GET /discover", "type": "main", "index": 0 } ] ] },
+    "GET /discover": { "main": [ [ { "node": "Any new?", "type": "main", "index": 0 } ] ] },
+    "Any new?": { "main": [ [ { "node": "Notify", "type": "main", "index": 0 } ] ] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

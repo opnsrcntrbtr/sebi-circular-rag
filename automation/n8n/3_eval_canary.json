@@ -1,0 +1,121 @@
+{
+  "name": "SEBI RAG - Eval Canary (daily)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 6 * * *"
+            }
+          ]
+        }
+      },
+      "id": "trigger-canary",
+      "name": "Daily 06:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://127.0.0.1:8765/canary",
+        "options": {
+          "timeout": 300000
+        }
+      },
+      "id": "run-canary",
+      "name": "GET /canary",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        300
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const m=$input.first().json;if(!m||m.error){return [{json:{title:'SEBI RAG canary FAILED',message:'canary error '+(m&&m.error?m.error:'no data')}}];}const bad=[];if(m.recall_at_10<0.97)bad.push('recall '+m.recall_at_10);if(m.citation_recall<0.85)bad.push('cit_recall '+m.citation_recall);if(m.abstention_accuracy<0.82)bad.push('abstention '+m.abstention_accuracy);if(m.citation_precision<0.6)bad.push('cit_prec '+m.citation_precision);if(m.injection_flagged>1)bad.push('INJECTION_FLAGS '+m.injection_flagged+' (baseline 1 benign)');if(!bad.length)return [];return [{json:{title:'SEBI RAG canary ALERT',message:'Regression '+bad.join(', ')+' | circulars '+m.circulars}}];"
+      },
+      "id": "parse-canary",
+      "name": "Check thresholds",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8765/notify",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "title",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "name": "message",
+              "value": "={{ $json.message }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "notify-canary",
+      "name": "Notify",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        960,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Daily 06:00": {
+      "main": [
+        [
+          {
+            "node": "GET /canary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET /canary": {
+      "main": [
+        [
+          {
+            "node": "Check thresholds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check thresholds": {
+      "main": [
+        [
+          {
+            "node": "Notify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

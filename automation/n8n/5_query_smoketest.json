@@ -1,0 +1,44 @@
+{
+  "name": "SEBI RAG - Query Smoke Test (every 6h)",
+  "nodes": [
+    {
+      "parameters": { "rule": { "interval": [ { "field": "cronExpression", "expression": "0 */6 * * *" } ] } },
+      "id": "trigger-smoke",
+      "name": "Every 6h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [ 240, 300 ]
+    },
+    {
+      "parameters": { "url": "http://127.0.0.1:8765/smoketest", "options": { "timeout": 200000 } },
+      "id": "run-smoke",
+      "name": "GET /smoketest",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 480, 300 ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": { "jsCode": "const m=$input.first().json;if(m&&m.ok)return [];const msg=('query smoke FAILED faithfulness='+(m&&m.faithfulness)+' abstained='+(m&&m.abstained)+' citations='+(m&&m.citations)+' unsupported='+(((m&&m.unsupported)||[]).join(','))+' '+((m&&m.error)||'')).split('\"').join('');return [{json:{title:'SEBI RAG query smoke ALERT',message:msg.slice(0,220)}}];" },
+      "id": "parse-smoke",
+      "name": "Assert faithful",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 720, 300 ]
+    },
+    {
+      "parameters": { "method": "POST", "url": "http://127.0.0.1:8765/notify", "sendQuery": true, "queryParameters": { "parameters": [ { "name": "title", "value": "={{ $json.title }}" }, { "name": "message", "value": "={{ $json.message }}" } ] }, "options": {} },
+      "id": "notify-smoke",
+      "name": "Notify",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 960, 300 ]
+    }
+  ],
+  "connections": {
+    "Every 6h": { "main": [ [ { "node": "GET /smoketest", "type": "main", "index": 0 } ] ] },
+    "GET /smoketest": { "main": [ [ { "node": "Assert faithful", "type": "main", "index": 0 } ] ] },
+    "Assert faithful": { "main": [ [ { "node": "Notify", "type": "main", "index": 0 } ] ] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

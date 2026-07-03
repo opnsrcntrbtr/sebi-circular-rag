@@ -1,0 +1,5 @@
+{"id": "g1", "query": "Which SEBI circular and date specifies the details to be disclosed for material events under Regulations 30 and 30A of LODR?", "relevant_circulars": ["SEBI/HO/CFD/CFD-PoD-1/P/CIR/2023/123"], "answer_contains": "2023/123", "abstain": false}
+{"id": "g2", "query": "What details must a listed entity disclose regarding a buy back of securities?", "relevant_circulars": ["SEBI/HO/CFD/CFD-PoD-1/P/CIR/2023/123"], "answer_contains": "buyback price", "abstain": false}
+{"id": "g3", "query": "What must be disclosed on a sub-division or consolidation of shares, such as the ratio and rationale?", "relevant_circulars": ["SEBI/HO/CFD/CFD-PoD-1/P/CIR/2023/123"], "answer_contains": "consolidation", "abstain": false}
+{"id": "g4", "query": "Into which Master Circular did the September 9, 2015 circular CIR/CFD/CMD/4/2015 become incorporated?", "relevant_circulars": ["SEBI/HO/CFD/CFD-PoD-1/P/CIR/2023/123"], "answer_contains": "2023/120", "abstain": false}
+{"id": "g5", "query": "What is the best recipe for chocolate chip cookies?", "relevant_circulars": [], "answer_contains": "", "abstain": true}

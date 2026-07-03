@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Local ops HTTP server for n8n automations. Install:
+       cp deploy/com.sebi-rag-ops.plist ~/Library/LaunchAgents/
+       launchctl load ~/Library/LaunchAgents/com.sebi-rag-ops.plist
+     Stop:  launchctl unload ~/Library/LaunchAgents/com.sebi-rag-ops.plist
+     Edit paths first; optionally set SEBI_OPS_TOKEN (also add X-Ops-Token in n8n). -->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.sebi-rag-ops</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/ianpinto/sebi_circular_sota_rag/SEBI circular RAG/run_ops.sh</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>/Users/ianpinto/sebi_circular_sota_rag/SEBI circular RAG</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>SEBI_OPS_PORT</key>
+    <string>8765</string>
+  </dict>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>/tmp/sebi-rag-ops.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/sebi-rag-ops.err.log</string>
+</dict>
+</plist>

@@ -1,0 +1,6 @@
+{"id": "g1", "query": "What must a listed entity disclose regarding a buy back of securities under the material events circular?", "relevant_circulars": ["SEBI/HO/CFD/CFD-PoD-1/P/CIR/2023/123"], "answer_contains": "buyback", "abstain": false}
+{"id": "g2", "query": "What are the norms for sharing and usage of stock exchange price data for educational purposes?", "relevant_circulars": ["HO/47/17/12(11)2025-MRD-POD3/I/11107/2026"], "answer_contains": "price data", "abstain": false}
+{"id": "g3", "query": "What are the modified norms for nomination in demat accounts and mutual fund folios?", "relevant_circulars": ["SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676"], "answer_contains": "nomination", "abstain": false}
+{"id": "g4", "query": "What does the SEBI advisory on emerging advanced artificial intelligence cover?", "relevant_circulars": ["HO/13/19/12(1)2026-ITD-1_CIMGI/10873/2026"], "answer_contains": "intelligence", "abstain": false}
+{"id": "g5", "query": "What is the best recipe for chocolate chip cookies?", "relevant_circulars": [], "answer_contains": "", "abstain": true}
+{"id": "g6", "query": "Into which Master Circular was the September 9, 2015 circular CIR/CFD/CMD/4/2015 incorporated?", "relevant_circulars": ["SEBI/HO/CFD/CFD-PoD-1/P/CIR/2023/123"], "answer_contains": "master circular", "abstain": false}

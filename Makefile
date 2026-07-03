@@ -1,0 +1,47 @@
+VENV := .venv
+PY   := $(VENV)/bin/python
+ENV  := HF_HUB_DISABLE_XET=1 TOKENIZERS_PARALLELISM=false OMP_NUM_THREADS=1 PYTORCH_ENABLE_MPS_FALLBACK=1 PYTHONPATH=src
+PORT ?= 8000
+MAX  ?= 25
+
+.PHONY: help test annotate index reindex calibrate bench-rerank serve scrape ops
+
+help:
+	@echo "test       run offline test suite"
+	@echo "reindex    annotate lineage + rebuild persisted index (after corpus change)"
+	@echo "index      build + persist FAISS/BM25 index and lineage.json"
+	@echo "annotate   recompute supersession status in the corpus"
+	@echo "calibrate  run the retrieval calibration sweep"
+	@echo "serve      run the API (PORT=$(PORT)); set SEBI_RAG_API_KEY in env"
+	@echo "ui         run the Gradio UI dashboard"
+	@echo "ops        run the local ops HTTP server for n8n (port 8765)"
+	@echo "scrape     fetch circulars (MAX=$(MAX)); runs on this machine"
+
+test:
+	$(PY) -m pytest -q -m "not integration"
+
+annotate:
+	$(ENV) $(PY) -c "from sebi_rag.lineage import annotate_corpus; print(annotate_corpus('data/corpus/circulars.jsonl'))"
+
+index:
+	$(ENV) $(PY) scripts/build_index.py
+
+reindex: annotate index
+
+calibrate:
+	$(ENV) $(PY) scripts/calibrate.py
+
+bench-rerank:
+	$(ENV) $(PY) scripts/bench_rerankers.py --models bge,qwen0.6b
+
+serve:
+	$(ENV) $(VENV)/bin/uvicorn sebi_rag.api:app --host 127.0.0.1 --port $(PORT) --workers 1
+
+ui:
+	$(ENV) $(PY) src/sebi_rag/ui.py
+
+ops:
+	$(ENV) $(PY) scripts/ops_server.py
+
+scrape:
+	$(ENV) $(PY) scripts/scrape_sebi.py --max $(MAX) --rate 3

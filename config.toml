@@ -1,0 +1,14 @@
+# SEBI Circular RAG service configuration.
+# Any field can be overridden by an env var SEBI_RAG_<FIELD> (uppercased).
+# Secrets are NOT here: set SEBI_RAG_API_KEY in the environment.
+
+[service]
+generator = "mlx"                                      # mlx | ollama
+mlx_model = "mlx-community/Qwen2.5-1.5B-Instruct-4bit" # 3B for higher groundedness
+top_k = 3                                              # calibrated (citation prec 0.97 / recall 1.0)
+abstain_threshold = 0.05                               # far-domain score floor; near-domain
+                                                       # abstention = subject-sim gate (SEBI_RAG_GATE)
+superseded_penalty = 0.3                               # demote superseded chunks in rerank
+rate_per_min = 60                                      # per key/IP
+timeout_s = 30                                         # /query budget -> 504
+# corpus_path and index_dir default to data/corpus/circulars.jsonl and data/index

@@ -1,0 +1,134 @@
+"""FastAPI service tests (offline pipelines): endpoints, auth, rate limit, metadata."""
+from __future__ import annotations
+
+import time
+
+from fastapi.testclient import TestClient
+
+from sebi_rag.api import CORPUS, create_app
+from sebi_rag.corpus import load_circulars
+from sebi_rag.embeddings import HashEmbedder
+from sebi_rag.generate import ExtractiveStubGenerator
+from sebi_rag.lineage import build_lineage, load_records
+from sebi_rag.pipeline import RAGPipeline
+from sebi_rag.rerank import LexicalReranker
+from sebi_rag.segment import CircularMeta, hierarchical_chunk
+
+
+def _offline_pipeline() -> RAGPipeline:
+    chunks = load_circulars(CORPUS)
+    lineage = build_lineage(load_records(CORPUS))
+    return RAGPipeline.build(
+        chunks=chunks, embedder=HashEmbedder(512), reranker=LexicalReranker(),
+        generator=ExtractiveStubGenerator(), abstain_threshold=0.30, lineage=lineage,
+    )
+
+
+def _tiny_pipeline() -> RAGPipeline:
+    A, B = "SEBI/HO/Z/P/CIR/2021/1", "SEBI/HO/Z/P/CIR/2025/9"
+    chunks = hierarchical_chunk("Nomination norms for demat accounts.",
+                                CircularMeta(circular_number=A))
+    chunks += hierarchical_chunk(
+        f"This circular supersedes. In supersession of {A}, revised nomination norms.",
+        CircularMeta(circular_number=B))
+    lineage = build_lineage([
+        {"circular_number": A, "text": "nomination norms"},
+        {"circular_number": B, "text": f"supersedes. In supersession of {A}."},
+    ])
+    return RAGPipeline.build(
+        chunks=chunks, embedder=HashEmbedder(128), reranker=LexicalReranker(),
+        generator=ExtractiveStubGenerator(), abstain_threshold=0.05, lineage=lineage)
+
+
+class _SlowGenerator:
+    def generate(self, query, contexts):
+        time.sleep(0.3)
+        return "slow answer"
+
+
+def _slow_pipeline() -> RAGPipeline:
+    chunks = hierarchical_chunk("Nomination norms for demat accounts.",
+                                CircularMeta(circular_number="SEBI/HO/Z/P/CIR/2024/1"))
+    return RAGPipeline.build(
+        chunks=chunks, embedder=HashEmbedder(64), reranker=LexicalReranker(),
+        generator=_SlowGenerator(), abstain_threshold=0.05,
+        lineage=build_lineage([{"circular_number": "SEBI/HO/Z/P/CIR/2024/1", "text": "x"}]))
+
+
+client = TestClient(create_app(_offline_pipeline))
+
+
+def test_health():
+    body = client.get("/health").json()
+    assert body["status"] == "ok"
+    assert body["circulars"] >= 4
+    assert body["chunks"] > body["circulars"]
+
+
+def test_query_grounded_with_metadata_and_latency():
+    r = client.post("/query", json={
+        "question": "norms for sharing and usage of stock exchange price data for educational purposes"})
+    assert r.status_code == 200
+    body = r.json()
+    assert body["abstained"] is False
+    assert body["latency_ms"] >= 0.0
+    assert body["citations_meta"]
+    for m in body["citations_meta"]:
+        assert m["circular"] and m["status"] in {"in_force", "superseded", "amended", "unknown"}
+
+
+def test_query_abstains_out_of_domain():
+    r = client.post("/query", json={"question": "best recipe for chocolate chip cookies"})
+    body = r.json()
+    assert body["abstained"] is True
+    assert body["certainty"] == "low" and body["abstention_reason"]  # ADR-002
+
+
+def test_top_k_zero_rejected_422():
+    # ADR-002: top_k=0 previously caused a silent no-context abstention
+    r = client.post("/query", json={"question": "nomination norms", "top_k": 0})
+    assert r.status_code == 422
+
+
+def test_response_carries_certainty_fields():
+    body = client.post("/query", json={
+        "question": "norms for sharing and usage of stock exchange price data "
+                    "for educational purposes"}).json()
+    assert body["certainty"] in {"high", "medium", "low"}
+    assert "rerank_top" in body["confidence"] and "margin" in body["confidence"]
+    assert body["draft_answer"] == ""  # advisory not requested
+
+
+def test_auth_required_when_key_set(monkeypatch):
+    monkeypatch.setenv("SEBI_RAG_API_KEY", "s3cret")
+    c = TestClient(create_app(_tiny_pipeline))
+    assert c.post("/query", json={"question": "nomination demat"}).status_code == 401
+    ok = c.post("/query", json={"question": "nomination demat"},
+                headers={"X-API-Key": "s3cret"})
+    assert ok.status_code == 200
+
+
+def test_rate_limit(monkeypatch):
+    monkeypatch.setenv("SEBI_RAG_RATE_PER_MIN", "2")
+    monkeypatch.delenv("SEBI_RAG_API_KEY", raising=False)
+    c = TestClient(create_app(_tiny_pipeline))
+    assert c.post("/query", json={"question": "nomination"}).status_code == 200
+    assert c.post("/query", json={"question": "nomination"}).status_code == 200
+    assert c.post("/query", json={"question": "nomination"}).status_code == 429
+
+
+def test_query_exceeds_time_budget_returns_504(monkeypatch):
+    monkeypatch.delenv("SEBI_RAG_API_KEY", raising=False)
+    monkeypatch.setenv("SEBI_RAG_TIMEOUT_S", "0.05")
+    c = TestClient(create_app(_slow_pipeline))
+    assert c.post("/query", json={"question": "nomination"}).status_code == 504
+
+
+def test_citation_meta_reports_superseded(monkeypatch):
+    monkeypatch.delenv("SEBI_RAG_API_KEY", raising=False)
+    c = TestClient(create_app(_tiny_pipeline))
+    body = c.post("/query", json={"question": "nomination demat accounts"}).json()
+    statuses = {m["circular"]: m["status"] for m in body["citations_meta"]}
+    # the older superseded circular, if cited, is reported as superseded
+    if "SEBI/HO/Z/P/CIR/2021/1" in statuses:
+        assert statuses["SEBI/HO/Z/P/CIR/2021/1"] == "superseded"

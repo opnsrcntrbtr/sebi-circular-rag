@@ -1,0 +1,20 @@
+{"id": "aif", "query": "Master circular governing Alternative Investment Funds (AIFs)", "relevant_circulars": ["HO/19/34/11(6)2025-AFD-POD1/I/12928/2026"], "answer_contains": "alternative investment", "abstain": false}
+{"id": "mf", "query": "Master circular for mutual funds", "relevant_circulars": ["HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026"], "answer_contains": "mutual fund", "abstain": false}
+{"id": "reit", "query": "Master circular for Real Estate Investment Trusts (REITs)", "relevant_circulars": ["SEBI/HO/DDHS-PoD-2/P/CIR/2025/99"], "answer_contains": "real estate", "abstain": false}
+{"id": "invit", "query": "Master circular for Infrastructure Investment Trusts (InvITs)", "relevant_circulars": ["SEBI/HO/DDHS-PoD-2/P/CIR/2025/102"], "answer_contains": "infrastructure", "abstain": false}
+{"id": "dt", "query": "Master circular for debenture trustees", "relevant_circulars": ["SEBI/HO/DDHS-PoD-1/P/CIR/2025/117"], "answer_contains": "debenture", "abstain": false}
+{"id": "esg", "query": "Master circular for ESG rating providers", "relevant_circulars": ["SEBI/HO/DDHS/DDHS-POD-2/P/CIR/2025/100"], "answer_contains": "esg", "abstain": false}
+{"id": "cra", "query": "Master circular for credit rating agencies", "relevant_circulars": ["SEBI/HO/DDHS/DDHS-POD2/P/CIR/2025/101"], "answer_contains": "credit rating", "abstain": false}
+{"id": "depo", "query": "Master circular for depositories", "relevant_circulars": ["SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168"], "answer_contains": "depositor", "abstain": false}
+{"id": "secc", "query": "Master circular for stock exchanges and clearing corporations", "relevant_circulars": ["SEBI/HO/MRD-PoD2/CIR/P/2024/00181"], "answer_contains": "clearing corporation", "abstain": false}
+{"id": "broker", "query": "Master circular for stock brokers", "relevant_circulars": ["SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90"], "answer_contains": "stock broker", "abstain": false}
+{"id": "pms", "query": "Master circular for portfolio managers", "relevant_circulars": ["SEBI/HO/IMD/IMD-POD-1/P/CIR/2025/104"], "answer_contains": "portfolio manager", "abstain": false}
+{"id": "sse", "query": "Master circular on the framework for the Social Stock Exchange", "relevant_circulars": ["HO/49/14/14(6)2025-CFD-PoD1/I/2771/2026"], "answer_contains": "social stock exchange", "abstain": false}
+{"id": "surv", "query": "Master circular on surveillance of the securities market", "relevant_circulars": ["HO/43/15/12(3)2025-ISD-POD2/I/11734/2026"], "answer_contains": "surveillance", "abstain": false}
+{"id": "ia", "query": "Master circular for investment advisers", "relevant_circulars": ["HO/38/12/11(2)2026-MIRSD-POD/I/4300/2026"], "answer_contains": "investment adviser", "abstain": false}
+{"id": "ra", "query": "Master circular for research analysts", "relevant_circulars": ["HO/38/12/11(1)2026-MIRSD-POD/I/4360/2026"], "answer_contains": "research analyst", "abstain": false}
+{"id": "icdr", "query": "Master circular for Issue of Capital and Disclosure Requirements (ICDR)", "relevant_circulars": ["HO/49/14/14(2)2026-CFD-POD2/I/4518/2026"], "answer_contains": "capital", "abstain": false}
+{"id": "nomination", "query": "Modified norms for nomination in demat accounts and mutual fund folios", "relevant_circulars": ["SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676"], "answer_contains": "nomination", "abstain": false}
+{"id": "pricedata", "query": "Norms for sharing and usage of stock exchange price data for educational purposes", "relevant_circulars": ["HO/47/17/12(11)2025-MRD-POD3/I/11107/2026"], "answer_contains": "price data", "abstain": false}
+{"id": "matevents", "query": "Disclosure of material events including buy back of securities by listed entities", "relevant_circulars": ["SEBI/HO/CFD/CFD-PoD-1/P/CIR/2023/123"], "answer_contains": "buyback", "abstain": false}
+{"id": "abstain", "query": "What is the best recipe for chocolate chip cookies?", "relevant_circulars": [], "answer_contains": "", "abstain": true}

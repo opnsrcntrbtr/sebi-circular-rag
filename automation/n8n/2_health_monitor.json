@@ -1,0 +1,44 @@
+{
+  "name": "SEBI RAG - Health Monitor (5 min)",
+  "nodes": [
+    {
+      "parameters": { "rule": { "interval": [ { "field": "cronExpression", "expression": "*/5 * * * *" } ] } },
+      "id": "trigger-health",
+      "name": "Every 5 min",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [ 240, 300 ]
+    },
+    {
+      "parameters": { "url": "http://127.0.0.1:8000/health", "options": { "timeout": 8000 } },
+      "id": "http-health",
+      "name": "GET /health",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 480, 300 ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": { "jsCode": "const j=$input.first().json;if(j&&j.status==='ok')return [];let d=JSON.stringify(j||{}).slice(0,160).split('\"').join('');return [{json:{title:'SEBI RAG API DOWN',message:'health check failed '+d}}];" },
+      "id": "parse-health",
+      "name": "Check status",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 720, 300 ]
+    },
+    {
+      "parameters": { "method": "POST", "url": "http://127.0.0.1:8765/notify", "sendQuery": true, "queryParameters": { "parameters": [ { "name": "title", "value": "={{ $json.title }}" }, { "name": "message", "value": "={{ $json.message }}" } ] }, "options": {} },
+      "id": "notify-health",
+      "name": "Notify",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 960, 300 ]
+    }
+  ],
+  "connections": {
+    "Every 5 min": { "main": [ [ { "node": "GET /health", "type": "main", "index": 0 } ] ] },
+    "GET /health": { "main": [ [ { "node": "Check status", "type": "main", "index": 0 } ] ] },
+    "Check status": { "main": [ [ { "node": "Notify", "type": "main", "index": 0 } ] ] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

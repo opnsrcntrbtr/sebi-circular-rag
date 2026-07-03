@@ -1,0 +1,33 @@
+[project]
+name = "sebi-rag"
+version = "0.1.0"
+description = "Local-first, Apple Silicon RAG over Indian SEBI Circulars"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "mlx>=0.31.2",
+    "mlx-lm>=0.31.3",
+    "torch>=2.12.1",
+    "sentence-transformers>=5.6.0",
+    "FlagEmbedding>=1.4.0",
+    "faiss-cpu>=1.14.3",
+    "bm25s>=0.3.9",
+    "hf-xet>=1.5.1",
+    "pdfplumber>=0.11.10",
+    "fastapi>=0.138.2",
+    "uvicorn>=0.49.0",
+    "gradio>=4.0.0",
+    "httpx>=0.28.1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=9.1.1", "reportlab>=5.0.0", "httpx>=0.28.1"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+markers = [
+    "integration: exercises real bge-m3 / cross-encoder models (slow, needs weights)",
+]
+
+[tool.uv]
+package = false
