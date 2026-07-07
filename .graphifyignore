@@ -1,0 +1,7 @@
+# .graphifyignore
+
+# Exclude the specific demo asset
+docs/assets/demo.webp
+
+# Exclude the entire docs images folder
+docs/images/
