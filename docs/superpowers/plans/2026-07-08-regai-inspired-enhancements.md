@@ -22,7 +22,7 @@ regai is a work-in-progress prototype (chunker + keyword evaluator only; its dem
 |-------|--------|-----------------|
 | 7, 8, 9 (regression matrix, strategy refactor, normalization) | ✅ **DONE** — commits `0599f8d`, `ceee476`, `a78fd7d` on branch `ingest-hardening`; 73 tests green; corpus re-parse mismatches unchanged at baseline 10 | Fable 5, 2026-07-08 |
 | 10 (validation script) | ✅ **DONE** — commit `9a3198e` on branch `corpus-validation-script`; 78 tests green; live corpus: 603 records, 0 violations | Sonnet 5, 2026-07-08 |
-| 11 (missing-PDF acquisition) | ⏳ Pending | **Sonnet 5 follow-up session** |
+| 11 (missing-PDF acquisition) | ⛔ **BLOCKED** — script implemented correctly but SEBI's `attachdocs` PDF-hosting path appears retired site-wide (404 even for already-ingested files); not a code bug. Corpus unaffected, stays at 603. See task note for evidence and re-run condition. | Sonnet 5, 2026-07-08 |
 | 1–5 (tables, successor expansion, cross-references) | ⏳ Pending — order 1→2→3, then 4, then 5 | **Sonnet 5 follow-up session(s)** |
 | 6 (reindex + end-to-end verification) | ⏳ Pending — run last, after all of the above | **Sonnet 5 follow-up session** |
 
@@ -1372,7 +1372,16 @@ git commit -m "feat: corpus validation script for reference-number invariants"
 
 ---
 
-### Task 11: Acquire the 14 missing circular PDFs (R6)
+### Task 11: Acquire the 14 missing circular PDFs (R6) — ⛔ BLOCKED (see note below)
+
+> **2026-07-08 update (Sonnet 5):** Script implemented and run exactly as specified below (commit `<pending>` on branch `acquire-missing-pdfs`). All 14 downloads failed with HTTP 404. Root-cause check showed this is **not** "SEBI relocated these 14 files" (the outcome the plan anticipated) — it's that **`https://www.sebi.gov.in/sebi_data/attachdocs/` appears to have been retired site-wide**:
+> - A stem already successfully ingested into the corpus (`1625569323952.pdf`, present in `data/raw/`) also 404s at its own original URL, tested with both the scraper's UA and a plain browser UA.
+> - The site root and a known circular's detail page (`legal/circulars/...html`) both still return 200.
+> - The 404 response body is a static error page (carries a stale `Last-Modified: 2022` header), consistent with the path being gone rather than one file being renamed.
+>
+> Direct URL reconstruction from bare stems (this task's approach) cannot work against a retired path, for any stem — old or new. The existing 603-record corpus is **unaffected**: those PDFs are already saved locally in `data/raw/`, so nothing depends on the live URL resolving again.
+>
+> **Decision (user, 2026-07-08): mark blocked and stop.** Do not attempt URL re-discovery via `scrape_sebi.discover()`/`pdf_url_for()` (would require re-scraping SEBI's live listing to find current detail-page URLs for these 14 titles, which we don't have) unless explicitly requested later. The 14 circulars remain absent from the corpus (603 records, not 617). If `attachdocs` come back online, or a different current PDF-hosting path is identified, re-run this task's script unchanged.
 
 **Files:**
 - Create: `scripts/acquire_missing_pdfs.py`
