@@ -21,7 +21,8 @@ regai is a work-in-progress prototype (chunker + keyword evaluator only; its dem
 | Tasks | Status | Session / model |
 |-------|--------|-----------------|
 | 7, 8, 9 (regression matrix, strategy refactor, normalization) | ✅ **DONE** — commits `0599f8d`, `ceee476`, `a78fd7d` on branch `ingest-hardening`; 73 tests green; corpus re-parse mismatches unchanged at baseline 10 | Fable 5, 2026-07-08 |
-| 10, 11 (validation script, missing-PDF acquisition) | ⏳ Pending — Task 10 first (Task 11 depends on it) | **Sonnet 5 follow-up session** |
+| 10 (validation script) | ✅ **DONE** — commit `9a3198e` on branch `corpus-validation-script`; 78 tests green; live corpus: 603 records, 0 violations | Sonnet 5, 2026-07-08 |
+| 11 (missing-PDF acquisition) | ⏳ Pending | **Sonnet 5 follow-up session** |
 | 1–5 (tables, successor expansion, cross-references) | ⏳ Pending — order 1→2→3, then 4, then 5 | **Sonnet 5 follow-up session(s)** |
 | 6 (reindex + end-to-end verification) | ⏳ Pending — run last, after all of the above | **Sonnet 5 follow-up session** |
 
@@ -1227,7 +1228,7 @@ git commit -m "feat: canonical circular-number normalization for dedup and linea
 
 ---
 
-### Task 10: Corpus validation script (R3, R4 guard)
+### Task 10: Corpus validation script (R3, R4 guard) — ✅ DONE (`9a3198e`)
 
 **Files:**
 - Create: `scripts/validate_corpus.py`
