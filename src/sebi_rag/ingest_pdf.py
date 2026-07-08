@@ -27,6 +27,17 @@ _OLD = r"CIR/[A-Za-z0-9_()\-/]+?/\d+/\d{4}"
 _NEW_FMT2 = r"(?:SEBI/)?HO/\(\d+\)\d{4}-[A-Za-z0-9_()\-]+"
 REF_RE = re.compile(rf"(?:{_NEW}|{_OLD}|{_NEW_FMT2})")
 
+
+def normalize_circular_number(n: str) -> str:
+    """Canonical COMPARISON key for a circular number: strip whitespace and
+    trailing punctuation, drop the optional leading 'SEBI/', casefold.
+    Never store this form — stored numbers keep the document's own spelling
+    (chunk IDs and lineage keys must stay stable)."""
+    n = re.sub(r"\s+", "", n).strip(".,;:")
+    if n.upper().startswith("SEBI/"):
+        n = n[len("SEBI/"):]
+    return n.casefold()
+
 # The document's OWN number sits in the header (before "To,"). Formats vary
 # widely in 2026 (e.g. HO/47/17/12(11)2025-MRD-POD3/I/11107/2026), so we take the
 # first slash-heavy header token rather than a single rigid pattern.
@@ -178,10 +189,13 @@ def parse_meta(text: str) -> dict:
     header = _header(text)
     primary = _primary_number(header, text)
     # lineage = well-formed references in the body, minus the primary
+    # (compared under normalization so a SEBI/-prefixed spelling of the
+    # document's own number can't leak in as a self-reference)
     lineage = []
+    primary_key = normalize_circular_number(primary) if primary else ""
     for m in REF_RE.finditer(text):
         n = m.group(0)
-        if n != primary and n not in lineage:
+        if normalize_circular_number(n) != primary_key and n not in lineage:
             lineage.append(n)
     dm = DEPT_RE.search(primary) if primary else None
     # Master circulars carry "Issued on" (original) + "Last updated on" (current).
@@ -251,7 +265,8 @@ def _existing_numbers(corpus_path: Path) -> set[str]:
     for line in corpus_path.read_text(encoding="utf-8").splitlines():
         line = line.strip()
         if line:
-            nums.add(json.loads(line).get("circular_number", ""))
+            nums.add(normalize_circular_number(
+                json.loads(line).get("circular_number", "")))
     return nums
 
 
@@ -262,7 +277,8 @@ def _rewrite_replacing(corpus_path: Path, rec: dict) -> None:
         line = line.strip()
         if not line:
             continue
-        if json.loads(line).get("circular_number") == rec["circular_number"]:
+        if (normalize_circular_number(json.loads(line).get("circular_number", ""))
+                == normalize_circular_number(rec["circular_number"])):
             continue
         out.append(line)
     out.append(json.dumps(rec, ensure_ascii=False))
@@ -284,7 +300,7 @@ def ingest(
         print(f"WARNING: instruction-like content in {pdf_path}: "
               f"{rec['injection_flags']} (recorded in injection_flags)")
     corpus_path.parent.mkdir(parents=True, exist_ok=True)
-    if rec["circular_number"] in _existing_numbers(corpus_path):
+    if normalize_circular_number(rec["circular_number"]) in _existing_numbers(corpus_path):
         if not replace:
             return {**rec, "_skipped": "duplicate"}
         _rewrite_replacing(corpus_path, rec)

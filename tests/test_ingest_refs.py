@@ -61,3 +61,29 @@ def test_parse_meta_dept_order_document_end_to_end():
     assert meta["circular_number"] == "HO/(79)2026-MIRSD"
     assert meta["issue_date"] == "2026-02-10"
     assert "SEBI/HO/MIRSD/CIR/P/2023/50" in meta["version_lineage"]
+
+
+def test_normalize_treats_prefix_and_spacing_variants_as_same():
+    from sebi_rag.ingest_pdf import normalize_circular_number as norm
+    assert norm("SEBI/HO/MIRSD/CIR/P/2024/10") == norm("HO/MIRSD/CIR/P/2024/10")
+    assert norm("CIR/ CFD/CMD/4/2015") == norm("CIR/CFD/CMD/4/2015")
+    assert norm("cir/cfd/cmd/4/2015.") == norm("CIR/CFD/CMD/4/2015")
+    # different numbers must stay different
+    assert norm("CIR/CFD/CMD/4/2015") != norm("CIR/CFD/CMD/5/2015")
+
+
+def test_dedup_uses_normalized_numbers(tmp_path):
+    import json
+    from sebi_rag.ingest_pdf import _existing_numbers, normalize_circular_number
+    p = tmp_path / "c.jsonl"
+    p.write_text(json.dumps({"circular_number": "SEBI/HO/X/CIR/2024/9"}) + "\n",
+                 encoding="utf-8")
+    assert normalize_circular_number("HO/X/CIR/2024/9") in _existing_numbers(p)
+
+
+def test_parse_meta_excludes_prefix_variant_self_reference():
+    text = ("HO/MIRSD/CIR/P/2024/10\nMarch 01, 2024\nTo,\nAll intermediaries\n"
+            "Sub: Something\n\n"
+            "1. This circular SEBI/HO/MIRSD/CIR/P/2024/10 shall come into force…")
+    meta = parse_meta(text)
+    assert meta["version_lineage"] == []  # own number, prefixed variant, excluded
