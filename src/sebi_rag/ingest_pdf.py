@@ -27,6 +27,17 @@ _OLD = r"CIR/[A-Za-z0-9_()\-/]+?/\d+/\d{4}"
 _NEW_FMT2 = r"(?:SEBI/)?HO/\(\d+\)\d{4}-[A-Za-z0-9_()\-]+"
 REF_RE = re.compile(rf"(?:{_NEW}|{_OLD}|{_NEW_FMT2})")
 
+
+def normalize_circular_number(n: str) -> str:
+    """Canonical COMPARISON key for a circular number: strip whitespace and
+    trailing punctuation, drop the optional leading 'SEBI/', casefold.
+    Never store this form — stored numbers keep the document's own spelling
+    (chunk IDs and lineage keys must stay stable)."""
+    n = re.sub(r"\s+", "", n).strip(".,;:")
+    if n.upper().startswith("SEBI/"):
+        n = n[len("SEBI/"):]
+    return n.casefold()
+
 # The document's OWN number sits in the header (before "To,"). Formats vary
 # widely in 2026 (e.g. HO/47/17/12(11)2025-MRD-POD3/I/11107/2026), so we take the
 # first slash-heavy header token rather than a single rigid pattern.
@@ -99,63 +110,72 @@ def _subject(text: str) -> str:
     return re.sub(r"\s+", " ", m.group(1)).strip()
 
 
-def _primary_number(header: str, full: str) -> str:
-    # rejoin numbers split by a space after a slash, e.g. "CIR/ 2025/104" or
-    # "DDHS-PoD-2/ I/11700/2026" (PDF layout inserts a space mid-number).
-    # Rejoin tokens split by space after a slash — includes space before '(' for
-    # HO/ (79)2026-style references where the parenthetical number starts with '('
-    header = re.sub(r"/\s+(?=[A-Za-z0-9(])", "/", header)
+# Single source of truth for the 2026 departmental-order grammar: reuse
+# _NEW_FMT2 (optional SEBI/ prefix) instead of restating it inline.
+DEPT_ORDER_RE = re.compile(_NEW_FMT2)
+PREFIXED_DEPT_ORDER_RE = re.compile(
+    r"SEBI/HO/[A-Za-z0-9_()\-]+/\(\d+\)\d{4}-[A-Za-z0-9_()\-]+")
+YEAR_FIRST_RE = re.compile(r"\d{4}/[A-Za-z0-9_()\-/]+?/\d+")
+
+
+def _rejoin_split(header: str) -> str:
+    """Rejoin numbers split by a space after a slash, e.g. "CIR/ 2025/104" or
+    "HO/ (79)2026-MRD" (PDF layout inserts a space mid-number)."""
+    return re.sub(r"/\s+(?=[A-Za-z0-9(])", "/", header)
+
+
+def _s_header_token(header: str) -> str:
+    """Standard formats (old CIR, new SEBI/HO, free-form 2026): first
+    slash-heavy HO/CIR-prefixed header token."""
     for tok in header.split():
         t = tok.strip(".,;:")
         if HEADER_TOKEN_RE.match(t) and t.count("/") >= 3 and re.search(r"\d", t):
             return t
+    return ""
 
-    # FIX: Some SEBI circulars use department-only prefixes without HO/CIR.
-    # e.g. "AFD/P/CIR/2022/125" or "CFD/MRD/CIR/2024/10". Accept any token
-    # with ≥3 slashes that contains a well-formed reference segment.
+
+def _s_dept_only(header: str) -> str:
+    """Department-only prefixes without HO/CIR anchor,
+    e.g. AFD/P/CIR/2022/125."""
     for tok in header.split():
         t = tok.strip(".,;:")
         if t.count("/") >= 4 and "CIR" in t:
             return t
+    return ""
 
-    # FIX: Reference may be split across tokens by spaces (e.g. "HO/ (79)2026-
-    # MRD" → after slash-rejoin becomes "HO/(79)2026-MRD").  Rejoin all tokens
-    # that sit between the first known prefix and a date-like token, then look.
+
+def _s_anchor_merge(header: str) -> str:
+    """References split across tokens: merge up to 4 tokens after the first
+    HO/CIR/year anchor, then look for a well-formed or year-first reference."""
     parts = header.split()
-    # Find first SEBI/HO or CIR anchor
-    anchor_idx = None
     for i, tok in enumerate(parts):
         t = tok.strip(".,;:")
         if HEADER_TOKEN_RE.match(t) or re.match(r"^\d{4}/", t):
-            anchor_idx = i
-            break
-    if anchor_idx is not None:
-        # Try joining consecutive tokens from anchor and look for a slash-heavy
-        # string with CIR or year pattern.  Also try the broader REF_RE as last resort.
-        merged = re.sub(r"/\s+(?=[A-Za-z0-9])", "/", " ".join(parts[anchor_idx:anchor_idx + 4]))
-        m = REF_RE.search(merged)
-        if m:
-            return m.group(0)
-        # Also try a year-first pattern: YYYY/XXX/CIR...
-        m = re.search(r"\d{4}/[A-Za-z0-9_()\-/]+?/\d+", merged)
-        if m:
-            return m.group(0)
+            merged = _rejoin_split(" ".join(parts[i:i + 4]))
+            m = REF_RE.search(merged) or YEAR_FIRST_RE.search(merged)
+            return m.group(0) if m else ""
+    return ""
 
-    # New-format dept order (2026): HO/(N)YYYY-DEPT  or  SEBI/HO/DEPT/(N)YYYY-...
-    # These have no /CIR/ and may be the *only* token on the line — nothing to anchor
-    # to.  Catch them after all other fallbacks.
-    dept_order_re = re.compile(
-        r"HO/\(\d+\)\d{4}-[A-Za-z0-9_()\-]+")
-    m = dept_order_re.search(header)
-    if m:
-        return m.group(0)
 
-    # Also accept SEBI/HO/DEPT/(N)YYYY-... (slash-heavy with parenthetical year)
-    m = re.search(r"SEBI/HO/[A-Za-z0-9_()\-]+/\(\d+\)\d{4}-[A-Za-z0-9_()\-]+", header)
-    if m:
-        return m.group(0)
+def _s_dept_order(header: str) -> str:
+    """2026 departmental orders, bare or SEBI/HO-prefixed — no /CIR/ and
+    possibly the only token on the line."""
+    m = DEPT_ORDER_RE.search(header) or PREFIXED_DEPT_ORDER_RE.search(header)
+    return m.group(0) if m else ""
 
-    # Last fallback: search full document text for the earliest well-formed ref
+
+_PRIMARY_STRATEGIES = (_s_header_token, _s_dept_only, _s_anchor_merge, _s_dept_order)
+
+
+def _primary_number(header: str, full: str) -> str:
+    header = _rejoin_split(header)
+    for strategy in _PRIMARY_STRATEGIES:
+        n = strategy(header)
+        if n:
+            return n
+    # Last resort (risk R3, plan 2026-07-08 B.4): earliest well-formed
+    # reference anywhere in the text — may be a CITED circular, not the
+    # document's own number. Output is checked by scripts/validate_corpus.py.
     m = REF_RE.search(full)
     return m.group(0) if m else ""
 
@@ -169,10 +189,13 @@ def parse_meta(text: str) -> dict:
     header = _header(text)
     primary = _primary_number(header, text)
     # lineage = well-formed references in the body, minus the primary
+    # (compared under normalization so a SEBI/-prefixed spelling of the
+    # document's own number can't leak in as a self-reference)
     lineage = []
+    primary_key = normalize_circular_number(primary) if primary else ""
     for m in REF_RE.finditer(text):
         n = m.group(0)
-        if n != primary and n not in lineage:
+        if normalize_circular_number(n) != primary_key and n not in lineage:
             lineage.append(n)
     dm = DEPT_RE.search(primary) if primary else None
     # Master circulars carry "Issued on" (original) + "Last updated on" (current).
@@ -242,7 +265,8 @@ def _existing_numbers(corpus_path: Path) -> set[str]:
     for line in corpus_path.read_text(encoding="utf-8").splitlines():
         line = line.strip()
         if line:
-            nums.add(json.loads(line).get("circular_number", ""))
+            nums.add(normalize_circular_number(
+                json.loads(line).get("circular_number", "")))
     return nums
 
 
@@ -253,7 +277,8 @@ def _rewrite_replacing(corpus_path: Path, rec: dict) -> None:
         line = line.strip()
         if not line:
             continue
-        if json.loads(line).get("circular_number") == rec["circular_number"]:
+        if (normalize_circular_number(json.loads(line).get("circular_number", ""))
+                == normalize_circular_number(rec["circular_number"])):
             continue
         out.append(line)
     out.append(json.dumps(rec, ensure_ascii=False))
@@ -275,7 +300,7 @@ def ingest(
         print(f"WARNING: instruction-like content in {pdf_path}: "
               f"{rec['injection_flags']} (recorded in injection_flags)")
     corpus_path.parent.mkdir(parents=True, exist_ok=True)
-    if rec["circular_number"] in _existing_numbers(corpus_path):
+    if normalize_circular_number(rec["circular_number"]) in _existing_numbers(corpus_path):
         if not replace:
             return {**rec, "_skipped": "duplicate"}
         _rewrite_replacing(corpus_path, rec)
