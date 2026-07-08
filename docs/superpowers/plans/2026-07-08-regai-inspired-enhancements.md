@@ -16,6 +16,17 @@ regai is a work-in-progress prototype (chunker + keyword evaluator only; its dem
 2. **Amendment-aware retrieval expansion** — regai pulls chunks from the amending circular when a retrieved chunk is from an amended one. We demote superseded chunks (`demote_superseded`) but never fetch the in-force successor's content.
 3. **Per-chunk cross-references** — regai stores inline circular references on each chunk. We extract references only at document level for lineage.
 
+## Execution Status & Model Delegation
+
+| Tasks | Status | Session / model |
+|-------|--------|-----------------|
+| 7, 8, 9 (regression matrix, strategy refactor, normalization) | ✅ **DONE** — commits `0599f8d`, `ceee476`, `a78fd7d` on branch `ingest-hardening`; 73 tests green; corpus re-parse mismatches unchanged at baseline 10 | Fable 5, 2026-07-08 |
+| 10, 11 (validation script, missing-PDF acquisition) | ⏳ Pending — Task 10 first (Task 11 depends on it) | **Sonnet 5 follow-up session** |
+| 1–5 (tables, successor expansion, cross-references) | ⏳ Pending — order 1→2→3, then 4, then 5 | **Sonnet 5 follow-up session(s)** |
+| 6 (reindex + end-to-end verification) | ⏳ Pending — run last, after all of the above | **Sonnet 5 follow-up session** |
+
+**Instructions for follow-up sessions:** execute with superpowers:executing-plans (or subagent-driven-development), one task at a time, exactly as written. `tests/test_ingest_refs.py` is the regression net — it must stay green after every task. Do not modify the Tasks 7–9 code except where later tasks specify (Task 10 imports `normalize_circular_number`).
+
 ## Global Constraints
 
 - Local-first: no network calls, no new services, no cloud dependencies.
@@ -888,7 +899,7 @@ It also extended `REF_RE` with `_NEW_FMT2` so 2026 departmental orders participa
 
 ---
 
-### Task 7: Reference-format regression test suite (R1)
+### Task 7: Reference-format regression test suite (R1) — ✅ DONE (`0599f8d`)
 
 **Files:**
 - Test: `tests/test_ingest_refs.py` (create)
@@ -980,7 +991,7 @@ git commit -m "test: regression matrix for SEBI reference-number formats"
 
 ---
 
-### Task 8: Refactor `_primary_number` into named strategies (R2)
+### Task 8: Refactor `_primary_number` into named strategies (R2) — ✅ DONE (`ceee476`)
 
 **Files:**
 - Modify: `src/sebi_rag/ingest_pdf.py:102-160` (`_primary_number`)
@@ -1094,7 +1105,7 @@ git commit -m "refactor: split _primary_number into ordered named strategies"
 
 ---
 
-### Task 9: Canonical circular-number normalization (R4)
+### Task 9: Canonical circular-number normalization (R4) — ✅ DONE (`a78fd7d`)
 
 **Files:**
 - Modify: `src/sebi_rag/ingest_pdf.py` (add `normalize_circular_number()`; use in `_existing_numbers`, `ingest`, `_rewrite_replacing`, `parse_meta`)
