@@ -23,7 +23,9 @@ import pdfplumber
 # circulars), e.g. SEBI/HO/CFD/CFD-PoD-1/P/CIR/2023/123 or CIR/CFD/CMD/4/2015.
 _NEW = r"SEBI/HO/[A-Za-z0-9_()\-/]+?/\d{4}/\d+"
 _OLD = r"CIR/[A-Za-z0-9_()\-/]+?/\d+/\d{4}"
-REF_RE = re.compile(rf"(?:{_NEW}|{_OLD})")
+# New 2026 departmental-order format: HO/(N)YYYY-DEPT (no /CIR/, used by internal orders)
+_NEW_FMT2 = r"(?:SEBI/)?HO/\(\d+\)\d{4}-[A-Za-z0-9_()\-]+"
+REF_RE = re.compile(rf"(?:{_NEW}|{_OLD}|{_NEW_FMT2})")
 
 # The document's OWN number sits in the header (before "To,"). Formats vary
 # widely in 2026 (e.g. HO/47/17/12(11)2025-MRD-POD3/I/11107/2026), so we take the
@@ -100,12 +102,61 @@ def _subject(text: str) -> str:
 def _primary_number(header: str, full: str) -> str:
     # rejoin numbers split by a space after a slash, e.g. "CIR/ 2025/104" or
     # "DDHS-PoD-2/ I/11700/2026" (PDF layout inserts a space mid-number).
-    header = re.sub(r"/\s+(?=[A-Za-z0-9])", "/", header)
+    # Rejoin tokens split by space after a slash — includes space before '(' for
+    # HO/ (79)2026-style references where the parenthetical number starts with '('
+    header = re.sub(r"/\s+(?=[A-Za-z0-9(])", "/", header)
     for tok in header.split():
         t = tok.strip(".,;:")
         if HEADER_TOKEN_RE.match(t) and t.count("/") >= 3 and re.search(r"\d", t):
             return t
-    m = REF_RE.search(full)  # fallback: first well-formed reference anywhere
+
+    # FIX: Some SEBI circulars use department-only prefixes without HO/CIR.
+    # e.g. "AFD/P/CIR/2022/125" or "CFD/MRD/CIR/2024/10". Accept any token
+    # with ≥3 slashes that contains a well-formed reference segment.
+    for tok in header.split():
+        t = tok.strip(".,;:")
+        if t.count("/") >= 4 and "CIR" in t:
+            return t
+
+    # FIX: Reference may be split across tokens by spaces (e.g. "HO/ (79)2026-
+    # MRD" → after slash-rejoin becomes "HO/(79)2026-MRD").  Rejoin all tokens
+    # that sit between the first known prefix and a date-like token, then look.
+    parts = header.split()
+    # Find first SEBI/HO or CIR anchor
+    anchor_idx = None
+    for i, tok in enumerate(parts):
+        t = tok.strip(".,;:")
+        if HEADER_TOKEN_RE.match(t) or re.match(r"^\d{4}/", t):
+            anchor_idx = i
+            break
+    if anchor_idx is not None:
+        # Try joining consecutive tokens from anchor and look for a slash-heavy
+        # string with CIR or year pattern.  Also try the broader REF_RE as last resort.
+        merged = re.sub(r"/\s+(?=[A-Za-z0-9])", "/", " ".join(parts[anchor_idx:anchor_idx + 4]))
+        m = REF_RE.search(merged)
+        if m:
+            return m.group(0)
+        # Also try a year-first pattern: YYYY/XXX/CIR...
+        m = re.search(r"\d{4}/[A-Za-z0-9_()\-/]+?/\d+", merged)
+        if m:
+            return m.group(0)
+
+    # New-format dept order (2026): HO/(N)YYYY-DEPT  or  SEBI/HO/DEPT/(N)YYYY-...
+    # These have no /CIR/ and may be the *only* token on the line — nothing to anchor
+    # to.  Catch them after all other fallbacks.
+    dept_order_re = re.compile(
+        r"HO/\(\d+\)\d{4}-[A-Za-z0-9_()\-]+")
+    m = dept_order_re.search(header)
+    if m:
+        return m.group(0)
+
+    # Also accept SEBI/HO/DEPT/(N)YYYY-... (slash-heavy with parenthetical year)
+    m = re.search(r"SEBI/HO/[A-Za-z0-9_()\-]+/\(\d+\)\d{4}-[A-Za-z0-9_()\-]+", header)
+    if m:
+        return m.group(0)
+
+    # Last fallback: search full document text for the earliest well-formed ref
+    m = REF_RE.search(full)
     return m.group(0) if m else ""
 
 
