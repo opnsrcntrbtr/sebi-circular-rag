@@ -550,7 +550,7 @@ Please cite this dataset if you use it:
 ## Repository
 
 Full dataset extraction pipeline and reproducibility information:
-- **GitHub:** https://github.com/your-repo/sebi-rag
+- **GitHub:** https://github.com/opnsrcntrbtr/sebi-circular-rag
 - **Extraction date:** 2026-07-09
 - **Snapshot:** v2026.07 (max issue_date across corpus)
 
@@ -564,7 +564,7 @@ Full dataset extraction pipeline and reproducibility information:
 
 ## Contact
 
-For questions or issues: [your-email]
+For questions or issues: [https://github.com/opnsrcntrbtr/sebi-circular-rag/issues]
 """
     return yaml_block
 
