@@ -64,3 +64,62 @@ def test_discover_no_advance_guard_stops(monkeypatch):
     monkeypatch.setattr(S.time, "sleep", lambda s: None)
     out = S.discover("circulars", 99, 0.0)
     assert out == [A]   # page 1 repeats page 0 -> stop, no infinite loop
+
+
+# --- extract_pdf_urls (viewer-aware PDF extraction, 2026 SEBI migration) ---
+
+DETAIL = "https://www.sebi.gov.in/legal/circulars/jul-2026/some-slug_102639.html"
+PDF_NEW = "https://www.sebi.gov.in/sebi_data/attachdocs/jul-2026/1783423471963.pdf"
+PDF_ANNEX = "https://www.sebi.gov.in/sebi_data/attachdocs/jul-2026/222.pdf"
+IFRAME_LIVE = ("<iframe src='../../../web/?file=" + PDF_NEW +
+               "' width='100%' style='height:600px;' title=\"t\" allowfullscreen>")
+
+
+def test_extract_viewer_absolute_target():
+    # Live shape as of 2026-07-09: absolute URL inside single-quoted iframe src
+    assert S.extract_pdf_urls(IFRAME_LIVE, DETAIL) == [PDF_NEW]
+
+
+def test_extract_viewer_relative_target():
+    html = "<iframe src='../../../web/?file=/sebi_data/attachdocs/jul-2026/1783423471963.pdf'>"
+    assert S.extract_pdf_urls(html, DETAIL) == [PDF_NEW]
+
+
+def test_extract_viewer_urlencoded_target():
+    html = ("<iframe src='../../../web/?file=https%3A%2F%2Fwww.sebi.gov.in%2Fsebi_data"
+            "%2Fattachdocs%2Fjul-2026%2F1783423471963.pdf'>")
+    assert S.extract_pdf_urls(html, DETAIL) == [PDF_NEW]
+
+
+def test_extract_anchor_absolute_and_relative():
+    html = (f'<a href="{PDF_NEW}">pdf</a> '
+            '<a href="/sebi_data/attachdocs/jul-2026/222.pdf">annex</a>')
+    assert S.extract_pdf_urls(html, DETAIL) == [PDF_NEW, PDF_ANNEX]
+
+
+def test_extract_multi_pdf_order_and_dedupe():
+    html = IFRAME_LIVE + f'<a href="{PDF_ANNEX}">a</a><a href="{PDF_NEW}">dup</a>'
+    assert S.extract_pdf_urls(html, DETAIL) == [PDF_NEW, PDF_ANNEX]
+
+
+def test_extract_fallback_regex_scan():
+    # URL appears only in a script block, not in any src/href attribute
+    html = f'<script>var u = "{PDF_NEW}";</script>'
+    assert S.extract_pdf_urls(html, DETAIL) == [PDF_NEW]
+
+
+def test_extract_excludes_off_origin():
+    html = '<a href="https://evil.example.com/x.pdf">x</a>'
+    assert S.extract_pdf_urls(html, DETAIL) == []
+
+
+def test_extract_no_pdf_returns_empty():
+    assert S.extract_pdf_urls("<p>nothing here</p>", DETAIL) == []
+
+
+def test_pdf_url_for_returns_first_or_none(monkeypatch):
+    html = IFRAME_LIVE + f'<a href="{PDF_ANNEX}">a</a>'
+    monkeypatch.setattr(S, "fetch", lambda url, rate, **kw: html.encode())
+    assert S.pdf_url_for(DETAIL, 0.0) == PDF_NEW
+    monkeypatch.setattr(S, "fetch", lambda url, rate, **kw: b"<p>no pdf</p>")
+    assert S.pdf_url_for(DETAIL, 0.0) is None

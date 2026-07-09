@@ -43,6 +43,17 @@ ROW_PAIR = re.compile(
     r'.*?(https://www\.sebi\.gov\.in/legal/(?:circulars|master-circulars)/'
     r'[^"\'\s>]+\.html)', re.S)                                # nearest circular href
 
+# 2026 migration: detail pages embed the PDF via a viewer iframe
+# (src='../../../web/?file=<pdf-url>'); PDFs live under
+# /sebi_data/attachdocs/<mon-yyyy>/<stem>.pdf (flat legacy paths 404).
+SRC_ATTR = re.compile(
+    r"<(?:iframe|embed|object)[^>]*?\bsrc\s*=\s*"
+    r"(?:\"([^\"]+)\"|'([^']+)'|([^\s>]+))", re.I | re.S)
+HREF_PDF = re.compile(
+    r"<a[^>]*?\bhref\s*=\s*"
+    r"(?:\"([^\"]+\.pdf)\"|'([^']+\.pdf)'|([^\s>]+\.pdf))", re.I | re.S)
+VIEWER_FILE = re.compile(r"[?&]file=([^&\"'\s>]+)", re.I)
+
 
 def _parse_date(s: str) -> dt.date | None:
     m = re.match(r"([A-Za-z]+)\s+(\d{1,2}),\s+(\d{4})", s)
@@ -156,9 +167,40 @@ def discover(section: str, max_count: int, rate: float,
     return out
 
 
+def extract_pdf_urls(html: str, base_url: str) -> list[str]:
+    """All SEBI-hosted PDF URLs on a detail page, in page order, deduped.
+
+    Handles the web/?file=<target> viewer wrapper (absolute, relative, or
+    URL-encoded targets), direct .pdf anchors, and falls back to the legacy
+    absolute-URL regex. Same-origin only (www.sebi.gov.in).
+    """
+    found: list[str] = []
+
+    def add(candidate: str) -> None:
+        url = urllib.parse.urljoin(base_url, candidate.strip())
+        if (url.lower().endswith(".pdf")
+                and urllib.parse.urlsplit(url).netloc == "www.sebi.gov.in"
+                and url not in found):
+            found.append(url)
+
+    for m in SRC_ATTR.finditer(html):
+        src = m.group(1) or m.group(2) or m.group(3) or ""
+        fm = VIEWER_FILE.search(src)
+        add(urllib.parse.unquote(fm.group(1)) if fm else src)
+    for m in HREF_PDF.finditer(html):
+        add(m.group(1) or m.group(2) or m.group(3) or "")
+    for m in PDF_HREF.finditer(html):
+        add(m.group(0))
+    return found
+
+
 def pdf_url_for(detail_url: str, rate: float) -> str | None:
-    m = PDF_HREF.search(fetch(detail_url, rate).decode("utf-8", "ignore"))
-    return m.group(0) if m else None
+    urls = extract_pdf_urls(fetch(detail_url, rate).decode("utf-8", "ignore"),
+                            detail_url)
+    if len(urls) > 1:
+        print(f"  note: {len(urls) - 1} additional attachment(s) not ingested "
+              f"(one record per circular): {urls[1:]}", flush=True)
+    return urls[0] if urls else None
 
 
 def main(argv: list[str] | None = None) -> int:
