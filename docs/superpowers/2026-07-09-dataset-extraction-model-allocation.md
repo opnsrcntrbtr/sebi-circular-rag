@@ -184,12 +184,22 @@ Session 3 (Haiku 4.5):
 - **Known data-quality caveat to flag in the card** (pre-existing, not introduced by this work): some master-circular `subject` fields are oversized (up to ~2900 chars — a body-text capture artifact in `ingest_pdf.py`'s `_subject()`), visible in both `corpus` and `supersession-pairs` configs. Note it next to the existing `issuing_department`-UNKNOWN-for-124-records caveat; do not attempt to fix the parser as part of Task 4/5.
 - Haiku note: `X.CORPUS_SCHEMA`, `X.CHUNKS_SCHEMA`, `X.LINEAGE_SCHEMA`, `X.EVAL_SCHEMA`, `X.CITATION_SCHEMA`, `X.SUPERSESSION_SCHEMA` are the six column-order lists to build per-config card tables/dtype docs from; `X.export_all(...)` is the single entry point `make export-datasets` already calls
 
-### For Haiku 4.5 (Tasks 4 & 5):
-- Inherit: Directory structure and row counts from Tasks 1–3 (six configs already exporting cleanly under `dist/datasets/<config>/{name}.jsonl,.parquet`, plus one shared `manifest.json`)
-- Task 4: Generate `dist/datasets/README.md` (HF card, one YAML config block per dataset config using the six `*_SCHEMA` lists above for dtypes), `metadata.json` (Kaggle), `ZENODO_SUBMISSION_PACK/`, `AIKOSH_SUBMISSION_PACK/`. Include the two data-quality caveats noted above (department-UNKNOWN, oversized subjects) plus the citation-normalization/supersession-pairs actual row counts (not the spec's estimates)
-- Task 5: `make export-datasets` orchestration already exists and works (Tasks 1–3 wired it); Task 5's job is narrower now — smoke-test the full run is idempotent/reproducible (same manifest checksums on a second run against unchanged source data) and confirm the `v2026.07` version tag is consistent across all six configs' manifest entries
-- Tests: Card YAML validation, file presence, checksums, row counts
-- Commit messages: "feat: dataset cards for HF/Kaggle/Zenodo/AIKosh" + "feat: integration and live export verification"
+### For Haiku 4.5 (Tasks 4 & 5): ✅ DONE 2026-07-09 (commit ed1f13f, branch `dataset-export`)
+- **Task 4:** Generated platform-specific dataset cards
+  - `dist/datasets/README.md`: HuggingFace card with YAML front matter (language, license cc-by-4.0, tags), schema documentation for all six configs, data-quality caveats (124 UNKNOWN dept records, ~2900-char oversized subjects), licensing (CC-BY-4.0 annotations + government-works attribution per Copyright Act 1957 §52(1)(q)), disclaimers (not legal advice, not SEBI-endorsed, 2021–2026 coverage)
+  - `dist/datasets/metadata.json`: Kaggle dataset metadata (JSON, CC-BY-4.0, tags, resources list)
+  - `ZENODO_SUBMISSION_PACK/`: metadata.json (creators, title, DOI fields, v2026.07 version) + README_TARBALL.txt (tarball + upload instructions)
+  - `AIKOSH_SUBMISSION_PACK/`: manifest.csv (config, row count, description), metadata.json (title, organization, dataset_type), LICENSING.txt (dual licensing + disclaimers)
+  - Implementation: `build_hf_card()`, `build_kaggle_metadata()`, `build_zenodo_pack()`, `build_aikosh_pack()`, `write_dataset_cards()`
+  - Tests: 13 new card tests (YAML parsing, JSON validity, row counts, caveats, licensing per platform)
+- **Task 5:** Integration & idempotency verification (6 new tests)
+  - `make export-datasets` orchestrates all six configs + card generation (main() calls export_all() then write_dataset_cards())
+  - Idempotency: two sequential exports → identical JSONL/Parquet files and manifests
+  - Version consistency: all configs share v2026.07 snapshot tag
+  - Live smoke-test: full export on 603-record corpus completes correctly, all files present + row counts accurate
+  - Card generation verified: README + platform packs created with correct metadata
+- Full test suite: 141 passed (122 prior + 13 card + 6 integration), <10s runtime
+- Commit message: "feat: dataset cards for HF/Kaggle/Zenodo/AIKosh" (Tasks 4 & 5)
 
 ---
 
