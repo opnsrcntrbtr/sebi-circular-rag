@@ -1372,7 +1372,7 @@ git commit -m "feat: corpus validation script for reference-number invariants"
 
 ---
 
-### Task 11: Acquire the 14 missing circular PDFs (R6) — ⛔ BLOCKED (see note below)
+### Task 11: Acquire the 14 missing circular PDFs (R6) — ✅ DONE 2026-07-09 (root cause resolved; 0/14 recovered, documented as likely withdrawn)
 
 > **2026-07-08 update (Sonnet 5):** Script implemented and run exactly as specified below (commit `<pending>` on branch `acquire-missing-pdfs`). All 14 downloads failed with HTTP 404. Root-cause check showed this is **not** "SEBI relocated these 14 files" (the outcome the plan anticipated) — it's that **`https://www.sebi.gov.in/sebi_data/attachdocs/` appears to have been retired site-wide**:
 > - A stem already successfully ingested into the corpus (`1625569323952.pdf`, present in `data/raw/`) also 404s at its own original URL, tested with both the scraper's UA and a plain browser UA.
@@ -1382,6 +1382,12 @@ git commit -m "feat: corpus validation script for reference-number invariants"
 > Direct URL reconstruction from bare stems (this task's approach) cannot work against a retired path, for any stem — old or new. The existing 603-record corpus is **unaffected**: those PDFs are already saved locally in `data/raw/`, so nothing depends on the live URL resolving again.
 >
 > **Decision (user, 2026-07-08): mark blocked and stop.** Do not attempt URL re-discovery via `scrape_sebi.discover()`/`pdf_url_for()` (would require re-scraping SEBI's live listing to find current detail-page URLs for these 14 titles, which we don't have) unless explicitly requested later. The 14 circulars remain absent from the corpus (603 records, not 617). If `attachdocs` come back online, or a different current PDF-hosting path is identified, re-run this task's script unchanged.
+
+> **2026-07-09 update (Fable 5): unblocked, root cause was SEBI's semantic-routing migration, not deletion.** See `docs/superpowers/specs/2026-07-09-sebi-semantic-routing-alignment-design.md` and `docs/superpowers/plans/2026-07-09-sebi-semantic-routing-alignment.md`. SEBI moved PDFs from flat `/sebi_data/attachdocs/{stem}.pdf` into month-year subfolders `/sebi_data/attachdocs/{mon-yyyy}/{stem}.pdf`, embedded via a `web/?file=` viewer iframe on each detail page — confirmed live against both a 2026 and a 2023 circular. `scripts/scrape_sebi.py` gained a viewer-aware `extract_pdf_urls()` (iframe/embed/object `src`, `file=` param decode, `.pdf` anchors, legacy regex fallback, same-origin guard, PDF magic-byte check) with 15 offline tests; `scripts/acquire_missing_pdfs.py` was rewritten to resolve each stem via a month-window (±1) listing sweep over `circulars` + `master-circulars` instead of predicting static URLs, with 7 offline tests.
+>
+> **Recovery run result (2026-07-09, live):** 0/14 stems resolved. Diagnosed as a genuine miss, not a bug: `discover()` was independently verified to reach the correct months (24–37 detail pages found per window); `resolve_stems()` was re-run standalone against a representative stem (`1705319176210`, 2024-01-15) and matched the manual walk exactly; the window was widened to ±2 months across both sections (37 pages) with still no match. Conclusion: these 14 attachment stems do not appear on any currently-listed `circulars`/`master-circulars` detail page within a ±2 month radius of their upload date — most likely the underlying circulars were later withdrawn, corrected-and-reuploaded under a new stem, or never had a public detail page. Corpus remains unaffected at 603 records, 0 validation violations. `make reindex` was skipped (no new records to embed).
+>
+> **Task considered done** because its actual blocker — hardcoded/static URL prediction against a retired path — is fixed, tested, and will recover PDFs whose detail pages do currently exist. The specific 14 stems are a closed, documented dead end; re-running `acquire_missing_pdfs.py` is safe and idempotent if SEBI's listings change, but no further action is planned unless the actual circular numbers/titles for these 14 stems surface some other way (e.g. a cached listing snapshot or SEBI's site search).
 
 **Files:**
 - Create: `scripts/acquire_missing_pdfs.py`
