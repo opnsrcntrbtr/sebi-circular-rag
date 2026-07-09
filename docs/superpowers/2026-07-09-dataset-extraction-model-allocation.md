@@ -165,11 +165,12 @@ Session 3 (Haiku 4.5):
 
 ## Handoff Notes for Each Model
 
-### For Fable 5 (Task 1):
-- Reference: `scripts/validate_corpus.py` (existing validation patterns)
-- Entry point: Create `scripts/export_datasets.py` with a `CorpusBuilder` class
-- Test pattern: Follow `tests/test_scrape_sebi.py` offline fixture style
-- Commit message: "feat: dataset export pipeline scaffold with corpus config builder"
+### For Fable 5 (Task 1): ✅ DONE 2026-07-09 (commit c9878d1, branch `dataset-export`)
+- Delivered: `scripts/export_datasets.py` — validate → transform → emit pipeline; functional style (`build_corpus_rows()` pure transform + `export_corpus()` orchestrator + shared `_emit()` writer) rather than a class, matching repo idiom
+- Corpus config: Parquet + JSONL under `dist/datasets/corpus/` + `manifest.json` (source sha256, snapshot version from max issue_date → `v2026.07`); provenance → `extraction_date`; empty strings → null; refuses export on `validate_corpus` violations
+- Live run verified: 603 rows, 6.5 MB Parquet, schema = `CORPUS_SCHEMA`; `make export-datasets` target added; `dist/` gitignored
+- Tests: `tests/test_export_datasets.py` (5 offline tests); full suite 105 passed
+- Sonnet note: extend `_emit()` + `manifest["configs"]` for each new config; reuse `CORPUS_SCHEMA` list-of-columns pattern per config
 
 ### For Sonnet 5 (Tasks 2 & 3):
 - Inherit: Task 1's export script structure and builder pattern
