@@ -1,12 +1,14 @@
 """Export SEBI RAG data into publishable dataset configs (HF/Kaggle/Zenodo/AIKosh).
 
-Task 1 scope (Fable): pipeline scaffold + `corpus` config. Later tasks add
-chunks/lineage/eval (Sonnet) and cards/packaging (Haiku). Spec:
+Six configs: corpus, chunks, lineage, eval (Tasks 1-2), citation-normalization
+and supersession-pairs (Task 3, transformed task datasets). Cards + platform
+packaging are a later task (Haiku). Spec:
 docs/superpowers/specs/2026-07-09-sebi-public-datasets-design.md.
 
-Stages: validate (reuse validate_corpus invariants) -> transform (pure
-per-config builders) -> emit (Parquet + JSONL under dist/datasets/<config>/
-plus manifest.json with source checksums and snapshot version).
+Stages: validate (reuse validate_corpus/validate_golden invariants) ->
+transform (pure per-config builders) -> emit (Parquet + JSONL under
+dist/datasets/<config>/ plus manifest.json with source checksums and
+snapshot version).
 
 Usage: uv run python scripts/export_datasets.py \
     [--corpus data/corpus/circulars.jsonl] [--out dist/datasets]
@@ -15,7 +17,9 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import itertools
 import json
+import random
 import re
 import sys
 from pathlib import Path
@@ -24,7 +28,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from validate_corpus import validate  # noqa: E402
 from sebi_rag.benchmark import validate_golden  # noqa: E402
-from sebi_rag.ingest_pdf import normalize_circular_number  # noqa: E402
+from sebi_rag.ingest_pdf import REF_RE, normalize_circular_number  # noqa: E402
+import sebi_rag.ingest_pdf as _ingest_pdf  # noqa: E402
 
 # Column order is the published schema (spec Config 1). provenance is replaced
 # by extraction_date (local PDF filenames have no research value); empty
@@ -61,6 +66,124 @@ EVAL_SCHEMA = [
     "must_contain", "must_not_contain", "abstain", "task_type", "difficulty",
     "expected_citation_level", "rationale", "label_source", "review_status",
 ]
+
+# Seq2seq/NER pairs: raw in-text citation -> normalized circular number.
+# format_family classifies each match against REF_RE's three sub-grammars
+# (pinned by tests/test_ingest_refs.py::test_ref_re_matches_all_three_reference_grammars);
+# a REF_RE match always fulfills exactly one of these by construction.
+CITATION_SCHEMA = [
+    "raw_reference", "normalized_circular_number", "context_window",
+    "source_doc_id", "format_family",
+]
+_FAMILY_PATTERNS = [
+    ("new-standard", re.compile(_ingest_pdf._NEW)),
+    ("old-standard", re.compile(_ingest_pdf._OLD)),
+    ("dept-order-2026", re.compile(_ingest_pdf._NEW_FMT2)),
+]
+
+
+def _format_family(raw: str) -> str:
+    for name, pattern in _FAMILY_PATTERNS:
+        if pattern.fullmatch(raw):
+            return name
+    return "unknown"  # unreachable for a REF_RE match; kept as an explicit guard
+
+
+def build_citation_pairs(corpus_records: list[dict], context_chars: int = 60) -> list[dict]:
+    """Pure transform: corpus text -> citation-normalization rows.
+
+    Mines in-body references with REF_RE (src/sebi_rag/ingest_pdf.py), the
+    same regex lineage.py uses to build the supersession graph. Excludes the
+    document's own number (exact-string match, mirroring lineage.py's
+    detect_relations self-reference check) since that identifies the
+    document, not a citation.
+    """
+    rows = []
+    for r in corpus_records:
+        text = r.get("text", "")
+        own = r["circular_number"]
+        for m in REF_RE.finditer(text):
+            raw = m.group(0)
+            if raw == own:
+                continue
+            start, end = max(0, m.start() - context_chars), m.end() + context_chars
+            window = " ".join(text[start:end].split())
+            rows.append({
+                "raw_reference": raw,
+                "normalized_circular_number": normalize_circular_number(raw),
+                "context_window": window,
+                "source_doc_id": own,
+                "format_family": _format_family(raw),
+            })
+    return rows
+
+
+# Pair-classification: is circular_b superseded/amended by circular_a, or
+# unrelated? Positives come from lineage edges where BOTH endpoints are in
+# the corpus (so a subject is available for circular_b); negatives are
+# same-department pairs with no lineage edge in either direction.
+SUPERSESSION_SCHEMA = [
+    "circular_a_number", "circular_a_subject", "circular_b_number",
+    "circular_b_subject", "label",
+]
+
+
+def build_supersession_pairs(corpus_records: list[dict], lineage: dict,
+                             negative_ratio: float = 2.0, seed: int = 42) -> list[dict]:
+    """Pure transform: corpus + lineage -> labeled circular pairs.
+
+    label is 'supersedes', 'amends', or 'unrelated'. Deterministic given the
+    same seed (negatives are sampled, not exhaustive, to keep the class ratio
+    at ~negative_ratio:1).
+    """
+    by_norm = {normalize_circular_number(r["circular_number"]): r for r in corpus_records}
+
+    positives = []
+    linked: set[frozenset[str]] = set()
+    for relation in ("supersedes", "amends"):
+        for source, targets in lineage.get(relation, {}).items():
+            src_rec = by_norm.get(normalize_circular_number(source))
+            for target in targets:
+                linked.add(frozenset((normalize_circular_number(source),
+                                     normalize_circular_number(target))))
+                tgt_rec = by_norm.get(normalize_circular_number(target))
+                if src_rec is None or tgt_rec is None:
+                    continue
+                positives.append({
+                    "circular_a_number": src_rec["circular_number"],
+                    "circular_a_subject": src_rec.get("subject") or "",
+                    "circular_b_number": tgt_rec["circular_number"],
+                    "circular_b_subject": tgt_rec.get("subject") or "",
+                    "label": relation,
+                })
+
+    by_dept: dict[str, list[dict]] = {}
+    for r in corpus_records:
+        dept = r.get("issuing_department")
+        if dept:
+            by_dept.setdefault(dept, []).append(r)
+
+    candidates = []
+    for dept in sorted(by_dept):
+        recs = sorted(by_dept[dept], key=lambda r: r["circular_number"])
+        for a, b in itertools.combinations(recs, 2):
+            pair = frozenset((normalize_circular_number(a["circular_number"]),
+                             normalize_circular_number(b["circular_number"])))
+            if pair not in linked:
+                candidates.append((a, b))
+
+    rng = random.Random(seed)
+    rng.shuffle(candidates)
+    target_neg = round(len(positives) * negative_ratio)
+    negatives = [{
+        "circular_a_number": a["circular_number"],
+        "circular_a_subject": a.get("subject") or "",
+        "circular_b_number": b["circular_number"],
+        "circular_b_subject": b.get("subject") or "",
+        "label": "unrelated",
+    } for a, b in candidates[:target_neg]]
+
+    return positives + negatives
 
 
 def _null(v: str | None) -> str | None:
@@ -179,7 +302,10 @@ def _emit(rows: list[dict], config_dir: Path, name: str, schema: list[str]) -> N
             f.write(json.dumps(row, ensure_ascii=False) + "\n")
     import pyarrow as pa
     import pyarrow.parquet as pq
-    table = pa.Table.from_pylist(rows).select(schema)
+    if rows:
+        table = pa.Table.from_pylist(rows).select(schema)
+    else:
+        table = pa.Table.from_pylist([], schema=pa.schema([(c, pa.null()) for c in schema]))
     pq.write_table(table, config_dir / f"{name}.parquet")
 
 
@@ -228,13 +354,39 @@ def export_eval(golden_path: Path, out_dir: Path) -> dict:
     return _update_manifest(out_dir, "eval", _config_entry(rows, golden_path))
 
 
+def export_citation_normalization(corpus_path: Path, out_dir: Path) -> dict:
+    """Transform -> emit the citation-normalization config; return the manifest."""
+    records = [json.loads(l) for l in
+               corpus_path.read_text(encoding="utf-8").splitlines() if l.strip()]
+    rows = build_citation_pairs(records)
+    _emit(rows, out_dir / "citation-normalization", "citation-normalization",
+         CITATION_SCHEMA)
+    return _update_manifest(out_dir, "citation-normalization",
+                            _config_entry(rows, corpus_path))
+
+
+def export_supersession_pairs(corpus_path: Path, lineage_path: Path,
+                              out_dir: Path) -> dict:
+    """Transform -> emit the supersession-pairs config; return the manifest."""
+    records = [json.loads(l) for l in
+               corpus_path.read_text(encoding="utf-8").splitlines() if l.strip()]
+    lineage = json.loads(lineage_path.read_text(encoding="utf-8"))
+    rows = build_supersession_pairs(records, lineage)
+    _emit(rows, out_dir / "supersession-pairs", "supersession-pairs",
+         SUPERSESSION_SCHEMA)
+    return _update_manifest(out_dir, "supersession-pairs",
+                            _config_entry(rows, lineage_path))
+
+
 def export_all(corpus: Path, chunks: Path, lineage: Path, golden: Path,
                out_dir: Path) -> dict:
     """Run every config export in sequence; return the merged manifest."""
     export_corpus(corpus, out_dir)
     export_chunks(chunks, out_dir)
     export_lineage(lineage, corpus, out_dir)
-    return export_eval(golden, out_dir)
+    export_eval(golden, out_dir)
+    export_citation_normalization(corpus, out_dir)
+    return export_supersession_pairs(corpus, lineage, out_dir)
 
 
 def main(argv: list[str] | None = None) -> int:

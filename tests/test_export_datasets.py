@@ -208,3 +208,123 @@ def test_full_export_writes_all_four_configs(tmp_path):
         assert (out / cfg / f"{cfg}.jsonl").exists()
         assert (out / cfg / f"{cfg}.parquet").exists()
         assert cfg in manifest["configs"]
+
+
+# --- Task 3: citation-normalization + supersession-pairs task datasets ---
+
+def _citation_corpus_record(**over) -> dict:
+    base = {
+        "circular_number": "SEBI/HO/CFD/P/CIR/2023/123",
+        "subject": "Disclosure",
+        "text": (
+            "SEBI/HO/CFD/P/CIR/2023/123 July 13, 2023\n"
+            "SEBI vide circular no. CIR/CFD/CMD/4/2015 dated September 9, 2015 "
+            "and the order HO/(12)2026-MRD specified the following requirements."
+        ),
+    }
+    base.update(over)
+    return base
+
+
+def test_build_citation_pairs_excludes_self_reference():
+    rows = X.build_citation_pairs([_citation_corpus_record()])
+    assert all(r["raw_reference"] != "SEBI/HO/CFD/P/CIR/2023/123" for r in rows)
+    assert len(rows) == 2
+
+
+def test_build_citation_pairs_normalizes_and_classifies_family():
+    rows = X.build_citation_pairs([_citation_corpus_record()])
+    by_raw = {r["raw_reference"]: r for r in rows}
+
+    old = by_raw["CIR/CFD/CMD/4/2015"]
+    assert old["normalized_circular_number"] == "cir/cfd/cmd/4/2015"
+    assert old["format_family"] == "old-standard"
+    assert old["source_doc_id"] == "SEBI/HO/CFD/P/CIR/2023/123"
+
+    dept_order = by_raw["HO/(12)2026-MRD"]
+    assert dept_order["format_family"] == "dept-order-2026"
+
+
+def test_build_citation_pairs_context_window_is_whitespace_collapsed():
+    rows = X.build_citation_pairs([_citation_corpus_record()])
+    window = next(r["context_window"] for r in rows
+                  if r["raw_reference"] == "CIR/CFD/CMD/4/2015")
+    assert "\n" not in window and "  " not in window
+    assert "CIR/CFD/CMD/4/2015" in window
+
+
+def test_citation_row_has_exact_schema():
+    rows = X.build_citation_pairs([_citation_corpus_record()])
+    assert list(rows[0]) == X.CITATION_SCHEMA
+
+
+def _dept_record(number, dept, subject="s"):
+    return {"circular_number": number, "issuing_department": dept, "subject": subject}
+
+
+def test_build_supersession_pairs_positives_require_target_in_corpus():
+    corpus = [_dept_record("NEW/1", "CFD"), _dept_record("OLD/1", "CFD")]
+    lineage = {"supersedes": {"NEW/1": ["OLD/1", "OLD/NOT-IN-CORPUS"]}, "amends": {}}
+    rows = X.build_supersession_pairs(corpus, lineage, negative_ratio=0.0)
+    assert len(rows) == 1   # OLD/NOT-IN-CORPUS dropped (no subject to pair)
+    assert rows[0]["circular_a_number"] == "NEW/1"
+    assert rows[0]["circular_b_number"] == "OLD/1"
+    assert rows[0]["label"] == "supersedes"
+
+
+def test_build_supersession_pairs_negatives_exclude_linked_pairs():
+    corpus = [_dept_record("NEW/1", "CFD"), _dept_record("OLD/1", "CFD"),
+             _dept_record("OTHER/1", "CFD")]
+    lineage = {"supersedes": {"NEW/1": ["OLD/1"]}, "amends": {}}
+    rows = X.build_supersession_pairs(corpus, lineage, negative_ratio=2.0, seed=1)
+
+    positives = [r for r in rows if r["label"] != "unrelated"]
+    negatives = [r for r in rows if r["label"] == "unrelated"]
+    assert len(positives) == 1
+    assert len(negatives) == 2   # round(1 * 2.0)
+    linked = {frozenset(("new/1", "old/1"))}
+    for r in negatives:
+        pair = frozenset((r["circular_a_number"].lower(), r["circular_b_number"].lower()))
+        assert pair not in linked
+        assert r["circular_a_number"] != r["circular_b_number"]
+
+
+def test_build_supersession_pairs_negatives_only_same_department():
+    corpus = [_dept_record("A/1", "CFD"), _dept_record("A/2", "CFD"),
+             _dept_record("B/1", "MRD")]
+    rows = X.build_supersession_pairs(corpus, {"supersedes": {}, "amends": {}},
+                                       negative_ratio=10.0, seed=1)
+    for r in rows:
+        a_dept = next(c["issuing_department"] for c in corpus
+                     if c["circular_number"] == r["circular_a_number"])
+        b_dept = next(c["issuing_department"] for c in corpus
+                     if c["circular_number"] == r["circular_b_number"])
+        assert a_dept == b_dept
+
+
+def test_supersession_row_has_exact_schema():
+    corpus = [_dept_record("NEW/1", "CFD"), _dept_record("OLD/1", "CFD")]
+    lineage = {"supersedes": {"NEW/1": ["OLD/1"]}, "amends": {}}
+    rows = X.build_supersession_pairs(corpus, lineage, negative_ratio=0.0)
+    assert list(rows[0]) == X.SUPERSESSION_SCHEMA
+
+
+def test_export_citation_normalization_and_supersession_pairs(tmp_path):
+    corpus_src = tmp_path / "circulars.jsonl"
+    corpus_src.write_text(json.dumps(_record()) + "\n")
+    lineage_src = tmp_path / "lineage.json"
+    lineage_src.write_text(json.dumps({
+        "supersedes": {"SEBI/HO/CFD/P/CIR/2023/123": ["CIR/CFD/CMD/4/2015"]},
+        "amends": {}, "superseded_by": {}, "amended_by": {},
+    }))
+    out = tmp_path / "out"
+
+    X.export_citation_normalization(corpus_src, out)
+    X.export_supersession_pairs(corpus_src, lineage_src, out)
+
+    for cfg in ("citation-normalization", "supersession-pairs"):
+        assert (out / cfg / f"{cfg}.jsonl").exists()
+        assert (out / cfg / f"{cfg}.parquet").exists()
+    manifest = json.loads((out / "manifest.json").read_text())
+    assert "citation-normalization" in manifest["configs"]
+    assert "supersession-pairs" in manifest["configs"]
