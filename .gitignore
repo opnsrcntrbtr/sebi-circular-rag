@@ -11,6 +11,7 @@ env/
 data/raw/
 data/index/
 data/corpus/
+dist/
 logs/
 .env
 
