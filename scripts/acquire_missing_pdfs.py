@@ -1,18 +1,25 @@
-"""Download the 14 circular PDFs identified as missing in the 2026-07-08
-audit (never downloaded; blocked corpus completion of the '19 unparseable'
-issue), then ingest each into the corpus.
+"""Recover the 14 circular PDFs missed in the 2026-07-08 audit by resolving
+their detail pages (plan Task 11, unblocked 2026-07-09).
 
-Polite: reuses scrape_sebi.fetch (rate-limited). Idempotent: skips stems
-already present in data/raw/ and relies on ingest()'s dedup.
+SEBI's 2026 site modernisation moved PDFs from flat /sebi_data/attachdocs/
+{stem}.pdf into month-year subfolders behind a web/?file= viewer iframe;
+numeric stems are preserved but flat URLs 404 and blind month reconstruction
+is unreliable. Each stem is therefore resolved by sweeping the circular
+listings over its month window (±1 month) and extracting the current PDF URL
+from the detail page. Polite (3 s rate via scrape_sebi.fetch), idempotent
+(skips stems already in data/raw/; ingest() dedups). See
+docs/superpowers/specs/2026-07-09-sebi-semantic-routing-alignment-design.md.
 """
+import datetime as dt
+import hashlib
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
-from scrape_sebi import fetch            # noqa: E402
-from sebi_rag.ingest_pdf import ingest   # noqa: E402
+from scrape_sebi import discover, extract_pdf_urls, fetch, looks_like_pdf  # noqa: E402
+from sebi_rag.ingest_pdf import ingest                                     # noqa: E402
 
 MISSING_STEMS = [
     "1705319176210", "1706306045806", "1708533481758", "1709691276891",
@@ -23,6 +30,52 @@ MISSING_STEMS = [
 RAW = ROOT / "data/raw"
 CORPUS = ROOT / "data/corpus/circulars.jsonl"
 RATE = 3.0  # seconds between requests
+SECTIONS = ("circulars", "master-circulars")
+
+
+def _add_months(d: dt.date, n: int) -> dt.date:
+    m = d.month - 1 + n
+    return dt.date(d.year + m // 12, m % 12 + 1, 1)
+
+
+def month_window(stem: str, pad: int = 1) -> tuple[dt.date, dt.date]:
+    """[first day of month-pad, last day of month+pad] around the stem's epoch."""
+    d = dt.datetime.fromtimestamp(int(stem) / 1000, tz=dt.timezone.utc).date()
+    return _add_months(d, -pad), _add_months(d, pad + 1) - dt.timedelta(days=1)
+
+
+def stem_of(pdf_url: str) -> str:
+    return pdf_url.rsplit("/", 1)[-1].removesuffix(".pdf")
+
+
+def resolve_stems(stems: list[str], rate: float = RATE,
+                  discover_fn=discover, fetch_fn=fetch) -> dict[str, tuple[str, str]]:
+    """Map each stem to (current pdf_url, detail_url) via listing sweeps."""
+    todo = set(stems)
+    resolved: dict[str, tuple[str, str]] = {}
+    seen_pages: set[str] = set()
+    for start, end in sorted({month_window(s) for s in stems}):
+        for section in SECTIONS:
+            if not todo:
+                return resolved
+            for detail in discover_fn(section, 500, rate,
+                                      date_from=start, date_to=end):
+                if detail in seen_pages:
+                    continue
+                seen_pages.add(detail)
+                try:
+                    html = fetch_fn(detail, rate).decode("utf-8", "ignore")
+                except Exception as e:  # noqa: BLE001
+                    print(f"  skip {detail}: {e}", flush=True)
+                    continue
+                for url in extract_pdf_urls(html, detail):
+                    s = stem_of(url)
+                    if s in todo:
+                        resolved[s] = (url, detail)
+                        todo.discard(s)
+                if not todo:
+                    return resolved
+    return resolved
 
 
 def main() -> int:
