@@ -123,3 +123,9 @@ def test_pdf_url_for_returns_first_or_none(monkeypatch):
     assert S.pdf_url_for(DETAIL, 0.0) == PDF_NEW
     monkeypatch.setattr(S, "fetch", lambda url, rate, **kw: b"<p>no pdf</p>")
     assert S.pdf_url_for(DETAIL, 0.0) is None
+
+
+def test_looks_like_pdf_magic_bytes():
+    assert S.looks_like_pdf(b"%PDF-1.5 rest of file")
+    assert not S.looks_like_pdf(b"<html><head><title>404")
+    assert not S.looks_like_pdf(b"")

@@ -5,6 +5,12 @@ Legality: SEBI robots.txt allows /legal/circulars and /sebi_data/attachdocs (onl
 checksum dedupe, official source_url recorded. Never bypasses logins/captchas.
 Review SEBI Terms of Use before bulk use. See docs/scraping_plan.md.
 
+URL structure (since SEBI's 2026 site modernisation): detail pages remain at
+/legal/circulars/<mon-yyyy>/<slug>_<id>.html; PDFs moved into month-year folders
+/sebi_data/attachdocs/<mon-yyyy>/<stem>.pdf and are embedded via a viewer iframe
+(src='../../../web/?file=<pdf-url>'). Flat attachdocs paths 404. extract_pdf_urls()
+resolves the current URL from the detail page — never predict static PDF names.
+
 Sections (sid=1 Legal): ssid=7 Circulars (~2.8k), ssid=6 Master Circulars (~135).
 
 Usage:
@@ -194,6 +200,11 @@ def extract_pdf_urls(html: str, base_url: str) -> list[str]:
     return found
 
 
+def looks_like_pdf(data: bytes) -> bool:
+    """Reject HTML error pages served with a .pdf URL (e.g. WAF/404 bodies)."""
+    return data.startswith(b"%PDF")
+
+
 def pdf_url_for(detail_url: str, rate: float) -> str | None:
     urls = extract_pdf_urls(fetch(detail_url, rate).decode("utf-8", "ignore"),
                             detail_url)
@@ -236,6 +247,10 @@ def main(argv: list[str] | None = None) -> int:
                 continue
             time.sleep(args.rate)
             data = fetch(pdf_url, args.rate)
+            if not looks_like_pdf(data):
+                print(f"[{i}] not a PDF payload: {pdf_url}", flush=True)
+                failed += 1
+                continue
             sha = hashlib.sha256(data).hexdigest()
             if sha in seen_sha:
                 skipped += 1
