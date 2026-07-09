@@ -4,7 +4,7 @@ ENV  := HF_HUB_DISABLE_XET=1 TOKENIZERS_PARALLELISM=false OMP_NUM_THREADS=1 PYTO
 PORT ?= 8000
 MAX  ?= 25
 
-.PHONY: help test annotate index reindex calibrate bench-rerank bench-retrieval benchmark-export serve scrape ops
+.PHONY: help test annotate index reindex calibrate bench-rerank bench-retrieval benchmark-export export-datasets serve scrape ops
 
 help:
 	@echo "test       run offline test suite"
@@ -14,6 +14,7 @@ help:
 	@echo "calibrate  run the retrieval calibration sweep"
 	@echo "bench-retrieval run retrieval-only benchmark + TREC runfile"
 	@echo "benchmark-export export BEIR/TREC + RAG benchmark artifacts"
+	@echo "export-datasets  export publishable dataset configs to dist/datasets"
 	@echo "serve      run the API (PORT=$(PORT)); set SEBI_RAG_API_KEY in env"
 	@echo "ui         run the Gradio UI dashboard"
 	@echo "ops        run the local ops HTTP server for n8n (port 8765)"
@@ -42,6 +43,9 @@ bench-retrieval:
 benchmark-export:
 	$(ENV) $(PY) scripts/build_golden_v6.py
 	$(ENV) $(PY) scripts/export_benchmark.py
+
+export-datasets:
+	$(PY) scripts/export_datasets.py
 
 serve:
 	$(ENV) $(VENV)/bin/uvicorn sebi_rag.api:app --host 127.0.0.1 --port $(PORT) --workers 1
