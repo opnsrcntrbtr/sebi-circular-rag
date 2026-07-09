@@ -1,7 +1,18 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-06-29.
+> Last updated: 2026-07-09.
+
+## Current Snapshot
+
+- Shipped baseline: local-first SEBI circular RAG with hybrid FAISS + BM25
+  retrieval, cross-encoder reranking, grounded generation, abstention, and
+  supersession-aware citations behind an authenticated FastAPI service.
+- Current evaluation baseline: `eval/golden/golden_v6.jsonl`, with the current
+  dense-corpus profile showing recall and abstention at 1.0 and citation
+  precision in the ~0.73-0.77 range.
+- Active roadmap: corpus expansion, OCR hardening, evaluation maintenance, and
+  legal-safety tightening for near-domain queries. See [docs/next_steps.md](next_steps.md).
 
 ## Completed
 

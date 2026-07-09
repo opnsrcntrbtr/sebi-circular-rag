@@ -1,15 +1,16 @@
 # SEBI Circular RAG — Usage Guide
 
 A local-first, Apple-Silicon Retrieval-Augmented Generation system over Indian SEBI
-circulars. It scrapes official circulars, segments and indexes them, retrieves with
-hybrid search + cross-encoder reranking, generates grounded answers with an
-abstention gate, and returns citations with supersession status and a faithfulness
-check — behind a config-driven, authenticated FastAPI service.
+circulars. The current stack scrapes official circulars, segments and indexes them,
+retrieves with hybrid search + cross-encoder reranking, generates grounded answers
+with an abstention gate, and returns citations with supersession status and a
+faithfulness check behind a config-driven, authenticated FastAPI service.
 
 This guide covers setup, the data pipeline, running and querying the service,
 configuration, operations, evaluation, extension, and troubleshooting. For the
-authoritative architecture see `docs/project_context.md`; for current state see
-`docs/status.md`; for roadmap see `docs/next_steps.md`.
+current shipped state see [docs/status.md](status.md); for roadmap details see
+[docs/next_steps.md](next_steps.md); for the user-facing overview see the project
+[README.md](../README.md).
 
 ---
 
@@ -86,7 +87,7 @@ SEBI circular RAG/
 │   ├── corpus/circulars.jsonl  # one JSON record per circular (text + metadata)
 │   └── index/                  # persisted: dense.faiss, bm25/, chunks.jsonl,
 │                               #            meta.json, lineage.json
-├── eval/golden/golden_v4.jsonl # labelled evaluation set (query -> relevant circulars)
+├── eval/golden/golden_v6.jsonl # labelled evaluation set (query -> relevant circulars)
 ├── scripts/                    # scrape, ingest, build_index, calibrate, bench, ...
 ├── src/sebi_rag/               # the package (see §9)
 ├── tests/                      # offline test suite
@@ -271,7 +272,7 @@ SEBI_RAG_RATE_PER_MIN=120 SEBI_RAG_TIMEOUT_S=15 make serve
 
 ## 8. Evaluation
 
-The eval set `eval/golden/golden_v4.jsonl` maps queries to the relevant in-force
+The eval set `eval/golden/golden_v6.jsonl` maps queries to the relevant in-force
 circular(s). The harness computes retrieval Recall@k, MRR, nDCG, citation precision /
 recall, abstention accuracy, faithfulness, and latency.
 
@@ -282,7 +283,7 @@ make calibrate      # sweeps top_k × abstain_threshold over the golden set
 Current profile (124 circulars): recall@10 = 1.0, citation_recall = 1.0 @ top_k=3,
 abstention = 1.0, faithfulness = 1.0, citation precision ≈ 0.73–0.77. Interpretation:
 the governing circular is always retrieved and cited; precision reflects genuinely-
-related circulars co-surfacing in a dense corpus (not a defect).
+related circulars co-surfacing in a dense corpus rather than a retrieval defect.
 
 Benchmark generator models:
 
