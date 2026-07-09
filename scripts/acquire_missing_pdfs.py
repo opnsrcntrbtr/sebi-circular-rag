@@ -78,28 +78,61 @@ def resolve_stems(stems: list[str], rate: float = RATE,
     return resolved
 
 
+def check_robots(rate: float = RATE) -> None:
+    """Log-only re-verification that our paths are still crawlable."""
+    try:
+        txt = fetch("https://www.sebi.gov.in/robots.txt", rate).decode("utf-8", "ignore")
+    except Exception as e:  # noqa: BLE001
+        print(f"robots.txt check skipped ({e})", flush=True)
+        return
+    for line in txt.splitlines():
+        rule = line.strip().lower()
+        if not rule.startswith("disallow:"):
+            continue
+        path = rule.split(":", 1)[1].strip()
+        for ours in ("/legal", "/sebi_data/attachdocs"):
+            if path and ours.startswith(path.rstrip("*")):
+                print(f"WARNING: robots.txt now disallows '{path}' covering {ours}; "
+                      "stop and review before continuing", flush=True)
+
+
 def main() -> int:
-    ok = failed = skipped = 0
+    check_robots()
+    ok = failed = 0
+    todo = [s for s in MISSING_STEMS if not (RAW / f"{s}.pdf").exists()]
+    resolved = resolve_stems(todo) if todo else {}
     for stem in MISSING_STEMS:
         dest = RAW / f"{stem}.pdf"
-        url = f"https://www.sebi.gov.in/sebi_data/attachdocs/{stem}.pdf"
-        if not dest.exists():
+        if stem in resolved:
+            pdf_url, source = resolved[stem]
             try:
-                dest.write_bytes(fetch(url, RATE))
-            except Exception as e:
-                print(f"FAIL download {stem}: {e}")
+                data = fetch(pdf_url, RATE)
+                if not looks_like_pdf(data):
+                    raise ValueError(f"non-PDF payload from {pdf_url}")
+                dest.write_bytes(data)
+                (RAW / f"{stem}.sha256").write_text(hashlib.sha256(data).hexdigest())
+            except Exception as e:  # noqa: BLE001
+                print(f"FAIL download {stem}: {e}", flush=True)
                 failed += 1
                 continue
-        try:
-            rec = ingest(dest, CORPUS, source_url=url)
-            status = rec.get("_skipped") or ("replaced" if rec.get("_replaced") else "ingested")
-            print(f"{status}: {stem} -> {rec['circular_number']}")
-            skipped += status == "duplicate"
-            ok += status != "duplicate"
-        except Exception as e:
-            print(f"FAIL ingest {stem}: {e}")
+        elif dest.exists():
+            # already downloaded on a previous run; re-ingest is a dedup no-op
+            source = f"https://www.sebi.gov.in/sebi_data/attachdocs/{stem}.pdf"
+        else:
+            print(f"UNRESOLVED {stem}: no detail page in month window "
+                  "(possibly withdrawn — document in plan)", flush=True)
             failed += 1
-    print(f"ok={ok} duplicate={skipped} failed={failed} of {len(MISSING_STEMS)}")
+            continue
+        try:
+            rec = ingest(dest, CORPUS, source_url=source)
+            status = rec.get("_skipped") or ("replaced" if rec.get("_replaced") else "ingested")
+            print(f"{status}: {stem} -> {rec['circular_number']}", flush=True)
+            ok += 1
+        except Exception as e:  # noqa: BLE001
+            print(f"FAIL ingest {stem}: {e}", flush=True)
+            failed += 1
+    print(f"resolved={len(resolved)} ok={ok} failed={failed} of {len(MISSING_STEMS)}",
+          flush=True)
     return 1 if failed else 0
 
 

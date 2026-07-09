@@ -52,3 +52,18 @@ def test_resolve_stems_survives_detail_fetch_error():
                                discover_fn=lambda *a, **k: [DETAIL],
                                fetch_fn=bad_fetch)
     assert resolved == {}
+
+
+def test_check_robots_warns_on_disallow(capsys, monkeypatch):
+    robots = "User-agent: *\nDisallow: /js\nDisallow: /sebi_data/attachdocs\n"
+    monkeypatch.setattr(M, "fetch", lambda u, r: robots.encode())
+    M.check_robots(rate=0.0)
+    out = capsys.readouterr().out
+    assert "WARNING" in out and "/sebi_data/attachdocs" in out
+
+
+def test_check_robots_quiet_when_allowed(capsys, monkeypatch):
+    robots = "User-agent: *\nDisallow: /js\nDisallow: /css\n"
+    monkeypatch.setattr(M, "fetch", lambda u, r: robots.encode())
+    M.check_robots(rate=0.0)
+    assert "WARNING" not in capsys.readouterr().out
