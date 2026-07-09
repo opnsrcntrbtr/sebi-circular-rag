@@ -403,7 +403,8 @@ size_categories:
 source_datasets: []
 task_categories:
   - text-retrieval
-  - text2text-generation
+  - text-generation
+  - text-classification
 tags:
   - regulatory
   - sebi
