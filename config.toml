@@ -21,9 +21,11 @@ index_repo         = "opnsrcntrbtrian/sebi-circulars-index"  # HF dataset repo w
 default_config     = "chunks"                          # "chunks" | "corpus"
 default_subset     = "full"                            # "full" | "recent"
 recent_years       = [2025, 2026]
-external_space     = ""                                # HF Space id for primary LLM (fill before deploy)
-external_api_name  = "/predict"
-external_timeout_s = 20.0
+external_space     = "huggingface-projects/llama-2-7b-chat"  # official HF org Space, Llama-2-7B-Chat (live-verified 2026-07-10, ~7s latency)
+external_api_name  = "/generate"
+external_timeout_s = 30.0                              # live-tested 2026-07-10: queue time on this
+                                                       # shared public Space ranged 7-23s; 20s caused
+                                                       # avoidable fallbacks
 hf_model           = "Qwen/Qwen2.5-0.5B-Instruct"      # CPU fallback generator (same family as local MLX model)
 max_tokens         = 200                               # matches MLXGenerator default; CPU-latency bound
 temperature        = 0.2

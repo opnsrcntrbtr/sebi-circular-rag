@@ -161,6 +161,53 @@ def test_hybrid_skips_external_when_unconfigured():
     assert _Boom.calls == 0  # empty external_space -> straight to fallback
 
 
+def test_external_space_generator_calls_llama2_generate_signature(monkeypatch):
+    """ExternalSpaceGenerator must call huggingface-projects/llama-2-7b-chat's
+    verified /generate(message, system_prompt, max_new_tokens, temperature,
+    top_p, top_k, repetition_penalty) -> str signature positionally."""
+    from sebi_rag.generate_spaces import ExternalSpaceGenerator
+
+    calls = {}
+
+    class _FakeJob:
+        def result(self, timeout):
+            calls["timeout"] = timeout
+            return "  grounded answer [A/1]  "
+
+    class _FakeClient:
+        def submit(self, *args, **kwargs):
+            calls["args"] = args
+            calls["kwargs"] = kwargs
+            return _FakeJob()
+
+    sp = SpacesSettings(
+        external_space="huggingface-projects/llama-2-7b-chat",
+        external_api_name="/generate",
+        external_timeout_s=20.0,
+        max_tokens=200, temperature=0.2, top_p=0.9,
+    )
+    gen = ExternalSpaceGenerator(sp)
+    gen._client = _FakeClient()  # skip the real network connect
+
+    out = gen.generate("q", _CTX)
+
+    assert out == "grounded answer [A/1]"          # stripped
+    assert calls["timeout"] == 20.0
+    assert calls["kwargs"] == {"api_name": "/generate"}
+    message, system_prompt, max_new_tokens, temperature, top_p, top_k, rep_pen = calls["args"]
+    assert "body" in message and system_prompt      # grounded prompt + non-empty system prompt
+    assert (max_new_tokens, temperature, top_p) == (200.0, 0.2, 0.9)
+    assert isinstance(top_k, float) and isinstance(rep_pen, float)
+
+
+def test_external_space_generator_abstains_without_contexts():
+    from sebi_rag.generate_spaces import ExternalSpaceGenerator
+
+    sp = SpacesSettings(external_space="huggingface-projects/llama-2-7b-chat")
+    assert ExternalSpaceGenerator(sp).generate("q", []) == \
+        "I don't know based on the available evidence."
+
+
 def test_generators_implement_generator_protocol():
     from sebi_rag.generate import Generator
     from sebi_rag.generate_spaces import (

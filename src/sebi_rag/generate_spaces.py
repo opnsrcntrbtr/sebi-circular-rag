@@ -23,8 +23,27 @@ from .settings import SpacesSettings
 log = logging.getLogger(__name__)
 
 
+_LLAMA2_CHAT_SYSTEM_PROMPT = (
+    "You are a careful SEBI regulatory research assistant. Only use the "
+    "sources given in the user message; never invent a circular number."
+)
+
+# huggingface-projects/llama-2-7b-chat's /generate signature (verified live
+# 2026-07-10 via client.view_api()): message, system_prompt, max_new_tokens,
+# temperature, top_p, top_k, repetition_penalty -> str. top_k/repetition_penalty
+# aren't in SpacesSettings (no local equivalent), so sane fixed defaults are
+# used here rather than growing the config for one external Space's API shape.
+_LLAMA2_TOP_K = 50
+_LLAMA2_REPETITION_PENALTY = 1.2
+
+
 class ExternalSpaceGenerator:
     """Primary generator: calls a public LLM Space via gradio_client.
+
+    Wired to huggingface-projects/llama-2-7b-chat's /generate endpoint
+    (official HF org Space, Llama-2-7B-Chat, live-verified). Swapping
+    spaces.external_space to a Space with a different API shape requires
+    updating the client.submit(...) call below to match.
 
     Raises on any failure (missing space id, connection error, timeout);
     HybridGenerator handles the fallback.
@@ -48,9 +67,19 @@ class ExternalSpaceGenerator:
             return ABSTAIN
         prompt = _grounded_prompt(query, contexts)
         client = self._get_client()
-        job = client.submit(prompt, api_name=self.settings.external_api_name or None)
-        result = job.result(timeout=self.settings.external_timeout_s)
-        if isinstance(result, (list, tuple)):  # multi-output endpoints
+        s = self.settings
+        job = client.submit(
+            prompt,
+            _LLAMA2_CHAT_SYSTEM_PROMPT,
+            float(s.max_tokens),
+            s.temperature,
+            s.top_p,
+            float(_LLAMA2_TOP_K),
+            _LLAMA2_REPETITION_PENALTY,
+            api_name=s.external_api_name or "/generate",
+        )
+        result = job.result(timeout=s.external_timeout_s)
+        if isinstance(result, (list, tuple)):  # defensive: other Spaces may differ
             result = next((r for r in result if isinstance(r, str)), result[0])
         return str(result).strip()
 
@@ -129,7 +158,8 @@ class HybridGenerator:
                 return self.external.generate(query, contexts)
             except Exception as exc:  # noqa: BLE001 — deliberate catch-all fallback
                 log.warning(
-                    "external Space %r failed (%s); falling back to %s",
-                    self.settings.external_space, exc, self.settings.hf_model,
+                    "external Space %r failed (%s: %s); falling back to %s",
+                    self.settings.external_space, type(exc).__name__, exc,
+                    self.settings.hf_model,
                 )
         return self.fallback.generate(query, contexts)
