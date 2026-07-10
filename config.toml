@@ -17,7 +17,7 @@ timeout_s = 30                                         # /query budget -> 504
 # the Apple-Silicon local stack above is unaffected. Env prefix: SEBI_RAG_SPACES_.
 [spaces]
 dataset_repo       = "opnsrcntrbtrian/sebi-circulars"  # HF dataset: corpus source
-index_repo         = ""                                # HF dataset repo with prebuilt data/index (fill before deploy)
+index_repo         = "opnsrcntrbtrian/sebi-circulars-index"  # HF dataset repo with prebuilt data/index
 default_config     = "chunks"                          # "chunks" | "corpus"
 default_subset     = "full"                            # "full" | "recent"
 recent_years       = [2025, 2026]
