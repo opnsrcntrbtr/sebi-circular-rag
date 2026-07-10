@@ -28,6 +28,27 @@ def test_env_overrides(monkeypatch, tmp_path):
     assert s.top_k == 7 and s.generator == "ollama"
 
 
+def test_load_spaces_defaults_and_file(monkeypatch, tmp_path):
+    _clear(monkeypatch)
+    monkeypatch.delenv("SEBI_RAG_SPACES_HF_MODEL", raising=False)
+    cfg = tmp_path / "c.toml"
+    cfg.write_text(
+        "[service]\ntop_k = 5\n\n"
+        "[spaces]\nexternal_space = \"user/llm-space\"\nrecent_years = [2026]\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setenv("SEBI_RAG_CONFIG", str(cfg))
+    s = Settings.load_spaces()
+    assert s.top_k == 5                                   # [service] still applies
+    assert s.spaces is not None
+    assert s.spaces.external_space == "user/llm-space"    # from file
+    assert s.spaces.recent_years == (2026,)
+    assert s.spaces.hf_model == "Qwen/Qwen2.5-0.5B-Instruct"  # default
+    monkeypatch.setenv("SEBI_RAG_SPACES_HF_MODEL", "acme/tiny")
+    assert Settings.load_spaces().spaces.hf_model == "acme/tiny"  # env beats file
+    assert Settings.load().spaces is None                 # plain load untouched
+
+
 def test_toml_then_env_precedence(monkeypatch, tmp_path):
     _clear(monkeypatch)
     cfg = tmp_path / "c.toml"
