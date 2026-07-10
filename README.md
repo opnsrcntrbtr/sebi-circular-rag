@@ -153,6 +153,19 @@ The core implementation lives under [src/sebi_rag/](src/sebi_rag/):
 - [ui.py](src/sebi_rag/ui.py) - Gradio entry point
 - [settings.py](src/sebi_rag/settings.py) - configuration model
 
+## Hugging Face Spaces Demo
+
+A CPU-only public demo path lives on the `spaces` branch: [app.py](app.py)
+calls the pipeline in-process (no FastAPI/API key), loads the corpus from the
+published [`opnsrcntrbtrian/sebi-circulars`](https://huggingface.co/datasets/opnsrcntrbtrian/sebi-circulars)
+dataset, downloads a prebuilt FAISS/BM25 index from HF Hub, and generates via
+an external LLM Space with a small CPU fallback model. It adds
+[api_spaces.py](src/sebi_rag/api_spaces.py), [corpus_spaces.py](src/sebi_rag/corpus_spaces.py),
+[generate_spaces.py](src/sebi_rag/generate_spaces.py) and a `[spaces]` config
+section — the Apple-Silicon local workflow (MLX, `mps`, `make serve`/`ui`/`reindex`)
+is unchanged. See [README-spaces.md](README-spaces.md) for the demo/local
+differences, deployment steps, and licensing notes.
+
 ## Notes
 
 - `AGENTS.md` mirrors this workspace guidance for non-Claude agents
