@@ -120,3 +120,56 @@ def test_invalid_arguments_raise(settings):
         corpus_spaces.load_circulars_from_hf(settings, "bogus", "full")
     with pytest.raises(ValueError):
         corpus_spaces.load_circulars_from_hf(settings, "chunks", "bogus")
+
+
+# --- HybridGenerator fallback behavior (no models, no network) --------------
+
+_CTX = [Chunk(id="A/1#s#0", doc_id="A/1", section="A/1/s/p0", text="body")]
+
+
+class _Boom:
+    calls = 0
+
+    def generate(self, query, contexts):
+        _Boom.calls += 1
+        raise TimeoutError("external space stalled")
+
+
+class _Canned:
+    def generate(self, query, contexts):
+        return "fallback answer [A/1]"
+
+
+def _hybrid(external_space: str):
+    from sebi_rag.generate_spaces import HybridGenerator
+
+    sp = SpacesSettings(external_space=external_space)
+    return HybridGenerator(sp, external=_Boom(), fallback=_Canned())
+
+
+def test_hybrid_falls_back_on_external_failure():
+    _Boom.calls = 0
+    g = _hybrid("someuser/some-llm-space")
+    assert g.generate("q", _CTX) == "fallback answer [A/1]"
+    assert _Boom.calls == 1  # external was tried first
+
+
+def test_hybrid_skips_external_when_unconfigured():
+    _Boom.calls = 0
+    g = _hybrid("")
+    assert g.generate("q", _CTX) == "fallback answer [A/1]"
+    assert _Boom.calls == 0  # empty external_space -> straight to fallback
+
+
+def test_generators_implement_generator_protocol():
+    from sebi_rag.generate import Generator
+    from sebi_rag.generate_spaces import (
+        ExternalSpaceGenerator, HFGenerator, HybridGenerator,
+    )
+
+    sp = SpacesSettings()
+    for g in (ExternalSpaceGenerator(sp), HFGenerator(sp), HybridGenerator(sp)):
+        assert callable(getattr(g, "generate", None))
+        # Generator is a non-runtime Protocol; signature parity is what matters:
+        # generate(query: str, contexts: list[Chunk]) -> str, ABSTAIN on empty.
+    assert HFGenerator(sp).generate("q", []) == "I don't know based on the available evidence."
