@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/ianpinto/.local/bin/graphify hook-guard search"
+            "command": "/opt/homebrew/bin/graphify hook-guard search"
           }
         ]
       },
@@ -15,7 +15,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/ianpinto/.local/bin/graphify hook-guard read"
+            "command": "/opt/homebrew/bin/graphify hook-guard read"
           }
         ]
       }

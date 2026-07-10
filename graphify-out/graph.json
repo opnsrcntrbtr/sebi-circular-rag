@@ -13,7 +13,7 @@
       "version": "0.1.0",
       "_origin": "ast",
       "id": "pkg_sebi_rag",
-      "community": 20,
+      "community": 36,
       "norm_label": "sebi-rag"
     },
     {
@@ -27,7 +27,7 @@
       },
       "_origin": "ast",
       "id": "run",
-      "community": 11,
+      "community": 17,
       "norm_label": "run.sh"
     },
     {
@@ -41,7 +41,7 @@
       },
       "_origin": "ast",
       "id": "run_sh__entry",
-      "community": 11,
+      "community": 17,
       "norm_label": "run.sh script"
     },
     {
@@ -55,7 +55,7 @@
       },
       "_origin": "ast",
       "id": "run_hf_hub_disable_xet",
-      "community": 11,
+      "community": 17,
       "norm_label": "hf_hub_disable_xet"
     },
     {
@@ -69,7 +69,7 @@
       },
       "_origin": "ast",
       "id": "run_tokenizers_parallelism",
-      "community": 11,
+      "community": 17,
       "norm_label": "tokenizers_parallelism"
     },
     {
@@ -83,7 +83,7 @@
       },
       "_origin": "ast",
       "id": "run_omp_num_threads",
-      "community": 11,
+      "community": 17,
       "norm_label": "omp_num_threads"
     },
     {
@@ -97,7 +97,7 @@
       },
       "_origin": "ast",
       "id": "run_pytorch_enable_mps_fallback",
-      "community": 11,
+      "community": 17,
       "norm_label": "pytorch_enable_mps_fallback"
     },
     {
@@ -111,7 +111,7 @@
       },
       "_origin": "ast",
       "id": "run_pythonpath",
-      "community": 11,
+      "community": 17,
       "norm_label": "pythonpath"
     },
     {
@@ -125,7 +125,7 @@
       },
       "_origin": "ast",
       "id": "run_ops",
-      "community": 17,
+      "community": 30,
       "norm_label": "run_ops.sh"
     },
     {
@@ -139,7 +139,7 @@
       },
       "_origin": "ast",
       "id": "run_ops_sh__entry",
-      "community": 17,
+      "community": 30,
       "norm_label": "run_ops.sh script"
     },
     {
@@ -149,7 +149,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_bench_generators",
-      "community": 1,
+      "community": 2,
       "norm_label": "bench_generators.py"
     },
     {
@@ -159,7 +159,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_bench_generators_rationale_1",
-      "community": 1,
+      "community": 2,
       "norm_label": "benchmark mlx generators on the golden set: faithfulness, groundedness, abstenti"
     },
     {
@@ -169,7 +169,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_bench_rerankers",
-      "community": 7,
+      "community": 6,
       "norm_label": "bench_rerankers.py"
     },
     {
@@ -179,7 +179,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "scripts_bench_rerankers_auroc",
-      "community": 7,
+      "community": 6,
       "norm_label": "auroc()"
     },
     {
@@ -189,7 +189,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "scripts_bench_rerankers_best_threshold",
-      "community": 7,
+      "community": 6,
       "norm_label": "best_threshold()"
     },
     {
@@ -199,7 +199,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "scripts_bench_rerankers_evaluate",
-      "community": 7,
+      "community": 6,
       "norm_label": "evaluate()"
     },
     {
@@ -209,7 +209,7 @@
       "source_location": "L97",
       "_origin": "ast",
       "id": "scripts_bench_rerankers_main",
-      "community": 7,
+      "community": 6,
       "norm_label": "main()"
     },
     {
@@ -219,7 +219,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_bench_rerankers_rationale_1",
-      "community": 7,
+      "community": 6,
       "norm_label": "f2 (adr-001): benchmark rerankers on golden_v5 with cluster-separation metrics."
     },
     {
@@ -229,7 +229,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "scripts_bench_rerankers_rationale_43",
-      "community": 7,
+      "community": 6,
       "norm_label": "p(pos_score > neg_score); ties count half. pos = answerable top-scores,     neg"
     },
     {
@@ -239,7 +239,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "scripts_bench_rerankers_rationale_52",
-      "community": 7,
+      "community": 6,
       "norm_label": "threshold maximising abstention accuracy: answer if score >= thr.     returns (t"
     },
     {
@@ -249,7 +249,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_build_golden",
-      "community": 5,
+      "community": 0,
       "norm_label": "build_golden.py"
     },
     {
@@ -259,7 +259,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_build_golden_rationale_1",
-      "community": 5,
+      "community": 0,
       "norm_label": "build eval/golden/golden_v4.jsonl for the larger corpus. each query is mapped to"
     },
     {
@@ -269,7 +269,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_build_index",
-      "community": 1,
+      "community": 2,
       "norm_label": "build_index.py"
     },
     {
@@ -279,7 +279,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_build_index_rationale_1",
-      "community": 1,
+      "community": 2,
       "norm_label": "build the dense+sparse index once and persist it (run after corpus changes)."
     },
     {
@@ -289,7 +289,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_calibrate",
-      "community": 7,
+      "community": 2,
       "norm_label": "calibrate.py"
     },
     {
@@ -299,7 +299,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "scripts_calibrate_evaluate",
-      "community": 7,
+      "community": 6,
       "norm_label": "evaluate()"
     },
     {
@@ -309,7 +309,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_calibrate_rationale_1",
-      "community": 7,
+      "community": 2,
       "norm_label": "calibrate top_k and the abstention threshold against the citation-precision sign"
     },
     {
@@ -323,7 +323,7 @@
       },
       "_origin": "ast",
       "id": "scripts_canary",
-      "community": 12,
+      "community": 18,
       "norm_label": "canary.sh"
     },
     {
@@ -337,7 +337,7 @@
       },
       "_origin": "ast",
       "id": "scripts_canary_sh__entry",
-      "community": 12,
+      "community": 18,
       "norm_label": "canary.sh script"
     },
     {
@@ -351,7 +351,7 @@
       },
       "_origin": "ast",
       "id": "scripts_canary_hf_hub_disable_xet",
-      "community": 12,
+      "community": 18,
       "norm_label": "hf_hub_disable_xet"
     },
     {
@@ -365,7 +365,7 @@
       },
       "_origin": "ast",
       "id": "scripts_canary_tokenizers_parallelism",
-      "community": 12,
+      "community": 18,
       "norm_label": "tokenizers_parallelism"
     },
     {
@@ -379,7 +379,7 @@
       },
       "_origin": "ast",
       "id": "scripts_canary_omp_num_threads",
-      "community": 12,
+      "community": 18,
       "norm_label": "omp_num_threads"
     },
     {
@@ -393,7 +393,7 @@
       },
       "_origin": "ast",
       "id": "scripts_canary_pytorch_enable_mps_fallback",
-      "community": 12,
+      "community": 18,
       "norm_label": "pytorch_enable_mps_fallback"
     },
     {
@@ -407,7 +407,7 @@
       },
       "_origin": "ast",
       "id": "scripts_canary_pythonpath",
-      "community": 12,
+      "community": 18,
       "norm_label": "pythonpath"
     },
     {
@@ -421,7 +421,7 @@
       },
       "_origin": "ast",
       "id": "scripts_discover",
-      "community": 15,
+      "community": 26,
       "norm_label": "discover.sh"
     },
     {
@@ -435,7 +435,7 @@
       },
       "_origin": "ast",
       "id": "scripts_discover_sh__entry",
-      "community": 15,
+      "community": 26,
       "norm_label": "discover.sh script"
     },
     {
@@ -449,7 +449,7 @@
       },
       "_origin": "ast",
       "id": "scripts_discover_pythonpath",
-      "community": 15,
+      "community": 26,
       "norm_label": "pythonpath"
     },
     {
@@ -459,7 +459,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_discover_new",
-      "community": 6,
+      "community": 0,
       "norm_label": "discover_new.py"
     },
     {
@@ -469,7 +469,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "scripts_discover_new_docid",
-      "community": 6,
+      "community": 0,
       "norm_label": "docid()"
     },
     {
@@ -479,7 +479,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "scripts_discover_new_title",
-      "community": 6,
+      "community": 0,
       "norm_label": "title()"
     },
     {
@@ -489,7 +489,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_discover_new_rationale_1",
-      "community": 6,
+      "community": 0,
       "norm_label": "emit one json line listing sebi circulars newer than previously seen. uses a sta"
     },
     {
@@ -499,7 +499,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_eval_gate",
-      "community": 5,
+      "community": 2,
       "norm_label": "eval_gate.py"
     },
     {
@@ -509,7 +509,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "scripts_eval_gate_contexts_for",
-      "community": 5,
+      "community": 2,
       "norm_label": "contexts_for()"
     },
     {
@@ -519,7 +519,7 @@
       "source_location": "L60",
       "_origin": "ast",
       "id": "scripts_eval_gate_auroc",
-      "community": 5,
+      "community": 2,
       "norm_label": "auroc()"
     },
     {
@@ -529,7 +529,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_eval_gate_rationale_1",
-      "community": 5,
+      "community": 2,
       "norm_label": "adr-002 follow-up: compare the production subject-sim gate against the section-a"
     },
     {
@@ -539,7 +539,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_eval_json",
-      "community": 1,
+      "community": 2,
       "norm_label": "eval_json.py"
     },
     {
@@ -549,7 +549,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_eval_json_rationale_1",
-      "community": 1,
+      "community": 2,
       "norm_label": "emit one json line of retrieval/citation/abstention metrics over golden_v5 (env"
     },
     {
@@ -563,7 +563,7 @@
       },
       "_origin": "ast",
       "id": "scripts_notify",
-      "community": 18,
+      "community": 32,
       "norm_label": "notify.sh"
     },
     {
@@ -577,7 +577,7 @@
       },
       "_origin": "ast",
       "id": "scripts_notify_sh__entry",
-      "community": 18,
+      "community": 32,
       "norm_label": "notify.sh script"
     },
     {
@@ -587,7 +587,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_ops_server",
-      "community": 10,
+      "community": 11,
       "norm_label": "ops_server.py"
     },
     {
@@ -597,7 +597,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "scripts_ops_server_run_script",
-      "community": 10,
+      "community": 11,
       "norm_label": "run_script()"
     },
     {
@@ -607,7 +607,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "scripts_ops_server_smoketest",
-      "community": 10,
+      "community": 11,
       "norm_label": "smoketest()"
     },
     {
@@ -617,7 +617,7 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "scripts_ops_server_handler",
-      "community": 10,
+      "community": 11,
       "norm_label": "handler"
     },
     {
@@ -627,7 +627,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "basehttprequesthandler",
-      "community": 10,
+      "community": 11,
       "norm_label": "basehttprequesthandler"
     },
     {
@@ -637,7 +637,7 @@
       "source_location": "L82",
       "_origin": "ast",
       "id": "scripts_ops_server_handler_send",
-      "community": 10,
+      "community": 11,
       "norm_label": "._send()"
     },
     {
@@ -647,7 +647,7 @@
       "source_location": "L90",
       "_origin": "ast",
       "id": "scripts_ops_server_handler_authed",
-      "community": 10,
+      "community": 11,
       "norm_label": "._authed()"
     },
     {
@@ -657,7 +657,7 @@
       "source_location": "L93",
       "_origin": "ast",
       "id": "scripts_ops_server_handler_route",
-      "community": 10,
+      "community": 11,
       "norm_label": "._route()"
     },
     {
@@ -667,7 +667,7 @@
       "source_location": "L96",
       "_origin": "ast",
       "id": "scripts_ops_server_handler_do_get",
-      "community": 10,
+      "community": 11,
       "norm_label": ".do_get()"
     },
     {
@@ -677,7 +677,7 @@
       "source_location": "L113",
       "_origin": "ast",
       "id": "scripts_ops_server_handler_do_post",
-      "community": 10,
+      "community": 11,
       "norm_label": ".do_post()"
     },
     {
@@ -687,7 +687,7 @@
       "source_location": "L136",
       "_origin": "ast",
       "id": "scripts_ops_server_handler_log_message",
-      "community": 10,
+      "community": 11,
       "norm_label": ".log_message()"
     },
     {
@@ -701,7 +701,7 @@
       },
       "_origin": "ast",
       "id": "scripts_refresh",
-      "community": 13,
+      "community": 19,
       "norm_label": "refresh.sh"
     },
     {
@@ -715,7 +715,7 @@
       },
       "_origin": "ast",
       "id": "scripts_refresh_sh__entry",
-      "community": 13,
+      "community": 19,
       "norm_label": "refresh.sh script"
     },
     {
@@ -729,7 +729,7 @@
       },
       "_origin": "ast",
       "id": "scripts_refresh_hf_hub_disable_xet",
-      "community": 13,
+      "community": 19,
       "norm_label": "hf_hub_disable_xet"
     },
     {
@@ -743,7 +743,7 @@
       },
       "_origin": "ast",
       "id": "scripts_refresh_tokenizers_parallelism",
-      "community": 13,
+      "community": 19,
       "norm_label": "tokenizers_parallelism"
     },
     {
@@ -757,7 +757,7 @@
       },
       "_origin": "ast",
       "id": "scripts_refresh_omp_num_threads",
-      "community": 13,
+      "community": 19,
       "norm_label": "omp_num_threads"
     },
     {
@@ -771,7 +771,7 @@
       },
       "_origin": "ast",
       "id": "scripts_refresh_pytorch_enable_mps_fallback",
-      "community": 13,
+      "community": 19,
       "norm_label": "pytorch_enable_mps_fallback"
     },
     {
@@ -785,7 +785,7 @@
       },
       "_origin": "ast",
       "id": "scripts_refresh_pythonpath",
-      "community": 13,
+      "community": 19,
       "norm_label": "pythonpath"
     },
     {
@@ -795,7 +795,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_renumber",
-      "community": 4,
+      "community": 33,
       "norm_label": "renumber.py"
     },
     {
@@ -805,128 +805,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_renumber_rationale_1",
-      "community": 4,
+      "community": 33,
       "norm_label": "re-derive circular number + dates from each record's stored text and rewrite the"
-    },
-    {
-      "label": "scrape_sebi.py",
-      "file_type": "code",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "scripts_scrape_sebi",
-      "community": 6,
-      "norm_label": "scrape_sebi.py"
-    },
-    {
-      "label": "_parse_date()",
-      "file_type": "code",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L47",
-      "_origin": "ast",
-      "id": "scripts_scrape_sebi_parse_date",
-      "community": 6,
-      "norm_label": "_parse_date()"
-    },
-    {
-      "label": "date",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "date",
-      "community": 6,
-      "norm_label": "date"
-    },
-    {
-      "label": "parse_rows()",
-      "file_type": "code",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L58",
-      "_origin": "ast",
-      "id": "scripts_scrape_sebi_parse_rows",
-      "community": 6,
-      "norm_label": "parse_rows()"
-    },
-    {
-      "label": "fetch()",
-      "file_type": "code",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L75",
-      "_origin": "ast",
-      "id": "scripts_scrape_sebi_fetch",
-      "community": 6,
-      "norm_label": "fetch()"
-    },
-    {
-      "label": "_listing_url()",
-      "file_type": "code",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L101",
-      "_origin": "ast",
-      "id": "scripts_scrape_sebi_listing_url",
-      "community": 6,
-      "norm_label": "_listing_url()"
-    },
-    {
-      "label": "_page()",
-      "file_type": "code",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L105",
-      "_origin": "ast",
-      "id": "scripts_scrape_sebi_page",
-      "community": 6,
-      "norm_label": "_page()"
-    },
-    {
-      "label": "discover()",
-      "file_type": "code",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L123",
-      "_origin": "ast",
-      "id": "scripts_scrape_sebi_discover",
-      "community": 6,
-      "norm_label": "discover()"
-    },
-    {
-      "label": "pdf_url_for()",
-      "file_type": "code",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L159",
-      "_origin": "ast",
-      "id": "scripts_scrape_sebi_pdf_url_for",
-      "community": 6,
-      "norm_label": "pdf_url_for()"
-    },
-    {
-      "label": "main()",
-      "file_type": "code",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L164",
-      "_origin": "ast",
-      "id": "scripts_scrape_sebi_main",
-      "community": 6,
-      "norm_label": "main()"
-    },
-    {
-      "label": "Polite SEBI circular scraper -> data/raw -> corpus (RUN ON YOUR MACHINE).  Legal",
-      "file_type": "rationale",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "scripts_scrape_sebi_rationale_1",
-      "community": 6,
-      "norm_label": "polite sebi circular scraper -> data/raw -> corpus (run on your machine).  legal"
-    },
-    {
-      "label": "Extract (date, circular_url) pairs from a listing page, in page order.",
-      "file_type": "rationale",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L59",
-      "_origin": "ast",
-      "id": "scripts_scrape_sebi_rationale_59",
-      "community": 6,
-      "norm_label": "extract (date, circular_url) pairs from a listing page, in page order."
     },
     {
       "label": "__init__.py",
@@ -935,7 +815,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_init",
-      "community": 7,
+      "community": 6,
       "norm_label": "__init__.py"
     },
     {
@@ -945,7 +825,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_init_rationale_1",
-      "community": 7,
+      "community": 6,
       "norm_label": "sebi circular rag \u2014 local-first, apple silicon.  pipeline: ingest -> segment ->"
     },
     {
@@ -955,7 +835,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_api",
-      "community": 3,
+      "community": 0,
       "norm_label": "api.py"
     },
     {
@@ -965,7 +845,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "src_sebi_rag_api_queryrequest",
-      "community": 3,
+      "community": 0,
       "norm_label": "queryrequest"
     },
     {
@@ -975,7 +855,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "basemodel",
-      "community": 3,
+      "community": 0,
       "norm_label": "basemodel"
     },
     {
@@ -985,7 +865,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "src_sebi_rag_api_citationmeta",
-      "community": 3,
+      "community": 0,
       "norm_label": "citationmeta"
     },
     {
@@ -995,7 +875,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "src_sebi_rag_api_queryresponse",
-      "community": 3,
+      "community": 0,
       "norm_label": "queryresponse"
     },
     {
@@ -1005,7 +885,7 @@
       "source_location": "L68",
       "_origin": "ast",
       "id": "src_sebi_rag_api_build_default_pipeline",
-      "community": 3,
+      "community": 0,
       "norm_label": "build_default_pipeline()"
     },
     {
@@ -1015,7 +895,7 @@
       "source_location": "L119",
       "_origin": "ast",
       "id": "src_sebi_rag_api_citation_meta",
-      "community": 3,
+      "community": 0,
       "norm_label": "_citation_meta()"
     },
     {
@@ -1045,7 +925,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_api_rationale_1",
-      "community": 3,
+      "community": 0,
       "norm_label": "fastapi service over the sebi circular rag pipeline.  run (real stack; loads the"
     },
     {
@@ -1065,7 +945,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "src_sebi_rag_corpus_load_circulars",
-      "community": 2,
+      "community": 3,
       "norm_label": "load_circulars()"
     },
     {
@@ -1075,7 +955,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_sebi_rag_corpus_py_path",
-      "community": 2,
+      "community": 3,
       "norm_label": "path"
     },
     {
@@ -1095,7 +975,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_embeddings",
-      "community": 1,
+      "community": 2,
       "norm_label": "embeddings.py"
     },
     {
@@ -1105,7 +985,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "src_sebi_rag_embeddings_tokens",
-      "community": 14,
+      "community": 22,
       "norm_label": "_tokens()"
     },
     {
@@ -1125,7 +1005,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "protocol",
-      "community": 0,
+      "community": 2,
       "norm_label": "protocol"
     },
     {
@@ -1135,7 +1015,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "src_sebi_rag_embeddings_embedder_encode",
-      "community": 14,
+      "community": 22,
       "norm_label": ".encode()"
     },
     {
@@ -1145,7 +1025,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_sebi_rag_embeddings_py_ndarray",
-      "community": 14,
+      "community": 22,
       "norm_label": "ndarray"
     },
     {
@@ -1155,7 +1035,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "src_sebi_rag_embeddings_hashembedder",
-      "community": 2,
+      "community": 3,
       "norm_label": "hashembedder"
     },
     {
@@ -1165,7 +1045,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "src_sebi_rag_embeddings_hashembedder_init",
-      "community": 2,
+      "community": 3,
       "norm_label": ".__init__()"
     },
     {
@@ -1175,7 +1055,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "src_sebi_rag_embeddings_hashembedder_encode",
-      "community": 14,
+      "community": 22,
       "norm_label": ".encode()"
     },
     {
@@ -1185,7 +1065,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "src_sebi_rag_embeddings_bgem3embedder",
-      "community": 3,
+      "community": 0,
       "norm_label": "bgem3embedder"
     },
     {
@@ -1195,7 +1075,7 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "src_sebi_rag_embeddings_bgem3embedder_init",
-      "community": 3,
+      "community": 0,
       "norm_label": ".__init__()"
     },
     {
@@ -1205,7 +1085,7 @@
       "source_location": "L67",
       "_origin": "ast",
       "id": "src_sebi_rag_embeddings_bgem3embedder_encode",
-      "community": 14,
+      "community": 22,
       "norm_label": ".encode()"
     },
     {
@@ -1215,7 +1095,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_embeddings_rationale_1",
-      "community": 1,
+      "community": 2,
       "norm_label": "embedder protocol + a deterministic test embedder + the real bge-m3 embedder.  t"
     },
     {
@@ -1225,7 +1105,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "src_sebi_rag_embeddings_rationale_30",
-      "community": 2,
+      "community": 3,
       "norm_label": "deterministic hashed bag-of-words embedding. no model, no network.      stable a"
     },
     {
@@ -1235,7 +1115,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "src_sebi_rag_embeddings_rationale_52",
-      "community": 3,
+      "community": 0,
       "norm_label": "production dense embedder: baai/bge-m3 on apple silicon mps (step 10)."
     },
     {
@@ -1245,7 +1125,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_eval",
-      "community": 8,
+      "community": 10,
       "norm_label": "eval.py"
     },
     {
@@ -1255,7 +1135,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_recall_at_k",
-      "community": 8,
+      "community": 10,
       "norm_label": "recall_at_k()"
     },
     {
@@ -1265,7 +1145,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_mrr",
-      "community": 8,
+      "community": 10,
       "norm_label": "mrr()"
     },
     {
@@ -1275,7 +1155,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_ndcg_at_k",
-      "community": 8,
+      "community": 10,
       "norm_label": "ndcg_at_k()"
     },
     {
@@ -1285,7 +1165,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_rationale_1",
-      "community": 8,
+      "community": 10,
       "norm_label": "minimal retrieval metrics (subset of docs/project_context.md section 7).  recall"
     },
     {
@@ -1295,7 +1175,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_harness",
-      "community": 7,
+      "community": 6,
       "norm_label": "eval_harness.py"
     },
     {
@@ -1305,7 +1185,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_harness_doc",
-      "community": 7,
+      "community": 6,
       "norm_label": "_doc()"
     },
     {
@@ -1315,7 +1195,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_harness_unique",
-      "community": 7,
+      "community": 6,
       "norm_label": "_unique()"
     },
     {
@@ -1325,7 +1205,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_harness_evalreport",
-      "community": 7,
+      "community": 6,
       "norm_label": "evalreport"
     },
     {
@@ -1335,7 +1215,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_harness_load_golden",
-      "community": 7,
+      "community": 6,
       "norm_label": "load_golden()"
     },
     {
@@ -1345,7 +1225,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_harness_py_path",
-      "community": 7,
+      "community": 6,
       "norm_label": "path"
     },
     {
@@ -1355,7 +1235,7 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_harness_run_eval",
-      "community": 7,
+      "community": 6,
       "norm_label": "run_eval()"
     },
     {
@@ -1365,7 +1245,7 @@
       "source_location": "L103",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_harness_report_dict",
-      "community": 7,
+      "community": 6,
       "norm_label": "report_dict()"
     },
     {
@@ -1375,7 +1255,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_harness_rationale_1",
-      "community": 7,
+      "community": 6,
       "norm_label": "golden-set evaluation harness (p1).  runs the pipeline over a labelled golden se"
     },
     {
@@ -1385,7 +1265,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_generate",
-      "community": 0,
+      "community": 2,
       "norm_label": "generate.py"
     },
     {
@@ -1395,7 +1275,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_faithfulness",
-      "community": 0,
+      "community": 2,
       "norm_label": "faithfulness()"
     },
     {
@@ -1405,7 +1285,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_answer",
-      "community": 5,
+      "community": 2,
       "norm_label": "answer"
     },
     {
@@ -1415,7 +1295,7 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_generator",
-      "community": 0,
+      "community": 2,
       "norm_label": "generator"
     },
     {
@@ -1425,7 +1305,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_generator_generate",
-      "community": 0,
+      "community": 1,
       "norm_label": ".generate()"
     },
     {
@@ -1435,7 +1315,7 @@
       "source_location": "L60",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_extractivestubgenerator",
-      "community": 0,
+      "community": 4,
       "norm_label": "extractivestubgenerator"
     },
     {
@@ -1445,7 +1325,7 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_extractivestubgenerator_generate",
-      "community": 0,
+      "community": 4,
       "norm_label": ".generate()"
     },
     {
@@ -1455,7 +1335,7 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_judge",
-      "community": 0,
+      "community": 2,
       "norm_label": "judge"
     },
     {
@@ -1465,7 +1345,7 @@
       "source_location": "L77",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_judge_grounded",
-      "community": 0,
+      "community": 1,
       "norm_label": ".grounded()"
     },
     {
@@ -1475,7 +1355,7 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_judge_prompt",
-      "community": 0,
+      "community": 8,
       "norm_label": "_judge_prompt()"
     },
     {
@@ -1485,7 +1365,7 @@
       "source_location": "L92",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_judge_prompt_identify",
-      "community": 0,
+      "community": 8,
       "norm_label": "_judge_prompt_identify()"
     },
     {
@@ -1495,7 +1375,7 @@
       "source_location": "L110",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_parse_excerpt_choice",
-      "community": 0,
+      "community": 8,
       "norm_label": "parse_excerpt_choice()"
     },
     {
@@ -1505,7 +1385,7 @@
       "source_location": "L121",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_parse_yes_no",
-      "community": 0,
+      "community": 8,
       "norm_label": "parse_yes_no()"
     },
     {
@@ -1515,7 +1395,7 @@
       "source_location": "L130",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_mlxjudge",
-      "community": 0,
+      "community": 8,
       "norm_label": "mlxjudge"
     },
     {
@@ -1525,7 +1405,7 @@
       "source_location": "L137",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_mlxjudge_init",
-      "community": 0,
+      "community": 8,
       "norm_label": ".__init__()"
     },
     {
@@ -1535,7 +1415,7 @@
       "source_location": "L153",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_mlxjudge_reply",
-      "community": 0,
+      "community": 8,
       "norm_label": "._reply()"
     },
     {
@@ -1545,7 +1425,7 @@
       "source_location": "L166",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_mlxjudge_grounded",
-      "community": 0,
+      "community": 8,
       "norm_label": ".grounded()"
     },
     {
@@ -1555,7 +1435,7 @@
       "source_location": "L176",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_subjectsimjudge",
-      "community": 0,
+      "community": 4,
       "norm_label": "subjectsimjudge"
     },
     {
@@ -1565,7 +1445,7 @@
       "source_location": "L186",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_subjectsimjudge_init",
-      "community": 0,
+      "community": 4,
       "norm_label": ".__init__()"
     },
     {
@@ -1575,7 +1455,7 @@
       "source_location": "L203",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_subjectsimjudge_vec",
-      "community": 0,
+      "community": 4,
       "norm_label": "._vec()"
     },
     {
@@ -1585,7 +1465,7 @@
       "source_location": "L211",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_subjectsimjudge_section_heading",
-      "community": 0,
+      "community": 4,
       "norm_label": "._section_heading()"
     },
     {
@@ -1595,7 +1475,7 @@
       "source_location": "L218",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_subjectsimjudge_score",
-      "community": 0,
+      "community": 4,
       "norm_label": ".score()"
     },
     {
@@ -1605,7 +1485,7 @@
       "source_location": "L229",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_subjectsimjudge_section_score",
-      "community": 0,
+      "community": 4,
       "norm_label": ".section_score()"
     },
     {
@@ -1615,7 +1495,7 @@
       "source_location": "L238",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_subjectsimjudge_grounded",
-      "community": 0,
+      "community": 4,
       "norm_label": ".grounded()"
     },
     {
@@ -1625,7 +1505,7 @@
       "source_location": "L247",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_grounded_prompt",
-      "community": 0,
+      "community": 1,
       "norm_label": "_grounded_prompt()"
     },
     {
@@ -1635,7 +1515,7 @@
       "source_location": "L265",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_mlxgenerator",
-      "community": 3,
+      "community": 0,
       "norm_label": "mlxgenerator"
     },
     {
@@ -1645,7 +1525,7 @@
       "source_location": "L273",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_mlxgenerator_init",
-      "community": 3,
+      "community": 0,
       "norm_label": ".__init__()"
     },
     {
@@ -1655,7 +1535,7 @@
       "source_location": "L283",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_mlxgenerator_generate",
-      "community": 0,
+      "community": 1,
       "norm_label": ".generate()"
     },
     {
@@ -1665,7 +1545,7 @@
       "source_location": "L301",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_ollamagenerator",
-      "community": 3,
+      "community": 0,
       "norm_label": "ollamagenerator"
     },
     {
@@ -1675,7 +1555,7 @@
       "source_location": "L308",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_ollamagenerator_init",
-      "community": 3,
+      "community": 0,
       "norm_label": ".__init__()"
     },
     {
@@ -1685,7 +1565,7 @@
       "source_location": "L320",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_ollamagenerator_generate",
-      "community": 0,
+      "community": 1,
       "norm_label": ".generate()"
     },
     {
@@ -1695,7 +1575,7 @@
       "source_location": "L354",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_answer_with_abstention",
-      "community": 0,
+      "community": 4,
       "norm_label": "answer_with_abstention()"
     },
     {
@@ -1705,7 +1585,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_rationale_1",
-      "community": 0,
+      "community": 2,
       "norm_label": "generation with a hard abstention gate (d5).  if the top reranked score is below"
     },
     {
@@ -1715,7 +1595,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_rationale_22",
-      "community": 0,
+      "community": 2,
       "norm_label": "check that every circular id the answer cites (in square brackets) was     actua"
     },
     {
@@ -1725,7 +1605,7 @@
       "source_location": "L61",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_rationale_61",
-      "community": 0,
+      "community": 4,
       "norm_label": "deterministic: returns the top context text. no model required."
     },
     {
@@ -1735,7 +1615,7 @@
       "source_location": "L93",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_rationale_93",
-      "community": 0,
+      "community": 8,
       "norm_label": "v2 protocol: closed-set identification instead of yes/no judgment.     naming wh"
     },
     {
@@ -1745,7 +1625,7 @@
       "source_location": "L111",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_rationale_111",
-      "community": 0,
+      "community": 8,
       "norm_label": "true iff the reply names a valid excerpt number. 'none' or anything     unparsea"
     },
     {
@@ -1755,7 +1635,7 @@
       "source_location": "L122",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_rationale_122",
-      "community": 0,
+      "community": 8,
       "norm_label": "first yes/no in the reply; unparseable fails open (grounded=true) so the     gat"
     },
     {
@@ -1765,7 +1645,7 @@
       "source_location": "L131",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_rationale_131",
-      "community": 0,
+      "community": 8,
       "norm_label": "deterministic groundedness judge on mlx (greedy decode, temp 0).      pass share"
     },
     {
@@ -1775,7 +1655,7 @@
       "source_location": "L177",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_rationale_177",
-      "community": 0,
+      "community": 4,
       "norm_label": "adopted gate (eval_gate round 3): deterministic groundedness signal \u2014     max co"
     },
     {
@@ -1785,7 +1665,7 @@
       "source_location": "L219",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_rationale_219",
-      "community": 0,
+      "community": 4,
       "norm_label": "max cosine(query, doc subject line) over contexts \u2014 the primary         gate sig"
     },
     {
@@ -1795,7 +1675,7 @@
       "source_location": "L230",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_rationale_230",
-      "community": 0,
+      "community": 4,
       "norm_label": "max cosine(query, section heading) over contexts \u2014 the second tier."
     },
     {
@@ -1805,7 +1685,7 @@
       "source_location": "L248",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_rationale_248",
-      "community": 0,
+      "community": 1,
       "norm_label": "f4 (adr-001): retrieved text is explicitly delimited as quoted data and     the"
     },
     {
@@ -1815,7 +1695,7 @@
       "source_location": "L266",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_rationale_266",
-      "community": 3,
+      "community": 0,
       "norm_label": "apple-silicon-native generation via mlx-lm (d6 preferred runtime).      loads a"
     },
     {
@@ -1825,218 +1705,8 @@
       "source_location": "L302",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_rationale_302",
-      "community": 3,
+      "community": 0,
       "norm_label": "grounded generation via local ollama (d6 canonical runtime option).      determi"
-    },
-    {
-      "label": "ingest_pdf.py",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "src_sebi_rag_ingest_pdf",
-      "community": 4,
-      "norm_label": "ingest_pdf.py"
-    },
-    {
-      "label": "_ocr_text()",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L43",
-      "_origin": "ast",
-      "id": "src_sebi_rag_ingest_pdf_ocr_text",
-      "community": 4,
-      "norm_label": "_ocr_text()"
-    },
-    {
-      "label": "Path",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "src_sebi_rag_ingest_pdf_py_path",
-      "community": 4,
-      "norm_label": "path"
-    },
-    {
-      "label": "extract_text()",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L58",
-      "_origin": "ast",
-      "id": "src_sebi_rag_ingest_pdf_extract_text",
-      "community": 4,
-      "norm_label": "extract_text()"
-    },
-    {
-      "label": "_header()",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L69",
-      "_origin": "ast",
-      "id": "src_sebi_rag_ingest_pdf_header",
-      "community": 4,
-      "norm_label": "_header()"
-    },
-    {
-      "label": "_iso_date()",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L75",
-      "_origin": "ast",
-      "id": "src_sebi_rag_ingest_pdf_iso_date",
-      "community": 4,
-      "norm_label": "_iso_date()"
-    },
-    {
-      "label": "_subject()",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L93",
-      "_origin": "ast",
-      "id": "src_sebi_rag_ingest_pdf_subject",
-      "community": 4,
-      "norm_label": "_subject()"
-    },
-    {
-      "label": "_primary_number()",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L100",
-      "_origin": "ast",
-      "id": "src_sebi_rag_ingest_pdf_primary_number",
-      "community": 4,
-      "norm_label": "_primary_number()"
-    },
-    {
-      "label": "_labeled_date()",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L112",
-      "_origin": "ast",
-      "id": "src_sebi_rag_ingest_pdf_labeled_date",
-      "community": 4,
-      "norm_label": "_labeled_date()"
-    },
-    {
-      "label": "Pattern",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "pattern",
-      "community": 4,
-      "norm_label": "pattern"
-    },
-    {
-      "label": "parse_meta()",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L117",
-      "_origin": "ast",
-      "id": "src_sebi_rag_ingest_pdf_parse_meta",
-      "community": 4,
-      "norm_label": "parse_meta()"
-    },
-    {
-      "label": "injection_scan()",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L161",
-      "_origin": "ast",
-      "id": "src_sebi_rag_ingest_pdf_injection_scan",
-      "community": 4,
-      "norm_label": "injection_scan()"
-    },
-    {
-      "label": "to_record()",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L166",
-      "_origin": "ast",
-      "id": "src_sebi_rag_ingest_pdf_to_record",
-      "community": 4,
-      "norm_label": "to_record()"
-    },
-    {
-      "label": "_existing_numbers()",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L187",
-      "_origin": "ast",
-      "id": "src_sebi_rag_ingest_pdf_existing_numbers",
-      "community": 4,
-      "norm_label": "_existing_numbers()"
-    },
-    {
-      "label": "_rewrite_replacing()",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L198",
-      "_origin": "ast",
-      "id": "src_sebi_rag_ingest_pdf_rewrite_replacing",
-      "community": 4,
-      "norm_label": "_rewrite_replacing()"
-    },
-    {
-      "label": "ingest()",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L212",
-      "_origin": "ast",
-      "id": "src_sebi_rag_ingest_pdf_ingest",
-      "community": 4,
-      "norm_label": "ingest()"
-    },
-    {
-      "label": "main()",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L237",
-      "_origin": "ast",
-      "id": "src_sebi_rag_ingest_pdf_main",
-      "community": 4,
-      "norm_label": "main()"
-    },
-    {
-      "label": "Local PDF ingestion for SEBI circulars.  Drop a circular PDF into data/raw/ and",
-      "file_type": "rationale",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "src_sebi_rag_ingest_pdf_rationale_1",
-      "community": 4,
-      "norm_label": "local pdf ingestion for sebi circulars.  drop a circular pdf into data/raw/ and"
-    },
-    {
-      "label": "OCR a scanned PDF. Requires pytesseract + pdf2image (+ system tesseract,     pop",
-      "file_type": "rationale",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L44",
-      "_origin": "ast",
-      "id": "src_sebi_rag_ingest_pdf_rationale_44",
-      "community": 4,
-      "norm_label": "ocr a scanned pdf. requires pytesseract + pdf2image (+ system tesseract,     pop"
-    },
-    {
-      "label": "Text above the addressee block ('To,' / Hindi '\u092a\u094d\u0930\u0924\u093f'), else first 600 chars.",
-      "file_type": "rationale",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L70",
-      "_origin": "ast",
-      "id": "src_sebi_rag_ingest_pdf_rationale_70",
-      "community": 4,
-      "norm_label": "text above the addressee block ('to,' / hindi '\u092a\u0930\u0924\u093f'), else first 600 chars."
-    },
-    {
-      "label": "Return the list of matched instruction-like patterns (empty = clean).",
-      "file_type": "rationale",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L162",
-      "_origin": "ast",
-      "id": "src_sebi_rag_ingest_pdf_rationale_162",
-      "community": 4,
-      "norm_label": "return the list of matched instruction-like patterns (empty = clean)."
     },
     {
       "label": "lineage.py",
@@ -2045,7 +1715,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage",
-      "community": 5,
+      "community": 0,
       "norm_label": "lineage.py"
     },
     {
@@ -2055,7 +1725,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_detect_relations",
-      "community": 5,
+      "community": 0,
       "norm_label": "detect_relations()"
     },
     {
@@ -2065,7 +1735,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_lineage",
-      "community": 3,
+      "community": 0,
       "norm_label": "lineage"
     },
     {
@@ -2075,7 +1745,7 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_lineage_status",
-      "community": 3,
+      "community": 0,
       "norm_label": ".status()"
     },
     {
@@ -2085,7 +1755,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_lineage_save",
-      "community": 3,
+      "community": 0,
       "norm_label": ".save()"
     },
     {
@@ -2095,7 +1765,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_py_path",
-      "community": 3,
+      "community": 0,
       "norm_label": "path"
     },
     {
@@ -2105,7 +1775,7 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_lineage_load",
-      "community": 3,
+      "community": 0,
       "norm_label": ".load()"
     },
     {
@@ -2115,7 +1785,7 @@
       "source_location": "L80",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_mc_topic",
-      "community": 5,
+      "community": 0,
       "norm_label": "mc_topic()"
     },
     {
@@ -2125,7 +1795,7 @@
       "source_location": "L98",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_currency",
-      "community": 5,
+      "community": 0,
       "norm_label": "_currency()"
     },
     {
@@ -2135,7 +1805,7 @@
       "source_location": "L102",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_build_lineage",
-      "community": 5,
+      "community": 0,
       "norm_label": "build_lineage()"
     },
     {
@@ -2145,7 +1815,7 @@
       "source_location": "L140",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_demote_superseded",
-      "community": 5,
+      "community": 2,
       "norm_label": "demote_superseded()"
     },
     {
@@ -2155,7 +1825,7 @@
       "source_location": "L152",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_superseded_citations",
-      "community": 5,
+      "community": 0,
       "norm_label": "superseded_citations()"
     },
     {
@@ -2165,7 +1835,7 @@
       "source_location": "L166",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_load_records",
-      "community": 3,
+      "community": 0,
       "norm_label": "load_records()"
     },
     {
@@ -2175,7 +1845,7 @@
       "source_location": "L175",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_annotate_corpus",
-      "community": 3,
+      "community": 0,
       "norm_label": "annotate_corpus()"
     },
     {
@@ -2185,7 +1855,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_rationale_1",
-      "community": 5,
+      "community": 0,
       "norm_label": "p2 \u2014 cross-document supersession resolution.  classifies each circular's referen"
     },
     {
@@ -2195,7 +1865,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_rationale_30",
-      "community": 5,
+      "community": 0,
       "norm_label": "return (relation, referenced_circular) for each distinct reference."
     },
     {
@@ -2205,7 +1875,7 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_rationale_81",
-      "community": 5,
+      "community": 0,
       "norm_label": "normalised topic of a 'master circular for/on <topic>' title, else none.      us"
     },
     {
@@ -2215,7 +1885,7 @@
       "source_location": "L141",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_rationale_141",
-      "community": 5,
+      "community": 2,
       "norm_label": "down-weight reranked (chunk, score) pairs from superseded circulars and     re-s"
     },
     {
@@ -2225,7 +1895,7 @@
       "source_location": "L153",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_rationale_153",
-      "community": 5,
+      "community": 0,
       "norm_label": "map any cited circular that is superseded -> the circular(s) superseding it."
     },
     {
@@ -2235,7 +1905,7 @@
       "source_location": "L176",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_rationale_176",
-      "community": 3,
+      "community": 0,
       "norm_label": "update each corpus record's supersession_status + superseded_by + supersedes"
     },
     {
@@ -2245,7 +1915,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_pipeline",
-      "community": 1,
+      "community": 2,
       "norm_label": "pipeline.py"
     },
     {
@@ -2265,7 +1935,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "src_sebi_rag_pipeline_ragpipeline_build",
-      "community": 2,
+      "community": 3,
       "norm_label": ".build()"
     },
     {
@@ -2275,7 +1945,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "src_sebi_rag_pipeline_ragpipeline_query",
-      "community": 5,
+      "community": 2,
       "norm_label": ".query()"
     },
     {
@@ -2285,7 +1955,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_pipeline_rationale_1",
-      "community": 1,
+      "community": 2,
       "norm_label": "end-to-end wiring: segment -> hybrid retrieve -> rerank -> generate/abstain."
     },
     {
@@ -2305,7 +1975,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "src_sebi_rag_rerank_reranker",
-      "community": 0,
+      "community": 2,
       "norm_label": "reranker"
     },
     {
@@ -2315,7 +1985,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "src_sebi_rag_rerank_reranker_rerank",
-      "community": 0,
+      "community": 1,
       "norm_label": ".rerank()"
     },
     {
@@ -2325,7 +1995,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "src_sebi_rag_rerank_lexicalreranker",
-      "community": 2,
+      "community": 3,
       "norm_label": "lexicalreranker"
     },
     {
@@ -2335,7 +2005,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "src_sebi_rag_rerank_lexicalreranker_rerank",
-      "community": 0,
+      "community": 3,
       "norm_label": ".rerank()"
     },
     {
@@ -2395,7 +2065,7 @@
       "source_location": "L115",
       "_origin": "ast",
       "id": "src_sebi_rag_rerank_crossencoderreranker",
-      "community": 3,
+      "community": 0,
       "norm_label": "crossencoderreranker"
     },
     {
@@ -2405,7 +2075,7 @@
       "source_location": "L121",
       "_origin": "ast",
       "id": "src_sebi_rag_rerank_crossencoderreranker_init",
-      "community": 3,
+      "community": 0,
       "norm_label": ".__init__()"
     },
     {
@@ -2435,7 +2105,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "src_sebi_rag_rerank_rationale_23",
-      "community": 2,
+      "community": 3,
       "norm_label": "deterministic query-coverage reranker (test/fallback).      score = fraction of"
     },
     {
@@ -2455,7 +2125,7 @@
       "source_location": "L116",
       "_origin": "ast",
       "id": "src_sebi_rag_rerank_rationale_116",
-      "community": 3,
+      "community": 0,
       "norm_label": "production reranker: bge-reranker-v2-m3 via sentence-transformers     crossencod"
     },
     {
@@ -2745,7 +2415,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "src_sebi_rag_segment_circularmeta",
-      "community": 2,
+      "community": 3,
       "norm_label": "circularmeta"
     },
     {
@@ -2755,7 +2425,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "src_sebi_rag_segment_chunk",
-      "community": 0,
+      "community": 1,
       "norm_label": "chunk"
     },
     {
@@ -2765,7 +2435,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "src_sebi_rag_segment_paragraphs",
-      "community": 2,
+      "community": 3,
       "norm_label": "_paragraphs()"
     },
     {
@@ -2775,7 +2445,7 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "src_sebi_rag_segment_hierarchical_chunk",
-      "community": 2,
+      "community": 3,
       "norm_label": "hierarchical_chunk()"
     },
     {
@@ -2795,7 +2465,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "src_sebi_rag_segment_rationale_35",
-      "community": 2,
+      "community": 3,
       "norm_label": "split into units each <= max_chars.      pdf-extracted text often lacks blank-li"
     },
     {
@@ -2805,7 +2475,7 @@
       "source_location": "L77",
       "_origin": "ast",
       "id": "src_sebi_rag_segment_rationale_77",
-      "community": 2,
+      "community": 3,
       "norm_label": "document -> section -> paragraph chunks with stable ids.      a \"section\" is det"
     },
     {
@@ -2815,7 +2485,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_settings",
-      "community": 3,
+      "community": 0,
       "norm_label": "settings.py"
     },
     {
@@ -2825,7 +2495,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "src_sebi_rag_settings_settings",
-      "community": 3,
+      "community": 0,
       "norm_label": "settings"
     },
     {
@@ -2835,7 +2505,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "src_sebi_rag_settings_settings_load",
-      "community": 3,
+      "community": 15,
       "norm_label": ".load()"
     },
     {
@@ -2845,7 +2515,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_sebi_rag_settings_py_path",
-      "community": 3,
+      "community": 15,
       "norm_label": "path"
     },
     {
@@ -2855,7 +2525,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_settings_rationale_1",
-      "community": 3,
+      "community": 0,
       "norm_label": "central configuration: config.toml defaults, overridden by sebi_rag_* env vars."
     },
     {
@@ -2865,7 +2535,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_ui",
-      "community": 16,
+      "community": 27,
       "norm_label": "ui.py"
     },
     {
@@ -2875,7 +2545,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "src_sebi_rag_ui_submit_query",
-      "community": 16,
+      "community": 27,
       "norm_label": "submit_query()"
     },
     {
@@ -2885,7 +2555,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "src_sebi_rag_ui_build_ui",
-      "community": 16,
+      "community": 27,
       "norm_label": "build_ui()"
     },
     {
@@ -2895,7 +2565,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_conftest",
-      "community": 19,
+      "community": 34,
       "norm_label": "conftest.py"
     },
     {
@@ -2905,7 +2575,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_conftest_rationale_1",
-      "community": 19,
+      "community": 34,
       "norm_label": "test-time environment guards.  set before torch / flagembedding / faiss initiali"
     },
     {
@@ -2915,7 +2585,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_api",
-      "community": 2,
+      "community": 3,
       "norm_label": "test_api.py"
     },
     {
@@ -2925,7 +2595,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "tests_test_api_offline_pipeline",
-      "community": 2,
+      "community": 3,
       "norm_label": "_offline_pipeline()"
     },
     {
@@ -2935,7 +2605,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "tests_test_api_tiny_pipeline",
-      "community": 2,
+      "community": 3,
       "norm_label": "_tiny_pipeline()"
     },
     {
@@ -2945,7 +2615,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "tests_test_api_slowgenerator",
-      "community": 2,
+      "community": 3,
       "norm_label": "_slowgenerator"
     },
     {
@@ -2955,7 +2625,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "tests_test_api_slowgenerator_generate",
-      "community": 2,
+      "community": 3,
       "norm_label": ".generate()"
     },
     {
@@ -2965,7 +2635,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "tests_test_api_slow_pipeline",
-      "community": 2,
+      "community": 3,
       "norm_label": "_slow_pipeline()"
     },
     {
@@ -2975,7 +2645,7 @@
       "source_location": "L61",
       "_origin": "ast",
       "id": "tests_test_api_test_health",
-      "community": 2,
+      "community": 3,
       "norm_label": "test_health()"
     },
     {
@@ -2985,7 +2655,7 @@
       "source_location": "L68",
       "_origin": "ast",
       "id": "tests_test_api_test_query_grounded_with_metadata_and_latency",
-      "community": 2,
+      "community": 3,
       "norm_label": "test_query_grounded_with_metadata_and_latency()"
     },
     {
@@ -2995,7 +2665,7 @@
       "source_location": "L80",
       "_origin": "ast",
       "id": "tests_test_api_test_query_abstains_out_of_domain",
-      "community": 2,
+      "community": 3,
       "norm_label": "test_query_abstains_out_of_domain()"
     },
     {
@@ -3005,7 +2675,7 @@
       "source_location": "L87",
       "_origin": "ast",
       "id": "tests_test_api_test_top_k_zero_rejected_422",
-      "community": 2,
+      "community": 3,
       "norm_label": "test_top_k_zero_rejected_422()"
     },
     {
@@ -3015,7 +2685,7 @@
       "source_location": "L93",
       "_origin": "ast",
       "id": "tests_test_api_test_response_carries_certainty_fields",
-      "community": 2,
+      "community": 3,
       "norm_label": "test_response_carries_certainty_fields()"
     },
     {
@@ -3025,7 +2695,7 @@
       "source_location": "L102",
       "_origin": "ast",
       "id": "tests_test_api_test_auth_required_when_key_set",
-      "community": 2,
+      "community": 3,
       "norm_label": "test_auth_required_when_key_set()"
     },
     {
@@ -3035,7 +2705,7 @@
       "source_location": "L111",
       "_origin": "ast",
       "id": "tests_test_api_test_rate_limit",
-      "community": 2,
+      "community": 3,
       "norm_label": "test_rate_limit()"
     },
     {
@@ -3045,7 +2715,7 @@
       "source_location": "L120",
       "_origin": "ast",
       "id": "tests_test_api_test_query_exceeds_time_budget_returns_504",
-      "community": 2,
+      "community": 3,
       "norm_label": "test_query_exceeds_time_budget_returns_504()"
     },
     {
@@ -3055,7 +2725,7 @@
       "source_location": "L127",
       "_origin": "ast",
       "id": "tests_test_api_test_citation_meta_reports_superseded",
-      "community": 2,
+      "community": 3,
       "norm_label": "test_citation_meta_reports_superseded()"
     },
     {
@@ -3065,7 +2735,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_api_rationale_1",
-      "community": 2,
+      "community": 3,
       "norm_label": "fastapi service tests (offline pipelines): endpoints, auth, rate limit, metadata"
     },
     {
@@ -3075,7 +2745,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_certainty",
-      "community": 0,
+      "community": 4,
       "norm_label": "test_certainty.py"
     },
     {
@@ -3085,7 +2755,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "tests_test_certainty_chunk",
-      "community": 0,
+      "community": 4,
       "norm_label": "_chunk()"
     },
     {
@@ -3095,7 +2765,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "tests_test_certainty_test_no_context_reason_when_top_k_zero",
-      "community": 0,
+      "community": 4,
       "norm_label": "test_no_context_reason_when_top_k_zero()"
     },
     {
@@ -3105,7 +2775,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "tests_test_certainty_test_score_floor_reason",
-      "community": 0,
+      "community": 4,
       "norm_label": "test_score_floor_reason()"
     },
     {
@@ -3115,7 +2785,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "tests_test_certainty_test_subject_gate_reason_and_subject_sim_recorded",
-      "community": 0,
+      "community": 4,
       "norm_label": "test_subject_gate_reason_and_subject_sim_recorded()"
     },
     {
@@ -3125,7 +2795,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "tests_test_certainty_test_certainty_high_when_subject_sim_strong_and_faithful",
-      "community": 0,
+      "community": 4,
       "norm_label": "test_certainty_high_when_subject_sim_strong_and_faithful()"
     },
     {
@@ -3135,7 +2805,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "tests_test_certainty_test_certainty_capped_medium_without_gate",
-      "community": 0,
+      "community": 4,
       "norm_label": "test_certainty_capped_medium_without_gate()"
     },
     {
@@ -3145,7 +2815,7 @@
       "source_location": "L61",
       "_origin": "ast",
       "id": "tests_test_certainty_test_advisory_draft_on_gate_failure_only_when_requested",
-      "community": 0,
+      "community": 4,
       "norm_label": "test_advisory_draft_on_gate_failure_only_when_requested()"
     },
     {
@@ -3155,7 +2825,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_certainty_rationale_1",
-      "community": 0,
+      "community": 4,
       "norm_label": "offline tests for the adr-002 certainty architecture: abstention reasons, confid"
     },
     {
@@ -3175,7 +2845,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "tests_test_eval_harness_pipeline",
-      "community": 2,
+      "community": 3,
       "norm_label": "_pipeline()"
     },
     {
@@ -3185,7 +2855,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "tests_test_eval_harness_test_real_corpus_loads_with_provenance_fields",
-      "community": 2,
+      "community": 3,
       "norm_label": "test_real_corpus_loads_with_provenance_fields()"
     },
     {
@@ -3195,7 +2865,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "tests_test_eval_harness_test_eval_harness_metric_suite",
-      "community": 7,
+      "community": 6,
       "norm_label": "test_eval_harness_metric_suite()"
     },
     {
@@ -3225,7 +2895,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "tests_test_faithfulness_test_faithfulness_scoring",
-      "community": 0,
+      "community": 2,
       "norm_label": "test_faithfulness_scoring()"
     },
     {
@@ -3235,7 +2905,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "tests_test_faithfulness_hallucinatinggenerator",
-      "community": 2,
+      "community": 3,
       "norm_label": "_hallucinatinggenerator"
     },
     {
@@ -3245,7 +2915,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "tests_test_faithfulness_hallucinatinggenerator_generate",
-      "community": 2,
+      "community": 3,
       "norm_label": ".generate()"
     },
     {
@@ -3255,7 +2925,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "tests_test_faithfulness_test_pipeline_flags_hallucinated_citation",
-      "community": 2,
+      "community": 3,
       "norm_label": "test_pipeline_flags_hallucinated_citation()"
     },
     {
@@ -3275,7 +2945,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_gate",
-      "community": 0,
+      "community": 4,
       "norm_label": "test_gate.py"
     },
     {
@@ -3285,7 +2955,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "tests_test_gate_chunk",
-      "community": 0,
+      "community": 4,
       "norm_label": "_chunk()"
     },
     {
@@ -3295,7 +2965,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "tests_test_gate_stubjudge",
-      "community": 0,
+      "community": 4,
       "norm_label": "_stubjudge"
     },
     {
@@ -3305,7 +2975,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "tests_test_gate_stubjudge_init",
-      "community": 0,
+      "community": 4,
       "norm_label": ".__init__()"
     },
     {
@@ -3315,7 +2985,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "tests_test_gate_stubjudge_grounded",
-      "community": 0,
+      "community": 4,
       "norm_label": ".grounded()"
     },
     {
@@ -3325,7 +2995,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "tests_test_gate_test_parse_yes_no",
-      "community": 0,
+      "community": 8,
       "norm_label": "test_parse_yes_no()"
     },
     {
@@ -3335,7 +3005,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "tests_test_gate_test_parse_excerpt_choice_fails_closed",
-      "community": 0,
+      "community": 8,
       "norm_label": "test_parse_excerpt_choice_fails_closed()"
     },
     {
@@ -3345,7 +3015,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "tests_test_gate_test_identify_prompt_numbers_excerpts",
-      "community": 0,
+      "community": 4,
       "norm_label": "test_identify_prompt_numbers_excerpts()"
     },
     {
@@ -3355,7 +3025,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "tests_test_gate_test_judge_no_forces_abstention",
-      "community": 0,
+      "community": 4,
       "norm_label": "test_judge_no_forces_abstention()"
     },
     {
@@ -3365,7 +3035,7 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "tests_test_gate_test_judge_yes_answers_normally",
-      "community": 0,
+      "community": 4,
       "norm_label": "test_judge_yes_answers_normally()"
     },
     {
@@ -3375,7 +3045,7 @@
       "source_location": "L66",
       "_origin": "ast",
       "id": "tests_test_gate_test_score_gate_short_circuits_judge",
-      "community": 0,
+      "community": 4,
       "norm_label": "test_score_gate_short_circuits_judge()"
     },
     {
@@ -3385,7 +3055,7 @@
       "source_location": "L74",
       "_origin": "ast",
       "id": "tests_test_gate_test_subject_sim_judge_separates_by_subject",
-      "community": 0,
+      "community": 4,
       "norm_label": "test_subject_sim_judge_separates_by_subject()"
     },
     {
@@ -3395,7 +3065,7 @@
       "source_location": "L91",
       "_origin": "ast",
       "id": "tests_test_gate_test_subject_sim_judge_two_tier_section_gate",
-      "community": 0,
+      "community": 4,
       "norm_label": "test_subject_sim_judge_two_tier_section_gate()"
     },
     {
@@ -3405,7 +3075,7 @@
       "source_location": "L113",
       "_origin": "ast",
       "id": "tests_test_gate_test_no_judge_preserves_legacy_behaviour",
-      "community": 0,
+      "community": 4,
       "norm_label": "test_no_judge_preserves_legacy_behaviour()"
     },
     {
@@ -3415,7 +3085,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_gate_rationale_1",
-      "community": 0,
+      "community": 4,
       "norm_label": "offline tests for the groundedness abstention gate (adr-001 item 7)."
     },
     {
@@ -3515,7 +3185,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_ingest_pdf",
-      "community": 4,
+      "community": 23,
       "norm_label": "test_ingest_pdf.py"
     },
     {
@@ -3525,7 +3195,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "tests_test_ingest_pdf_make_pdf",
-      "community": 4,
+      "community": 23,
       "norm_label": "_make_pdf()"
     },
     {
@@ -3535,7 +3205,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "tests_test_ingest_pdf_test_ingest_extracts_metadata_and_lineage",
-      "community": 4,
+      "community": 23,
       "norm_label": "test_ingest_extracts_metadata_and_lineage()"
     },
     {
@@ -3545,7 +3215,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "tests_test_ingest_pdf_test_parse_meta_handles_old_format",
-      "community": 4,
+      "community": 23,
       "norm_label": "test_parse_meta_handles_old_format()"
     },
     {
@@ -3555,7 +3225,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_ingest_pdf_rationale_1",
-      "community": 4,
+      "community": 23,
       "norm_label": "validate the local pdf ingestion path with a synthetic circular pdf."
     },
     {
@@ -3565,7 +3235,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_injection",
-      "community": 4,
+      "community": 20,
       "norm_label": "test_injection.py"
     },
     {
@@ -3575,7 +3245,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "tests_test_injection_chunk",
-      "community": 4,
+      "community": 20,
       "norm_label": "_chunk()"
     },
     {
@@ -3585,7 +3255,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "tests_test_injection_test_grounded_prompt_delimits_sources_and_states_data_rule",
-      "community": 4,
+      "community": 20,
       "norm_label": "test_grounded_prompt_delimits_sources_and_states_data_rule()"
     },
     {
@@ -3595,7 +3265,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "tests_test_injection_test_injection_scan_flags_known_patterns",
-      "community": 4,
+      "community": 20,
       "norm_label": "test_injection_scan_flags_known_patterns()"
     },
     {
@@ -3605,7 +3275,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "tests_test_injection_test_injection_scan_clean_on_real_legal_text",
-      "community": 4,
+      "community": 20,
       "norm_label": "test_injection_scan_clean_on_real_legal_text()"
     },
     {
@@ -3615,7 +3285,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "tests_test_injection_test_to_record_carries_injection_flags",
-      "community": 4,
+      "community": 20,
       "norm_label": "test_to_record_carries_injection_flags()"
     },
     {
@@ -3625,7 +3295,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_injection_rationale_1",
-      "community": 4,
+      "community": 20,
       "norm_label": "offline tests for f4 prompt-injection hardening (adr-001)."
     },
     {
@@ -3635,7 +3305,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_integration_e2e",
-      "community": 8,
+      "community": 2,
       "norm_label": "test_integration_e2e.py"
     },
     {
@@ -3645,7 +3315,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "tests_test_integration_e2e_ollama_up",
-      "community": 8,
+      "community": 0,
       "norm_label": "_ollama_up()"
     },
     {
@@ -3655,7 +3325,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "tests_test_integration_e2e_pipeline",
-      "community": 3,
+      "community": 0,
       "norm_label": "pipeline()"
     },
     {
@@ -3665,7 +3335,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "tests_test_integration_e2e_test_e2e_grounded_answer_with_citation",
-      "community": 8,
+      "community": 2,
       "norm_label": "test_e2e_grounded_answer_with_citation()"
     },
     {
@@ -3675,7 +3345,7 @@
       "source_location": "L61",
       "_origin": "ast",
       "id": "tests_test_integration_e2e_test_e2e_abstains_out_of_domain",
-      "community": 8,
+      "community": 2,
       "norm_label": "test_e2e_abstains_out_of_domain()"
     },
     {
@@ -3685,7 +3355,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_integration_e2e_rationale_1",
-      "community": 8,
+      "community": 2,
       "norm_label": "step 12 \u2014 end-to-end rag integration test with the real stack.  bge-m3 (mps) + b"
     },
     {
@@ -3695,7 +3365,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_lineage",
-      "community": 5,
+      "community": 0,
       "norm_label": "test_lineage.py"
     },
     {
@@ -3705,7 +3375,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "tests_test_lineage_test_supersession_detected_from_text",
-      "community": 5,
+      "community": 0,
       "norm_label": "test_supersession_detected_from_text()"
     },
     {
@@ -3715,7 +3385,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "tests_test_lineage_test_superseded_citations_flagged_for_retrieval",
-      "community": 5,
+      "community": 0,
       "norm_label": "test_superseded_citations_flagged_for_retrieval()"
     },
     {
@@ -3725,7 +3395,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "tests_test_lineage_test_lineage_save_load_roundtrip",
-      "community": 5,
+      "community": 0,
       "norm_label": "test_lineage_save_load_roundtrip()"
     },
     {
@@ -3735,7 +3405,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "tests_test_lineage_test_master_circular_reissue_supersession",
-      "community": 5,
+      "community": 0,
       "norm_label": "test_master_circular_reissue_supersession()"
     },
     {
@@ -3745,7 +3415,7 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "tests_test_lineage_test_demote_superseded_puts_in_force_on_top",
-      "community": 5,
+      "community": 0,
       "norm_label": "test_demote_superseded_puts_in_force_on_top()"
     },
     {
@@ -3755,7 +3425,7 @@
       "source_location": "L91",
       "_origin": "ast",
       "id": "tests_test_lineage_test_plain_citation_is_not_supersession",
-      "community": 5,
+      "community": 0,
       "norm_label": "test_plain_citation_is_not_supersession()"
     },
     {
@@ -3765,7 +3435,7 @@
       "source_location": "L100",
       "_origin": "ast",
       "id": "tests_test_lineage_test_real_corpus_oiae_supersedes_listed_circulars",
-      "community": 5,
+      "community": 0,
       "norm_label": "test_real_corpus_oiae_supersedes_listed_circulars()"
     },
     {
@@ -3775,7 +3445,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_lineage_rationale_1",
-      "community": 5,
+      "community": 0,
       "norm_label": "p2 lineage / supersession resolution tests."
     },
     {
@@ -3785,7 +3455,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_persistence",
-      "community": 2,
+      "community": 1,
       "norm_label": "test_persistence.py"
     },
     {
@@ -3795,7 +3465,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "tests_test_persistence_chunks",
-      "community": 2,
+      "community": 3,
       "norm_label": "_chunks()"
     },
     {
@@ -3815,7 +3485,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_persistence_rationale_1",
-      "community": 2,
+      "community": 1,
       "norm_label": "index persistence round-trip (offline)."
     },
     {
@@ -3825,7 +3495,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_pipeline",
-      "community": 8,
+      "community": 10,
       "norm_label": "test_pipeline.py"
     },
     {
@@ -3835,7 +3505,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "tests_test_pipeline_build_chunks",
-      "community": 8,
+      "community": 10,
       "norm_label": "_build_chunks()"
     },
     {
@@ -3845,7 +3515,7 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "tests_test_pipeline_build_pipeline",
-      "community": 8,
+      "community": 10,
       "norm_label": "_build_pipeline()"
     },
     {
@@ -3855,7 +3525,7 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "tests_test_pipeline_test_segmentation_has_stable_ids_and_metadata",
-      "community": 8,
+      "community": 10,
       "norm_label": "test_segmentation_has_stable_ids_and_metadata()"
     },
     {
@@ -3875,7 +3545,7 @@
       "source_location": "L100",
       "_origin": "ast",
       "id": "tests_test_pipeline_test_hybrid_retrieval_finds_relevant_circular",
-      "community": 8,
+      "community": 10,
       "norm_label": "test_hybrid_retrieval_finds_relevant_circular()"
     },
     {
@@ -3885,7 +3555,7 @@
       "source_location": "L111",
       "_origin": "ast",
       "id": "tests_test_pipeline_test_abstention_on_out_of_domain_query",
-      "community": 8,
+      "community": 10,
       "norm_label": "test_abstention_on_out_of_domain_query()"
     },
     {
@@ -3895,7 +3565,7 @@
       "source_location": "L119",
       "_origin": "ast",
       "id": "tests_test_pipeline_test_answer_flags_superseded_citation",
-      "community": 2,
+      "community": 3,
       "norm_label": "test_answer_flags_superseded_citation()"
     },
     {
@@ -3905,7 +3575,7 @@
       "source_location": "L141",
       "_origin": "ast",
       "id": "tests_test_pipeline_test_retrieval_metrics",
-      "community": 8,
+      "community": 10,
       "norm_label": "test_retrieval_metrics()"
     },
     {
@@ -3915,7 +3585,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_pipeline_rationale_1",
-      "community": 8,
+      "community": 10,
       "norm_label": "minimal end-to-end test of the sebi rag pipeline.  runs fully offline (hashembed"
     },
     {
@@ -3999,93 +3669,13 @@
       "norm_label": "bypass __init__ (no mlx); score by keyword overlap to test ordering."
     },
     {
-      "label": "test_scrape_sebi.py",
-      "file_type": "code",
-      "source_file": "tests/test_scrape_sebi.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "tests_test_scrape_sebi",
-      "community": 6,
-      "norm_label": "test_scrape_sebi.py"
-    },
-    {
-      "label": "_row()",
-      "file_type": "code",
-      "source_file": "tests/test_scrape_sebi.py",
-      "source_location": "L18",
-      "_origin": "ast",
-      "id": "tests_test_scrape_sebi_row",
-      "community": 6,
-      "norm_label": "_row()"
-    },
-    {
-      "label": "test_circular_href_matches_both_kinds()",
-      "file_type": "code",
-      "source_file": "tests/test_scrape_sebi.py",
-      "source_location": "L22",
-      "_origin": "ast",
-      "id": "tests_test_scrape_sebi_test_circular_href_matches_both_kinds",
-      "community": 6,
-      "norm_label": "test_circular_href_matches_both_kinds()"
-    },
-    {
-      "label": "test_parse_rows_pairs_date_and_url()",
-      "file_type": "code",
-      "source_file": "tests/test_scrape_sebi.py",
-      "source_location": "L31",
-      "_origin": "ast",
-      "id": "tests_test_scrape_sebi_test_parse_rows_pairs_date_and_url",
-      "community": 6,
-      "norm_label": "test_parse_rows_pairs_date_and_url()"
-    },
-    {
-      "label": "test_discover_applies_date_filter()",
-      "file_type": "code",
-      "source_file": "tests/test_scrape_sebi.py",
-      "source_location": "L38",
-      "_origin": "ast",
-      "id": "tests_test_scrape_sebi_test_discover_applies_date_filter",
-      "community": 6,
-      "norm_label": "test_discover_applies_date_filter()"
-    },
-    {
-      "label": "test_discover_graceful_on_fetch_error()",
-      "file_type": "code",
-      "source_file": "tests/test_scrape_sebi.py",
-      "source_location": "L47",
-      "_origin": "ast",
-      "id": "tests_test_scrape_sebi_test_discover_graceful_on_fetch_error",
-      "community": 6,
-      "norm_label": "test_discover_graceful_on_fetch_error()"
-    },
-    {
-      "label": "test_discover_no_advance_guard_stops()",
-      "file_type": "code",
-      "source_file": "tests/test_scrape_sebi.py",
-      "source_location": "L61",
-      "_origin": "ast",
-      "id": "tests_test_scrape_sebi_test_discover_no_advance_guard_stops",
-      "community": 6,
-      "norm_label": "test_discover_no_advance_guard_stops()"
-    },
-    {
-      "label": "Offline tests for the SEBI scraper parsing / pagination logic (no network).",
-      "file_type": "rationale",
-      "source_file": "tests/test_scrape_sebi.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "tests_test_scrape_sebi_rationale_1",
-      "community": 6,
-      "norm_label": "offline tests for the sebi scraper parsing / pagination logic (no network)."
-    },
-    {
       "label": "test_settings.py",
       "file_type": "code",
       "source_file": "tests/test_settings.py",
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_settings",
-      "community": 3,
+      "community": 15,
       "norm_label": "test_settings.py"
     },
     {
@@ -4095,7 +3685,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "tests_test_settings_clear",
-      "community": 3,
+      "community": 15,
       "norm_label": "_clear()"
     },
     {
@@ -4105,7 +3695,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "tests_test_settings_test_defaults_when_no_file",
-      "community": 3,
+      "community": 15,
       "norm_label": "test_defaults_when_no_file()"
     },
     {
@@ -4115,7 +3705,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "tests_test_settings_test_env_overrides",
-      "community": 3,
+      "community": 15,
       "norm_label": "test_env_overrides()"
     },
     {
@@ -4125,7 +3715,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "tests_test_settings_test_toml_then_env_precedence",
-      "community": 3,
+      "community": 15,
       "norm_label": "test_toml_then_env_precedence()"
     },
     {
@@ -4135,8 +3725,1141 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_settings_rationale_1",
-      "community": 3,
+      "community": 15,
       "norm_label": "settings: defaults, config.toml, and env-override precedence."
+    },
+    {
+      "label": "SEBI Circular RAG",
+      "type": "entity",
+      "confidence": "extracted",
+      "description": "Local-first, Apple Silicon RAG system over Indian SEBI circulars with hybrid retrieval, cross-encoder reranking, citation generation, and supersession-aware lineage",
+      "source_location": "README.md#L1",
+      "file_type": "concept",
+      "id": "sebi-circular-rag",
+      "community": 7,
+      "norm_label": "sebi circular rag"
+    },
+    {
+      "label": "FastAPI Service",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "Backend API service for SEBI RAG with authentication and query endpoints",
+      "source_location": "AGENTS.md#L9",
+      "file_type": "concept",
+      "id": "fastapi-service",
+      "community": 7,
+      "norm_label": "fastapi service"
+    },
+    {
+      "label": "Gradio UI",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "Interactive dashboard for SEBI RAG exploration and querying",
+      "source_location": "AGENTS.md#L9",
+      "file_type": "concept",
+      "id": "gradio-ui",
+      "community": 7,
+      "norm_label": "gradio ui"
+    },
+    {
+      "label": "FAISS",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "Dense vector search engine for hybrid retrieval component",
+      "source_location": "AGENTS.md#L10",
+      "file_type": "concept",
+      "id": "faiss",
+      "community": 14,
+      "norm_label": "faiss"
+    },
+    {
+      "label": "BM25",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "Sparse retrieval algorithm for hybrid search fusion",
+      "source_location": "AGENTS.md#L10",
+      "file_type": "concept",
+      "id": "bm25",
+      "community": 14,
+      "norm_label": "bm25"
+    },
+    {
+      "label": "Hybrid Retrieval",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Combines FAISS dense retrieval and BM25 sparse search with Reciprocal Rank Fusion for legal text matching",
+      "source_location": "docs/USAGE.md#L15",
+      "file_type": "concept",
+      "id": "hybrid-retrieval",
+      "community": 14,
+      "norm_label": "hybrid retrieval"
+    },
+    {
+      "label": "Cross-encoder Reranking",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Uses BGE-Reranker-v2-m3 to rerank retrieved chunks and demote superseded content",
+      "source_location": "docs/USAGE.md#L17",
+      "file_type": "concept",
+      "id": "cross-encoder-reranking",
+      "community": 16,
+      "norm_label": "cross-encoder reranking"
+    },
+    {
+      "label": "BGE-M3 Embedder",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "Dense embedding model for semantic search in FAISS index",
+      "source_location": "AGENTS.md#L33",
+      "file_type": "concept",
+      "id": "bge-m3-embedder",
+      "community": 13,
+      "norm_label": "bge-m3 embedder"
+    },
+    {
+      "label": "Supersession Tracking",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Lineage graph marking circular in_force/superseded status and relationships",
+      "source_location": "docs/USAGE.md#L20",
+      "file_type": "concept",
+      "id": "supersession-tracking",
+      "community": 16,
+      "norm_label": "supersession tracking"
+    },
+    {
+      "label": "Citation Generation",
+      "type": "feature",
+      "confidence": "extracted",
+      "description": "Generates citations with supersession status and faithfulness checks",
+      "source_location": "AGENTS.md#L10",
+      "file_type": "concept",
+      "id": "citation-generation",
+      "community": 7,
+      "norm_label": "citation generation"
+    },
+    {
+      "label": "Abstention Gate",
+      "type": "feature",
+      "confidence": "extracted",
+      "description": "Returns I don't know response when top reranked score is below threshold to avoid guessing",
+      "source_location": "docs/USAGE.md#L18",
+      "file_type": "concept",
+      "id": "abstention-gate",
+      "community": 21,
+      "norm_label": "abstention gate"
+    },
+    {
+      "label": "Faithfulness Check",
+      "type": "feature",
+      "confidence": "extracted",
+      "description": "Validates that cited circulars are present in retrieved context and flags unsupported citations",
+      "source_location": "docs/USAGE.md#L19",
+      "file_type": "concept",
+      "id": "faithfulness-check",
+      "community": 7,
+      "norm_label": "faithfulness check"
+    },
+    {
+      "label": "Apple Silicon",
+      "type": "term",
+      "confidence": "extracted",
+      "description": "M4 Pro and similar ARM-based processors; MLX-preferred runtime",
+      "source_location": "CLAUDE.md#L1",
+      "file_type": "concept",
+      "id": "apple-silicon",
+      "community": 7,
+      "norm_label": "apple silicon"
+    },
+    {
+      "label": "MLX Framework",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "Apple Silicon native ML framework preferred for deterministic model execution",
+      "source_location": "SEBI_RAG_Claude_Desktop_Engineering_Handbook.md#L45",
+      "file_type": "concept",
+      "id": "mlx-framework",
+      "community": 7,
+      "norm_label": "mlx framework"
+    },
+    {
+      "label": "Corpus Ingestion",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Extract text, metadata, lineage from PDF circulars into JSONL corpus",
+      "source_location": "docs/USAGE.md#L30",
+      "file_type": "concept",
+      "id": "corpus-ingestion",
+      "community": 5,
+      "norm_label": "corpus ingestion"
+    },
+    {
+      "label": "PDF Parser",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Extracts circular number, issue date, subject, department, version lineage from SEBI PDFs",
+      "source_location": ".remember/recent.md#L5",
+      "file_type": "concept",
+      "id": "pdf-parser",
+      "community": 5,
+      "norm_label": "pdf parser"
+    },
+    {
+      "label": "Index Building",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Encodes chunks with BGE-M3 and builds persisted FAISS+BM25 indices",
+      "source_location": "docs/USAGE.md#L36",
+      "file_type": "concept",
+      "id": "index-building",
+      "community": 13,
+      "norm_label": "index building"
+    },
+    {
+      "label": "Incremental Indexing",
+      "type": "feature",
+      "confidence": "extracted",
+      "description": "Checksum-keyed incremental encode avoiding full re-encoding at corpus scale",
+      "source_location": "docs/adr-001-architecture-review-2026-07.md#L37",
+      "file_type": "concept",
+      "id": "incremental-indexing",
+      "community": 13,
+      "norm_label": "incremental indexing"
+    },
+    {
+      "label": "Contextual Chunk Enrichment",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Prepend circular_no | subject | section heading to chunk text before embedding to improve precision",
+      "source_location": "docs/adr-001-architecture-review-2026-07.md#L22",
+      "file_type": "concept",
+      "id": "contextual-chunk-enrichment",
+      "community": 13,
+      "norm_label": "contextual chunk enrichment"
+    },
+    {
+      "label": "Prompt Injection Hardening",
+      "type": "feature",
+      "confidence": "extracted",
+      "description": "HTTPS fetch verification, explicit data delimiters, instruction-pattern scanning, timing-safe API key comparison",
+      "source_location": "docs/adr-001-architecture-review-2026-07.md#L48",
+      "file_type": "concept",
+      "id": "prompt-injection-hardening",
+      "community": 5,
+      "norm_label": "prompt injection hardening"
+    },
+    {
+      "label": "HuggingFace Hub",
+      "type": "platform",
+      "confidence": "extracted",
+      "description": "Cloud platform hosting SEBI Circulars dataset (opnsrcntrbtrian/sebi-circulars)",
+      "source_location": "README.md#L62",
+      "file_type": "concept",
+      "id": "huggingface-hub",
+      "community": 7,
+      "norm_label": "huggingface hub"
+    },
+    {
+      "label": "SEBI Circulars Dataset",
+      "type": "entity",
+      "confidence": "extracted",
+      "description": "Published dataset with 603 circulars in 6 configs: corpus, chunks, lineage, eval, citation-normalization, supersession-pairs",
+      "source_location": "README.md#L67",
+      "file_type": "concept",
+      "id": "sebi-circulars-dataset",
+      "community": 7,
+      "norm_label": "sebi circulars dataset"
+    },
+    {
+      "label": "Dataset Export Pipeline",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Transforms corpus into 6 configs with semantic routing alignment, security-reviewed citation normalization and supersession-pair exports",
+      "source_location": ".remember/today-2026-07-10.md#L4",
+      "file_type": "concept",
+      "id": "dataset-export-pipeline",
+      "community": 5,
+      "norm_label": "dataset export pipeline"
+    },
+    {
+      "label": "Semantic Routing Alignment",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "5 TDD task ensuring dataset extraction compatibility with semantic routing in scraper",
+      "source_location": ".remember/today-2026-07-09.done.md#L3",
+      "file_type": "concept",
+      "id": "semantic-routing-alignment",
+      "community": 5,
+      "norm_label": "semantic routing alignment"
+    },
+    {
+      "label": "Corpus Validation",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Zero-violation check for 603-record corpus structure and integrity",
+      "source_location": ".remember/today-2026-07-09.done.md#L3",
+      "file_type": "concept",
+      "id": "corpus-validation",
+      "community": 5,
+      "norm_label": "corpus validation"
+    },
+    {
+      "label": "Local-first Engineering",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "Core principle of reproducible, deterministic development without external cloud dependencies",
+      "source_location": "SEBI_RAG_Claude_Desktop_Engineering_Handbook.md#L8",
+      "file_type": "concept",
+      "id": "local-first-engineering",
+      "community": 29,
+      "norm_label": "local-first engineering"
+    },
+    {
+      "label": "Validation Sequence",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "12-step deterministic validation from hardware through end-to-end RAG",
+      "source_location": "SEBI_RAG_Claude_Desktop_Engineering_Handbook.md#L15",
+      "file_type": "concept",
+      "id": "validation-sequence",
+      "community": 29,
+      "norm_label": "validation sequence"
+    },
+    {
+      "label": "Scraping Pipeline",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Discovers and downloads SEBI circulars via AJAX pager with rate-limiting and SHA-256 deduplication",
+      "source_location": "docs/USAGE.md#L46",
+      "file_type": "concept",
+      "id": "scraping-pipeline",
+      "community": 31,
+      "norm_label": "scraping pipeline"
+    },
+    {
+      "label": "Query Endpoint",
+      "type": "term",
+      "confidence": "extracted",
+      "description": "POST /query endpoint accepting question and top_k parameters with X-API-Key authentication",
+      "source_location": "docs/USAGE.md#L62",
+      "file_type": "concept",
+      "id": "query-endpoint",
+      "community": 16,
+      "norm_label": "query endpoint"
+    },
+    {
+      "label": "Model Allocation Strategy",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "Dispatch pattern (Fable/Sonnet/Haiku) for dataset export tasks yielding 18% token savings",
+      "source_location": ".remember/today-2026-07-09.done.md#L4",
+      "file_type": "concept",
+      "id": "model-allocation-strategy",
+      "community": 35,
+      "norm_label": "model allocation strategy"
+    },
+    {
+      "label": "Golden v6 Benchmark",
+      "type": "term",
+      "confidence": "extracted",
+      "description": "Curated evaluation set with 56 queries covering regulatory reasoning tasks",
+      "source_location": "README.md#L79",
+      "file_type": "concept",
+      "id": "golden-v6-benchmark",
+      "community": 5,
+      "norm_label": "golden v6 benchmark"
+    },
+    {
+      "label": "Citation Precision",
+      "type": "term",
+      "confidence": "extracted",
+      "description": "Metric measuring accuracy of grounded citations: baseline 0.73-0.77 @ top_k=3, improved to 0.74 via F1",
+      "source_location": "docs/adr-001-architecture-review-2026-07.md#L15",
+      "file_type": "concept",
+      "id": "citation-precision",
+      "community": 13,
+      "norm_label": "citation precision"
+    },
+    {
+      "label": "Retrieval Quality Ceiling",
+      "type": "term",
+      "confidence": "extracted",
+      "description": "Architecture review dimension addressing citation precision plateauing at ~0.75",
+      "source_location": "docs/adr-001-architecture-review-2026-07.md#L8",
+      "file_type": "concept",
+      "id": "retrieval-quality-ceiling",
+      "community": 13,
+      "norm_label": "retrieval quality ceiling"
+    },
+    {
+      "label": "LanceDB",
+      "type": "technology",
+      "confidence": "inferred",
+      "description": "Embedded disk-backed versioned vector database sanctioned as benchmark candidate for >=100k chunks",
+      "source_location": "docs/adr-001-architecture-review-2026-07.md#L62",
+      "file_type": "concept",
+      "id": "lancedb",
+      "community": 14,
+      "norm_label": "lancedb"
+    },
+    {
+      "label": "Qwen3-Reranker",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "MLX-native reranker benchmark candidate; rejected after testing (0.799 AUROC vs baseline 0.812)",
+      "source_location": "docs/adr-001-architecture-review-2026-07.md#L85",
+      "file_type": "concept",
+      "id": "qwen3-reranker",
+      "community": 16,
+      "norm_label": "qwen3-reranker"
+    },
+    {
+      "label": "PDF Parser Regex Hardening",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Format-aware regex refinement recovering 22 previously unparseable SEBI circulars",
+      "source_location": ".remember/recent.md#L10",
+      "file_type": "concept",
+      "id": "pdf-parser-regex-hardening",
+      "community": 5,
+      "norm_label": "pdf parser regex hardening"
+    },
+    {
+      "label": "MLX-LM",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "Apple Silicon native language model library for answer generation",
+      "source_location": "CLAUDE.md#L45",
+      "file_type": "concept",
+      "id": "mlx-lm",
+      "community": 7,
+      "norm_label": "mlx-lm"
+    },
+    {
+      "label": "Ollama",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "Optional alternative generator for answer generation on Apple Silicon",
+      "source_location": "docs/USAGE.md#L29",
+      "file_type": "concept",
+      "id": "ollama",
+      "community": 7,
+      "norm_label": "ollama"
+    },
+    {
+      "label": "Config-driven Architecture",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "Configuration model enabling environment-variable overrides for deployment customization",
+      "source_location": "AGENTS.md#L11",
+      "file_type": "concept",
+      "id": "config-driven-architecture",
+      "community": 28,
+      "norm_label": "config-driven architecture"
+    },
+    {
+      "label": "SubjectSimJudge",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Deterministic abstention gate using max cosine(query, subject) via BGE-M3 with threshold 0.42",
+      "source_location": "docs/adr-001-architecture-review-2026-07.md#L93",
+      "file_type": "concept",
+      "id": "subject-simjudge",
+      "community": 21,
+      "norm_label": "subjectsimjudge"
+    },
+    {
+      "label": "Health Endpoint",
+      "type": "term",
+      "confidence": "extracted",
+      "description": "GET /health endpoint returning status, chunk/circular counts, and active configuration",
+      "source_location": "docs/USAGE.md#L59",
+      "file_type": "concept",
+      "id": "health-endpoint",
+      "community": 28,
+      "norm_label": "health endpoint"
+    },
+    {
+      "label": "Corpus Metadata",
+      "type": "term",
+      "confidence": "extracted",
+      "description": "Fields including circular_number, issue_date, effective_date, subject, issuing_department, supersession_status, version_lineage, source_url",
+      "source_location": "README.md#L87",
+      "file_type": "concept",
+      "id": "corpus-metadata",
+      "community": 5,
+      "norm_label": "corpus metadata"
+    },
+    {
+      "label": "Incremental Encode",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Checksum-keyed delta-only encoding avoiding re-embedding entire corpus during index rebuilds",
+      "source_location": "docs/adr-001-architecture-review-2026-07.md#L73",
+      "file_type": "concept",
+      "id": "incremental-encode",
+      "community": 13,
+      "norm_label": "incremental encode"
+    },
+    {
+      "label": "Reciprocal Rank Fusion",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "RRF fusion combining FAISS dense and BM25 sparse scores for hybrid retrieval",
+      "source_location": "docs/USAGE.md#L15",
+      "file_type": "concept",
+      "id": "reciprocal-rank-fusion",
+      "community": 14,
+      "norm_label": "reciprocal rank fusion"
+    },
+    {
+      "label": "Ground Truth Answer Generation",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Generates grounded answers from retrieved chunks with citation tracking",
+      "source_location": "README.md#L28",
+      "file_type": "concept",
+      "id": "ground-truth-answer-generation",
+      "community": 16,
+      "norm_label": "ground truth answer generation"
+    },
+    {
+      "label": "TDD Workflow",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Test-Driven Development workflow used for dataset export (5 TDD tasks) and semantic routing (5 TDD)",
+      "source_location": ".remember/today-2026-07-10.md#L1",
+      "file_type": "concept",
+      "id": "tdd-workflow",
+      "community": 5,
+      "norm_label": "tdd workflow"
+    },
+    {
+      "label": "Python 3.12-3.13",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "Required Python versions for project dependencies",
+      "source_location": "AGENTS.md#L15",
+      "file_type": "concept",
+      "id": "python-3-12-3-13",
+      "community": 37,
+      "norm_label": "python 3.12-3.13"
+    },
+    {
+      "label": "Makefile Automation",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Operations automation with make serve, make ui, make test, make reindex, make scrape commands",
+      "source_location": "AGENTS.md#L16",
+      "file_type": "concept",
+      "id": "makefile-automation",
+      "community": 7,
+      "norm_label": "makefile automation"
+    },
+    {
+      "label": "SEBI Governance Circulars",
+      "type": "entity",
+      "confidence": "extracted",
+      "description": "Indian regulatory circulars from Securities and Exchange Board of India (2021-2026)",
+      "source_location": "README.md#L3",
+      "file_type": "concept",
+      "id": "sebi-governance-circulars",
+      "community": 31,
+      "norm_label": "sebi governance circulars"
+    },
+    {
+      "label": "FAISS Dense Index",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "HNSW/Flat dense vector index for bge-m3 baseline embeddings with in-memory persistence",
+      "source_location": "docs/project_context.md",
+      "file_type": "concept",
+      "id": "faiss-dense-index",
+      "community": 24,
+      "norm_label": "faiss dense index"
+    },
+    {
+      "label": "BM25 Sparse Index",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "BM25 lexical index using bm25s library for keyword-based ranking",
+      "source_location": "docs/project_context.md",
+      "file_type": "concept",
+      "id": "bm25-sparse-index",
+      "community": 13,
+      "norm_label": "bm25 sparse index"
+    },
+    {
+      "label": "BGE-M3 Embedding Model",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "Baseline dense+sparse+ColBERT embedding model running on PyTorch MPS, 1024-dimensional output",
+      "source_location": "docs/project_context.md",
+      "file_type": "concept",
+      "id": "bge-m3-embedding",
+      "community": 24,
+      "norm_label": "bge-m3 embedding model"
+    },
+    {
+      "label": "Lineage Graph",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "Cross-document supersession resolution tracking supersedes/amends/cites relationships between circulars",
+      "source_location": "docs/project_context.md",
+      "file_type": "concept",
+      "id": "lineage-graph",
+      "community": 14,
+      "norm_label": "lineage graph"
+    },
+    {
+      "label": "Subject-Similarity Threshold",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "Grounded gate combining subject_sim \u2265 0.42 OR section_sim \u2265 0.60 for legal safety",
+      "source_location": "docs/adr-002-certainty-and-advisory.md",
+      "file_type": "concept",
+      "id": "subject-sim-threshold",
+      "community": 21,
+      "norm_label": "subject-similarity threshold"
+    },
+    {
+      "label": "Confidence Bands",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "Banded certainty (high/medium/low) empirically anchored on golden set evaluation, not probabilistic",
+      "source_location": "docs/adr-002-certainty-and-advisory.md",
+      "file_type": "concept",
+      "id": "confidence-bands",
+      "community": 21,
+      "norm_label": "confidence bands"
+    },
+    {
+      "label": "Advisory Mode",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "Opt-in per-request mode that surfaces draft_answer for weak matches with mandatory legal disclaimers",
+      "source_location": "docs/adr-002-certainty-and-advisory.md",
+      "file_type": "concept",
+      "id": "advisory-mode",
+      "community": 21,
+      "norm_label": "advisory mode"
+    },
+    {
+      "label": "n8n Automation",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "Self-hosted n8n workflows automating repetitive ops: corpus refresh, health monitor, eval canary, digest, smoke test",
+      "source_location": "docs/n8n_automation_plan.md",
+      "file_type": "concept",
+      "id": "n8n-automation",
+      "community": 5,
+      "norm_label": "n8n automation"
+    },
+    {
+      "label": "Ops HTTP Server",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "Local Python server on 127.0.0.1:8765 (scripts/ops_server.py) exposing repo scripts via HTTP for n8n integration",
+      "source_location": "docs/n8n_automation_plan.md",
+      "file_type": "concept",
+      "id": "ops-http-server",
+      "community": 5,
+      "norm_label": "ops http server"
+    },
+    {
+      "label": "Corpus Refresh Workflow",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Weekly scheduled n8n workflow that scrapes new circulars, reindexes, restarts API, and reports metrics",
+      "source_location": "docs/n8n_automation_plan.md",
+      "file_type": "concept",
+      "id": "corpus-refresh-workflow",
+      "community": 5,
+      "norm_label": "corpus refresh workflow"
+    },
+    {
+      "label": "Health Monitor Workflow",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Every-5-min n8n workflow polling /health endpoint and alerting on API degradation",
+      "source_location": "docs/n8n_automation_plan.md",
+      "file_type": "concept",
+      "id": "health-monitor-workflow",
+      "community": 5,
+      "norm_label": "health monitor workflow"
+    },
+    {
+      "label": "Eval Canary Workflow",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Daily n8n workflow evaluating golden-set metrics and alerting on regression",
+      "source_location": "docs/n8n_automation_plan.md",
+      "file_type": "concept",
+      "id": "eval-canary-workflow",
+      "community": 5,
+      "norm_label": "eval canary workflow"
+    },
+    {
+      "label": "launchd Agent",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "macOS native process manager for persistent RAG API and ops server deployment",
+      "source_location": "docs/n8n_automation_plan.md",
+      "file_type": "concept",
+      "id": "launchd-agent",
+      "community": 7,
+      "norm_label": "launchd agent"
+    },
+    {
+      "label": "MLX Generator",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "Apple Silicon native LLM via MLX-LM, default Qwen2.5-1.5B-4bit with faithfulness 1.0 and ~2.6s latency",
+      "source_location": "docs/next_steps.md",
+      "file_type": "concept",
+      "id": "mlx-generator",
+      "community": 25,
+      "norm_label": "mlx generator"
+    },
+    {
+      "label": "Qwen 3B Model",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "Qwen2.5-3B-Instruct-4bit MLX variant achieving groundedness 0.95 at 3.3s latency",
+      "source_location": "docs/next_steps.md",
+      "file_type": "concept",
+      "id": "qwen-3b-model",
+      "community": 25,
+      "norm_label": "qwen 3b model"
+    },
+    {
+      "label": "Faithfulness Metric",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "Legal-safety metric flagging bracketed citations absent from retrieved context",
+      "source_location": "docs/next_steps.md",
+      "file_type": "concept",
+      "id": "faithfulness-metric",
+      "community": 25,
+      "norm_label": "faithfulness metric"
+    },
+    {
+      "label": "config.toml",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "Single configuration file for index path, corpus path, generator, top_k, abstain threshold, rate limit, API key source",
+      "source_location": "docs/next_steps.md",
+      "file_type": "concept",
+      "id": "config-toml",
+      "community": 7,
+      "norm_label": "config.toml"
+    },
+    {
+      "label": "Settings Module",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "src/sebi_rag/settings.py implementing env-override-file-override-default pattern for configuration",
+      "source_location": "docs/next_steps.md",
+      "file_type": "concept",
+      "id": "settings-module",
+      "community": 7,
+      "norm_label": "settings module"
+    },
+    {
+      "label": "Lineage Persistence",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "Lineage graph saved to data/index/lineage.json, loaded at startup to avoid rebuild overhead",
+      "source_location": "docs/next_steps.md",
+      "file_type": "concept",
+      "id": "lineage-persistence",
+      "community": 7,
+      "norm_label": "lineage persistence"
+    },
+    {
+      "label": "SEBI Scraper",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "scripts/scrape_sebi.py handling polite SEBI circular discovery, pagination, PDF download with rate limiting and checksum deduplication",
+      "source_location": "docs/scraping_plan.md",
+      "file_type": "concept",
+      "id": "scraper-component",
+      "community": 5,
+      "norm_label": "sebi scraper"
+    },
+    {
+      "label": "POST Pagination",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "SEBI circulars listing uses POST to /sebiweb/ajax/home/getnewslistinfo.jsp with doDirect page parameter",
+      "source_location": "docs/scraping_plan.md",
+      "file_type": "concept",
+      "id": "pagination-post",
+      "community": 5,
+      "norm_label": "post pagination"
+    },
+    {
+      "label": "PDF Ingestion",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "pdfplumber-based extraction of circular metadata (number, date, subject, dept) with provenance recording",
+      "source_location": "docs/scraping_plan.md",
+      "file_type": "concept",
+      "id": "pdf-ingestion",
+      "community": 5,
+      "norm_label": "pdf ingestion"
+    },
+    {
+      "label": "golden_v5 Evaluation Set",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "56-item held-out eval set including 31 v4 queries, 15 body-grounded paraphrases, 10 hard negatives for honest baseline",
+      "source_location": "docs/status.md",
+      "file_type": "concept",
+      "id": "golden-v5-eval",
+      "community": 5,
+      "norm_label": "golden_v5 evaluation set"
+    },
+    {
+      "label": "BEIR Export Format",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "Benchmark corpus.jsonl, queries.jsonl, qrels/test.tsv export for standard IR evaluation",
+      "source_location": "docs/superpowers/2026-07-09-benchmark-evaluation-handoff.md",
+      "file_type": "concept",
+      "id": "beir-export",
+      "community": 5,
+      "norm_label": "beir export format"
+    },
+    {
+      "label": "TREC Runfile",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "Ranked retrieval results in standard TREC format with query/doc/rank/score/tag columns",
+      "source_location": "docs/superpowers/2026-07-09-benchmark-evaluation-handoff.md",
+      "file_type": "concept",
+      "id": "trec-runfile",
+      "community": 5,
+      "norm_label": "trec runfile"
+    },
+    {
+      "label": "Reproducibility Metadata",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "Git commit, env guards, corpus checksum, index fingerprint, golden checksum, model IDs, runtime params recorded per benchmark run",
+      "source_location": "docs/superpowers/2026-07-09-benchmark-evaluation-handoff.md",
+      "file_type": "concept",
+      "id": "reproducibility-metadata",
+      "community": 5,
+      "norm_label": "reproducibility metadata"
+    },
+    {
+      "label": "Export Pipeline",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "scripts/export_datasets.py orchestrating corpus/chunks/lineage/eval config extraction and validation",
+      "source_location": "docs/superpowers/2026-07-09-dataset-extraction-model-allocation.md",
+      "file_type": "concept",
+      "id": "export-pipeline",
+      "community": 12,
+      "norm_label": "export pipeline"
+    },
+    {
+      "label": "Chunks Config",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "36,603 rows of flattened chunk metadata with stripped contextual headers for research reuse",
+      "source_location": "docs/superpowers/2026-07-09-dataset-extraction-model-allocation.md",
+      "file_type": "concept",
+      "id": "chunks-config",
+      "community": 12,
+      "norm_label": "chunks config"
+    },
+    {
+      "label": "Lineage Config",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "1,434 directed edges (supersedes/amends only) forming temporal regulatory citation graph",
+      "source_location": "docs/superpowers/2026-07-09-dataset-extraction-model-allocation.md",
+      "file_type": "concept",
+      "id": "lineage-config",
+      "community": 12,
+      "norm_label": "lineage config"
+    },
+    {
+      "label": "Citation-Normalization Dataset",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "2,951 seq2seq pairs of raw reference strings to normalized circular numbers with format families",
+      "source_location": "docs/superpowers/2026-07-09-dataset-extraction-model-allocation.md",
+      "file_type": "concept",
+      "id": "citation-normalization-dataset",
+      "community": 12,
+      "norm_label": "citation-normalization dataset"
+    },
+    {
+      "label": "Supersession-Pairs Dataset",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "1,281 pair-classification samples (408 supersedes, 19 amends, 854 unrelated negatives at 2:1 ratio)",
+      "source_location": "docs/superpowers/2026-07-09-dataset-extraction-model-allocation.md",
+      "file_type": "concept",
+      "id": "supersession-pairs-dataset",
+      "community": 12,
+      "norm_label": "supersession-pairs dataset"
+    },
+    {
+      "label": "Table-Aware Chunking",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "Regai-inspired feature pairing table rows with column headers for numeric threshold preservation",
+      "source_location": "docs/superpowers/plans/2026-07-08-regai-inspired-enhancements.md",
+      "file_type": "concept",
+      "id": "table-aware-chunking",
+      "community": 5,
+      "norm_label": "table-aware chunking"
+    },
+    {
+      "label": "Successor Expansion",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "Retrieval enhancement pulling chunks from amending circular when amendment-aware query returns amended document",
+      "source_location": "docs/superpowers/plans/2026-07-08-regai-inspired-enhancements.md",
+      "file_type": "concept",
+      "id": "successor-expansion",
+      "community": 14,
+      "norm_label": "successor expansion"
+    },
+    {
+      "label": "Per-Chunk Cross-References",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "Inline circular references stored on each chunk to guarantee exact-reference candidates survive reranking",
+      "source_location": "docs/superpowers/plans/2026-07-08-regai-inspired-enhancements.md",
+      "file_type": "concept",
+      "id": "per-chunk-cross-references",
+      "community": 16,
+      "norm_label": "per-chunk cross-references"
+    },
+    {
+      "label": "Ingest Hardening",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Regression-driven refactoring of reference-number parsing with canonical normalization and corpus validation",
+      "source_location": "docs/superpowers/plans/2026-07-08-regai-inspired-enhancements.md",
+      "file_type": "concept",
+      "id": "ingest-hardening",
+      "community": 5,
+      "norm_label": "ingest hardening"
+    },
+    {
+      "label": "Viewer-Aware PDF Extraction",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "extract_pdf_urls() parsing iframe/embed/object src attributes with web/?file= wrapper decoding",
+      "source_location": "docs/superpowers/specs/2026-07-09-sebi-semantic-routing-alignment-design.md",
+      "file_type": "concept",
+      "id": "viewer-aware-pdf-extraction",
+      "community": 5,
+      "norm_label": "viewer-aware pdf extraction"
+    },
+    {
+      "label": "Missing PDF Recovery",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Resolving 14 missing circular stems by sweeping month windows and matching stems against detail-page extracted URLs",
+      "source_location": "docs/superpowers/specs/2026-07-09-sebi-semantic-routing-alignment-design.md",
+      "file_type": "concept",
+      "id": "missing-pdf-recovery",
+      "community": 5,
+      "norm_label": "missing pdf recovery"
+    },
+    {
+      "label": "Month-Window Derivation",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Converting epoch-ms stems to \u00b11 month date ranges for targeted discover() queries",
+      "source_location": "docs/superpowers/specs/2026-07-09-sebi-semantic-routing-alignment-design.md",
+      "file_type": "concept",
+      "id": "month-window-derivation",
+      "community": 5,
+      "norm_label": "month-window derivation"
+    },
+    {
+      "label": "PDF Magic-Byte Guard",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "Verification that downloaded file starts with %PDF prefix to reject HTML error pages served as PDFs",
+      "source_location": "docs/superpowers/specs/2026-07-09-sebi-semantic-routing-alignment-design.md",
+      "file_type": "concept",
+      "id": "pdf-magic-byte-guard",
+      "community": 5,
+      "norm_label": "pdf magic-byte guard"
+    },
+    {
+      "label": "SEBI Semantic Routing Migration",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "2026 SEBI site modernization moving flat /sebi_data/attachdocs/{stem}.pdf to month-year subfolders with viewer wrapper",
+      "source_location": "docs/superpowers/specs/2026-07-09-sebi-semantic-routing-alignment-design.md",
+      "file_type": "concept",
+      "id": "semantic-routing-migration",
+      "community": 5,
+      "norm_label": "sebi semantic routing migration"
+    },
+    {
+      "label": "Hugging Face Dataset",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "Primary publication platform for SEBI circular datasets with Parquet format, dataset cards, and schema documentation",
+      "source_location": "docs/superpowers/specs/2026-07-09-sebi-public-datasets-design.md",
+      "file_type": "concept",
+      "id": "hugging-face-dataset",
+      "community": 12,
+      "norm_label": "hugging face dataset"
+    },
+    {
+      "label": "Kaggle Dataset",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "Mirror publication of datasets in JSONL/CSV format for data-science audience reach",
+      "source_location": "docs/superpowers/specs/2026-07-09-sebi-public-datasets-design.md",
+      "file_type": "concept",
+      "id": "kaggle-dataset",
+      "community": 12,
+      "norm_label": "kaggle dataset"
+    },
+    {
+      "label": "Zenodo Archival",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "DOI-backed versioned release of datasets for citability and long-term preservation",
+      "source_location": "docs/superpowers/specs/2026-07-09-sebi-public-datasets-design.md",
+      "file_type": "concept",
+      "id": "zenodo-archival",
+      "community": 12,
+      "norm_label": "zenodo archival"
+    },
+    {
+      "label": "AIKosh Submission",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "IndiaAI/AIKosh publication requiring user-gated EOI registration and admin verification",
+      "source_location": "docs/superpowers/specs/2026-07-09-sebi-public-datasets-design.md",
+      "file_type": "concept",
+      "id": "aikosh-submission",
+      "community": 12,
+      "norm_label": "aikosh submission"
+    },
+    {
+      "label": "CC-BY-4.0 License",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "Creative Commons license for dataset compilation and annotations with SEBI circular attribution",
+      "source_location": "docs/superpowers/specs/2026-07-09-sebi-public-datasets-design.md",
+      "file_type": "concept",
+      "id": "cc-by-4-license",
+      "community": 12,
+      "norm_label": "cc-by-4.0 license"
+    },
+    {
+      "label": "Validation Roadmap",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "12-step sequence validating hardware, dependencies, and end-to-end RAG before deployment",
+      "source_location": "docs/validation_roadmap.md",
+      "file_type": "concept",
+      "id": "validation-roadmap",
+      "community": 24,
+      "norm_label": "validation roadmap"
+    },
+    {
+      "label": "PyTorch MPS",
+      "type": "technology",
+      "confidence": "extracted",
+      "description": "Apple Metal Performance Shaders backend for tensor operations on bge-m3 and cross-encoder reranker",
+      "source_location": "docs/validation_roadmap.md",
+      "file_type": "concept",
+      "id": "pytorch-mps",
+      "community": 24,
+      "norm_label": "pytorch mps"
+    },
+    {
+      "label": "Chunk Enrichment",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "F1 enhancement prepending circular_no | subject | section to every chunk, improving retrieval by 23%",
+      "source_location": "docs/status.md",
+      "file_type": "concept",
+      "id": "chunk-enrichment",
+      "community": 5,
+      "norm_label": "chunk enrichment"
+    },
+    {
+      "label": "Groundedness Gate",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "Post-generation answer-support check determining if response stays within retrieved context",
+      "source_location": "docs/status.md",
+      "file_type": "concept",
+      "id": "groundedness-gate",
+      "community": 25,
+      "norm_label": "groundedness gate"
+    },
+    {
+      "label": "ADR-001 Architecture Review Findings",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "Five accepted findings (F1-F5) addressing chunk enrichment, reranker benchmarking, incremental indexing, injection hardening, and golden-set expansion",
+      "source_location": "docs/status.md",
+      "file_type": "concept",
+      "id": "adr-001-findings",
+      "community": 5,
+      "norm_label": "adr-001 architecture review findings"
+    },
+    {
+      "label": "Hierarchical Chunking",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "PDF-aware segmentation: document\u2192section\u2192paragraph packed to 1200 chars with 150-char overlap and stable retrieval IDs",
+      "source_location": "docs/project_context.md",
+      "file_type": "concept",
+      "id": "hierarchical-chunking",
+      "community": 5,
+      "norm_label": "hierarchical chunking"
+    },
+    {
+      "label": "Reciprocal Rank Fusion",
+      "type": "process",
+      "confidence": "extracted",
+      "description": "Combining dense and sparse retrieval scores into single ranking for stage-1 candidate pool",
+      "source_location": "docs/project_context.md",
+      "file_type": "concept",
+      "id": "rrf-fusion",
+      "community": 14,
+      "norm_label": "reciprocal rank fusion"
+    },
+    {
+      "label": "top_k Calibration",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "Empirically calibrated to top_k=3 via scripts/calibrate.py achieving citation precision 0.97/recall 1.0",
+      "source_location": "docs/status.md",
+      "file_type": "concept",
+      "id": "top-k-calibration",
+      "community": 16,
+      "norm_label": "top_k calibration"
+    },
+    {
+      "label": "Rate Limiting",
+      "type": "concept",
+      "confidence": "extracted",
+      "description": "API per-key/IP rate limit (SEBI_RAG_RATE_PER_MIN) with 429 response on breach",
+      "source_location": "docs/status.md",
+      "file_type": "concept",
+      "id": "rate-limiting",
+      "community": 7,
+      "norm_label": "rate limiting"
     }
   ],
   "links": [
@@ -4818,17 +5541,6 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/discover_new.py",
-      "source_location": "L19",
-      "weight": 1.0,
-      "source": "scripts_discover_new",
-      "target": "scripts_scrape_sebi",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/discover_new.py",
@@ -5018,17 +5730,6 @@
       "weight": 1.0,
       "source": "scripts_eval_json",
       "target": "src_sebi_rag_generate",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/eval_json.py",
-      "source_location": "L32",
-      "weight": 1.0,
-      "source": "scripts_eval_json",
-      "target": "src_sebi_rag_ingest_pdf",
       "confidence_score": 1.0
     },
     {
@@ -5355,17 +6056,6 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/renumber.py",
-      "source_location": "L12",
-      "weight": 1.0,
-      "source": "scripts_renumber",
-      "target": "src_sebi_rag_ingest_pdf",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/renumber.py",
@@ -5374,271 +6064,6 @@
       "source": "scripts_renumber_rationale_1",
       "target": "scripts_renumber",
       "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L123",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi",
-      "target": "scripts_scrape_sebi_discover",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L75",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi",
-      "target": "scripts_scrape_sebi_fetch",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L101",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi",
-      "target": "scripts_scrape_sebi_listing_url",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L164",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi",
-      "target": "scripts_scrape_sebi_main",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L105",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi",
-      "target": "scripts_scrape_sebi_page",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L47",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi",
-      "target": "scripts_scrape_sebi_parse_date",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L58",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi",
-      "target": "scripts_scrape_sebi_parse_rows",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L159",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi",
-      "target": "scripts_scrape_sebi_pdf_url_for",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L32",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi",
-      "target": "src_sebi_rag_ingest_pdf",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi_rationale_1",
-      "target": "scripts_scrape_sebi",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_scrape_sebi.py",
-      "source_location": "L11",
-      "weight": 1.0,
-      "source": "tests_test_scrape_sebi",
-      "target": "scripts_scrape_sebi",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "return_type",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L47",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi_parse_date",
-      "target": "date",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L65",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi_parse_rows",
-      "target": "scripts_scrape_sebi_parse_date",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "parameter_type",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L123",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi_discover",
-      "target": "date",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "generic_arg",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L58",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi_parse_rows",
-      "target": "date",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L135",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi_discover",
-      "target": "scripts_scrape_sebi_parse_rows",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L59",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi_rationale_59",
-      "target": "scripts_scrape_sebi_parse_rows",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L196",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi_main",
-      "target": "scripts_scrape_sebi_fetch",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L108",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi_page",
-      "target": "scripts_scrape_sebi_fetch",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L160",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi_pdf_url_for",
-      "target": "scripts_scrape_sebi_fetch",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L106",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi_page",
-      "target": "scripts_scrape_sebi_listing_url",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L130",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi_discover",
-      "target": "scripts_scrape_sebi_page",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L183",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi_main",
-      "target": "scripts_scrape_sebi_discover",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L190",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi_main",
-      "target": "scripts_scrape_sebi_pdf_url_for",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "scripts/scrape_sebi.py",
-      "source_location": "L206",
-      "weight": 1.0,
-      "source": "scripts_scrape_sebi_main",
-      "target": "src_sebi_rag_ingest_pdf_ingest"
     },
     {
       "relation": "imports_from",
@@ -9051,505 +9476,6 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L187",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf",
-      "target": "src_sebi_rag_ingest_pdf_existing_numbers",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L58",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf",
-      "target": "src_sebi_rag_ingest_pdf_extract_text",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L69",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf",
-      "target": "src_sebi_rag_ingest_pdf_header",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L212",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf",
-      "target": "src_sebi_rag_ingest_pdf_ingest",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L161",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf",
-      "target": "src_sebi_rag_ingest_pdf_injection_scan",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L75",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf",
-      "target": "src_sebi_rag_ingest_pdf_iso_date",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L112",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf",
-      "target": "src_sebi_rag_ingest_pdf_labeled_date",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L237",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf",
-      "target": "src_sebi_rag_ingest_pdf_main",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L43",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf",
-      "target": "src_sebi_rag_ingest_pdf_ocr_text",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L117",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf",
-      "target": "src_sebi_rag_ingest_pdf_parse_meta",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L100",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf",
-      "target": "src_sebi_rag_ingest_pdf_primary_number",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L198",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf",
-      "target": "src_sebi_rag_ingest_pdf_rewrite_replacing",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L93",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf",
-      "target": "src_sebi_rag_ingest_pdf_subject",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L166",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf",
-      "target": "src_sebi_rag_ingest_pdf_to_record",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_rationale_1",
-      "target": "src_sebi_rag_ingest_pdf",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/lineage.py",
-      "source_location": "L19",
-      "weight": 1.0,
-      "source": "src_sebi_rag_lineage",
-      "target": "src_sebi_rag_ingest_pdf",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_ingest_pdf.py",
-      "source_location": "L7",
-      "weight": 1.0,
-      "source": "tests_test_ingest_pdf",
-      "target": "src_sebi_rag_ingest_pdf",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_injection.py",
-      "source_location": "L5",
-      "weight": 1.0,
-      "source": "tests_test_injection",
-      "target": "src_sebi_rag_ingest_pdf",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L65",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_extract_text",
-      "target": "src_sebi_rag_ingest_pdf_ocr_text",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "parameter_type",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L43",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_ocr_text",
-      "target": "src_sebi_rag_ingest_pdf_py_path",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L44",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_rationale_44",
-      "target": "src_sebi_rag_ingest_pdf_ocr_text",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "parameter_type",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L187",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_existing_numbers",
-      "target": "src_sebi_rag_ingest_pdf_py_path",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "parameter_type",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L58",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_extract_text",
-      "target": "src_sebi_rag_ingest_pdf_py_path",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "parameter_type",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L212",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_ingest",
-      "target": "src_sebi_rag_ingest_pdf_py_path",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "parameter_type",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L198",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_rewrite_replacing",
-      "target": "src_sebi_rag_ingest_pdf_py_path",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "parameter_type",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L166",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_to_record",
-      "target": "src_sebi_rag_ingest_pdf_py_path",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L220",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_ingest",
-      "target": "src_sebi_rag_ingest_pdf_extract_text",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L118",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_parse_meta",
-      "target": "src_sebi_rag_ingest_pdf_header",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L70",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_rationale_70",
-      "target": "src_sebi_rag_ingest_pdf_header",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L114",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_labeled_date",
-      "target": "src_sebi_rag_ingest_pdf_iso_date",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L132",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_parse_meta",
-      "target": "src_sebi_rag_ingest_pdf_iso_date",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L134",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_parse_meta",
-      "target": "src_sebi_rag_ingest_pdf_subject",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L119",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_parse_meta",
-      "target": "src_sebi_rag_ingest_pdf_primary_number",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "parameter_type",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L112",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_labeled_date",
-      "target": "pattern",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L128",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_parse_meta",
-      "target": "src_sebi_rag_ingest_pdf_labeled_date",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L167",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_to_record",
-      "target": "src_sebi_rag_ingest_pdf_parse_meta",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_ingest_pdf.py",
-      "source_location": "L50",
-      "weight": 1.0,
-      "source": "tests_test_ingest_pdf_test_parse_meta_handles_old_format",
-      "target": "src_sebi_rag_ingest_pdf_parse_meta"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L162",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_rationale_162",
-      "target": "src_sebi_rag_ingest_pdf_injection_scan",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L169",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_to_record",
-      "target": "src_sebi_rag_ingest_pdf_injection_scan",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_injection.py",
-      "source_location": "L40",
-      "weight": 1.0,
-      "source": "tests_test_injection_test_injection_scan_clean_on_real_legal_text",
-      "target": "src_sebi_rag_ingest_pdf_injection_scan"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_injection.py",
-      "source_location": "L28",
-      "weight": 1.0,
-      "source": "tests_test_injection_test_injection_scan_flags_known_patterns",
-      "target": "src_sebi_rag_ingest_pdf_injection_scan"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L220",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_ingest",
-      "target": "src_sebi_rag_ingest_pdf_to_record",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_injection.py",
-      "source_location": "L45",
-      "weight": 1.0,
-      "source": "tests_test_injection_test_to_record_carries_injection_flags",
-      "target": "src_sebi_rag_ingest_pdf_to_record"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L227",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_ingest",
-      "target": "src_sebi_rag_ingest_pdf_existing_numbers",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L230",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_ingest",
-      "target": "src_sebi_rag_ingest_pdf_rewrite_replacing",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/ingest_pdf.py",
-      "source_location": "L245",
-      "weight": 1.0,
-      "source": "src_sebi_rag_ingest_pdf_main",
-      "target": "src_sebi_rag_ingest_pdf_ingest",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_ingest_pdf.py",
-      "source_location": "L33",
-      "weight": 1.0,
-      "source": "tests_test_ingest_pdf_test_ingest_extracts_metadata_and_lineage",
-      "target": "src_sebi_rag_ingest_pdf_ingest"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L175",
       "weight": 1.0,
@@ -11001,6 +10927,17 @@
       "weight": 1.0,
       "source": "src_sebi_rag_rerank_crossencoderreranker_rerank",
       "target": "src_sebi_rag_segment_chunk",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/sebi_rag/retrieve.py",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "src_sebi_rag_retrieve",
+      "target": "faiss",
       "confidence_score": 1.0
     },
     {
@@ -13757,120 +13694,6 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "tests/test_scrape_sebi.py",
-      "source_location": "L18",
-      "weight": 1.0,
-      "source": "tests_test_scrape_sebi",
-      "target": "tests_test_scrape_sebi_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_scrape_sebi.py",
-      "source_location": "L22",
-      "weight": 1.0,
-      "source": "tests_test_scrape_sebi",
-      "target": "tests_test_scrape_sebi_test_circular_href_matches_both_kinds",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_scrape_sebi.py",
-      "source_location": "L38",
-      "weight": 1.0,
-      "source": "tests_test_scrape_sebi",
-      "target": "tests_test_scrape_sebi_test_discover_applies_date_filter",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_scrape_sebi.py",
-      "source_location": "L47",
-      "weight": 1.0,
-      "source": "tests_test_scrape_sebi",
-      "target": "tests_test_scrape_sebi_test_discover_graceful_on_fetch_error",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_scrape_sebi.py",
-      "source_location": "L61",
-      "weight": 1.0,
-      "source": "tests_test_scrape_sebi",
-      "target": "tests_test_scrape_sebi_test_discover_no_advance_guard_stops",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_scrape_sebi.py",
-      "source_location": "L31",
-      "weight": 1.0,
-      "source": "tests_test_scrape_sebi",
-      "target": "tests_test_scrape_sebi_test_parse_rows_pairs_date_and_url",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_scrape_sebi.py",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "tests_test_scrape_sebi_rationale_1",
-      "target": "tests_test_scrape_sebi",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_scrape_sebi.py",
-      "source_location": "L39",
-      "weight": 1.0,
-      "source": "tests_test_scrape_sebi_test_discover_applies_date_filter",
-      "target": "tests_test_scrape_sebi_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_scrape_sebi.py",
-      "source_location": "L48",
-      "weight": 1.0,
-      "source": "tests_test_scrape_sebi_test_discover_graceful_on_fetch_error",
-      "target": "tests_test_scrape_sebi_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_scrape_sebi.py",
-      "source_location": "L62",
-      "weight": 1.0,
-      "source": "tests_test_scrape_sebi_test_discover_no_advance_guard_stops",
-      "target": "tests_test_scrape_sebi_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_scrape_sebi.py",
-      "source_location": "L32",
-      "weight": 1.0,
-      "source": "tests_test_scrape_sebi_test_parse_rows_pairs_date_and_url",
-      "target": "tests_test_scrape_sebi_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
       "source_file": "tests/test_settings.py",
       "source_location": "L10",
       "weight": 1.0,
@@ -13950,8 +13773,879 @@
       "source": "tests_test_settings_test_toml_then_env_precedence",
       "target": "tests_test_settings_clear",
       "confidence_score": 1.0
+    },
+    {
+      "relationship": "rebuilds",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "corpus-refresh-workflow",
+      "target": "sebi-circular-rag",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "manages",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "launchd-agent",
+      "target": "sebi-circular-rag",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "protects",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "rate-limiting",
+      "target": "sebi-circular-rag",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "includes",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "sebi-circular-rag",
+      "target": "abstention-gate",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "depends_on",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "sebi-circular-rag",
+      "target": "apple-silicon",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "implements",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "sebi-circular-rag",
+      "target": "citation-generation",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "configures",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "sebi-circular-rag",
+      "target": "config-toml",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "implements",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "sebi-circular-rag",
+      "target": "cross-encoder-reranking",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "implements",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "sebi-circular-rag",
+      "target": "faithfulness-check",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "implements",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "sebi-circular-rag",
+      "target": "fastapi-service",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "evaluated_with",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "sebi-circular-rag",
+      "target": "golden-v6-benchmark",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "implements",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "sebi-circular-rag",
+      "target": "gradio-ui",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "implements",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "sebi-circular-rag",
+      "target": "hybrid-retrieval",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "includes",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "sebi-circular-rag",
+      "target": "lineage-graph",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "persists",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "sebi-circular-rag",
+      "target": "lineage-persistence",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "implements",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "sebi-circular-rag",
+      "target": "local-first-engineering",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "uses",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "sebi-circular-rag",
+      "target": "makefile-automation",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "depends_on",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "sebi-circular-rag",
+      "target": "mlx-framework",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "prefers",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "sebi-circular-rag",
+      "target": "mlx-lm",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "supports",
+      "confidence": "inferred",
+      "source_file": "",
+      "source": "sebi-circular-rag",
+      "target": "ollama",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "produces",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "sebi-circular-rag",
+      "target": "sebi-circulars-dataset",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "implements",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "sebi-circular-rag",
+      "target": "supersession-tracking",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "gatekeeps",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "validation-roadmap",
+      "target": "sebi-circular-rag",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "depends_on",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "faiss",
+      "target": "bge-m3-embedder",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "depends_on",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "hybrid-retrieval",
+      "target": "faiss",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "benchmark_for",
+      "confidence": "inferred",
+      "source_file": "",
+      "source": "lancedb",
+      "target": "faiss",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "depends_on",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "hybrid-retrieval",
+      "target": "bm25",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "enhances_by_23_percent",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "chunk-enrichment",
+      "target": "hybrid-retrieval",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "uses",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "hybrid-retrieval",
+      "target": "bm25-sparse-index",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "feeds_to",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "hybrid-retrieval",
+      "target": "cross-encoder-reranking",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "uses",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "hybrid-retrieval",
+      "target": "faiss-dense-index",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "implements",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "hybrid-retrieval",
+      "target": "reciprocal-rank-fusion",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "implements",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "hybrid-retrieval",
+      "target": "rrf-fusion",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "uses",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "query-endpoint",
+      "target": "hybrid-retrieval",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "enhances",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "successor-expansion",
+      "target": "hybrid-retrieval",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "precedes",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "cross-encoder-reranking",
+      "target": "abstention-gate",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "relates_to",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "cross-encoder-reranking",
+      "target": "supersession-tracking",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "guarantees_survival",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "per-chunk-cross-references",
+      "target": "cross-encoder-reranking",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "uses",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "query-endpoint",
+      "target": "cross-encoder-reranking",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "benchmark_for",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "qwen3-reranker",
+      "target": "cross-encoder-reranking",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "configures",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "top-k-calibration",
+      "target": "cross-encoder-reranking",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "relates_to",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "contextual-chunk-enrichment",
+      "target": "bge-m3-embedder",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "depends_on",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "index-building",
+      "target": "bge-m3-embedder",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "relates_to",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "citation-generation",
+      "target": "faithfulness-check",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "enables",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "abstention-gate",
+      "target": "advisory-mode",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "computes",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "abstention-gate",
+      "target": "confidence-bands",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "uses",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "abstention-gate",
+      "target": "subject-sim-threshold",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "implements",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "abstention-gate",
+      "target": "subject-simjudge",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "produces",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "corpus-ingestion",
+      "target": "corpus-metadata",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "depends_on",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "corpus-ingestion",
+      "target": "pdf-parser",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "implements",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "pdf-parser",
+      "target": "pdf-parser-regex-hardening",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "relates_to",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "prompt-injection-hardening",
+      "target": "pdf-parser",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "relates_to",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "index-building",
+      "target": "incremental-indexing",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "includes",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "adr-001-findings",
+      "target": "incremental-indexing",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "optimizes",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "incremental-indexing",
+      "target": "bm25-sparse-index",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "optimizes",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "incremental-indexing",
+      "target": "faiss-dense-index",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "implements",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "incremental-indexing",
+      "target": "incremental-encode",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "addresses",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "incremental-indexing",
+      "target": "retrieval-quality-ceiling",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "improves",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "contextual-chunk-enrichment",
+      "target": "citation-precision",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "includes",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "adr-001-findings",
+      "target": "prompt-injection-hardening",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "secures",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "prompt-injection-hardening",
+      "target": "pdf-ingestion",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "published_on",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "sebi-circulars-dataset",
+      "target": "huggingface-hub",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "precedes",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "dataset-export-pipeline",
+      "target": "corpus-validation",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "depends_on",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "dataset-export-pipeline",
+      "target": "semantic-routing-alignment",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "used_in",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "tdd-workflow",
+      "target": "dataset-export-pipeline",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "precedes",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "corpus-validation",
+      "target": "hierarchical-chunking",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "precedes",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "pdf-ingestion",
+      "target": "corpus-validation",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "implements",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "validation-sequence",
+      "target": "local-first-engineering",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "retrieves",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "scraping-pipeline",
+      "target": "sebi-governance-circulars",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "uses",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "query-endpoint",
+      "target": "ground-truth-answer-generation",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "extends",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "golden-v5-eval",
+      "target": "golden-v6-benchmark",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "exports_to",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "golden-v6-benchmark",
+      "target": "beir-export",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "exports_to",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "golden-v6-benchmark",
+      "target": "trec-runfile",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "exposes",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "health-endpoint",
+      "target": "config-driven-architecture",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "stores",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "faiss-dense-index",
+      "target": "bge-m3-embedding",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "runs_on",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "bge-m3-embedding",
+      "target": "pytorch-mps",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "uses",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "successor-expansion",
+      "target": "lineage-graph",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "orchestrates",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "n8n-automation",
+      "target": "corpus-refresh-workflow",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "orchestrates",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "n8n-automation",
+      "target": "eval-canary-workflow",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "orchestrates",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "n8n-automation",
+      "target": "health-monitor-workflow",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "calls",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "n8n-automation",
+      "target": "ops-http-server",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "invokes",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "corpus-refresh-workflow",
+      "target": "scraper-component",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "runs_against",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "eval-canary-workflow",
+      "target": "golden-v5-eval",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "post_processes",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "groundedness-gate",
+      "target": "mlx-generator",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "measures",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "mlx-generator",
+      "target": "faithfulness-metric",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "variant_of",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "mlx-generator",
+      "target": "qwen-3b-model",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "implements",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "config-toml",
+      "target": "settings-module",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "validates",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "pdf-magic-byte-guard",
+      "target": "scraper-component",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "implements",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "scraper-component",
+      "target": "pagination-post",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "feeds_to",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "scraper-component",
+      "target": "pdf-ingestion",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "enhances",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "viewer-aware-pdf-extraction",
+      "target": "scraper-component",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "improves",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "ingest-hardening",
+      "target": "pdf-ingestion",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "includes",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "beir-export",
+      "target": "reproducibility-metadata",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "publishes_to",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "export-pipeline",
+      "target": "aikosh-submission",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "produces",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "export-pipeline",
+      "target": "chunks-config",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "produces",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "export-pipeline",
+      "target": "citation-normalization-dataset",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "publishes_to",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "export-pipeline",
+      "target": "hugging-face-dataset",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "publishes_to",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "export-pipeline",
+      "target": "kaggle-dataset",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "produces",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "export-pipeline",
+      "target": "lineage-config",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "produces",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "export-pipeline",
+      "target": "supersession-pairs-dataset",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "publishes_to",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "export-pipeline",
+      "target": "zenodo-archival",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "enhances",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "table-aware-chunking",
+      "target": "hierarchical-chunking",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "uses",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "missing-pdf-recovery",
+      "target": "viewer-aware-pdf-extraction",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "motivates",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "semantic-routing-migration",
+      "target": "viewer-aware-pdf-extraction",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "supports",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "month-window-derivation",
+      "target": "missing-pdf-recovery",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "uses",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "hugging-face-dataset",
+      "target": "cc-by-4-license",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "validates",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "validation-roadmap",
+      "target": "pytorch-mps",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "includes",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "adr-001-findings",
+      "target": "chunk-enrichment",
+      "confidence_score": 1.0
+    },
+    {
+      "relationship": "improves",
+      "confidence": "extracted",
+      "source_file": "",
+      "source": "chunk-enrichment",
+      "target": "hierarchical-chunking",
+      "confidence_score": 1.0
     }
   ],
-  "hyperedges": [],
-  "built_at_commit": "e5d4dc1131ed3963399bf53668dd292c20cd6259"
+  "hyperedges": []
 }
