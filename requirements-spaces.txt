@@ -1,0 +1,25 @@
+# Hugging Face Spaces (CPU) requirements — used ONLY by the Space container.
+# Local Apple-Silicon development keeps using uv + pyproject.toml.
+# Mirrors pyproject dependencies minus mlx / mlx-lm (Apple-Silicon-only) and
+# hf-xet (XET is disabled via HF_HUB_DISABLE_XET), plus the Spaces extras.
+# Target: Python 3.11 (set python_version in the Space README metadata).
+
+torch>=2.2,<3
+sentence-transformers>=5.6.0
+FlagEmbedding>=1.4.0
+faiss-cpu>=1.9
+bm25s>=0.3.9
+pdfplumber>=0.11.10
+fastapi>=0.115
+uvicorn>=0.30
+gradio>=4.0.0
+httpx>=0.28.1
+pandas>=2.0
+numpy>=1.26
+
+# Spaces-specific (corpus + prebuilt index from HF Hub, generation)
+datasets>=3.0.0
+gradio_client>=1.0.0
+transformers>=4.45.0
+accelerate>=1.0.0
+huggingface_hub>=0.26
