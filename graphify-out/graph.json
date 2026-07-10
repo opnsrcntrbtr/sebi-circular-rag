@@ -20,7 +20,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app",
-      "community": 63,
+      "community": 49,
       "norm_label": "app.py"
     },
     {
@@ -30,7 +30,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "app_get_pipeline",
-      "community": 63,
+      "community": 49,
       "norm_label": "get_pipeline()"
     },
     {
@@ -40,7 +40,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "app_run_query_spaces",
-      "community": 63,
+      "community": 49,
       "norm_label": "run_query_spaces()"
     },
     {
@@ -50,7 +50,7 @@
       "source_location": "L101",
       "_origin": "ast",
       "id": "app_build_ui",
-      "community": 63,
+      "community": 49,
       "norm_label": "build_ui()"
     },
     {
@@ -60,7 +60,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_rationale_1",
-      "community": 63,
+      "community": 49,
       "norm_label": "hugging face spaces entrypoint \u2014 sebi circular rag demo (cpu-only).  gradio sdk"
     },
     {
@@ -70,7 +70,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "app_rationale_37",
-      "community": 63,
+      "community": 49,
       "norm_label": "cache one pipeline per mode; both share retriever/reranker/lineage."
     },
     {
@@ -339,7 +339,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_bench_generators",
-      "community": 46,
+      "community": 4,
       "norm_label": "bench_generators.py"
     },
     {
@@ -349,7 +349,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_bench_generators_rationale_1",
-      "community": 46,
+      "community": 4,
       "norm_label": "benchmark mlx generators on the golden set: faithfulness, groundedness, abstenti"
     },
     {
@@ -359,7 +359,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_bench_rerankers",
-      "community": 9,
+      "community": 63,
       "norm_label": "bench_rerankers.py"
     },
     {
@@ -369,7 +369,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "scripts_bench_rerankers_auroc",
-      "community": 9,
+      "community": 63,
       "norm_label": "auroc()"
     },
     {
@@ -379,7 +379,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "scripts_bench_rerankers_best_threshold",
-      "community": 9,
+      "community": 63,
       "norm_label": "best_threshold()"
     },
     {
@@ -389,7 +389,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "scripts_bench_rerankers_evaluate",
-      "community": 9,
+      "community": 63,
       "norm_label": "evaluate()"
     },
     {
@@ -399,7 +399,7 @@
       "source_location": "L97",
       "_origin": "ast",
       "id": "scripts_bench_rerankers_main",
-      "community": 9,
+      "community": 63,
       "norm_label": "main()"
     },
     {
@@ -409,7 +409,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_bench_rerankers_rationale_1",
-      "community": 9,
+      "community": 63,
       "norm_label": "f2 (adr-001): benchmark rerankers on golden_v5 with cluster-separation metrics."
     },
     {
@@ -419,7 +419,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "scripts_bench_rerankers_rationale_43",
-      "community": 9,
+      "community": 63,
       "norm_label": "p(pos_score > neg_score); ties count half. pos = answerable top-scores,     neg"
     },
     {
@@ -429,7 +429,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "scripts_bench_rerankers_rationale_52",
-      "community": 9,
+      "community": 63,
       "norm_label": "threshold maximising abstention accuracy: answer if score >= thr.     returns (t"
     },
     {
@@ -439,7 +439,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_bench_retrieval",
-      "community": 46,
+      "community": 4,
       "norm_label": "bench_retrieval.py"
     },
     {
@@ -469,7 +469,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_bench_retrieval_rationale_1",
-      "community": 46,
+      "community": 4,
       "norm_label": "retrieval-only benchmark with trec runfile and reproducibility metadata.  use --"
     },
     {
@@ -479,7 +479,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_build_golden",
-      "community": 46,
+      "community": 4,
       "norm_label": "build_golden.py"
     },
     {
@@ -489,7 +489,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_build_golden_rationale_1",
-      "community": 46,
+      "community": 4,
       "norm_label": "build eval/golden/golden_v4.jsonl for the larger corpus. each query is mapped to"
     },
     {
@@ -529,7 +529,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_build_index",
-      "community": 46,
+      "community": 55,
       "norm_label": "build_index.py"
     },
     {
@@ -539,7 +539,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_build_index_rationale_1",
-      "community": 46,
+      "community": 55,
       "norm_label": "build the dense+sparse index once and persist it (run after corpus changes)."
     },
     {
@@ -549,7 +549,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_calibrate",
-      "community": 46,
+      "community": 10,
       "norm_label": "calibrate.py"
     },
     {
@@ -559,7 +559,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "scripts_calibrate_evaluate",
-      "community": 55,
+      "community": 10,
       "norm_label": "evaluate()"
     },
     {
@@ -569,7 +569,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_calibrate_rationale_1",
-      "community": 46,
+      "community": 10,
       "norm_label": "calibrate top_k and the abstention threshold against the citation-precision sign"
     },
     {
@@ -759,7 +759,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_eval_gate",
-      "community": 46,
+      "community": 4,
       "norm_label": "eval_gate.py"
     },
     {
@@ -779,7 +779,7 @@
       "source_location": "L60",
       "_origin": "ast",
       "id": "scripts_eval_gate_auroc",
-      "community": 46,
+      "community": 4,
       "norm_label": "auroc()"
     },
     {
@@ -789,7 +789,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_eval_gate_rationale_1",
-      "community": 46,
+      "community": 4,
       "norm_label": "adr-002 follow-up: compare the production subject-sim gate against the section-a"
     },
     {
@@ -799,7 +799,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_eval_json",
-      "community": 46,
+      "community": 4,
       "norm_label": "eval_json.py"
     },
     {
@@ -809,7 +809,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_eval_json_rationale_1",
-      "community": 46,
+      "community": 4,
       "norm_label": "emit one json line of retrieval/citation/abstention metrics over golden_v5 (env"
     },
     {
@@ -1875,7 +1875,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_init",
-      "community": 55,
+      "community": 10,
       "norm_label": "__init__.py"
     },
     {
@@ -1885,7 +1885,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_init_rationale_1",
-      "community": 55,
+      "community": 10,
       "norm_label": "sebi circular rag \u2014 local-first, apple silicon.  pipeline: ingest -> segment ->"
     },
     {
@@ -1965,7 +1965,7 @@
       "source_location": "L137",
       "_origin": "ast",
       "id": "src_sebi_rag_api_create_app",
-      "community": 10,
+      "community": 2,
       "norm_label": "create_app()"
     },
     {
@@ -1975,7 +1975,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "fastapi",
-      "community": 63,
+      "community": 2,
       "norm_label": "fastapi"
     },
     {
@@ -2005,7 +2005,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "src_sebi_rag_api_spaces_cpu_env",
-      "community": 63,
+      "community": 1,
       "norm_label": "_cpu_env()"
     },
     {
@@ -2015,7 +2015,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "src_sebi_rag_api_spaces_build_spaces_pipeline",
-      "community": 63,
+      "community": 1,
       "norm_label": "build_spaces_pipeline()"
     },
     {
@@ -2275,7 +2275,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_corpus",
-      "community": 10,
+      "community": 55,
       "norm_label": "corpus.py"
     },
     {
@@ -2305,7 +2305,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_corpus_rationale_1",
-      "community": 10,
+      "community": 55,
       "norm_label": "load the real sebi circular corpus (data/corpus/circulars.jsonl) into chunks."
     },
     {
@@ -2425,7 +2425,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_embeddings",
-      "community": 46,
+      "community": 4,
       "norm_label": "embeddings.py"
     },
     {
@@ -2545,7 +2545,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_embeddings_rationale_1",
-      "community": 46,
+      "community": 4,
       "norm_label": "embedder protocol + a deterministic test embedder + the real bge-m3 embedder.  t"
     },
     {
@@ -2575,7 +2575,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_eval",
-      "community": 62,
+      "community": 9,
       "norm_label": "eval.py"
     },
     {
@@ -2585,7 +2585,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_recall_at_k",
-      "community": 62,
+      "community": 9,
       "norm_label": "recall_at_k()"
     },
     {
@@ -2595,7 +2595,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_mrr",
-      "community": 62,
+      "community": 9,
       "norm_label": "mrr()"
     },
     {
@@ -2605,7 +2605,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_ndcg_at_k",
-      "community": 62,
+      "community": 9,
       "norm_label": "ndcg_at_k()"
     },
     {
@@ -2615,7 +2615,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_rationale_1",
-      "community": 62,
+      "community": 9,
       "norm_label": "minimal retrieval metrics (subset of docs/project_context.md section 7).  recall"
     },
     {
@@ -2625,7 +2625,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_harness",
-      "community": 55,
+      "community": 10,
       "norm_label": "eval_harness.py"
     },
     {
@@ -2635,7 +2635,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_harness_doc",
-      "community": 55,
+      "community": 10,
       "norm_label": "_doc()"
     },
     {
@@ -2645,7 +2645,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_harness_unique",
-      "community": 55,
+      "community": 10,
       "norm_label": "_unique()"
     },
     {
@@ -2655,7 +2655,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_harness_evalreport",
-      "community": 55,
+      "community": 10,
       "norm_label": "evalreport"
     },
     {
@@ -2685,7 +2685,7 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_harness_run_eval",
-      "community": 55,
+      "community": 10,
       "norm_label": "run_eval()"
     },
     {
@@ -2695,7 +2695,7 @@
       "source_location": "L103",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_harness_report_dict",
-      "community": 55,
+      "community": 10,
       "norm_label": "report_dict()"
     },
     {
@@ -2705,7 +2705,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_harness_rationale_1",
-      "community": 55,
+      "community": 10,
       "norm_label": "golden-set evaluation harness (p1).  runs the pipeline over a labelled golden se"
     },
     {
@@ -2755,7 +2755,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_generator_generate",
-      "community": 4,
+      "community": 0,
       "norm_label": ".generate()"
     },
     {
@@ -2765,7 +2765,7 @@
       "source_location": "L60",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_extractivestubgenerator",
-      "community": 3,
+      "community": 49,
       "norm_label": "extractivestubgenerator"
     },
     {
@@ -2775,7 +2775,7 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_extractivestubgenerator_generate",
-      "community": 4,
+      "community": 49,
       "norm_label": ".generate()"
     },
     {
@@ -2795,7 +2795,7 @@
       "source_location": "L77",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_judge_grounded",
-      "community": 4,
+      "community": 0,
       "norm_label": ".grounded()"
     },
     {
@@ -2805,7 +2805,7 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_judge_prompt",
-      "community": 4,
+      "community": 49,
       "norm_label": "_judge_prompt()"
     },
     {
@@ -2815,7 +2815,7 @@
       "source_location": "L92",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_judge_prompt_identify",
-      "community": 4,
+      "community": 49,
       "norm_label": "_judge_prompt_identify()"
     },
     {
@@ -2845,7 +2845,7 @@
       "source_location": "L130",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_mlxjudge",
-      "community": 4,
+      "community": 49,
       "norm_label": "mlxjudge"
     },
     {
@@ -2855,7 +2855,7 @@
       "source_location": "L137",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_mlxjudge_init",
-      "community": 4,
+      "community": 49,
       "norm_label": ".__init__()"
     },
     {
@@ -2865,7 +2865,7 @@
       "source_location": "L153",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_mlxjudge_reply",
-      "community": 4,
+      "community": 49,
       "norm_label": "._reply()"
     },
     {
@@ -2875,7 +2875,7 @@
       "source_location": "L166",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_mlxjudge_grounded",
-      "community": 4,
+      "community": 49,
       "norm_label": ".grounded()"
     },
     {
@@ -3055,7 +3055,7 @@
       "source_location": "L61",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_rationale_61",
-      "community": 3,
+      "community": 49,
       "norm_label": "deterministic: returns the top context text. no model required."
     },
     {
@@ -3065,7 +3065,7 @@
       "source_location": "L93",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_rationale_93",
-      "community": 4,
+      "community": 49,
       "norm_label": "v2 protocol: closed-set identification instead of yes/no judgment.     naming wh"
     },
     {
@@ -3095,7 +3095,7 @@
       "source_location": "L131",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_rationale_131",
-      "community": 4,
+      "community": 49,
       "norm_label": "deterministic groundedness judge on mlx (greedy decode, temp 0).      pass share"
     },
     {
@@ -3172,7 +3172,7 @@
       "label": "ExternalSpaceGenerator",
       "file_type": "code",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L26",
+      "source_location": "L40",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_spaces_externalspacegenerator",
       "community": 0,
@@ -3182,7 +3182,7 @@
       "label": ".__init__()",
       "file_type": "code",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L33",
+      "source_location": "L52",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_spaces_externalspacegenerator_init",
       "community": 0,
@@ -3192,7 +3192,7 @@
       "label": "._get_client()",
       "file_type": "code",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L37",
+      "source_location": "L56",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_spaces_externalspacegenerator_get_client",
       "community": 0,
@@ -3202,7 +3202,7 @@
       "label": ".generate()",
       "file_type": "code",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L46",
+      "source_location": "L65",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_spaces_externalspacegenerator_generate",
       "community": 0,
@@ -3212,7 +3212,7 @@
       "label": "HFGenerator",
       "file_type": "code",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L58",
+      "source_location": "L87",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_spaces_hfgenerator",
       "community": 0,
@@ -3222,7 +3222,7 @@
       "label": ".__init__()",
       "file_type": "code",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L61",
+      "source_location": "L90",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_spaces_hfgenerator_init",
       "community": 0,
@@ -3232,7 +3232,7 @@
       "label": "._load()",
       "file_type": "code",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L66",
+      "source_location": "L95",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_spaces_hfgenerator_load",
       "community": 0,
@@ -3242,7 +3242,7 @@
       "label": ".generate()",
       "file_type": "code",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L80",
+      "source_location": "L109",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_spaces_hfgenerator_generate",
       "community": 0,
@@ -3252,7 +3252,7 @@
       "label": "HybridGenerator",
       "file_type": "code",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L109",
+      "source_location": "L138",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_spaces_hybridgenerator",
       "community": 0,
@@ -3262,7 +3262,7 @@
       "label": ".__init__()",
       "file_type": "code",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L116",
+      "source_location": "L145",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_spaces_hybridgenerator_init",
       "community": 0,
@@ -3272,7 +3272,7 @@
       "label": ".generate()",
       "file_type": "code",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L126",
+      "source_location": "L155",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_spaces_hybridgenerator_generate",
       "community": 0,
@@ -3289,22 +3289,22 @@
       "norm_label": "cpu / remote generation for the hugging face spaces demo.  all classes implement"
     },
     {
-      "label": "Primary generator: calls a public LLM Space via gradio_client.      Raises on an",
+      "label": "Primary generator: calls a public LLM Space via gradio_client.      Wired to hug",
       "file_type": "rationale",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L27",
+      "source_location": "L41",
       "_origin": "ast",
-      "id": "src_sebi_rag_generate_spaces_rationale_27",
+      "id": "src_sebi_rag_generate_spaces_rationale_41",
       "community": 0,
-      "norm_label": "primary generator: calls a public llm space via gradio_client.      raises on an"
+      "norm_label": "primary generator: calls a public llm space via gradio_client.      wired to hug"
     },
     {
       "label": "Fallback generator: small instruct model via transformers on CPU.",
       "file_type": "rationale",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L59",
+      "source_location": "L88",
       "_origin": "ast",
-      "id": "src_sebi_rag_generate_spaces_rationale_59",
+      "id": "src_sebi_rag_generate_spaces_rationale_88",
       "community": 0,
       "norm_label": "fallback generator: small instruct model via transformers on cpu."
     },
@@ -3312,9 +3312,9 @@
       "label": "External Space first; on ANY failure fall back to the local CPU model.      exte",
       "file_type": "rationale",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L110",
+      "source_location": "L139",
       "_origin": "ast",
-      "id": "src_sebi_rag_generate_spaces_rationale_110",
+      "id": "src_sebi_rag_generate_spaces_rationale_139",
       "community": 0,
       "norm_label": "external space first; on any failure fall back to the local cpu model.      exte"
     },
@@ -3655,7 +3655,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage",
-      "community": 46,
+      "community": 4,
       "norm_label": "lineage.py"
     },
     {
@@ -3795,7 +3795,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_rationale_1",
-      "community": 46,
+      "community": 4,
       "norm_label": "p2 \u2014 cross-document supersession resolution.  classifies each circular's referen"
     },
     {
@@ -3865,7 +3865,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "src_sebi_rag_pipeline_ragpipeline",
-      "community": 4,
+      "community": 3,
       "norm_label": "ragpipeline"
     },
     {
@@ -3905,7 +3905,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_rerank",
-      "community": 46,
+      "community": 4,
       "norm_label": "rerank.py"
     },
     {
@@ -3925,7 +3925,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "src_sebi_rag_rerank_reranker_rerank",
-      "community": 4,
+      "community": 0,
       "norm_label": ".rerank()"
     },
     {
@@ -3945,7 +3945,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "src_sebi_rag_rerank_lexicalreranker_rerank",
-      "community": 4,
+      "community": 3,
       "norm_label": ".rerank()"
     },
     {
@@ -3955,7 +3955,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "src_sebi_rag_rerank_qwen3_rerank_prompt",
-      "community": 9,
+      "community": 0,
       "norm_label": "qwen3_rerank_prompt()"
     },
     {
@@ -3965,7 +3965,7 @@
       "source_location": "L73",
       "_origin": "ast",
       "id": "src_sebi_rag_rerank_qwen3mlxreranker",
-      "community": 9,
+      "community": 0,
       "norm_label": "qwen3mlxreranker"
     },
     {
@@ -3975,7 +3975,7 @@
       "source_location": "L82",
       "_origin": "ast",
       "id": "src_sebi_rag_rerank_qwen3mlxreranker_init",
-      "community": 9,
+      "community": 0,
       "norm_label": ".__init__()"
     },
     {
@@ -3985,7 +3985,7 @@
       "source_location": "L97",
       "_origin": "ast",
       "id": "src_sebi_rag_rerank_qwen3mlxreranker_score",
-      "community": 9,
+      "community": 0,
       "norm_label": "._score()"
     },
     {
@@ -3995,7 +3995,7 @@
       "source_location": "L107",
       "_origin": "ast",
       "id": "src_sebi_rag_rerank_qwen3mlxreranker_rerank",
-      "community": 9,
+      "community": 0,
       "norm_label": ".rerank()"
     },
     {
@@ -4035,7 +4035,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_rerank_rationale_1",
-      "community": 46,
+      "community": 4,
       "norm_label": "stage-2 reranking (mandatory, d4). cross-encoder in production; a deterministic"
     },
     {
@@ -4055,7 +4055,7 @@
       "source_location": "L74",
       "_origin": "ast",
       "id": "src_sebi_rag_rerank_rationale_74",
-      "community": 9,
+      "community": 0,
       "norm_label": "qwen3-reranker via mlx (apple-silicon native). benchmark candidate only     (d2"
     },
     {
@@ -4075,7 +4075,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_retrieve",
-      "community": 46,
+      "community": 1,
       "norm_label": "retrieve.py"
     },
     {
@@ -4285,7 +4285,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_retrieve_rationale_1",
-      "community": 46,
+      "community": 1,
       "norm_label": "stage-1 hybrid retrieval: dense (faiss) + sparse (bm25) fused by rrf.  mandatory"
     },
     {
@@ -4345,7 +4345,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_segment",
-      "community": 2,
+      "community": 4,
       "norm_label": "segment.py"
     },
     {
@@ -4365,7 +4365,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "src_sebi_rag_segment_chunk",
-      "community": 4,
+      "community": 0,
       "norm_label": "chunk"
     },
     {
@@ -4375,7 +4375,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "src_sebi_rag_segment_paragraphs",
-      "community": 2,
+      "community": 74,
       "norm_label": "_paragraphs()"
     },
     {
@@ -4395,7 +4395,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_segment_rationale_1",
-      "community": 2,
+      "community": 4,
       "norm_label": "segmentation: hierarchical chunking + metadata + stable citation ids.  minimal,"
     },
     {
@@ -4405,7 +4405,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "src_sebi_rag_segment_rationale_35",
-      "community": 2,
+      "community": 74,
       "norm_label": "split into units each <= max_chars.      pdf-extracted text often lacks blank-li"
     },
     {
@@ -4455,7 +4455,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "src_sebi_rag_settings_settings_load",
-      "community": 63,
+      "community": 62,
       "norm_label": ".load()"
     },
     {
@@ -4465,7 +4465,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_sebi_rag_settings_py_path",
-      "community": 63,
+      "community": 62,
       "norm_label": "path"
     },
     {
@@ -4475,7 +4475,7 @@
       "source_location": "L78",
       "_origin": "ast",
       "id": "src_sebi_rag_settings_settings_load_spaces",
-      "community": 63,
+      "community": 62,
       "norm_label": ".load_spaces()"
     },
     {
@@ -4505,7 +4505,7 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "src_sebi_rag_settings_rationale_79",
-      "community": 63,
+      "community": 62,
       "norm_label": "settings.load() plus the [spaces] table as settings.spaces.*          load order"
     },
     {
@@ -4655,7 +4655,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_api",
-      "community": 10,
+      "community": 2,
       "norm_label": "test_api.py"
     },
     {
@@ -4715,7 +4715,7 @@
       "source_location": "L61",
       "_origin": "ast",
       "id": "tests_test_api_test_health",
-      "community": 10,
+      "community": 2,
       "norm_label": "test_health()"
     },
     {
@@ -4725,7 +4725,7 @@
       "source_location": "L68",
       "_origin": "ast",
       "id": "tests_test_api_test_query_grounded_with_metadata_and_latency",
-      "community": 10,
+      "community": 2,
       "norm_label": "test_query_grounded_with_metadata_and_latency()"
     },
     {
@@ -4735,7 +4735,7 @@
       "source_location": "L80",
       "_origin": "ast",
       "id": "tests_test_api_test_query_abstains_out_of_domain",
-      "community": 10,
+      "community": 2,
       "norm_label": "test_query_abstains_out_of_domain()"
     },
     {
@@ -4745,7 +4745,7 @@
       "source_location": "L87",
       "_origin": "ast",
       "id": "tests_test_api_test_top_k_zero_rejected_422",
-      "community": 10,
+      "community": 2,
       "norm_label": "test_top_k_zero_rejected_422()"
     },
     {
@@ -4755,7 +4755,7 @@
       "source_location": "L93",
       "_origin": "ast",
       "id": "tests_test_api_test_response_carries_certainty_fields",
-      "community": 10,
+      "community": 2,
       "norm_label": "test_response_carries_certainty_fields()"
     },
     {
@@ -4765,7 +4765,7 @@
       "source_location": "L102",
       "_origin": "ast",
       "id": "tests_test_api_test_auth_required_when_key_set",
-      "community": 10,
+      "community": 2,
       "norm_label": "test_auth_required_when_key_set()"
     },
     {
@@ -4775,7 +4775,7 @@
       "source_location": "L111",
       "_origin": "ast",
       "id": "tests_test_api_test_rate_limit",
-      "community": 10,
+      "community": 2,
       "norm_label": "test_rate_limit()"
     },
     {
@@ -4785,7 +4785,7 @@
       "source_location": "L120",
       "_origin": "ast",
       "id": "tests_test_api_test_query_exceeds_time_budget_returns_504",
-      "community": 10,
+      "community": 2,
       "norm_label": "test_query_exceeds_time_budget_returns_504()"
     },
     {
@@ -4795,7 +4795,7 @@
       "source_location": "L127",
       "_origin": "ast",
       "id": "tests_test_api_test_citation_meta_reports_superseded",
-      "community": 10,
+      "community": 2,
       "norm_label": "test_citation_meta_reports_superseded()"
     },
     {
@@ -4805,7 +4805,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_api_rationale_1",
-      "community": 10,
+      "community": 2,
       "norm_label": "fastapi service tests (offline pipelines): endpoints, auth, rate limit, metadata"
     },
     {
@@ -5765,7 +5765,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_faithfulness",
-      "community": 3,
+      "community": 4,
       "norm_label": "test_faithfulness.py"
     },
     {
@@ -5815,7 +5815,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_faithfulness_rationale_1",
-      "community": 3,
+      "community": 4,
       "norm_label": "faithfulness: catch answers that cite circulars not in the retrieved context."
     },
     {
@@ -5985,7 +5985,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "tests_test_incremental_index_countingembedder",
-      "community": 3,
+      "community": 1,
       "norm_label": "countingembedder"
     },
     {
@@ -5995,7 +5995,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "tests_test_incremental_index_countingembedder_init",
-      "community": 3,
+      "community": 1,
       "norm_label": ".__init__()"
     },
     {
@@ -6005,7 +6005,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "tests_test_incremental_index_countingembedder_encode",
-      "community": 3,
+      "community": 1,
       "norm_label": ".encode()"
     },
     {
@@ -6275,7 +6275,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_integration_e2e",
-      "community": 2,
+      "community": 4,
       "norm_label": "test_integration_e2e.py"
     },
     {
@@ -6285,7 +6285,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "tests_test_integration_e2e_ollama_up",
-      "community": 63,
+      "community": 4,
       "norm_label": "_ollama_up()"
     },
     {
@@ -6305,7 +6305,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "tests_test_integration_e2e_test_e2e_grounded_answer_with_citation",
-      "community": 2,
+      "community": 4,
       "norm_label": "test_e2e_grounded_answer_with_citation()"
     },
     {
@@ -6315,7 +6315,7 @@
       "source_location": "L61",
       "_origin": "ast",
       "id": "tests_test_integration_e2e_test_e2e_abstains_out_of_domain",
-      "community": 2,
+      "community": 4,
       "norm_label": "test_e2e_abstains_out_of_domain()"
     },
     {
@@ -6325,7 +6325,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_integration_e2e_rationale_1",
-      "community": 2,
+      "community": 4,
       "norm_label": "step 12 \u2014 end-to-end rag integration test with the real stack.  bge-m3 (mps) + b"
     },
     {
@@ -6385,7 +6385,7 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "tests_test_lineage_test_demote_superseded_puts_in_force_on_top",
-      "community": 4,
+      "community": 63,
       "norm_label": "test_demote_superseded_puts_in_force_on_top()"
     },
     {
@@ -6425,7 +6425,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_persistence",
-      "community": 46,
+      "community": 1,
       "norm_label": "test_persistence.py"
     },
     {
@@ -6435,7 +6435,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "tests_test_persistence_chunks",
-      "community": 3,
+      "community": 1,
       "norm_label": "_chunks()"
     },
     {
@@ -6455,7 +6455,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_persistence_rationale_1",
-      "community": 46,
+      "community": 1,
       "norm_label": "index persistence round-trip (offline)."
     },
     {
@@ -6465,7 +6465,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_pipeline",
-      "community": 2,
+      "community": 9,
       "norm_label": "test_pipeline.py"
     },
     {
@@ -6475,7 +6475,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "tests_test_pipeline_build_chunks",
-      "community": 2,
+      "community": 9,
       "norm_label": "_build_chunks()"
     },
     {
@@ -6485,7 +6485,7 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "tests_test_pipeline_build_pipeline",
-      "community": 2,
+      "community": 9,
       "norm_label": "_build_pipeline()"
     },
     {
@@ -6495,7 +6495,7 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "tests_test_pipeline_test_segmentation_has_stable_ids_and_metadata",
-      "community": 2,
+      "community": 9,
       "norm_label": "test_segmentation_has_stable_ids_and_metadata()"
     },
     {
@@ -6515,7 +6515,7 @@
       "source_location": "L100",
       "_origin": "ast",
       "id": "tests_test_pipeline_test_hybrid_retrieval_finds_relevant_circular",
-      "community": 2,
+      "community": 9,
       "norm_label": "test_hybrid_retrieval_finds_relevant_circular()"
     },
     {
@@ -6525,7 +6525,7 @@
       "source_location": "L111",
       "_origin": "ast",
       "id": "tests_test_pipeline_test_abstention_on_out_of_domain_query",
-      "community": 2,
+      "community": 9,
       "norm_label": "test_abstention_on_out_of_domain_query()"
     },
     {
@@ -6545,7 +6545,7 @@
       "source_location": "L141",
       "_origin": "ast",
       "id": "tests_test_pipeline_test_retrieval_metrics",
-      "community": 62,
+      "community": 9,
       "norm_label": "test_retrieval_metrics()"
     },
     {
@@ -6555,7 +6555,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_pipeline_rationale_1",
-      "community": 2,
+      "community": 9,
       "norm_label": "minimal end-to-end test of the sebi rag pipeline.  runs fully offline (hashembed"
     },
     {
@@ -6565,7 +6565,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_rerank_qwen3",
-      "community": 9,
+      "community": 0,
       "norm_label": "test_rerank_qwen3.py"
     },
     {
@@ -6575,7 +6575,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "tests_test_rerank_qwen3_test_prompt_format_matches_model_card",
-      "community": 9,
+      "community": 0,
       "norm_label": "test_prompt_format_matches_model_card()"
     },
     {
@@ -6585,7 +6585,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "tests_test_rerank_qwen3_stubqwen",
-      "community": 9,
+      "community": 0,
       "norm_label": "_stubqwen"
     },
     {
@@ -6595,7 +6595,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "tests_test_rerank_qwen3_stubqwen_init",
-      "community": 9,
+      "community": 0,
       "norm_label": ".__init__()"
     },
     {
@@ -6605,7 +6605,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "tests_test_rerank_qwen3_stubqwen_score",
-      "community": 9,
+      "community": 0,
       "norm_label": "._score()"
     },
     {
@@ -6615,7 +6615,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "tests_test_rerank_qwen3_test_rerank_orders_by_score_and_truncates",
-      "community": 9,
+      "community": 0,
       "norm_label": "test_rerank_orders_by_score_and_truncates()"
     },
     {
@@ -6625,7 +6625,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_rerank_qwen3_rationale_1",
-      "community": 9,
+      "community": 0,
       "norm_label": "offline tests for the qwen3 mlx reranker (f2, adr-001) \u2014 prompt format and reran"
     },
     {
@@ -6635,7 +6635,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "tests_test_rerank_qwen3_rationale_18",
-      "community": 9,
+      "community": 0,
       "norm_label": "bypass __init__ (no mlx); score by keyword overlap to test ordering."
     },
     {
@@ -6825,7 +6825,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_settings",
-      "community": 63,
+      "community": 62,
       "norm_label": "test_settings.py"
     },
     {
@@ -6835,7 +6835,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "tests_test_settings_clear",
-      "community": 63,
+      "community": 62,
       "norm_label": "_clear()"
     },
     {
@@ -6845,7 +6845,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "tests_test_settings_test_defaults_when_no_file",
-      "community": 63,
+      "community": 62,
       "norm_label": "test_defaults_when_no_file()"
     },
     {
@@ -6855,7 +6855,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "tests_test_settings_test_env_overrides",
-      "community": 63,
+      "community": 62,
       "norm_label": "test_env_overrides()"
     },
     {
@@ -6865,7 +6865,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "tests_test_settings_test_load_spaces_defaults_and_file",
-      "community": 63,
+      "community": 62,
       "norm_label": "test_load_spaces_defaults_and_file()"
     },
     {
@@ -6875,7 +6875,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "tests_test_settings_test_toml_then_env_precedence",
-      "community": 63,
+      "community": 62,
       "norm_label": "test_toml_then_env_precedence()"
     },
     {
@@ -6885,7 +6885,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_settings_rationale_1",
-      "community": 63,
+      "community": 62,
       "norm_label": "settings: defaults, config.toml, and env-override precedence."
     },
     {
@@ -7039,10 +7039,30 @@
       "norm_label": "test_hybrid_skips_external_when_unconfigured()"
     },
     {
-      "label": "test_generators_implement_generator_protocol()",
+      "label": "test_external_space_generator_calls_llama2_generate_signature()",
       "file_type": "code",
       "source_file": "tests/test_spaces.py",
       "source_location": "L164",
+      "_origin": "ast",
+      "id": "tests_test_spaces_test_external_space_generator_calls_llama2_generate_signature",
+      "community": 0,
+      "norm_label": "test_external_space_generator_calls_llama2_generate_signature()"
+    },
+    {
+      "label": "test_external_space_generator_abstains_without_contexts()",
+      "file_type": "code",
+      "source_file": "tests/test_spaces.py",
+      "source_location": "L203",
+      "_origin": "ast",
+      "id": "tests_test_spaces_test_external_space_generator_abstains_without_contexts",
+      "community": 0,
+      "norm_label": "test_external_space_generator_abstains_without_contexts()"
+    },
+    {
+      "label": "test_generators_implement_generator_protocol()",
+      "file_type": "code",
+      "source_file": "tests/test_spaces.py",
+      "source_location": "L211",
       "_origin": "ast",
       "id": "tests_test_spaces_test_generators_implement_generator_protocol",
       "community": 0,
@@ -7057,6 +7077,16 @@
       "id": "tests_test_spaces_rationale_1",
       "community": 0,
       "norm_label": "hf spaces path: corpus_spaces loader mapping + hybridgenerator fallback.  fully"
+    },
+    {
+      "label": "ExternalSpaceGenerator must call huggingface-projects/llama-2-7b-chat's     veri",
+      "file_type": "rationale",
+      "source_file": "tests/test_spaces.py",
+      "source_location": "L165",
+      "_origin": "ast",
+      "id": "tests_test_spaces_rationale_165",
+      "community": 0,
+      "norm_label": "externalspacegenerator must call huggingface-projects/llama-2-7b-chat's     veri"
     },
     {
       "label": "test_validate_corpus.py",
@@ -7535,7 +7565,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "readme_spaces",
-      "community": 29,
+      "community": 72,
       "norm_label": "readme-spaces.md"
     },
     {
@@ -7545,7 +7575,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "readme_spaces_sebi_circular_rag_hugging_face_spaces_demo",
-      "community": 29,
+      "community": 72,
       "norm_label": "sebi circular rag \u2014 hugging face spaces demo"
     },
     {
@@ -7555,7 +7585,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "readme_spaces_how_this_demo_differs_from_the_full_local_system",
-      "community": 29,
+      "community": 72,
       "norm_label": "how this demo differs from the full local system"
     },
     {
@@ -7565,7 +7595,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "readme_spaces_ui_modes",
-      "community": 29,
+      "community": 72,
       "norm_label": "ui modes"
     },
     {
@@ -7575,7 +7605,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "readme_spaces_deploying",
-      "community": 29,
+      "community": 72,
       "norm_label": "deploying"
     },
     {
@@ -7585,7 +7615,7 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "readme_spaces_data_licensing_and_citation",
-      "community": 29,
+      "community": 72,
       "norm_label": "data, licensing and citation"
     },
     {
@@ -7595,7 +7625,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "readme",
-      "community": 29,
+      "community": 46,
       "norm_label": "readme.md"
     },
     {
@@ -7645,7 +7675,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "readme_published_datasets",
-      "community": 29,
+      "community": 70,
       "norm_label": "published datasets"
     },
     {
@@ -7655,7 +7685,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "readme_dataset_configurations",
-      "community": 29,
+      "community": 70,
       "norm_label": "dataset configurations"
     },
     {
@@ -7665,7 +7695,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "readme_schema_details",
-      "community": 29,
+      "community": 70,
       "norm_label": "schema details"
     },
     {
@@ -7675,7 +7705,7 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "readme_licensing_compliance",
-      "community": 29,
+      "community": 70,
       "norm_label": "licensing & compliance"
     },
     {
@@ -7685,7 +7715,7 @@
       "source_location": "L82",
       "_origin": "ast",
       "id": "readme_disclaimers",
-      "community": 29,
+      "community": 70,
       "norm_label": "disclaimers"
     },
     {
@@ -7695,7 +7725,7 @@
       "source_location": "L89",
       "_origin": "ast",
       "id": "readme_citation",
-      "community": 29,
+      "community": 70,
       "norm_label": "citation"
     },
     {
@@ -7705,7 +7735,7 @@
       "source_location": "L103",
       "_origin": "ast",
       "id": "readme_suggested_use_cases",
-      "community": 29,
+      "community": 70,
       "norm_label": "suggested use cases"
     },
     {
@@ -7905,7 +7935,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "docs_usage",
-      "community": 29,
+      "community": 46,
       "norm_label": "usage.md"
     },
     {
@@ -7955,7 +7985,7 @@
       "source_location": "L99",
       "_origin": "ast",
       "id": "docs_usage_4_the_data_pipeline",
-      "community": 39,
+      "community": 73,
       "norm_label": "4. the data pipeline"
     },
     {
@@ -7965,7 +7995,7 @@
       "source_location": "L103",
       "_origin": "ast",
       "id": "docs_usage_4_1_scrape_circulars_runs_on_your_machine",
-      "community": 39,
+      "community": 73,
       "norm_label": "4.1 scrape circulars (runs on your machine)"
     },
     {
@@ -7975,7 +8005,7 @@
       "source_location": "L121",
       "_origin": "ast",
       "id": "docs_usage_4_2_ingest_a_single_pdf",
-      "community": 39,
+      "community": 73,
       "norm_label": "4.2 ingest a single pdf"
     },
     {
@@ -7985,7 +8015,7 @@
       "source_location": "L132",
       "_origin": "ast",
       "id": "docs_usage_4_3_resolve_supersession_rebuild_the_index",
-      "community": 39,
+      "community": 73,
       "norm_label": "4.3 resolve supersession + rebuild the index"
     },
     {
@@ -7995,7 +8025,7 @@
       "source_location": "L143",
       "_origin": "ast",
       "id": "docs_usage_4_4_maintenance_helpers",
-      "community": 39,
+      "community": 73,
       "norm_label": "4.4 maintenance helpers"
     },
     {
@@ -8005,7 +8035,7 @@
       "source_location": "L151",
       "_origin": "ast",
       "id": "docs_usage_5_running_the_service",
-      "community": 39,
+      "community": 71,
       "norm_label": "5. running the service"
     },
     {
@@ -8015,7 +8045,7 @@
       "source_location": "L162",
       "_origin": "ast",
       "id": "docs_usage_endpoints",
-      "community": 39,
+      "community": 71,
       "norm_label": "endpoints"
     },
     {
@@ -8025,7 +8055,7 @@
       "source_location": "L172",
       "_origin": "ast",
       "id": "docs_usage_query_request",
-      "community": 39,
+      "community": 71,
       "norm_label": "query request"
     },
     {
@@ -8035,7 +8065,7 @@
       "source_location": "L182",
       "_origin": "ast",
       "id": "docs_usage_query_response",
-      "community": 39,
+      "community": 71,
       "norm_label": "query response"
     },
     {
@@ -8045,7 +8075,7 @@
       "source_location": "L210",
       "_origin": "ast",
       "id": "docs_usage_example",
-      "community": 39,
+      "community": 71,
       "norm_label": "example"
     },
     {
@@ -8055,7 +8085,7 @@
       "source_location": "L218",
       "_origin": "ast",
       "id": "docs_usage_errors",
-      "community": 39,
+      "community": 71,
       "norm_label": "errors"
     },
     {
@@ -8455,7 +8485,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "docs_next_steps",
-      "community": 29,
+      "community": 46,
       "norm_label": "next_steps.md"
     },
     {
@@ -8465,7 +8495,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "docs_next_steps_next_steps_structured_plans",
-      "community": 29,
+      "community": 46,
       "norm_label": "next steps \u2014 structured plans"
     },
     {
@@ -8475,7 +8505,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "docs_next_steps_a_quality_bump_larger_mlx_model_done_2026_07_01",
-      "community": 29,
+      "community": 46,
       "norm_label": "(a) quality bump \u2014 larger mlx model  \u2014 done (2026-07-01)"
     },
     {
@@ -8485,7 +8515,7 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "docs_next_steps_b_packaging_deployment_done_2026_07_01",
-      "community": 29,
+      "community": 46,
       "norm_label": "(b) packaging / deployment  \u2014 done (2026-07-01)"
     },
     {
@@ -8495,7 +8525,7 @@
       "source_location": "L88",
       "_origin": "ast",
       "id": "docs_next_steps_c_grow_the_corpus_via_the_scraper_implemented_2026_07_01",
-      "community": 29,
+      "community": 46,
       "norm_label": "(c) grow the corpus via the scraper  \u2014 implemented (2026-07-01)"
     },
     {
@@ -8735,7 +8765,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "docs_status",
-      "community": 29,
+      "community": 46,
       "norm_label": "status.md"
     },
     {
@@ -8745,7 +8775,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "docs_status_status_sebi_circular_rag",
-      "community": 29,
+      "community": 69,
       "norm_label": "status \u2014 sebi circular rag"
     },
     {
@@ -8755,7 +8785,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "docs_status_current_snapshot",
-      "community": 29,
+      "community": 69,
       "norm_label": "current snapshot"
     },
     {
@@ -8765,7 +8795,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "docs_status_completed",
-      "community": 29,
+      "community": 69,
       "norm_label": "completed"
     },
     {
@@ -8775,7 +8805,7 @@
       "source_location": "L397",
       "_origin": "ast",
       "id": "docs_status_pending",
-      "community": 29,
+      "community": 69,
       "norm_label": "pending"
     },
     {
@@ -8785,7 +8815,7 @@
       "source_location": "L426",
       "_origin": "ast",
       "id": "docs_status_current_validation_step",
-      "community": 29,
+      "community": 69,
       "norm_label": "current validation step"
     },
     {
@@ -8795,7 +8825,7 @@
       "source_location": "L434",
       "_origin": "ast",
       "id": "docs_status_known_blockers",
-      "community": 29,
+      "community": 69,
       "norm_label": "known blockers"
     },
     {
@@ -8805,7 +8835,7 @@
       "source_location": "L445",
       "_origin": "ast",
       "id": "docs_status_last_updated",
-      "community": 29,
+      "community": 69,
       "norm_label": "last updated"
     },
     {
@@ -9685,7 +9715,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "docs_validation_roadmap",
-      "community": 29,
+      "community": 46,
       "norm_label": "validation_roadmap.md"
     },
     {
@@ -9695,7 +9725,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "docs_validation_roadmap_validation_roadmap_sebi_circular_rag",
-      "community": 29,
+      "community": 46,
       "norm_label": "validation roadmap \u2014 sebi circular rag"
     },
     {
@@ -9705,7 +9735,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "docs_validation_roadmap_rules",
-      "community": 29,
+      "community": 46,
       "norm_label": "rules"
     },
     {
@@ -18687,7 +18717,7 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "tests/test_spaces.py",
-      "source_location": "L165",
+      "source_location": "L212",
       "weight": 0.8,
       "source": "tests_test_spaces_boom",
       "target": "src_sebi_rag_generate_generator",
@@ -18697,7 +18727,7 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "tests/test_spaces.py",
-      "source_location": "L165",
+      "source_location": "L212",
       "weight": 0.8,
       "source": "tests_test_spaces_canned",
       "target": "src_sebi_rag_generate_generator",
@@ -19495,7 +19525,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L49",
+      "source_location": "L68",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces_externalspacegenerator_generate",
       "target": "src_sebi_rag_generate_grounded_prompt"
@@ -19506,7 +19536,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L86",
+      "source_location": "L115",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces_hfgenerator_generate",
       "target": "src_sebi_rag_generate_grounded_prompt"
@@ -19793,7 +19823,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L26",
+      "source_location": "L40",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces",
       "target": "src_sebi_rag_generate_spaces_externalspacegenerator",
@@ -19803,7 +19833,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L58",
+      "source_location": "L87",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces",
       "target": "src_sebi_rag_generate_spaces_hfgenerator",
@@ -19813,7 +19843,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L109",
+      "source_location": "L138",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces",
       "target": "src_sebi_rag_generate_spaces_hybridgenerator",
@@ -19877,7 +19907,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L46",
+      "source_location": "L65",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces_externalspacegenerator",
       "target": "src_sebi_rag_generate_spaces_externalspacegenerator_generate",
@@ -19887,7 +19917,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L37",
+      "source_location": "L56",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces_externalspacegenerator",
       "target": "src_sebi_rag_generate_spaces_externalspacegenerator_get_client",
@@ -19897,7 +19927,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L33",
+      "source_location": "L52",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces_externalspacegenerator",
       "target": "src_sebi_rag_generate_spaces_externalspacegenerator_init",
@@ -19928,7 +19958,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L123",
+      "source_location": "L152",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces_hybridgenerator_init",
       "target": "src_sebi_rag_generate_spaces_externalspacegenerator",
@@ -19938,9 +19968,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L27",
+      "source_location": "L41",
       "weight": 1.0,
-      "source": "src_sebi_rag_generate_spaces_rationale_27",
+      "source": "src_sebi_rag_generate_spaces_rationale_41",
       "target": "src_sebi_rag_generate_spaces_externalspacegenerator",
       "confidence_score": 1.0
     },
@@ -19948,7 +19978,7 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "tests/test_spaces.py",
-      "source_location": "L166",
+      "source_location": "L213",
       "weight": 0.8,
       "source": "tests_test_spaces_boom",
       "target": "src_sebi_rag_generate_spaces_externalspacegenerator",
@@ -19958,7 +19988,7 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "tests/test_spaces.py",
-      "source_location": "L166",
+      "source_location": "L213",
       "weight": 0.8,
       "source": "tests_test_spaces_canned",
       "target": "src_sebi_rag_generate_spaces_externalspacegenerator",
@@ -19970,7 +20000,29 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "tests/test_spaces.py",
-      "source_location": "L171",
+      "source_location": "L207",
+      "weight": 1.0,
+      "source": "tests_test_spaces_test_external_space_generator_abstains_without_contexts",
+      "target": "src_sebi_rag_generate_spaces_externalspacegenerator"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_spaces.py",
+      "source_location": "L189",
+      "weight": 1.0,
+      "source": "tests_test_spaces_test_external_space_generator_calls_llama2_generate_signature",
+      "target": "src_sebi_rag_generate_spaces_externalspacegenerator"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_spaces.py",
+      "source_location": "L218",
       "weight": 1.0,
       "source": "tests_test_spaces_test_generators_implement_generator_protocol",
       "target": "src_sebi_rag_generate_spaces_externalspacegenerator"
@@ -19980,7 +20032,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L33",
+      "source_location": "L52",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces_externalspacegenerator_init",
       "target": "src_sebi_rag_settings_spacessettings",
@@ -19991,7 +20043,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L50",
+      "source_location": "L69",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces_externalspacegenerator_generate",
       "target": "src_sebi_rag_generate_spaces_externalspacegenerator_get_client",
@@ -20002,7 +20054,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L46",
+      "source_location": "L65",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces_externalspacegenerator_generate",
       "target": "src_sebi_rag_segment_chunk",
@@ -20012,7 +20064,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L80",
+      "source_location": "L109",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces_hfgenerator",
       "target": "src_sebi_rag_generate_spaces_hfgenerator_generate",
@@ -20022,7 +20074,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L61",
+      "source_location": "L90",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces_hfgenerator",
       "target": "src_sebi_rag_generate_spaces_hfgenerator_init",
@@ -20032,7 +20084,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L66",
+      "source_location": "L95",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces_hfgenerator",
       "target": "src_sebi_rag_generate_spaces_hfgenerator_load",
@@ -20063,7 +20115,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L124",
+      "source_location": "L153",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces_hybridgenerator_init",
       "target": "src_sebi_rag_generate_spaces_hfgenerator",
@@ -20073,9 +20125,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L59",
+      "source_location": "L88",
       "weight": 1.0,
-      "source": "src_sebi_rag_generate_spaces_rationale_59",
+      "source": "src_sebi_rag_generate_spaces_rationale_88",
       "target": "src_sebi_rag_generate_spaces_hfgenerator",
       "confidence_score": 1.0
     },
@@ -20083,7 +20135,7 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "tests/test_spaces.py",
-      "source_location": "L166",
+      "source_location": "L213",
       "weight": 0.8,
       "source": "tests_test_spaces_boom",
       "target": "src_sebi_rag_generate_spaces_hfgenerator",
@@ -20093,7 +20145,7 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "tests/test_spaces.py",
-      "source_location": "L166",
+      "source_location": "L213",
       "weight": 0.8,
       "source": "tests_test_spaces_canned",
       "target": "src_sebi_rag_generate_spaces_hfgenerator",
@@ -20105,7 +20157,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "tests/test_spaces.py",
-      "source_location": "L171",
+      "source_location": "L218",
       "weight": 1.0,
       "source": "tests_test_spaces_test_generators_implement_generator_protocol",
       "target": "src_sebi_rag_generate_spaces_hfgenerator"
@@ -20115,7 +20167,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L61",
+      "source_location": "L90",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces_hfgenerator_init",
       "target": "src_sebi_rag_settings_spacessettings",
@@ -20126,7 +20178,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L85",
+      "source_location": "L114",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces_hfgenerator_generate",
       "target": "src_sebi_rag_generate_spaces_hfgenerator_load",
@@ -20137,7 +20189,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L97",
+      "source_location": "L126",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces_hfgenerator_generate",
       "target": "src_sebi_rag_generate_spaces_hybridgenerator_generate",
@@ -20148,7 +20200,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L80",
+      "source_location": "L109",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces_hfgenerator_generate",
       "target": "src_sebi_rag_segment_chunk",
@@ -20158,7 +20210,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L126",
+      "source_location": "L155",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces_hybridgenerator",
       "target": "src_sebi_rag_generate_spaces_hybridgenerator_generate",
@@ -20168,7 +20220,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L116",
+      "source_location": "L145",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces_hybridgenerator",
       "target": "src_sebi_rag_generate_spaces_hybridgenerator_init",
@@ -20198,9 +20250,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L110",
+      "source_location": "L139",
       "weight": 1.0,
-      "source": "src_sebi_rag_generate_spaces_rationale_110",
+      "source": "src_sebi_rag_generate_spaces_rationale_139",
       "target": "src_sebi_rag_generate_spaces_hybridgenerator",
       "confidence_score": 1.0
     },
@@ -20208,7 +20260,7 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "tests/test_spaces.py",
-      "source_location": "L166",
+      "source_location": "L213",
       "weight": 0.8,
       "source": "tests_test_spaces_boom",
       "target": "src_sebi_rag_generate_spaces_hybridgenerator",
@@ -20218,7 +20270,7 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "tests/test_spaces.py",
-      "source_location": "L166",
+      "source_location": "L213",
       "weight": 0.8,
       "source": "tests_test_spaces_canned",
       "target": "src_sebi_rag_generate_spaces_hybridgenerator",
@@ -20241,7 +20293,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "tests/test_spaces.py",
-      "source_location": "L171",
+      "source_location": "L218",
       "weight": 1.0,
       "source": "tests_test_spaces_test_generators_implement_generator_protocol",
       "target": "src_sebi_rag_generate_spaces_hybridgenerator"
@@ -20251,7 +20303,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L116",
+      "source_location": "L145",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces_hybridgenerator_init",
       "target": "src_sebi_rag_settings_spacessettings",
@@ -20262,7 +20314,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/generate_spaces.py",
-      "source_location": "L126",
+      "source_location": "L155",
       "weight": 1.0,
       "source": "src_sebi_rag_generate_spaces_hybridgenerator_generate",
       "target": "src_sebi_rag_segment_chunk",
@@ -23911,7 +23963,29 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "tests/test_spaces.py",
-      "source_location": "L170",
+      "source_location": "L206",
+      "weight": 1.0,
+      "source": "tests_test_spaces_test_external_space_generator_abstains_without_contexts",
+      "target": "src_sebi_rag_settings_spacessettings"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_spaces.py",
+      "source_location": "L183",
+      "weight": 1.0,
+      "source": "tests_test_spaces_test_external_space_generator_calls_llama2_generate_signature",
+      "target": "src_sebi_rag_settings_spacessettings"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_spaces.py",
+      "source_location": "L217",
       "weight": 1.0,
       "source": "tests_test_spaces_test_generators_implement_generator_protocol",
       "target": "src_sebi_rag_settings_spacessettings"
@@ -27125,7 +27199,27 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/test_spaces.py",
+      "source_location": "L203",
+      "weight": 1.0,
+      "source": "tests_test_spaces",
+      "target": "tests_test_spaces_test_external_space_generator_abstains_without_contexts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_spaces.py",
       "source_location": "L164",
+      "weight": 1.0,
+      "source": "tests_test_spaces",
+      "target": "tests_test_spaces_test_external_space_generator_calls_llama2_generate_signature",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_spaces.py",
+      "source_location": "L211",
       "weight": 1.0,
       "source": "tests_test_spaces",
       "target": "tests_test_spaces_test_generators_implement_generator_protocol",
@@ -27224,11 +27318,33 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_spaces.py",
+      "source_location": "L207",
+      "weight": 1.0,
+      "source": "tests_test_spaces_test_external_space_generator_abstains_without_contexts",
+      "target": "tests_test_spaces_canned_generate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_spaces.py",
+      "source_location": "L192",
+      "weight": 1.0,
+      "source": "tests_test_spaces_test_external_space_generator_calls_llama2_generate_signature",
+      "target": "tests_test_spaces_canned_generate",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "indirect_call",
       "context": "getattr",
       "confidence": "INFERRED",
       "source_file": "tests/test_spaces.py",
-      "source_location": "L172",
+      "source_location": "L219",
       "weight": 1.0,
       "source": "tests_test_spaces_test_generators_implement_generator_protocol",
       "target": "tests_test_spaces_canned_generate",
@@ -27276,6 +27392,16 @@
       "weight": 1.0,
       "source": "tests_test_spaces_test_hybrid_skips_external_when_unconfigured",
       "target": "tests_test_spaces_hybrid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_spaces.py",
+      "source_location": "L165",
+      "weight": 1.0,
+      "source": "tests_test_spaces_rationale_165",
+      "target": "tests_test_spaces_test_external_space_generator_calls_llama2_generate_signature",
       "confidence_score": 1.0
     },
     {
@@ -30667,5 +30793,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "b37347379dcaab5e8aa605b172988886035fdda3"
+  "built_at_commit": "1f0591208a396693c6dd482d859ce6a7eb28b974"
 }

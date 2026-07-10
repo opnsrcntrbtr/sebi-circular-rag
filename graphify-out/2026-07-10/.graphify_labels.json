@@ -68,15 +68,6 @@
   "66": "now.md",
   "67": "last-ndc.ts",
   "68": ".load",
-  "69": "main",
-  "70": "README.md",
-  "71": "Status — SEBI Circular RAG",
-  "72": "Published Datasets",
-  "73": "5. Running the service",
-  "74": "SEBI Circular RAG — Hugging Face Spaces demo",
-  "75": "4. The data pipeline",
-  "76": "Next Steps — Structured Plans",
-  "77": "bench_rerankers.py",
-  "78": "Path",
-  "79": "test_benchmark.py"
+  "69": "app.py",
+  "70": ".encode"
 }
