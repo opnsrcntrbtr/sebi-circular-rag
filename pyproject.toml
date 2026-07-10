@@ -21,6 +21,13 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=9.1.1", "reportlab>=5.0.0", "httpx>=0.28.1"]
+# HF Spaces demo extras (CPU path); local Apple-Silicon workflow doesn't need them
+spaces = [
+    "datasets>=3.0.0",
+    "gradio_client>=1.0.0",
+    "transformers>=4.45.0",
+    "accelerate>=1.0.0",
+]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
