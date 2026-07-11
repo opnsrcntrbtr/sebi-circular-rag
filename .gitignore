@@ -17,3 +17,7 @@ logs/
 
 # OS
 .DS_Store
+
+# Claude Code / graphify (local tooling state, not project source)
+.claude/
+graphify-out/
