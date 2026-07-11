@@ -23,3 +23,4 @@ gradio_client>=1.0.0
 transformers>=4.45.0
 accelerate>=1.0.0
 huggingface_hub>=0.26
+tomli>=2.0; python_version < "3.11"

@@ -14,6 +14,8 @@ the full system (academic retrieval-benchmark mode).
 """
 from __future__ import annotations
 
+import spaces
+
 import dataclasses
 import json
 import sys
@@ -32,6 +34,10 @@ _settings = Settings.load_spaces()
 _pipelines: dict[str, object] = {}
 _lock = threading.Lock()
 
+# Add this dummy function anywhere before your build_ui() function
+@spaces.GPU
+def warm_up_gpu():
+    pass
 
 def get_pipeline(mode: str):
     """Cache one pipeline per mode; both share retriever/reranker/lineage."""
@@ -99,7 +105,8 @@ def run_query_spaces(question: str, top_k: float, mode: str):
 
 
 def build_ui():
-    with gr.Blocks(title="SEBI Circular RAG (HF Spaces)", theme=gr.themes.Soft()) as demo:
+    # REMOVED theme=gr.themes.Soft() from here
+    with gr.Blocks(title="SEBI Circular RAG (HF Spaces)") as demo:
         gr.Markdown("# SEBI Circular RAG (HF Spaces)")
         gr.Markdown(
             "Hybrid FAISS + BM25 retrieval with cross-encoder reranking, "
@@ -180,4 +187,5 @@ def build_ui():
 demo = build_ui()
 
 if __name__ == "__main__":
-    demo.launch()
+    # ADDED theme configuration here for Gradio 6.0 compatibility
+    demo.launch(theme=gr.themes.Soft())

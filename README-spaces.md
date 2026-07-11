@@ -7,7 +7,9 @@ sdk: gradio
 app_file: app.py
 python_version: "3.11"
 pinned: false
+hardware: cpu-basic
 license: other
+sdk_version: 6.20.0
 ---
 
 # SEBI Circular RAG — Hugging Face Spaces demo
@@ -42,6 +44,33 @@ over Indian SEBI circulars.
 Generation order: the external Space is tried first and any failure or
 timeout (`external_timeout_s`, default 20 s) falls back to the in-Space CPU
 model. Leave `external_space = ""` to run fallback-only.
+
+## ZeroGPU-hardware workaround
+
+This Space was originally provisioned on `zero-a10g` (ZeroGPU) hardware.
+ZeroGPU Spaces refuse to start unless at least one function is decorated
+with `@spaces.GPU` ("No @spaces.GPU function detected"), so `app.py`
+declares an unused `warm_up_gpu()` decorated with `@spaces.GPU` purely to
+satisfy that startup check — it is never called. The `@spaces.GPU`
+decorator only grants a real GPU to the call it wraps; every other code
+path (the RAG pipeline, retrieval, reranking, generation) runs on the CPU
+host process ZeroGPU allocates outside GPU-decorated calls, so behavior is
+identical to a true `cpu-basic` Space. See `tests/test_app_zerogpu.py` for
+regression coverage (the decorator must stay present and `warm_up_gpu`
+must stay uncalled).
+
+**Caveat:** the `hardware: cpu-basic` line in this file's YAML front matter
+is a human-readable note only — `hardware` is not a documented Spaces
+config key (only `suggested_hardware` is, and even that doesn't
+auto-assign hardware; see the
+[Spaces config reference](https://huggingface.co/docs/hub/spaces-config-reference)).
+It does **not** change the Space's actual provisioned hardware. Downgrading
+from `zero-a10g` to `cpu-basic` requires either a PRO subscription (HF
+returns 402 to `request_space_hardware` for a ZeroGPU→CPU downgrade on a
+free account — see `scripts/deploy_space.py`) or a manual change in the
+Space's Settings UI. Until then, the workaround above is the permanent
+fix for the CPU-only workload on this specific Space; it is not a
+temporary stopgap.
 
 ## Deploying
 

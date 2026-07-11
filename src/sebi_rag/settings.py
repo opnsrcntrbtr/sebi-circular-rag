@@ -6,9 +6,13 @@ Secrets (API key) are env-only and never read from the file. Load order per fiel
 from __future__ import annotations
 
 import os
-import tomllib
 from dataclasses import dataclass
 from pathlib import Path
+
+try:
+    import tomllib
+except ModuleNotFoundError:  # Python < 3.11 (e.g. HF Spaces default image)
+    import tomli as tomllib  # type: ignore[no-redef]
 
 ROOT = Path(__file__).resolve().parents[2]
 

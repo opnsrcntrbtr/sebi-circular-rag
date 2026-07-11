@@ -27,10 +27,13 @@ def main() -> None:
     from huggingface_hub import HfApi
 
     api = HfApi()
-    api.create_repo(
-        args.repo, repo_type="space", space_sdk="gradio",
-        private=args.private, exist_ok=True,
-    )
+    try:
+        api.create_repo(
+            args.repo, repo_type="space", space_sdk="gradio",
+            private=args.private, exist_ok=True,
+        )
+    except Exception as exc:  # noqa: BLE001 — repo may already exist (manual creation)
+        print(f"note: create_repo call failed ({exc}); assuming Space already exists")
     try:
         api.request_space_hardware(args.repo, hardware=args.hardware)
     except Exception as exc:  # noqa: BLE001 — hardware request is best-effort
