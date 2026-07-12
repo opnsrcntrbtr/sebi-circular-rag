@@ -84,14 +84,20 @@ def hierarchical_chunk(
     """
     chunks: list[Chunk] = []
     section_name = "preamble"
+    section_head = ""   # full (untruncated) heading line of the current section
+    section_num = ""    # dotted number of the current heading, e.g. "5" or "5.1"
+    carry = ""          # bare parent heading(s) deferred to prefix the next chunk
     buf = ""
     para_idx = 0
 
     def flush(sec: str, body: str) -> None:
-        nonlocal para_idx
+        nonlocal para_idx, carry
         body = body.strip()
         if not body:
             return
+        if carry:
+            body = f"{carry}\n{body}"
+            carry = ""
         cid = f"{meta.circular_number}#{sec}#{para_idx}"
         # F1 (ADR-001): contextual enrichment — prepend document identity so
         # dense/sparse indexing can disambiguate topically-overlapping circulars.
@@ -112,11 +118,25 @@ def hierarchical_chunk(
     heading = re.compile(r"^\s*(\d+(\.\d+)*)[.)]\s+\S")
     for para in _paragraphs(text, max_chars):
         first_line = para.splitlines()[0]
-        if heading.match(first_line):
+        m = heading.match(first_line)
+        if m:
+            hnum = m.group(1)
             if buf:
-                flush(section_name, buf)
+                # A section whose own body is only its heading (content lives
+                # entirely in subsections) must not become a standalone chunk:
+                # the leading ordinal ("5. Number of nominees:") reads as a value
+                # to extractive generators. When the incoming heading is this
+                # section's direct child, defer the bare heading as a prefix for
+                # the child chunk instead of emitting it alone.
+                is_child = hnum.startswith(f"{section_num}.") if section_num else False
+                if is_child and buf.strip() == section_head:
+                    carry = f"{carry}\n{buf.strip()}".strip() if carry else buf.strip()
+                else:
+                    flush(section_name, buf)
                 buf = ""
             section_name = first_line.strip()[:60]
+            section_head = first_line.strip()
+            section_num = hnum
         if len(buf) + len(para) + 1 > max_chars and buf:
             flush(section_name, buf)
             buf = buf[-overlap_chars:] + "\n" + para
