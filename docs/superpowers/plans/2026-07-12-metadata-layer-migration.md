@@ -758,3 +758,18 @@ selector: 3/3 (100%)   pipeline: 9/10 (90%)   overall: 12/13 (92.3%)
 **Action taken:** `git revert 5545081` (clean revert, no force-push) + restored `data/corpus/circulars.jsonl` from pre-attempt backup + `make index`. Verified: 199/199 tests, eval-asof 13/13, `make annotate` reports `changed: 0` against the reverted code (bit-identical to the last Fable-accepted state). **No data loss, no regression left in place.**
 
 **Status: Task 10 NOT re-attempted.** Redesigning the extraction heuristic is a precision/legal-semantics call — handed back to Fable rather than guessed at. Milestone (P4c, 13/13) stands as the accepted state; HF export/push can proceed from here independent of Task 10.
+
+---
+
+## Fable Task 10 Final Verdict (2026-07-12) — CLOSED AS WON'T-FIX. MIGRATION COMPLETE.
+
+Attempt-1's spec error was mine (1500-char radius chosen without measuring real trigger→ref distances). Sonnet's execution, gate discipline, and clean revert were all correct. Post-revert investigation overturned the premise of Task 10 itself:
+
+1. **Footnote/body citations are the real recall signal, not lists.** In the 421k-char RTA master, the superseded target appears exactly once — as a body footnote. The Appendix ("List of Circulars", pg 284) survives PDF extraction with only ~16 usable refs (lossy table text). Any structural narrowing — proximity, list-block, appendix-scope — destroys recall (attempt 1: 275→42 superseded), because SEBI masters cite their incorporated circulars via footnotes scattered through the body.
+2. **The "26 cross-domain over-tag suspects" are substantially genuine.** SEBI's own rescission clause is scope-qualified: "shall stand rescinded **to the extent they relate to RTAs**." A circular like Digital Accessibility 2025/131 being superseded by the RTA, IA, and IMD masters is legally accurate *partial* supersession per regulated-entity class — verified in all three evidence spans (enumerated incorporated-circular lists). Extraction precision is materially better than the checkpoint's ~9%-suspect estimate.
+3. **The 942-node component is a faithful map of SEBI's consolidation regime**, not an artifact. The standing rule (governing_on only retrieval-scoped) remains the correct usage contract.
+4. **Future refinement (Phase 5, optional):** scope-qualified edges (`scope: "to the extent relating to RTAs"` parsed from the rescission clause) + `partially_superseded` per-domain semantics — *more* edge metadata, not fewer edges. Not needed for the current milestone.
+
+**Verified final state:** corpus + chunks byte-identical to export manifest shas (`5645fd…`, `e221f6…`); 199/199 tests; eval-asof 13/13. Migration Tasks 1–9 delivered; Task 10 closed.
+
+**Sole remaining action — user decision: HF Hub push** of the regenerated `dist/datasets` (adds `circular_type`, `validity_status`, `superseded_by_id`, `supersession_edges` to the published configs).
