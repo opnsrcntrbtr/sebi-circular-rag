@@ -138,6 +138,34 @@ def test_answer_flags_superseded_citation():
     assert "superseded by" in ans.text
 
 
+def test_query_as_of_prefers_governing_circular():
+    OLD = "SEBI/HO/MRD/2020/010"
+    NEW = "SEBI/HO/MRD/2023/050"
+    old_text = ("This circular prescribes margin rules for the equity derivatives "
+               "segment. Margin collection shall be on a T plus one basis.")
+    new_text = (f"CIRCULAR {NEW}. This circular supersedes {OLD}. In supersession of "
+               f"{OLD}, revised margin rules for the equity derivatives segment "
+               "prescribe margin collection on a T plus zero basis.")
+    chunks = hierarchical_chunk(
+        old_text, CircularMeta(circular_number=OLD, issue_date="2020-01-01"))
+    chunks += hierarchical_chunk(
+        new_text, CircularMeta(circular_number=NEW, issue_date="2023-01-01"))
+    lineage = build_lineage([
+        {"circular_number": OLD, "issue_date": "2020-01-01", "text": old_text},
+        {"circular_number": NEW, "issue_date": "2023-01-01", "text": new_text},
+    ])
+    pipe = RAGPipeline.build(
+        chunks=chunks, embedder=HashEmbedder(256), reranker=LexicalReranker(),
+        generator=ExtractiveStubGenerator(), abstain_threshold=0.05, lineage=lineage,
+    )
+    ans_old, _ = pipe.query("margin rules for the equity derivatives segment",
+                            as_of="2021-06-01")
+    ans_new, _ = pipe.query("margin rules for the equity derivatives segment",
+                            as_of="2024-06-01")
+    assert any(c.startswith(OLD) for c in ans_old.citations)
+    assert any(c.startswith(NEW) for c in ans_new.citations)
+
+
 def test_retrieval_metrics():
     pipe = _build_pipeline()
     _, retrieved = pipe.query(

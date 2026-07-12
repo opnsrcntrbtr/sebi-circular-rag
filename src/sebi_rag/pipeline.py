@@ -41,12 +41,24 @@ class RAGPipeline:
 
     def query(
         self, question: str, pool: int = 50, top_k: int = 3,
-        advisory: bool = False,
+        advisory: bool = False, as_of: str | None = None,
     ) -> tuple[Answer, list[str]]:
         candidates = self.retriever.retrieve(question, top_n=pool)
         reranked = self.reranker.rerank(question, [c for c, _ in candidates])
         if self.lineage is not None:
             reranked = demote_superseded(reranked, self.lineage, self.superseded_penalty)
+        if as_of and self.lineage is not None:
+            dates = {c.doc_id: (c.meta.get("issue_date") or "")
+                     for c, _ in reranked}
+            kept = []
+            for c, s in reranked:
+                d = dates.get(c.doc_id, "")
+                if d and d > as_of:
+                    continue  # circular did not exist on the as-of date
+                gov = self.lineage.governing_on(c.doc_id, as_of, dates)
+                kept.append((c, s if gov == c.doc_id else s * self.superseded_penalty))
+            kept.sort(key=lambda cs: -cs[1])
+            reranked = kept or reranked
         ans = answer_with_abstention(
             question, reranked, self.generator, self.abstain_threshold, top_k,
             judge=self.judge, advisory=advisory,
