@@ -748,3 +748,13 @@ selector: 3/3 (100%)   pipeline: 9/10 (90%)   overall: 12/13 (92.3%)
 - Re-run `make annotate` (expect: `superseded` count drops; every lost edge should be an over-tag — spot-check 10 removed edges' evidence spans), `make reindex`, `make test`, `make eval-asof`.
 - **Acceptance gates (hand results to Fable):** (a) eval-asof stays 13/13; (b) `superseded` count change is explainable by removed cross-domain over-tags; (c) giant component shrinks (report new max-family size); (d) the 26 suspect records reduce materially. Regressions on (a) = stop and hand back.
 - After Fable accepts: regenerate export (`make export-datasets`), update row-count goldens, then user decides HF push.
+
+### Task 10 Attempt 1 (2026-07-12) — REGRESSION, REVERTED
+
+**Implemented exactly as spec'd** (1500-char proximity window, all trigger occurrences): TDD (2 new tests), `make annotate` on real corpus.
+
+**Result: gate (a) failed hard.** `superseded` dropped 275→42 (85%, not a trim); eval-asof regressed 13/13→10/13 (`asof-p2`, `asof-p8`, `asof-p10` — exactly the 2025→2026 consolidation flips Fable's checkpoint verified). **Root cause:** real SEBI master circulars are enormous (measured one successor at 421,130 chars) and the enumerated supersession list can sit tens of thousands of characters after the trigger phrase (measured: 41,429 chars) — likely separated by a table of contents / other clauses. A fixed character-distance window cannot distinguish "far because it's a long legitimate list" from "far because it's an unrelated cross-domain reference." The over-tagging problem is real but the fix needs list-structure awareness (e.g. scope to the enumerated-list block itself — lines matching `\s*[a-z0-9]+[.)]\s` between the trigger and the next section heading — not a raw character radius.
+
+**Action taken:** `git revert 5545081` (clean revert, no force-push) + restored `data/corpus/circulars.jsonl` from pre-attempt backup + `make index`. Verified: 199/199 tests, eval-asof 13/13, `make annotate` reports `changed: 0` against the reverted code (bit-identical to the last Fable-accepted state). **No data loss, no regression left in place.**
+
+**Status: Task 10 NOT re-attempted.** Redesigning the extraction heuristic is a precision/legal-semantics call — handed back to Fable rather than guessed at. Milestone (P4c, 13/13) stands as the accepted state; HF export/push can proceed from here independent of Task 10.
