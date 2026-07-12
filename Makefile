@@ -4,7 +4,7 @@ ENV  := HF_HUB_DISABLE_XET=1 TOKENIZERS_PARALLELISM=false OMP_NUM_THREADS=1 PYTO
 PORT ?= 8000
 MAX  ?= 25
 
-.PHONY: help test annotate index reindex calibrate bench-rerank bench-retrieval benchmark-export export-datasets serve scrape ops
+.PHONY: help test annotate index reindex calibrate bench-rerank bench-retrieval benchmark-export export-datasets eval-asof serve scrape ops
 
 help:
 	@echo "test       run offline test suite"
@@ -15,6 +15,7 @@ help:
 	@echo "bench-retrieval run retrieval-only benchmark + TREC runfile"
 	@echo "benchmark-export export BEIR/TREC + RAG benchmark artifacts"
 	@echo "export-datasets  export publishable dataset configs to dist/datasets"
+	@echo "eval-asof  run the as-of-date golden eval (selector + pipeline cases)"
 	@echo "serve      run the API (PORT=$(PORT)); set SEBI_RAG_API_KEY in env"
 	@echo "ui         run the Gradio UI dashboard"
 	@echo "ops        run the local ops HTTP server for n8n (port 8765)"
@@ -36,6 +37,9 @@ calibrate:
 
 bench-rerank:
 	$(ENV) $(PY) scripts/bench_rerankers.py --models bge,qwen0.6b
+
+eval-asof:
+	$(ENV) $(PY) scripts/eval_asof.py
 
 bench-retrieval:
 	$(ENV) $(PY) scripts/bench_retrieval.py

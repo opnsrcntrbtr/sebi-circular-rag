@@ -703,11 +703,11 @@ Distributions and samples approved. Decisions:
 - Modify: `tests/test_export_integration.py` (the `expected` dict in `test_row_count_accuracy_in_live_export`)
 - Regenerate: `dist/datasets/` via `make benchmark-export` / `make export-datasets`
 
-- [ ] **Step 1:** Check `scripts/export_datasets.py` corpus/chunks config schemas: the four new fields (`circular_type`, `validity_status`, `superseded_by_id`, `supersession_edges`) must flow into the exported `corpus` config, and (`circular_type`, `validity_status`, `superseded_by_id`) into `chunks` meta. If the exporter whitelists columns, extend the whitelist; if it passes records through, verify by inspecting one exported row.
-- [ ] **Step 2:** Run `make benchmark-export` then `make export-datasets`; inspect `dist/datasets/manifest.json` row counts.
-- [ ] **Step 3:** Update the `expected` dict in `test_row_count_accuracy_in_live_export` to the regenerated counts (chunks becomes 36683; check the other configs for drift and update to actuals — the counts changed because the corpus grew, not because of the metadata migration).
-- [ ] **Step 4:** `make test` → full suite PASS (194/194).
-- [ ] **Step 5:** Commit code+test changes. **Do not push to HF Hub without explicit user go** — publishing is user-gated.
+- [x] **Step 1:** Confirmed exporter whitelists columns (`CORPUS_SCHEMA`/`CHUNKS_SCHEMA`); extended both + `build_corpus_rows`/`build_chunk_rows`. TDD: 2 new tests in `test_export_datasets.py` (KeyError-confirmed fail, then pass).
+- [x] **Step 2:** Ran `make export-datasets` (golden_v6 unchanged, `benchmark-export` not needed). Actuals: `corpus=603, chunks=36683, lineage=1437, eval=56, citation-normalization=2951, supersession-pairs=1281`. No parquet errors on nested `supersession_edges` (list[struct]).
+- [x] **Step 3:** Updated `expected` dict in `test_row_count_accuracy_in_live_export` to actuals (chunks 36603→36683, lineage 1434→1437 — the +3 lineage rows come from this migration's new tiered edges, chunk growth is unrelated prior corpus scraping).
+- [x] **Step 4:** `make test` → 195/195 PASS.
+- [x] **Step 5:** Committed (`b0f7b8f`). **Did not push to HF Hub** — publishing stays user-gated.
 
 ### Task 9: As-of golden eval wiring (Sonnet 5) — Phase 4b
 
