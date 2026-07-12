@@ -80,6 +80,31 @@ class Lineage:
             return "amended"
         return "in_force"
 
+    def family(self, circular_number: str) -> set[str]:
+        """Connected component over supersedes/superseded_by (both tiers)."""
+        seen = {circular_number}
+        stack = [circular_number]
+        while stack:
+            cn = stack.pop()
+            for nb in self.supersedes.get(cn, []) + self.superseded_by.get(cn, []):
+                if nb not in seen:
+                    seen.add(nb)
+                    stack.append(nb)
+        return seen
+
+    def governing_on(self, circular_number: str, as_of: str,
+                     issue_dates: dict[str, str]) -> str | None:
+        """The circular in this family that governs on date as_of (ISO), or
+        None when every family member post-dates as_of."""
+        cands = {cn for cn in self.family(circular_number)
+                 if issue_dates.get(cn) and issue_dates[cn] <= as_of}
+        if not cands:
+            return None
+        live = [cn for cn in cands
+                if not any(s in cands for s in self.superseded_by.get(cn, []))]
+        pool = live or sorted(cands)
+        return max(pool, key=lambda cn: (issue_dates[cn], cn))
+
     def explicit_superseded_by(self, circular_number: str) -> list[str]:
         return [e["source"] for e in self.edges
                 if e["target"] == circular_number

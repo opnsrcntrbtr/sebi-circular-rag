@@ -141,6 +141,49 @@ def test_annotate_corpus_writes_new_metadata_fields(tmp_path):
     assert summary["validity_counts"]["superseded"] == 1
 
 
+def _lin_chain():
+    # A (2019) < B (2021) < C (2023), linear supersession
+    return (Lineage(
+        supersedes={"B": ["A"], "C": ["B"]},
+        superseded_by={"A": ["B"], "B": ["C"]},
+    ), {"A": "2019-01-01", "B": "2021-01-01", "C": "2023-01-01"})
+
+
+def test_governing_on_linear_chain():
+    lin, dates = _lin_chain()
+    assert lin.governing_on("A", "2020-06-01", dates) == "A"
+    assert lin.governing_on("A", "2022-06-01", dates) == "B"
+    assert lin.governing_on("A", "2024-06-01", dates) == "C"
+    # entry point anywhere in the family gives the same answer
+    assert lin.governing_on("C", "2020-06-01", dates) == "A"
+
+
+def test_governing_on_before_family_exists():
+    lin, dates = _lin_chain()
+    assert lin.governing_on("A", "2018-01-01", dates) is None
+
+
+def test_governing_on_unknown_dates_excluded():
+    lin, dates = _lin_chain()
+    dates = dict(dates, C="")  # C has no usable date
+    assert lin.governing_on("A", "2024-06-01", dates) == "B"
+
+
+def test_governing_on_cycle_safe():
+    lin = Lineage(supersedes={"X": ["Y"], "Y": ["X"]},
+                  superseded_by={"X": ["Y"], "Y": ["X"]})
+    dates = {"X": "2020-01-01", "Y": "2021-01-01"}
+    # both superseded within the candidate set -> deterministic max-date fallback
+    assert lin.governing_on("X", "2022-01-01", dates) == "Y"
+
+
+def test_governing_on_parallel_branches_max_date_wins():
+    lin = Lineage(supersedes={"B1": ["A"], "B2": ["A"]},
+                  superseded_by={"A": ["B1", "B2"]})
+    dates = {"A": "2019-01-01", "B1": "2021-01-01", "B2": "2022-01-01"}
+    assert lin.governing_on("A", "2023-01-01", dates) == "B2"
+
+
 def test_detect_relations_ex_evidence_and_extractor():
     from sebi_rag.lineage import detect_relations_ex
     text = ("This circular supersedes Circular No. SEBI/HO/IMD/DF2/CIR/P/2021/024 "
