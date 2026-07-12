@@ -28,6 +28,10 @@ def _record(**over) -> dict:
         "provenance": "Parsed from PDF 1689245602256.pdf on 2026-06-30",
         "excerpt": False,
         "text": "CIRCULAR body text",
+        "circular_type": "CIRCULAR",
+        "validity_status": "current",
+        "superseded_by_id": [],
+        "supersession_edges": [],
     }
     base.update(over)
     return base
@@ -49,6 +53,21 @@ def test_corpus_row_has_exact_schema_in_order():
     row = X.build_corpus_rows([_record()])[0]
     assert list(row) == X.CORPUS_SCHEMA
     assert "amendment_history" not in row   # empty across corpus; not exported
+
+
+def test_corpus_row_carries_metadata_migration_fields():
+    row = X.build_corpus_rows([_record(
+        circular_type="MASTER_CIRCULAR", validity_status="superseded",
+        superseded_by_id=["SEBI/HO/CFD/P/CIR/2024/9"],
+        supersession_edges=[{"source": "SEBI/HO/CFD/P/CIR/2023/123",
+                             "target": "OLD/1", "relation": "supersedes",
+                             "confidence": "explicit_text",
+                             "extractor": "regex:SUPERSEDE_RE", "evidence": "x"}],
+    )])[0]
+    assert row["circular_type"] == "MASTER_CIRCULAR"
+    assert row["validity_status"] == "superseded"
+    assert row["superseded_by_id"] == ["SEBI/HO/CFD/P/CIR/2024/9"]
+    assert row["supersession_edges"][0]["target"] == "OLD/1"
 
 
 def test_export_corpus_refuses_invalid_source(tmp_path):
@@ -94,6 +113,9 @@ def _chunk(**over) -> dict:
         "supersession_status": "in_force",
         "amendment_history": [],
         "version_lineage": ["CIR/CFD/CMD/4/2015"],
+        "circular_type": "CIRCULAR",
+        "validity_status": "current",
+        "superseded_by_id": [],
     }
     base = {
         "id": "SEBI/HO/CFD/P/CIR/2023/123#preamble#0",
@@ -122,6 +144,16 @@ def test_chunk_row_has_exact_schema_no_amendment_history():
     assert list(row) == X.CHUNKS_SCHEMA
     assert "amendment_history" not in row
     assert "meta" not in row and "id" not in row
+
+
+def test_chunk_row_carries_metadata_migration_fields():
+    row = X.build_chunk_rows([_chunk(meta={
+        **_chunk()["meta"], "circular_type": "MASTER_CIRCULAR",
+        "validity_status": "superseded", "superseded_by_id": ["NEW/1"],
+    })])[0]
+    assert row["circular_type"] == "MASTER_CIRCULAR"
+    assert row["validity_status"] == "superseded"
+    assert row["superseded_by_id"] == ["NEW/1"]
 
 
 def test_build_lineage_rows_derives_forward_edges_only():

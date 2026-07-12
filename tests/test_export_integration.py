@@ -268,11 +268,12 @@ def test_row_count_accuracy_in_live_export():
     manifest = json.loads((out_dir / "manifest.json").read_text())
     configs = manifest.get("configs", {})
 
-    # Expected row counts from Tasks 1-3
+    # Expected row counts (updated 2026-07-12: corpus grown via scraping +
+    # metadata-layer migration added confidence-tiered lineage edges)
     expected = {
         "corpus": 603,
-        "chunks": 36603,
-        "lineage": 1434,
+        "chunks": 36683,
+        "lineage": 1437,
         "eval": 56,
         "citation-normalization": 2951,
         "supersession-pairs": 1281,

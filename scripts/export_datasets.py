@@ -38,6 +38,7 @@ CORPUS_SCHEMA = [
     "circular_number", "issue_date", "effective_date", "subject",
     "issuing_department", "supersession_status", "version_lineage",
     "source_url", "text", "excerpt", "extraction_date",
+    "circular_type", "validity_status", "superseded_by_id", "supersession_edges",
 ]
 _EXTRACTION_DATE = re.compile(r"on (\d{4}-\d{2}-\d{2})\s*$")
 
@@ -50,6 +51,7 @@ CHUNKS_SCHEMA = [
     "chunk_id", "doc_id", "section", "context_header", "text",
     "circular_number", "issue_date", "effective_date", "subject",
     "issuing_department", "supersession_status", "version_lineage",
+    "circular_type", "validity_status", "superseded_by_id",
 ]
 
 # Forward edges only (supersedes/amends); superseded_by/amended_by in
@@ -207,6 +209,10 @@ def build_corpus_rows(records: list[dict]) -> list[dict]:
             "text": r.get("text", ""),
             "excerpt": bool(r.get("excerpt", False)),
             "extraction_date": m.group(1) if m else None,
+            "circular_type": r.get("circular_type", "CIRCULAR"),
+            "validity_status": r.get("validity_status", "unknown"),
+            "superseded_by_id": r.get("superseded_by_id", []),
+            "supersession_edges": r.get("supersession_edges", []),
         })
     return rows
 
@@ -230,6 +236,9 @@ def build_chunk_rows(chunks: list[dict]) -> list[dict]:
             "issuing_department": _null(m.get("issuing_department")),
             "supersession_status": _null(m.get("supersession_status")),
             "version_lineage": m.get("version_lineage", []),
+            "circular_type": m.get("circular_type", "CIRCULAR"),
+            "validity_status": m.get("validity_status", "unknown"),
+            "superseded_by_id": m.get("superseded_by_id", []),
         })
     return rows
 
