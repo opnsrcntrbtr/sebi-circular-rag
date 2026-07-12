@@ -18,8 +18,8 @@ def test_hf_card_exists_and_has_yaml_front_matter(tmp_path):
     export_dir = tmp_path / "export_test"
     export_datasets = {
         "corpus": {"rows": 603, "schema": X.CORPUS_SCHEMA},
-        "chunks": {"rows": 36603, "schema": X.CHUNKS_SCHEMA},
-        "lineage": {"rows": 1434, "schema": X.LINEAGE_SCHEMA},
+        "chunks": {"rows": 36683, "schema": X.CHUNKS_SCHEMA},
+        "lineage": {"rows": 1437, "schema": X.LINEAGE_SCHEMA},
         "eval": {"rows": 56, "schema": X.EVAL_SCHEMA},
         "citation-normalization": {"rows": 2951, "schema": X.CITATION_SCHEMA},
         "supersession-pairs": {"rows": 1281, "schema": X.SUPERSESSION_SCHEMA},
@@ -35,13 +35,13 @@ def test_hf_card_includes_actual_row_counts():
     """Card must cite actual row counts (not spec guesses)."""
     datasets = {
         "corpus": {"rows": 603, "schema": X.CORPUS_SCHEMA},
-        "chunks": {"rows": 36603, "schema": X.CHUNKS_SCHEMA},
+        "chunks": {"rows": 36683, "schema": X.CHUNKS_SCHEMA},
         "citation-normalization": {"rows": 2951, "schema": X.CITATION_SCHEMA},
         "supersession-pairs": {"rows": 1281, "schema": X.SUPERSESSION_SCHEMA},
     }
     card = X.build_hf_card(datasets)
     assert "603" in card
-    assert "36603" in card or "36,603" in card
+    assert "36683" in card or "36,683" in card
     assert "2951" in card or "2,951" in card
     # For 1281, just check that supersession-pairs section exists with row count
     assert "supersession-pairs" in card.lower()
@@ -75,7 +75,7 @@ def test_kaggle_metadata_json_valid():
     """Kaggle metadata.json must be valid JSON with required fields."""
     datasets = {
         "corpus": {"rows": 603, "schema": X.CORPUS_SCHEMA},
-        "chunks": {"rows": 36603, "schema": X.CHUNKS_SCHEMA},
+        "chunks": {"rows": 36683, "schema": X.CHUNKS_SCHEMA},
     }
     metadata = X.build_kaggle_metadata(datasets)
     parsed = json.loads(metadata)
@@ -124,7 +124,7 @@ def test_aikosh_submission_pack_includes_csv_and_metadata():
     """AIKosh pack must include CSV manifests + metadata + licensing."""
     datasets = {
         "corpus": {"rows": 603, "schema": X.CORPUS_SCHEMA},
-        "chunks": {"rows": 36603, "schema": X.CHUNKS_SCHEMA},
+        "chunks": {"rows": 36683, "schema": X.CHUNKS_SCHEMA},
     }
     pack = X.build_aikosh_pack(datasets)
     assert isinstance(pack, dict)
@@ -138,13 +138,13 @@ def test_aikosh_pack_manifest_includes_all_configs():
     """AIKosh manifest must list all dataset configs with row counts."""
     datasets = {
         "corpus": {"rows": 603, "schema": X.CORPUS_SCHEMA},
-        "chunks": {"rows": 36603, "schema": X.CHUNKS_SCHEMA},
+        "chunks": {"rows": 36683, "schema": X.CHUNKS_SCHEMA},
         "supersession-pairs": {"rows": 1281, "schema": X.SUPERSESSION_SCHEMA},
     }
     pack = X.build_aikosh_pack(datasets)
     manifest = pack["manifest_csv"]
     assert "corpus" in manifest and "603" in manifest
-    assert "chunks" in manifest and "36603" in manifest
+    assert "chunks" in manifest and "36683" in manifest
     assert "supersession-pairs" in manifest and "1281" in manifest
 
 
@@ -207,7 +207,7 @@ def test_idempotency_same_cards_on_repeat_run():
     """Calling write_dataset_cards() twice must produce identical card content."""
     datasets = {
         "corpus": {"rows": 603, "schema": X.CORPUS_SCHEMA},
-        "chunks": {"rows": 36603, "schema": X.CHUNKS_SCHEMA},
+        "chunks": {"rows": 36683, "schema": X.CHUNKS_SCHEMA},
     }
     card1 = X.build_hf_card(datasets)
     card2 = X.build_hf_card(datasets)

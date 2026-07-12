@@ -427,7 +427,7 @@ tags:
 
 A comprehensive, structured dataset of Indian Securities and Exchange Board (SEBI) regulatory circulars, public-domain government works compiled and annotated for AI/ML research.
 
-**Date:** 2026-07-09
+**Date:** 2026-07-12
 **Snapshot Version:** v2026.07
 **Corpus:** 603 circulars (2021–2026)
 
@@ -436,8 +436,8 @@ A comprehensive, structured dataset of Indian Securities and Exchange Board (SEB
 | Config | Rows | Schema | Purpose |
 |---|---|---|---|
 | **corpus** | 603 | Full circular + metadata | Flagship: regulatory text, lineage, effective dates |
-| **chunks** | 36,603 | Section-aware retrieval chunks | RAG, dense retrieval, section-level analysis |
-| **lineage** | 1,434 | Regulatory supersession edges | Citation graph, link prediction, lineage reasoning |
+| **chunks** | 36,683 | Section-aware retrieval chunks | RAG, dense retrieval, section-level analysis |
+| **lineage** | 1,437 | Regulatory supersession edges | Citation graph, link prediction, lineage reasoning |
 | **eval** | 56 | Curated benchmark queries | Retrieval/abstention evaluation, domain regression |
 | **citation-normalization** | 2,951 | Raw reference → normalized circular | String normalization, entity recognition (NER/seq2seq) |
 | **supersession-pairs** | 1,281 | Circular pairs + labels | Pair classification, regulatory relationship prediction |
@@ -585,8 +585,8 @@ def build_kaggle_metadata(datasets: dict[str, dict]) -> str:
         "title": "SEBI Circulars: Indian Regulatory Texts (2021–2026)",
         "subtitle": "Structured dataset of public-domain SEBI circulars for AI/ML research",
         "description": (
-            "Six configurations: corpus (603 circulars), chunks (36,603 retrieval chunks), "
-            "lineage (1,434 supersession/amendment edges), eval (56-query benchmark), "
+            "Six configurations: corpus (603 circulars), chunks (36,683 retrieval chunks), "
+            "lineage (1,437 supersession/amendment edges), eval (56-query benchmark), "
             "citation-normalization (2,951 reference pairs), supersession-pairs (1,281 labeled pairs). "
             "Formats: Parquet + JSONL. Licensing: CC-BY-4.0 (annotations); government works (underlying text)."
         ),
@@ -624,7 +624,7 @@ def build_zenodo_pack(datasets: dict[str, dict]) -> dict:
             "keywords": ["regulatory", "india", "sebi", "circulars", "knowledge-graph", "nlp"],
             "subjects": ["Government", "Regulatory", "India", "Securities", "Machine Learning"],
             "upload_type": "dataset",
-            "publication_date": "2026-07-09",
+            "publication_date": "2026-07-12",
         },
         "instructions": (
             "1. Create tarball: tar czf sebi-circulars-v2026.07.tar.gz dist/datasets/\n"
