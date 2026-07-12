@@ -15,9 +15,15 @@ uv sync
 # Run commands
 make serve   # FastAPI backend on port 8000 (set SEBI_RAG_API_KEY in env)
 make ui      # Gradio UI dashboard
+make ops     # Local ops HTTP server for n8n automations (port 8765)
 make test    # Run offline test suite
 make reindex # Annotate corpus + rebuild FAISS/BM25 index
 make scrape  # Fetch SEBI circulars (MAX=N to limit count)
+make calibrate       # Retrieval calibration sweep
+make bench-retrieval # Retrieval-only benchmark + TREC runfile
+make bench-rerank    # Reranker benchmark (--models bge,qwen0.6b)
+make benchmark-export # Golden v6 build + BEIR/TREC/RAG benchmark export
+make export-datasets  # Export publishable dataset configs to dist/datasets
 ```
 
 ## Environment
@@ -40,6 +46,22 @@ make scrape  # Fetch SEBI circulars (MAX=N to limit count)
 | `corpus.py` | Corpus JSONL ingestion and persistence |
 | `ui.py` | Gradio dashboard entry point |
 | `settings.py` | Config-driven settings |
+| `generate.py` | Local generation w/ abstention gate (MLX-LM/Ollama via `Generator` protocol) |
+| `ingest_pdf.py` | CLI to parse a dropped circular PDF into a corpus record |
+| `eval.py` | Retrieval metrics (Recall@k, MRR, nDCG) |
+| `eval_harness.py` | Golden-set end-to-end evaluation runner (retrieval + citation + abstention + latency) |
+
+### Hugging Face Spaces path (CPU-only demo)
+
+Mirrors the local modules above but with no MLX/Ollama/MPS. Don't edit these when fixing the local (Apple Silicon) pipeline, and vice versa.
+
+| File | Purpose |
+|------|---------|
+| `api_spaces.py` | Pipeline builder for the Spaces demo (parallel to `api.build_default_pipeline()`) |
+| `corpus_spaces.py` | Loads the published `opnsrcntrbtrian/sebi-circulars` HF dataset instead of local `data/corpus` |
+| `generate_spaces.py` | CPU/remote `Generator` implementations (external Space + local HF model fallback) |
+
+`app.py` (repo root) is the Gradio Spaces entrypoint; `config.toml [spaces]` holds the dataset/index repos, external Space, and CPU fallback model config. See `README-spaces.md` for the deployment runbook and the ZeroGPU CPU-fallback workaround.
 
 ## Graphify (Optional)
 
@@ -55,6 +77,7 @@ Knowledge graph lives at `graphify-out/`. When the graph exists:
 ## Current Handoffs
 
 - Benchmark/evaluation continuation: `docs/superpowers/2026-07-09-benchmark-evaluation-handoff.md`
+- Retrieval/benchmark infrastructure inventory: `docs/superpowers/2026-07-11-retrieval-benchmark-inventory.md`
 
 ## graphify
 
