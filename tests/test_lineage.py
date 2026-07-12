@@ -108,6 +108,35 @@ def test_real_corpus_oiae_supersedes_listed_circulars():
     assert mrd not in lin.supersedes
 
 
+def test_detect_relations_ex_scopes_supersedes_to_proximity_window():
+    from sebi_rag.lineage import detect_relations_ex
+    near = "SEBI/HO/Y/P/CIR/2020/01"
+    far = "SEBI/HO/Y/P/CIR/2019/02"
+    text = (
+        f"This circular supersedes the circulars listed below: a. {near} "
+        + ("filler text padding this master circular reference list. " * 30)
+        + f"z. {far} dated some other year."
+    )
+    assert len(text) > 1500
+    rels = {r["target"]: r["relation"] for r in detect_relations_ex("SELF/1", text)}
+    assert rels[near] == "supersedes"
+    assert rels[far] == "references"   # beyond the proximity window -> not supersedes
+
+
+def test_detect_relations_ex_multiple_triggers_each_scope_own_window():
+    from sebi_rag.lineage import detect_relations_ex
+    first_ref = "SEBI/HO/Y/P/CIR/2020/01"
+    second_ref = "SEBI/HO/Y/P/CIR/2021/02"
+    text = (
+        f"In supersession of {first_ref}, revised norms apply. "
+        + ("unrelated body text. " * 100)
+        + f"This circular also supersedes {second_ref} with immediate effect."
+    )
+    rels = {r["target"]: r["relation"] for r in detect_relations_ex("SELF/1", text)}
+    assert rels[first_ref] == "supersedes"
+    assert rels[second_ref] == "supersedes"  # scoped to the *second* trigger, not the first
+
+
 def test_annotate_corpus_writes_new_metadata_fields(tmp_path):
     import json
     from sebi_rag.lineage import annotate_corpus
