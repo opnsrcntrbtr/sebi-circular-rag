@@ -108,6 +108,39 @@ def test_real_corpus_oiae_supersedes_listed_circulars():
     assert mrd not in lin.supersedes
 
 
+def test_annotate_corpus_writes_new_metadata_fields(tmp_path):
+    import json
+    from sebi_rag.lineage import annotate_corpus
+    new_cn = "SEBI/HO/IMD/DF2/CIR/P/2024/031"
+    old_cn = "SEBI/HO/IMD/DF2/CIR/P/2021/024"
+    recs = [
+        {"circular_number": new_cn, "issue_date": "2024-01-01",
+         "subject": "Master Circular for Mutual Funds",
+         "text": f"This circular supersedes {old_cn} in full."},
+        {"circular_number": old_cn, "issue_date": "2021-01-01",
+         "subject": "Mutual fund norms", "text": "Old content."},
+        {"circular_number": "SEBI/HO/IMD/DF2/CIR/P/2023/099", "issue_date": "",
+         "subject": "Clarification on custody", "text": "No refs."},
+    ]
+    p = tmp_path / "c.jsonl"
+    p.write_text("\n".join(json.dumps(r) for r in recs) + "\n", encoding="utf-8")
+    summary = annotate_corpus(p)
+    out = {r["circular_number"]: r
+           for r in map(json.loads, p.read_text().splitlines())}
+    assert out[new_cn]["circular_type"] == "MASTER_CIRCULAR"
+    assert out[new_cn]["validity_status"] == "current"
+    assert out[old_cn]["validity_status"] == "superseded"
+    assert out[old_cn]["superseded_by_id"] == [new_cn]
+    assert out["SEBI/HO/IMD/DF2/CIR/P/2023/099"]["circular_type"] == "CLARIFICATION"
+    assert out["SEBI/HO/IMD/DF2/CIR/P/2023/099"]["validity_status"] == "unknown"
+    edges = out[new_cn]["supersession_edges"]
+    assert edges and edges[0]["target"] == old_cn and edges[0]["confidence"] == "explicit_text"
+    # legacy fields still written exactly as before
+    assert out[old_cn]["supersession_status"] == "superseded"
+    assert out[old_cn]["superseded_by"] == [new_cn]
+    assert summary["validity_counts"]["superseded"] == 1
+
+
 def test_detect_relations_ex_evidence_and_extractor():
     from sebi_rag.lineage import detect_relations_ex
     text = ("This circular supersedes Circular No. SEBI/HO/IMD/DF2/CIR/P/2021/024 "

@@ -17,6 +17,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from .ingest_pdf import REF_RE
+from .metadata import classify_circular_type, derive_validity
 
 SUPERSEDE_RE = re.compile(
     r"(in supersession of|supersed\w*|rescind\w*|repeal\w*|"
@@ -223,13 +224,25 @@ def annotate_corpus(corpus_path: str | Path) -> dict:
         new_status = lin.status(cn)
         sup_by = lin.superseded_by.get(cn, [])
         supersedes = lin.supersedes.get(cn, [])
+        circular_type = classify_circular_type(r.get("subject"))
+        validity_status = derive_validity(cn, r.get("issue_date"), lin.edges)
+        superseded_by_id = lin.explicit_superseded_by(cn)
+        supersession_edges = [e for e in lin.edges if e["source"] == cn]
         if (r.get("supersession_status") != new_status
                 or r.get("superseded_by") != sup_by
-                or r.get("supersedes") != supersedes):
+                or r.get("supersedes") != supersedes
+                or r.get("circular_type") != circular_type
+                or r.get("validity_status") != validity_status
+                or r.get("superseded_by_id") != superseded_by_id
+                or r.get("supersession_edges") != supersession_edges):
             changed += 1
         r["supersession_status"] = new_status
         r["superseded_by"] = sup_by
         r["supersedes"] = supersedes
+        r["circular_type"] = circular_type
+        r["validity_status"] = validity_status
+        r["superseded_by_id"] = superseded_by_id
+        r["supersession_edges"] = supersession_edges
     corpus_path.write_text(
         "\n".join(json.dumps(r, ensure_ascii=False) for r in records) + "\n",
         encoding="utf-8",
@@ -240,4 +253,8 @@ def annotate_corpus(corpus_path: str | Path) -> dict:
         "supersedes_edges": sum(len(v) for v in lin.supersedes.values()),
         "superseded_in_corpus": [r["circular_number"] for r in records
                                  if lin.status(r["circular_number"]) == "superseded"],
+        "validity_counts": {
+            s: sum(1 for r in records if r["validity_status"] == s)
+            for s in ("current", "superseded", "partially_superseded", "unknown")
+        },
     }
