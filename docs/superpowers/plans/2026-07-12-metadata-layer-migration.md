@@ -678,4 +678,44 @@ print(dict(c)); print(dict(t))"
 Expected: types ≈ `{CIRCULAR: 516, MASTER_CIRCULAR: 44, CLARIFICATION: 23, AMENDMENT: 15, ADDENDUM: 3, CORRIGENDUM: 2}` (small drift from probe regexes acceptable); every record has all four new fields.
 - [ ] **Step 3:** `make reindex`, then confirm chunk meta: `python3 -c "import json; print(json.loads(open('data/index/chunks.jsonl').readline())['meta'].keys())"` includes `circular_type`, `validity_status`, `superseded_by_id`.
 - [ ] **Step 4:** `make test` → full suite PASS. Commit corpus + index: `git commit -m "chore: annotate corpus with metadata layer fields + reindex"`.
-- [ ] **Step 5 (Fable checkpoint — do not skip):** hand back to Fable with the distribution numbers and 15 sample records (5 MASTER_CIRCULAR, 5 explicit `superseded`, 3 `partially_superseded`, 2 `unknown`) for legal-semantics sign-off before Phase 3 (HF export). Fable also decides whether `master_topic` inferred edges get promoted to explicit after spot-check.
+- [x] **Step 5 (Fable checkpoint — do not skip):** hand back to Fable with the distribution numbers and 15 sample records (5 MASTER_CIRCULAR, 5 explicit `superseded`, 3 `partially_superseded`, 2 `unknown`) for legal-semantics sign-off before Phase 3 (HF export). Fable also decides whether `master_topic` inferred edges get promoted to explicit after spot-check.
+
+---
+
+## Fable Checkpoint Verdict (2026-07-12) — SIGNED OFF
+
+Distributions and samples approved. Decisions:
+
+1. **`master_topic` inferred edges: NOT promoted.** Only 4 exist; 3 verified correct; the 4th (LODR master `HO/49/14/14(7)2025.../3762/2026`) is a continuously-updated master ("Issued on July 11 2023, Last updated January 30 2026") whose direction is correct via `effective_date`. Inferred stays soft, per locked decision.
+2. **Dangling edges: no action.** All 398 `superseded_by_id` entries resolve to corpus records (sources are always records by construction). The 1018 dangling edge *targets* are old unscraped circulars — they can never be returned by `governing_on` (no `issue_date` → never candidates). Safe direction.
+3. **Giant connected component (CRITICAL finding):** master ref-list over-tagging merges the lineage graph into one 942-node family. Raw `governing_on` over the full graph is cross-topic nonsense; it is only valid when the `issue_dates` dict is restricted to a topical candidate set — which is exactly what `RAGPipeline.query(as_of=...)` does (dates built from retrieved pool only). **Rule: never call `governing_on` with the full corpus dates dict; selector-level evaluation only on small verified families.** Precision tightening of `detect_relations_ex` (scope refs to a window after the supersession trigger instead of all-refs-after-first-trigger) is the Phase 4/5 lever to shrink the component; measure via golden as-of eval before/after.
+4. **Explicit-tier precision:** ~26/275 superseded records (~9%) have >2 cross-domain superseders — over-tag suspects from master reference lists. Accepted for this milestone; quantified by P4 eval.
+5. **Known dual-date limitation:** "Last updated" masters carry `issue_date` = original issue; supersession edges are timeless, so re-supersessions inside a family can mis-rank in the window between original issue and update (1 known family: LODR masters). Future refinement: edge-activation date = source's `max(issue_date, effective_date)`.
+6. **Stale export golden (`test_export_integration.py` expects `chunks: 36603`, actual 36683):** confirmed pre-existing (backup corpus chunks to the same 36683); update the golden numbers as part of Task 8 export regeneration.
+
+**P4a delivered by Fable:** `eval/golden/golden_asof_v1.jsonl` — 10 pipeline-mode + 3 selector-mode cases. All selector expectations and all retrieval-scoped pipeline expectations verified against the live lineage graph on 2026-07-12.
+
+---
+
+### Task 8: HF export regeneration + stale goldens (Sonnet 5) — Phase 3
+
+**Files:**
+- Modify: `tests/test_export_integration.py` (the `expected` dict in `test_row_count_accuracy_in_live_export`)
+- Regenerate: `dist/datasets/` via `make benchmark-export` / `make export-datasets`
+
+- [ ] **Step 1:** Check `scripts/export_datasets.py` corpus/chunks config schemas: the four new fields (`circular_type`, `validity_status`, `superseded_by_id`, `supersession_edges`) must flow into the exported `corpus` config, and (`circular_type`, `validity_status`, `superseded_by_id`) into `chunks` meta. If the exporter whitelists columns, extend the whitelist; if it passes records through, verify by inspecting one exported row.
+- [ ] **Step 2:** Run `make benchmark-export` then `make export-datasets`; inspect `dist/datasets/manifest.json` row counts.
+- [ ] **Step 3:** Update the `expected` dict in `test_row_count_accuracy_in_live_export` to the regenerated counts (chunks becomes 36683; check the other configs for drift and update to actuals — the counts changed because the corpus grew, not because of the metadata migration).
+- [ ] **Step 4:** `make test` → full suite PASS (194/194).
+- [ ] **Step 5:** Commit code+test changes. **Do not push to HF Hub without explicit user go** — publishing is user-gated.
+
+### Task 9: As-of golden eval wiring (Sonnet 5) — Phase 4b
+
+**Files:**
+- Modify: `src/sebi_rag/eval_harness.py` (or a sibling `eval_asof.py` if the harness doesn't fit)
+- Consume: `eval/golden/golden_asof_v1.jsonl` (schema: `mode: pipeline|selector`; pipeline rows have `query/as_of/expected_any/avoid`; selector rows have `entry/as_of/expected`)
+
+- [ ] **Step 1:** Selector runner: load `data/index/lineage.json` + corpus dates; for each `mode=selector` row assert `lineage.governing_on(entry, as_of, dates) == expected` (full-corpus dates dict is correct **only** for these pre-verified rows). These 3 must pass — they are regression tests.
+- [ ] **Step 2:** Pipeline runner: build the default pipeline once; for each `mode=pipeline` row call `pipe.query(query, as_of=as_of)`; score PASS when any citation startswith any `expected_any` entry AND no citation startswith an `avoid` entry. Report per-case PASS/FAIL + aggregate accuracy. **Pipeline-case failures are findings, not bugs** — report them to Fable, do not tune thresholds to force green.
+- [ ] **Step 3:** Add a `make eval-asof` target mirroring existing eval targets. Commit.
+- [ ] **Step 4:** Run it; hand results back to Fable for P4c accept/reject.
