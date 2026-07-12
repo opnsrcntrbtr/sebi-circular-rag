@@ -773,3 +773,10 @@ Attempt-1's spec error was mine (1500-char radius chosen without measuring real 
 **Verified final state:** corpus + chunks byte-identical to export manifest shas (`5645fd…`, `e221f6…`); 199/199 tests; eval-asof 13/13. Migration Tasks 1–9 delivered; Task 10 closed.
 
 **Sole remaining action — user decision: HF Hub push** of the regenerated `dist/datasets` (adds `circular_type`, `validity_status`, `superseded_by_id`, `supersession_edges` to the published configs).
+
+## HF Hub Push (executed 2026-07-12)
+
+Pushed regenerated dist/datasets (v2026.07, +circular_type/validity_status/
+superseded_by_id/supersession_edges) to opnsrcntrbtrian/sebi-circulars per
+docs/superpowers/plans/2026-07-12-hf-dataset-push-runbook.md. All Task 6
+verification gates passed. Migration fully shipped.

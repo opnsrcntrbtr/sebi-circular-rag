@@ -471,6 +471,30 @@ print('viewer OK:', sorted(need))
 
 Expected (eventually): `viewer OK: [...]`. If still failing after 30 min, check `https://datasets-server.huggingface.co/is-valid?dataset=opnsrcntrbtrian%2Fsebi-circulars` and report the error to the user; the raw files (Steps 1–2) are the authoritative success signal.
 
+Alternatively test with following python snippet:
+```bash
+cat << 'EOF' > check_schema.py
+import pandas as pd
+
+# This points explicitly to your unique Hugging Face repository 
+repo_url = "https://huggingface.co/datasets/opnsrcntrbtrian/sebi-circulars/resolve/main/corpus/corpus.parquet"
+
+try:
+    # Safely targets your custom parameters from the cloud
+    df_sample = pd.read_parquet(repo_url, columns=['circular_type', 'validity_status', 'superseded_by_id'], engine='pyarrow')
+    print("Verification Success! All new columns are active on the main branch.")
+    print("Found columns:", list(df_sample.columns))
+except Exception as e:
+    print("\n[Link Check Failed] Error reading schema from main branch:", e)
+    print("Double check if your file is named 'train.parquet' or sits inside 'corpus/'.")
+EOF
+
+.venv/bin/python check_schema.py
+```
+
+Expected: Verification Success! All new columns are active on the main branch.
+Found columns: ['circular_type', 'validity_status', 'superseded_by_id']
+
 - [ ] **Step 4: Spaces demo note (no action unless asked).** The live Space (`opnsrcntrbtrian/sebi-circular-rag-demo`) loads this dataset only at startup and reads columns by name, so the additive columns are backward-compatible. It will pick up new data on its next restart/rebuild. Do not restart it as part of this runbook.
 
 ---
