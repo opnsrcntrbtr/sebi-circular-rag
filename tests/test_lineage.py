@@ -106,3 +106,73 @@ def test_real_corpus_oiae_supersedes_listed_circulars():
     # the price-data circular only cites prior circulars -> no supersession
     mrd = "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026"
     assert mrd not in lin.supersedes
+
+
+def test_detect_relations_ex_evidence_and_extractor():
+    from sebi_rag.lineage import detect_relations_ex
+    text = ("This circular supersedes Circular No. SEBI/HO/IMD/DF2/CIR/P/2021/024 "
+            "with immediate effect.")
+    rels = detect_relations_ex("SEBI/HO/IMD/DF2/CIR/P/2024/031", text)
+    sup = [r for r in rels if r["relation"] == "supersedes"]
+    assert sup and sup[0]["target"] == "SEBI/HO/IMD/DF2/CIR/P/2021/024"
+    assert "supersedes" in sup[0]["evidence"]
+    assert sup[0]["extractor"] == "regex:SUPERSEDE_RE"
+
+
+def test_detect_relations_delegates_unchanged():
+    from sebi_rag.lineage import detect_relations
+    text = "This circular supersedes SEBI/HO/IMD/DF2/CIR/P/2021/024."
+    assert ("supersedes", "SEBI/HO/IMD/DF2/CIR/P/2021/024") in detect_relations(
+        "SEBI/HO/IMD/DF2/CIR/P/2024/031", text)
+
+
+def test_build_lineage_edges_tiered():
+    from sebi_rag.lineage import build_lineage
+    new_cn = "SEBI/HO/IMD/DF2/CIR/P/2024/031"
+    old_cn = "SEBI/HO/IMD/DF2/CIR/P/2021/024"
+    records = [
+        {"circular_number": new_cn, "issue_date": "2024-01-01",
+         "subject": "Master Circular for Mutual Funds",
+         "text": f"This circular supersedes {old_cn} in full."},
+        {"circular_number": old_cn, "issue_date": "2021-01-01",
+         "subject": "Master Circular for Mutual Funds", "text": "Old content."},
+    ]
+    lin = build_lineage(records)
+    tiers = {(e["source"], e["target"]): e["confidence"] for e in lin.edges}
+    # explicit text edge wins the tier for (new_cn, old_cn) even though the
+    # master-topic rule also links them; no duplicate edge is emitted
+    assert tiers[(new_cn, old_cn)] == "explicit_text"
+    assert len(lin.edges) == 1
+
+
+def test_build_lineage_inferred_master_topic_edge():
+    from sebi_rag.lineage import build_lineage
+    records = [
+        {"circular_number": "MC/2", "issue_date": "2024-01-01",
+         "subject": "Master Circular for Depositories", "text": "No refs here."},
+        {"circular_number": "MC/1", "issue_date": "2021-01-01",
+         "subject": "Master Circular for Depositories", "text": "No refs here."},
+    ]
+    lin = build_lineage(records)
+    e = [e for e in lin.edges if e["source"] == "MC/2" and e["target"] == "MC/1"]
+    assert e and e[0]["confidence"] == "inferred" and e[0]["extractor"] == "master_topic"
+    assert lin.explicit_superseded_by("MC/1") == []
+    assert lin.superseded_by["MC/1"] == ["MC/2"]  # legacy dicts keep both tiers
+
+
+def test_lineage_save_load_roundtrips_edges(tmp_path):
+    from sebi_rag.lineage import Lineage
+    lin = Lineage(edges=[{"source": "A", "target": "B", "relation": "supersedes",
+                          "confidence": "explicit_text",
+                          "extractor": "regex:SUPERSEDE_RE", "evidence": "x"}])
+    p = tmp_path / "lin.json"
+    lin.save(p)
+    assert Lineage.load(p).edges == lin.edges
+
+
+def test_lineage_load_old_file_defaults_empty_edges(tmp_path):
+    from sebi_rag.lineage import Lineage
+    p = tmp_path / "old.json"
+    p.write_text('{"supersedes": {}, "amends": {}, "superseded_by": {}, "amended_by": {}}',
+                 encoding="utf-8")
+    assert Lineage.load(p).edges == []

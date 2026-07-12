@@ -26,26 +26,42 @@ SUPERSEDE_RE = re.compile(
 AMEND_RE = re.compile(r"(in (?:partial )?modification of|partial modification|amend\w*)", re.I)
 
 
-def detect_relations(circular_number: str, text: str) -> list[tuple[str, str]]:
-    """Return (relation, referenced_circular) for each distinct reference."""
+def _window(text: str, pos: int, radius: int = 90) -> str:
+    return text[max(0, pos - radius): pos + radius].replace("\n", " ").strip()
+
+
+def detect_relations_ex(circular_number: str, text: str) -> list[dict]:
+    """Like detect_relations, but returns dict records with evidence spans."""
     positions: dict[str, list[int]] = {}
     for m in REF_RE.finditer(text):
         positions.setdefault(m.group(0), []).append(m.start())
     first_sup = min((m.start() for m in SUPERSEDE_RE.finditer(text)), default=None)
     amd_pos = [m.start() for m in AMEND_RE.finditer(text)]
 
-    out: list[tuple[str, str]] = []
+    out: list[dict] = []
     for ref, pos_list in positions.items():
         if ref == circular_number:
             continue
         if first_sup is not None and any(p > first_sup for p in pos_list):
-            rel = "supersedes"
+            pos = next(p for p in pos_list if p > first_sup)
+            out.append({"relation": "supersedes", "target": ref,
+                        "evidence": _window(text, pos),
+                        "extractor": "regex:SUPERSEDE_RE"})
         elif amd_pos and any(abs(p - a) < 120 for p in pos_list for a in amd_pos):
-            rel = "amends"
+            pos = next(p for p in pos_list if any(abs(p - a) < 120 for a in amd_pos))
+            out.append({"relation": "amends", "target": ref,
+                        "evidence": _window(text, pos),
+                        "extractor": "regex:AMEND_RE"})
         else:
-            rel = "references"
-        out.append((rel, ref))
+            out.append({"relation": "references", "target": ref,
+                        "evidence": _window(text, pos_list[0]), "extractor": "ref_only"})
     return out
+
+
+def detect_relations(circular_number: str, text: str) -> list[tuple[str, str]]:
+    """Return (relation, referenced_circular) for each distinct reference."""
+    return [(e["relation"], e["target"])
+            for e in detect_relations_ex(circular_number, text)]
 
 
 @dataclass
@@ -54,6 +70,7 @@ class Lineage:
     amends: dict[str, list[str]] = field(default_factory=dict)
     superseded_by: dict[str, list[str]] = field(default_factory=dict)  # older -> [newer]
     amended_by: dict[str, list[str]] = field(default_factory=dict)
+    edges: list[dict] = field(default_factory=list)
 
     def status(self, circular_number: str) -> str:
         if circular_number in self.superseded_by:
@@ -62,10 +79,17 @@ class Lineage:
             return "amended"
         return "in_force"
 
+    def explicit_superseded_by(self, circular_number: str) -> list[str]:
+        return [e["source"] for e in self.edges
+                if e["target"] == circular_number
+                and e["relation"] == "supersedes"
+                and e["confidence"] == "explicit_text"]
+
     def save(self, path: str | Path) -> None:
         Path(path).write_text(json.dumps({
             "supersedes": self.supersedes, "amends": self.amends,
             "superseded_by": self.superseded_by, "amended_by": self.amended_by,
+            "edges": self.edges,
         }, ensure_ascii=False), encoding="utf-8")
 
     @classmethod
@@ -74,6 +98,7 @@ class Lineage:
         return cls(
             supersedes=d.get("supersedes", {}), amends=d.get("amends", {}),
             superseded_by=d.get("superseded_by", {}), amended_by=d.get("amended_by", {}),
+            edges=d.get("edges", []),
         )
 
 
@@ -102,23 +127,35 @@ def _currency(r: dict) -> str:
 def build_lineage(records: list[dict]) -> Lineage:
     lin = Lineage()
 
-    def add_supersede(newer: str, older: str) -> None:
+    def add_supersede(newer: str, older: str, confidence: str = "explicit_text",
+                      extractor: str = "regex:SUPERSEDE_RE", evidence: str = "") -> None:
         if newer == older:
             return
         if older not in lin.supersedes.setdefault(newer, []):
             lin.supersedes[newer].append(older)
         if newer not in lin.superseded_by.setdefault(older, []):
             lin.superseded_by[older].append(newer)
+        existing = next((e for e in lin.edges if e["source"] == newer
+                         and e["target"] == older and e["relation"] == "supersedes"), None)
+        if existing is None:
+            lin.edges.append({"source": newer, "target": older,
+                              "relation": "supersedes", "confidence": confidence,
+                              "extractor": extractor, "evidence": evidence})
+        elif existing["confidence"] == "inferred" and confidence == "explicit_text":
+            existing.update(confidence=confidence, extractor=extractor, evidence=evidence)
 
     # 1) explicit supersession/amendment clauses in the text
     for r in records:
         cn = r["circular_number"]
-        for rel, ref in detect_relations(cn, r.get("text", "")):
-            if rel == "supersedes":
-                add_supersede(cn, ref)
-            elif rel == "amends":
-                lin.amends.setdefault(cn, []).append(ref)
-                lin.amended_by.setdefault(ref, []).append(cn)
+        for e in detect_relations_ex(cn, r.get("text", "")):
+            if e["relation"] == "supersedes":
+                add_supersede(cn, e["target"], evidence=e["evidence"])
+            elif e["relation"] == "amends":
+                lin.amends.setdefault(cn, []).append(e["target"])
+                lin.amended_by.setdefault(e["target"], []).append(cn)
+                lin.edges.append({"source": cn, "target": e["target"],
+                                  "relation": "amends", "confidence": "explicit_text",
+                                  "extractor": e["extractor"], "evidence": e["evidence"]})
 
     # 2) master-circular re-issues: within a topic, newest supersedes the rest
     groups: dict[str, list[dict]] = {}
@@ -132,7 +169,9 @@ def build_lineage(records: list[dict]) -> Lineage:
         rs.sort(key=_currency)
         newest = rs[-1]["circular_number"]
         for r in rs[:-1]:
-            add_supersede(newest, r["circular_number"])
+            add_supersede(newest, r["circular_number"], confidence="inferred",
+                          extractor="master_topic",
+                          evidence=f"master-topic re-issue: {rs[-1].get('subject', '')!r}")
 
     return lin
 
