@@ -17,7 +17,7 @@
 - Upload INCLUDES (matching the live repo root, verified 2026-07-12): `README.md`, `manifest.json`, `metadata.json`, the six config dirs (`chunks/ citation-normalization/ corpus/ eval/ lineage/ supersession-pairs/`, each with `.jsonl` + `.parquet`), and a copy of `scripts/export_datasets.py` at repo-root path `export_datasets.py` (provenance).
 - The actual push (Task 5 Step 3) is **gated on explicit human confirmation** in the harness. Do not pass `--yes` without it.
 - Run all commands from the repo root: `/Users/ianpinto/sebi_circular_sota_rag/SEBI circular RAG` (quote the path — it contains a space).
-- Expected corpus state (from the accepted migration milestone): `corpus.jsonl` sha256 `5645fd7942a37a1d98118f627ce4bd7bc0fd06c7a5dde333e88c7c35b08d38c6`, `chunks.jsonl` sha256 `e221f6956152f9bf40542fdf90b9a1983388b37e2806a65adb934f3938e598e3`, row counts `corpus=603, chunks=36683, lineage=1437, eval=56, citation-normalization=2951, supersession-pairs=1281`.
+- Expected corpus state (from the accepted migration milestone): `corpus.jsonl` sha256 `5645fd7942a37a1d98118f627ce4bd7bc0fd06c7a5dde333e88c7c35b08d38c6`, `chunks.jsonl` sha256 `67f737cad0d5a3f0fd2dab8fc9baaeb18785d224e45d7e404bae1599974b73da` (2026-07-13 chunker fix: bare parent headings folded, 36683→34883), row counts `corpus=603, chunks=34883, lineage=1437, eval=56, citation-normalization=2951, supersession-pairs=1281`.
 - **Abort rule (all tasks):** if a gate's actual output does not match its expected output, STOP, do not push, and report the mismatch verbatim to the user. Do not improvise fixes beyond this plan.
 
 ---
@@ -46,7 +46,7 @@ Expected (abort on mismatch — it means the corpus changed since the accepted m
 
 ```
 5645fd7942a37a1d98118f627ce4bd7bc0fd06c7a5dde333e88c7c35b08d38c6  data/corpus/circulars.jsonl
-e221f6956152f9bf40542fdf90b9a1983388b37e2806a65adb934f3938e598e3  data/index/chunks.jsonl
+67f737cad0d5a3f0fd2dab8fc9baaeb18785d224e45d7e404bae1599974b73da  data/index/chunks.jsonl
 ```
 
 - [ ] **Step 3: Verify manifest matches those shas and the expected row counts**
@@ -57,9 +57,9 @@ import json
 m = json.load(open('dist/datasets/manifest.json'))
 c = m['configs']
 assert c['corpus']['source_sha256'] == '5645fd7942a37a1d98118f627ce4bd7bc0fd06c7a5dde333e88c7c35b08d38c6', c['corpus']
-assert c['chunks']['source_sha256'] == 'e221f6956152f9bf40542fdf90b9a1983388b37e2806a65adb934f3938e598e3', c['chunks']
+assert c['chunks']['source_sha256'] == '67f737cad0d5a3f0fd2dab8fc9baaeb18785d224e45d7e404bae1599974b73da', c['chunks']
 rows = {k: v['rows'] for k, v in c.items()}
-assert rows == {'corpus': 603, 'chunks': 36683, 'lineage': 1437, 'eval': 56,
+assert rows == {'corpus': 603, 'chunks': 34883, 'lineage': 1437, 'eval': 56,
                 'citation-normalization': 2951, 'supersession-pairs': 1281}, rows
 print('manifest OK:', rows, '| version', m['version'])
 "
@@ -207,7 +207,7 @@ git commit -m "fix: update dataset card counts to post-migration actuals (36683 
 make export-datasets 2>&1 | tail -45
 ```
 
-Expected: JSON manifest printed with `"version": "v2026.07"` and the six configs at the expected row counts (`603 / 36683 / 1437 / 56 / 2951 / 1281`), no traceback.
+Expected: JSON manifest printed with `"version": "v2026.07"` and the six configs at the expected row counts (`603 / 34883 / 1437 / 56 / 2951 / 1281`), no traceback.
 
 - [ ] **Step 2: Gate — card, manifest, and data agree; new fields present**
 
@@ -215,7 +215,7 @@ Expected: JSON manifest printed with `"version": "v2026.07"` and the six configs
 .venv/bin/python -c "
 import json
 card = open('dist/datasets/README.md').read()
-assert '36,683' in card and '1,437' in card and '**Date:** 2026-07-12' in card, 'card stale'
+assert '34,883' in card and '1,437' in card and '**Date:** 2026-07-13' in card, 'card stale'
 for col in ('circular_type', 'validity_status', 'superseded_by_id', 'supersession_edges'):
     assert col in card, f'card missing column {col}'
 row = json.loads(open('dist/datasets/corpus/corpus.jsonl').readline())
@@ -448,7 +448,7 @@ Expected: `tree OK: [...]` with no assertion error.
 curl -sL "https://huggingface.co/datasets/opnsrcntrbtrian/sebi-circulars/raw/main/README.md" | .venv/bin/python -c "
 import sys
 card = sys.stdin.read()
-for s in ('36,683', '1,437', 'circular_type', 'validity_status', 'superseded_by_id', 'supersession_edges'):
+for s in ('34,883', '1,437', 'circular_type', 'validity_status', 'superseded_by_id', 'supersession_edges'):
     assert s in card, f'live card missing: {s}'
 print('live card OK')
 "

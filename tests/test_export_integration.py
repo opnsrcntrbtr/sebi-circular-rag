@@ -272,7 +272,7 @@ def test_row_count_accuracy_in_live_export():
     # metadata-layer migration added confidence-tiered lineage edges)
     expected = {
         "corpus": 603,
-        "chunks": 36683,
+        "chunks": 34883,
         "lineage": 1437,
         "eval": 56,
         "citation-normalization": 2951,
