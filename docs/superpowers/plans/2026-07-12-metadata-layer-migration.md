@@ -715,7 +715,15 @@ Distributions and samples approved. Decisions:
 - Modify: `src/sebi_rag/eval_harness.py` (or a sibling `eval_asof.py` if the harness doesn't fit)
 - Consume: `eval/golden/golden_asof_v1.jsonl` (schema: `mode: pipeline|selector`; pipeline rows have `query/as_of/expected_any/avoid`; selector rows have `entry/as_of/expected`)
 
-- [ ] **Step 1:** Selector runner: load `data/index/lineage.json` + corpus dates; for each `mode=selector` row assert `lineage.governing_on(entry, as_of, dates) == expected` (full-corpus dates dict is correct **only** for these pre-verified rows). These 3 must pass — they are regression tests.
-- [ ] **Step 2:** Pipeline runner: build the default pipeline once; for each `mode=pipeline` row call `pipe.query(query, as_of=as_of)`; score PASS when any citation startswith any `expected_any` entry AND no citation startswith an `avoid` entry. Report per-case PASS/FAIL + aggregate accuracy. **Pipeline-case failures are findings, not bugs** — report them to Fable, do not tune thresholds to force green.
-- [ ] **Step 3:** Add a `make eval-asof` target mirroring existing eval targets. Commit.
-- [ ] **Step 4:** Run it; hand results back to Fable for P4c accept/reject.
+- [x] **Step 1:** Selector runner (`run_selector_cases` in `src/sebi_rag/eval_asof.py`) loads persisted `lineage.json` + corpus dates. All 3 selector regression cases PASS exactly.
+- [x] **Step 2:** Pipeline runner (`run_pipeline_cases`) uses the persisted retriever + `CrossEncoderReranker` + `ExtractiveStubGenerator` (no LLM dependency — as-of filtering acts on retrieval ranking, not generation). 9/10 pipeline cases PASS. **Did not tune thresholds** on the 1 failure — see result below.
+- [x] **Step 3:** `make eval-asof` target added (Makefile); `src/sebi_rag/eval_asof.py` (module) + `scripts/eval_asof.py` (CLI), TDD with 4 tests in `tests/test_eval_asof.py`. `make test` → 199/199 PASS.
+- [x] **Step 4:** Ran against real persisted index. Committed (`ab10a37`).
+
+### Task 9 Results (2026-07-12) — for Fable P4c
+
+```
+selector: 3/3 (100%)   pipeline: 9/10 (90%)   overall: 12/13 (92.3%)
+```
+
+**Only failure: `asof-p5`** ("What is the regulatory framework for the Social Stock Exchange?", as_of=2025-11-01, expected `SEBI/HO/CFD/CFD-PoD-1/P/CIR/2025/129`). Actual citations were all from `SEBI/HO/MRD/MRD-RAC-2/P/CIR/2022/141` — a different, older SSE-framework circular. **This is a retrieval-relevance miss, not an as-of-filtering defect**: circular 129 never entered the reranked candidate pool at all, so `as_of` demotion/filtering had nothing to act on. The 2022 circular's text apparently scores higher on BGE-M3 + cross-encoder similarity for this exact query phrasing. All 3 selector cases and the other 9 pipeline cases (including the multi-successor case `asof-p8` and the small clean family `asof-s1/s2/asof-p5/p6` sibling `asof-p6`) passed, confirming the as-of mechanism itself works correctly end-to-end wherever retrieval surfaces the right family.
