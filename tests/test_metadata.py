@@ -100,3 +100,20 @@ class TestDeriveValidity:
         for args in (("", []), ("2021-03-01", []),
                      ("2021-03-01", [edge(self.NEWER, self.CN)])):
             assert derive_validity(self.CN, *args) in VALIDITY_STATUSES
+
+
+def test_chunk_meta_carries_new_fields(tmp_path):
+    import json
+    from sebi_rag.corpus import load_circulars
+    rec = {"circular_number": "SEBI/HO/IMD/DF2/CIR/P/2024/031", "issue_date": "2024-01-01",
+           "subject": "Master Circular for Mutual Funds",
+           "supersession_status": "in_force",
+           "circular_type": "MASTER_CIRCULAR", "validity_status": "current",
+           "superseded_by_id": [], "text": "Para one.\n\nPara two."}
+    p = tmp_path / "c.jsonl"
+    p.write_text(json.dumps(rec) + "\n", encoding="utf-8")
+    chunks = load_circulars(p)
+    assert chunks
+    assert chunks[0].meta["circular_type"] == "MASTER_CIRCULAR"
+    assert chunks[0].meta["validity_status"] == "current"
+    assert chunks[0].meta["superseded_by_id"] == ()

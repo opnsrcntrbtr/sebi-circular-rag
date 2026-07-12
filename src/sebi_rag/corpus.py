@@ -23,6 +23,9 @@ def load_circulars(path: str | Path) -> list[Chunk]:
             supersession_status=r.get("supersession_status", "in_force"),
             amendment_history=tuple(r.get("amendment_history", [])),
             version_lineage=tuple(r.get("version_lineage", [])),
+            circular_type=r.get("circular_type", ""),
+            validity_status=r.get("validity_status", ""),
+            superseded_by_id=tuple(r.get("superseded_by_id", [])),
         )
         chunks.extend(hierarchical_chunk(r["text"], meta))
     return chunks

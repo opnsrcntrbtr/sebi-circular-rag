@@ -20,6 +20,9 @@ class CircularMeta:
     supersession_status: str = "in_force"  # in_force | superseded | amended
     amendment_history: tuple[str, ...] = ()
     version_lineage: tuple[str, ...] = ()
+    circular_type: str = ""          # metadata migration 2026-07: see metadata.py
+    validity_status: str = ""        # current | superseded | partially_superseded | unknown
+    superseded_by_id: tuple[str, ...] = ()  # explicit_text tier only
 
 
 @dataclass(frozen=True)
