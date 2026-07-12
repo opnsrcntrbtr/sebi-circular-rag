@@ -31,34 +31,22 @@ def _window(text: str, pos: int, radius: int = 90) -> str:
     return text[max(0, pos - radius): pos + radius].replace("\n", " ").strip()
 
 
-SUPERSEDE_PROXIMITY_CHARS = 1500  # P4c precision-tightening (2026-07-12): a ref
-# counts as superseded only within this many chars after a trigger, since
-# supersession lists ("...listed below: a. <ref> b. <ref>") sit directly
-# after their trigger; distant cross-domain references elsewhere in a master
-# circular do not. Scoping to *every* trigger occurrence (not just the
-# first) also lets later triggers in the same text open their own window.
-
-
 def detect_relations_ex(circular_number: str, text: str) -> list[dict]:
     """Like detect_relations, but returns dict records with evidence spans."""
     positions: dict[str, list[int]] = {}
     for m in REF_RE.finditer(text):
         positions.setdefault(m.group(0), []).append(m.start())
-    sup_pos = [m.start() for m in SUPERSEDE_RE.finditer(text)]
+    first_sup = min((m.start() for m in SUPERSEDE_RE.finditer(text)), default=None)
     amd_pos = [m.start() for m in AMEND_RE.finditer(text)]
 
     out: list[dict] = []
     for ref, pos_list in positions.items():
         if ref == circular_number:
             continue
-        sup_hit = next(
-            (p for p in pos_list
-             if any(0 < p - t <= SUPERSEDE_PROXIMITY_CHARS for t in sup_pos)),
-            None,
-        )
-        if sup_hit is not None:
+        if first_sup is not None and any(p > first_sup for p in pos_list):
+            pos = next(p for p in pos_list if p > first_sup)
             out.append({"relation": "supersedes", "target": ref,
-                        "evidence": _window(text, sup_hit),
+                        "evidence": _window(text, pos),
                         "extractor": "regex:SUPERSEDE_RE"})
         elif amd_pos and any(abs(p - a) < 120 for p in pos_list for a in amd_pos):
             pos = next(p for p in pos_list if any(abs(p - a) < 120 for a in amd_pos))
