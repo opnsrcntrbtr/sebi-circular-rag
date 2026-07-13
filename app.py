@@ -55,15 +55,35 @@ def get_pipeline(mode: str):
         return _pipelines[mode if mode == "retrieval_only" else "rag"]
 
 
-def run_query_spaces(question: str, top_k: float, mode: str):
+def _parse_as_of(raw: str) -> str | None:
+    """Normalise the optional as-of date field: empty -> None, else strict
+    ISO YYYY-MM-DD (ValueError propagates for anything else)."""
+    raw = (raw or "").strip()
+    if not raw:
+        return None
+    from datetime import date
+
+    return date.fromisoformat(raw).isoformat()
+
+
+def run_query_spaces(question: str, top_k: float, mode: str, as_of_raw: str = ""):
     empty_df = pd.DataFrame(columns=["Circular", "Status", "Superseded By"])
     if not question.strip():
         return "Please enter a question.", empty_df, "", "", "", "", ""
+    try:
+        as_of = _parse_as_of(as_of_raw)
+    except ValueError:
+        return (
+            "**Error:** 'As of date' must be YYYY-MM-DD (e.g. 2025-01-10).",
+            empty_df, "", "", "", "", "",
+        )
 
     try:
         pipeline = get_pipeline(mode)
         t0 = time.perf_counter()
-        ans, _retrieved = pipeline.query(question, top_k=int(top_k), advisory=False)
+        ans, _retrieved = pipeline.query(
+            question, top_k=int(top_k), advisory=False, as_of=as_of,
+        )
         latency = f"{(time.perf_counter() - t0) * 1000:.0f} ms"
     except Exception as exc:  # noqa: BLE001 — surface, don't crash the Space
         return f"**Error:** {exc}", empty_df, "", "", "", "", ""
@@ -152,6 +172,11 @@ def build_ui():
                         info="Full RAG answer, or retrieval-only academic "
                              "benchmark (citations + metadata, no LLM).",
                     )
+                    as_of_input = gr.Textbox(
+                        label="As of date (optional)",
+                        placeholder="YYYY-MM-DD — answer per the law in force on this date",
+                        max_lines=1,
+                    )
 
                 with gr.Accordion("Metadata", open=True):
                     latency_out = gr.Textbox(label="Latency", interactive=False)
@@ -169,7 +194,7 @@ def build_ui():
 
         submit_btn.click(
             fn=run_query_spaces,
-            inputs=[question_input, top_k, mode],
+            inputs=[question_input, top_k, mode, as_of_input],
             outputs=[
                 answer_output,
                 citations_df,
