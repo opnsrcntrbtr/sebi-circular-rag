@@ -176,3 +176,53 @@ def test_retrieval_metrics():
     assert recall_at_k(retrieved, relevant, k=len(retrieved)) == pytest.approx(1.0)
     assert mrr(retrieved, relevant) > 0.0
     assert 0.0 < ndcg_at_k(retrieved, relevant, k=10) <= 1.0
+
+
+class _FixedReranker:
+    """Deterministic reranker: score by doc_id lookup (test-only)."""
+
+    def __init__(self, scores):
+        self.scores = scores
+
+    def rerank(self, query, chunks):
+        out = [(c, self.scores.get(c.doc_id, 0.0)) for c in chunks]
+        out.sort(key=lambda cs: -cs[1])
+        return out
+
+
+def test_as_of_query_not_demoted_below_abstention_floor():
+    """A circular that governed on the as-of date must keep its raw rerank
+    score. Bug: global demote_superseded ran first, so the then-governing
+    (now-superseded) circular arrived at the as-of branch already at
+    score*0.3 and fell under the abstention threshold (score_floor)."""
+    OLD = "SEBI/HO/MRD/2020/010"
+    NEW = "SEBI/HO/MRD/2023/050"
+    old_text = ("Margin rules for the equity derivatives segment. Margin "
+                "collection shall be on a T plus one basis.")
+    new_text = (f"CIRCULAR {NEW}. This circular supersedes {OLD}. In "
+                f"supersession of {OLD}, margin collection on a T plus zero "
+                "basis.")
+    chunks = hierarchical_chunk(
+        old_text, CircularMeta(circular_number=OLD, issue_date="2020-01-01"))
+    chunks += hierarchical_chunk(
+        new_text, CircularMeta(circular_number=NEW, issue_date="2023-01-01"))
+    lineage = build_lineage([
+        {"circular_number": OLD, "issue_date": "2020-01-01", "text": old_text},
+        {"circular_number": NEW, "issue_date": "2023-01-01", "text": new_text},
+    ])
+    pipe = RAGPipeline.build(
+        chunks=chunks, embedder=HashEmbedder(256),
+        reranker=_FixedReranker({OLD: 0.6, NEW: 0.9}),
+        generator=ExtractiveStubGenerator(),
+        abstain_threshold=0.40,  # production floor — this is the point
+        lineage=lineage,
+    )
+    # On 2021-06-01, NEW does not exist yet and OLD governs: raw score 0.6
+    # must survive (demoted 0.6*0.3=0.18 would abstain via score_floor).
+    ans, _ = pipe.query("margin rules equity derivatives", as_of="2021-06-01")
+    assert not ans.abstained, f"abstained: {ans.abstention_reason}"
+    assert ans.citations and ans.citations[0].startswith(OLD)
+    # Present-day query is untouched: demotion still prefers NEW.
+    ans_now, _ = pipe.query("margin rules equity derivatives")
+    assert not ans_now.abstained
+    assert ans_now.citations[0].startswith(NEW)
