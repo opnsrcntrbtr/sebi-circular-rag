@@ -567,3 +567,15 @@ graphify update . && git add graphify-out && git commit -m "chore: graphify upda
 
 Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>" || true
 ```
+
+## Validation Log
+
+Re-run of Task 4 (real-index validation gate) at HEAD `1e6f7a6`, following the fix in `452ca33` (as-of demotion keyed on supersession timing, not `governing_on`) and the strengthened regression test in `1e6f7a6`.
+
+- **Step 1 — `make test`**: PASS. `212 passed, 2 deselected` (offline suite, `-m "not integration"`).
+- **Step 2 — `make eval-asof`**: PASS. `13/13` overall — selector `3/3`, pipeline `10/10`, zero failures. Regression from the prior run (12/13, case `asof-p8` failing) is resolved; no selector-case changes and no pipeline-case regressions vs. the 2026-07-13 chunker-fix baseline of 13/13.
+- **Step 3 — end-to-end nominee scenario against the real index** (`data/index`, BGE-M3 + cross-encoder reranker): PASS.
+  - `PASS as-of: 01650 / up to 10 persons`
+  - `PASS current-law: 12676 / up to 3 nominees, no misleading note`
+
+**Gate result: GO.** All three checks pass; proceed to Task 5 (live Space deploy).
