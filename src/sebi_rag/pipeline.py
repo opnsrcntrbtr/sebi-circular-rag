@@ -70,16 +70,19 @@ class RAGPipeline:
         if self.lineage is not None and not ans.abstained and ans.citations:
             flagged = superseded_citations(ans.citations, self.lineage)
             if flagged:
-                ans.superseded = flagged
-                notes = "; ".join(
-                    f"{old} has been superseded by {', '.join(new)}"
-                    for old, new in flagged.items()
-                )
-                ans.text += (
-                    f"\n\nNote: this answer cites circular(s) that are no longer in "
-                    f"force — {notes}. Refer to the superseding circular(s) for "
-                    "current requirements."
-                )
+                ans.superseded = flagged  # full metadata: every flagged context
+                cited_in_text = {old: new for old, new in flagged.items()
+                                 if old in ans.text}
+                if cited_in_text:
+                    notes = "; ".join(
+                        f"{old} has been superseded by {', '.join(new)}"
+                        for old, new in cited_in_text.items()
+                    )
+                    ans.text += (
+                        f"\n\nNote: this answer cites circular(s) that are no longer in "
+                        f"force — {notes}. Refer to the superseding circular(s) for "
+                        "current requirements."
+                    )
         if not ans.abstained and ans.unsupported_citations:
             refs = ", ".join(ans.unsupported_citations)
             ans.text += (

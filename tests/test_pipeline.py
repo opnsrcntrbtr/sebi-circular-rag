@@ -10,7 +10,7 @@ import pytest
 
 from sebi_rag.embeddings import HashEmbedder
 from sebi_rag.eval import mrr, ndcg_at_k, recall_at_k
-from sebi_rag.lineage import build_lineage
+from sebi_rag.lineage import Lineage, build_lineage
 from sebi_rag.generate import ABSTAIN, ExtractiveStubGenerator
 from sebi_rag.pipeline import RAGPipeline
 from sebi_rag.rerank import LexicalReranker
@@ -226,3 +226,54 @@ def test_as_of_query_not_demoted_below_abstention_floor():
     ans_now, _ = pipe.query("margin rules equity derivatives")
     assert not ans_now.abstained
     assert ans_now.citations[0].startswith(NEW)
+
+
+def test_supersession_note_only_for_circulars_cited_in_answer_text():
+    """citations = all top_k contexts, so a demoted superseded chunk deep in
+    the context window used to trigger a note contradicting the in-force
+    circular the answer text actually came from (Space bug at top_k >= 8)."""
+    OLD = "SEBI/HO/X/2020/01"
+    NEW = "SEBI/HO/X/2024/09"
+    # NEW's text must NOT mention OLD, so lineage is built directly.
+    lineage = Lineage(supersedes={NEW: [OLD]}, superseded_by={OLD: [NEW]})
+    chunks = hierarchical_chunk(
+        "Margin rules prescribe collection on a T plus one basis.",
+        CircularMeta(circular_number=OLD, issue_date="2020-01-01"))
+    chunks += hierarchical_chunk(
+        "Revised margin rules prescribe collection on a T plus zero basis.",
+        CircularMeta(circular_number=NEW, issue_date="2024-01-01"))
+    pipe = RAGPipeline.build(
+        chunks=chunks, embedder=HashEmbedder(256),
+        reranker=_FixedReranker({NEW: 0.9, OLD: 0.8}),
+        generator=ExtractiveStubGenerator(), abstain_threshold=0.05,
+        lineage=lineage,
+    )
+    ans, _ = pipe.query("margin rules", top_k=2)
+    assert not ans.abstained
+    # OLD is in the context window -> metadata still flags it...
+    assert ans.superseded == {OLD: [NEW]}
+    # ...but the answer text (NEW's chunk) never references OLD, so no note.
+    assert "no longer in force" not in ans.text
+
+
+def test_supersession_note_kept_when_answer_text_cites_superseded():
+    OLD = "SEBI/HO/X/2020/01"
+    NEW = "SEBI/HO/X/2024/09"
+    lineage = Lineage(supersedes={NEW: [OLD]}, superseded_by={OLD: [NEW]})
+    chunks = hierarchical_chunk(
+        "Margin rules prescribe collection on a T plus one basis.",
+        CircularMeta(circular_number=OLD, issue_date="2020-01-01"))
+
+    class _CitesOld:
+        def generate(self, query, contexts):
+            return f"Per {OLD}, margin collection is on a T plus one basis."
+
+    pipe = RAGPipeline.build(
+        chunks=chunks, embedder=HashEmbedder(256),
+        reranker=_FixedReranker({OLD: 0.8}),
+        generator=_CitesOld(), abstain_threshold=0.05, lineage=lineage,
+    )
+    ans, _ = pipe.query("margin rules", top_k=1)
+    assert not ans.abstained
+    assert ans.superseded == {OLD: [NEW]}
+    assert "no longer in force" in ans.text and NEW in ans.text
