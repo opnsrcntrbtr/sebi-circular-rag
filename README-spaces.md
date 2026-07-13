@@ -40,6 +40,9 @@ over Indian SEBI circulars.
 - **retrieval_only** — academic retrieval-benchmark mode: no LLM runs
   (deterministic extractive stub); citations, supersession lineage,
   certainty and abstention metadata are still real.
+- **As of date (optional)** — YYYY-MM-DD; scores retrieval against the law
+  in force on that date (circulars issued later are excluded; the circular
+  governing on that date is not demoted for being superseded today).
 
 Generation order: the external Space is tried first and any failure or
 timeout (`external_timeout_s`, default 20 s) falls back to the in-Space CPU
