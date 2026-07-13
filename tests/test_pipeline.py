@@ -280,32 +280,50 @@ def test_supersession_note_kept_when_answer_text_cites_superseded():
 
 
 def test_as_of_demotes_circular_already_superseded_on_that_date():
-    """Multi-successor regression (golden asof-p8): when a circular's
-    supersessor was already issued by the as-of date, the old circular must
-    drop below the successor even at a higher raw rerank score. governing_on
-    cannot see this — the lineage giant-family makes every candidate
-    non-governing, a uniform penalty that preserves raw order."""
+    """Giant-family regression (golden asof-p8): OLD is superseded by two
+    same-day 2026 successors A1/A2, and A1 is in turn linked (edge-only, not
+    text) to a later, topically-unrelated circular LATER issued *after*
+    as_of. governing_on's family() walk pulls LATER into OLD/A1/A2's
+    connected component, so governing_on resolves the whole family to
+    whichever of A1/A2 remains "live" once LATER is excluded by the as-of
+    date filter — demoting BOTH OLD and A1 by the same uniform penalty and
+    leaving their raw rerank order (OLD > A1) untouched. Per-edge timing
+    instead asks, for each candidate individually, whether a direct
+    successor existed by as_of: OLD has one (A1, 2026-02-06) so it is
+    demoted; A1's only successor is LATER (2026-05-01, after as_of) so A1
+    is NOT demoted and correctly outranks OLD."""
     OLD = "SEBI/HO/Y/2025/131"
-    A = "SEBI/HO/Y/2026/4360"
-    lineage = Lineage(supersedes={A: [OLD]}, superseded_by={OLD: [A]})
+    A1 = "SEBI/HO/Y/2026/4360"
+    A2 = "SEBI/HO/Y/2026/4361"
+    LATER = "SEBI/HO/Y/2026/4900"
+    lineage = Lineage(
+        supersedes={A1: [OLD], A2: [OLD], LATER: [A1]},
+        superseded_by={OLD: [A1, A2], A1: [LATER]},
+    )
     chunks = hierarchical_chunk(
         "Digital accessibility compliance guidelines for intermediaries.",
         CircularMeta(circular_number=OLD, issue_date="2025-09-25"))
     chunks += hierarchical_chunk(
-        "Revised digital accessibility compliance guidelines for intermediaries.",
-        CircularMeta(circular_number=A, issue_date="2026-02-06"))
+        "Revised digital accessibility compliance guidelines for intermediaries A1.",
+        CircularMeta(circular_number=A1, issue_date="2026-02-06"))
+    chunks += hierarchical_chunk(
+        "Revised digital accessibility compliance guidelines for intermediaries A2.",
+        CircularMeta(circular_number=A2, issue_date="2026-02-06"))
     pipe = RAGPipeline.build(
         chunks=chunks, embedder=HashEmbedder(256),
-        reranker=_FixedReranker({OLD: 0.99, A: 0.97}),
+        reranker=_FixedReranker({OLD: 0.99, A1: 0.97, A2: 0.95}),
         generator=ExtractiveStubGenerator(), abstain_threshold=0.05,
         lineage=lineage,
     )
-    # On 2026-04-01, A (2026-02-06) had already superseded OLD.
+    # On 2026-04-01, LATER (2026-05-01) does not exist yet, but A1
+    # (2026-02-06) had already superseded OLD directly: OLD must be demoted
+    # below A1, which retains its raw score since its only successor
+    # (LATER) postdates as_of.
     ans, _ = pipe.query("digital accessibility compliance", as_of="2026-04-01",
                         top_k=1)
     assert not ans.abstained
-    assert ans.citations[0].startswith(A), ans.citations
-    # On 2025-12-01, A did not exist yet: OLD governs at full score.
+    assert ans.citations[0].startswith(A1), ans.citations
+    # On 2025-12-01, neither A1 nor A2 exist yet: OLD governs at full score.
     ans_before, _ = pipe.query("digital accessibility compliance",
                                as_of="2025-12-01", top_k=1)
     assert ans_before.citations[0].startswith(OLD), ans_before.citations
