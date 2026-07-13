@@ -277,3 +277,35 @@ def test_supersession_note_kept_when_answer_text_cites_superseded():
     assert not ans.abstained
     assert ans.superseded == {OLD: [NEW]}
     assert "no longer in force" in ans.text and NEW in ans.text
+
+
+def test_as_of_demotes_circular_already_superseded_on_that_date():
+    """Multi-successor regression (golden asof-p8): when a circular's
+    supersessor was already issued by the as-of date, the old circular must
+    drop below the successor even at a higher raw rerank score. governing_on
+    cannot see this — the lineage giant-family makes every candidate
+    non-governing, a uniform penalty that preserves raw order."""
+    OLD = "SEBI/HO/Y/2025/131"
+    A = "SEBI/HO/Y/2026/4360"
+    lineage = Lineage(supersedes={A: [OLD]}, superseded_by={OLD: [A]})
+    chunks = hierarchical_chunk(
+        "Digital accessibility compliance guidelines for intermediaries.",
+        CircularMeta(circular_number=OLD, issue_date="2025-09-25"))
+    chunks += hierarchical_chunk(
+        "Revised digital accessibility compliance guidelines for intermediaries.",
+        CircularMeta(circular_number=A, issue_date="2026-02-06"))
+    pipe = RAGPipeline.build(
+        chunks=chunks, embedder=HashEmbedder(256),
+        reranker=_FixedReranker({OLD: 0.99, A: 0.97}),
+        generator=ExtractiveStubGenerator(), abstain_threshold=0.05,
+        lineage=lineage,
+    )
+    # On 2026-04-01, A (2026-02-06) had already superseded OLD.
+    ans, _ = pipe.query("digital accessibility compliance", as_of="2026-04-01",
+                        top_k=1)
+    assert not ans.abstained
+    assert ans.citations[0].startswith(A), ans.citations
+    # On 2025-12-01, A did not exist yet: OLD governs at full score.
+    ans_before, _ = pipe.query("digital accessibility compliance",
+                               as_of="2025-12-01", top_k=1)
+    assert ans_before.citations[0].startswith(OLD), ans_before.citations

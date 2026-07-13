@@ -46,10 +46,12 @@ class RAGPipeline:
         candidates = self.retriever.retrieve(question, top_n=pool)
         reranked = self.reranker.rerank(question, [c for c, _ in candidates])
         if as_of and self.lineage is not None:
-            # As-of queries score against the law as it stood on `as_of`.
-            # The global demotion below encodes *today's* in-force status
-            # and would double-penalise the then-governing circular, so
-            # as-of governance is applied to the raw reranked scores.
+            # As-of queries score against the law as it stood on `as_of`:
+            # a circular is demoted only if a superseding circular had
+            # already been issued by `as_of` (per-edge timing). The global
+            # demotion below encodes *today's* status, and governing_on is
+            # unreliable here — master reference-lists join circulars into
+            # one giant family whose latest member out-governs everything.
             dates = {c.doc_id: (c.meta.get("issue_date") or "")
                      for c, _ in reranked}
             kept = []
@@ -57,8 +59,13 @@ class RAGPipeline:
                 d = dates.get(c.doc_id, "")
                 if d and d > as_of:
                     continue  # circular did not exist on the as-of date
-                gov = self.lineage.governing_on(c.doc_id, as_of, dates)
-                kept.append((c, s if gov == c.doc_id else s * self.superseded_penalty))
+                superseded_on_asof = any(
+                    (dates.get(nb) or "") and dates[nb] <= as_of
+                    for nb in self.lineage.superseded_by.get(c.doc_id, [])
+                )
+                kept.append(
+                    (c, s * self.superseded_penalty if superseded_on_asof else s)
+                )
             kept.sort(key=lambda cs: -cs[1])
             reranked = kept or reranked
         elif self.lineage is not None:
