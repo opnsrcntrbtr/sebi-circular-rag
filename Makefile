@@ -3,8 +3,9 @@ PY   := $(VENV)/bin/python
 ENV  := HF_HUB_DISABLE_XET=1 TOKENIZERS_PARALLELISM=false OMP_NUM_THREADS=1 PYTORCH_ENABLE_MPS_FALLBACK=1 PYTHONPATH=src
 PORT ?= 8000
 MAX  ?= 25
+MAX_MASTER ?= 200
 
-.PHONY: help test annotate index reindex calibrate bench-rerank bench-retrieval benchmark-export export-datasets eval-asof serve scrape ops
+.PHONY: help test annotate index reindex calibrate bench-rerank bench-retrieval benchmark-export export-datasets eval-asof serve scrape ops scrape-master verify-master
 
 help:
 	@echo "test       run offline test suite"
@@ -20,6 +21,8 @@ help:
 	@echo "ui         run the Gradio UI dashboard"
 	@echo "ops        run the local ops HTTP server for n8n (port 8765)"
 	@echo "scrape     fetch circulars (MAX=$(MAX)); runs on this machine"
+	@echo "scrape-master  fetch master circulars (MAX_MASTER=$(MAX_MASTER))"
+	@echo "verify-master  coverage report vs live SEBI master-circular listing (OFFLINE=1 to skip fetch)"
 
 test:
 	$(PY) -m pytest -q -m "not integration"
@@ -62,3 +65,9 @@ ops:
 
 scrape:
 	$(ENV) $(PY) scripts/scrape_sebi.py --max $(MAX) --rate 3
+
+scrape-master:
+	$(ENV) $(PY) scripts/scrape_sebi.py --section master-circulars --max $(MAX_MASTER) --rate 3
+
+verify-master:
+	$(ENV) $(PY) scripts/verify_master.py $(if $(OFFLINE),--offline,)

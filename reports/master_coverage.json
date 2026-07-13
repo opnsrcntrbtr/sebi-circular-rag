@@ -1,0 +1,536 @@
+{
+  "generated_at": "2026-07-13T18:33:54+00:00",
+  "listed_total": 105,
+  "status_counts": {
+    "ingested_ok": 25,
+    "missing": 80
+  },
+  "coverage_pct": 23.8,
+  "dist_covered": 25,
+  "by_year": {
+    "2026": {
+      "listed": 9,
+      "ingested_ok": 9
+    },
+    "2025": {
+      "listed": 12,
+      "ingested_ok": 12
+    },
+    "2024": {
+      "listed": 28,
+      "ingested_ok": 4
+    },
+    "2023": {
+      "listed": 30,
+      "ingested_ok": 0
+    },
+    "2022": {
+      "listed": 6,
+      "ingested_ok": 0
+    },
+    "2021": {
+      "listed": 7,
+      "ingested_ok": 0
+    },
+    "2020": {
+      "listed": 3,
+      "ingested_ok": 0
+    },
+    "2019": {
+      "listed": 3,
+      "ingested_ok": 0
+    },
+    "2018": {
+      "listed": 7,
+      "ingested_ok": 0
+    }
+  },
+  "by_validity": {
+    "current": 24,
+    "superseded": 1
+  },
+  "gaps": [
+    {
+      "listing_date": "2024-09-23",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/sep-2024/master-circular-on-surveillance-of-securities-market_86929.html",
+      "title": "Master Circular on Surveillance of Securities Market",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-08-09",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/aug-2024/master-circular-for-stock-brokers_85605.html",
+      "title": "Master Circular for Stock Brokers",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-07-09",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jul-2024/master-circular-on-surveillance-of-securities-market_84680.html",
+      "title": "Master Circular on Surveillance of Securities Market",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-06-27",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jun-2024/master-circular-for-mutual-funds_84441.html",
+      "title": "Master Circular for Mutual Funds",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-06-24",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jun-2024/master-circular-for-electronic-gold-receipts-egrs-_84369.html",
+      "title": "Master Circular for Electronic Gold Receipts (EGRs)",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-06-07",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jun-2024/master-circular-for-portfolio-managers_84026.html",
+      "title": "Master Circular for Portfolio Managers",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-06-06",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jun-2024/guidelines-on-anti-money-laundering-aml-standards-and-combating-the-financing-of-terrorism-cft-obligations-of-securities-market-intermediaries-under-the-prevention-of-money-laundering-act-2002-a-_83942.html",
+      "title": "Guidelines on Anti-Money Laundering (AML) Standards and Combating the Financing of Terrorism (CFT) /Obligations of Securities Market Intermediaries under the Prevention of Money Laundering Act, 2002 and Rules framed there under.",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-06-03",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jun-2024/master-circular-for-bankers-to-an-issue_83899.html",
+      "title": "Master Circular for Bankers to an Issue",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-05-30",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2024/master-circular-for-foreign-portfolio-investors-designated-depository-participants-and-eligible-foreign-investors-_83689.html",
+      "title": "Master Circular for Foreign Portfolio Investors, Designated Depository Participants and Eligible Foreign Investors.",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-05-22",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2024/master-circular-for-issue-and-listing-of-non-convertible-securities-securitised-debt-instruments-security-receipts-municipal-debt-securities-and-commercial-paper_83546.html",
+      "title": "Master Circular for issue and listing of Non-convertible Securities, Securitised Debt Instruments, Security Receipts, Municipal Debt Securities and Commercial Paper",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-05-22",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2024/master-circular-for-stock-brokers_83521.html",
+      "title": "Master Circular for Stock Brokers",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-05-21",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2024/master-circular-for-investment-advisers_83488.html",
+      "title": "Master Circular for Investment Advisers",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-05-21",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2024/master-circular-for-research-analysts_83487.html",
+      "title": "Master Circular for Research Analysts",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-05-21",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2024/master-circular-for-listing-obligations-and-disclosure-requirements-for-non-convertible-securities-securitized-debt-instruments-and-or-commercial-paper_83481.html",
+      "title": "Master Circular for listing obligations and disclosure requirements for Non-convertible Securities, Securitized Debt Instruments and/ or Commercial Paper",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-05-16",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2024/master-circular-for-esg-rating-providers-erps-_83421.html",
+      "title": "Master Circular for ESG Rating Providers (ERPs)",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-05-16",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2024/master-circular-for-debenture-trustees-dts-_83419.html",
+      "title": "Master Circular for Debenture Trustees (DTs)",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-05-16",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2024/master-circular-for-credit-rating-agencies-cras-_83417.html",
+      "title": "Master Circular for Credit Rating Agencies (CRAs)",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-05-15",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2024/master-circular-for-real-estate-investment-trusts-reits-updated-_88507.html",
+      "title": "Master Circular for Real Estate Investment Trusts (REITs) (Updated)",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-05-15",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2024/master-circular-for-infrastructure-investment-trusts-invits-updated-_88505.html",
+      "title": "Master Circular for Infrastructure Investment Trusts (InvITs) (Updated)",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-05-15",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2024/master-circular-for-infrastructure-investment-trusts-invits-_83376.html",
+      "title": "Master Circular for Infrastructure Investment Trusts (InvITs)",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-05-15",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2024/master-circular-for-real-estate-investment-trusts-reits-_83375.html",
+      "title": "Master Circular for Real Estate Investment Trusts (REITs)",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-05-10",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2024/master-circular-for-custodians_83305.html",
+      "title": "Master Circular for Custodians",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-05-07",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2024/master-circular-for-alternative-investment-funds-aifs-_83229.html",
+      "title": "Master Circular for Alternative Investment Funds (AIFs)",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2024-05-07",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2024/master-circular-for-registrars-to-an-issue-and-share-transfer-agents_83226.html",
+      "title": "Master Circular for Registrars to an Issue and Share Transfer Agents",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-12-28",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/dec-2023/master-circular-for-online-resolution-of-disputes-in-the-indian-securities-market_80236.html",
+      "title": "Master Circular for Online Resolution of Disputes in the Indian Securities Market",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-10-16",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/oct-2023/master-circular-for-stock-exchanges-and-clearing-corporations_78047.html",
+      "title": "Master Circular for Stock Exchanges and Clearing Corporations",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-10-12",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/oct-2023/master-circular-on-know-your-client-kyc-norms-for-the-securities-market_77945.html",
+      "title": "Master Circular on Know Your Client (KYC) norms for the securities market",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-10-06",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/oct-2023/master-circular-for-depositories_77789.html",
+      "title": "Master Circular for Depositories",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-09-26",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/sep-2023/master-circular-for-merchant-bankers_77368.html",
+      "title": "Master Circular for Merchant Bankers",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-08-11",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/aug-2023/online-resolution-of-disputes-in-the-indian-securities-market_75220.html",
+      "title": "Online Resolution of Disputes in the Indian Securities Market",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-08-04",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/aug-2023/master-circular-for-commodity-derivatives-segment_74974.html",
+      "title": "Master Circular for Commodity Derivatives Segment",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-07-31",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jul-2023/master-circular-for-alternative-investment-funds-aifs-_74796.html",
+      "title": "Master Circular for Alternative Investment Funds (AIFs)",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-07-12",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jul-2023/master-circular-for-esg-rating-providers-erps-_73856.html",
+      "title": "Master Circular for ESG Rating Providers (ERPs)",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-07-11",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jul-2023/master-circular-for-compliance-with-the-provisions-of-the-securities-and-exchange-board-of-india-listing-obligations-and-disclosure-requirements-regulations-2015-by-listed-entities_73795.html",
+      "title": "Master circular for compliance with the provisions of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015 by listed entities",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-07-07",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jul-2023/master-circular-for-issue-and-listing-of-non-convertible-securities-securitised-debt-instruments-security-receipts-municipal-debt-securities-and-commercial-paper_73653.html",
+      "title": "Master Circular for issue and listing of Non-convertible Securities, Securitised Debt Instruments, Security Receipts, Municipal Debt Securities and Commercial Paper",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-07-06",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jul-2023/master-circular-for-infrastructure-investment-trusts-invits-_73587.html",
+      "title": "Master Circular for Infrastructure Investment Trusts (InvITs)",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-07-06",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jul-2023/master-circular-for-real-estate-investment-trusts-reits-_73585.html",
+      "title": "Master Circular for Real Estate Investment Trusts (REITs)",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-07-06",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jul-2023/master-circular-for-debenture-trustees_73584.html",
+      "title": "Master Circular for Debenture Trustees",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-07-03",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jul-2023/master-circular-for-credit-rating-agencies_73416.html",
+      "title": "Master Circular for Credit Rating Agencies",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-06-30",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jun-2023/master-circular-for-listing-obligations-and-disclosure-requirements-for-non-convertible-securities-securitized-debt-instruments-and-or-commercial-paper_73347.html",
+      "title": "Master Circular for listing obligations and disclosure requirements for Non-convertible Securities, Securitized Debt Instruments and/ or Commercial Paper",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-06-21",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jun-2023/master-circular-for-issue-of-capital-and-disclosure-requirements_72905.html",
+      "title": "Master Circular for Issue of Capital and Disclosure Requirements",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-06-20",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jun-2023/master-circular-on-scheme-of-arrangement_72839.html",
+      "title": "Master Circular on Scheme of Arrangement",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-06-15",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jun-2023/master-circular-for-investment-advisers_72614.html",
+      "title": "Master Circular for Investment Advisers",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-06-15",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jun-2023/master-circular-for-research-analysts_72612.html",
+      "title": "Master Circular for Research Analysts",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-06-01",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jun-2023/master-circular-on-electronic-gold-receipts-egr-_72195.html",
+      "title": "Master Circular on Electronic Gold Receipts (EGR)",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-05-19",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2023/master-circular-for-mutual-funds_71438.html",
+      "title": "Master Circular for Mutual Funds",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-05-17",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2023/master-circular-for-registrars-to-an-issue-and-share-transfer-agents_71271.html",
+      "title": "Master Circular for Registrars to an Issue and Share Transfer Agents",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-05-17",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2023/master-circular-for-stock-brokers_71265.html",
+      "title": "Master Circular for Stock Brokers",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-04-27",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/apr-2023/master-circular-for-custodians_70613.html",
+      "title": "Master Circular for Custodians",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-03-23",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/mar-2023/master-circular-on-surveillance-of-securities-market_69244.html",
+      "title": "Master Circular on Surveillance of Securities Market",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-03-20",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/mar-2023/master-circular-for-portfolio-managers_69155.html",
+      "title": "Master Circular for Portfolio Managers",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-03-03",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/mar-2023/master-circular-for-foreign-venture-capital-investors-fvcis-_68650.html",
+      "title": "Master Circular for Foreign Venture Capital Investors (FVCIs)",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-02-16",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/feb-2023/master-circular-for-substantial-acquisition-of-shares-and-takeovers_68091.html",
+      "title": "Master Circular for Substantial Acquisition of Shares and Takeovers",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2023-02-03",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/feb-2023/guidelines-on-anti-money-laundering-aml-standards-and-combating-the-financing-of-terrorism-cft-obligations-of-securities-market-intermediaries-under-the-prevention-of-money-laundering-act-2002-a-_67833.html",
+      "title": "Guidelines on Anti-Money Laundering (AML) Standards and Combating the Financing of Terrorism (CFT) /Obligations of Securities Market Intermediaries under the Prevention of Money Laundering Act, 2002 and Rules framed there under",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2022-12-19",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/dec-2022/master-circular-for-foreign-portfolio-investors-designated-depository-participants-and-eligible-foreign-investors_66356.html",
+      "title": "Master Circular for Foreign Portfolio Investors, Designated Depository Participants and Eligible Foreign Investors",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2022-11-07",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/nov-2022/master-circular-on-issuance-of-no-objection-certificate-noc-for-release-of-1-of-issue-amount_64744.html",
+      "title": "Master Circular on issuance of No Objection Certificate (NOC) for release of 1% of Issue Amount",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2022-11-07",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/nov-2022/master-circular-on-the-redressal-of-investor-grievances-through-the-sebi-complaints-redress-system-scores-platform_64742.html",
+      "title": "Master Circular on the redressal of investor grievances through the SEBI Complaints Redress System (SCORES) platform",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2022-05-17",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2022/master-circular-for-commodity-derivatives-market_58937.html",
+      "title": "Master Circular for Commodity Derivatives Market",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2022-04-26",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/apr-2022/master-circular-for-real-estate-investment-trusts-reits-_58396.html",
+      "title": "Master Circular for Real Estate Investment Trusts (REITs)",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2022-04-26",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/apr-2022/master-circular-for-infrastructure-investment-trusts-invits-_58394.html",
+      "title": "Master Circular for Infrastructure Investment Trusts (InvITs)",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2021-11-30",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/nov-2021/master-circular-for-infrastructure-investment-trusts-invits-_54302.html",
+      "title": "Master Circular for Infrastructure Investment Trusts (InvITs)",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2021-11-30",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/nov-2021/master-circular-for-real-estate-investment-trusts-reits-_54300.html",
+      "title": "Master Circular for Real Estate Investment Trusts (REITs)",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2021-11-23",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/nov-2021/master-circular-on-scheme-of-arrangement_54132.html",
+      "title": "Master Circular on Scheme of Arrangement",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2021-07-05",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jul-2021/master-circular-for-stock-exchanges-and-clearing-corporations_50914.html",
+      "title": "Master Circular for Stock Exchanges and Clearing Corporations",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2021-07-01",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jul-2021/master-circular-for-commodity-derivatives-market_50869.html",
+      "title": "Master Circular for Commodity Derivatives Market",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2021-03-01",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/mar-2021/master-circular-on-surveillance-of-securities-market_49354.html",
+      "title": "Master Circular on Surveillance of Securities Market",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2021-02-05",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/feb-2021/master-circular-for-depositories_49029.html",
+      "title": "Master Circular for Depositories",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2020-12-22",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/dec-2020/master-circular-on-i-scheme-of-arrangement-by-listed-entities-and-ii-relaxation-under-sub-rule-7-of-rule-19-of-the-securities-contracts-regulation-rules-1957_48531.html",
+      "title": "Master Circular on (i) Scheme of Arrangement by Listed Entities and (ii) Relaxation under Sub-rule (7) of rule 19 of the Securities Contracts (Regulation) Rules, 1957",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2020-08-24",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/aug-2020/master-circular-for-mutual-funds_47382.html",
+      "title": "Master Circular for Mutual Funds",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2020-07-10",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jul-2020/master-circular-for-commodity-derivatives-market_47045.html",
+      "title": "Master Circular for Commodity Derivatives Market",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2019-10-25",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/oct-2019/master-circular-for-stock-exchanges-and-clearing-corporations_44781.html",
+      "title": "Master Circular for Stock Exchanges and Clearing Corporations",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2019-10-25",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/oct-2019/master-circular-for-depositories_44773.html",
+      "title": "Master Circular for Depositories",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2019-10-15",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/oct-2019/guidelines-on-anti-money-laundering-aml-standards-and-combating-the-financing-of-terrorism-cft-obligations-of-securities-market-intermediaries-under-the-prevention-of-money-laundering-act-2002-a-_44657.html",
+      "title": "Guidelines on Anti-Money Laundering (AML) Standards and Combating the Financing of Terrorism (CFT) /Obligations of Securities Market Intermediaries under the Prevention of Money Laundering Act, 2002 and Rules framed there under",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2018-09-07",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/sep-2018/master-circular-for-commodity-derivatives-market_40276.html",
+      "title": "Master Circular for Commodity Derivatives Market",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2018-07-10",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jul-2018/master-circular-for-mutual-funds_39491.html",
+      "title": "Master Circular for Mutual Funds",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2018-07-04",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jul-2018/guidelines-on-anti-money-laundering-aml-standards-and-combating-the-financing-of-terrorism-cft-obligations-of-securities-market-intermediaries-under-the-prevention-of-money-laundering-act-2002-a-_39431.html",
+      "title": "Guidelines on Anti-Money Laundering (AML) Standards and Combating the Financing of Terrorism (CFT) /Obligations of Securities Market Intermediaries under the Prevention of Money Laundering Act, 2002 and Rules framed there under",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2018-06-01",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/jun-2018/master-circular-for-stock-brokers_39166.html",
+      "title": "Master Circular for Stock Brokers",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2018-05-11",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2018/master-circular-for-underwriters_38907.html",
+      "title": "Master Circular for Underwriters",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2018-05-02",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/may-2018/master-circular-for-credit-rating-agencies_38832.html",
+      "title": "Master Circular for Credit Rating Agencies",
+      "status": "missing"
+    },
+    {
+      "listing_date": "2018-04-10",
+      "detail_url": "https://www.sebi.gov.in/legal/master-circulars/apr-2018/master-circular-for-debenture-trustees-dts-_38608.html",
+      "title": "Master Circular for Debenture Trustees (DTs)",
+      "status": "missing"
+    }
+  ],
+  "unfetchable": [],
+  "extra_in_corpus": []
+}
