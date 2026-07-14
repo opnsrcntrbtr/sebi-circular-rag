@@ -46,6 +46,38 @@ The evaluation gate (`scripts/eval_gate.py`) calls `demote_superseded()` from `s
 
 ## Source Code Analysis
 
+### Sibling Function: `superseded_citations()` (lineage.py:218)
+
+A related function, `superseded_citations()`, is called **after** generation (not before):
+
+```python
+def superseded_citations(citations: list[str], lineage: Lineage) -> dict[str, list[str]]:
+    """Map any cited circular that is superseded -> the circular(s) superseding it.
+    Accepts chunk ids ("<circular>#...") or bare circular numbers. Lets the
+    generation layer warn the user when an answer cites a superseded circular.
+    """
+```
+
+**Two-stage supersession handling:**
+1. **Pre-generation** (`demote_superseded`): Down-weights superseded circulars in retrieval scores
+2. **Post-generation** (`superseded_citations`): Flags any superseded circulars that made it into the answer
+
+The pipeline calls both:
+```python
+# Step 1: demote before generation
+elif self.lineage is not None:
+    reranked = demote_superseded(reranked, self.lineage, self.superseded_penalty)
+# Step 2: flag after generation
+if self.lineage is not None and not ans.abstained and ans.citations:
+    flagged = superseded_citations(ans.citations, self.lineage)
+    if flagged:
+        ans.superseded = flagged  # full metadata: every flagged context
+```
+
+This two-stage approach is architecturally elegant: demotion reduces the chance of superseded circulars being cited, while flagging provides user-facing transparency when they do appear.
+
+---
+
 ### 1. The Bridge: `demote_superseded()` (lineage.py:206)
 
 ```python
