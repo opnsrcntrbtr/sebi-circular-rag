@@ -16,6 +16,7 @@ Usage: uv run python scripts/export_datasets.py \
 from __future__ import annotations
 
 import argparse
+import datetime as dt
 import hashlib
 import itertools
 import json
@@ -400,9 +401,42 @@ def export_all(corpus: Path, chunks: Path, lineage: Path, golden: Path,
 
 # --- Task 4: Dataset Cards & Platform Packaging ---
 
-def build_hf_card(datasets: dict[str, dict]) -> str:
+_ISO_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+
+def _compute_stats(out_dir: Path) -> dict:
+    """Corpus-derived numbers for the card prose (UNKNOWN fraction, date
+    range) plus today's date, so cards can't silently drift from the data
+    they describe. Reads the just-exported corpus config, not the raw
+    source — guarantees the card matches what's actually being published."""
+    corpus_path = out_dir / "corpus" / "corpus.jsonl"
+    dept_unknown = dept_total = 0
+    dates: list[str] = []
+    if corpus_path.exists():
+        for line in corpus_path.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            r = json.loads(line)
+            dept_total += 1
+            if not r.get("issuing_department"):
+                dept_unknown += 1
+            d = r.get("issue_date")
+            if d and _ISO_DATE_RE.match(d):
+                dates.append(d)
+    return {
+        "snapshot_date": dt.date.today().isoformat(),
+        "dept_unknown": dept_unknown,
+        "dept_total": dept_total,
+        "date_min": min(dates) if dates else "",
+        "date_max": max(dates) if dates else "",
+    }
+
+
+def build_hf_card(datasets: dict[str, dict], stats: dict) -> str:
     """Build HuggingFace dataset card (README.md with YAML front matter)."""
-    yaml_block = """---
+    corpus_rows = datasets.get("corpus", {}).get("rows", 0)
+    date_range = f"{stats['date_min'][:4]}–{stats['date_max'][:4]}" if stats["date_min"] else "unknown"
+    yaml_block = f"""---
 language:
   - en
 license: cc-by-4.0
@@ -427,20 +461,20 @@ tags:
 
 A comprehensive, structured dataset of Indian Securities and Exchange Board (SEBI) regulatory circulars, public-domain government works compiled and annotated for AI/ML research.
 
-**Date:** 2026-07-13
+**Date:** {stats['snapshot_date']}
 **Snapshot Version:** v2026.07
-**Corpus:** 603 circulars (2021–2026)
+**Corpus:** {corpus_rows:,} circulars ({date_range})
 
 ## Dataset Configurations
 
 | Config | Rows | Schema | Purpose |
 |---|---|---|---|
-| **corpus** | 603 | Full circular + metadata | Flagship: regulatory text, lineage, effective dates |
-| **chunks** | 34,883 | Section-aware retrieval chunks | RAG, dense retrieval, section-level analysis |
-| **lineage** | 1,437 | Regulatory supersession edges | Citation graph, link prediction, lineage reasoning |
-| **eval** | 56 | Curated benchmark queries | Retrieval/abstention evaluation, domain regression |
-| **citation-normalization** | 2,951 | Raw reference → normalized circular | String normalization, entity recognition (NER/seq2seq) |
-| **supersession-pairs** | 1,281 | Circular pairs + labels | Pair classification, regulatory relationship prediction |
+| **corpus** | {datasets.get('corpus', {}).get('rows', 0):,} | Full circular + metadata | Flagship: regulatory text, lineage, effective dates |
+| **chunks** | {datasets.get('chunks', {}).get('rows', 0):,} | Section-aware retrieval chunks | RAG, dense retrieval, section-level analysis |
+| **lineage** | {datasets.get('lineage', {}).get('rows', 0):,} | Regulatory supersession edges | Citation graph, link prediction, lineage reasoning |
+| **eval** | {datasets.get('eval', {}).get('rows', 0):,} | Curated benchmark queries | Retrieval/abstention evaluation, domain regression |
+| **citation-normalization** | {datasets.get('citation-normalization', {}).get('rows', 0):,} | Raw reference → normalized circular | String normalization, entity recognition (NER/seq2seq) |
+| **supersession-pairs** | {datasets.get('supersession-pairs', {}).get('rows', 0):,} | Circular pairs + labels | Pair classification, regulatory relationship prediction |
 
 ## Schema Details
 
@@ -450,12 +484,12 @@ A comprehensive, structured dataset of Indian Securities and Exchange Board (SEB
     if "corpus" in datasets:
         corpus_schema = datasets["corpus"]["schema"]
         yaml_block += "\n**Columns:** " + ", ".join(f"`{c}`" for c in corpus_schema) + "\n"
-        yaml_block += """
+        yaml_block += f"""
 - `circular_number` (str): Unique identifier (e.g., `SEBI/HO/CFD/P/CIR/2023/123`).
 - `issue_date` (date): Publication date.
 - `effective_date` (date, nullable): When the circular takes effect.
 - `subject` (str): Circular title/summary.
-- `issuing_department` (str): Issuing SEBI department (e.g., CFD, MRD). **Known limitation:** 124/603 records have `issuing_department=UNKNOWN` due to pre-existing parsing artifacts.
+- `issuing_department` (str): Issuing SEBI department (e.g., CFD, MRD). **Known limitation:** {stats['dept_unknown']}/{stats['dept_total']} records have `issuing_department=UNKNOWN` due to pre-existing parsing artifacts.
 - `supersession_status` (str): `in_force`, `superseded`, or `amended`.
 - `version_lineage` (list[str]): Prior circular numbers this updates/references.
 - `source_url` (str): Original SEBI publication page.
@@ -528,7 +562,7 @@ A comprehensive, structured dataset of Indian Securities and Exchange Board (SEB
 **Task:** Pair classification: does circular A supersede/amend circular B? Positives from lineage edges (both endpoints in corpus); negatives sampled deterministically (seed=42) from same-department non-linked pairs.
 """
 
-    yaml_block += """
+    yaml_block += f"""
 ## Licensing & Compliance
 
 **Underlying Regulatory Text:** SEBI circulars are Indian government works. Per India's Copyright Act 1957 §52(1)(q), government orders/notifications may be freely reproduced. We attribute SEBI and provide `source_url` per record for verification.
@@ -539,28 +573,28 @@ A comprehensive, structured dataset of Indian Securities and Exchange Board (SEB
 
 1. **Not legal advice.** These circulars are informational only. Verify against sebi.gov.in before regulatory reliance.
 2. **Not SEBI-endorsed.** This dataset is independent; not affiliated with or endorsed by the Securities and Exchange Board of India.
-3. **Coverage:** Corpus spans 2021–2026 and is not exhaustive of all SEBI circulars.
-4. **Data quality:** `issuing_department` is UNKNOWN for 124 records (parsing artifact). Some master-circular `subject` fields may be oversized (~2900 chars, also a parsing artifact).
+3. **Coverage:** Corpus spans {date_range} and is not exhaustive of all SEBI circulars.
+4. **Data quality:** `issuing_department` is UNKNOWN for {stats['dept_unknown']} records (parsing artifact). Some master-circular `subject` fields may be oversized (~2900 chars, also a parsing artifact).
 
 ## Citation
 
 Please cite this dataset if you use it:
 
 ```bibtex
-@dataset{sebi_circulars_2026,
-  title={SEBI Circulars: Indian Regulatory Texts, 2021–2026},
-  author={OpenSourceContributor},
-  year={2026},
-  url={https://huggingface.co/datasets/...},
-  license={CC-BY-4.0}
-}
+@dataset{{sebi_circulars_2026,
+  title={{SEBI Circulars: Indian Regulatory Texts, {date_range}}},
+  author={{OpenSourceContributor}},
+  year={{2026}},
+  url={{https://huggingface.co/datasets/...}},
+  license={{CC-BY-4.0}}
+}}
 ```
 
 ## Repository
 
 Full dataset extraction pipeline and reproducibility information:
 - **GitHub:** https://github.com/opnsrcntrbtr/sebi-circular-rag
-- **Extraction date:** 2026-07-09
+- **Extraction date:** {stats['snapshot_date']}
 - **Snapshot:** v2026.07 (max issue_date across corpus)
 
 ## Suggested Use Cases
@@ -569,7 +603,7 @@ Full dataset extraction pipeline and reproducibility information:
 - **Citation Mining:** citation-normalization for training sequence-to-sequence or NER models.
 - **Regulatory Reasoning:** lineage for link prediction, temporal reasoning, and regulatory change tracking.
 - **Pair Classification:** supersession-pairs for supervised learning on relationship prediction.
-- **Benchmark:** eval config (56 curated queries) for domain-specific retrieval evaluation.
+- **Benchmark:** eval config ({datasets.get('eval', {}).get('rows', 0)} curated queries) for domain-specific retrieval evaluation.
 
 ## Contact
 
@@ -578,16 +612,26 @@ For questions or issues: [https://github.com/opnsrcntrbtr/sebi-circular-rag/issu
     return yaml_block
 
 
-def build_kaggle_metadata(datasets: dict[str, dict]) -> str:
+def build_kaggle_metadata(datasets: dict[str, dict], stats: dict) -> str:
     """Build Kaggle metadata.json."""
+    date_range = f"{stats['date_min'][:4]}–{stats['date_max'][:4]}" if stats["date_min"] else "unknown"
+    corpus_rows = datasets.get("corpus", {}).get("rows", 0)
+    chunks_rows = datasets.get("chunks", {}).get("rows", 0)
+    lineage_rows = datasets.get("lineage", {}).get("rows", 0)
+    eval_rows = datasets.get("eval", {}).get("rows", 0)
+    citation_rows = datasets.get("citation-normalization", {}).get("rows", 0)
+    supersession_rows = datasets.get("supersession-pairs", {}).get("rows", 0)
     meta = {
         "id": "sebi-circulars-india-regulatory",
-        "title": "SEBI Circulars: Indian Regulatory Texts (2021–2026)",
+        "title": f"SEBI Circulars: Indian Regulatory Texts ({date_range})",
         "subtitle": "Structured dataset of public-domain SEBI circulars for AI/ML research",
         "description": (
-            "Six configurations: corpus (603 circulars), chunks (34,883 retrieval chunks), "
-            "lineage (1,437 supersession/amendment edges), eval (56-query benchmark), "
-            "citation-normalization (2,951 reference pairs), supersession-pairs (1,281 labeled pairs). "
+            f"Six configurations: corpus ({corpus_rows:,} circulars), "
+            f"chunks ({chunks_rows:,} retrieval chunks), "
+            f"lineage ({lineage_rows:,} supersession/amendment edges), "
+            f"eval ({eval_rows}-query benchmark), "
+            f"citation-normalization ({citation_rows:,} reference pairs), "
+            f"supersession-pairs ({supersession_rows:,} labeled pairs). "
             "Formats: Parquet + JSONL. Licensing: CC-BY-4.0 (annotations); government works (underlying text)."
         ),
         "owner": "opnsrcntrbtrian",
@@ -607,13 +651,15 @@ def build_kaggle_metadata(datasets: dict[str, dict]) -> str:
     return json.dumps(meta, indent=2, ensure_ascii=False)
 
 
-def build_zenodo_pack(datasets: dict[str, dict]) -> dict:
+def build_zenodo_pack(datasets: dict[str, dict], stats: dict) -> dict:
     """Build Zenodo submission metadata + tarball instructions."""
+    date_range = f"{stats['date_min'][:4]}–{stats['date_max'][:4]}" if stats["date_min"] else "unknown"
+    corpus_rows = datasets.get("corpus", {}).get("rows", 0)
     return {
         "metadata": {
-            "title": "SEBI Circulars: Indian Regulatory Texts (2021–2026)",
+            "title": f"SEBI Circulars: Indian Regulatory Texts ({date_range})",
             "description": (
-                "Structured dataset of 603 SEBI regulatory circulars with lineage, "
+                f"Structured dataset of {corpus_rows:,} SEBI regulatory circulars with lineage, "
                 "retrieval chunks, citations, and evaluation benchmark. Six configurations "
                 "in Parquet + JSONL format. Licensing: CC-BY-4.0 (annotations); "
                 "government works (underlying text)."
@@ -624,7 +670,7 @@ def build_zenodo_pack(datasets: dict[str, dict]) -> dict:
             "keywords": ["regulatory", "india", "sebi", "circulars", "knowledge-graph", "nlp"],
             "subjects": ["Government", "Regulatory", "India", "Securities", "Machine Learning"],
             "upload_type": "dataset",
-            "publication_date": "2026-07-13",
+            "publication_date": stats["snapshot_date"],
         },
         "instructions": (
             "1. Create tarball: tar czf sebi-circulars-v2026.07.tar.gz dist/datasets/\n"
@@ -634,8 +680,9 @@ def build_zenodo_pack(datasets: dict[str, dict]) -> dict:
     }
 
 
-def build_aikosh_pack(datasets: dict[str, dict]) -> dict:
+def build_aikosh_pack(datasets: dict[str, dict], stats: dict) -> dict:
     """Build AIKosh (IndiaAI) submission pack: CSV manifest + metadata + licensing."""
+    date_range = f"{stats['date_min'][:4]}–{stats['date_max'][:4]}" if stats["date_min"] else "unknown"
     manifest_rows = [["config", "rows", "description"]]
     descriptions = {
         "corpus": "Full circular + metadata",
@@ -653,7 +700,7 @@ def build_aikosh_pack(datasets: dict[str, dict]) -> dict:
     return {
         "manifest_csv": manifest_csv,
         "metadata": {
-            "title": "SEBI Circulars: Indian Regulatory Texts (2021–2026)",
+            "title": f"SEBI Circulars: Indian Regulatory Texts ({date_range})",
             "organization": "OpenSourceContributor",
             "dataset_type": "Regulatory / Government",
             "regions": ["India"],
@@ -668,7 +715,7 @@ def build_aikosh_pack(datasets: dict[str, dict]) -> dict:
             "Underlying Text: Indian government works (Copyright Act 1957 §52(1)(q)).\n"
             "Annotations: CC-BY-4.0 (metadata, lineage, chunking, citations, labels).\n"
             "Attribution: SEBI; provide source_url per record.\n"
-            "Disclaimers: Not legal advice; not SEBI-endorsed; corpus is 2021–2026 (not exhaustive)."
+            f"Disclaimers: Not legal advice; not SEBI-endorsed; corpus is {date_range} (not exhaustive)."
         ),
     }
 
@@ -689,23 +736,25 @@ def write_dataset_cards(out_dir: Path) -> None:
         schema = globals().get(schema_name, [])
         datasets[cfg] = {"rows": rows, "schema": schema}
 
+    stats = _compute_stats(out_dir)
+
     # HuggingFace card
-    hf_card = build_hf_card(datasets)
+    hf_card = build_hf_card(datasets, stats)
     (out_dir / "README.md").write_text(hf_card, encoding="utf-8")
 
     # Kaggle metadata
-    kaggle_meta = build_kaggle_metadata(datasets)
+    kaggle_meta = build_kaggle_metadata(datasets, stats)
     (out_dir / "metadata.json").write_text(kaggle_meta, encoding="utf-8")
 
     # Zenodo pack
-    zenodo_pack = build_zenodo_pack(datasets)
+    zenodo_pack = build_zenodo_pack(datasets, stats)
     zenodo_dir = out_dir / "ZENODO_SUBMISSION_PACK"
     zenodo_dir.mkdir(exist_ok=True)
     (zenodo_dir / "metadata.json").write_text(json.dumps(zenodo_pack["metadata"], indent=2, ensure_ascii=False), encoding="utf-8")
     (zenodo_dir / "README_TARBALL.txt").write_text(zenodo_pack["instructions"], encoding="utf-8")
 
     # AIKosh pack
-    aikosh_pack = build_aikosh_pack(datasets)
+    aikosh_pack = build_aikosh_pack(datasets, stats)
     aikosh_dir = out_dir / "AIKOSH_SUBMISSION_PACK"
     aikosh_dir.mkdir(exist_ok=True)
     (aikosh_dir / "manifest.csv").write_text(aikosh_pack["manifest_csv"], encoding="utf-8")
