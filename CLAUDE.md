@@ -15,6 +15,8 @@ make ops     # Local ops HTTP server for n8n automations (port 8765)
 make test    # Run offline test suite
 make reindex # Annotate corpus + rebuild FAISS/BM25 index
 make scrape   # Fetch SEBI circulars (MAX=N to limit count)
+make scrape-master   # Fetch SEBI master circulars (MAX_MASTER=N to limit count)
+make verify-master    # Coverage report vs live SEBI master-circular listing (OFFLINE=1 to skip fetch)
 make calibrate       # Retrieval calibration sweep
 make bench-retrieval # Retrieval-only benchmark + TREC runfile
 make bench-rerank    # Reranker benchmark (--models bge,qwen0.6b)
@@ -46,6 +48,8 @@ make export-datasets  # Export publishable dataset configs to dist/datasets
 | `ingest_pdf.py` | CLI to parse a dropped circular PDF into a corpus record |
 | `eval.py` | Retrieval metrics (Recall@k, MRR, nDCG) |
 | `eval_harness.py` | Golden-set end-to-end evaluation runner (retrieval + citation + abstention + latency) |
+| `verify_master.py` | Master-circular listing parser + coverage diff engine + statistical report |
+| `master_meta.py` | Master identity fields (series/edition/previous-edition) + rescission-appendix parser |
 
 ### Hugging Face Spaces path (CPU-only demo)
 

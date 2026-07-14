@@ -26,7 +26,7 @@ over Indian SEBI circulars.
 
 | | Local (Apple Silicon) | This Space (free CPU) |
 |---|---|---|
-| Corpus | `data/corpus/circulars.jsonl` (scraped + ingested locally) | [`opnsrcntrbtrian/sebi-circulars`](https://huggingface.co/datasets/opnsrcntrbtrian/sebi-circulars) HF dataset, `chunks` config (36.6k section-aware chunks, 603 circulars, snapshot v2026.07) |
+| Corpus | `data/corpus/circulars.jsonl` (scraped + ingested locally) | [`opnsrcntrbtrian/sebi-circulars`](https://huggingface.co/datasets/opnsrcntrbtrian/sebi-circulars) HF dataset, `chunks` config (77.9k section-aware chunks, 705 circulars incl. all 130 SEBI master circulars, snapshot v2026.07) |
 | Index | Built/loaded from `data/index` | Same artifacts, prebuilt locally and downloaded from the `[spaces] index_repo` HF dataset repo (`scripts/upload_spaces_index.py`) — retrieval is numerically identical |
 | Embeddings / reranker | BAAI/bge-m3 + BAAI/bge-reranker-v2-m3 on `mps` | Same models on `cpu` (queries only; corpus vectors are prebuilt) |
 | Generator | MLX `Qwen2.5-1.5B-Instruct-4bit` (or Ollama) | External LLM Space via `gradio_client` (`[spaces] external_space`, fill before deploy) with CPU fallback `Qwen/Qwen2.5-0.5B-Instruct`, `max_tokens = 200` |
