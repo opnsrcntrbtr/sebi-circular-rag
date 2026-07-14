@@ -268,15 +268,16 @@ def test_row_count_accuracy_in_live_export():
     manifest = json.loads((out_dir / "manifest.json").read_text())
     configs = manifest.get("configs", {})
 
-    # Expected row counts (updated 2026-07-12: corpus grown via scraping +
-    # metadata-layer migration added confidence-tiered lineage edges)
+    # Expected row counts (updated 2026-07-14: master-circular-coverage plan
+    # ingested all 130 SEBI master circulars to 100% listing coverage, adding
+    # master identity fields + consolidates edges to the lineage graph)
     expected = {
-        "corpus": 603,
-        "chunks": 34883,
-        "lineage": 1437,
+        "corpus": 705,
+        "chunks": 77859,
+        "lineage": 4483,
         "eval": 56,
-        "citation-normalization": 2951,
-        "supersession-pairs": 1281,
+        "citation-normalization": 8802,
+        "supersession-pairs": 2769,
     }
 
     for cfg, expected_rows in expected.items():
