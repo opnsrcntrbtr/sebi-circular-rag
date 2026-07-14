@@ -20,9 +20,19 @@ from sebi_rag.ingest_pdf import normalize_circular_number  # noqa: E402
 
 ISO_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
+# 2011-era master circulars ("SEBI/IMD/MC No.2/836/2011") authentically
+# contain a space in "MC No." — not a parsing defect. Stored numbers keep
+# the document's own spelling, so this known legacy shape is carved out
+# rather than rewritten or the whitespace check dropped generally.
+_LEGACY_MC_NO_RE = re.compile(r"\bMC No\.\s*\d+\b", re.I)
+
 
 def _plausible(n: str) -> bool:
-    return bool(n) and " " not in n and "/" in n and any(ch.isdigit() for ch in n)
+    if not n or "/" not in n or not any(ch.isdigit() for ch in n):
+        return False
+    if " " in n:
+        return bool(_LEGACY_MC_NO_RE.search(n))
+    return True
 
 
 def validate(records: list[dict]) -> list[str]:

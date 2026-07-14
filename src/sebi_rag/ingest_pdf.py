@@ -119,9 +119,15 @@ YEAR_FIRST_RE = re.compile(r"\d{4}/[A-Za-z0-9_()\-/]+?/\d+")
 
 
 def _rejoin_split(header: str) -> str:
-    """Rejoin numbers split by a space after a slash, e.g. "CIR/ 2025/104" or
-    "HO/ (79)2026-MRD" (PDF layout inserts a space mid-number)."""
-    return re.sub(r"/\s+(?=[A-Za-z0-9(])", "/", header)
+    """Rejoin numbers split by a space around a slash, e.g. "CIR/ 2025/104",
+    "HO/ (79)2026-MRD", or "CIR/MRD/DP/ 11 /2012" (PDF layout inserts a space
+    mid-number; the year-slash space can fall on either side of the digits).
+    Also heals a kerning artifact where the number's own '/' renders as a
+    typographic en/em-dash with stray spacing (e.g. "IMD-I –PoD1")."""
+    header = re.sub(r"(?<=[A-Za-z0-9)])\s*[–—]\s*(?=[A-Za-z0-9])",
+                    "/", header)
+    header = re.sub(r"/\s+(?=[A-Za-z0-9(])", "/", header)
+    return re.sub(r"(?<=[A-Za-z0-9)])\s+/", "/", header)
 
 
 def _s_header_token(header: str) -> str:
@@ -164,7 +170,18 @@ def _s_dept_order(header: str) -> str:
     return m.group(0) if m else ""
 
 
-_PRIMARY_STRATEGIES = (_s_header_token, _s_dept_only, _s_anchor_merge, _s_dept_order)
+MC_NO_RE = re.compile(r"SEBI/[A-Za-z]+/MC No\.\s*\d+/\d+/\d{4}")
+
+
+def _s_mc_no(header: str) -> str:
+    """2011-era master circulars: "SEBI/<DEPT>/MC No.<n>/<serial>/<year>" —
+    predates both the old CIR/... and new SEBI/HO/... reference formats."""
+    m = MC_NO_RE.search(header)
+    return m.group(0) if m else ""
+
+
+_PRIMARY_STRATEGIES = (_s_header_token, _s_dept_only, _s_anchor_merge,
+                       _s_dept_order, _s_mc_no)
 
 
 def _primary_number(header: str, full: str) -> str:
