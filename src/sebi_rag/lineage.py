@@ -17,6 +17,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from .ingest_pdf import REF_RE
+from .master_meta import annotate_master_fields, consolidation_edges
 from .metadata import classify_circular_type, derive_validity
 
 SUPERSEDE_RE = re.compile(
@@ -243,7 +244,17 @@ def annotate_corpus(corpus_path: str | Path) -> dict:
     corpus_path = Path(corpus_path)
     records = load_records(corpus_path)
     lin = build_lineage(records)
-    changed = 0
+    # circular_type must be current before annotate_master_fields runs (a
+    # first-ever annotate has no circular_type stored yet on any record).
+    for r in records:
+        r["circular_type"] = classify_circular_type(r.get("subject"))
+    master_changed = annotate_master_fields(records)
+    cons_edges = []
+    for r in records:
+        if r["circular_type"] == "MASTER_CIRCULAR":
+            cons_edges += consolidation_edges(r)
+    lin.edges.extend(cons_edges)
+    changed = master_changed
     for r in records:
         cn = r["circular_number"]
         new_status = lin.status(cn)
@@ -282,4 +293,6 @@ def annotate_corpus(corpus_path: str | Path) -> dict:
             s: sum(1 for r in records if r["validity_status"] == s)
             for s in ("current", "superseded", "partially_superseded", "unknown")
         },
+        "masters": sum(1 for r in records if r.get("is_master")),
+        "consolidates_edges": len(cons_edges),
     }

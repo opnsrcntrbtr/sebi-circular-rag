@@ -252,3 +252,44 @@ def test_lineage_load_old_file_defaults_empty_edges(tmp_path):
     p.write_text('{"supersedes": {}, "amends": {}, "superseded_by": {}, "amended_by": {}}',
                  encoding="utf-8")
     assert Lineage.load(p).edges == []
+
+
+def test_annotate_corpus_adds_master_fields_and_consolidates_edges(tmp_path):
+    import json
+    from sebi_rag.lineage import annotate_corpus
+    # Uses only the legacy "List of Circulars & Communications" heading
+    # (Task 6), not "rescinded"/"superseded"/"repeal"/"withdrawn" wording, so
+    # this text stays outside SUPERSEDE_RE's trigger vocabulary — isolating
+    # the "consolidates never flips validity" claim from the codebase's
+    # pre-existing (and independently correct) supersedes detector, which
+    # legitimately WOULD also fire on real "rescinded"-worded appendices.
+    master = {
+        "circular_number": "SEBI/HO/IMD/MASTER/2024/1",
+        "subject": "Master Circular for Mutual Funds",
+        "issue_date": "2024-06-27",
+        "text": ("Chapter 1 ... This Master Circular compiles the circulars "
+                 "issued to date.\nSCHEDULE\nList of Circulars & Communications\n"
+                 "1. SEBI/HO/IMD/DF2/CIR/P/2020/175 dated September 17, 2020\n"
+                 "2. SEBI/HO/IMD/IMD-I/DOF5/P/CIR/2021/553 dated April 28, 2021\n"
+                 + "body " * 200),
+        "source_url": "https://www.sebi.gov.in/legal/master-circulars/x_1.html",
+    }
+    plain = {"circular_number": "SEBI/HO/IMD/DF2/CIR/P/2020/175",
+             "subject": "Product labelling", "issue_date": "2020-09-17",
+             "text": "body " * 200, "source_url": ""}
+    p = tmp_path / "c.jsonl"
+    p.write_text("\n".join(json.dumps(r) for r in (master, plain)) + "\n")
+    summary = annotate_corpus(p)
+    recs = [json.loads(l) for l in p.read_text().splitlines()]
+    m = next(r for r in recs if r["circular_number"] == master["circular_number"])
+    q = next(r for r in recs if r["circular_number"] == plain["circular_number"])
+    assert m["is_master"] is True
+    assert m["master_series"] == "Mutual Funds"
+    assert m["master_edition"] == 2024
+    cons = [e for e in m["supersession_edges"] if e["relation"] == "consolidates"]
+    assert {e["target"] for e in cons} >= {"SEBI/HO/IMD/DF2/CIR/P/2020/175"}
+    assert q["is_master"] is False
+    assert summary["masters"] == 1
+    assert summary["consolidates_edges"] == len(cons)
+    # locked rule: consolidates never flips validity
+    assert q["validity_status"] in ("current", "unknown")
