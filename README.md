@@ -51,16 +51,16 @@ The SEBI Circulars corpus and derived task datasets are published on HuggingFace
 
 ### Dataset Configurations
 
-Six structured dataset configs available in JSONL + Parquet formats (v2026.07 snapshot, 603 circulars):
+Six structured dataset configs available in JSONL + Parquet formats (v2026.07 snapshot, 705 circulars):
 
 | Config | Rows | Purpose |
 |---|---|---|
-| **corpus** | 603 | Full circular text + metadata, regulatory lineage, effective dates |
-| **chunks** | 36,603 | Section-aware retrieval chunks for RAG and dense retrieval |
-| **lineage** | 1,434 | Regulatory supersession/amendment edges (citation graph) |
+| **corpus** | 705 | Full circular text + metadata, regulatory lineage, effective dates |
+| **chunks** | 77,859 | Section-aware retrieval chunks for RAG and dense retrieval |
+| **lineage** | 4,483 | Regulatory supersession/amendment edges (citation graph) |
 | **eval** | 56 | Curated benchmark queries for domain-specific retrieval evaluation |
-| **citation-normalization** | 2,951 | Raw reference → normalized circular pairs (seq2seq/NER task) |
-| **supersession-pairs** | 1,281 | Labeled circular pairs (supersedes/amends/unrelated classification) |
+| **citation-normalization** | 8,802 | Raw reference → normalized circular pairs (seq2seq/NER task) |
+| **supersession-pairs** | 2,769 | Labeled circular pairs (supersedes/amends/unrelated classification) |
 
 ### Schema Details
 
@@ -83,8 +83,8 @@ Full schema documentation on [the HF dataset page](https://huggingface.co/datase
 
 1. **Not legal advice.** Circulars are informational only; verify against [sebi.gov.in](https://sebi.gov.in) before regulatory reliance.
 2. **Not SEBI-endorsed.** This dataset is independent and not affiliated with or endorsed by the Securities and Exchange Board of India.
-3. **Coverage:** Corpus spans 2021–2026 and is not exhaustive of all SEBI circulars.
-4. **Data quality:** `issuing_department` is UNKNOWN for 124 records (parsing artifact). Some master-circular `subject` fields may be oversized (~2900 chars, also pre-existing).
+3. **Coverage:** Corpus spans 2010–2026, including all 130 SEBI master circulars, and is not exhaustive of all SEBI circulars.
+4. **Data quality:** `issuing_department` is UNKNOWN for 158/705 records (parsing artifact). Some master-circular `subject` fields may be oversized (~2900 chars, also pre-existing).
 
 ### Citation
 
@@ -92,7 +92,7 @@ Please cite this dataset if you use it:
 
 ```bibtex
 @dataset{sebi_circulars_2026,
-  title={SEBI Circulars: Indian Regulatory Texts, 2021–2026},
+  title={SEBI Circulars: Indian Regulatory Texts, 2010–2026},
   author={OpenSourceContributor},
   year={2026},
   url={https://huggingface.co/datasets/opnsrcntrbtrian/sebi-circulars},
