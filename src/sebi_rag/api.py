@@ -142,7 +142,11 @@ def create_app(
     app = FastAPI(title="SEBI Circular RAG", version="0.1.0")
     state: dict[str, RAGPipeline] = {}
     hits: dict[str, deque] = defaultdict(deque)
-    executor = ThreadPoolExecutor(max_workers=2)
+    _executor = ThreadPoolExecutor(max_workers=2)
+
+    @app.on_event("shutdown")
+    def _shutdown() -> None:
+        _executor.shutdown(wait=True)
 
     def pipe() -> RAGPipeline:
         if "p" not in state:
@@ -183,7 +187,7 @@ def create_app(
         t0 = time.perf_counter()
         top_k = req.top_k if req.top_k is not None else cfg.top_k
         budget = cfg.timeout_s
-        fut = executor.submit(p.query, req.question, top_k=top_k,
+        fut = _executor.submit(p.query, req.question, top_k=top_k,
                               advisory=req.advisory)
         try:
             ans, retrieved = fut.result(timeout=budget)
