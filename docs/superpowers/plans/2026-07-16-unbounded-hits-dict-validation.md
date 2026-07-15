@@ -115,12 +115,14 @@ def test_rate_limit(monkeypatch):
   - All 240 tests pass, 2 skipped, 44.08s — zero regressions
   - `git diff --check` → exit 0 (no whitespace errors)
   - Branch: `spaces`
+  - Commit: `89057ce` ("Implement periodic cleanup of unused hits entries")
 
 ---
 
 ## Implementation
 
 **File:** `src/sebi_rag/api.py`
+**Commit:** `89057ce`
 **Changes:** 8 insertions across 3 locations in `create_app()` / `guard()`
 
 ```python
