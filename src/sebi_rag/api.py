@@ -170,6 +170,7 @@ def create_app(
 
     @app.get("/ready")
     def ready() -> dict:
+        pipe()  # trigger eager pipeline build so readiness probe works immediately
         return {"ready": "p" in state}
 
     @app.get("/health")

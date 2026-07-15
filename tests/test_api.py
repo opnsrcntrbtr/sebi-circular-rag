@@ -132,3 +132,11 @@ def test_citation_meta_reports_superseded(monkeypatch):
     # the older superseded circular, if cited, is reported as superseded
     if "SEBI/HO/Z/P/CIR/2021/1" in statuses:
         assert statuses["SEBI/HO/Z/P/CIR/2021/1"] == "superseded"
+
+
+def test_ready_triggers_pipeline() -> None:
+    """/ready should trigger pipeline build and return ready=true."""
+    c = TestClient(create_app(_offline_pipeline))
+    resp = c.get("/ready")
+    assert resp.status_code == 200
+    assert resp.json() == {"ready": True}
