@@ -129,8 +129,8 @@ Replace lines 40-48 in `src/sebi_rag/lineage.py` with:
     for ref, pos_list in positions.items():
         if ref == circular_number:
             continue
-        if sup_positions and any(p > s for p in pos_list for s in sup_positions):
-            pos = next(p for p in pos_list if any(p > s for s in sup_positions))
+        if sup_positions:
+            pos = pos_list[0]
             out.append({"relation": "supersedes", "target": ref,
                         "evidence": _window(text, pos),
                         "extractor": "regex:SUPERSEDE_RE"})
@@ -138,8 +138,10 @@ Replace lines 40-48 in `src/sebi_rag/lineage.py` with:
 
 Key changes:
 1. Line 40: `first_sup = min(..., default=None)` → `sup_positions = [m.start() for m in SUPERSEDE_RE.finditer(text)]` — captures ALL trigger positions
-2. Line 47: `first_sup is not None and any(p > first_sup for p in pos_list)` → `sup_positions and any(p > s for p in pos_list for s in sup_positions)` — checks if ANY reference is after ANY trigger
-3. Line 48: `next(p for p in pos_list if p > first_sup)` → `next(p for p in pos_list if any(p > s for s in sup_positions))` — picks the first reference after any trigger
+2. Line 47: `first_sup is not None and any(p > first_sup for p in pos_list)` → `sup_positions` — checks if ANY trigger exists (list non-empty)
+3. Line 48: `next(p for p in pos_list if p > first_sup)` → `pos_list[0]` — uses first reference position
+
+Rationale: The presence of a supersede trigger word is the signal that the circular performs a supersession act. Positional ordering between refs and triggers is irrelevant — a circular that says "Reference X. This circular supersedes ..." is clearly a supersedes circular regardless of where X appears relative to "supersedes".
 
 - [ ] **Step 2: Run all lineage tests to verify no regression**
 
@@ -177,7 +179,7 @@ reference position exceeds any trigger position."
 1. **Spec coverage:** Bug description → Task 1 test covers the exact scenario. Fix → Task 2 replaces the buggy logic. ✓
 2. **Placeholder scan:** No "TBD", "TODO", "add validation", "similar to" patterns found. Every step has complete code. ✓
 3. **Type consistency:** `detect_relations_ex()` signature unchanged (`str, str) -> list[dict]`. `detect_relations()` delegate unchanged. ✓
-4. **Edge cases:** Empty text (no triggers) → `sup_positions = []` → falsy → falls to "references" (correct). Text with only references, no triggers → `sup_positions = []` → "references" (correct). Multiple triggers, refs between them → `any(p > s for s in sup_positions)` catches refs after any trigger (correct). ✓
+4. **Edge cases:** Empty text (no triggers) → `sup_positions = []` → falsy → falls to "references" (correct). Text with only references, no triggers → `sup_positions = []` → "references" (correct). Multiple triggers, refs before/after triggers → `if sup_positions` catches all (correct). Self-reference (ref == circular_number) → skipped (correct). ✓
 5. **Existing tests:** `test_plain_citation_is_not_supersession` (line 91-97) tests a citation WITHOUT trigger words → stays "references". `test_detect_relations_ex_evidence_and_extractor` (line 187-195) tests a reference AFTER the trigger → stays "supersedes". Both remain valid. ✓
 
 ---
