@@ -69,7 +69,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "id": "ragpipeline",
+      "id": "src_sebi_rag_api_py_ragpipeline",
       "community": 26,
       "norm_label": "ragpipeline"
     },
@@ -134,24 +134,14 @@
       "norm_label": "fastapi service over the sebi circular rag pipeline.  run (real stack; loads the"
     },
     {
-      "label": "RAGPipeline",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "community": 46,
-      "norm_label": "ragpipeline",
-      "id": "src_sebi_rag_api_py_ragpipeline"
-    },
-    {
       "label": "test_api.py",
       "file_type": "code",
       "source_file": "tests/test_api.py",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "tests_test_api",
       "community": 26,
-      "norm_label": "test_api.py",
-      "id": "tests_test_api"
+      "norm_label": "test_api.py"
     },
     {
       "label": "_offline_pipeline()",
@@ -159,9 +149,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L18",
       "_origin": "ast",
+      "id": "tests_test_api_offline_pipeline",
       "community": 26,
-      "norm_label": "_offline_pipeline()",
-      "id": "tests_test_api_offline_pipeline"
+      "norm_label": "_offline_pipeline()"
     },
     {
       "label": "RAGPipeline",
@@ -169,9 +159,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "tests_test_api_py_ragpipeline",
       "community": 26,
-      "norm_label": "ragpipeline",
-      "id": "tests_test_api_py_ragpipeline"
+      "norm_label": "ragpipeline"
     },
     {
       "label": "_tiny_pipeline()",
@@ -179,9 +169,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L27",
       "_origin": "ast",
+      "id": "tests_test_api_tiny_pipeline",
       "community": 26,
-      "norm_label": "_tiny_pipeline()",
-      "id": "tests_test_api_tiny_pipeline"
+      "norm_label": "_tiny_pipeline()"
     },
     {
       "label": "_SlowGenerator",
@@ -189,9 +179,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L43",
       "_origin": "ast",
+      "id": "tests_test_api_slowgenerator",
       "community": 26,
-      "norm_label": "_slowgenerator",
-      "id": "tests_test_api_slowgenerator"
+      "norm_label": "_slowgenerator"
     },
     {
       "label": ".generate()",
@@ -199,9 +189,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L44",
       "_origin": "ast",
+      "id": "tests_test_api_slowgenerator_generate",
       "community": 26,
-      "norm_label": ".generate()",
-      "id": "tests_test_api_slowgenerator_generate"
+      "norm_label": ".generate()"
     },
     {
       "label": "_slow_pipeline()",
@@ -209,9 +199,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L49",
       "_origin": "ast",
+      "id": "tests_test_api_slow_pipeline",
       "community": 26,
-      "norm_label": "_slow_pipeline()",
-      "id": "tests_test_api_slow_pipeline"
+      "norm_label": "_slow_pipeline()"
     },
     {
       "label": "test_health()",
@@ -219,9 +209,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L61",
       "_origin": "ast",
+      "id": "tests_test_api_test_health",
       "community": 26,
-      "norm_label": "test_health()",
-      "id": "tests_test_api_test_health"
+      "norm_label": "test_health()"
     },
     {
       "label": "test_query_grounded_with_metadata_and_latency()",
@@ -229,9 +219,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L68",
       "_origin": "ast",
+      "id": "tests_test_api_test_query_grounded_with_metadata_and_latency",
       "community": 26,
-      "norm_label": "test_query_grounded_with_metadata_and_latency()",
-      "id": "tests_test_api_test_query_grounded_with_metadata_and_latency"
+      "norm_label": "test_query_grounded_with_metadata_and_latency()"
     },
     {
       "label": "test_query_abstains_out_of_domain()",
@@ -239,9 +229,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L80",
       "_origin": "ast",
+      "id": "tests_test_api_test_query_abstains_out_of_domain",
       "community": 26,
-      "norm_label": "test_query_abstains_out_of_domain()",
-      "id": "tests_test_api_test_query_abstains_out_of_domain"
+      "norm_label": "test_query_abstains_out_of_domain()"
     },
     {
       "label": "test_top_k_zero_rejected_422()",
@@ -249,9 +239,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L87",
       "_origin": "ast",
+      "id": "tests_test_api_test_top_k_zero_rejected_422",
       "community": 26,
-      "norm_label": "test_top_k_zero_rejected_422()",
-      "id": "tests_test_api_test_top_k_zero_rejected_422"
+      "norm_label": "test_top_k_zero_rejected_422()"
     },
     {
       "label": "test_response_carries_certainty_fields()",
@@ -259,9 +249,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L93",
       "_origin": "ast",
+      "id": "tests_test_api_test_response_carries_certainty_fields",
       "community": 26,
-      "norm_label": "test_response_carries_certainty_fields()",
-      "id": "tests_test_api_test_response_carries_certainty_fields"
+      "norm_label": "test_response_carries_certainty_fields()"
     },
     {
       "label": "test_auth_required_when_key_set()",
@@ -269,9 +259,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L102",
       "_origin": "ast",
+      "id": "tests_test_api_test_auth_required_when_key_set",
       "community": 26,
-      "norm_label": "test_auth_required_when_key_set()",
-      "id": "tests_test_api_test_auth_required_when_key_set"
+      "norm_label": "test_auth_required_when_key_set()"
     },
     {
       "label": "test_rate_limit()",
@@ -279,9 +269,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L111",
       "_origin": "ast",
+      "id": "tests_test_api_test_rate_limit",
       "community": 26,
-      "norm_label": "test_rate_limit()",
-      "id": "tests_test_api_test_rate_limit"
+      "norm_label": "test_rate_limit()"
     },
     {
       "label": "test_query_exceeds_time_budget_returns_504()",
@@ -289,9 +279,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L120",
       "_origin": "ast",
+      "id": "tests_test_api_test_query_exceeds_time_budget_returns_504",
       "community": 26,
-      "norm_label": "test_query_exceeds_time_budget_returns_504()",
-      "id": "tests_test_api_test_query_exceeds_time_budget_returns_504"
+      "norm_label": "test_query_exceeds_time_budget_returns_504()"
     },
     {
       "label": "test_citation_meta_reports_superseded()",
@@ -299,9 +289,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L127",
       "_origin": "ast",
+      "id": "tests_test_api_test_citation_meta_reports_superseded",
       "community": 26,
-      "norm_label": "test_citation_meta_reports_superseded()",
-      "id": "tests_test_api_test_citation_meta_reports_superseded"
+      "norm_label": "test_citation_meta_reports_superseded()"
     },
     {
       "label": "test_ready_triggers_pipeline()",
@@ -309,9 +299,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L137",
       "_origin": "ast",
+      "id": "tests_test_api_test_ready_triggers_pipeline",
       "community": 26,
-      "norm_label": "test_ready_triggers_pipeline()",
-      "id": "tests_test_api_test_ready_triggers_pipeline"
+      "norm_label": "test_ready_triggers_pipeline()"
     },
     {
       "label": "FastAPI service tests (offline pipelines): endpoints, auth, rate limit, metadata",
@@ -319,9 +309,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "tests_test_api_rationale_1",
       "community": 26,
-      "norm_label": "fastapi service tests (offline pipelines): endpoints, auth, rate limit, metadata",
-      "id": "tests_test_api_rationale_1"
+      "norm_label": "fastapi service tests (offline pipelines): endpoints, auth, rate limit, metadata"
     },
     {
       "label": "/ready should trigger pipeline build and return ready=true.",
@@ -329,9 +319,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L138",
       "_origin": "ast",
+      "id": "tests_test_api_rationale_138",
       "community": 26,
-      "norm_label": "/ready should trigger pipeline build and return ready=true.",
-      "id": "tests_test_api_rationale_138"
+      "norm_label": "/ready should trigger pipeline build and return ready=true."
     },
     {
       "label": "Lineage",
@@ -349,7 +339,7 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 1,
       "norm_label": "pipeline.py",
       "id": "src_sebi_rag_pipeline"
     },
@@ -359,7 +349,7 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L15",
       "_origin": "ast",
-      "community": 29,
+      "community": 1,
       "norm_label": "ragpipeline",
       "id": "src_sebi_rag_pipeline_ragpipeline"
     },
@@ -419,7 +409,7 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L42",
       "_origin": "ast",
-      "community": 29,
+      "community": 1,
       "norm_label": ".query()",
       "id": "src_sebi_rag_pipeline_ragpipeline_query"
     },
@@ -429,7 +419,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 29,
+      "community": 1,
       "norm_label": "answer",
       "id": "answer"
     },
@@ -439,7 +429,7 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 1,
       "norm_label": "end-to-end wiring: segment -> hybrid retrieve -> rerank -> generate/abstain.",
       "id": "src_sebi_rag_pipeline_rationale_1"
     },
@@ -915,7 +905,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "bench_rerankers.py",
       "id": "scripts_bench_rerankers"
     },
@@ -925,7 +915,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L42",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "auroc()",
       "id": "scripts_bench_rerankers_auroc"
     },
@@ -935,7 +925,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L51",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "best_threshold()",
       "id": "scripts_bench_rerankers_best_threshold"
     },
@@ -945,7 +935,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L65",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "evaluate()",
       "id": "scripts_bench_rerankers_evaluate"
     },
@@ -955,7 +945,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L97",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "main()",
       "id": "scripts_bench_rerankers_main"
     },
@@ -965,7 +955,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "f2 (adr-001): benchmark rerankers on golden_v5 with cluster-separation metrics.",
       "id": "scripts_bench_rerankers_rationale_1"
     },
@@ -975,7 +965,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L43",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "p(pos_score > neg_score); ties count half. pos = answerable top-scores,     neg",
       "id": "scripts_bench_rerankers_rationale_43"
     },
@@ -985,7 +975,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L52",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "threshold maximising abstention accuracy: answer if score >= thr.     returns (t",
       "id": "scripts_bench_rerankers_rationale_52"
     },
@@ -1105,7 +1095,7 @@
       "source_file": "scripts/calibrate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 23,
+      "community": 1,
       "norm_label": "calibrate.py",
       "id": "scripts_calibrate"
     },
@@ -1125,7 +1115,7 @@
       "source_file": "scripts/calibrate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 23,
+      "community": 1,
       "norm_label": "calibrate top_k and the abstention threshold against the citation-precision sign",
       "id": "scripts_calibrate_rationale_1"
     },
@@ -1345,7 +1335,7 @@
       "source_file": "scripts/eval_asof.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 1,
       "norm_label": "eval_asof.py",
       "id": "scripts_eval_asof"
     },
@@ -1355,7 +1345,7 @@
       "source_file": "scripts/eval_asof.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 1,
       "norm_label": "run eval/golden/golden_asof_v1.jsonl (selector + pipeline modes) against the per",
       "id": "scripts_eval_asof_rationale_1"
     },
@@ -1365,7 +1355,7 @@
       "source_file": "scripts/eval_gate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "eval_gate.py",
       "id": "scripts_eval_gate"
     },
@@ -1385,7 +1375,7 @@
       "source_file": "scripts/eval_gate.py",
       "source_location": "L60",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "auroc()",
       "id": "scripts_eval_gate_auroc"
     },
@@ -1395,7 +1385,7 @@
       "source_file": "scripts/eval_gate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "adr-002 follow-up: compare the production subject-sim gate against the section-a",
       "id": "scripts_eval_gate_rationale_1"
     },
@@ -3251,7 +3241,7 @@
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 1,
       "norm_label": "eval_asof.py",
       "id": "src_sebi_rag_eval_asof"
     },
@@ -3261,7 +3251,7 @@
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 29,
+      "community": 1,
       "norm_label": "load_golden_asof()",
       "id": "src_sebi_rag_eval_asof_load_golden_asof"
     },
@@ -3271,7 +3261,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 29,
+      "community": 1,
       "norm_label": "path",
       "id": "src_sebi_rag_eval_asof_py_path"
     },
@@ -3281,7 +3271,7 @@
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L33",
       "_origin": "ast",
-      "community": 29,
+      "community": 1,
       "norm_label": "asofcaseresult",
       "id": "src_sebi_rag_eval_asof_asofcaseresult"
     },
@@ -3291,7 +3281,7 @@
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L40",
       "_origin": "ast",
-      "community": 29,
+      "community": 1,
       "norm_label": "run_selector_cases()",
       "id": "src_sebi_rag_eval_asof_run_selector_cases"
     },
@@ -3301,7 +3291,7 @@
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L55",
       "_origin": "ast",
-      "community": 29,
+      "community": 1,
       "norm_label": "run_pipeline_cases()",
       "id": "src_sebi_rag_eval_asof_run_pipeline_cases"
     },
@@ -3311,7 +3301,7 @@
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L74",
       "_origin": "ast",
-      "community": 29,
+      "community": 1,
       "norm_label": "summarize()",
       "id": "src_sebi_rag_eval_asof_summarize"
     },
@@ -3321,7 +3311,7 @@
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 1,
       "norm_label": "as-of-date golden evaluation runner (p4b).  two case modes drawn from eval/golde",
       "id": "src_sebi_rag_eval_asof_rationale_1"
     },
@@ -3451,7 +3441,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L55",
       "_origin": "ast",
-      "community": 10,
+      "community": 6,
       "norm_label": "generator",
       "id": "src_sebi_rag_generate_generator"
     },
@@ -3461,7 +3451,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L56",
       "_origin": "ast",
-      "community": 10,
+      "community": 6,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_generator_generate"
     },
@@ -3591,7 +3581,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L176",
       "_origin": "ast",
-      "community": 19,
+      "community": 29,
       "norm_label": "subjectsimjudge",
       "id": "src_sebi_rag_generate_subjectsimjudge"
     },
@@ -3601,7 +3591,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L186",
       "_origin": "ast",
-      "community": 19,
+      "community": 29,
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_generate_subjectsimjudge_init"
     },
@@ -3611,7 +3601,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L203",
       "_origin": "ast",
-      "community": 19,
+      "community": 29,
       "norm_label": "._vec()",
       "id": "src_sebi_rag_generate_subjectsimjudge_vec"
     },
@@ -3621,7 +3611,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L211",
       "_origin": "ast",
-      "community": 19,
+      "community": 29,
       "norm_label": "._section_heading()",
       "id": "src_sebi_rag_generate_subjectsimjudge_section_heading"
     },
@@ -3631,7 +3621,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L218",
       "_origin": "ast",
-      "community": 19,
+      "community": 29,
       "norm_label": ".score()",
       "id": "src_sebi_rag_generate_subjectsimjudge_score"
     },
@@ -3641,7 +3631,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L229",
       "_origin": "ast",
-      "community": 19,
+      "community": 29,
       "norm_label": ".section_score()",
       "id": "src_sebi_rag_generate_subjectsimjudge_section_score"
     },
@@ -3651,7 +3641,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L238",
       "_origin": "ast",
-      "community": 19,
+      "community": 29,
       "norm_label": ".grounded()",
       "id": "src_sebi_rag_generate_subjectsimjudge_grounded"
     },
@@ -3811,7 +3801,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L177",
       "_origin": "ast",
-      "community": 19,
+      "community": 29,
       "norm_label": "adopted gate (eval_gate round 3): deterministic groundedness signal \u2014     max co",
       "id": "src_sebi_rag_generate_rationale_177"
     },
@@ -3821,7 +3811,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L219",
       "_origin": "ast",
-      "community": 19,
+      "community": 29,
       "norm_label": "max cosine(query, doc subject line) over contexts \u2014 the primary         gate sig",
       "id": "src_sebi_rag_generate_rationale_219"
     },
@@ -3831,7 +3821,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L230",
       "_origin": "ast",
-      "community": 19,
+      "community": 29,
       "norm_label": "max cosine(query, section heading) over contexts \u2014 the second tier.",
       "id": "src_sebi_rag_generate_rationale_230"
     },
@@ -4441,7 +4431,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L84",
       "_origin": "ast",
-      "community": 41,
+      "community": 36,
       "norm_label": ".family()",
       "id": "src_sebi_rag_lineage_lineage_family"
     },
@@ -4451,7 +4441,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L96",
       "_origin": "ast",
-      "community": 41,
+      "community": 36,
       "norm_label": ".governing_on()",
       "id": "src_sebi_rag_lineage_lineage_governing_on"
     },
@@ -4501,7 +4491,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L132",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "norm_label": "mc_topic()",
       "id": "src_sebi_rag_lineage_mc_topic"
     },
@@ -4601,7 +4591,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L85",
       "_origin": "ast",
-      "community": 41,
+      "community": 36,
       "norm_label": "connected component over supersedes/superseded_by (both tiers).",
       "id": "src_sebi_rag_lineage_rationale_85"
     },
@@ -4611,7 +4601,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L98",
       "_origin": "ast",
-      "community": 41,
+      "community": 36,
       "norm_label": "the circular in this family that governs on date as_of (iso), or         none wh",
       "id": "src_sebi_rag_lineage_rationale_98"
     },
@@ -4621,7 +4611,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L133",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "norm_label": "normalised topic of a 'master circular for/on <topic>' title, else none.      us",
       "id": "src_sebi_rag_lineage_rationale_133"
     },
@@ -6281,7 +6271,7 @@
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 1,
       "norm_label": "test_eval_asof.py",
       "id": "tests_test_eval_asof"
     },
@@ -6291,7 +6281,7 @@
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L18",
       "_origin": "ast",
-      "community": 29,
+      "community": 1,
       "norm_label": "test_load_golden_asof_has_both_modes()",
       "id": "tests_test_eval_asof_test_load_golden_asof_has_both_modes"
     },
@@ -6301,7 +6291,7 @@
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L25",
       "_origin": "ast",
-      "community": 29,
+      "community": 1,
       "norm_label": "_lin_chain()",
       "id": "tests_test_eval_asof_lin_chain"
     },
@@ -6311,7 +6301,7 @@
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L32",
       "_origin": "ast",
-      "community": 29,
+      "community": 1,
       "norm_label": "test_run_selector_cases_pass_and_fail()",
       "id": "tests_test_eval_asof_test_run_selector_cases_pass_and_fail"
     },
@@ -6331,7 +6321,7 @@
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L77",
       "_origin": "ast",
-      "community": 29,
+      "community": 1,
       "norm_label": "test_summarize_reports_accuracy_and_failures()",
       "id": "tests_test_eval_asof_test_summarize_reports_accuracy_and_failures"
     },
@@ -6341,7 +6331,7 @@
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 1,
       "norm_label": "p4b: as-of golden evaluation runner tests (offline).",
       "id": "tests_test_eval_asof_rationale_1"
     },
@@ -7501,7 +7491,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 36,
+      "community": 13,
       "norm_label": "test_lineage.py",
       "id": "tests_test_lineage"
     },
@@ -7531,7 +7521,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L51",
       "_origin": "ast",
-      "community": 36,
+      "community": 13,
       "norm_label": "test_lineage_save_load_roundtrip()",
       "id": "tests_test_lineage_test_lineage_save_load_roundtrip"
     },
@@ -7591,7 +7581,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L144",
       "_origin": "ast",
-      "community": 36,
+      "community": 13,
       "norm_label": "_lin_chain()",
       "id": "tests_test_lineage_lin_chain"
     },
@@ -7601,7 +7591,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L152",
       "_origin": "ast",
-      "community": 36,
+      "community": 13,
       "norm_label": "test_governing_on_linear_chain()",
       "id": "tests_test_lineage_test_governing_on_linear_chain"
     },
@@ -7611,7 +7601,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L161",
       "_origin": "ast",
-      "community": 36,
+      "community": 13,
       "norm_label": "test_governing_on_before_family_exists()",
       "id": "tests_test_lineage_test_governing_on_before_family_exists"
     },
@@ -7621,7 +7611,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L166",
       "_origin": "ast",
-      "community": 36,
+      "community": 13,
       "norm_label": "test_governing_on_unknown_dates_excluded()",
       "id": "tests_test_lineage_test_governing_on_unknown_dates_excluded"
     },
@@ -7731,7 +7721,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 36,
+      "community": 13,
       "norm_label": "p2 lineage / supersession resolution tests.",
       "id": "tests_test_lineage_rationale_1"
     },
@@ -9345,9 +9335,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L8",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "src_sebi_rag_api"
+      "target": "src_sebi_rag_api",
+      "confidence_score": 1.0
     },
     {
       "relation": "inherits",
@@ -9395,7 +9385,7 @@
       "context": "argument",
       "confidence": "INFERRED",
       "source_file": "src/sebi_rag/api.py",
-      "source_location": "L194",
+      "source_location": "L186",
       "weight": 1.0,
       "source": "src_sebi_rag_api_create_app",
       "target": "src_sebi_rag_api_queryresponse",
@@ -9409,7 +9399,7 @@
       "source_location": "L69",
       "weight": 1.0,
       "source": "src_sebi_rag_api_build_default_pipeline",
-      "target": "ragpipeline",
+      "target": "src_sebi_rag_api_py_ragpipeline",
       "confidence_score": 1.0
     },
     {
@@ -9420,7 +9410,7 @@
       "source_location": "L138",
       "weight": 1.0,
       "source": "src_sebi_rag_api_create_app",
-      "target": "ragpipeline",
+      "target": "src_sebi_rag_api_py_ragpipeline",
       "confidence_score": 1.0
     },
     {
@@ -9529,9 +9519,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L9",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "src_sebi_rag_corpus"
+      "target": "src_sebi_rag_corpus",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -9540,9 +9530,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L10",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "src_sebi_rag_embeddings"
+      "target": "src_sebi_rag_embeddings",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -9551,9 +9541,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L11",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "src_sebi_rag_generate"
+      "target": "src_sebi_rag_generate",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -9562,9 +9552,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L12",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "src_sebi_rag_lineage"
+      "target": "src_sebi_rag_lineage",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -9573,9 +9563,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L13",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "src_sebi_rag_pipeline"
+      "target": "src_sebi_rag_pipeline",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -9584,9 +9574,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L14",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "src_sebi_rag_rerank"
+      "target": "src_sebi_rag_rerank",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -9595,9 +9585,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L15",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "src_sebi_rag_segment"
+      "target": "src_sebi_rag_segment",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -9605,9 +9595,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L18",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "tests_test_api_offline_pipeline"
+      "target": "tests_test_api_offline_pipeline",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -9615,9 +9605,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L49",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "tests_test_api_slow_pipeline"
+      "target": "tests_test_api_slow_pipeline",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -9625,9 +9615,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L43",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "tests_test_api_slowgenerator"
+      "target": "tests_test_api_slowgenerator",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -9635,9 +9625,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L102",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "tests_test_api_test_auth_required_when_key_set"
+      "target": "tests_test_api_test_auth_required_when_key_set",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -9645,9 +9635,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L127",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "tests_test_api_test_citation_meta_reports_superseded"
+      "target": "tests_test_api_test_citation_meta_reports_superseded",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -9655,9 +9645,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L61",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "tests_test_api_test_health"
+      "target": "tests_test_api_test_health",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -9665,9 +9655,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L80",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "tests_test_api_test_query_abstains_out_of_domain"
+      "target": "tests_test_api_test_query_abstains_out_of_domain",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -9675,9 +9665,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L120",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "tests_test_api_test_query_exceeds_time_budget_returns_504"
+      "target": "tests_test_api_test_query_exceeds_time_budget_returns_504",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -9685,9 +9675,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L68",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "tests_test_api_test_query_grounded_with_metadata_and_latency"
+      "target": "tests_test_api_test_query_grounded_with_metadata_and_latency",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -9695,9 +9685,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L111",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "tests_test_api_test_rate_limit"
+      "target": "tests_test_api_test_rate_limit",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -9705,9 +9695,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L137",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "tests_test_api_test_ready_triggers_pipeline"
+      "target": "tests_test_api_test_ready_triggers_pipeline",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -9715,9 +9705,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L93",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "tests_test_api_test_response_carries_certainty_fields"
+      "target": "tests_test_api_test_response_carries_certainty_fields",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -9725,9 +9715,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L87",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "tests_test_api_test_top_k_zero_rejected_422"
+      "target": "tests_test_api_test_top_k_zero_rejected_422",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -9735,9 +9725,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L27",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "tests_test_api_tiny_pipeline"
+      "target": "tests_test_api_tiny_pipeline",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -9745,9 +9735,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api_rationale_1",
-      "target": "tests_test_api"
+      "target": "tests_test_api",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -9756,9 +9746,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L18",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api_offline_pipeline",
-      "target": "tests_test_api_py_ragpipeline"
+      "target": "tests_test_api_py_ragpipeline",
+      "confidence_score": 1.0
     },
     {
       "relation": "indirect_call",
@@ -9767,9 +9757,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L139",
       "weight": 1.0,
-      "confidence_score": 0.5,
       "source": "tests_test_api_test_ready_triggers_pipeline",
-      "target": "tests_test_api_offline_pipeline"
+      "target": "tests_test_api_offline_pipeline",
+      "confidence_score": 0.5
     },
     {
       "relation": "references",
@@ -9778,9 +9768,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L49",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api_slow_pipeline",
-      "target": "tests_test_api_py_ragpipeline"
+      "target": "tests_test_api_py_ragpipeline",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -9789,9 +9779,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L27",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api_tiny_pipeline",
-      "target": "tests_test_api_py_ragpipeline"
+      "target": "tests_test_api_py_ragpipeline",
+      "confidence_score": 1.0
     },
     {
       "relation": "indirect_call",
@@ -9800,9 +9790,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L104",
       "weight": 1.0,
-      "confidence_score": 0.5,
       "source": "tests_test_api_test_auth_required_when_key_set",
-      "target": "tests_test_api_tiny_pipeline"
+      "target": "tests_test_api_tiny_pipeline",
+      "confidence_score": 0.5
     },
     {
       "relation": "indirect_call",
@@ -9811,9 +9801,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L129",
       "weight": 1.0,
-      "confidence_score": 0.5,
       "source": "tests_test_api_test_citation_meta_reports_superseded",
-      "target": "tests_test_api_tiny_pipeline"
+      "target": "tests_test_api_tiny_pipeline",
+      "confidence_score": 0.5
     },
     {
       "relation": "indirect_call",
@@ -9822,9 +9812,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L114",
       "weight": 1.0,
-      "confidence_score": 0.5,
       "source": "tests_test_api_test_rate_limit",
-      "target": "tests_test_api_tiny_pipeline"
+      "target": "tests_test_api_tiny_pipeline",
+      "confidence_score": 0.5
     },
     {
       "relation": "calls",
@@ -9833,9 +9823,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L54",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api_slow_pipeline",
-      "target": "tests_test_api_slowgenerator"
+      "target": "tests_test_api_slowgenerator",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -9843,9 +9833,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L44",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api_slowgenerator",
-      "target": "tests_test_api_slowgenerator_generate"
+      "target": "tests_test_api_slowgenerator_generate",
+      "confidence_score": 1.0
     },
     {
       "relation": "indirect_call",
@@ -9854,9 +9844,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L123",
       "weight": 1.0,
-      "confidence_score": 0.5,
       "source": "tests_test_api_test_query_exceeds_time_budget_returns_504",
-      "target": "tests_test_api_slow_pipeline"
+      "target": "tests_test_api_slow_pipeline",
+      "confidence_score": 0.5
     },
     {
       "relation": "rationale_for",
@@ -9864,9 +9854,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L138",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api_rationale_138",
-      "target": "tests_test_api_test_ready_triggers_pipeline"
+      "target": "tests_test_api_test_ready_triggers_pipeline",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -28904,5 +28894,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "89057ce2eeb2a471c90d1e5c5c3adae82baf2ac0"
+  "built_at_commit": "83a6ebe8f3acbc2a7df0bc6668d86b268a890cfa"
 }
