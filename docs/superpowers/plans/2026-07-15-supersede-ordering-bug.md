@@ -54,13 +54,13 @@ Replace `first_sup` with `sup_positions` (all trigger positions). Check if any r
 - Consumes: `detect_relations_ex(circular_number: str, text: str) -> list[dict]`
 - Produces: test case that fails with current code, passes with fix
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Append to `tests/test_lineage.py` (after line 296):
 
 ```python
 def test_detect_relations_ex_supersedes_when_ref_before_trigger():
-    """A circular that names itself (or another) BEFORE the supersede trigger
+    """A circular that names another circular BEFORE the supersede trigger
     word must still be classified as 'supersedes', not 'references'.
 
     Root cause: detect_relations_ex() tracks only the FIRST supersede trigger
@@ -94,19 +94,21 @@ def test_detect_relations_ex_supersedes_when_ref_before_trigger():
     assert sup[0]["extractor"] == "regex:SUPERSEDE_RE"
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `cd "/Users/ianpinto/sebi_circular_sota_rag/SEBI circular RAG" && python -m pytest tests/test_lineage.py::test_detect_relations_ex_supersedes_when_ref_before_trigger -v`
 
 Expected: FAIL with assertion error — `Expected 'supersedes' relation when reference appears before trigger word, got: [{'relation': 'references', ...}]`
 
-- [ ] **Step 3: Commit test**
+- [x] **Step 3: Commit test**
 
 ```bash
 cd "/Users/ianpinto/sebi_circular_sota_rag/SEBI circular RAG"
 git add tests/test_lineage.py
 git commit -m "test: add supersede-ordering regression (ref before trigger word)"
 ```
+
+Committed as `a570fda`.
 
 ### Task 2: Fix detect_relations_ex() to track all supersede positions
 
@@ -117,7 +119,7 @@ git commit -m "test: add supersede-ordering regression (ref before trigger word)
 - Consumes: `SUPERSEDE_RE` (line 23-27), `REF_RE` (imported from `ingest_pdf`)
 - Produces: `detect_relations_ex()` that correctly classifies "supersedes" when ANY reference appears after ANY supersede trigger
 
-- [ ] **Step 1: Replace first_sup with sup_positions**
+- [x] **Step 1: Replace first_sup with sup_positions**
 
 Replace lines 40-48 in `src/sebi_rag/lineage.py` with:
 
@@ -143,34 +145,45 @@ Key changes:
 
 Rationale: The presence of a supersede trigger word is the signal that the circular performs a supersession act. Positional ordering between refs and triggers is irrelevant — a circular that says "Reference X. This circular supersedes ..." is clearly a supersedes circular regardless of where X appears relative to "supersedes".
 
-- [ ] **Step 2: Run all lineage tests to verify no regression**
+Committed as `f2c20b6`.
+
+- [x] **Step 2: Run all lineage tests to verify no regression**
 
 Run: `cd "/Users/ianpinto/sebi_circular_sota_rag/SEBI circular RAG" && python -m pytest tests/test_lineage.py -v`
 
 Expected: All 21 tests pass (20 existing + 1 new)
 
-- [ ] **Step 3: Run full test suite**
+Result: **21 passed** ✓
+
+- [x] **Step 3: Run full test suite**
 
 Run: `cd "/Users/ianpinto/sebi_circular_sota_rag/SEBI circular RAG" && python -m pytest tests/ -x -q`
 
 Expected: All tests pass (no regression in other modules)
 
-- [ ] **Step 4: Commit fix**
+Result: **239 passed, 0 failed, 2 skipped** ✓
+
+- [x] **Step 4: Commit fix**
 
 ```bash
 cd "/Users/ianpinto/sebi_circular_sota_rag/SEBI circular RAG"
 git add src/sebi_rag/lineage.py tests/test_lineage.py
-git commit -m "fix: classify supersedes when any ref appears after any trigger
+git commit -m "fix: classify supersedes when trigger word exists regardless of ref position
 
 Old code tracked only the first supersede trigger position (first_sup =
-min(...)) and checked whether any reference exceeded that single point.
-When a referenced circular number appeared before the trigger word
-(e.g., 'Reference SEBI/.../2021/024. This circular supersedes ...'),
-the reference was misclassified as 'references' instead of 'supersedes'.
+min(...)) and checked whether any reference appeared after it. When a
+referenced circular number appeared before the trigger word (e.g.,
+'Reference SEBI/.../2021/024. This circular supersedes ...'), the
+reference was misclassified as 'references' instead of 'supersedes'.
 
-Fix: track all supersede trigger positions and check whether any
-reference position exceeds any trigger position."
+Fix: track all supersede trigger positions (sup_positions list). If
+any trigger exists (sup_positions is non-empty), classify as 'supersedes'
+using the first reference's position. The presence of a supersede
+trigger word is the signal — not positional ordering between refs and
+triggers."
 ```
+
+Committed as `f2c20b6`.
 
 ---
 
@@ -184,10 +197,12 @@ reference position exceeds any trigger position."
 
 ---
 
-**Plan complete and saved to `docs/superpowers/plans/2026-07-15-supersede-ordering-bug.md`. Two execution options:**
+**Plan complete.** All tasks executed and verified.
 
-**1. Subagent-Driven (recommended)** - I dispatch a fresh subagent per task, review between tasks, fast iteration
-
-**2. Inline Execution** - Execute tasks in this session using executing-plans, batch execution with checkpoints
-
-**Which approach?**
+**Execution summary:**
+- Regression test committed: `a570fda`
+- Fix committed: `f2c20b6`
+- Plan documentation corrected: `a2cf035`
+- Full test suite: 239 passed, 0 failed, 2 skipped
+- No whitespace errors (`git diff --check` clean)
+- No unintended file changes
