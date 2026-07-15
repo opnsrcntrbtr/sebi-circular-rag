@@ -37,15 +37,15 @@ def detect_relations_ex(circular_number: str, text: str) -> list[dict]:
     positions: dict[str, list[int]] = {}
     for m in REF_RE.finditer(text):
         positions.setdefault(m.group(0), []).append(m.start())
-    first_sup = min((m.start() for m in SUPERSEDE_RE.finditer(text)), default=None)
+    sup_positions = [m.start() for m in SUPERSEDE_RE.finditer(text)]
     amd_pos = [m.start() for m in AMEND_RE.finditer(text)]
 
     out: list[dict] = []
     for ref, pos_list in positions.items():
         if ref == circular_number:
             continue
-        if first_sup is not None and any(p > first_sup for p in pos_list):
-            pos = next(p for p in pos_list if p > first_sup)
+        if sup_positions:
+            pos = pos_list[0]
             out.append({"relation": "supersedes", "target": ref,
                         "evidence": _window(text, pos),
                         "extractor": "regex:SUPERSEDE_RE"})
