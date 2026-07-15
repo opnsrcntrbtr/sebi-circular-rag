@@ -1,0 +1,63 @@
+# ====================================================================
+# GRAPHIFY SPECIFIC BLOCKS
+# Prevent Claude from reading raw static graph assets or large JSON dumps.
+# Force Claude to use Graphify's built-in query tools instead.
+# ====================================================================
+graphify_out/
+*.json
+!graph_report.md
+!AGENTS.md
+!claw.md
+
+# ====================================================================
+# PYTHON & ENVIRONMENT BLOCKS
+# ====================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.env
+.env.*
+
+# ====================================================================
+# DATA, EMBEDDINGS, & VECTOR DATABASE BLOCKS
+# Ignore chunked texts, vectors, and local DB instances.
+# ====================================================================
+data/
+inputs/
+outputs/
+*.csv
+*.xlsx
+*.pdf
+*.txt
+*.md
+!README.md
+!docs/
+*.parquet
+
+# Local Vector Databases & Graph Stores
+.chroma/
+chroma_db/
+faiss_index/
+qdrant_storage/
+.milvus/
+neo4j/data/
+
+# ====================================================================
+# BUILD, PACKAGING, & IDE BLOCKS
+# ====================================================================
+.git/
+.github/
+.pytest_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# IDE settings
+.vscode/
+.idea/
+.DS_Store
