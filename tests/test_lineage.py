@@ -293,3 +293,38 @@ def test_annotate_corpus_adds_master_fields_and_consolidates_edges(tmp_path):
     assert summary["consolidates_edges"] == len(cons)
     # locked rule: consolidates never flips validity
     assert q["validity_status"] in ("current", "unknown")
+
+
+def test_detect_relations_ex_supersedes_when_ref_before_trigger():
+    """A circular that names another circular BEFORE the supersede trigger
+    word must still be classified as 'supersedes', not 'references'.
+
+    Root cause: detect_relations_ex() tracks only the FIRST supersede trigger
+    position (line 40: first_sup = min(...)) and checks whether any reference
+    position exceeds that single point.  When a reference appears before the
+    trigger text, the check fails and the relation is misclassified as
+    'references'.
+
+    Example text: the referenced circular number appears at char ~4, but
+    'supersedes' appears at char ~40.  The old code sees 4 < 40 and falls
+    through to 'references'.
+    """
+    from sebi_rag.lineage import detect_relations_ex
+
+    # The referenced circular number appears BEFORE the trigger word "supersedes"
+    text = (
+        "Reference SEBI/HO/IMD/DF2/CIR/P/2021/024 dated March 15, 2021. "
+        "This circular supersedes the above cited circulars with immediate effect."
+    )
+    rels = detect_relations_ex(
+        "SEBI/HO/IMD/DF2/CIR/P/2024/031", text
+    )
+
+    # Must classify as supersedes, NOT references
+    sup = [r for r in rels if r["relation"] == "supersedes"]
+    assert len(sup) >= 1, (
+        f"Expected 'supersedes' relation when reference appears before "
+        f"trigger word, got: {rels}"
+    )
+    assert sup[0]["target"] == "SEBI/HO/IMD/DF2/CIR/P/2021/024"
+    assert sup[0]["extractor"] == "regex:SUPERSEDE_RE"
