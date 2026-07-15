@@ -27,7 +27,7 @@
 - Consumes: existing test infrastructure (TestClient, create_app)
 - Produces: test pass/fail baseline count
 
-- [ ] **Step 1: Run the full test suite to establish a baseline**
+- [x] **Step 1: Run the full test suite to establish a baseline**
 
 Run:
 ```bash
@@ -36,7 +36,7 @@ cd "/Users/ianpinto/sebi_circular_sota_rag/SEBI circular RAG" && python -m pytes
 
 Expected: All existing tests pass (239 passed, 2 deselected — matching prior session baseline). Record the exact pass/fail count and any failures.
 
-- [ ] **Step 2: Record the test baseline in the plan document**
+- [x] **Step 2: Record the test baseline in the plan document**
 
 Append to this plan doc under a "Test Baseline" section:
 ```
@@ -55,7 +55,7 @@ Exit code: <N>
 - Consumes: current working tree state
 - Produces: clean status confirmation (no unexpected changes)
 
-- [ ] **Step 3: Check git status is clean (no unexpected changes)**
+- [x] **Step 3: Check git status is clean (no unexpected changes)**
 
 Run:
 ```bash
@@ -64,7 +64,7 @@ cd "/Users/ianpinto/sebi_circular_sota_rag/SEBI circular RAG" && git status --sh
 
 Expected: Empty output (working tree clean) or only expected untracked files. No modified files other than what we intentionally change.
 
-- [ ] **Step 4: Record git status result**
+- [x] **Step 4: Record git status result**
 
 Append to this plan doc:
 ```
@@ -82,7 +82,7 @@ Git Status: <output or "clean">
 - Consumes: any changes made during validation
 - Produces: whitespace-clean diff confirmation
 
-- [ ] **Step 5: Check diff has no whitespace errors**
+- [x] **Step 5: Check diff has no whitespace errors**
 
 Run:
 ```bash
@@ -91,7 +91,7 @@ cd "/Users/ianpinto/sebi_circular_sota_rag/SEBI circular RAG" && git diff --chec
 
 Expected: Exit code 0, no whitespace error lines output. If any trailing whitespace or tabs before spaces exist, they will be reported.
 
-- [ ] **Step 6: Show the full diff for review**
+- [x] **Step 6: Show the full diff for review**
 
 Run:
 ```bash
@@ -111,7 +111,7 @@ Expected: Shows all changes made during this validation session. Record the diff
 - Consumes: results from Tasks 1-3
 - Produces: pass/fail on each acceptance criterion
 
-- [ ] **Step 7: Verify acceptance criteria**
+- [x] **Step 7: Verify acceptance criteria**
 
 Check each criterion against the evidence gathered:
 
@@ -131,7 +131,7 @@ For each criterion:
 - Mark [x] for pass or [ ] for fail
 - If any criterion fails, document what needs to change
 
-- [ ] **Step 8: Report completion in this plan document**
+- [x] **Step 8: Report completion in this plan document**
 
 Append a "Validation Results" section with:
 ```
