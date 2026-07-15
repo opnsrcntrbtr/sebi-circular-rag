@@ -17,6 +17,11 @@ except ModuleNotFoundError:  # Python < 3.11 (e.g. HF Spaces default image)
 ROOT = Path(__file__).resolve().parents[2]
 
 
+def _get(key: str, default, prefix: str, svc: dict) -> object:
+    """Resolve a setting: env var > config dict > default."""
+    return os.environ.get(prefix + key.upper(), svc.get(key, default))
+
+
 @dataclass(frozen=True)
 class SpacesSettings:
     """[spaces] table: Hugging Face Spaces demo (CPU-only, HF-dataset corpus).
@@ -63,19 +68,16 @@ class Settings:
         if p.exists():
             svc = tomllib.loads(p.read_text(encoding="utf-8")).get("service", {})
 
-        def get(key: str, default):
-            return os.environ.get("SEBI_RAG_" + key.upper(), svc.get(key, default))
-
         return cls(
-            corpus_path=str(get("corpus_path", str(ROOT / "data" / "corpus" / "circulars.jsonl"))),
-            index_dir=str(get("index_dir", str(ROOT / "data" / "index"))),
-            generator=str(get("generator", "mlx")),
-            mlx_model=str(get("mlx_model", "mlx-community/Qwen2.5-1.5B-Instruct-4bit")),
-            top_k=int(get("top_k", 3)),
-            abstain_threshold=float(get("abstain_threshold", 0.05)),
-            superseded_penalty=float(get("superseded_penalty", 0.3)),
-            rate_per_min=int(get("rate_per_min", 60)),
-            timeout_s=float(get("timeout_s", 30.0)),
+            corpus_path=str(_get("corpus_path", str(ROOT / "data" / "corpus" / "circulars.jsonl"), "SEBI_RAG_", svc)),
+            index_dir=str(_get("index_dir", str(ROOT / "data" / "index"), "SEBI_RAG_", svc)),
+            generator=str(_get("generator", "mlx", "SEBI_RAG_", svc)),
+            mlx_model=str(_get("mlx_model", "mlx-community/Qwen2.5-1.5B-Instruct-4bit", "SEBI_RAG_", svc)),
+            top_k=int(_get("top_k", 3, "SEBI_RAG_", svc)),
+            abstain_threshold=float(_get("abstain_threshold", 0.05, "SEBI_RAG_", svc)),
+            superseded_penalty=float(_get("superseded_penalty", 0.3, "SEBI_RAG_", svc)),
+            rate_per_min=int(_get("rate_per_min", 60, "SEBI_RAG_", svc)),
+            timeout_s=float(_get("timeout_s", 30.0, "SEBI_RAG_", svc)),
         )
 
     @classmethod
@@ -93,29 +95,26 @@ class Settings:
         if p.exists():
             tbl = tomllib.loads(p.read_text(encoding="utf-8")).get("spaces", {})
 
-        def get(key: str, default):
-            return os.environ.get("SEBI_RAG_SPACES_" + key.upper(), tbl.get(key, default))
-
         d = SpacesSettings()  # defaults
-        years = get("recent_years", list(d.recent_years))
+        years = _get("recent_years", list(d.recent_years), "SEBI_RAG_SPACES_", tbl)
         if isinstance(years, str):  # env override, e.g. "2025,2026"
             years = [y for y in years.replace(",", " ").split() if y]
         sp = SpacesSettings(
-            dataset_repo=str(get("dataset_repo", d.dataset_repo)),
-            index_repo=str(get("index_repo", d.index_repo)),
-            default_config=str(get("default_config", d.default_config)),
-            default_subset=str(get("default_subset", d.default_subset)),
+            dataset_repo=str(_get("dataset_repo", d.dataset_repo, "SEBI_RAG_SPACES_", tbl)),
+            index_repo=str(_get("index_repo", d.index_repo, "SEBI_RAG_SPACES_", tbl)),
+            default_config=str(_get("default_config", d.default_config, "SEBI_RAG_SPACES_", tbl)),
+            default_subset=str(_get("default_subset", d.default_subset, "SEBI_RAG_SPACES_", tbl)),
             recent_years=tuple(int(y) for y in years),
-            external_space=str(get("external_space", d.external_space)),
-            external_api_name=str(get("external_api_name", d.external_api_name)),
-            external_timeout_s=float(get("external_timeout_s", d.external_timeout_s)),
-            hf_model=str(get("hf_model", d.hf_model)),
-            max_tokens=int(get("max_tokens", d.max_tokens)),
-            temperature=float(get("temperature", d.temperature)),
-            top_p=float(get("top_p", d.top_p)),
-            top_k=int(get("top_k", d.top_k)),
-            timeout_s=float(get("timeout_s", d.timeout_s)),
-            abstain_threshold=float(get("abstain_threshold", d.abstain_threshold)),
-            superseded_penalty=float(get("superseded_penalty", d.superseded_penalty)),
+            external_space=str(_get("external_space", d.external_space, "SEBI_RAG_SPACES_", tbl)),
+            external_api_name=str(_get("external_api_name", d.external_api_name, "SEBI_RAG_SPACES_", tbl)),
+            external_timeout_s=float(_get("external_timeout_s", d.external_timeout_s, "SEBI_RAG_SPACES_", tbl)),
+            hf_model=str(_get("hf_model", d.hf_model, "SEBI_RAG_SPACES_", tbl)),
+            max_tokens=int(_get("max_tokens", d.max_tokens, "SEBI_RAG_SPACES_", tbl)),
+            temperature=float(_get("temperature", d.temperature, "SEBI_RAG_SPACES_", tbl)),
+            top_p=float(_get("top_p", d.top_p, "SEBI_RAG_SPACES_", tbl)),
+            top_k=int(_get("top_k", d.top_k, "SEBI_RAG_SPACES_", tbl)),
+            timeout_s=float(_get("timeout_s", d.timeout_s, "SEBI_RAG_SPACES_", tbl)),
+            abstain_threshold=float(_get("abstain_threshold", d.abstain_threshold, "SEBI_RAG_SPACES_", tbl)),
+            superseded_penalty=float(_get("superseded_penalty", d.superseded_penalty, "SEBI_RAG_SPACES_", tbl)),
         )
         return dataclasses.replace(base, spaces=sp)
