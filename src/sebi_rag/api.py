@@ -40,6 +40,7 @@ class QueryRequest(BaseModel):
     # no-context abstention; degenerate values are now a 422.
     top_k: int | None = Field(default=None, ge=1, le=10)
     advisory: bool = False  # opt-in low-confidence draft on gate failure
+    as_of: str | None = None  # date-scoped query: score against law as of date
 
 
 class CitationMeta(BaseModel):
@@ -188,7 +189,7 @@ def create_app(
         top_k = req.top_k if req.top_k is not None else cfg.top_k
         budget = cfg.timeout_s
         fut = _executor.submit(p.query, req.question, top_k=top_k,
-                              advisory=req.advisory)
+                              advisory=req.advisory, as_of=req.as_of)
         try:
             ans, retrieved = fut.result(timeout=budget)
         except FutureTimeout:

@@ -45,7 +45,7 @@ class RAGPipeline:
     ) -> tuple[Answer, list[str]]:
         candidates = self.retriever.retrieve(question, top_n=pool)
         reranked = self.reranker.rerank(question, [c for c, _ in candidates])
-        if as_of and self.lineage is not None:
+        if as_of is not None and self.lineage is not None:
             # As-of queries score against the law as it stood on `as_of`:
             # a circular is demoted only if a superseding circular had
             # already been issued by `as_of` (per-edge timing). The global
