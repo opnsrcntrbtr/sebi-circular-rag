@@ -10,7 +10,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_api",
-      "community": 0,
+      "community": 26,
       "norm_label": "api.py"
     },
     {
@@ -20,7 +20,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "src_sebi_rag_api_queryrequest",
-      "community": 0,
+      "community": 26,
       "norm_label": "queryrequest"
     },
     {
@@ -30,7 +30,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "basemodel",
-      "community": 0,
+      "community": 26,
       "norm_label": "basemodel"
     },
     {
@@ -40,7 +40,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "src_sebi_rag_api_citationmeta",
-      "community": 0,
+      "community": 26,
       "norm_label": "citationmeta"
     },
     {
@@ -50,7 +50,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "src_sebi_rag_api_queryresponse",
-      "community": 0,
+      "community": 26,
       "norm_label": "queryresponse"
     },
     {
@@ -60,8 +60,18 @@
       "source_location": "L69",
       "_origin": "ast",
       "id": "src_sebi_rag_api_build_default_pipeline",
-      "community": 0,
+      "community": 26,
       "norm_label": "build_default_pipeline()"
+    },
+    {
+      "label": "RAGPipeline",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "src_sebi_rag_api_py_ragpipeline",
+      "community": 26,
+      "norm_label": "ragpipeline"
     },
     {
       "label": "_citation_meta()",
@@ -70,7 +80,7 @@
       "source_location": "L120",
       "_origin": "ast",
       "id": "src_sebi_rag_api_citation_meta",
-      "community": 0,
+      "community": 26,
       "norm_label": "_citation_meta()"
     },
     {
@@ -79,8 +89,8 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "id": "src_sebi_rag_api_py_lineage",
-      "community": 0,
+      "id": "lineage",
+      "community": 26,
       "norm_label": "lineage"
     },
     {
@@ -90,7 +100,7 @@
       "source_location": "L138",
       "_origin": "ast",
       "id": "src_sebi_rag_api_create_app",
-      "community": 0,
+      "community": 26,
       "norm_label": "create_app()"
     },
     {
@@ -100,7 +110,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "settings",
-      "community": 0,
+      "community": 26,
       "norm_label": "settings"
     },
     {
@@ -110,7 +120,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "fastapi",
-      "community": 0,
+      "community": 26,
       "norm_label": "fastapi"
     },
     {
@@ -120,68 +130,198 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_api_rationale_1",
-      "community": 0,
+      "community": 26,
       "norm_label": "fastapi service over the sebi circular rag pipeline.  run (real stack; loads the"
     },
     {
-      "label": "pipeline.py",
+      "label": "test_api.py",
       "file_type": "code",
-      "source_file": "src/sebi_rag/pipeline.py",
+      "source_file": "tests/test_api.py",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "src_sebi_rag_pipeline",
-      "community": 0,
-      "norm_label": "pipeline.py"
+      "id": "tests_test_api",
+      "community": 26,
+      "norm_label": "test_api.py"
+    },
+    {
+      "label": "_offline_pipeline()",
+      "file_type": "code",
+      "source_file": "tests/test_api.py",
+      "source_location": "L18",
+      "_origin": "ast",
+      "id": "tests_test_api_offline_pipeline",
+      "community": 26,
+      "norm_label": "_offline_pipeline()"
     },
     {
       "label": "RAGPipeline",
       "file_type": "code",
-      "source_file": "src/sebi_rag/pipeline.py",
-      "source_location": "L15",
+      "source_file": "",
+      "source_location": "",
       "_origin": "ast",
-      "id": "src_sebi_rag_pipeline_ragpipeline",
-      "community": 0,
+      "id": "tests_test_api_py_ragpipeline",
+      "community": 26,
       "norm_label": "ragpipeline"
     },
     {
-      "label": ".build()",
+      "label": "_tiny_pipeline()",
       "file_type": "code",
-      "source_file": "src/sebi_rag/pipeline.py",
-      "source_location": "L25",
+      "source_file": "tests/test_api.py",
+      "source_location": "L27",
       "_origin": "ast",
-      "id": "src_sebi_rag_pipeline_ragpipeline_build",
-      "community": 0,
-      "norm_label": ".build()"
+      "id": "tests_test_api_tiny_pipeline",
+      "community": 26,
+      "norm_label": "_tiny_pipeline()"
     },
     {
-      "label": "Chunk",
+      "label": "_SlowGenerator",
       "file_type": "code",
-      "source_file": "",
-      "source_location": "",
+      "source_file": "tests/test_api.py",
+      "source_location": "L43",
       "_origin": "ast",
-      "id": "chunk",
-      "community": 0,
-      "norm_label": "chunk"
+      "id": "tests_test_api_slowgenerator",
+      "community": 26,
+      "norm_label": "_slowgenerator"
     },
     {
-      "label": "Embedder",
+      "label": ".generate()",
       "file_type": "code",
-      "source_file": "",
-      "source_location": "",
+      "source_file": "tests/test_api.py",
+      "source_location": "L44",
       "_origin": "ast",
-      "id": "embedder",
-      "community": 0,
-      "norm_label": "embedder"
+      "id": "tests_test_api_slowgenerator_generate",
+      "community": 26,
+      "norm_label": ".generate()"
     },
     {
-      "label": "Reranker",
+      "label": "_slow_pipeline()",
       "file_type": "code",
-      "source_file": "",
-      "source_location": "",
+      "source_file": "tests/test_api.py",
+      "source_location": "L49",
       "_origin": "ast",
-      "id": "reranker",
-      "community": 0,
-      "norm_label": "reranker"
+      "id": "tests_test_api_slow_pipeline",
+      "community": 26,
+      "norm_label": "_slow_pipeline()"
+    },
+    {
+      "label": "test_health()",
+      "file_type": "code",
+      "source_file": "tests/test_api.py",
+      "source_location": "L61",
+      "_origin": "ast",
+      "id": "tests_test_api_test_health",
+      "community": 26,
+      "norm_label": "test_health()"
+    },
+    {
+      "label": "test_query_grounded_with_metadata_and_latency()",
+      "file_type": "code",
+      "source_file": "tests/test_api.py",
+      "source_location": "L68",
+      "_origin": "ast",
+      "id": "tests_test_api_test_query_grounded_with_metadata_and_latency",
+      "community": 26,
+      "norm_label": "test_query_grounded_with_metadata_and_latency()"
+    },
+    {
+      "label": "test_query_abstains_out_of_domain()",
+      "file_type": "code",
+      "source_file": "tests/test_api.py",
+      "source_location": "L80",
+      "_origin": "ast",
+      "id": "tests_test_api_test_query_abstains_out_of_domain",
+      "community": 26,
+      "norm_label": "test_query_abstains_out_of_domain()"
+    },
+    {
+      "label": "test_top_k_zero_rejected_422()",
+      "file_type": "code",
+      "source_file": "tests/test_api.py",
+      "source_location": "L87",
+      "_origin": "ast",
+      "id": "tests_test_api_test_top_k_zero_rejected_422",
+      "community": 26,
+      "norm_label": "test_top_k_zero_rejected_422()"
+    },
+    {
+      "label": "test_response_carries_certainty_fields()",
+      "file_type": "code",
+      "source_file": "tests/test_api.py",
+      "source_location": "L93",
+      "_origin": "ast",
+      "id": "tests_test_api_test_response_carries_certainty_fields",
+      "community": 26,
+      "norm_label": "test_response_carries_certainty_fields()"
+    },
+    {
+      "label": "test_auth_required_when_key_set()",
+      "file_type": "code",
+      "source_file": "tests/test_api.py",
+      "source_location": "L102",
+      "_origin": "ast",
+      "id": "tests_test_api_test_auth_required_when_key_set",
+      "community": 26,
+      "norm_label": "test_auth_required_when_key_set()"
+    },
+    {
+      "label": "test_rate_limit()",
+      "file_type": "code",
+      "source_file": "tests/test_api.py",
+      "source_location": "L111",
+      "_origin": "ast",
+      "id": "tests_test_api_test_rate_limit",
+      "community": 26,
+      "norm_label": "test_rate_limit()"
+    },
+    {
+      "label": "test_query_exceeds_time_budget_returns_504()",
+      "file_type": "code",
+      "source_file": "tests/test_api.py",
+      "source_location": "L120",
+      "_origin": "ast",
+      "id": "tests_test_api_test_query_exceeds_time_budget_returns_504",
+      "community": 26,
+      "norm_label": "test_query_exceeds_time_budget_returns_504()"
+    },
+    {
+      "label": "test_citation_meta_reports_superseded()",
+      "file_type": "code",
+      "source_file": "tests/test_api.py",
+      "source_location": "L127",
+      "_origin": "ast",
+      "id": "tests_test_api_test_citation_meta_reports_superseded",
+      "community": 26,
+      "norm_label": "test_citation_meta_reports_superseded()"
+    },
+    {
+      "label": "test_ready_triggers_pipeline()",
+      "file_type": "code",
+      "source_file": "tests/test_api.py",
+      "source_location": "L137",
+      "_origin": "ast",
+      "id": "tests_test_api_test_ready_triggers_pipeline",
+      "community": 26,
+      "norm_label": "test_ready_triggers_pipeline()"
+    },
+    {
+      "label": "FastAPI service tests (offline pipelines): endpoints, auth, rate limit, metadata",
+      "file_type": "rationale",
+      "source_file": "tests/test_api.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "tests_test_api_rationale_1",
+      "community": 26,
+      "norm_label": "fastapi service tests (offline pipelines): endpoints, auth, rate limit, metadata"
+    },
+    {
+      "label": "/ready should trigger pipeline build and return ready=true.",
+      "file_type": "rationale",
+      "source_file": "tests/test_api.py",
+      "source_location": "L138",
+      "_origin": "ast",
+      "id": "tests_test_api_rationale_138",
+      "community": 26,
+      "norm_label": "/ready should trigger pipeline build and return ready=true."
     },
     {
       "label": "Lineage",
@@ -189,9 +329,79 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "id": "src_sebi_rag_pipeline_py_lineage",
+      "community": 40,
+      "norm_label": "lineage",
+      "id": "src_sebi_rag_api_py_lineage"
+    },
+    {
+      "label": "pipeline.py",
+      "file_type": "code",
+      "source_file": "src/sebi_rag/pipeline.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "pipeline.py",
+      "id": "src_sebi_rag_pipeline"
+    },
+    {
+      "label": "RAGPipeline",
+      "file_type": "code",
+      "source_file": "src/sebi_rag/pipeline.py",
+      "source_location": "L15",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "ragpipeline",
+      "id": "src_sebi_rag_pipeline_ragpipeline"
+    },
+    {
+      "label": ".build()",
+      "file_type": "code",
+      "source_file": "src/sebi_rag/pipeline.py",
+      "source_location": "L25",
+      "_origin": "ast",
       "community": 0,
-      "norm_label": "lineage"
+      "norm_label": ".build()",
+      "id": "src_sebi_rag_pipeline_ragpipeline_build"
+    },
+    {
+      "label": "Chunk",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "chunk",
+      "id": "chunk"
+    },
+    {
+      "label": "Embedder",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "embedder",
+      "id": "embedder"
+    },
+    {
+      "label": "Reranker",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "reranker",
+      "id": "reranker"
+    },
+    {
+      "label": "Lineage",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "lineage",
+      "id": "src_sebi_rag_pipeline_py_lineage"
     },
     {
       "label": ".query()",
@@ -199,9 +409,9 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L42",
       "_origin": "ast",
-      "id": "src_sebi_rag_pipeline_ragpipeline_query",
-      "community": 0,
-      "norm_label": ".query()"
+      "community": 1,
+      "norm_label": ".query()",
+      "id": "src_sebi_rag_pipeline_ragpipeline_query"
     },
     {
       "label": "Answer",
@@ -209,9 +419,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "id": "answer",
-      "community": 0,
-      "norm_label": "answer"
+      "community": 1,
+      "norm_label": "answer",
+      "id": "answer"
     },
     {
       "label": "End-to-end wiring: segment -> hybrid retrieve -> rerank -> generate/abstain.",
@@ -219,9 +429,9 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "src_sebi_rag_pipeline_rationale_1",
-      "community": 0,
-      "norm_label": "end-to-end wiring: segment -> hybrid retrieve -> rerank -> generate/abstain."
+      "community": 1,
+      "norm_label": "end-to-end wiring: segment -> hybrid retrieve -> rerank -> generate/abstain.",
+      "id": "src_sebi_rag_pipeline_rationale_1"
     },
     {
       "label": "settings.py",
@@ -675,7 +885,7 @@
       "source_file": "scripts/bench_generators.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 14,
+      "community": 23,
       "norm_label": "bench_generators.py",
       "id": "scripts_bench_generators"
     },
@@ -685,7 +895,7 @@
       "source_file": "scripts/bench_generators.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 14,
+      "community": 23,
       "norm_label": "benchmark mlx generators on the golden set: faithfulness, groundedness, abstenti",
       "id": "scripts_bench_generators_rationale_1"
     },
@@ -695,7 +905,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "bench_rerankers.py",
       "id": "scripts_bench_rerankers"
     },
@@ -705,7 +915,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L42",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "auroc()",
       "id": "scripts_bench_rerankers_auroc"
     },
@@ -715,7 +925,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L51",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "best_threshold()",
       "id": "scripts_bench_rerankers_best_threshold"
     },
@@ -725,7 +935,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L65",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "evaluate()",
       "id": "scripts_bench_rerankers_evaluate"
     },
@@ -735,7 +945,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L97",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "main()",
       "id": "scripts_bench_rerankers_main"
     },
@@ -745,7 +955,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "f2 (adr-001): benchmark rerankers on golden_v5 with cluster-separation metrics.",
       "id": "scripts_bench_rerankers_rationale_1"
     },
@@ -755,7 +965,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L43",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "p(pos_score > neg_score); ties count half. pos = answerable top-scores,     neg",
       "id": "scripts_bench_rerankers_rationale_43"
     },
@@ -765,7 +975,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L52",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "threshold maximising abstention accuracy: answer if score >= thr.     returns (t",
       "id": "scripts_bench_rerankers_rationale_52"
     },
@@ -865,7 +1075,7 @@
       "source_file": "scripts/build_index.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 14,
+      "community": 23,
       "norm_label": "build_index.py",
       "id": "scripts_build_index"
     },
@@ -875,7 +1085,7 @@
       "source_file": "scripts/build_index.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 14,
+      "community": 23,
       "norm_label": "build the dense+sparse index once and persist it (run after corpus changes).",
       "id": "scripts_build_index_rationale_1"
     },
@@ -885,7 +1095,7 @@
       "source_file": "scripts/calibrate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 14,
+      "community": 1,
       "norm_label": "calibrate.py",
       "id": "scripts_calibrate"
     },
@@ -905,7 +1115,7 @@
       "source_file": "scripts/calibrate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 14,
+      "community": 1,
       "norm_label": "calibrate top_k and the abstention threshold against the citation-precision sign",
       "id": "scripts_calibrate_rationale_1"
     },
@@ -1125,7 +1335,7 @@
       "source_file": "scripts/eval_asof.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 14,
+      "community": 1,
       "norm_label": "eval_asof.py",
       "id": "scripts_eval_asof"
     },
@@ -1135,7 +1345,7 @@
       "source_file": "scripts/eval_asof.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 14,
+      "community": 1,
       "norm_label": "run eval/golden/golden_asof_v1.jsonl (selector + pipeline modes) against the per",
       "id": "scripts_eval_asof_rationale_1"
     },
@@ -1145,7 +1355,7 @@
       "source_file": "scripts/eval_gate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 15,
+      "community": 23,
       "norm_label": "eval_gate.py",
       "id": "scripts_eval_gate"
     },
@@ -1155,7 +1365,7 @@
       "source_file": "scripts/eval_gate.py",
       "source_location": "L45",
       "_origin": "ast",
-      "community": 15,
+      "community": 28,
       "norm_label": "contexts_for()",
       "id": "scripts_eval_gate_contexts_for"
     },
@@ -1165,7 +1375,7 @@
       "source_file": "scripts/eval_gate.py",
       "source_location": "L60",
       "_origin": "ast",
-      "community": 15,
+      "community": 23,
       "norm_label": "auroc()",
       "id": "scripts_eval_gate_auroc"
     },
@@ -1175,7 +1385,7 @@
       "source_file": "scripts/eval_gate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 15,
+      "community": 23,
       "norm_label": "adr-002 follow-up: compare the production subject-sim gate against the section-a",
       "id": "scripts_eval_gate_rationale_1"
     },
@@ -1185,7 +1395,7 @@
       "source_file": "scripts/eval_json.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 14,
+      "community": 23,
       "norm_label": "eval_json.py",
       "id": "scripts_eval_json"
     },
@@ -1195,7 +1405,7 @@
       "source_file": "scripts/eval_json.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 14,
+      "community": 23,
       "norm_label": "emit one json line of retrieval/citation/abstention metrics over golden_v5 (env",
       "id": "scripts_eval_json_rationale_1"
     },
@@ -2831,7 +3041,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 14,
+      "community": 23,
       "norm_label": "embeddings.py",
       "id": "src_sebi_rag_embeddings"
     },
@@ -2841,7 +3051,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L17",
       "_origin": "ast",
-      "community": 29,
+      "community": 23,
       "norm_label": "_tokens()",
       "id": "src_sebi_rag_embeddings_tokens"
     },
@@ -2871,7 +3081,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L25",
       "_origin": "ast",
-      "community": 29,
+      "community": 23,
       "norm_label": ".encode()",
       "id": "src_sebi_rag_embeddings_embedder_encode"
     },
@@ -2881,7 +3091,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 29,
+      "community": 23,
       "norm_label": "ndarray",
       "id": "src_sebi_rag_embeddings_py_ndarray"
     },
@@ -2911,7 +3121,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L40",
       "_origin": "ast",
-      "community": 29,
+      "community": 23,
       "norm_label": ".encode()",
       "id": "src_sebi_rag_embeddings_hashembedder_encode"
     },
@@ -2941,7 +3151,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L67",
       "_origin": "ast",
-      "community": 29,
+      "community": 23,
       "norm_label": ".encode()",
       "id": "src_sebi_rag_embeddings_bgem3embedder_encode"
     },
@@ -2951,7 +3161,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 14,
+      "community": 23,
       "norm_label": "embedder protocol + a deterministic test embedder + the real bge-m3 embedder.  t",
       "id": "src_sebi_rag_embeddings_rationale_1"
     },
@@ -3031,7 +3241,7 @@
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 13,
+      "community": 1,
       "norm_label": "eval_asof.py",
       "id": "src_sebi_rag_eval_asof"
     },
@@ -3041,7 +3251,7 @@
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 13,
+      "community": 1,
       "norm_label": "load_golden_asof()",
       "id": "src_sebi_rag_eval_asof_load_golden_asof"
     },
@@ -3051,7 +3261,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 13,
+      "community": 1,
       "norm_label": "path",
       "id": "src_sebi_rag_eval_asof_py_path"
     },
@@ -3061,7 +3271,7 @@
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L33",
       "_origin": "ast",
-      "community": 13,
+      "community": 1,
       "norm_label": "asofcaseresult",
       "id": "src_sebi_rag_eval_asof_asofcaseresult"
     },
@@ -3071,7 +3281,7 @@
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L40",
       "_origin": "ast",
-      "community": 13,
+      "community": 1,
       "norm_label": "run_selector_cases()",
       "id": "src_sebi_rag_eval_asof_run_selector_cases"
     },
@@ -3081,7 +3291,7 @@
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L55",
       "_origin": "ast",
-      "community": 13,
+      "community": 1,
       "norm_label": "run_pipeline_cases()",
       "id": "src_sebi_rag_eval_asof_run_pipeline_cases"
     },
@@ -3091,7 +3301,7 @@
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L74",
       "_origin": "ast",
-      "community": 13,
+      "community": 1,
       "norm_label": "summarize()",
       "id": "src_sebi_rag_eval_asof_summarize"
     },
@@ -3101,7 +3311,7 @@
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 13,
+      "community": 1,
       "norm_label": "as-of-date golden evaluation runner (p4b).  two case modes drawn from eval/golde",
       "id": "src_sebi_rag_eval_asof_rationale_1"
     },
@@ -3211,7 +3421,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L21",
       "_origin": "ast",
-      "community": 20,
+      "community": 14,
       "norm_label": "faithfulness()",
       "id": "src_sebi_rag_generate_faithfulness"
     },
@@ -3231,7 +3441,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L55",
       "_origin": "ast",
-      "community": 10,
+      "community": 6,
       "norm_label": "generator",
       "id": "src_sebi_rag_generate_generator"
     },
@@ -3241,7 +3451,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L56",
       "_origin": "ast",
-      "community": 10,
+      "community": 6,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_generator_generate"
     },
@@ -3371,7 +3581,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L176",
       "_origin": "ast",
-      "community": 19,
+      "community": 29,
       "norm_label": "subjectsimjudge",
       "id": "src_sebi_rag_generate_subjectsimjudge"
     },
@@ -3381,7 +3591,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L186",
       "_origin": "ast",
-      "community": 19,
+      "community": 29,
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_generate_subjectsimjudge_init"
     },
@@ -3391,7 +3601,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L203",
       "_origin": "ast",
-      "community": 19,
+      "community": 29,
       "norm_label": "._vec()",
       "id": "src_sebi_rag_generate_subjectsimjudge_vec"
     },
@@ -3401,7 +3611,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L211",
       "_origin": "ast",
-      "community": 19,
+      "community": 29,
       "norm_label": "._section_heading()",
       "id": "src_sebi_rag_generate_subjectsimjudge_section_heading"
     },
@@ -3411,7 +3621,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L218",
       "_origin": "ast",
-      "community": 19,
+      "community": 29,
       "norm_label": ".score()",
       "id": "src_sebi_rag_generate_subjectsimjudge_score"
     },
@@ -3421,7 +3631,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L229",
       "_origin": "ast",
-      "community": 19,
+      "community": 29,
       "norm_label": ".section_score()",
       "id": "src_sebi_rag_generate_subjectsimjudge_section_score"
     },
@@ -3431,7 +3641,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L238",
       "_origin": "ast",
-      "community": 19,
+      "community": 29,
       "norm_label": ".grounded()",
       "id": "src_sebi_rag_generate_subjectsimjudge_grounded"
     },
@@ -3531,7 +3741,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 20,
+      "community": 14,
       "norm_label": "check that every circular id the answer cites (in square brackets) was     actua",
       "id": "src_sebi_rag_generate_rationale_22"
     },
@@ -3591,7 +3801,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L177",
       "_origin": "ast",
-      "community": 19,
+      "community": 29,
       "norm_label": "adopted gate (eval_gate round 3): deterministic groundedness signal \u2014     max co",
       "id": "src_sebi_rag_generate_rationale_177"
     },
@@ -3601,7 +3811,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L219",
       "_origin": "ast",
-      "community": 19,
+      "community": 29,
       "norm_label": "max cosine(query, doc subject line) over contexts \u2014 the primary         gate sig",
       "id": "src_sebi_rag_generate_rationale_219"
     },
@@ -3611,7 +3821,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L230",
       "_origin": "ast",
-      "community": 19,
+      "community": 29,
       "norm_label": "max cosine(query, section heading) over contexts \u2014 the second tier.",
       "id": "src_sebi_rag_generate_rationale_230"
     },
@@ -3681,7 +3891,7 @@
       "source_file": "src/sebi_rag/generate_spaces.py",
       "source_location": "L56",
       "_origin": "ast",
-      "community": 10,
+      "community": 6,
       "norm_label": "._get_client()",
       "id": "src_sebi_rag_generate_spaces_externalspacegenerator_get_client"
     },
@@ -3691,7 +3901,7 @@
       "source_file": "src/sebi_rag/generate_spaces.py",
       "source_location": "L65",
       "_origin": "ast",
-      "community": 10,
+      "community": 6,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_spaces_externalspacegenerator_generate"
     },
@@ -3721,7 +3931,7 @@
       "source_file": "src/sebi_rag/generate_spaces.py",
       "source_location": "L95",
       "_origin": "ast",
-      "community": 10,
+      "community": 6,
       "norm_label": "._load()",
       "id": "src_sebi_rag_generate_spaces_hfgenerator_load"
     },
@@ -3731,7 +3941,7 @@
       "source_file": "src/sebi_rag/generate_spaces.py",
       "source_location": "L109",
       "_origin": "ast",
-      "community": 10,
+      "community": 6,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_spaces_hfgenerator_generate"
     },
@@ -3761,7 +3971,7 @@
       "source_file": "src/sebi_rag/generate_spaces.py",
       "source_location": "L155",
       "_origin": "ast",
-      "community": 10,
+      "community": 6,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_spaces_hybridgenerator_generate"
     },
@@ -4171,7 +4381,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L31",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "norm_label": "_window()",
       "id": "src_sebi_rag_lineage_window"
     },
@@ -4181,7 +4391,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "norm_label": "detect_relations_ex()",
       "id": "src_sebi_rag_lineage_detect_relations_ex"
     },
@@ -4191,7 +4401,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L63",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "norm_label": "detect_relations()",
       "id": "src_sebi_rag_lineage_detect_relations"
     },
@@ -4201,7 +4411,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L70",
       "_origin": "ast",
-      "community": 13,
+      "community": 36,
       "norm_label": "lineage",
       "id": "src_sebi_rag_lineage_lineage"
     },
@@ -4211,7 +4421,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L77",
       "_origin": "ast",
-      "community": 13,
+      "community": 30,
       "norm_label": ".status()",
       "id": "src_sebi_rag_lineage_lineage_status"
     },
@@ -4221,7 +4431,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L84",
       "_origin": "ast",
-      "community": 13,
+      "community": 36,
       "norm_label": ".family()",
       "id": "src_sebi_rag_lineage_lineage_family"
     },
@@ -4231,7 +4441,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L96",
       "_origin": "ast",
-      "community": 13,
+      "community": 36,
       "norm_label": ".governing_on()",
       "id": "src_sebi_rag_lineage_lineage_governing_on"
     },
@@ -4241,7 +4451,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L109",
       "_origin": "ast",
-      "community": 13,
+      "community": 30,
       "norm_label": ".explicit_superseded_by()",
       "id": "src_sebi_rag_lineage_lineage_explicit_superseded_by"
     },
@@ -4251,7 +4461,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L115",
       "_origin": "ast",
-      "community": 13,
+      "community": 30,
       "norm_label": ".save()",
       "id": "src_sebi_rag_lineage_lineage_save"
     },
@@ -4261,7 +4471,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 13,
+      "community": 30,
       "norm_label": "path",
       "id": "src_sebi_rag_lineage_py_path"
     },
@@ -4271,7 +4481,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L123",
       "_origin": "ast",
-      "community": 13,
+      "community": 36,
       "norm_label": ".load()",
       "id": "src_sebi_rag_lineage_lineage_load"
     },
@@ -4281,7 +4491,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L132",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "norm_label": "mc_topic()",
       "id": "src_sebi_rag_lineage_mc_topic"
     },
@@ -4311,7 +4521,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L206",
       "_origin": "ast",
-      "community": 15,
+      "community": 28,
       "norm_label": "demote_superseded()",
       "id": "src_sebi_rag_lineage_demote_superseded"
     },
@@ -4331,7 +4541,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L232",
       "_origin": "ast",
-      "community": 13,
+      "community": 30,
       "norm_label": "load_records()",
       "id": "src_sebi_rag_lineage_load_records"
     },
@@ -4341,7 +4551,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L241",
       "_origin": "ast",
-      "community": 13,
+      "community": 30,
       "norm_label": "annotate_corpus()",
       "id": "src_sebi_rag_lineage_annotate_corpus"
     },
@@ -4361,7 +4571,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L36",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "norm_label": "like detect_relations, but returns dict records with evidence spans.",
       "id": "src_sebi_rag_lineage_rationale_36"
     },
@@ -4371,7 +4581,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L64",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "norm_label": "return (relation, referenced_circular) for each distinct reference.",
       "id": "src_sebi_rag_lineage_rationale_64"
     },
@@ -4381,7 +4591,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L85",
       "_origin": "ast",
-      "community": 13,
+      "community": 36,
       "norm_label": "connected component over supersedes/superseded_by (both tiers).",
       "id": "src_sebi_rag_lineage_rationale_85"
     },
@@ -4391,7 +4601,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L98",
       "_origin": "ast",
-      "community": 13,
+      "community": 36,
       "norm_label": "the circular in this family that governs on date as_of (iso), or         none wh",
       "id": "src_sebi_rag_lineage_rationale_98"
     },
@@ -4401,7 +4611,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L133",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "norm_label": "normalised topic of a 'master circular for/on <topic>' title, else none.      us",
       "id": "src_sebi_rag_lineage_rationale_133"
     },
@@ -4411,7 +4621,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L207",
       "_origin": "ast",
-      "community": 15,
+      "community": 28,
       "norm_label": "down-weight reranked (chunk, score) pairs from superseded circulars and     re-s",
       "id": "src_sebi_rag_lineage_rationale_207"
     },
@@ -4431,7 +4641,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L242",
       "_origin": "ast",
-      "community": 13,
+      "community": 30,
       "norm_label": "update each corpus record's supersession_status + superseded_by + supersedes",
       "id": "src_sebi_rag_lineage_rationale_242"
     },
@@ -4661,7 +4871,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L115",
       "_origin": "ast",
-      "community": 3,
+      "community": 14,
       "norm_label": "crossencoderreranker",
       "id": "src_sebi_rag_rerank_crossencoderreranker"
     },
@@ -4671,7 +4881,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L121",
       "_origin": "ast",
-      "community": 3,
+      "community": 14,
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_rerank_crossencoderreranker_init"
     },
@@ -4681,7 +4891,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L128",
       "_origin": "ast",
-      "community": 3,
+      "community": 14,
       "norm_label": ".rerank()",
       "id": "src_sebi_rag_rerank_crossencoderreranker_rerank"
     },
@@ -4721,7 +4931,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L116",
       "_origin": "ast",
-      "community": 3,
+      "community": 14,
       "norm_label": "production reranker: bge-reranker-v2-m3 via sentence-transformers     crossencod",
       "id": "src_sebi_rag_rerank_rationale_116"
     },
@@ -4731,7 +4941,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 14,
+      "community": 23,
       "norm_label": "retrieve.py",
       "id": "src_sebi_rag_retrieve"
     },
@@ -4801,7 +5011,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L45",
       "_origin": "ast",
-      "community": 26,
+      "community": 23,
       "norm_label": ".search()",
       "id": "src_sebi_rag_retrieve_denseindex_search"
     },
@@ -4811,7 +5021,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L52",
       "_origin": "ast",
-      "community": 26,
+      "community": 23,
       "norm_label": "sparseindex",
       "id": "src_sebi_rag_retrieve_sparseindex"
     },
@@ -4821,7 +5031,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L55",
       "_origin": "ast",
-      "community": 26,
+      "community": 23,
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_retrieve_sparseindex_init"
     },
@@ -4831,7 +5041,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L59",
       "_origin": "ast",
-      "community": 26,
+      "community": 23,
       "norm_label": ".build()",
       "id": "src_sebi_rag_retrieve_sparseindex_build"
     },
@@ -4841,7 +5051,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L64",
       "_origin": "ast",
-      "community": 26,
+      "community": 23,
       "norm_label": ".search()",
       "id": "src_sebi_rag_retrieve_sparseindex_search"
     },
@@ -4851,7 +5061,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L71",
       "_origin": "ast",
-      "community": 26,
+      "community": 23,
       "norm_label": "rrf_fuse()",
       "id": "src_sebi_rag_retrieve_rrf_fuse"
     },
@@ -4901,7 +5111,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L164",
       "_origin": "ast",
-      "community": 26,
+      "community": 23,
       "norm_label": ".retrieve()",
       "id": "src_sebi_rag_retrieve_hybridretriever_retrieve"
     },
@@ -4941,7 +5151,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 14,
+      "community": 23,
       "norm_label": "stage-1 hybrid retrieval: dense (faiss) + sparse (bm25) fused by rrf.  mandatory",
       "id": "src_sebi_rag_retrieve_rationale_1"
     },
@@ -4971,7 +5181,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L53",
       "_origin": "ast",
-      "community": 26,
+      "community": 23,
       "norm_label": "bm25 lexical index (bm25s).",
       "id": "src_sebi_rag_retrieve_rationale_53"
     },
@@ -4981,7 +5191,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L76",
       "_origin": "ast",
-      "community": 26,
+      "community": 23,
       "norm_label": "reciprocal rank fusion. rank-only \u2014 sidesteps score-scale mismatch.",
       "id": "src_sebi_rag_retrieve_rationale_76"
     },
@@ -5031,7 +5241,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L37",
       "_origin": "ast",
-      "community": 14,
+      "community": 0,
       "norm_label": "_paragraphs()",
       "id": "src_sebi_rag_segment_paragraphs"
     },
@@ -5061,7 +5271,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L38",
       "_origin": "ast",
-      "community": 14,
+      "community": 0,
       "norm_label": "split into units each <= max_chars.      pdf-extracted text often lacks blank-li",
       "id": "src_sebi_rag_segment_rationale_38"
     },
@@ -5344,166 +5554,6 @@
       "community": 5,
       "norm_label": "offline tests for the missing-pdf recovery logic (no network).",
       "id": "tests_test_acquire_missing_rationale_1"
-    },
-    {
-      "label": "test_api.py",
-      "file_type": "code",
-      "source_file": "tests/test_api.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 0,
-      "norm_label": "test_api.py",
-      "id": "tests_test_api"
-    },
-    {
-      "label": "_offline_pipeline()",
-      "file_type": "code",
-      "source_file": "tests/test_api.py",
-      "source_location": "L18",
-      "_origin": "ast",
-      "community": 0,
-      "norm_label": "_offline_pipeline()",
-      "id": "tests_test_api_offline_pipeline"
-    },
-    {
-      "label": "_tiny_pipeline()",
-      "file_type": "code",
-      "source_file": "tests/test_api.py",
-      "source_location": "L27",
-      "_origin": "ast",
-      "community": 0,
-      "norm_label": "_tiny_pipeline()",
-      "id": "tests_test_api_tiny_pipeline"
-    },
-    {
-      "label": "_SlowGenerator",
-      "file_type": "code",
-      "source_file": "tests/test_api.py",
-      "source_location": "L43",
-      "_origin": "ast",
-      "community": 0,
-      "norm_label": "_slowgenerator",
-      "id": "tests_test_api_slowgenerator"
-    },
-    {
-      "label": ".generate()",
-      "file_type": "code",
-      "source_file": "tests/test_api.py",
-      "source_location": "L44",
-      "_origin": "ast",
-      "community": 0,
-      "norm_label": ".generate()",
-      "id": "tests_test_api_slowgenerator_generate"
-    },
-    {
-      "label": "_slow_pipeline()",
-      "file_type": "code",
-      "source_file": "tests/test_api.py",
-      "source_location": "L49",
-      "_origin": "ast",
-      "community": 0,
-      "norm_label": "_slow_pipeline()",
-      "id": "tests_test_api_slow_pipeline"
-    },
-    {
-      "label": "test_health()",
-      "file_type": "code",
-      "source_file": "tests/test_api.py",
-      "source_location": "L61",
-      "_origin": "ast",
-      "community": 0,
-      "norm_label": "test_health()",
-      "id": "tests_test_api_test_health"
-    },
-    {
-      "label": "test_query_grounded_with_metadata_and_latency()",
-      "file_type": "code",
-      "source_file": "tests/test_api.py",
-      "source_location": "L68",
-      "_origin": "ast",
-      "community": 0,
-      "norm_label": "test_query_grounded_with_metadata_and_latency()",
-      "id": "tests_test_api_test_query_grounded_with_metadata_and_latency"
-    },
-    {
-      "label": "test_query_abstains_out_of_domain()",
-      "file_type": "code",
-      "source_file": "tests/test_api.py",
-      "source_location": "L80",
-      "_origin": "ast",
-      "community": 0,
-      "norm_label": "test_query_abstains_out_of_domain()",
-      "id": "tests_test_api_test_query_abstains_out_of_domain"
-    },
-    {
-      "label": "test_top_k_zero_rejected_422()",
-      "file_type": "code",
-      "source_file": "tests/test_api.py",
-      "source_location": "L87",
-      "_origin": "ast",
-      "community": 0,
-      "norm_label": "test_top_k_zero_rejected_422()",
-      "id": "tests_test_api_test_top_k_zero_rejected_422"
-    },
-    {
-      "label": "test_response_carries_certainty_fields()",
-      "file_type": "code",
-      "source_file": "tests/test_api.py",
-      "source_location": "L93",
-      "_origin": "ast",
-      "community": 0,
-      "norm_label": "test_response_carries_certainty_fields()",
-      "id": "tests_test_api_test_response_carries_certainty_fields"
-    },
-    {
-      "label": "test_auth_required_when_key_set()",
-      "file_type": "code",
-      "source_file": "tests/test_api.py",
-      "source_location": "L102",
-      "_origin": "ast",
-      "community": 0,
-      "norm_label": "test_auth_required_when_key_set()",
-      "id": "tests_test_api_test_auth_required_when_key_set"
-    },
-    {
-      "label": "test_rate_limit()",
-      "file_type": "code",
-      "source_file": "tests/test_api.py",
-      "source_location": "L111",
-      "_origin": "ast",
-      "community": 0,
-      "norm_label": "test_rate_limit()",
-      "id": "tests_test_api_test_rate_limit"
-    },
-    {
-      "label": "test_query_exceeds_time_budget_returns_504()",
-      "file_type": "code",
-      "source_file": "tests/test_api.py",
-      "source_location": "L120",
-      "_origin": "ast",
-      "community": 0,
-      "norm_label": "test_query_exceeds_time_budget_returns_504()",
-      "id": "tests_test_api_test_query_exceeds_time_budget_returns_504"
-    },
-    {
-      "label": "test_citation_meta_reports_superseded()",
-      "file_type": "code",
-      "source_file": "tests/test_api.py",
-      "source_location": "L127",
-      "_origin": "ast",
-      "community": 0,
-      "norm_label": "test_citation_meta_reports_superseded()",
-      "id": "tests_test_api_test_citation_meta_reports_superseded"
-    },
-    {
-      "label": "FastAPI service tests (offline pipelines): endpoints, auth, rate limit, metadata",
-      "file_type": "rationale",
-      "source_file": "tests/test_api.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 0,
-      "norm_label": "fastapi service tests (offline pipelines): endpoints, auth, rate limit, metadata",
-      "id": "tests_test_api_rationale_1"
     },
     {
       "label": "test_app_asof.py",
@@ -6221,7 +6271,7 @@
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 13,
+      "community": 1,
       "norm_label": "test_eval_asof.py",
       "id": "tests_test_eval_asof"
     },
@@ -6231,7 +6281,7 @@
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L18",
       "_origin": "ast",
-      "community": 13,
+      "community": 1,
       "norm_label": "test_load_golden_asof_has_both_modes()",
       "id": "tests_test_eval_asof_test_load_golden_asof_has_both_modes"
     },
@@ -6241,7 +6291,7 @@
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L25",
       "_origin": "ast",
-      "community": 13,
+      "community": 1,
       "norm_label": "_lin_chain()",
       "id": "tests_test_eval_asof_lin_chain"
     },
@@ -6251,7 +6301,7 @@
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L32",
       "_origin": "ast",
-      "community": 13,
+      "community": 1,
       "norm_label": "test_run_selector_cases_pass_and_fail()",
       "id": "tests_test_eval_asof_test_run_selector_cases_pass_and_fail"
     },
@@ -6271,7 +6321,7 @@
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L77",
       "_origin": "ast",
-      "community": 13,
+      "community": 1,
       "norm_label": "test_summarize_reports_accuracy_and_failures()",
       "id": "tests_test_eval_asof_test_summarize_reports_accuracy_and_failures"
     },
@@ -6281,7 +6331,7 @@
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 13,
+      "community": 1,
       "norm_label": "p4b: as-of golden evaluation runner tests (offline).",
       "id": "tests_test_eval_asof_rationale_1"
     },
@@ -6821,7 +6871,7 @@
       "source_file": "tests/test_faithfulness.py",
       "source_location": "L14",
       "_origin": "ast",
-      "community": 20,
+      "community": 14,
       "norm_label": "test_faithfulness_scoring()",
       "id": "tests_test_faithfulness_test_faithfulness_scoring"
     },
@@ -7021,7 +7071,7 @@
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "test_incremental_index.py",
       "id": "tests_test_incremental_index"
     },
@@ -7031,7 +7081,7 @@
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "countingembedder",
       "id": "tests_test_incremental_index_countingembedder"
     },
@@ -7041,7 +7091,7 @@
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L13",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": ".__init__()",
       "id": "tests_test_incremental_index_countingembedder_init"
     },
@@ -7051,7 +7101,7 @@
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L17",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": ".encode()",
       "id": "tests_test_incremental_index_countingembedder_encode"
     },
@@ -7061,7 +7111,7 @@
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "_doc()",
       "id": "tests_test_incremental_index_doc"
     },
@@ -7071,7 +7121,7 @@
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L27",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "_corpus_v1()",
       "id": "tests_test_incremental_index_corpus_v1"
     },
@@ -7081,7 +7131,7 @@
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L33",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "test_incremental_encodes_only_delta()",
       "id": "tests_test_incremental_index_test_incremental_encodes_only_delta"
     },
@@ -7091,7 +7141,7 @@
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L69",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "test_incremental_falls_back_to_full_without_cache()",
       "id": "tests_test_incremental_index_test_incremental_falls_back_to_full_without_cache"
     },
@@ -7101,7 +7151,7 @@
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "offline tests for f3 incremental indexing (adr-001): only new/changed docs are e",
       "id": "tests_test_incremental_index_rationale_1"
     },
@@ -7381,7 +7431,7 @@
       "source_file": "tests/test_integration_e2e.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 3,
+      "community": 14,
       "norm_label": "test_integration_e2e.py",
       "id": "tests_test_integration_e2e"
     },
@@ -7391,7 +7441,7 @@
       "source_file": "tests/test_integration_e2e.py",
       "source_location": "L26",
       "_origin": "ast",
-      "community": 3,
+      "community": 14,
       "norm_label": "_ollama_up()",
       "id": "tests_test_integration_e2e_ollama_up"
     },
@@ -7401,7 +7451,7 @@
       "source_file": "tests/test_integration_e2e.py",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 3,
+      "community": 14,
       "norm_label": "pipeline()",
       "id": "tests_test_integration_e2e_pipeline"
     },
@@ -7411,7 +7461,7 @@
       "source_file": "tests/test_integration_e2e.py",
       "source_location": "L50",
       "_origin": "ast",
-      "community": 3,
+      "community": 14,
       "norm_label": "test_e2e_grounded_answer_with_citation()",
       "id": "tests_test_integration_e2e_test_e2e_grounded_answer_with_citation"
     },
@@ -7421,7 +7471,7 @@
       "source_file": "tests/test_integration_e2e.py",
       "source_location": "L61",
       "_origin": "ast",
-      "community": 3,
+      "community": 14,
       "norm_label": "test_e2e_abstains_out_of_domain()",
       "id": "tests_test_integration_e2e_test_e2e_abstains_out_of_domain"
     },
@@ -7431,7 +7481,7 @@
       "source_file": "tests/test_integration_e2e.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 3,
+      "community": 14,
       "norm_label": "step 12 \u2014 end-to-end rag integration test with the real stack.  bge-m3 (mps) + b",
       "id": "tests_test_integration_e2e_rationale_1"
     },
@@ -7491,7 +7541,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L81",
       "_origin": "ast",
-      "community": 13,
+      "community": 28,
       "norm_label": "test_demote_superseded_puts_in_force_on_top()",
       "id": "tests_test_lineage_test_demote_superseded_puts_in_force_on_top"
     },
@@ -7501,7 +7551,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L91",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "norm_label": "test_plain_citation_is_not_supersession()",
       "id": "tests_test_lineage_test_plain_citation_is_not_supersession"
     },
@@ -7511,7 +7561,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L100",
       "_origin": "ast",
-      "community": 13,
+      "community": 30,
       "norm_label": "test_real_corpus_oiae_supersedes_listed_circulars()",
       "id": "tests_test_lineage_test_real_corpus_oiae_supersedes_listed_circulars"
     },
@@ -7521,7 +7571,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L111",
       "_origin": "ast",
-      "community": 13,
+      "community": 30,
       "norm_label": "test_annotate_corpus_writes_new_metadata_fields()",
       "id": "tests_test_lineage_test_annotate_corpus_writes_new_metadata_fields"
     },
@@ -7571,7 +7621,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L172",
       "_origin": "ast",
-      "community": 13,
+      "community": 36,
       "norm_label": "test_governing_on_cycle_safe()",
       "id": "tests_test_lineage_test_governing_on_cycle_safe"
     },
@@ -7581,7 +7631,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L180",
       "_origin": "ast",
-      "community": 13,
+      "community": 36,
       "norm_label": "test_governing_on_parallel_branches_max_date_wins()",
       "id": "tests_test_lineage_test_governing_on_parallel_branches_max_date_wins"
     },
@@ -7591,7 +7641,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L187",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "norm_label": "test_detect_relations_ex_evidence_and_extractor()",
       "id": "tests_test_lineage_test_detect_relations_ex_evidence_and_extractor"
     },
@@ -7601,7 +7651,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L198",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "norm_label": "test_detect_relations_delegates_unchanged()",
       "id": "tests_test_lineage_test_detect_relations_delegates_unchanged"
     },
@@ -7631,7 +7681,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L239",
       "_origin": "ast",
-      "community": 13,
+      "community": 36,
       "norm_label": "test_lineage_save_load_roundtrips_edges()",
       "id": "tests_test_lineage_test_lineage_save_load_roundtrips_edges"
     },
@@ -7641,7 +7691,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L249",
       "_origin": "ast",
-      "community": 13,
+      "community": 36,
       "norm_label": "test_lineage_load_old_file_defaults_empty_edges()",
       "id": "tests_test_lineage_test_lineage_load_old_file_defaults_empty_edges"
     },
@@ -7651,7 +7701,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L257",
       "_origin": "ast",
-      "community": 13,
+      "community": 30,
       "norm_label": "test_annotate_corpus_adds_master_fields_and_consolidates_edges()",
       "id": "tests_test_lineage_test_annotate_corpus_adds_master_fields_and_consolidates_edges"
     },
@@ -7661,7 +7711,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L298",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "norm_label": "test_detect_relations_ex_supersedes_when_ref_before_trigger()",
       "id": "tests_test_lineage_test_detect_relations_ex_supersedes_when_ref_before_trigger"
     },
@@ -7681,7 +7731,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L299",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "norm_label": "a circular that names another circular before the supersede trigger     word mus",
       "id": "tests_test_lineage_rationale_299"
     },
@@ -8071,7 +8121,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 14,
+      "community": 23,
       "norm_label": "test_persistence.py",
       "id": "tests_test_persistence"
     },
@@ -8081,7 +8131,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L9",
       "_origin": "ast",
-      "community": 14,
+      "community": 23,
       "norm_label": "_chunks()",
       "id": "tests_test_persistence_chunks"
     },
@@ -8101,7 +8151,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 14,
+      "community": 23,
       "norm_label": "index persistence round-trip (offline).",
       "id": "tests_test_persistence_rationale_1"
     },
@@ -8151,7 +8201,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L91",
       "_origin": "ast",
-      "community": 26,
+      "community": 23,
       "norm_label": "test_rrf_fusion_orders_by_reciprocal_rank()",
       "id": "tests_test_pipeline_test_rrf_fusion_orders_by_reciprocal_rank"
     },
@@ -9269,28 +9319,6 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/api.py",
-      "source_location": "L30",
-      "weight": 1.0,
-      "source": "src_sebi_rag_api",
-      "target": "src_sebi_rag_pipeline",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/api.py",
-      "source_location": "L30",
-      "weight": 1.0,
-      "source": "src_sebi_rag_api",
-      "target": "src_sebi_rag_pipeline_ragpipeline",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/api.py",
@@ -9307,9 +9335,9 @@
       "source_file": "tests/test_api.py",
       "source_location": "L8",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_api",
-      "target": "src_sebi_rag_api"
+      "target": "src_sebi_rag_api",
+      "confidence_score": 1.0
     },
     {
       "relation": "inherits",
@@ -9320,16 +9348,6 @@
       "source": "src_sebi_rag_api_queryrequest",
       "target": "basemodel",
       "confidence_score": 1.0
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "src/sebi_rag/api.py",
-      "source_location": "L30",
-      "weight": 0.8,
-      "source": "src_sebi_rag_api_queryrequest",
-      "target": "src_sebi_rag_pipeline_ragpipeline",
-      "confidence_score": 0.5
     },
     {
       "relation": "inherits",
@@ -9363,34 +9381,14 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "src/sebi_rag/api.py",
-      "source_location": "L30",
-      "weight": 0.8,
-      "source": "src_sebi_rag_api_citationmeta",
-      "target": "src_sebi_rag_pipeline_ragpipeline",
-      "confidence_score": 0.5
-    },
-    {
       "relation": "indirect_call",
       "context": "argument",
       "confidence": "INFERRED",
       "source_file": "src/sebi_rag/api.py",
-      "source_location": "L185",
+      "source_location": "L186",
       "weight": 1.0,
       "source": "src_sebi_rag_api_create_app",
       "target": "src_sebi_rag_api_queryresponse",
-      "confidence_score": 0.5
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "src/sebi_rag/api.py",
-      "source_location": "L30",
-      "weight": 0.8,
-      "source": "src_sebi_rag_api_queryresponse",
-      "target": "src_sebi_rag_pipeline_ragpipeline",
       "confidence_score": 0.5
     },
     {
@@ -9401,7 +9399,18 @@
       "source_location": "L69",
       "weight": 1.0,
       "source": "src_sebi_rag_api_build_default_pipeline",
-      "target": "src_sebi_rag_pipeline_ragpipeline",
+      "target": "src_sebi_rag_api_py_ragpipeline",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/sebi_rag/api.py",
+      "source_location": "L138",
+      "weight": 1.0,
+      "source": "src_sebi_rag_api_create_app",
+      "target": "src_sebi_rag_api_py_ragpipeline",
       "confidence_score": 1.0
     },
     {
@@ -9423,7 +9432,7 @@
       "source_location": "L120",
       "weight": 1.0,
       "source": "src_sebi_rag_api_citation_meta",
-      "target": "src_sebi_rag_api_py_lineage",
+      "target": "lineage",
       "confidence_score": 1.0
     },
     {
@@ -9446,17 +9455,6 @@
       "weight": 1.0,
       "source": "src_sebi_rag_api_create_app",
       "target": "settings",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "generic_arg",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/api.py",
-      "source_location": "L138",
-      "weight": 1.0,
-      "source": "src_sebi_rag_api_create_app",
-      "target": "src_sebi_rag_pipeline_ragpipeline",
       "confidence_score": 1.0
     },
     {
@@ -9502,6 +9500,363 @@
       "weight": 1.0,
       "source": "tests_test_api_test_rate_limit",
       "target": "src_sebi_rag_api_create_app"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_api.py",
+      "source_location": "L139",
+      "weight": 1.0,
+      "source": "tests_test_api_test_ready_triggers_pipeline",
+      "target": "src_sebi_rag_api_create_app"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "tests_test_api",
+      "target": "src_sebi_rag_corpus",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "tests_test_api",
+      "target": "src_sebi_rag_embeddings",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "tests_test_api",
+      "target": "src_sebi_rag_generate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "tests_test_api",
+      "target": "src_sebi_rag_lineage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "tests_test_api",
+      "target": "src_sebi_rag_pipeline",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "tests_test_api",
+      "target": "src_sebi_rag_rerank",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "tests_test_api",
+      "target": "src_sebi_rag_segment",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "tests_test_api",
+      "target": "tests_test_api_offline_pipeline",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "tests_test_api",
+      "target": "tests_test_api_slow_pipeline",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L43",
+      "weight": 1.0,
+      "source": "tests_test_api",
+      "target": "tests_test_api_slowgenerator",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L102",
+      "weight": 1.0,
+      "source": "tests_test_api",
+      "target": "tests_test_api_test_auth_required_when_key_set",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L127",
+      "weight": 1.0,
+      "source": "tests_test_api",
+      "target": "tests_test_api_test_citation_meta_reports_superseded",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "tests_test_api",
+      "target": "tests_test_api_test_health",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L80",
+      "weight": 1.0,
+      "source": "tests_test_api",
+      "target": "tests_test_api_test_query_abstains_out_of_domain",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L120",
+      "weight": 1.0,
+      "source": "tests_test_api",
+      "target": "tests_test_api_test_query_exceeds_time_budget_returns_504",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L68",
+      "weight": 1.0,
+      "source": "tests_test_api",
+      "target": "tests_test_api_test_query_grounded_with_metadata_and_latency",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L111",
+      "weight": 1.0,
+      "source": "tests_test_api",
+      "target": "tests_test_api_test_rate_limit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L137",
+      "weight": 1.0,
+      "source": "tests_test_api",
+      "target": "tests_test_api_test_ready_triggers_pipeline",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L93",
+      "weight": 1.0,
+      "source": "tests_test_api",
+      "target": "tests_test_api_test_response_carries_certainty_fields",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L87",
+      "weight": 1.0,
+      "source": "tests_test_api",
+      "target": "tests_test_api_test_top_k_zero_rejected_422",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "tests_test_api",
+      "target": "tests_test_api_tiny_pipeline",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "tests_test_api_rationale_1",
+      "target": "tests_test_api",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "tests_test_api_offline_pipeline",
+      "target": "tests_test_api_py_ragpipeline",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L139",
+      "weight": 1.0,
+      "source": "tests_test_api_test_ready_triggers_pipeline",
+      "target": "tests_test_api_offline_pipeline",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "tests_test_api_slow_pipeline",
+      "target": "tests_test_api_py_ragpipeline",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "tests_test_api_tiny_pipeline",
+      "target": "tests_test_api_py_ragpipeline",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L104",
+      "weight": 1.0,
+      "source": "tests_test_api_test_auth_required_when_key_set",
+      "target": "tests_test_api_tiny_pipeline",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L129",
+      "weight": 1.0,
+      "source": "tests_test_api_test_citation_meta_reports_superseded",
+      "target": "tests_test_api_tiny_pipeline",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L114",
+      "weight": 1.0,
+      "source": "tests_test_api_test_rate_limit",
+      "target": "tests_test_api_tiny_pipeline",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L54",
+      "weight": 1.0,
+      "source": "tests_test_api_slow_pipeline",
+      "target": "tests_test_api_slowgenerator",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "tests_test_api_slowgenerator",
+      "target": "tests_test_api_slowgenerator_generate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L123",
+      "weight": 1.0,
+      "source": "tests_test_api_test_query_exceeds_time_budget_returns_504",
+      "target": "tests_test_api_slow_pipeline",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_api.py",
+      "source_location": "L138",
+      "weight": 1.0,
+      "source": "tests_test_api_rationale_138",
+      "target": "tests_test_api_test_ready_triggers_pipeline",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -9586,9 +9941,9 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_sebi_rag_pipeline",
-      "target": "src_sebi_rag_pipeline_ragpipeline",
-      "confidence_score": 1.0
+      "target": "src_sebi_rag_pipeline_ragpipeline"
     },
     {
       "relation": "rationale_for",
@@ -9596,19 +9951,8 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L1",
       "weight": 1.0,
-      "source": "src_sebi_rag_pipeline_rationale_1",
-      "target": "src_sebi_rag_pipeline",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L13",
-      "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "tests_test_api",
+      "source": "src_sebi_rag_pipeline_rationale_1",
       "target": "src_sebi_rag_pipeline"
     },
     {
@@ -9812,9 +10156,9 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_sebi_rag_pipeline_ragpipeline",
-      "target": "src_sebi_rag_pipeline_ragpipeline_build",
-      "confidence_score": 1.0
+      "target": "src_sebi_rag_pipeline_ragpipeline_build"
     },
     {
       "relation": "method",
@@ -9822,52 +10166,9 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L42",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_sebi_rag_pipeline_ragpipeline",
-      "target": "src_sebi_rag_pipeline_ragpipeline_query",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "return_type",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L18",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api_offline_pipeline",
-      "target": "src_sebi_rag_pipeline_ragpipeline"
-    },
-    {
-      "relation": "references",
-      "context": "return_type",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L49",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api_slow_pipeline",
-      "target": "src_sebi_rag_pipeline_ragpipeline"
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L13",
-      "weight": 0.8,
-      "confidence_score": 0.5,
-      "source": "tests_test_api_slowgenerator",
-      "target": "src_sebi_rag_pipeline_ragpipeline"
-    },
-    {
-      "relation": "references",
-      "context": "return_type",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L27",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api_tiny_pipeline",
-      "target": "src_sebi_rag_pipeline_ragpipeline"
+      "target": "src_sebi_rag_pipeline_ragpipeline_query"
     },
     {
       "relation": "uses",
@@ -9907,9 +10208,9 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_sebi_rag_pipeline_ragpipeline_build",
-      "target": "chunk",
-      "confidence_score": 1.0
+      "target": "chunk"
     },
     {
       "relation": "references",
@@ -9918,9 +10219,9 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_sebi_rag_pipeline_ragpipeline_build",
-      "target": "embedder",
-      "confidence_score": 1.0
+      "target": "embedder"
     },
     {
       "relation": "references",
@@ -9929,9 +10230,9 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_sebi_rag_pipeline_ragpipeline_build",
-      "target": "reranker",
-      "confidence_score": 1.0
+      "target": "reranker"
     },
     {
       "relation": "references",
@@ -9940,42 +10241,9 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_sebi_rag_pipeline_ragpipeline_build",
-      "target": "src_sebi_rag_pipeline_py_lineage",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "tests/test_api.py",
-      "source_location": "L21",
-      "weight": 1.0,
-      "source": "tests_test_api_offline_pipeline",
-      "target": "src_sebi_rag_pipeline_ragpipeline_build"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "tests/test_api.py",
-      "source_location": "L52",
-      "weight": 1.0,
-      "source": "tests_test_api_slow_pipeline",
-      "target": "src_sebi_rag_pipeline_ragpipeline_build"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "tests/test_api.py",
-      "source_location": "L38",
-      "weight": 1.0,
-      "source": "tests_test_api_tiny_pipeline",
-      "target": "src_sebi_rag_pipeline_ragpipeline_build"
+      "target": "src_sebi_rag_pipeline_py_lineage"
     },
     {
       "relation": "calls",
@@ -10105,9 +10373,9 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L42",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_sebi_rag_pipeline_ragpipeline_query",
-      "target": "answer",
-      "confidence_score": 1.0
+      "target": "answer"
     },
     {
       "relation": "imports_from",
@@ -16147,17 +16415,6 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L9",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api",
-      "target": "src_sebi_rag_corpus"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
       "source_file": "tests/test_eval_harness.py",
       "source_location": "L13",
       "weight": 1.0,
@@ -16208,17 +16465,6 @@
       "confidence_score": 1.0,
       "source": "src_sebi_rag_corpus_load_circulars",
       "target": "src_sebi_rag_segment_hierarchical_chunk"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_api.py",
-      "source_location": "L19",
-      "weight": 1.0,
-      "source": "tests_test_api_offline_pipeline",
-      "target": "src_sebi_rag_corpus_load_circulars"
     },
     {
       "relation": "calls",
@@ -16561,17 +16807,6 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L10",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api",
-      "target": "src_sebi_rag_embeddings"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
       "source_file": "tests/test_certainty.py",
       "source_location": "L5",
       "weight": 1.0,
@@ -16863,49 +17098,6 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "src_sebi_rag_embeddings_rationale_30",
-      "target": "src_sebi_rag_embeddings_hashembedder"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_api.py",
-      "source_location": "L22",
-      "weight": 1.0,
-      "source": "tests_test_api_offline_pipeline",
-      "target": "src_sebi_rag_embeddings_hashembedder"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_api.py",
-      "source_location": "L53",
-      "weight": 1.0,
-      "source": "tests_test_api_slow_pipeline",
-      "target": "src_sebi_rag_embeddings_hashembedder"
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L10",
-      "weight": 0.8,
-      "confidence_score": 0.5,
-      "source": "tests_test_api_slowgenerator",
-      "target": "src_sebi_rag_embeddings_hashembedder"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_api.py",
-      "source_location": "L39",
-      "weight": 1.0,
-      "source": "tests_test_api_tiny_pipeline",
       "target": "src_sebi_rag_embeddings_hashembedder"
     },
     {
@@ -17828,17 +18020,6 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L11",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api",
-      "target": "src_sebi_rag_generate"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
       "source_file": "tests/test_certainty.py",
       "source_location": "L6",
       "weight": 1.0,
@@ -18055,38 +18236,6 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "src_sebi_rag_generate_rationale_61",
-      "target": "src_sebi_rag_generate_extractivestubgenerator"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_api.py",
-      "source_location": "L23",
-      "weight": 1.0,
-      "source": "tests_test_api_offline_pipeline",
-      "target": "src_sebi_rag_generate_extractivestubgenerator"
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L11",
-      "weight": 0.8,
-      "confidence_score": 0.5,
-      "source": "tests_test_api_slowgenerator",
-      "target": "src_sebi_rag_generate_extractivestubgenerator"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_api.py",
-      "source_location": "L40",
-      "weight": 1.0,
-      "source": "tests_test_api_tiny_pipeline",
       "target": "src_sebi_rag_generate_extractivestubgenerator"
     },
     {
@@ -20572,17 +20721,6 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L12",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api",
-      "target": "src_sebi_rag_lineage"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L9",
       "weight": 1.0,
@@ -21078,39 +21216,6 @@
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
-      "source_file": "tests/test_api.py",
-      "source_location": "L20",
-      "weight": 1.0,
-      "source": "tests_test_api_offline_pipeline",
-      "target": "src_sebi_rag_lineage_build_lineage"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_api.py",
-      "source_location": "L55",
-      "weight": 1.0,
-      "source": "tests_test_api_slow_pipeline",
-      "target": "src_sebi_rag_lineage_build_lineage"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_api.py",
-      "source_location": "L34",
-      "weight": 1.0,
-      "source": "tests_test_api_tiny_pipeline",
-      "target": "src_sebi_rag_lineage_build_lineage"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L55",
       "weight": 1.0,
@@ -21289,17 +21394,6 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "src_sebi_rag_lineage_annotate_corpus",
-      "target": "src_sebi_rag_lineage_load_records"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_api.py",
-      "source_location": "L20",
-      "weight": 1.0,
-      "source": "tests_test_api_offline_pipeline",
       "target": "src_sebi_rag_lineage_load_records"
     },
     {
@@ -21938,17 +22032,6 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L14",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api",
-      "target": "src_sebi_rag_rerank"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L11",
       "weight": 1.0,
@@ -22070,49 +22153,6 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "src_sebi_rag_rerank_rationale_23",
-      "target": "src_sebi_rag_rerank_lexicalreranker"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_api.py",
-      "source_location": "L22",
-      "weight": 1.0,
-      "source": "tests_test_api_offline_pipeline",
-      "target": "src_sebi_rag_rerank_lexicalreranker"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_api.py",
-      "source_location": "L53",
-      "weight": 1.0,
-      "source": "tests_test_api_slow_pipeline",
-      "target": "src_sebi_rag_rerank_lexicalreranker"
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L14",
-      "weight": 0.8,
-      "confidence_score": 0.5,
-      "source": "tests_test_api_slowgenerator",
-      "target": "src_sebi_rag_rerank_lexicalreranker"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_api.py",
-      "source_location": "L39",
-      "weight": 1.0,
-      "source": "tests_test_api_tiny_pipeline",
       "target": "src_sebi_rag_rerank_lexicalreranker"
     },
     {
@@ -23119,17 +23159,6 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L15",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api",
-      "target": "src_sebi_rag_segment"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
       "source_file": "tests/test_benchmark.py",
       "source_location": "L15",
       "weight": 1.0,
@@ -23300,38 +23329,6 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "src_sebi_rag_segment_hierarchical_chunk",
-      "target": "src_sebi_rag_segment_circularmeta"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_api.py",
-      "source_location": "L51",
-      "weight": 1.0,
-      "source": "tests_test_api_slow_pipeline",
-      "target": "src_sebi_rag_segment_circularmeta"
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L15",
-      "weight": 0.8,
-      "confidence_score": 0.5,
-      "source": "tests_test_api_slowgenerator",
-      "target": "src_sebi_rag_segment_circularmeta"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_api.py",
-      "source_location": "L30",
-      "weight": 1.0,
-      "source": "tests_test_api_tiny_pipeline",
       "target": "src_sebi_rag_segment_circularmeta"
     },
     {
@@ -23653,28 +23650,6 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "src_sebi_rag_segment_rationale_80",
-      "target": "src_sebi_rag_segment_hierarchical_chunk"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_api.py",
-      "source_location": "L50",
-      "weight": 1.0,
-      "source": "tests_test_api_slow_pipeline",
-      "target": "src_sebi_rag_segment_hierarchical_chunk"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_api.py",
-      "source_location": "L29",
-      "weight": 1.0,
-      "source": "tests_test_api_tiny_pipeline",
       "target": "src_sebi_rag_segment_hierarchical_chunk"
     },
     {
@@ -24227,211 +24202,6 @@
       "confidence_score": 1.0,
       "source": "tests_test_acquire_missing_rationale_1",
       "target": "tests_test_acquire_missing"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L18",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api",
-      "target": "tests_test_api_offline_pipeline"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L49",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api",
-      "target": "tests_test_api_slow_pipeline"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L43",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api",
-      "target": "tests_test_api_slowgenerator"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L102",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api",
-      "target": "tests_test_api_test_auth_required_when_key_set"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L127",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api",
-      "target": "tests_test_api_test_citation_meta_reports_superseded"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L61",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api",
-      "target": "tests_test_api_test_health"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L80",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api",
-      "target": "tests_test_api_test_query_abstains_out_of_domain"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L120",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api",
-      "target": "tests_test_api_test_query_exceeds_time_budget_returns_504"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L68",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api",
-      "target": "tests_test_api_test_query_grounded_with_metadata_and_latency"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L111",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api",
-      "target": "tests_test_api_test_rate_limit"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L93",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api",
-      "target": "tests_test_api_test_response_carries_certainty_fields"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L87",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api",
-      "target": "tests_test_api_test_top_k_zero_rejected_422"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L27",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api",
-      "target": "tests_test_api_tiny_pipeline"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api_rationale_1",
-      "target": "tests_test_api"
-    },
-    {
-      "relation": "indirect_call",
-      "context": "argument",
-      "confidence": "INFERRED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L104",
-      "weight": 1.0,
-      "confidence_score": 0.5,
-      "source": "tests_test_api_test_auth_required_when_key_set",
-      "target": "tests_test_api_tiny_pipeline"
-    },
-    {
-      "relation": "indirect_call",
-      "context": "argument",
-      "confidence": "INFERRED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L129",
-      "weight": 1.0,
-      "confidence_score": 0.5,
-      "source": "tests_test_api_test_citation_meta_reports_superseded",
-      "target": "tests_test_api_tiny_pipeline"
-    },
-    {
-      "relation": "indirect_call",
-      "context": "argument",
-      "confidence": "INFERRED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L114",
-      "weight": 1.0,
-      "confidence_score": 0.5,
-      "source": "tests_test_api_test_rate_limit",
-      "target": "tests_test_api_tiny_pipeline"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L54",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api_slow_pipeline",
-      "target": "tests_test_api_slowgenerator"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L44",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_api_slowgenerator",
-      "target": "tests_test_api_slowgenerator_generate"
-    },
-    {
-      "relation": "indirect_call",
-      "context": "argument",
-      "confidence": "INFERRED",
-      "source_file": "tests/test_api.py",
-      "source_location": "L123",
-      "weight": 1.0,
-      "confidence_score": 0.5,
-      "source": "tests_test_api_test_query_exceeds_time_budget_returns_504",
-      "target": "tests_test_api_slow_pipeline"
     },
     {
       "relation": "contains",
@@ -29124,5 +28894,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "bfd4dab31198aaa68c9d56ed7fee1aa4b4b44223"
+  "built_at_commit": "83a6ebe8f3acbc2a7df0bc6668d86b268a890cfa"
 }
