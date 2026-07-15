@@ -20,6 +20,6 @@ logs/
 
 # Claude Code / graphify (local tooling state, not project source)
 .claude/
-graphify-out/
+src/graphify-out/cache/
 
 .tokensave/

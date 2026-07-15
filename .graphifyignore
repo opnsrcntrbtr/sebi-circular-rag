@@ -62,3 +62,4 @@ pyarrow/
 torchgen/
 narwhals/
 idna/
+*.json
