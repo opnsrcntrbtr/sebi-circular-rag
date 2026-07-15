@@ -143,6 +143,7 @@ def create_app(
     app = FastAPI(title="SEBI Circular RAG", version="0.1.0")
     state: dict[str, RAGPipeline] = {}
     hits: dict[str, deque] = defaultdict(deque)
+    _request_count: int = 0
     _executor = ThreadPoolExecutor(max_workers=2)
 
     @app.on_event("shutdown")
@@ -155,6 +156,8 @@ def create_app(
         return state["p"]
 
     def guard(request: Request, x_api_key: str | None = Header(default=None)) -> None:
+        nonlocal _request_count
+        _request_count += 1
         key = os.environ.get("SEBI_RAG_API_KEY")  # secret: env-only
         # F4: constant-time compare — a plain != leaks key prefixes via timing
         if key and not secrets.compare_digest(x_api_key or "", key):
@@ -167,6 +170,11 @@ def create_app(
         if len(dq) >= cfg.rate_per_min:
             raise HTTPException(status_code=429, detail="rate limit exceeded")
         dq.append(now)
+        # Periodic cleanup: every 60 requests, remove entries with empty deques
+        if _request_count % 60 == 0:
+            for k in list(hits):
+                if not hits[k]:
+                    del hits[k]
 
     @app.get("/ready")
     def ready() -> dict:
