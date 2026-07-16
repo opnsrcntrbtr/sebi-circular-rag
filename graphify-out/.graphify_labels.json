@@ -45,5 +45,7 @@
   "43": "Ops Scripts",
   "44": "Notification Scripts",
   "45": "Test Guards",
-  "46": "RAGPipeline"
+  "46": "RAGPipeline",
+  "47": "BGEM3Embedder",
+  "48": ".retrieve"
 }
