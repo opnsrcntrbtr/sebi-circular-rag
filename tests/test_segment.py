@@ -58,3 +58,49 @@ def test_leaf_single_line_provision_is_preserved_not_overmerged():
             break
     else:
         raise AssertionError("5.2 provision text missing from all chunks")
+
+
+# --- governing-clause folding (probe-par-03 / CRA sub-clause class) ---------
+# Same per-line splitting trigger as _TEXT: one blank-line-free block.
+_CRA_TEXT = (
+    _FILLER + "\n"
+    "4.1.1. On and from the date of the Order of winding down or surrender "
+    "of certificate of registration, the CRA shall:\n"
+    "4.1.1.1. not onboard any new clients or accept fresh rating mandates;\n"
+    "4.1.1.2. permit companies to withdraw ongoing rating assignments "
+    "without levy of any charge;\n"
+    "4.1.2. All other obligations of the CRA shall continue as specified."
+)
+
+
+def test_sibling_list_item_carries_governing_clause():
+    # 4.1.1.2 is the SECOND child: the carry mechanism only rescues the first,
+    # so this chunk historically lost the "winding down" context entirely.
+    chunks = hierarchical_chunk(_CRA_TEXT, _META)
+    for c in chunks:
+        if "withdraw ongoing rating assignments" in c.text:
+            assert "winding down" in c.text, (
+                f"governing clause missing from sibling chunk: {c.text!r}"
+            )
+            break
+    else:
+        raise AssertionError("4.1.1.2 provision text missing from all chunks")
+
+
+def test_governing_clause_not_duplicated():
+    chunks = hierarchical_chunk(_CRA_TEXT, _META)
+    for c in chunks:
+        assert c.text.count("On and from the date of the Order") <= 1, (
+            f"governing clause duplicated: {c.text!r}"
+        )
+
+
+def test_nominee_regression_corpus_unchanged_behaviour():
+    # the original nominee-bug guarantees still hold with folding active
+    chunks = hierarchical_chunk(_TEXT, _META)
+    for c in chunks:
+        assert _body(c) != "5. Number of nominees:"
+    assert any(
+        "Number of nominees" in c.text and "up to 3 nominees" in c.text
+        for c in chunks
+    )

@@ -87,6 +87,7 @@ def hierarchical_chunk(
     section_head = ""   # full (untruncated) heading line of the current section
     section_num = ""    # dotted number of the current heading, e.g. "5" or "5.1"
     carry = ""          # bare parent heading(s) deferred to prefix the next chunk
+    heads: dict[str, str] = {}  # dotted num -> full heading line (governing clause)
     buf = ""
     para_idx = 0
 
@@ -98,6 +99,18 @@ def hierarchical_chunk(
         if carry:
             body = f"{carry}\n{body}"
             carry = ""
+        # Intervention #1 (2026-07-16 failure taxonomy): numbered sub-clauses
+        # ("4.1.1.2. ...") are meaningless without their governing clause
+        # ("4.1.1 On and from the date... the CRA shall:"). Prepend the nearest
+        # recorded ancestor heading so both retrievers see the context.
+        num = section_num
+        while "." in num:
+            num = num.rsplit(".", 1)[0]
+            gov = heads.get(num, "")
+            if gov:
+                if gov not in body:
+                    body = f"{gov}\n{body}"
+                break
         cid = f"{meta.circular_number}#{sec}#{para_idx}"
         # F1 (ADR-001): contextual enrichment — prepend document identity so
         # dense/sparse indexing can disambiguate topically-overlapping circulars.
@@ -137,6 +150,7 @@ def hierarchical_chunk(
             section_name = first_line.strip()[:60]
             section_head = first_line.strip()
             section_num = hnum
+            heads[hnum] = first_line.strip()[:300]
         if len(buf) + len(para) + 1 > max_chars and buf:
             flush(section_name, buf)
             buf = buf[-overlap_chars:] + "\n" + para
