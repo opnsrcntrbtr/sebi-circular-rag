@@ -1,0 +1,110 @@
+{
+  "50": {
+    "answer_level": {
+      "hit": 65,
+      "ranked_low": 3,
+      "candidate_miss": 2
+    },
+    "failures": [
+      {
+        "id": "para-aifmaster",
+        "class": "ranked_low",
+        "rank": 16
+      },
+      {
+        "id": "para-cas",
+        "class": "ranked_low",
+        "rank": 17
+      },
+      {
+        "id": "probe-tbl-05",
+        "class": "ranked_low",
+        "rank": 32
+      },
+      {
+        "id": "probe-sup-04",
+        "class": "candidate_miss",
+        "rank": -1
+      },
+      {
+        "id": "probe-par-03",
+        "class": "candidate_miss",
+        "rank": -1
+      }
+    ],
+    "latency_mean_s": 1.966,
+    "latency_p95_s": 2.462
+  },
+  "100": {
+    "answer_level": {
+      "hit": 65,
+      "ranked_low": 4,
+      "candidate_miss": 1
+    },
+    "failures": [
+      {
+        "id": "para-aifmaster",
+        "class": "ranked_low",
+        "rank": 14
+      },
+      {
+        "id": "para-cas",
+        "class": "ranked_low",
+        "rank": 17
+      },
+      {
+        "id": "probe-tbl-05",
+        "class": "ranked_low",
+        "rank": 39
+      },
+      {
+        "id": "probe-sup-04",
+        "class": "ranked_low",
+        "rank": 17
+      },
+      {
+        "id": "probe-par-03",
+        "class": "candidate_miss",
+        "rank": -1
+      }
+    ],
+    "latency_mean_s": 3.168,
+    "latency_p95_s": 4.512
+  },
+  "150": {
+    "answer_level": {
+      "hit": 65,
+      "ranked_low": 4,
+      "candidate_miss": 1
+    },
+    "failures": [
+      {
+        "id": "para-aifmaster",
+        "class": "ranked_low",
+        "rank": 14
+      },
+      {
+        "id": "para-cas",
+        "class": "ranked_low",
+        "rank": 17
+      },
+      {
+        "id": "probe-tbl-05",
+        "class": "ranked_low",
+        "rank": 39
+      },
+      {
+        "id": "probe-sup-04",
+        "class": "ranked_low",
+        "rank": 17
+      },
+      {
+        "id": "probe-par-03",
+        "class": "candidate_miss",
+        "rank": -1
+      }
+    ],
+    "latency_mean_s": 3.421,
+    "latency_p95_s": 4.72
+  }
+}
