@@ -33,12 +33,12 @@ Produce the retrieval-only runfile for golden v6 against the real persisted inde
 - Consumes: `scripts/bench_retrieval.py` (existing; `--golden`, `--out`, `--top-n` flags).
 - Produces: `eval/runs/ft-golden/run.trec` — TREC format `qid Q0 chunk_id rank score baseline-retrieval`, top-50 chunks per query. Chunk IDs look like `SEBI/HO/.../2023/123#preamble#0`; the doc is the part before the first `#`. Later tasks read this file.
 
-- [ ] **Step 1: Verify the real index and corpus exist**
+- [x] **Step 1: Verify the real index and corpus exist**
 
 Run: `ls data/index/dense.faiss data/index/chunks.jsonl data/corpus/circulars.jsonl`
 Expected: all three paths listed. If missing, STOP and report — `make reindex` is out of scope for a research branch without user sign-off.
 
-- [ ] **Step 2: Run the retrieval benchmark (non-smoke, top-50)**
+- [x] **Step 2: Run the retrieval benchmark (non-smoke, top-50)** — n=56, recall_at_10=0.9556, avg latency 0.078s
 
 Top-50 matches `RAGPipeline.query(pool=50)` — the reranker-input cutoff, per spec.
 
@@ -50,12 +50,12 @@ uv run python scripts/bench_retrieval.py \
 ```
 Expected: JSON summary printed with `"n"` = number of golden rows, a `recall_at_10` value, and `eval/runs/ft-golden/run.trec` + `results.json` created. Takes a few minutes (loads bge-m3 on MPS). Record `recall_at_10` — it goes in the report as the baseline.
 
-- [ ] **Step 3: Sanity-check the runfile**
+- [x] **Step 3: Sanity-check the runfile** — 2800 lines = 56×50. NOTE: chunk IDs contain embedded spaces (section = heading text), so Task 2 `load_run` must parse TREC fields positionally (fields[0:2] + last 3), not by naive split into 6
 
 Run: `head -3 eval/runs/ft-golden/run.trec && wc -l eval/runs/ft-golden/run.trec`
 Expected: lines like `<qid> Q0 <doc>#<section>#<n> 1 0.03278688 baseline-retrieval`; line count ≈ 50 × number of non-empty queries.
 
-- [ ] **Step 4: Commit the run artifacts**
+- [x] **Step 4: Commit the run artifacts** — 60a1ef0
 
 ```bash
 git add eval/runs/ft-golden
@@ -76,7 +76,7 @@ Pure-logic classifier (unit-tested, offline) plus a CLI that joins a TREC runfil
 - Consumes: TREC runfile (Task 1 format), golden JSONL rows with `id`, `query`, `relevant_circulars`, `abstain`, `must_contain`, `task_type` fields; `sebi_rag.ingest_pdf.normalize_circular_number(n: str) -> str` for doc matching.
 - Produces: `classify_query(ranked_chunk_ids: list[str], relevant_circulars: list[str]) -> tuple[str, int]` returning `("hit" | "ranked_low" | "candidate_miss", first_relevant_doc_rank)` where rank is 1-based over *deduplicated docs* and `-1` when absent. CLI writes `failures.jsonl`: one row per non-hit, `{"id", "query", "class", "first_relevant_rank", "relevant_circulars", "must_contain", "task_type", "source"}`. Tasks 3–5 consume `failures.jsonl`.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests** (+1 extra test: load_run with space-embedded chunk IDs)
 
 Create `tests/test_extract_misses.py`:
 
@@ -123,12 +123,12 @@ def test_doc_matching_is_normalized():
     assert cls == "hit"
 ```
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail** — ModuleNotFoundError as expected
 
 Run: `PYTHONPATH=src uv run pytest tests/test_extract_misses.py -v`
 Expected: FAIL — `ModuleNotFoundError: No module named 'extract_misses'`
 
-- [ ] **Step 3: Write the module**
+- [x] **Step 3: Write the module** — load_run parses TREC fields positionally (chunk IDs embed spaces)
 
 Create `scripts/analysis/extract_misses.py`:
 
@@ -233,12 +233,12 @@ if __name__ == "__main__":
     main()
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass** — 5 passed; full suite 245 passed / 2 skipped
 
 Run: `PYTHONPATH=src uv run pytest tests/test_extract_misses.py -v`
 Expected: 4 passed
 
-- [ ] **Step 5: Extract golden failures**
+- [x] **Step 5: Extract golden failures** — 45 answerable, 43 hits, 1 candidate_miss (para-freeze), 1 ranked_low (para-aifmaster, rank 37)
 
 Run:
 ```bash
@@ -250,7 +250,7 @@ uv run python scripts/analysis/extract_misses.py \
 ```
 Expected: JSON summary with `answerable`, `hits`, `candidate_miss`, `ranked_low` counts; `failures.jsonl` written. Note the counts — they anchor the report.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit** — 47d54dd
 
 ```bash
 git add scripts/analysis/extract_misses.py tests/test_extract_misses.py eval/runs/ft-golden/failures.jsonl
@@ -271,7 +271,7 @@ git commit -m "research: miss classifier + golden-v6 failure extraction"
 - Consumes: golden-v6 row schema (all fields required by `sebi_rag.benchmark.validate_golden`: `id, query, relevant_circulars, relevant_chunks, must_contain, must_not_contain, abstain, task_type, difficulty, expected_citation_level, rationale, label_source, review_status`). `task_type` must be one of `benchmark.TASK_TYPES`; use `label_source: "probes_v1"`, `review_status: "draft"`.
 - Produces: `eval/probes/probes_v1.jsonl` and `eval/runs/ft-probes/failures.jsonl` in the same formats as Tasks 1–2. Task 4 consumes both failure files.
 
-- [ ] **Step 1: Mine the corpus for probe targets**
+- [x] **Step 1: Mine the corpus for probe targets** — 705 circulars; annexure 302, numeric 343, supersession 120 candidates
 
 For each of the 5 blind-spot categories, find real circulars whose text contains a verifiable answer. Work from the corpus, not memory:
 
@@ -289,7 +289,7 @@ EOF
 Repeat with predicates for numeric facts (`re.search(r"\b(shall not exceed|maximum of|at least) \d", t)`), supersession phrasing (`"supersession" in t or "rescinded" in t`), and short/definitional sections. For each chosen target, record: circular_number, the exact answer sentence (becomes `must_contain`), and the section it lives in.
 Expected: a scratch list of ≥25 (circular, answer-text, category) triples covering all 5 categories: table/annexure, numeric fact, supersession/as-of phrasing, definitional lookup, paraphrase/vocabulary-mismatch.
 
-- [ ] **Step 2: Write `eval/probes/probes_v1.jsonl`**
+- [x] **Step 2: Write `eval/probes/probes_v1.jsonl`** — 25 probes, 5 per category
 
 25 rows (5 per category). Category → `task_type` mapping: table/annexure → `numeric_table`; numeric fact → `numeric_table`; supersession phrasing → `lineage_supersession`; definitional lookup → `title_direct`; paraphrase → `body_paraphrase`. Phrase paraphrase probes WITHOUT reusing the circular's own vocabulary (that's the point). Row template — every field below is required:
 
@@ -299,7 +299,7 @@ Expected: a scratch list of ≥25 (circular, answer-text, category) triples cove
 
 ID convention: `probe-<cat>-NN` with cat ∈ {tbl, num, sup, def, par}.
 
-- [ ] **Step 3: Validate the probe file**
+- [x] **Step 3: Validate the probe file** — 25 rows, 0 issues
 
 Run:
 ```bash
@@ -315,7 +315,7 @@ EOF
 ```
 Expected: `25 rows, 0 issues` (count may be 25±3 if targets were scarce; ≥20 required).
 
-- [ ] **Step 4: Verify every must_contain actually appears in its target circular**
+- [x] **Step 4: Verify every must_contain actually appears in its target circular** — 0 unverifiable (whitespace-normalized check)
 
 ```bash
 uv run python - <<'EOF'
@@ -337,7 +337,7 @@ EOF
 ```
 Expected: `0 unverifiable probes`. Fix any offenders before proceeding (misses must be attributable to the pipeline, not to a bad label).
 
-- [ ] **Step 5: Run the probe benchmark and extract failures**
+- [x] **Step 5: Run the probe benchmark and extract failures** — doc recall@10 0.96; DEVIATION (spec-faithful): added answer-level classification (gold *chunk* in top-k via must_contain) since doc-level was saturated; failures: golden 3, probes 7
 
 ```bash
 uv run python scripts/bench_retrieval.py \
@@ -351,7 +351,7 @@ uv run python scripts/analysis/extract_misses.py \
 ```
 Expected: benchmark summary, then classifier summary. Probes were designed to stress weaknesses, so a low hit-rate is fine and informative.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit** — c1de9d8
 
 ```bash
 git add eval/probes/probes_v1.jsonl eval/runs/ft-probes
@@ -372,7 +372,7 @@ For every failure, walk the spec's 4-step checklist and emit a machine-readable 
 - Consumes: `failures.jsonl` rows (Task 2 format); `HybridRetriever.load(path, embedder)`, `retr.dense.search(q, k) / retr.sparse.search(q, k) -> list[tuple[int, float]]` (indices into `retr.chunks`), `retr.retrieve(q, top_n=50) -> list[tuple[Chunk, float]]`; `CrossEncoderReranker(device="mps").rerank(q, chunks) -> list[tuple[Chunk, float]]`; corpus rows `{"circular_number", "text", ...}`; chunk fields `id, doc_id, section, text`.
 - Produces: `traces.jsonl` — one row per failure: `{"id", "class", "source", "text_in_corpus": bool, "gold_chunks": [{"id", "len", "heading_only": bool}], "dense_rank": int, "sparse_rank": int, "fused_rank": int, "rerank_rank": int, "proposed_bucket": str}`. Ranks are 1-based first position of any gold-doc chunk, `-1` if absent in top-50. Task 5 consumes this.
 
-- [ ] **Step 1: Write the harness**
+- [x] **Step 1: Write the harness** — plus answer-chunk ranks (ans_dense/sparse/fused/rerank) and env guards (OMP_NUM_THREADS=1 etc.) before torch/faiss init; without guards the process segfaults (exit 139)
 
 Create `scripts/analysis/trace_failure.py`:
 
@@ -519,7 +519,7 @@ if __name__ == "__main__":
     main()
 ```
 
-- [ ] **Step 2: Smoke-test on a single failure**
+- [x] **Step 2: Smoke-test on a single failure** — para-aifmaster traced OK after env-guard fix
 
 Run (builds a one-row input from whichever failure file is non-empty):
 ```bash
@@ -532,7 +532,7 @@ cat /tmp/one_trace.jsonl
 ```
 Expected: one JSON trace row with all fields populated, no traceback. If golden produced zero failures (possible if retrieval is strong), the probe file supplies the row.
 
-- [ ] **Step 3: Trace all failures from both sources**
+- [x] **Step 3: Trace all failures from both sources** — 10 traces; proposed: 5 sparse_vocabulary_miss, 3 embedding_semantic_miss, 2 fusion_ranking_loss
 
 ```bash
 uv run python scripts/analysis/trace_failure.py \
@@ -542,7 +542,7 @@ uv run python scripts/analysis/trace_failure.py \
 ```
 Expected: one line per failure printed with its proposed bucket; `traces.jsonl` written. Model-heavy — expect minutes, run once.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit** — 743ad12
 
 ```bash
 git add scripts/analysis/trace_failure.py eval/runs/ft-traces
@@ -562,7 +562,7 @@ Review every trace, confirm or override the proposed bucket, and record evidence
 - Consumes: `traces.jsonl` (Task 4 format), corpus/chunk texts for spot-reading, spec's six buckets: `extraction_loss, chunking_defect, embedding_semantic_miss, sparse_vocabulary_miss, fusion_ranking_loss, metadata_filter_loss`.
 - Produces: `buckets.md` — a table `| failure_id | source | class | final_bucket | evidence (1-2 sentences) |` plus a per-bucket count summary. Task 6/7 consume the counts and evidence.
 
-- [ ] **Step 1: Review each trace and assign the final bucket**
+- [x] **Step 1: Review each trace and assign the final bucket** — 10/10 assigned; 1 override (probe-par-03 -> chunking_defect: context-orphaned list-item chunks, verified by spot-reading 4.1.1.x chunks)
 
 For each row in `traces.jsonl`: read the trace, spot-read the gold chunks (`grep -F '<chunk_id>' data/index/chunks.jsonl`) and, where the proposal looks wrong, the corpus text. Rules:
 - Trust `extraction_loss` / `chunking_defect` proposals only after eyeballing the actual text (the `_ws` substring check has false positives/negatives on OCR artifacts).
@@ -571,11 +571,11 @@ For each row in `traces.jsonl`: read the trace, spot-read the gold chunks (`grep
 
 Write each decision as a table row in `eval/runs/ft-traces/buckets.md` as you go.
 
-- [ ] **Step 2: Add the summary section**
+- [x] **Step 2: Add the summary section** — sparse_vocabulary_miss 5, embedding_semantic_miss 3, chunking_defect 1, fusion_ranking_loss 1; unassigned 0 (<=10% required)
 
 At the top of `buckets.md`, add: total failures, count + percentage per bucket, split by source (golden vs probe), and the count of unassigned failures. Verify unassigned ≤ 10% (spec success criterion). If >10%, return to Step 1 for the unassigned rows.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit** — d764588
 
 ```bash
 git add eval/runs/ft-traces/buckets.md
@@ -595,11 +595,11 @@ Scan ONLY for the top buckets by count (typically 2-3). No implementation, no in
 - Consumes: bucket counts from `buckets.md`.
 - Produces: per top bucket, 2-3 candidate interventions, each with: what it is, evidence it helps (paper/benchmark/changelog), Apple-Silicon-local feasibility (license, runtime, MPS/CPU support), integration surface (which sebi_rag module it would touch), effort tier (S/M/L).
 
-- [ ] **Step 1: Identify top buckets**
+- [x] **Step 1: Identify top buckets** — sparse_vocabulary_miss + embedding_semantic_miss = 80%; chunking_defect added (links to nominee bug)
 
 From `buckets.md`, take buckets covering ≥70% of failures (usually top 2-3). List them in `interventions-notes.md`.
 
-- [ ] **Step 2: Research candidates per bucket (web search)**
+- [x] **Step 2: Research candidates per bucket (web search)** — 8 candidates across 3 buckets with sources, local-feasibility, integration surface, effort tiers
 
 Starting points by bucket (pursue only the buckets that actually surfaced):
 - `extraction_loss` → Docling, Marker, pymupdf4llm, unstructured — table/layout fidelity on Indian-government PDF styles; all run locally.
@@ -611,7 +611,7 @@ Starting points by bucket (pursue only the buckets that actually surfaced):
 
 For each candidate record the fields listed in **Produces**. Cite sources (URL + date).
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit** — see git log (interventions-notes.md)
 
 ```bash
 git add eval/runs/ft-traces/interventions-notes.md
@@ -629,7 +629,7 @@ git commit -m "research: targeted intervention scan for top failure buckets"
 - Consumes: everything from Tasks 1–6.
 - Produces: the spec's deliverable — taxonomy, ranked interventions, appendix.
 
-- [ ] **Step 1: Write the report**
+- [x] **Step 1: Write the report** — docs/superpowers/reports/2026-07-16-preretrieval-failure-taxonomy.md
 
 Structure (from spec):
 1. **Method + baseline** — one paragraph; baseline `recall_at_10` from Task 1, probe hit-rate from Task 3, harvest counts from Task 2/3 summaries.
@@ -637,19 +637,19 @@ Structure (from spec):
 3. **Ranked intervention list** — order by bucket frequency × fixability. Each entry: target bucket(s), failure IDs addressed, expected gain tier (high/medium/low + reasoning), new local deps if any, effort tier, and the measurement a follow-up would run (e.g. "re-run Task 1 + Task 3 benchmarks; success = candidate_miss count for bucket X drops ≥50%").
 4. **Appendix** — pointer to `eval/runs/ft-traces/traces.jsonl` + inline copies of the exemplar traces.
 
-- [ ] **Step 2: Self-check against spec success criteria**
+- [x] **Step 2: Self-check against spec success criteria** — 10/10 bucketed; top-3 interventions cite failure IDs; all artifact paths verified
 
 Verify and note results in the report footer:
 - ≥90% of harvested failures have a final bucket in `buckets.md` — count it.
 - Top 3 interventions each cite specific failure IDs — check each entry.
 - All commands/artifacts referenced by path actually exist — `ls` each.
 
-- [ ] **Step 3: Run the full offline test suite (no regressions from the new test file)**
+- [x] **Step 3: Run the full offline test suite (no regressions from the new test file)** — 248 passed, 2 skipped
 
 Run: `PYTHONPATH=src uv run pytest -q`
 Expected: all tests pass (240 baseline + 4 new = 244, count may drift).
 
-- [ ] **Step 4: Commit and hand off**
+- [x] **Step 4: Commit and hand off**
 
 ```bash
 git add docs/superpowers/reports/2026-07-16-preretrieval-failure-taxonomy.md
