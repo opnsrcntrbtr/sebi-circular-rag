@@ -55,3 +55,34 @@ def test_load_run_handles_chunk_ids_with_spaces(tmp_path):
             "SEBI/HO/B/2#preamble#0",
         ]
     }
+
+
+def test_answer_level_hit_when_needle_in_top10_chunk():
+    texts = {
+        "SEBI/HO/A/1#preamble#0": "doc | subject | intro text",
+        "SEBI/HO/B/2#preamble#0": "doc | subject | fee shall not exceed Rs 1,51,000 per annum",
+    }
+    from extract_misses import classify_answer
+    cls, rank = classify_answer(
+        ["SEBI/HO/A/1#preamble#0", "SEBI/HO/B/2#preamble#0"], texts, ["1,51,000"]
+    )
+    assert cls == "hit"
+    assert rank == 2
+
+
+def test_answer_level_candidate_miss_when_no_chunk_contains_needle():
+    from extract_misses import classify_answer
+    texts = {"SEBI/HO/A/1#p#0": "doc | subject | unrelated"}
+    cls, rank = classify_answer(["SEBI/HO/A/1#p#0"], texts, ["1,51,000"])
+    assert cls == "candidate_miss"
+    assert rank == -1
+
+
+def test_answer_level_ranked_low_and_whitespace_normalized():
+    from extract_misses import classify_answer
+    ids = [f"SEBI/HO/D{i}/{i}#p#0" for i in range(11)] + ["SEBI/HO/B/2#p#0"]
+    texts = {i: "filler" for i in ids}
+    texts["SEBI/HO/B/2#p#0"] = "doc | x | within 7\n days of receipt"
+    cls, rank = classify_answer(ids, texts, ["within 7 days"])
+    assert cls == "ranked_low"
+    assert rank == 12

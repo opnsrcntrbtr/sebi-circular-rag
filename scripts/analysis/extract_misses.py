@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -38,6 +39,26 @@ def classify_query(
     return "candidate_miss", -1
 
 
+def _ws(s: str) -> str:
+    return re.sub(r"\s+", " ", s).strip().lower()
+
+
+def classify_answer(
+    ranked_chunk_ids: list[str],
+    chunk_texts: dict[str, str],
+    must_contain: list[str],
+) -> tuple[str, int]:
+    """Answer-level classification: a candidate chunk qualifies if it contains
+    any must_contain needle (whitespace-normalized). Spec's 'gold chunk in
+    top-k' criterion — stricter than doc-level."""
+    needles = [_ws(m) for m in must_contain if m.strip()]
+    for rank, cid in enumerate(ranked_chunk_ids, start=1):
+        text = _ws(chunk_texts.get(cid, ""))
+        if any(n in text for n in needles):
+            return ("hit" if rank <= 10 else "ranked_low"), rank
+    return "candidate_miss", -1
+
+
 def load_run(path: Path) -> dict[str, list[str]]:
     """Chunk IDs embed section headings containing spaces, so parse TREC
     fields positionally: qid, Q0 at the front; rank, score, run name at the
@@ -58,9 +79,20 @@ def main() -> None:
     ap.add_argument("--golden", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--source", required=True, help="label: golden_v6 | probes_v1")
+    ap.add_argument("--chunks", default=str(ROOT / "data" / "index" / "chunks.jsonl"),
+                    help="chunk texts for answer-level classification")
     args = ap.parse_args()
 
     run = load_run(Path(args.run))
+    needed = {cid for cids in run.values() for cid in cids}
+    chunk_texts: dict[str, str] = {}
+    with Path(args.chunks).open(encoding="utf-8") as f:
+        for line in f:
+            if not line.strip():
+                continue
+            c = json.loads(line)
+            if c["id"] in needed:
+                chunk_texts[c["id"]] = c["text"]
     rows = [
         json.loads(line)
         for line in Path(args.golden).read_text(encoding="utf-8").splitlines()
@@ -71,8 +103,14 @@ def main() -> None:
         if row.get("abstain"):
             skipped += 1
             continue
-        cls, rank = classify_query(run.get(row["id"], []), row["relevant_circulars"])
-        if cls == "hit":
+        ranked = run.get(row["id"], [])
+        cls, rank = classify_query(ranked, row["relevant_circulars"])
+        must = row.get("must_contain", [])
+        if must:
+            a_cls, a_rank = classify_answer(ranked, chunk_texts, must)
+        else:  # no needle -> answer level falls back to doc level
+            a_cls, a_rank = cls, rank
+        if cls == "hit" and a_cls == "hit":
             hits += 1
             continue
         failures.append({
@@ -80,8 +118,10 @@ def main() -> None:
             "query": row["query"],
             "class": cls,
             "first_relevant_rank": rank,
+            "answer_class": a_cls,
+            "first_answer_rank": a_rank,
             "relevant_circulars": row["relevant_circulars"],
-            "must_contain": row.get("must_contain", []),
+            "must_contain": must,
             "task_type": row.get("task_type", ""),
             "source": args.source,
         })
@@ -92,8 +132,10 @@ def main() -> None:
             f.write(json.dumps(row, ensure_ascii=False) + "\n")
     print(json.dumps({
         "answerable": len(rows) - skipped, "hits": hits,
-        "candidate_miss": sum(1 for r in failures if r["class"] == "candidate_miss"),
-        "ranked_low": sum(1 for r in failures if r["class"] == "ranked_low"),
+        "doc_candidate_miss": sum(1 for r in failures if r["class"] == "candidate_miss"),
+        "doc_ranked_low": sum(1 for r in failures if r["class"] == "ranked_low"),
+        "answer_candidate_miss": sum(1 for r in failures if r["answer_class"] == "candidate_miss"),
+        "answer_ranked_low": sum(1 for r in failures if r["answer_class"] == "ranked_low"),
         "out": str(out),
     }, indent=2))
 
