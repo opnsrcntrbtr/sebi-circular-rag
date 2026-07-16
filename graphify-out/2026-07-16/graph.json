@@ -4,14 +4,114 @@
   "graph": {},
   "nodes": [
     {
+      "label": "trace_failure.py",
+      "file_type": "code",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "scripts_analysis_trace_failure",
+      "community": 13,
+      "norm_label": "trace_failure.py"
+    },
+    {
+      "label": "_ws()",
+      "file_type": "code",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L33",
+      "_origin": "ast",
+      "id": "scripts_analysis_trace_failure_ws",
+      "community": 13,
+      "norm_label": "_ws()"
+    },
+    {
+      "label": "heading_only()",
+      "file_type": "code",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L37",
+      "_origin": "ast",
+      "id": "scripts_analysis_trace_failure_heading_only",
+      "community": 13,
+      "norm_label": "heading_only()"
+    },
+    {
+      "label": "first_gold_rank()",
+      "file_type": "code",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L44",
+      "_origin": "ast",
+      "id": "scripts_analysis_trace_failure_first_gold_rank",
+      "community": 13,
+      "norm_label": "first_gold_rank()"
+    },
+    {
+      "label": "first_answer_rank()",
+      "file_type": "code",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L51",
+      "_origin": "ast",
+      "id": "scripts_analysis_trace_failure_first_answer_rank",
+      "community": 13,
+      "norm_label": "first_answer_rank()"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L59",
+      "_origin": "ast",
+      "id": "scripts_analysis_trace_failure_main",
+      "community": 13,
+      "norm_label": "main()"
+    },
+    {
+      "label": "Trace each retrieval failure backwards through the pipeline (throwaway).  Checkl",
+      "file_type": "rationale",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "scripts_analysis_trace_failure_rationale_1",
+      "community": 13,
+      "norm_label": "trace each retrieval failure backwards through the pipeline (throwaway).  checkl"
+    },
+    {
+      "label": "Degenerate chunk heuristic: short and no sentence-final punctuation     (the nom",
+      "file_type": "rationale",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L38",
+      "_origin": "ast",
+      "id": "scripts_analysis_trace_failure_rationale_38",
+      "community": 13,
+      "norm_label": "degenerate chunk heuristic: short and no sentence-final punctuation     (the nom"
+    },
+    {
+      "label": "Rank of the first chunk that actually carries the answer text.",
+      "file_type": "rationale",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L52",
+      "_origin": "ast",
+      "id": "scripts_analysis_trace_failure_rationale_52",
+      "community": 13,
+      "norm_label": "rank of the first chunk that actually carries the answer text."
+    },
+    {
+      "label": "# NOTE: metadata_filter_loss cannot be auto-detected here (no",
+      "file_type": "rationale",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L149",
+      "_origin": "ast",
+      "id": "scripts_analysis_trace_failure_rationale_149",
+      "community": 13,
+      "norm_label": "# note: metadata_filter_loss cannot be auto-detected here (no"
+    },
+    {
       "label": "extract_misses.py",
       "file_type": "code",
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "scripts_analysis_extract_misses",
       "community": 14,
-      "norm_label": "extract_misses.py"
+      "norm_label": "extract_misses.py",
+      "id": "scripts_analysis_extract_misses"
     },
     {
       "label": "_doc()",
@@ -19,9 +119,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L21",
       "_origin": "ast",
-      "id": "scripts_analysis_extract_misses_doc",
       "community": 14,
-      "norm_label": "_doc()"
+      "norm_label": "_doc()",
+      "id": "scripts_analysis_extract_misses_doc"
     },
     {
       "label": "classify_query()",
@@ -29,9 +129,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L25",
       "_origin": "ast",
-      "id": "scripts_analysis_extract_misses_classify_query",
       "community": 14,
-      "norm_label": "classify_query()"
+      "norm_label": "classify_query()",
+      "id": "scripts_analysis_extract_misses_classify_query"
     },
     {
       "label": "_ws()",
@@ -39,9 +139,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L42",
       "_origin": "ast",
-      "id": "scripts_analysis_extract_misses_ws",
       "community": 14,
-      "norm_label": "_ws()"
+      "norm_label": "_ws()",
+      "id": "scripts_analysis_extract_misses_ws"
     },
     {
       "label": "classify_answer()",
@@ -49,9 +149,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L46",
       "_origin": "ast",
-      "id": "scripts_analysis_extract_misses_classify_answer",
       "community": 14,
-      "norm_label": "classify_answer()"
+      "norm_label": "classify_answer()",
+      "id": "scripts_analysis_extract_misses_classify_answer"
     },
     {
       "label": "load_run()",
@@ -59,9 +159,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L62",
       "_origin": "ast",
-      "id": "scripts_analysis_extract_misses_load_run",
       "community": 14,
-      "norm_label": "load_run()"
+      "norm_label": "load_run()",
+      "id": "scripts_analysis_extract_misses_load_run"
     },
     {
       "label": "Path",
@@ -69,9 +169,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "id": "path",
       "community": 14,
-      "norm_label": "path"
+      "norm_label": "path",
+      "id": "path"
     },
     {
       "label": "main()",
@@ -79,9 +179,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L76",
       "_origin": "ast",
-      "id": "scripts_analysis_extract_misses_main",
       "community": 14,
-      "norm_label": "main()"
+      "norm_label": "main()",
+      "id": "scripts_analysis_extract_misses_main"
     },
     {
       "label": "Classify golden/probe queries against a TREC runfile (throwaway research).  Clas",
@@ -89,9 +189,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "scripts_analysis_extract_misses_rationale_1",
       "community": 14,
-      "norm_label": "classify golden/probe queries against a trec runfile (throwaway research).  clas"
+      "norm_label": "classify golden/probe queries against a trec runfile (throwaway research).  clas",
+      "id": "scripts_analysis_extract_misses_rationale_1"
     },
     {
       "label": "Answer-level classification: a candidate chunk qualifies if it contains     any",
@@ -99,9 +199,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L51",
       "_origin": "ast",
-      "id": "scripts_analysis_extract_misses_rationale_51",
       "community": 14,
-      "norm_label": "answer-level classification: a candidate chunk qualifies if it contains     any"
+      "norm_label": "answer-level classification: a candidate chunk qualifies if it contains     any",
+      "id": "scripts_analysis_extract_misses_rationale_51"
     },
     {
       "label": "Chunk IDs embed section headings containing spaces, so parse TREC     fields pos",
@@ -109,9 +209,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L63",
       "_origin": "ast",
-      "id": "scripts_analysis_extract_misses_rationale_63",
       "community": 14,
-      "norm_label": "chunk ids embed section headings containing spaces, so parse trec     fields pos"
+      "norm_label": "chunk ids embed section headings containing spaces, so parse trec     fields pos",
+      "id": "scripts_analysis_extract_misses_rationale_63"
     },
     {
       "label": "test_extract_misses.py",
@@ -119,9 +219,9 @@
       "source_file": "tests/test_extract_misses.py",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "tests_test_extract_misses",
       "community": 14,
-      "norm_label": "test_extract_misses.py"
+      "norm_label": "test_extract_misses.py",
+      "id": "tests_test_extract_misses"
     },
     {
       "label": "test_hit_when_relevant_doc_in_top10_docs()",
@@ -129,9 +229,9 @@
       "source_file": "tests/test_extract_misses.py",
       "source_location": "L18",
       "_origin": "ast",
-      "id": "tests_test_extract_misses_test_hit_when_relevant_doc_in_top10_docs",
       "community": 14,
-      "norm_label": "test_hit_when_relevant_doc_in_top10_docs()"
+      "norm_label": "test_hit_when_relevant_doc_in_top10_docs()",
+      "id": "tests_test_extract_misses_test_hit_when_relevant_doc_in_top10_docs"
     },
     {
       "label": "test_candidate_miss_when_relevant_doc_absent()",
@@ -139,9 +239,9 @@
       "source_file": "tests/test_extract_misses.py",
       "source_location": "L24",
       "_origin": "ast",
-      "id": "tests_test_extract_misses_test_candidate_miss_when_relevant_doc_absent",
       "community": 14,
-      "norm_label": "test_candidate_miss_when_relevant_doc_absent()"
+      "norm_label": "test_candidate_miss_when_relevant_doc_absent()",
+      "id": "tests_test_extract_misses_test_candidate_miss_when_relevant_doc_absent"
     },
     {
       "label": "test_ranked_low_when_first_relevant_doc_after_rank10()",
@@ -149,9 +249,9 @@
       "source_file": "tests/test_extract_misses.py",
       "source_location": "L30",
       "_origin": "ast",
-      "id": "tests_test_extract_misses_test_ranked_low_when_first_relevant_doc_after_rank10",
       "community": 14,
-      "norm_label": "test_ranked_low_when_first_relevant_doc_after_rank10()"
+      "norm_label": "test_ranked_low_when_first_relevant_doc_after_rank10()",
+      "id": "tests_test_extract_misses_test_ranked_low_when_first_relevant_doc_after_rank10"
     },
     {
       "label": "test_doc_matching_is_normalized()",
@@ -159,9 +259,9 @@
       "source_file": "tests/test_extract_misses.py",
       "source_location": "L37",
       "_origin": "ast",
-      "id": "tests_test_extract_misses_test_doc_matching_is_normalized",
       "community": 14,
-      "norm_label": "test_doc_matching_is_normalized()"
+      "norm_label": "test_doc_matching_is_normalized()",
+      "id": "tests_test_extract_misses_test_doc_matching_is_normalized"
     },
     {
       "label": "test_load_run_handles_chunk_ids_with_spaces()",
@@ -169,9 +269,9 @@
       "source_file": "tests/test_extract_misses.py",
       "source_location": "L43",
       "_origin": "ast",
-      "id": "tests_test_extract_misses_test_load_run_handles_chunk_ids_with_spaces",
       "community": 14,
-      "norm_label": "test_load_run_handles_chunk_ids_with_spaces()"
+      "norm_label": "test_load_run_handles_chunk_ids_with_spaces()",
+      "id": "tests_test_extract_misses_test_load_run_handles_chunk_ids_with_spaces"
     },
     {
       "label": "test_answer_level_hit_when_needle_in_top10_chunk()",
@@ -179,9 +279,9 @@
       "source_file": "tests/test_extract_misses.py",
       "source_location": "L60",
       "_origin": "ast",
-      "id": "tests_test_extract_misses_test_answer_level_hit_when_needle_in_top10_chunk",
       "community": 14,
-      "norm_label": "test_answer_level_hit_when_needle_in_top10_chunk()"
+      "norm_label": "test_answer_level_hit_when_needle_in_top10_chunk()",
+      "id": "tests_test_extract_misses_test_answer_level_hit_when_needle_in_top10_chunk"
     },
     {
       "label": "test_answer_level_candidate_miss_when_no_chunk_contains_needle()",
@@ -189,9 +289,9 @@
       "source_file": "tests/test_extract_misses.py",
       "source_location": "L73",
       "_origin": "ast",
-      "id": "tests_test_extract_misses_test_answer_level_candidate_miss_when_no_chunk_contains_needle",
       "community": 14,
-      "norm_label": "test_answer_level_candidate_miss_when_no_chunk_contains_needle()"
+      "norm_label": "test_answer_level_candidate_miss_when_no_chunk_contains_needle()",
+      "id": "tests_test_extract_misses_test_answer_level_candidate_miss_when_no_chunk_contains_needle"
     },
     {
       "label": "test_answer_level_ranked_low_and_whitespace_normalized()",
@@ -199,9 +299,9 @@
       "source_file": "tests/test_extract_misses.py",
       "source_location": "L81",
       "_origin": "ast",
-      "id": "tests_test_extract_misses_test_answer_level_ranked_low_and_whitespace_normalized",
       "community": 14,
-      "norm_label": "test_answer_level_ranked_low_and_whitespace_normalized()"
+      "norm_label": "test_answer_level_ranked_low_and_whitespace_normalized()",
+      "id": "tests_test_extract_misses_test_answer_level_ranked_low_and_whitespace_normalized"
     },
     {
       "label": "Offline tests for the failure-taxonomy miss classifier (throwaway research).",
@@ -209,9 +309,9 @@
       "source_file": "tests/test_extract_misses.py",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "tests_test_extract_misses_rationale_1",
       "community": 14,
-      "norm_label": "offline tests for the failure-taxonomy miss classifier (throwaway research)."
+      "norm_label": "offline tests for the failure-taxonomy miss classifier (throwaway research).",
+      "id": "tests_test_extract_misses_rationale_1"
     },
     {
       "label": "api.py",
@@ -1115,7 +1215,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "bench_rerankers.py",
       "id": "scripts_bench_rerankers"
     },
@@ -1125,7 +1225,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L42",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "auroc()",
       "id": "scripts_bench_rerankers_auroc"
     },
@@ -1135,7 +1235,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L51",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "best_threshold()",
       "id": "scripts_bench_rerankers_best_threshold"
     },
@@ -1145,7 +1245,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L65",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "evaluate()",
       "id": "scripts_bench_rerankers_evaluate"
     },
@@ -1155,7 +1255,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L97",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "main()",
       "id": "scripts_bench_rerankers_main"
     },
@@ -1165,7 +1265,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "f2 (adr-001): benchmark rerankers on golden_v5 with cluster-separation metrics.",
       "id": "scripts_bench_rerankers_rationale_1"
     },
@@ -1175,7 +1275,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L43",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "p(pos_score > neg_score); ties count half. pos = answerable top-scores,     neg",
       "id": "scripts_bench_rerankers_rationale_43"
     },
@@ -1185,7 +1285,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L52",
       "_origin": "ast",
-      "community": 1,
+      "community": 28,
       "norm_label": "threshold maximising abstention accuracy: answer if score >= thr.     returns (t",
       "id": "scripts_bench_rerankers_rationale_52"
     },
@@ -1235,7 +1335,7 @@
       "source_file": "scripts/build_golden.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "norm_label": "build_golden.py",
       "id": "scripts_build_golden"
     },
@@ -1245,7 +1345,7 @@
       "source_file": "scripts/build_golden.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "norm_label": "build eval/golden/golden_v4.jsonl for the larger corpus. each query is mapped to",
       "id": "scripts_build_golden_rationale_1"
     },
@@ -2821,7 +2921,7 @@
       "source_file": "src/sebi_rag/api_spaces.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 6,
+      "community": 23,
       "norm_label": "api_spaces.py",
       "id": "src_sebi_rag_api_spaces"
     },
@@ -2831,7 +2931,7 @@
       "source_file": "src/sebi_rag/api_spaces.py",
       "source_location": "L30",
       "_origin": "ast",
-      "community": 6,
+      "community": 23,
       "norm_label": "_cpu_env()",
       "id": "src_sebi_rag_api_spaces_cpu_env"
     },
@@ -2841,7 +2941,7 @@
       "source_file": "src/sebi_rag/api_spaces.py",
       "source_location": "L36",
       "_origin": "ast",
-      "community": 6,
+      "community": 23,
       "norm_label": "build_spaces_pipeline()",
       "id": "src_sebi_rag_api_spaces_build_spaces_pipeline"
     },
@@ -2851,7 +2951,7 @@
       "source_file": "src/sebi_rag/api_spaces.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 6,
+      "community": 23,
       "norm_label": "pipeline builder for the hugging face spaces demo (cpu-only, linux).  parallel t",
       "id": "src_sebi_rag_api_spaces_rationale_1"
     },
@@ -3341,7 +3441,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L51",
       "_origin": "ast",
-      "community": 6,
+      "community": 23,
       "norm_label": "bgem3embedder",
       "id": "src_sebi_rag_embeddings_bgem3embedder"
     },
@@ -3351,7 +3451,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L54",
       "_origin": "ast",
-      "community": 6,
+      "community": 23,
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_embeddings_bgem3embedder_init"
     },
@@ -3391,7 +3491,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L52",
       "_origin": "ast",
-      "community": 6,
+      "community": 23,
       "norm_label": "production dense embedder: baai/bge-m3 on apple silicon mps (step 10).",
       "id": "src_sebi_rag_embeddings_rationale_52"
     },
@@ -3491,7 +3591,7 @@
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L40",
       "_origin": "ast",
-      "community": 29,
+      "community": 47,
       "norm_label": "run_selector_cases()",
       "id": "src_sebi_rag_eval_asof_run_selector_cases"
     },
@@ -4151,7 +4251,7 @@
       "source_file": "src/sebi_rag/generate_spaces.py",
       "source_location": "L109",
       "_origin": "ast",
-      "community": 10,
+      "community": 6,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_spaces_hfgenerator_generate"
     },
@@ -4181,7 +4281,7 @@
       "source_file": "src/sebi_rag/generate_spaces.py",
       "source_location": "L155",
       "_origin": "ast",
-      "community": 10,
+      "community": 6,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_spaces_hybridgenerator_generate"
     },
@@ -4581,7 +4681,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "norm_label": "lineage.py",
       "id": "src_sebi_rag_lineage"
     },
@@ -4621,7 +4721,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L70",
       "_origin": "ast",
-      "community": 36,
+      "community": 47,
       "norm_label": "lineage",
       "id": "src_sebi_rag_lineage_lineage"
     },
@@ -4701,7 +4801,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L132",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "norm_label": "mc_topic()",
       "id": "src_sebi_rag_lineage_mc_topic"
     },
@@ -4711,7 +4811,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L150",
       "_origin": "ast",
-      "community": 13,
+      "community": 36,
       "norm_label": "_currency()",
       "id": "src_sebi_rag_lineage_currency"
     },
@@ -4721,7 +4821,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L154",
       "_origin": "ast",
-      "community": 13,
+      "community": 36,
       "norm_label": "build_lineage()",
       "id": "src_sebi_rag_lineage_build_lineage"
     },
@@ -4741,7 +4841,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L218",
       "_origin": "ast",
-      "community": 13,
+      "community": 47,
       "norm_label": "superseded_citations()",
       "id": "src_sebi_rag_lineage_superseded_citations"
     },
@@ -4771,7 +4871,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "norm_label": "p2 \u2014 cross-document supersession resolution.  classifies each circular's referen",
       "id": "src_sebi_rag_lineage_rationale_1"
     },
@@ -4821,7 +4921,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L133",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "norm_label": "normalised topic of a 'master circular for/on <topic>' title, else none.      us",
       "id": "src_sebi_rag_lineage_rationale_133"
     },
@@ -4841,7 +4941,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L219",
       "_origin": "ast",
-      "community": 13,
+      "community": 47,
       "norm_label": "map any cited circular that is superseded -> the circular(s) superseding it.",
       "id": "src_sebi_rag_lineage_rationale_219"
     },
@@ -4981,7 +5081,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 19,
+      "community": 20,
       "norm_label": "rerank.py",
       "id": "src_sebi_rag_rerank"
     },
@@ -5011,7 +5111,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 0,
+      "community": 20,
       "norm_label": "lexicalreranker",
       "id": "src_sebi_rag_rerank_lexicalreranker"
     },
@@ -5081,7 +5181,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L115",
       "_origin": "ast",
-      "community": 6,
+      "community": 23,
       "norm_label": "crossencoderreranker",
       "id": "src_sebi_rag_rerank_crossencoderreranker"
     },
@@ -5091,7 +5191,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L121",
       "_origin": "ast",
-      "community": 6,
+      "community": 23,
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_rerank_crossencoderreranker_init"
     },
@@ -5101,7 +5201,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L128",
       "_origin": "ast",
-      "community": 6,
+      "community": 23,
       "norm_label": ".rerank()",
       "id": "src_sebi_rag_rerank_crossencoderreranker_rerank"
     },
@@ -5111,7 +5211,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 19,
+      "community": 20,
       "norm_label": "stage-2 reranking (mandatory, d4). cross-encoder in production; a deterministic",
       "id": "src_sebi_rag_rerank_rationale_1"
     },
@@ -5121,7 +5221,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 0,
+      "community": 20,
       "norm_label": "deterministic query-coverage reranker (test/fallback).      score = fraction of",
       "id": "src_sebi_rag_rerank_rationale_23"
     },
@@ -5141,7 +5241,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L116",
       "_origin": "ast",
-      "community": 6,
+      "community": 23,
       "norm_label": "production reranker: bge-reranker-v2-m3 via sentence-transformers     crossencod",
       "id": "src_sebi_rag_rerank_rationale_116"
     },
@@ -5421,7 +5521,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 19,
+      "community": 3,
       "norm_label": "segment.py",
       "id": "src_sebi_rag_segment"
     },
@@ -5451,7 +5551,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L37",
       "_origin": "ast",
-      "community": 19,
+      "community": 3,
       "norm_label": "_paragraphs()",
       "id": "src_sebi_rag_segment_paragraphs"
     },
@@ -5461,7 +5561,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L74",
       "_origin": "ast",
-      "community": 0,
+      "community": 3,
       "norm_label": "hierarchical_chunk()",
       "id": "src_sebi_rag_segment_hierarchical_chunk"
     },
@@ -5471,7 +5571,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 19,
+      "community": 3,
       "norm_label": "segmentation: hierarchical chunking + metadata + stable citation ids.  minimal,",
       "id": "src_sebi_rag_segment_rationale_1"
     },
@@ -5481,7 +5581,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L38",
       "_origin": "ast",
-      "community": 19,
+      "community": 3,
       "norm_label": "split into units each <= max_chars.      pdf-extracted text often lacks blank-li",
       "id": "src_sebi_rag_segment_rationale_38"
     },
@@ -5491,7 +5591,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L80",
       "_origin": "ast",
-      "community": 0,
+      "community": 3,
       "norm_label": "document -> section -> paragraph chunks with stable ids.      a \"section\" is det",
       "id": "src_sebi_rag_segment_rationale_80"
     },
@@ -6501,7 +6601,7 @@
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L25",
       "_origin": "ast",
-      "community": 29,
+      "community": 47,
       "norm_label": "_lin_chain()",
       "id": "tests_test_eval_asof_lin_chain"
     },
@@ -6511,7 +6611,7 @@
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L32",
       "_origin": "ast",
-      "community": 29,
+      "community": 47,
       "norm_label": "test_run_selector_cases_pass_and_fail()",
       "id": "tests_test_eval_asof_test_run_selector_cases_pass_and_fail"
     },
@@ -7071,7 +7171,7 @@
       "source_file": "tests/test_faithfulness.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 19,
+      "community": 20,
       "norm_label": "test_faithfulness.py",
       "id": "tests_test_faithfulness"
     },
@@ -7091,7 +7191,7 @@
       "source_file": "tests/test_faithfulness.py",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 0,
+      "community": 20,
       "norm_label": "_hallucinatinggenerator",
       "id": "tests_test_faithfulness_hallucinatinggenerator"
     },
@@ -7101,7 +7201,7 @@
       "source_file": "tests/test_faithfulness.py",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 0,
+      "community": 20,
       "norm_label": ".generate()",
       "id": "tests_test_faithfulness_hallucinatinggenerator_generate"
     },
@@ -7111,7 +7211,7 @@
       "source_file": "tests/test_faithfulness.py",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 0,
+      "community": 20,
       "norm_label": "test_pipeline_flags_hallucinated_citation()",
       "id": "tests_test_faithfulness_test_pipeline_flags_hallucinated_citation"
     },
@@ -7121,7 +7221,7 @@
       "source_file": "tests/test_faithfulness.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 19,
+      "community": 20,
       "norm_label": "faithfulness: catch answers that cite circulars not in the retrieved context.",
       "id": "tests_test_faithfulness_rationale_1"
     },
@@ -7711,7 +7811,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 13,
+      "community": 36,
       "norm_label": "test_supersession_detected_from_text()",
       "id": "tests_test_lineage_test_supersession_detected_from_text"
     },
@@ -7721,7 +7821,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L38",
       "_origin": "ast",
-      "community": 13,
+      "community": 47,
       "norm_label": "test_superseded_citations_flagged_for_retrieval()",
       "id": "tests_test_lineage_test_superseded_citations_flagged_for_retrieval"
     },
@@ -7741,7 +7841,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L65",
       "_origin": "ast",
-      "community": 13,
+      "community": 36,
       "norm_label": "test_master_circular_reissue_supersession()",
       "id": "tests_test_lineage_test_master_circular_reissue_supersession"
     },
@@ -7831,7 +7931,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L172",
       "_origin": "ast",
-      "community": 36,
+      "community": 47,
       "norm_label": "test_governing_on_cycle_safe()",
       "id": "tests_test_lineage_test_governing_on_cycle_safe"
     },
@@ -7841,7 +7941,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L180",
       "_origin": "ast",
-      "community": 36,
+      "community": 47,
       "norm_label": "test_governing_on_parallel_branches_max_date_wins()",
       "id": "tests_test_lineage_test_governing_on_parallel_branches_max_date_wins"
     },
@@ -7871,7 +7971,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L205",
       "_origin": "ast",
-      "community": 13,
+      "community": 36,
       "norm_label": "test_build_lineage_edges_tiered()",
       "id": "tests_test_lineage_test_build_lineage_edges_tiered"
     },
@@ -7881,7 +7981,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L224",
       "_origin": "ast",
-      "community": 13,
+      "community": 36,
       "norm_label": "test_build_lineage_inferred_master_topic_edge()",
       "id": "tests_test_lineage_test_build_lineage_inferred_master_topic_edge"
     },
@@ -8341,7 +8441,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L9",
       "_origin": "ast",
-      "community": 0,
+      "community": 19,
       "norm_label": "_chunks()",
       "id": "tests_test_persistence_chunks"
     },
@@ -8921,7 +9021,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 20,
+      "community": 3,
       "norm_label": "test_segment.py",
       "id": "tests_test_segment"
     },
@@ -8931,7 +9031,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 20,
+      "community": 3,
       "norm_label": "_body()",
       "id": "tests_test_segment_body"
     },
@@ -8941,7 +9041,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L33",
       "_origin": "ast",
-      "community": 20,
+      "community": 3,
       "norm_label": "test_bare_parent_heading_not_emitted_as_standalone_chunk()",
       "id": "tests_test_segment_test_bare_parent_heading_not_emitted_as_standalone_chunk"
     },
@@ -8951,7 +9051,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L41",
       "_origin": "ast",
-      "community": 20,
+      "community": 3,
       "norm_label": "test_bare_parent_heading_folds_into_first_subsection()",
       "id": "tests_test_segment_test_bare_parent_heading_folds_into_first_subsection"
     },
@@ -8961,7 +9061,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L49",
       "_origin": "ast",
-      "community": 20,
+      "community": 3,
       "norm_label": "test_leaf_single_line_provision_is_preserved_not_overmerged()",
       "id": "tests_test_segment_test_leaf_single_line_provision_is_preserved_not_overmerged"
     },
@@ -8971,7 +9071,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 20,
+      "community": 3,
       "norm_label": "chunker (segment.hierarchical_chunk) behaviour.  regression guard for the \"5. nu",
       "id": "tests_test_segment_rationale_1"
     },
@@ -8981,7 +9081,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L29",
       "_origin": "ast",
-      "community": 20,
+      "community": 3,
       "norm_label": "chunk text is 'breadcrumb-header\\\\nbody'; return the body.",
       "id": "tests_test_segment_rationale_29"
     },
@@ -9121,7 +9221,7 @@
       "source_file": "tests/test_spaces.py",
       "source_location": "L109",
       "_origin": "ast",
-      "community": 13,
+      "community": 36,
       "norm_label": "test_corpus_records_feed_build_lineage()",
       "id": "tests_test_spaces_test_corpus_records_feed_build_lineage"
     },
@@ -9460,12 +9560,190 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "scripts_analysis_trace_failure",
+      "target": "scripts_analysis_trace_failure_first_answer_rank",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "scripts_analysis_trace_failure",
+      "target": "scripts_analysis_trace_failure_first_gold_rank",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "scripts_analysis_trace_failure",
+      "target": "scripts_analysis_trace_failure_heading_only",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L59",
+      "weight": 1.0,
+      "source": "scripts_analysis_trace_failure",
+      "target": "scripts_analysis_trace_failure_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "scripts_analysis_trace_failure",
+      "target": "scripts_analysis_trace_failure_ws",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "scripts_analysis_trace_failure",
+      "target": "src_sebi_rag_embeddings",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "scripts_analysis_trace_failure",
+      "target": "src_sebi_rag_ingest_pdf",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "scripts_analysis_trace_failure",
+      "target": "src_sebi_rag_rerank",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "scripts_analysis_trace_failure",
+      "target": "src_sebi_rag_retrieve",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "scripts_analysis_trace_failure_rationale_1",
+      "target": "scripts_analysis_trace_failure",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L149",
+      "weight": 1.0,
+      "source": "scripts_analysis_trace_failure_rationale_149",
+      "target": "scripts_analysis_trace_failure",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L85",
+      "weight": 1.0,
+      "source": "scripts_analysis_trace_failure_main",
+      "target": "scripts_analysis_trace_failure_ws",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L102",
+      "weight": 1.0,
+      "source": "scripts_analysis_trace_failure_main",
+      "target": "scripts_analysis_trace_failure_heading_only",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "scripts_analysis_trace_failure_rationale_38",
+      "target": "scripts_analysis_trace_failure_heading_only",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L111",
+      "weight": 1.0,
+      "source": "scripts_analysis_trace_failure_main",
+      "target": "scripts_analysis_trace_failure_first_gold_rank",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L115",
+      "weight": 1.0,
+      "source": "scripts_analysis_trace_failure_main",
+      "target": "scripts_analysis_trace_failure_first_answer_rank",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/analysis/trace_failure.py",
+      "source_location": "L52",
+      "weight": 1.0,
+      "source": "scripts_analysis_trace_failure_rationale_52",
+      "target": "scripts_analysis_trace_failure_first_answer_rank",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L46",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_analysis_extract_misses",
-      "target": "scripts_analysis_extract_misses_classify_answer",
-      "confidence_score": 1.0
+      "target": "scripts_analysis_extract_misses_classify_answer"
     },
     {
       "relation": "contains",
@@ -9473,9 +9751,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_analysis_extract_misses",
-      "target": "scripts_analysis_extract_misses_classify_query",
-      "confidence_score": 1.0
+      "target": "scripts_analysis_extract_misses_classify_query"
     },
     {
       "relation": "contains",
@@ -9483,9 +9761,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_analysis_extract_misses",
-      "target": "scripts_analysis_extract_misses_doc",
-      "confidence_score": 1.0
+      "target": "scripts_analysis_extract_misses_doc"
     },
     {
       "relation": "contains",
@@ -9493,9 +9771,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L62",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_analysis_extract_misses",
-      "target": "scripts_analysis_extract_misses_load_run",
-      "confidence_score": 1.0
+      "target": "scripts_analysis_extract_misses_load_run"
     },
     {
       "relation": "contains",
@@ -9503,9 +9781,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L76",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_analysis_extract_misses",
-      "target": "scripts_analysis_extract_misses_main",
-      "confidence_score": 1.0
+      "target": "scripts_analysis_extract_misses_main"
     },
     {
       "relation": "contains",
@@ -9513,9 +9791,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L42",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_analysis_extract_misses",
-      "target": "scripts_analysis_extract_misses_ws",
-      "confidence_score": 1.0
+      "target": "scripts_analysis_extract_misses_ws"
     },
     {
       "relation": "imports_from",
@@ -9524,9 +9802,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_analysis_extract_misses",
-      "target": "src_sebi_rag_ingest_pdf",
-      "confidence_score": 1.0
+      "target": "src_sebi_rag_ingest_pdf"
     },
     {
       "relation": "rationale_for",
@@ -9534,9 +9812,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_analysis_extract_misses_rationale_1",
-      "target": "scripts_analysis_extract_misses",
-      "confidence_score": 1.0
+      "target": "scripts_analysis_extract_misses"
     },
     {
       "relation": "imports_from",
@@ -9545,9 +9823,9 @@
       "source_file": "tests/test_extract_misses.py",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_extract_misses",
-      "target": "scripts_analysis_extract_misses",
-      "confidence_score": 1.0
+      "target": "scripts_analysis_extract_misses"
     },
     {
       "relation": "calls",
@@ -9556,9 +9834,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L32",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_analysis_extract_misses_classify_query",
-      "target": "scripts_analysis_extract_misses_doc",
-      "confidence_score": 1.0
+      "target": "scripts_analysis_extract_misses_doc"
     },
     {
       "relation": "calls",
@@ -9567,9 +9845,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L107",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_analysis_extract_misses_main",
-      "target": "scripts_analysis_extract_misses_classify_query",
-      "confidence_score": 1.0
+      "target": "scripts_analysis_extract_misses_classify_query"
     },
     {
       "relation": "calls",
@@ -9622,9 +9900,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L54",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_analysis_extract_misses_classify_answer",
-      "target": "scripts_analysis_extract_misses_ws",
-      "confidence_score": 1.0
+      "target": "scripts_analysis_extract_misses_ws"
     },
     {
       "relation": "calls",
@@ -9633,9 +9911,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L110",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_analysis_extract_misses_main",
-      "target": "scripts_analysis_extract_misses_classify_answer",
-      "confidence_score": 1.0
+      "target": "scripts_analysis_extract_misses_classify_answer"
     },
     {
       "relation": "rationale_for",
@@ -9643,9 +9921,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L51",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_analysis_extract_misses_rationale_51",
-      "target": "scripts_analysis_extract_misses_classify_answer",
-      "confidence_score": 1.0
+      "target": "scripts_analysis_extract_misses_classify_answer"
     },
     {
       "relation": "calls",
@@ -9687,9 +9965,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L62",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_analysis_extract_misses_load_run",
-      "target": "path",
-      "confidence_score": 1.0
+      "target": "path"
     },
     {
       "relation": "calls",
@@ -9698,9 +9976,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L86",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_analysis_extract_misses_main",
-      "target": "scripts_analysis_extract_misses_load_run",
-      "confidence_score": 1.0
+      "target": "scripts_analysis_extract_misses_load_run"
     },
     {
       "relation": "rationale_for",
@@ -9708,9 +9986,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L63",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_analysis_extract_misses_rationale_63",
-      "target": "scripts_analysis_extract_misses_load_run",
-      "confidence_score": 1.0
+      "target": "scripts_analysis_extract_misses_load_run"
     },
     {
       "relation": "calls",
@@ -9730,9 +10008,9 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L86",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_analysis_extract_misses_main",
-      "target": "path",
-      "confidence_score": 1.0
+      "target": "path"
     },
     {
       "relation": "references",
@@ -9762,9 +10040,9 @@
       "source_file": "tests/test_extract_misses.py",
       "source_location": "L73",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_extract_misses",
-      "target": "tests_test_extract_misses_test_answer_level_candidate_miss_when_no_chunk_contains_needle",
-      "confidence_score": 1.0
+      "target": "tests_test_extract_misses_test_answer_level_candidate_miss_when_no_chunk_contains_needle"
     },
     {
       "relation": "contains",
@@ -9772,9 +10050,9 @@
       "source_file": "tests/test_extract_misses.py",
       "source_location": "L60",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_extract_misses",
-      "target": "tests_test_extract_misses_test_answer_level_hit_when_needle_in_top10_chunk",
-      "confidence_score": 1.0
+      "target": "tests_test_extract_misses_test_answer_level_hit_when_needle_in_top10_chunk"
     },
     {
       "relation": "contains",
@@ -9782,9 +10060,9 @@
       "source_file": "tests/test_extract_misses.py",
       "source_location": "L81",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_extract_misses",
-      "target": "tests_test_extract_misses_test_answer_level_ranked_low_and_whitespace_normalized",
-      "confidence_score": 1.0
+      "target": "tests_test_extract_misses_test_answer_level_ranked_low_and_whitespace_normalized"
     },
     {
       "relation": "contains",
@@ -9792,9 +10070,9 @@
       "source_file": "tests/test_extract_misses.py",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_extract_misses",
-      "target": "tests_test_extract_misses_test_candidate_miss_when_relevant_doc_absent",
-      "confidence_score": 1.0
+      "target": "tests_test_extract_misses_test_candidate_miss_when_relevant_doc_absent"
     },
     {
       "relation": "contains",
@@ -9802,9 +10080,9 @@
       "source_file": "tests/test_extract_misses.py",
       "source_location": "L37",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_extract_misses",
-      "target": "tests_test_extract_misses_test_doc_matching_is_normalized",
-      "confidence_score": 1.0
+      "target": "tests_test_extract_misses_test_doc_matching_is_normalized"
     },
     {
       "relation": "contains",
@@ -9812,9 +10090,9 @@
       "source_file": "tests/test_extract_misses.py",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_extract_misses",
-      "target": "tests_test_extract_misses_test_hit_when_relevant_doc_in_top10_docs",
-      "confidence_score": 1.0
+      "target": "tests_test_extract_misses_test_hit_when_relevant_doc_in_top10_docs"
     },
     {
       "relation": "contains",
@@ -9822,9 +10100,9 @@
       "source_file": "tests/test_extract_misses.py",
       "source_location": "L43",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_extract_misses",
-      "target": "tests_test_extract_misses_test_load_run_handles_chunk_ids_with_spaces",
-      "confidence_score": 1.0
+      "target": "tests_test_extract_misses_test_load_run_handles_chunk_ids_with_spaces"
     },
     {
       "relation": "contains",
@@ -9832,9 +10110,9 @@
       "source_file": "tests/test_extract_misses.py",
       "source_location": "L30",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_extract_misses",
-      "target": "tests_test_extract_misses_test_ranked_low_when_first_relevant_doc_after_rank10",
-      "confidence_score": 1.0
+      "target": "tests_test_extract_misses_test_ranked_low_when_first_relevant_doc_after_rank10"
     },
     {
       "relation": "rationale_for",
@@ -9842,9 +10120,9 @@
       "source_file": "tests/test_extract_misses.py",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_extract_misses_rationale_1",
-      "target": "tests_test_extract_misses",
-      "confidence_score": 1.0
+      "target": "tests_test_extract_misses"
     },
     {
       "relation": "imports_from",
@@ -29471,5 +29749,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "c1de9d8995db85081d3b0984b093ffbd1ad7567f"
+  "built_at_commit": "743ad1294dba014a52eea002bd2baea20d16af4b"
 }
