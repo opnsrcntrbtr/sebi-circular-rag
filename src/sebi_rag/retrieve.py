@@ -14,6 +14,7 @@ import faiss
 import numpy as np
 
 from .embeddings import Embedder
+from .expand import expand_query
 from .segment import Chunk
 
 
@@ -165,7 +166,9 @@ class HybridRetriever:
         self, query: str, k_dense: int = 50, k_sparse: int = 50, top_n: int = 50
     ) -> list[tuple[Chunk, float]]:
         dense = self.dense.search(query, k_dense)
-        sparse = self.sparse.search(query, k_sparse)
+        # intervention #2: statutory-synonym expansion, sparse leg only —
+        # BM25 misses lay vocabulary; dense keeps the raw query.
+        sparse = self.sparse.search(expand_query(query), k_sparse)
         fused = rrf_fuse([dense, sparse], top_n=top_n)
         return [(self.chunks[i], score) for i, score in fused]
 

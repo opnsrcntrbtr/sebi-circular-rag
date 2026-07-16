@@ -43,3 +43,63 @@ def test_all_five_sparse_failure_queries_expand():
     ]
     for q in queries:
         assert expand_query(q) != q, f"no expansion for: {q}"
+
+
+# --- wiring into HybridRetriever (sparse leg only) ---------------------------
+
+from sebi_rag.embeddings import HashEmbedder  # noqa: E402
+from sebi_rag.retrieve import HybridRetriever, SparseIndex  # noqa: E402
+from sebi_rag.segment import Chunk  # noqa: E402
+
+
+def _chunk(i: int, text: str) -> Chunk:
+    return Chunk(id=f"DOC/{i}#s#0", doc_id=f"DOC/{i}",
+                 section=f"DOC/{i}/s/p0", text=text)
+
+
+def test_expanded_sparse_query_hits_statutory_chunk():
+    s = SparseIndex()
+    s.build([
+        "The depository shall freeze the folio upon written request.",
+        "Settlement of trades occurs on a T plus one cycle.",
+        "Margin requirements for derivatives are specified in Annexure A.",
+    ])
+    top = s.search(expand_query("investor wants to block debit entries"), 1)
+    assert top[0][0] == 0 and top[0][1] > 0
+
+
+def test_retrieve_routes_expanded_query_to_sparse_leg(monkeypatch):
+    chunks = [
+        _chunk(1, "The depository shall freeze the folio upon written request."),
+        _chunk(2, "Settlement of trades occurs on a T plus one cycle."),
+    ]
+    r = HybridRetriever.build(chunks, HashEmbedder(dim=64))
+    seen: dict[str, str] = {}
+    orig = r.sparse.search
+
+    def spy(q: str, k: int):
+        seen["q"] = q
+        return orig(q, k)
+
+    monkeypatch.setattr(r.sparse, "search", spy)
+    r.retrieve("investor wants to block debit entries")
+    assert "freeze" in seen["q"]
+
+
+def test_retrieve_dense_leg_keeps_raw_query(monkeypatch):
+    chunks = [
+        _chunk(1, "The depository shall freeze the folio upon written request."),
+        _chunk(2, "Settlement of trades occurs on a T plus one cycle."),
+    ]
+    r = HybridRetriever.build(chunks, HashEmbedder(dim=64))
+    seen: dict[str, str] = {}
+    orig = r.dense.search
+
+    def spy(q: str, k: int):
+        seen["q"] = q
+        return orig(q, k)
+
+    monkeypatch.setattr(r.dense, "search", spy)
+    q = "investor wants to block debit entries"
+    r.retrieve(q)
+    assert seen["q"] == q
