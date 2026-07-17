@@ -30,7 +30,7 @@
 - Consumes: nothing (pure stdlib).
 - Produces: `expand_query(query: str, glossary: dict[str, tuple[str, ...]] = GLOSSARY) -> str` and module constant `GLOSSARY: dict[str, tuple[str, ...]]`. Task 2 imports both from `sebi_rag.expand`.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Create `tests/test_expand.py`:
 
@@ -82,12 +82,12 @@ def test_all_five_sparse_failure_queries_expand():
         assert expand_query(q) != q, f"no expansion for: {q}"
 ```
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 Run: `.venv/bin/python -m pytest tests/test_expand.py -v`
 Expected: FAIL — `ModuleNotFoundError: No module named 'sebi_rag.expand'`
 
-- [ ] **Step 3: Write the module**
+- [x] **Step 3: Write the module**
 
 Create `src/sebi_rag/expand.py`:
 
@@ -156,12 +156,12 @@ def expand_query(
     return f"{query} {' '.join(extra)}" if extra else query
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 Run: `.venv/bin/python -m pytest tests/test_expand.py -v`
 Expected: 5 passed
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/sebi_rag/expand.py tests/test_expand.py
@@ -180,7 +180,7 @@ git commit -m "feat: statutory-synonym query expansion module (intervention #2, 
 - Consumes: `expand_query` from Task 1; `SparseIndex.search(query: str, k: int)`.
 - Produces: `HybridRetriever.retrieve` now expands the sparse-leg query internally; signature unchanged (`retrieve(self, query, k_dense=50, k_sparse=50, top_n=50)`), so no caller changes anywhere.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Append to `tests/test_expand.py`:
 
@@ -243,12 +243,12 @@ def test_retrieve_dense_leg_keeps_raw_query(monkeypatch):
     assert seen["q"] == q
 ```
 
-- [ ] **Step 2: Run tests to verify the wiring tests fail**
+- [x] **Step 2: Run tests to verify the wiring tests fail**
 
 Run: `.venv/bin/python -m pytest tests/test_expand.py -v`
 Expected: `test_expanded_sparse_query_hits_statutory_chunk` PASSES (it only uses `expand_query` + `SparseIndex` directly); `test_retrieve_routes_expanded_query_to_sparse_leg` FAILS with `AssertionError` ("freeze" not in the raw query); `test_retrieve_dense_leg_keeps_raw_query` PASSES.
 
-- [ ] **Step 3: Wire it in**
+- [x] **Step 3: Wire it in**
 
 In `src/sebi_rag/retrieve.py`, add to the imports block (after `from .embeddings import Embedder`):
 
@@ -270,12 +270,12 @@ Change `HybridRetriever.retrieve`:
         return [(self.chunks[i], score) for i, score in fused]
 ```
 
-- [ ] **Step 4: Run the full offline suite**
+- [x] **Step 4: Run the full offline suite**
 
 Run: `make test`
 Expected: all tests pass (248 + 8 new = 256), 0 failures. If any pipeline/e2e test broke because expansion changed a smoke-query ranking, inspect that test's query, and only if the new ranking is semantically correct update the expectation — otherwise fix the glossary entry that caused it.
 
-- [ ] **Step 5: Measure on the real index (probes + golden)**
+- [x] **Step 5: Measure on the real index (probes + golden)**
 
 Run (each takes a few minutes; loads bge-m3 on MPS):
 
@@ -299,7 +299,7 @@ PYTORCH_ENABLE_MPS_FALLBACK=1 .venv/bin/python scripts/bench_retrieval.py \
 
 Expected (report's success criterion for #2): among the 5 sparse-failure IDs (para-freeze, probe-tbl-05, probe-sup-01, probe-par-01, probe-par-02) at least 3 improve their answer-level class vs the committed baselines `eval/runs/ft-probes/failures.jsonl` / `eval/runs/ft-golden/failures.jsonl`; golden failure count does not exceed baseline (3) and `recall_at_10` in `iv2-golden/results.json` ≥ 0.956. Record actual numbers in the commit message. If the criterion is NOT met, keep the code (it cannot remove candidates) but flag the shortfall in the final report update (Task 5) instead of claiming success.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add src/sebi_rag/retrieve.py tests/test_expand.py eval/runs/iv2-probes eval/runs/iv2-golden
@@ -321,7 +321,7 @@ probes: <n> answer-level failures (baseline 7); golden: <n> (baseline 3)"
 - Consumes: `classify_answer(ranked_chunk_ids, chunk_texts, must_contain) -> tuple[str, int]` and `classify_query(ranked_chunk_ids, relevant_circulars) -> tuple[str, int]` from `scripts/analysis/extract_misses.py`; `HybridRetriever.load`, `CrossEncoderReranker.rerank`.
 - Produces: `eval/runs/pool-sweep/sweep.json` with per-pool answer-level counts and latency stats; possibly a new `pool` default in `RAGPipeline.query`.
 
-- [ ] **Step 1: Write the sweep script**
+- [x] **Step 1: Write the sweep script**
 
 Create `scripts/analysis/sweep_pool.py`:
 
@@ -425,7 +425,7 @@ if __name__ == "__main__":
     main()
 ```
 
-- [ ] **Step 2: Run the sweep**
+- [x] **Step 2: Run the sweep**
 
 Run (loads two MPS models; expect 10–30 min for 70 items × 3 pools):
 
@@ -436,7 +436,7 @@ PYTORCH_ENABLE_MPS_FALLBACK=1 .venv/bin/python scripts/analysis/sweep_pool.py
 
 Expected: per-pool console lines and `eval/runs/pool-sweep/sweep.json` written. Read the JSON.
 
-- [ ] **Step 3: Apply the decision rule**
+- [x] **Step 3: Apply the decision rule**
 
 Acceptance rule (from the report): pick the smallest pool P > 50 where `answer_level.hit` strictly increases vs pool 50 AND `latency_p95_s(P) <= 2 * latency_p95_s(50)`.
 
@@ -454,7 +454,7 @@ Acceptance rule (from the report): pick the smallest pool P > 50 where `answer_l
 
 - If no P qualifies: make no code change and record the sweep numbers for the report update in Task 5.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add scripts/analysis/sweep_pool.py eval/runs/pool-sweep
@@ -478,7 +478,7 @@ answer-level hits per pool: 50=<n> 100=<n> 150=<n>; p95 latency <a>/<b>/<c>s; de
 
 **Background for the implementer:** the existing `carry` mechanism (segment.py:89,98-100,131-133) already folds a *bodyless* parent heading into its **first** child chunk. The probe-par-03 defect is the *sibling* chunks (4.1.1.2 … 4.1.1.5): they never see the governing clause "4.1.1 On and from the date of the Order of winding down… the CRA shall:". Fix: record every heading line by its dotted number and prepend the nearest ancestor heading to each flushed body (skipping when already present, which also covers the carry-overlap case).
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Append to `tests/test_segment.py`:
 
@@ -529,12 +529,12 @@ def test_nominee_regression_corpus_unchanged_behaviour():
     )
 ```
 
-- [ ] **Step 2: Run tests to verify the new one fails**
+- [x] **Step 2: Run tests to verify the new one fails**
 
 Run: `.venv/bin/python -m pytest tests/test_segment.py -v`
 Expected: `test_sibling_list_item_carries_governing_clause` FAILS ("governing clause missing"); `test_governing_clause_not_duplicated` and `test_nominee_regression_corpus_unchanged_behaviour` PASS (they assert current invariants).
 
-- [ ] **Step 3: Implement folding**
+- [x] **Step 3: Implement folding**
 
 In `src/sebi_rag/segment.py`, inside `hierarchical_chunk`:
 
@@ -569,18 +569,18 @@ In `src/sebi_rag/segment.py`, inside `hierarchical_chunk`:
 
 `flush` must declare no new nonlocals for this (it only reads `section_num` and `heads`). The `gov not in body` guard prevents duplication when `carry` already prefixed the same heading.
 
-- [ ] **Step 4: Run the segment tests, then the full suite**
+- [x] **Step 4: Run the segment tests, then the full suite**
 
 Run: `.venv/bin/python -m pytest tests/test_segment.py -v`
 Expected: all 6 pass.
 Run: `make test`
 Expected: 0 failures. Chunker-dependent tests (pipeline/e2e smoke corpora) use flat or single-level texts where no ancestor heading exists, so behaviour is unchanged; if one fails, read the failing text — only accept expectation updates where a numbered sub-clause genuinely gained its governing line.
 
-- [ ] **Step 5: Red-green sanity on the regression guard**
+- [x] **Step 5: Red-green sanity on the regression guard**
 
 Temporarily comment out the folding block from Step 3(c), run `.venv/bin/python -m pytest tests/test_segment.py::test_sibling_list_item_carries_governing_clause -v` — expected FAIL; restore the block, rerun — expected PASS. This proves the test actually pins the fix.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add src/sebi_rag/segment.py tests/test_segment.py
@@ -599,12 +599,12 @@ git commit -m "fix: fold governing clause into numbered sub-clause chunks (inter
 - Consumes: everything from Tasks 1–4; `make reindex`; `scripts/bench_retrieval.py`; `scripts/analysis/extract_misses.py`.
 - Produces: the final measured verdict against the report's success gates.
 
-- [ ] **Step 1: Rebuild the index**
+- [x] **Step 1: Rebuild the index**
 
 Run: `make reindex` (background it; chunk texts changed for every doc with numbered sub-clauses, so most embeddings re-encode — expect 30–90 min on MPS).
 Expected: completes without error; `data/index/meta.json` updated. Note the new chunk count printed by the build and confirm it is close to the previous count (folding adds no chunks; a large delta means a chunker regression — stop and debug before benchmarking).
 
-- [ ] **Step 2: Re-run both benchmarks and classify**
+- [x] **Step 2: Re-run both benchmarks and classify**
 
 ```bash
 HF_HUB_DISABLE_XET=1 TOKENIZERS_PARALLELISM=false OMP_NUM_THREADS=1 \
@@ -626,12 +626,12 @@ PYTORCH_ENABLE_MPS_FALLBACK=1 .venv/bin/python scripts/bench_retrieval.py \
 
 Expected gates: probes answer-level failures (`answer_candidate_miss + answer_ranked_low`) ≤ 3 (baseline 7); golden answer-level failures ≤ 3 (baseline 3) and `recall_at_10` ≥ 0.956. Report the actual numbers verbatim whether or not the gates pass.
 
-- [ ] **Step 3: Full test suite**
+- [x] **Step 3: Full test suite**
 
 Run: `make test`
 Expected: 0 failures.
 
-- [ ] **Step 4: Append results to the report**
+- [x] **Step 4: Append results to the report**
 
 Add to `docs/superpowers/reports/2026-07-16-preretrieval-failure-taxonomy.md`:
 
@@ -653,7 +653,7 @@ with old class -> new class>. Gate verdict: <met / not met, which>.
 
 Fill every `<…>` with measured values from Step 2 and the actual commit SHAs.
 
-- [ ] **Step 5: Update the knowledge graph and commit**
+- [x] **Step 5: Update the knowledge graph and commit**
 
 ```bash
 graphify update .

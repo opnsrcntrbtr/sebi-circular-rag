@@ -107,6 +107,45 @@ in `eval/runs/ft-traces/interventions-notes.md`.
 - Runs: `eval/runs/ft-golden/`, `eval/runs/ft-probes/` (TREC runfiles + reproducibility metadata).
 - Analysis scripts (throwaway unless promoted): `scripts/analysis/extract_misses.py` (tested: `tests/test_extract_misses.py`), `scripts/analysis/trace_failure.py`.
 
+## 5. Intervention results (2026-07-17, this branch)
+
+Plan: `docs/superpowers/plans/2026-07-16-preretrieval-interventions.md`.
+All runs below are fused (pre-rerank) order, same protocol as the baselines.
+
+| run | answerable | answer-level failures | doc recall@10 |
+|---|---|---|---|
+| probes baseline (`ft-probes`) | 25 | 7 | 0.96 |
+| probes final (`iv-final-probes`) | 25 | 4 | 1.0 |
+| golden baseline (`ft-golden`) | 45 | 3 | 0.956 |
+| golden final (`iv-final-golden`) | 45 | 2 | 0.956 |
+
+Interventions landed: **#2** glossary expansion (ea1a104, 3ea0b07), **#3** pool
+sweep (2854ef5, 1d3cd40 — measured, default pool **unchanged at 50**: widening
+to 100/150 moved one candidate_miss into the pool but produced zero new top-10
+rescues at ~1.8× p95 latency), **#1** governing-clause folding (4039715) +
+reindex (77,859 chunks, count unchanged).
+
+Per-failure before → after (original 10):
+
+- para-freeze: doc+answer candidate_miss → **answer hit (rank 6)**; doc-level slipped to ranked_low 14 post-reindex.
+- probe-sup-01, probe-par-01, probe-par-02: **fully resolved** (glossary expansion).
+- para-parrva: answer ranked_low → still ranked_low (19).
+- para-aifmaster: ranked_low → still ranked_low (30) — pure paraphrase gap, #5 HyDE territory.
+- probe-tbl-05: answer ranked_low → still ranked_low (28).
+- probe-num-05: answer ranked_low → still ranked_low (34) — pool widening did not rescue it.
+- probe-sup-04: answer candidate_miss → unchanged.
+- probe-par-03: answer candidate_miss → **unchanged despite folding landing**. Root cause found: the governing clause is hard-wrapped in the PDF, so the recorded heading line truncates at "…submission of request for" — before the very tokens ("winding down", "surrender") the query needs. Follow-on: fold the full clause by joining wrapped lines up to the next numbered item.
+
+Gate verdict: **golden gate met** (2 ≤ 3 failures, recall@10 0.956 = baseline);
+**probes gate not met** (4 > 3 target; 43% reduction vs the ≥50% goal). The
+reranker mutes part of the residue end-to-end: at pool 50 the sweep measured
+65/70 answer-level top-10 hits after reranking.
+
+Side effect surfaced by the reindex: the first corpus re-annotation since the
+2026-07-15 supersede-classification fix (f2c20b6) grew the lineage export to
+4,569 edges / 2,850 supersession pairs; the pinned counts in
+`tests/test_export_integration.py` were updated accordingly.
+
 ## Self-check vs spec success criteria
 
 - [x] ≥90% of harvested failures assigned a primary bucket with evidence — 10/10 (100%).

@@ -1,0 +1,33 @@
+{
+  "metrics": {
+    "run_name": "baseline-retrieval",
+    "n": 56,
+    "recall_at_10": 0.9555555555555556,
+    "avg_retrieval_latency_s": 0.05113641704831805
+  },
+  "metadata": {
+    "run_name": "baseline-retrieval",
+    "ts": "2026-07-16T23:26:18+0530",
+    "git_commit": "1d3cd401317f48cc91544d0e5e335506ed175fe8",
+    "python": "3.12.13",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "models": {
+      "embedder": "BAAI/bge-m3",
+      "retriever": "FAISS+BM25/RRF",
+      "reranker": "BAAI/bge-reranker-v2-m3"
+    },
+    "params": {
+      "top_n": 50,
+      "smoke": false
+    },
+    "env": {
+      "TOKENIZERS_PARALLELISM": "false",
+      "OMP_NUM_THREADS": "1",
+      "PYTORCH_ENABLE_MPS_FALLBACK": "1",
+      "HF_HUB_DISABLE_XET": "1"
+    },
+    "corpus_sha256": "913e762c3b3b6f2327d852c0fad89d48cf4fe69fb8b9ee7ffe647e4626ae96e6",
+    "index_fingerprint": "76cc973177c534fefeb1ffbaebbaf56b4924fc7debbbe597fc2004744c57de93",
+    "golden_sha256": "f01d877949d12cfd59f0104d45cf800400949e6fce703e96cec052b003e26eb9"
+  }
+}
