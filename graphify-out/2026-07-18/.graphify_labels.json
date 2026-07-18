@@ -28,7 +28,6 @@
   "26": "Answer Generation",
   "27": "Ops Server",
   "28": "SubjectSimJudge",
-  "29": ".encode",
   "30": "build_lineage",
   "31": ".load",
   "32": "Build Scripts",
@@ -39,7 +38,6 @@
   "37": "Space Deployment",
   "38": "Discovery Scripts",
   "39": "Index Upload",
-  "40": "trace_failure.py",
   "41": "embeddings.py",
   "42": "UI Components",
   "43": "Ops Scripts",
@@ -47,8 +45,5 @@
   "45": "Test Guards",
   "46": ".family",
   "47": "app.py",
-  "48": "Path",
-  "49": "pipeline.py",
-  "50": ".retrieve",
-  "51": "test_persistence.py"
+  "48": "Path"
 }
