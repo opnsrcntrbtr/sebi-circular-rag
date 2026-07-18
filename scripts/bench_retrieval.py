@@ -63,6 +63,7 @@ def main() -> None:
     ap.add_argument("--out", default=str(ROOT / "eval" / "runs" / "baseline_retrieval"))
     ap.add_argument("--top-n", type=int, default=50)
     ap.add_argument("--smoke", action="store_true")
+    ap.add_argument("--hyde", action="store_true")
     args = ap.parse_args()
 
     started = time.time()
@@ -112,6 +113,29 @@ def main() -> None:
             "reranker": "BAAI/bge-reranker-v2-m3",
         }
 
+    hyde_log: dict[str, str] = {}
+    if args.hyde:
+        from sebi_rag.hyde import HydeExpander
+
+        # --smoke stays offline: stub passage instead of loading MLX.
+        expander = (
+            HydeExpander(lambda p: "nomination of beneficiary provision")
+            if args.smoke
+            else HydeExpander.load()
+        )
+
+        class _HydeRetriever:
+            def __init__(self, inner):
+                self.inner = inner
+
+            def retrieve(self, query: str, top_n: int = 50):
+                h = expander.hypothesize(query)
+                hyde_log[query] = h
+                return self.inner.retrieve(query, top_n=top_n,
+                                           hyde_text=h or None)
+
+        pipeline.retriever = _HydeRetriever(pipeline.retriever)
+
     result = run_retrieval_benchmark(
         pipeline, golden, top_n=args.top_n, run_name="baseline-retrieval"
     )
@@ -124,13 +148,21 @@ def main() -> None:
         golden_path=args.golden if not args.smoke else corpus_path,
         run_name="baseline-retrieval",
         models=models,
-        params={"top_n": args.top_n, "smoke": args.smoke},
+        params={"top_n": args.top_n, "smoke": args.smoke, "hyde": args.hyde},
         started_at=started,
     )
     (out / "results.json").write_text(
         json.dumps({"metrics": result_no_rankings, "metadata": meta}, indent=2),
         encoding="utf-8",
     )
+    if args.hyde:
+        with (out / "hyde.jsonl").open("w", encoding="utf-8") as f:
+            for item in golden:
+                f.write(json.dumps({
+                    "id": item["id"],
+                    "query": item["query"],
+                    "hyde": hyde_log.get(item["query"], ""),
+                }, ensure_ascii=False) + "\n")
     print(json.dumps({"out": str(out), **result_no_rankings}, indent=2))
 
 
