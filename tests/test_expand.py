@@ -45,6 +45,27 @@ def test_all_five_sparse_failure_queries_expand():
         assert expand_query(q) != q, f"no expansion for: {q}"
 
 
+def test_winding_down_gains_surrender_vocabulary():
+    # probe-par-03: SEBI says "winding down" for KRAs/AIFs but
+    # "surrender/cancellation of certificate of registration" for CRAs.
+    q = ("When a rating agency is winding down its business, can companies "
+         "pull their ongoing rating assignments?")
+    out = expand_query(q)
+    assert out.startswith(q)
+    assert "surrender" in out
+    assert "withdraw" in out
+
+
+def test_wind_down_phrasing_expands():
+    out = expand_query("what must a CRA do when it decides to wind down")
+    assert "surrender" in out
+
+
+def test_pull_maps_to_withdraw():
+    out = expand_query("can clients pull their mandates")
+    assert "withdraw" in out
+
+
 # --- wiring into HybridRetriever (sparse leg only) ---------------------------
 
 from sebi_rag.embeddings import HashEmbedder  # noqa: E402

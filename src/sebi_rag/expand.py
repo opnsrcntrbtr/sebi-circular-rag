@@ -37,6 +37,13 @@ GLOSSARY: dict[str, tuple[str, ...]] = {
     "licence": ("registration", "certificate"),
     "license": ("registration", "certificate"),
     "broking": ("broker", "brokers"),
+    # probe-par-03: "winding down / pull assignments" vs corpus
+    # "surrender/cancellation of certificate of registration;
+    # withdraw assignment". Corpus-wide counts: winding 304, surrender 603,
+    # wound 108 — SEBI's own vocabulary split across intermediary types.
+    "winding": ("surrender", "wound-up", "cancellation"),
+    "wind": ("surrender", "wound-up"),
+    "pull": ("withdraw",),
 }
 
 _TOKEN = re.compile(r"[a-z][a-z0-9-]*")
