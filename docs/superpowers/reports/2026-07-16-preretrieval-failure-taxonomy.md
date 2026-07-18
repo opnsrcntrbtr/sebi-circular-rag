@@ -146,6 +146,43 @@ Side effect surfaced by the reindex: the first corpus re-annotation since the
 4,569 edges / 2,850 supersession pairs; the pinned counts in
 `tests/test_export_integration.py` were updated accordingly.
 
+### 5.1 Wrapped-line clause folding (iv6, 2026-07-18)
+
+Follow-up to intervention #1: recorded heads now absorb hard-wrapped
+continuation lines (terminator + 300-char cap; commit 44b86b6). Spec:
+`docs/superpowers/specs/2026-07-17-wrapped-clause-folding-design.md`, plan:
+`docs/superpowers/plans/2026-07-18-wrapped-clause-folding.md`.
+
+| run | answerable | answer-level failures | doc recall@10 |
+|---|---|---|---|
+| probes prior (`iv-final-probes`) | 25 | 4 | 1.0 |
+| probes iv6 (`iv6-probes`) | 25 | 4 | 1.0 |
+| golden prior (`iv-final-golden`) | 45 | 2 | 0.956 |
+| golden iv6 (`iv6-golden`) | 45 | 2 | 0.956 |
+
+Chunk count: 77,859 (gate ≈ 77,859 met exactly; incremental build re-encoded
+66,578 chunks across 283 changed docs). `make test`: 262 passed (259 + 3 new
+segment tests).
+
+probe-par-03: answer candidate_miss → **candidate_miss (unchanged)**. The
+mechanism itself landed: chunk `…CIR/2025/101#4.1.1.2` now carries the full
+folded clause ("…request for surrender of certificate of registration ('the
+Request') to SEBI, as applicable, the concerned CRA shall –"), and a folded
+sibling (`2023/6#4.1.1.4`) newly entered the top-50 pool (~rank 24). But the
+answer chunk's own text ("not take any new clients or fresh mandates") shares
+no vocabulary with the query ("winding down", "pull ongoing rating
+assignments") — "winding down" appears nowhere in the corpus clause (§4.1
+says surrender/cancellation/suspension), so this is the embedding-semantic
+residue the spec scoped out, not a truncation defect. Other failure ranks
+shifted slightly (probe-tbl-05 doc 4→3; probe-num-05 answer 34→42;
+para-aifmaster doc ranked_low 32 → candidate_miss, answer 30→28).
+
+Gate verdict: **golden gate met** (2 ≤ 3, recall@10 0.956 = baseline, no
+regression); **probes gate not met** (4 > 3 — probe-par-03 needs the deferred
+LLM-side iteration: HyDE / contextual headers per §4 intervention #5).
+Truncated-head defect class is closed; remaining failures are semantic-gap
+(par-03, sup-04, aifmaster) or ranking (tbl-05, num-05, parrva).
+
 ## Self-check vs spec success criteria
 
 - [x] ≥90% of harvested failures assigned a primary bucket with evidence — 10/10 (100%).
