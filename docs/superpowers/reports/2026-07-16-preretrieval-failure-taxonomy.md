@@ -183,6 +183,36 @@ LLM-side iteration: HyDE / contextual headers per §4 intervention #5).
 Truncated-head defect class is closed; remaining failures are semantic-gap
 (par-03, sup-04, aifmaster) or ranking (tbl-05, num-05, parrva).
 
+### 5.2 Glossary winding-down expansion (iv7, 2026-07-18)
+
+Part A of the semantic-gap resolution: three corpus-grounded glossary
+entries (`winding`, `wind`, `pull`; commit 2046c4f) bridge SEBI's own
+vocabulary split ("winding down" for KRAs/AIFs vs "surrender/cancellation"
+for CRAs). Query-side only — index unchanged from iv6. Spec:
+`docs/superpowers/specs/2026-07-18-glossary-winding-expansion-design.md`,
+plan: `docs/superpowers/plans/2026-07-18-glossary-winding-expansion.md`.
+
+| run | answerable | answer-level failures | doc recall@10 |
+|---|---|---|---|
+| probes prior (`iv6-probes`) | 25 | 4 | 1.0 |
+| probes iv7 (`iv7-probes`) | 25 | 4 | 1.0 |
+| golden prior (`iv6-golden`) | 45 | 2 | 0.956 |
+| golden iv7 (`iv7-golden`) | 45 | 2 | 0.956 |
+
+probe-par-03: candidate_miss → **candidate_miss (unchanged**,
+first_answer_rank −1; doc rank slipped 5 → 7). "surrender" occurs 603×
+corpus-wide, so the appended tokens also strengthened competing
+surrender-vocabulary chunks — the additive BM25 boost dilutes before it
+reaches `…CIR/2025/101#4.1.1.2`, whose own body ("not take any new clients
+or fresh mandates") still shares almost nothing with the query.
+Regression check vs iv6: none — failure ID sets identical on both eval
+sets. `make test`: 265 passed (262 + 3 new expand tests).
+
+Gate verdict: **golden gate met** (2 ≤ 3, recall@10 0.956, no regression);
+**probes gate not met** (4 > 3). Part B (HyDE) trigger fires per the spec —
+the residual is beyond deterministic query-side fixes; full HyDE design in
+its own brainstorm → spec → plan cycle.
+
 ## Self-check vs spec success criteria
 
 - [x] ≥90% of harvested failures assigned a primary bucket with evidence — 10/10 (100%).
