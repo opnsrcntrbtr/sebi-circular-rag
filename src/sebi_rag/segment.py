@@ -9,6 +9,10 @@ import re
 from dataclasses import dataclass, field, asdict
 from typing import Any
 
+# Clause terminators: a recorded heading ending in one of these is complete
+# and must not absorb the next physical line (wrapped-clause folding).
+_TERMINATORS = (":", ";", ".", "–", "-")
+
 
 @dataclass(frozen=True)
 class CircularMeta:
@@ -88,6 +92,7 @@ def hierarchical_chunk(
     section_num = ""    # dotted number of the current heading, e.g. "5" or "5.1"
     carry = ""          # bare parent heading(s) deferred to prefix the next chunk
     heads: dict[str, str] = {}  # dotted num -> full heading line (governing clause)
+    open_num = ""  # head still absorbing hard-wrapped continuation lines
     buf = ""
     para_idx = 0
 
@@ -151,6 +156,16 @@ def hierarchical_chunk(
             section_head = first_line.strip()
             section_num = hnum
             heads[hnum] = first_line.strip()[:300]
+            open_num = hnum
+        elif open_num:
+            # SEBI PDFs hard-wrap clause text; a non-heading paragraph right
+            # after a heading is usually its continuation. Absorb it into the
+            # recorded head unless the head is already terminated or capped.
+            head = heads[open_num]
+            if len(head) < 300 and not head.endswith(_TERMINATORS):
+                heads[open_num] = f"{head} {' '.join(para.split())}"[:300]
+            else:
+                open_num = ""
         if len(buf) + len(para) + 1 > max_chars and buf:
             flush(section_name, buf)
             buf = buf[-overlap_chars:] + "\n" + para

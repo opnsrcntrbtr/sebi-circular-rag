@@ -104,3 +104,82 @@ def test_nominee_regression_corpus_unchanged_behaviour():
         "Number of nominees" in c.text and "up to 3 nominees" in c.text
         for c in chunks
     )
+
+
+# --- wrapped-line governing-clause absorption (probe-par-03 residual) --------
+# SEBI PDFs hard-wrap clause text; in a blank-line-free block each physical
+# line arrives as its own paragraph, so only line 1 was recorded as the head.
+_WRAPPED_CRA_TEXT = (
+    _FILLER + "\n"
+    "4.1.1. On and from the date of the Order, or the date of submission of "
+    "request for\n"
+    "surrender of certificate of registration to SEBI, as applicable,\n"
+    "the concerned CRA shall –\n"
+    "4.1.1.1. disclose prominently on its website the fact of winding down;\n"
+    "4.1.1.2. permit companies to withdraw ongoing rating assignments "
+    "without levy of any charge;\n"
+    "4.1.2. All other obligations of the CRA shall continue as specified."
+)
+
+
+def test_wrapped_governing_clause_folds_full_text_into_sibling():
+    # Head line 1 ends at "request for"; the discriminative tokens
+    # ("surrender", "certificate") live on wrap line 2. The sibling chunk
+    # 4.1.1.2 must carry them via the folded prefix.
+    chunks = hierarchical_chunk(_WRAPPED_CRA_TEXT, _META)
+    for c in chunks:
+        if "withdraw ongoing rating assignments" in c.text:
+            assert "surrender of certificate" in c.text, (
+                f"wrapped clause text missing from sibling chunk: {c.text!r}"
+            )
+            break
+    else:
+        raise AssertionError("4.1.1.2 provision text missing from all chunks")
+
+
+def test_terminator_head_absorbs_nothing():
+    # A head already ending in a clause terminator (":") must not absorb the
+    # following body line into the governing clause.
+    text = (
+        _FILLER + "\n"
+        "5. Number of nominees:\n"
+        "This provision applies to all folios opened after the effective "
+        "date.\n"
+        "5.1. Investors can provide up to 3 nominees."
+    )
+    chunks = hierarchical_chunk(text, _META)
+    for c in chunks:
+        if "up to 3 nominees" in c.text:
+            assert "applies to all folios" not in c.text, (
+                f"terminated head wrongly absorbed body text: {c.text!r}"
+            )
+            break
+    else:
+        raise AssertionError("5.1 provision text missing from all chunks")
+
+
+def test_absorption_respects_300_char_cap():
+    # A long unterminated head plus a long continuation must never yield a
+    # folded governing-clause line over 300 chars.
+    head_line = "7.1.1. " + ("alpha bravo charlie delta echo " * 9).strip()
+    continuation = ("wrapped continuation tokens " * 12).strip()
+    text = (
+        _FILLER + "\n"
+        f"{head_line}\n"
+        f"{continuation}\n"
+        "7.1.1.1. first child provision;\n"
+        "7.1.1.2. second child provision about margin obligations;"
+    )
+    chunks = hierarchical_chunk(text, _META)
+    for c in chunks:
+        if "second child provision" in c.text:
+            gov_lines = [
+                l for l in c.text.splitlines() if l.startswith("7.1.1. ")
+            ]
+            assert gov_lines, "governing clause not folded into child chunk"
+            assert all(len(l) <= 300 for l in gov_lines), (
+                f"folded clause exceeds 300-char cap: {gov_lines!r}"
+            )
+            break
+    else:
+        raise AssertionError("7.1.1.2 provision text missing from all chunks")
