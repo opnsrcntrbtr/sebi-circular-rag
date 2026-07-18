@@ -163,13 +163,23 @@ class HybridRetriever:
         return cls(chunks=chunks, dense=dense, sparse=sparse, vecs=vecs), stats
 
     def retrieve(
-        self, query: str, k_dense: int = 50, k_sparse: int = 50, top_n: int = 50
+        self,
+        query: str,
+        k_dense: int = 50,
+        k_sparse: int = 50,
+        top_n: int = 50,
+        hyde_text: str | None = None,
     ) -> list[tuple[Chunk, float]]:
         dense = self.dense.search(query, k_dense)
         # intervention #2: statutory-synonym expansion, sparse leg only —
         # BM25 misses lay vocabulary; dense keeps the raw query.
         sparse = self.sparse.search(expand_query(query), k_sparse)
-        fused = rrf_fuse([dense, sparse], top_n=top_n)
+        legs = [dense, sparse]
+        if hyde_text:
+            # intervention #5 (HyDE, Part B): hypothetical statutory passage
+            # as an additive third dense leg; raw legs stay untouched.
+            legs.append(self.dense.search(hyde_text, k_dense))
+        fused = rrf_fuse(legs, top_n=top_n)
         return [(self.chunks[i], score) for i, score in fused]
 
     # ---- persistence: build the 20k-chunk index once, reload in <1s ----
