@@ -21,6 +21,7 @@ for k, v in {
 }.items():
     os.environ.setdefault(k, v)
 
+from sebi_rag.context_headers import apply_context_headers, load_headers  # noqa: E402
 from sebi_rag.corpus import load_circulars  # noqa: E402
 from sebi_rag.embeddings import BGEM3Embedder  # noqa: E402
 from sebi_rag.lineage import build_lineage, load_records  # noqa: E402
@@ -32,6 +33,10 @@ INDEX = ROOT / "data" / "index"
 FULL = "--full" in sys.argv  # force re-encode of every document
 
 chunks = load_circulars(CORPUS)
+# iv9: merge contextual headers (no-op when the sidecar is absent)
+chunks = apply_context_headers(
+    chunks, load_headers(ROOT / "data" / "corpus" / "context_headers.jsonl")
+)
 print(f"chunks={len(chunks)}  building index...", flush=True)
 t0 = time.time()
 emb = BGEM3Embedder(device="mps")
