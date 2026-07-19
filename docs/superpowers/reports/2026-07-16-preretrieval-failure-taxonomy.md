@@ -213,6 +213,49 @@ Gate verdict: **golden gate met** (2 ≤ 3, recall@10 0.956, no regression);
 the residual is beyond deterministic query-side fixes; full HyDE design in
 its own brainstorm → spec → plan cycle.
 
+### 5.3 HyDE third-leg retrieval (iv8, 2026-07-19)
+
+Part B: hypothetical statutory passages (Qwen2.5-1.5B-4bit MLX, greedy,
+150 tokens) dense-searched as an additive third RRF leg, eval-only
+(`--hyde`; commits 5a899c6, 9d49c84, a037e9a; env fix 8f997ad —
+transformers 5.13.0 had broken every mlx-lm import path, bumped to 5.14.1).
+Index unchanged from iv6. Spec:
+`docs/superpowers/specs/2026-07-18-hyde-third-leg-design.md`, plan:
+`docs/superpowers/plans/2026-07-18-hyde-third-leg.md`.
+
+| run | answerable | answer-level failures | doc recall@10 |
+|---|---|---|---|
+| probes prior (`iv7-probes`) | 25 | 4 | 1.0 |
+| probes iv8 (`iv8-probes`) | 25 | 4 | 1.0 |
+| golden prior (`iv7-golden`) | 45 | 2 | 0.956 |
+| golden iv8 (`iv8-golden`) | 45 | **3 (regression)** | 0.956 |
+
+probe-par-03: candidate_miss → **candidate_miss (unchanged**, doc rank
+7 → 9). Generated passage (hyde.jsonl): "**Circular No. 2023-001**
+**Regulatory Authority of Securities and Exchange Commission of India
+(SEBI)** … **Subject:** Winding Down of Rating Agencies and Ongoing Rating
+Assignments **1. Introduction:** …".
+
+Regression check vs iv7: **violated** — para-freeze answer hit (6) →
+ranked_low (19), probe-num-05 answer ranked_low (42) → candidate_miss,
+probe-tbl-05 answer 28 → 38. One genuine improvement: para-aifmaster
+answer 28 → 12 (its passage used the right domain nouns). Root cause of
+the net loss: the 1.5B model emits markdown/circular boilerplate
+("Circular No.", "Subject:", "Effective Date", "Introduction") that embeds
+close to every circular's header chunks, and for vocabulary-gap queries it
+parrots the lay term (para-freeze passage says "blocking", never "freeze")
+— the model lacks the statutory vocabulary HyDE was meant to supply.
+Retrieval latency 0.05 s → 0.96 s/query (MLX generation).
+
+Gate verdict: **probes gate not met** (4 > 3, one class degraded);
+**golden no-new-failure gate violated**. Decision point per the spec — no
+silent iteration. HyDE as an equal-weight third RRF leg with a small local
+model is **rejected**; remaining report-§4 options are SPLADE (learned
+sparse) and contextual chunk headers, and any HyDE retry needs a new
+design (boilerplate-free prompt, statutory-vocabulary conditioning, or a
+down-weighted leg). Eval-only flag stays off everywhere by default; the
+API path was never touched.
+
 ## Self-check vs spec success criteria
 
 - [x] ≥90% of harvested failures assigned a primary bucket with evidence — 10/10 (100%).
