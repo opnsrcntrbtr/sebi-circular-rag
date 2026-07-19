@@ -4,14 +4,44 @@
   "graph": {},
   "nodes": [
     {
+      "label": "generate_context_headers.py",
+      "file_type": "code",
+      "source_file": "scripts/generate_context_headers.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "scripts_generate_context_headers",
+      "community": 17,
+      "norm_label": "generate_context_headers.py"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "scripts/generate_context_headers.py",
+      "source_location": "L30",
+      "_origin": "ast",
+      "id": "scripts_generate_context_headers_main",
+      "community": 17,
+      "norm_label": "main()"
+    },
+    {
+      "label": "Generate contextual headers for deep sub-clause + annex chunks (iv9).  Resumable",
+      "file_type": "rationale",
+      "source_file": "scripts/generate_context_headers.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "scripts_generate_context_headers_rationale_1",
+      "community": 17,
+      "norm_label": "generate contextual headers for deep sub-clause + annex chunks (iv9).  resumable"
+    },
+    {
       "label": "context_headers.py",
       "file_type": "code",
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "src_sebi_rag_context_headers",
       "community": 17,
-      "norm_label": "context_headers.py"
+      "norm_label": "context_headers.py",
+      "id": "src_sebi_rag_context_headers"
     },
     {
       "label": "in_scope()",
@@ -19,9 +49,9 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L34",
       "_origin": "ast",
-      "id": "src_sebi_rag_context_headers_in_scope",
       "community": 17,
-      "norm_label": "in_scope()"
+      "norm_label": "in_scope()",
+      "id": "src_sebi_rag_context_headers_in_scope"
     },
     {
       "label": "HeaderGenerator",
@@ -29,9 +59,9 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L39",
       "_origin": "ast",
-      "id": "src_sebi_rag_context_headers_headergenerator",
       "community": 17,
-      "norm_label": "headergenerator"
+      "norm_label": "headergenerator",
+      "id": "src_sebi_rag_context_headers_headergenerator"
     },
     {
       "label": ".__init__()",
@@ -39,9 +69,9 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L40",
       "_origin": "ast",
-      "id": "src_sebi_rag_context_headers_headergenerator_init",
       "community": 17,
-      "norm_label": ".__init__()"
+      "norm_label": ".__init__()",
+      "id": "src_sebi_rag_context_headers_headergenerator_init"
     },
     {
       "label": ".describe()",
@@ -49,9 +79,9 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L46",
       "_origin": "ast",
-      "id": "src_sebi_rag_context_headers_headergenerator_describe",
       "community": 17,
-      "norm_label": ".describe()"
+      "norm_label": ".describe()",
+      "id": "src_sebi_rag_context_headers_headergenerator_describe"
     },
     {
       "label": ".load()",
@@ -59,9 +89,9 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L57",
       "_origin": "ast",
-      "id": "src_sebi_rag_context_headers_headergenerator_load",
       "community": 17,
-      "norm_label": ".load()"
+      "norm_label": ".load()",
+      "id": "src_sebi_rag_context_headers_headergenerator_load"
     },
     {
       "label": "apply_context_headers()",
@@ -69,9 +99,9 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L80",
       "_origin": "ast",
-      "id": "src_sebi_rag_context_headers_apply_context_headers",
       "community": 17,
-      "norm_label": "apply_context_headers()"
+      "norm_label": "apply_context_headers()",
+      "id": "src_sebi_rag_context_headers_apply_context_headers"
     },
     {
       "label": "Chunk",
@@ -79,9 +109,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "id": "chunk",
       "community": 17,
-      "norm_label": "chunk"
+      "norm_label": "chunk",
+      "id": "chunk"
     },
     {
       "label": "load_headers()",
@@ -89,9 +119,9 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L104",
       "_origin": "ast",
-      "id": "src_sebi_rag_context_headers_load_headers",
       "community": 17,
-      "norm_label": "load_headers()"
+      "norm_label": "load_headers()",
+      "id": "src_sebi_rag_context_headers_load_headers"
     },
     {
       "label": "Path",
@@ -99,9 +129,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "id": "path",
       "community": 17,
-      "norm_label": "path"
+      "norm_label": "path",
+      "id": "path"
     },
     {
       "label": "Contextual chunk headers (iv9): one lay+statutory sentence per chunk.  Index-sid",
@@ -109,9 +139,9 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "src_sebi_rag_context_headers_rationale_1",
       "community": 17,
-      "norm_label": "contextual chunk headers (iv9): one lay+statutory sentence per chunk.  index-sid"
+      "norm_label": "contextual chunk headers (iv9): one lay+statutory sentence per chunk.  index-sid",
+      "id": "src_sebi_rag_context_headers_rationale_1"
     },
     {
       "label": "Spec scope: depth>=3 numbered sub-clauses plus annex-family headings.",
@@ -119,9 +149,9 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L35",
       "_origin": "ast",
-      "id": "src_sebi_rag_context_headers_rationale_35",
       "community": 17,
-      "norm_label": "spec scope: depth>=3 numbered sub-clauses plus annex-family headings."
+      "norm_label": "spec scope: depth>=3 numbered sub-clauses plus annex-family headings.",
+      "id": "src_sebi_rag_context_headers_rationale_35"
     },
     {
       "label": "Insert each chunk's header as a line below its breadcrumb line.      Pure and id",
@@ -129,9 +159,9 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L83",
       "_origin": "ast",
-      "id": "src_sebi_rag_context_headers_rationale_83",
       "community": 17,
-      "norm_label": "insert each chunk's header as a line below its breadcrumb line.      pure and id"
+      "norm_label": "insert each chunk's header as a line below its breadcrumb line.      pure and id",
+      "id": "src_sebi_rag_context_headers_rationale_83"
     },
     {
       "label": "test_context_headers.py",
@@ -139,9 +169,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "tests_test_context_headers",
       "community": 17,
-      "norm_label": "test_context_headers.py"
+      "norm_label": "test_context_headers.py",
+      "id": "tests_test_context_headers"
     },
     {
       "label": "test_describe_prompt_contains_inputs_and_constraints()",
@@ -149,9 +179,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L16",
       "_origin": "ast",
-      "id": "tests_test_context_headers_test_describe_prompt_contains_inputs_and_constraints",
       "community": 17,
-      "norm_label": "test_describe_prompt_contains_inputs_and_constraints()"
+      "norm_label": "test_describe_prompt_contains_inputs_and_constraints()",
+      "id": "tests_test_context_headers_test_describe_prompt_contains_inputs_and_constraints"
     },
     {
       "label": "test_describe_cleans_markdown_and_newlines()",
@@ -159,9 +189,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L38",
       "_origin": "ast",
-      "id": "tests_test_context_headers_test_describe_cleans_markdown_and_newlines",
       "community": 17,
-      "norm_label": "test_describe_cleans_markdown_and_newlines()"
+      "norm_label": "test_describe_cleans_markdown_and_newlines()",
+      "id": "tests_test_context_headers_test_describe_cleans_markdown_and_newlines"
     },
     {
       "label": "test_describe_error_or_empty_returns_empty()",
@@ -169,9 +199,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L43",
       "_origin": "ast",
-      "id": "tests_test_context_headers_test_describe_error_or_empty_returns_empty",
       "community": 17,
-      "norm_label": "test_describe_error_or_empty_returns_empty()"
+      "norm_label": "test_describe_error_or_empty_returns_empty()",
+      "id": "tests_test_context_headers_test_describe_error_or_empty_returns_empty"
     },
     {
       "label": "test_describe_truncates_to_max_chars()",
@@ -179,9 +209,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L51",
       "_origin": "ast",
-      "id": "tests_test_context_headers_test_describe_truncates_to_max_chars",
       "community": 17,
-      "norm_label": "test_describe_truncates_to_max_chars()"
+      "norm_label": "test_describe_truncates_to_max_chars()",
+      "id": "tests_test_context_headers_test_describe_truncates_to_max_chars"
     },
     {
       "label": "_chunk()",
@@ -189,9 +219,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L56",
       "_origin": "ast",
-      "id": "tests_test_context_headers_chunk",
       "community": 17,
-      "norm_label": "_chunk()"
+      "norm_label": "_chunk()",
+      "id": "tests_test_context_headers_chunk"
     },
     {
       "label": "test_header_inserted_below_breadcrumb()",
@@ -199,9 +229,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L60",
       "_origin": "ast",
-      "id": "tests_test_context_headers_test_header_inserted_below_breadcrumb",
       "community": 17,
-      "norm_label": "test_header_inserted_below_breadcrumb()"
+      "norm_label": "test_header_inserted_below_breadcrumb()",
+      "id": "tests_test_context_headers_test_header_inserted_below_breadcrumb"
     },
     {
       "label": "test_missing_or_empty_header_leaves_chunk_unchanged()",
@@ -209,9 +239,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L72",
       "_origin": "ast",
-      "id": "tests_test_context_headers_test_missing_or_empty_header_leaves_chunk_unchanged",
       "community": 17,
-      "norm_label": "test_missing_or_empty_header_leaves_chunk_unchanged()"
+      "norm_label": "test_missing_or_empty_header_leaves_chunk_unchanged()",
+      "id": "tests_test_context_headers_test_missing_or_empty_header_leaves_chunk_unchanged"
     },
     {
       "label": "test_scope_predicate()",
@@ -219,9 +249,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L78",
       "_origin": "ast",
-      "id": "tests_test_context_headers_test_scope_predicate",
       "community": 17,
-      "norm_label": "test_scope_predicate()"
+      "norm_label": "test_scope_predicate()",
+      "id": "tests_test_context_headers_test_scope_predicate"
     },
     {
       "label": "test_load_headers_missing_file_returns_empty()",
@@ -229,9 +259,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L87",
       "_origin": "ast",
-      "id": "tests_test_context_headers_test_load_headers_missing_file_returns_empty",
       "community": 17,
-      "norm_label": "test_load_headers_missing_file_returns_empty()"
+      "norm_label": "test_load_headers_missing_file_returns_empty()",
+      "id": "tests_test_context_headers_test_load_headers_missing_file_returns_empty"
     },
     {
       "label": "Contextual chunk headers (iv9): one lay+statutory sentence per deep chunk.  Offl",
@@ -239,9 +269,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "tests_test_context_headers_rationale_1",
       "community": 17,
-      "norm_label": "contextual chunk headers (iv9): one lay+statutory sentence per deep chunk.  offl"
+      "norm_label": "contextual chunk headers (iv9): one lay+statutory sentence per deep chunk.  offl",
+      "id": "tests_test_context_headers_rationale_1"
     },
     {
       "label": "app.py",
@@ -1948,36 +1978,6 @@
       "community": 4,
       "norm_label": "generate and write hf/kaggle/zenodo/aikosh cards to disk.",
       "id": "scripts_export_datasets_rationale_724"
-    },
-    {
-      "label": "generate_context_headers.py",
-      "file_type": "code",
-      "source_file": "scripts/generate_context_headers.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 17,
-      "norm_label": "generate_context_headers.py",
-      "id": "scripts_generate_context_headers"
-    },
-    {
-      "label": "main()",
-      "file_type": "code",
-      "source_file": "scripts/generate_context_headers.py",
-      "source_location": "L30",
-      "_origin": "ast",
-      "community": 17,
-      "norm_label": "main()",
-      "id": "scripts_generate_context_headers_main"
-    },
-    {
-      "label": "Generate contextual headers for deep sub-clause + annex chunks (iv9).  Resumable",
-      "file_type": "rationale",
-      "source_file": "scripts/generate_context_headers.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 17,
-      "norm_label": "generate contextual headers for deep sub-clause + annex chunks (iv9).  resumable",
-      "id": "scripts_generate_context_headers_rationale_1"
     },
     {
       "label": "notify.sh",
@@ -10178,15 +10178,46 @@
   ],
   "links": [
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/generate_context_headers.py",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "scripts_generate_context_headers",
+      "target": "scripts_generate_context_headers_main",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/generate_context_headers.py",
       "source_location": "L22",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_generate_context_headers",
-      "target": "src_sebi_rag_context_headers"
+      "target": "src_sebi_rag_context_headers",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/generate_context_headers.py",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "scripts_generate_context_headers",
+      "target": "src_sebi_rag_corpus",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/generate_context_headers.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "scripts_generate_context_headers_rationale_1",
+      "target": "scripts_generate_context_headers",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -10194,9 +10225,9 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L80",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_sebi_rag_context_headers",
-      "target": "src_sebi_rag_context_headers_apply_context_headers",
-      "confidence_score": 1.0
+      "target": "src_sebi_rag_context_headers_apply_context_headers"
     },
     {
       "relation": "contains",
@@ -10204,9 +10235,9 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L39",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_sebi_rag_context_headers",
-      "target": "src_sebi_rag_context_headers_headergenerator",
-      "confidence_score": 1.0
+      "target": "src_sebi_rag_context_headers_headergenerator"
     },
     {
       "relation": "contains",
@@ -10214,9 +10245,9 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L34",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_sebi_rag_context_headers",
-      "target": "src_sebi_rag_context_headers_in_scope",
-      "confidence_score": 1.0
+      "target": "src_sebi_rag_context_headers_in_scope"
     },
     {
       "relation": "contains",
@@ -10224,9 +10255,9 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L104",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_sebi_rag_context_headers",
-      "target": "src_sebi_rag_context_headers_load_headers",
-      "confidence_score": 1.0
+      "target": "src_sebi_rag_context_headers_load_headers"
     },
     {
       "relation": "rationale_for",
@@ -10234,9 +10265,9 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_sebi_rag_context_headers_rationale_1",
-      "target": "src_sebi_rag_context_headers",
-      "confidence_score": 1.0
+      "target": "src_sebi_rag_context_headers"
     },
     {
       "relation": "imports_from",
@@ -10245,20 +10276,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_context_headers",
-      "target": "src_sebi_rag_context_headers",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "scripts/generate_context_headers.py",
-      "source_location": "L42",
-      "weight": 1.0,
-      "source": "scripts_generate_context_headers_main",
-      "target": "src_sebi_rag_context_headers_in_scope"
+      "target": "src_sebi_rag_context_headers"
     },
     {
       "relation": "rationale_for",
@@ -10266,9 +10286,9 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L35",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_sebi_rag_context_headers_rationale_35",
-      "target": "src_sebi_rag_context_headers_in_scope",
-      "confidence_score": 1.0
+      "target": "src_sebi_rag_context_headers_in_scope"
     },
     {
       "relation": "calls",
@@ -10287,9 +10307,9 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L46",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_sebi_rag_context_headers_headergenerator",
-      "target": "src_sebi_rag_context_headers_headergenerator_describe",
-      "confidence_score": 1.0
+      "target": "src_sebi_rag_context_headers_headergenerator_describe"
     },
     {
       "relation": "method",
@@ -10297,9 +10317,9 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L40",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_sebi_rag_context_headers_headergenerator",
-      "target": "src_sebi_rag_context_headers_headergenerator_init",
-      "confidence_score": 1.0
+      "target": "src_sebi_rag_context_headers_headergenerator_init"
     },
     {
       "relation": "method",
@@ -10307,9 +10327,9 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L57",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_sebi_rag_context_headers_headergenerator",
-      "target": "src_sebi_rag_context_headers_headergenerator_load",
-      "confidence_score": 1.0
+      "target": "src_sebi_rag_context_headers_headergenerator_load"
     },
     {
       "relation": "calls",
@@ -10356,26 +10376,15 @@
       "target": "src_sebi_rag_context_headers_headergenerator"
     },
     {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "scripts/generate_context_headers.py",
-      "source_location": "L51",
-      "weight": 1.0,
-      "source": "scripts_generate_context_headers_main",
-      "target": "src_sebi_rag_context_headers_headergenerator_load"
-    },
-    {
       "relation": "references",
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L80",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_sebi_rag_context_headers_apply_context_headers",
-      "target": "chunk",
-      "confidence_score": 1.0
+      "target": "chunk"
     },
     {
       "relation": "rationale_for",
@@ -10383,9 +10392,9 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L83",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_sebi_rag_context_headers_rationale_83",
-      "target": "src_sebi_rag_context_headers_apply_context_headers",
-      "confidence_score": 1.0
+      "target": "src_sebi_rag_context_headers_apply_context_headers"
     },
     {
       "relation": "calls",
@@ -10421,26 +10430,15 @@
       "target": "chunk"
     },
     {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "scripts/generate_context_headers.py",
-      "source_location": "L39",
-      "weight": 1.0,
-      "source": "scripts_generate_context_headers_main",
-      "target": "src_sebi_rag_context_headers_load_headers"
-    },
-    {
       "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L104",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_sebi_rag_context_headers_load_headers",
-      "target": "path",
-      "confidence_score": 1.0
+      "target": "path"
     },
     {
       "relation": "calls",
@@ -10460,9 +10458,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_context_headers",
-      "target": "src_sebi_rag_segment",
-      "confidence_score": 1.0
+      "target": "src_sebi_rag_segment"
     },
     {
       "relation": "contains",
@@ -10470,9 +10468,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L56",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_context_headers",
-      "target": "tests_test_context_headers_chunk",
-      "confidence_score": 1.0
+      "target": "tests_test_context_headers_chunk"
     },
     {
       "relation": "contains",
@@ -10480,9 +10478,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_context_headers",
-      "target": "tests_test_context_headers_test_describe_cleans_markdown_and_newlines",
-      "confidence_score": 1.0
+      "target": "tests_test_context_headers_test_describe_cleans_markdown_and_newlines"
     },
     {
       "relation": "contains",
@@ -10490,9 +10488,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L43",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_context_headers",
-      "target": "tests_test_context_headers_test_describe_error_or_empty_returns_empty",
-      "confidence_score": 1.0
+      "target": "tests_test_context_headers_test_describe_error_or_empty_returns_empty"
     },
     {
       "relation": "contains",
@@ -10500,9 +10498,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_context_headers",
-      "target": "tests_test_context_headers_test_describe_prompt_contains_inputs_and_constraints",
-      "confidence_score": 1.0
+      "target": "tests_test_context_headers_test_describe_prompt_contains_inputs_and_constraints"
     },
     {
       "relation": "contains",
@@ -10510,9 +10508,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L51",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_context_headers",
-      "target": "tests_test_context_headers_test_describe_truncates_to_max_chars",
-      "confidence_score": 1.0
+      "target": "tests_test_context_headers_test_describe_truncates_to_max_chars"
     },
     {
       "relation": "contains",
@@ -10520,9 +10518,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L60",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_context_headers",
-      "target": "tests_test_context_headers_test_header_inserted_below_breadcrumb",
-      "confidence_score": 1.0
+      "target": "tests_test_context_headers_test_header_inserted_below_breadcrumb"
     },
     {
       "relation": "contains",
@@ -10530,9 +10528,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L87",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_context_headers",
-      "target": "tests_test_context_headers_test_load_headers_missing_file_returns_empty",
-      "confidence_score": 1.0
+      "target": "tests_test_context_headers_test_load_headers_missing_file_returns_empty"
     },
     {
       "relation": "contains",
@@ -10540,9 +10538,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L72",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_context_headers",
-      "target": "tests_test_context_headers_test_missing_or_empty_header_leaves_chunk_unchanged",
-      "confidence_score": 1.0
+      "target": "tests_test_context_headers_test_missing_or_empty_header_leaves_chunk_unchanged"
     },
     {
       "relation": "contains",
@@ -10550,9 +10548,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L78",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_context_headers",
-      "target": "tests_test_context_headers_test_scope_predicate",
-      "confidence_score": 1.0
+      "target": "tests_test_context_headers_test_scope_predicate"
     },
     {
       "relation": "rationale_for",
@@ -10560,9 +10558,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_context_headers_rationale_1",
-      "target": "tests_test_context_headers",
-      "confidence_score": 1.0
+      "target": "tests_test_context_headers"
     },
     {
       "relation": "calls",
@@ -10571,9 +10569,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L62",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_context_headers_test_header_inserted_below_breadcrumb",
-      "target": "tests_test_context_headers_chunk",
-      "confidence_score": 1.0
+      "target": "tests_test_context_headers_chunk"
     },
     {
       "relation": "calls",
@@ -10582,9 +10580,9 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L73",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_context_headers_test_missing_or_empty_header_leaves_chunk_unchanged",
-      "target": "tests_test_context_headers_chunk",
-      "confidence_score": 1.0
+      "target": "tests_test_context_headers_chunk"
     },
     {
       "relation": "contains",
@@ -14663,48 +14661,6 @@
       "confidence_score": 1.0,
       "source": "scripts_export_datasets_rationale_724",
       "target": "scripts_export_datasets_write_dataset_cards"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/generate_context_headers.py",
-      "source_location": "L30",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_generate_context_headers",
-      "target": "scripts_generate_context_headers_main"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/generate_context_headers.py",
-      "source_location": "L25",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_generate_context_headers",
-      "target": "src_sebi_rag_corpus"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/generate_context_headers.py",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_generate_context_headers_rationale_1",
-      "target": "scripts_generate_context_headers"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "scripts/generate_context_headers.py",
-      "source_location": "L38",
-      "weight": 1.0,
-      "source": "scripts_generate_context_headers_main",
-      "target": "src_sebi_rag_corpus_load_circulars"
     },
     {
       "relation": "contains",
@@ -33073,5 +33029,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "5e97151a49c46277385b32d18da93395f33968ec"
+  "built_at_commit": "2fb4f380edc9721dca693cbfbc469898069ce814"
 }
