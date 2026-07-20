@@ -30,11 +30,6 @@ make export-datasets  # Export publishable dataset configs to dist/datasets
 - `HF_HUB_DISABLE_XET=1`, `TOKENIZERS_PARALLELISM=false`, `PYTORCH_ENABLE_MPS_FALLBACK=1` — set via Makefile/Make variables (Apple Silicon MPS)
 - `PORT` — default 8000; override with `PORT=9000 make serve`
 
-## Current Handoffs
-
-- Benchmark/evaluation continuation: `docs/superpowers/2026-07-09-benchmark-evaluation-handoff.md`
-- Retrieval/benchmark infrastructure inventory: `docs/superpowers/2026-07-11-retrieval-benchmark-inventory.md`
-
 ## graphify
 
 This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
