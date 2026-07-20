@@ -4,14 +4,34 @@
   "graph": {},
   "nodes": [
     {
+      "label": "build_index.py",
+      "file_type": "code",
+      "source_file": "scripts/build_index.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "scripts_build_index",
+      "community": 19,
+      "norm_label": "build_index.py"
+    },
+    {
+      "label": "Build the dense+sparse index once and persist it (run after corpus changes).",
+      "file_type": "rationale",
+      "source_file": "scripts/build_index.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "scripts_build_index_rationale_1",
+      "community": 19,
+      "norm_label": "build the dense+sparse index once and persist it (run after corpus changes)."
+    },
+    {
       "label": "generate_context_headers.py",
       "file_type": "code",
       "source_file": "scripts/generate_context_headers.py",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "scripts_generate_context_headers",
       "community": 17,
-      "norm_label": "generate_context_headers.py"
+      "norm_label": "generate_context_headers.py",
+      "id": "scripts_generate_context_headers"
     },
     {
       "label": "main()",
@@ -19,9 +39,9 @@
       "source_file": "scripts/generate_context_headers.py",
       "source_location": "L30",
       "_origin": "ast",
-      "id": "scripts_generate_context_headers_main",
       "community": 17,
-      "norm_label": "main()"
+      "norm_label": "main()",
+      "id": "scripts_generate_context_headers_main"
     },
     {
       "label": "Generate contextual headers for deep sub-clause + annex chunks (iv9).  Resumable",
@@ -29,9 +49,9 @@
       "source_file": "scripts/generate_context_headers.py",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "scripts_generate_context_headers_rationale_1",
       "community": 17,
-      "norm_label": "generate contextual headers for deep sub-clause + annex chunks (iv9).  resumable"
+      "norm_label": "generate contextual headers for deep sub-clause + annex chunks (iv9).  resumable",
+      "id": "scripts_generate_context_headers_rationale_1"
     },
     {
       "label": "context_headers.py",
@@ -1058,26 +1078,6 @@
       "community": 1,
       "norm_label": "create the enriched golden_v6 benchmark seed from frozen golden_v5.  this does n",
       "id": "scripts_build_golden_v6_rationale_1"
-    },
-    {
-      "label": "build_index.py",
-      "file_type": "code",
-      "source_file": "scripts/build_index.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 19,
-      "norm_label": "build_index.py",
-      "id": "scripts_build_index"
-    },
-    {
-      "label": "Build the dense+sparse index once and persist it (run after corpus changes).",
-      "file_type": "rationale",
-      "source_file": "scripts/build_index.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 19,
-      "norm_label": "build the dense+sparse index once and persist it (run after corpus changes).",
-      "id": "scripts_build_index_rationale_1"
     },
     {
       "label": "calibrate.py",
@@ -10178,14 +10178,79 @@
   ],
   "links": [
     {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build_index.py",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "scripts_build_index",
+      "target": "src_sebi_rag_context_headers",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build_index.py",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "scripts_build_index",
+      "target": "src_sebi_rag_corpus",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build_index.py",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "scripts_build_index",
+      "target": "src_sebi_rag_embeddings",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build_index.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "scripts_build_index",
+      "target": "src_sebi_rag_lineage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build_index.py",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "scripts_build_index",
+      "target": "src_sebi_rag_retrieve",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build_index.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "scripts_build_index_rationale_1",
+      "target": "scripts_build_index",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/generate_context_headers.py",
       "source_location": "L30",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_generate_context_headers",
-      "target": "scripts_generate_context_headers_main",
-      "confidence_score": 1.0
+      "target": "scripts_generate_context_headers_main"
     },
     {
       "relation": "imports_from",
@@ -10194,9 +10259,9 @@
       "source_file": "scripts/generate_context_headers.py",
       "source_location": "L22",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_generate_context_headers",
-      "target": "src_sebi_rag_context_headers",
-      "confidence_score": 1.0
+      "target": "src_sebi_rag_context_headers"
     },
     {
       "relation": "imports_from",
@@ -10205,9 +10270,9 @@
       "source_file": "scripts/generate_context_headers.py",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_generate_context_headers",
-      "target": "src_sebi_rag_corpus",
-      "confidence_score": 1.0
+      "target": "src_sebi_rag_corpus"
     },
     {
       "relation": "rationale_for",
@@ -10215,9 +10280,9 @@
       "source_file": "scripts/generate_context_headers.py",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_generate_context_headers_rationale_1",
-      "target": "scripts_generate_context_headers",
-      "confidence_score": 1.0
+      "target": "scripts_generate_context_headers"
     },
     {
       "relation": "contains",
@@ -12536,60 +12601,6 @@
       "weight": 1.0,
       "source": "scripts_build_golden_v6_main",
       "target": "src_sebi_rag_benchmark_validate_golden"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/build_index.py",
-      "source_location": "L24",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_build_index",
-      "target": "src_sebi_rag_corpus"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/build_index.py",
-      "source_location": "L25",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_build_index",
-      "target": "src_sebi_rag_embeddings"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/build_index.py",
-      "source_location": "L26",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_build_index",
-      "target": "src_sebi_rag_lineage"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/build_index.py",
-      "source_location": "L27",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_build_index",
-      "target": "src_sebi_rag_retrieve"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/build_index.py",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_build_index_rationale_1",
-      "target": "scripts_build_index"
     },
     {
       "relation": "contains",
@@ -33029,5 +33040,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "2fb4f380edc9721dca693cbfbc469898069ce814"
+  "built_at_commit": "c0cc002eac8515f22f8cb8b314ba8a938614b1c7"
 }

@@ -5,12 +5,12 @@
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1006 nodes · 2171 edges · 47 communities (38 shown, 9 thin omitted)
-- Extraction: 79% EXTRACTED · 21% INFERRED · 0% AMBIGUOUS · INFERRED: 466 edges (avg confidence: 0.72)
+- 1006 nodes · 2167 edges · 47 communities (38 shown, 9 thin omitted)
+- Extraction: 79% EXTRACTED · 21% INFERRED · 0% AMBIGUOUS · INFERRED: 463 edges (avg confidence: 0.72)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `5e97151a`
+- Built from commit: `2fb4f380`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -162,7 +162,7 @@ Nodes (6): Offline tests for the SEBI scraper parsing / pagination logic (no net
 
 ### Community 17 - "Master Metadata"
 Cohesion: 0.11
-Nodes (21): Chunk, Path, main(), Generate contextual headers for deep sub-clause + annex chunks (iv9).  Resumable, apply_context_headers(), HeaderGenerator, in_scope(), load_headers() (+13 more)
+Nodes (20): Chunk, Path, Generate contextual headers for deep sub-clause + annex chunks (iv9).  Resumable, apply_context_headers(), HeaderGenerator, in_scope(), load_headers(), Contextual chunk headers (iv9): one lay+statutory sentence per chunk.  Index-sid (+12 more)
 
 ### Community 18 - "Export Integration"
 Cohesion: 0.15
@@ -253,11 +253,11 @@ Nodes (5): contexts_for(), ADR-002 follow-up: compare the production subject-sim
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `Chunk` connect `Embedder` to `Core RAG Pipeline`, `Benchmark Infrastructure`, `Data Processing`, `Spaces CPU Pipeline`, `Lineage`, `renumber.py`, `answer_with_abstention`, `test_gate.py`, `Chunk`, `Answer Generation`, `SubjectSimJudge`, `eval_gate.py`?**
-  _High betweenness centrality (0.152) - this node is a cross-community bridge._
+  _High betweenness centrality (0.155) - this node is a cross-community bridge._
 - **Why does `normalize_circular_number()` connect `Data Processing` to `Benchmark Infrastructure`, `Dataset Export`, `.grounded`, `As-of Evaluation`, `Corpus Validation`?**
-  _High betweenness centrality (0.033) - this node is a cross-community bridge._
-- **Why does `derive_validity()` connect `Metadata Engine` to `Core RAG Pipeline`, `Benchmark Scripts`?**
-  _High betweenness centrality (0.030) - this node is a cross-community bridge._
+  _High betweenness centrality (0.040) - this node is a cross-community bridge._
+- **Why does `RAGPipeline` connect `Benchmark Infrastructure` to `Core RAG Pipeline`, `Index & Evaluation`, `Spaces CPU Pipeline`, `app.py`, `Benchmark Scripts`, `Embedder`, `answer_with_abstention`, `Chunk`, `Answer Generation`, `eval_gate.py`?**
+  _High betweenness centrality (0.031) - this node is a cross-community bridge._
 - **Are the 35 inferred relationships involving `Chunk` (e.g. with `BenchmarkIssue` and `Answer`) actually correct?**
   _`Chunk` has 35 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 17 inferred relationships involving `RAGPipeline` (e.g. with `CitationMeta` and `QueryRequest`) actually correct?**
