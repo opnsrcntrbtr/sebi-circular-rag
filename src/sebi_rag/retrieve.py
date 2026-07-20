@@ -16,6 +16,7 @@ import numpy as np
 from .embeddings import Embedder
 from .expand import expand_query
 from .segment import Chunk
+from .splade import SpladeIndex
 
 
 def _doc_checksum(texts: list[str]) -> str:
@@ -89,6 +90,7 @@ class HybridRetriever:
     dense: DenseIndex
     sparse: SparseIndex
     vecs: np.ndarray | None = field(default=None, repr=False)  # cached embeddings (F3)
+    splade: SpladeIndex | None = field(default=None, repr=False)  # iv11 opt-in leg
 
     @classmethod
     def build(cls, chunks: list[Chunk], embedder: Embedder) -> "HybridRetriever":
@@ -169,6 +171,8 @@ class HybridRetriever:
         k_sparse: int = 50,
         top_n: int = 50,
         hyde_text: str | None = None,
+        use_splade: bool = False,
+        k_splade: int = 50,
     ) -> list[tuple[Chunk, float]]:
         dense = self.dense.search(query, k_dense)
         # intervention #2: statutory-synonym expansion, sparse leg only —
@@ -179,6 +183,12 @@ class HybridRetriever:
             # intervention #5 (HyDE, Part B): hypothetical statutory passage
             # as an additive third dense leg; raw legs stay untouched.
             legs.append(self.dense.search(hyde_text, k_dense))
+        if use_splade:
+            # intervention iv11 (SPLADE): learned-sparse third leg on the RAW
+            # query (SPLADE does its own expansion; glossary stays BM25-only).
+            if self.splade is None:
+                raise RuntimeError("use_splade=True but no SPLADE index attached")
+            legs.append(self.splade.search(query, k_splade))
         fused = rrf_fuse(legs, top_n=top_n)
         return [(self.chunks[i], score) for i, score in fused]
 
