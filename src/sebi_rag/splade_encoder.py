@@ -26,7 +26,9 @@ class SpladeEncoder:
     def load(
         model: str = "prithivida/Splade_PP_en_v1",
         device: str = "mps",
-        batch_size: int = 32,
+        batch_size: int = 16,
+        max_length: int = 256,
+        threshold: float = 1e-2,
     ) -> Callable[[list[str]], csr_matrix]:
         import torch
         from transformers import AutoModelForMaskedLM, AutoTokenizer
@@ -41,14 +43,18 @@ class SpladeEncoder:
             for start in range(0, len(texts), batch_size):
                 batch = texts[start: start + batch_size]
                 enc = tok(batch, padding=True, truncation=True,
-                          max_length=512, return_tensors="pt").to(device)
+                          max_length=max_length, return_tensors="pt").to(device)
                 with torch.no_grad():
                     logits = mdl(**enc).logits            # (b, seq, vocab)
                 weights = splade_pool(
                     logits.float().cpu().numpy(),
                     enc["attention_mask"].cpu().numpy().astype("float32"),
                 )
+                # Drop near-zero SPLADE weights: keeps the CSR genuinely sparse
+                # (bounds memory) and removes noise terms (improves retrieval).
+                weights[weights < threshold] = 0.0
                 rows.append(csr_matrix(weights))
+                del enc, logits, weights
             return (vstack(rows).tocsr() if rows
                     else csr_matrix((0, mdl.config.vocab_size)))
 
