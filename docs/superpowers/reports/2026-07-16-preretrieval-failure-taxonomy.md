@@ -313,6 +313,77 @@ much smaller, more targeted chunk set with A/B measurement per batch
 rather than one 18k-chunk generation pass) — no silent iteration on the
 current design.
 
+### 5.5 Targeted contextual headers with A/B measurement (iv10, 2026-07-20)
+
+Scale-isolation retry of §5.4: same header content (reused verbatim from
+the iv9 sidecar, deterministic greedy decoding, commit `d6f323f`), same
+model and mechanism, applied to 573 chunks across the 3 failure-adjacent
+documents only (`SEBI/HO/DDHS/DDHS-POD2/P/CIR/2025/101`,
+`SEBI/HO/CFD/PoD2/CIR/P/0155`, `SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/91`) —
+two orders of magnitude smaller than iv9's 18,125-chunk pass — plus one
+fresh override header for probe-sup-04's answer chunk (section id `"4."`,
+depth 1, outside iv9's depth≥3-or-annex scope). Measured against the run's
+own control (A, a fresh benchmark of the reverted no-headers index), not
+against iv7's stale numbers. Spec:
+`docs/superpowers/specs/2026-07-20-targeted-headers-ab-design.md`, plan:
+`docs/superpowers/plans/2026-07-20-targeted-headers-ab.md`.
+
+| run | answerable | answer-level failures | recall@10 |
+|---|---|---|---|
+| probes A (`iv10-a-probes`, no headers, control) | 25 | 4 | 1.0 |
+| probes B (`iv10-b-probes`, targeted headers) | 25 | 4 (unchanged) | 1.0 (unchanged) |
+| golden A (`iv10-a-golden`, no headers, control) | 45 | 2 | 0.9556 |
+| golden B (`iv10-b-golden`, targeted headers) | 45 | 2 (unchanged) | 0.9556 (unchanged) |
+
+Build B was incremental: `chunks=77859` (unchanged, gate met),
+`chunks_encoded=2768` (only the 3 target documents re-embedded, 87s).
+
+Item-by-item diff (A vs B, by id):
+
+- **Resolved** (A fail → B hit): none.
+- **Regressed** (A hit → B fail): none.
+- **Unchanged failures**: probes — `probe-num-05`, `probe-par-03`,
+  `probe-sup-04`, `probe-tbl-05`; golden — `para-aifmaster`, `para-parrva`.
+
+probe-par-03: `candidate_miss` → **`candidate_miss` (unchanged)**, though
+doc-level rank improved further than iv9's partial result — `first_relevant_rank`
+7 (A) → **1 (B)** — the header pulled the *document* to the very top of
+the pool, yet the answer chunk `…CIR/2025/101#4.1.1.2` still never enters
+the answer-level pool (`first_answer_rank: -1` in both A and B). This is
+the strongest direct evidence yet for the semantic-gap diagnosis: no
+amount of document-level ranking improvement moves the specific
+answer-bearing chunk, because the gap is between the query's vocabulary
+("winding down", "pull") and that chunk's own text, which headers describe
+only in statutory register. probe-sup-04: `candidate_miss` → unchanged in
+both A and B, `first_relevant_rank: 1` in both — doc rank was already
+optimal before any header was added, so the override header made no
+measurable difference to the pooled ranking. probe-tbl-05 and
+probe-num-05: `ranked_low` → unchanged in both.
+
+Regression check vs A: **held** — no previously-passing item in A newly
+fails in B, on either eval set, and both recall@10 values are bit-for-bit
+identical between A and B. This is the outcome the spec's A/B mechanism
+was designed to protect against (§"A/B mechanism", restore-on-completion
+step) and it held: scale was in fact the variable responsible for iv9's
+regression, not the header content or mechanism itself. Working index
+restored from snapshot after B's benchmarks and verified (no header text
+present in probe-par-03's chunk); `make test` 282 passed.
+
+Gate verdict: **insufficient** — the mechanism is now demonstrated safe at
+small scale (no regression on either axis, unlike iv9), but it resolves
+none of the 4 remaining probe-gate targets, so the probes-gate target
+(4 → ≤3) is not met. Contextual headers, at any scale tried so far, cannot
+close probe-par-03 or probe-sup-04 because the deficit is in the specific
+answer chunk's own text, not in the surrounding document's discoverability
+— headers describe *the chunk*, but in a register that doesn't bridge the
+query-chunk vocabulary gap. Recommended action: do not pursue further
+scale or scope variations of contextual headers for these two targets;
+revert to iv7 index state (already the working state post-restore) and
+pursue report §4's remaining untried option (SPLADE-class learned sparse
+retrieval as a third RRF leg) or accept these two probe failures as a
+documented, understood residual rather than continuing this intervention
+family.
+
 ## Self-check vs spec success criteria
 
 - [x] ≥90% of harvested failures assigned a primary bucket with evidence — 10/10 (100%).
