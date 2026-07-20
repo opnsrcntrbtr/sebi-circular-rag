@@ -8,6 +8,7 @@ calibration reload the index in <1s instead of re-encoding.
 """
 from __future__ import annotations
 
+import argparse
 import os
 import sys
 import time
@@ -30,17 +31,22 @@ from sebi_rag.retrieve import HybridRetriever  # noqa: E402
 CORPUS = ROOT / "data" / "corpus" / "circulars.jsonl"
 INDEX = ROOT / "data" / "index"
 
-FULL = "--full" in sys.argv  # force re-encode of every document
+ap = argparse.ArgumentParser()
+ap.add_argument("--full", action="store_true", help="force re-encode of every document")
+ap.add_argument("--context-headers",
+                default=str(ROOT / "data" / "corpus" / "context_headers.jsonl"),
+                help="path to context headers sidecar")
+args, _ = ap.parse_known_args()
 
 chunks = load_circulars(CORPUS)
 # iv9: merge contextual headers (no-op when the sidecar is absent)
 chunks = apply_context_headers(
-    chunks, load_headers(ROOT / "data" / "corpus" / "context_headers.jsonl")
+    chunks, load_headers(args.context_headers)
 )
 print(f"chunks={len(chunks)}  building index...", flush=True)
 t0 = time.time()
 emb = BGEM3Embedder(device="mps")
-if FULL:
+if args.full:
     retriever = HybridRetriever.build(chunks, emb)
     stats = {"mode": "full (--full)", "chunks_encoded": len(chunks)}
 else:
