@@ -36,6 +36,13 @@ def in_scope(section: str) -> bool:
     return bool(_DEEP.match(section) or _ANNEX.search(section))
 
 
+def filter_targeted_rows(
+    rows: list[dict], target_docs: set[str]
+) -> list[dict]:
+    """Keep only sidecar rows whose chunk belongs to a target document."""
+    return [r for r in rows if r["chunk_id"].split("#")[0] in target_docs]
+
+
 class HeaderGenerator:
     def __init__(
         self, generate: Callable[[str], str], max_chars: int = 200

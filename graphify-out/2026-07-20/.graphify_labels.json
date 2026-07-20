@@ -30,7 +30,6 @@
   "28": "SubjectSimJudge",
   "29": "eval_gate.py",
   "30": "build_lineage",
-  "31": "test_integration_e2e.py",
   "32": "Build Scripts",
   "33": "Canary Monitoring",
   "34": "Index Refresh",
