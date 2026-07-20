@@ -64,6 +64,7 @@ def main() -> None:
     ap.add_argument("--top-n", type=int, default=50)
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--hyde", action="store_true")
+    ap.add_argument("--splade", action="store_true")
     args = ap.parse_args()
 
     started = time.time()
@@ -136,6 +137,34 @@ def main() -> None:
 
         pipeline.retriever = _HydeRetriever(pipeline.retriever)
 
+    if args.splade:
+        from sebi_rag.splade import SpladeIndex
+        from sebi_rag.splade_encoder import SpladeEncoder
+
+        # --smoke stays offline: a trivial fake encoder over a tiny vocab.
+        if args.smoke:
+            import numpy as np
+            from scipy.sparse import csr_matrix
+            n = len(pipeline.retriever.chunks)
+            fake_mat = csr_matrix(np.ones((n, 4), dtype="float32"))
+            si = SpladeIndex(lambda ts: csr_matrix(np.ones((len(ts), 4), "float32")), 4)
+            si.matrix = fake_mat
+        else:
+            enc = SpladeEncoder.load()
+            si = SpladeIndex.load(index_dir, enc,
+                                  expected_n=len(pipeline.retriever.chunks))
+        pipeline.retriever.splade = si
+
+        class _SpladeRetriever:
+            def __init__(self, inner):
+                self.inner = inner
+                self.chunks = inner.chunks
+
+            def retrieve(self, query: str, top_n: int = 50):
+                return self.inner.retrieve(query, top_n=top_n, use_splade=True)
+
+        pipeline.retriever = _SpladeRetriever(pipeline.retriever)
+
     result = run_retrieval_benchmark(
         pipeline, golden, top_n=args.top_n, run_name="baseline-retrieval"
     )
@@ -148,7 +177,8 @@ def main() -> None:
         golden_path=args.golden if not args.smoke else corpus_path,
         run_name="baseline-retrieval",
         models=models,
-        params={"top_n": args.top_n, "smoke": args.smoke, "hyde": args.hyde},
+        params={"top_n": args.top_n, "smoke": args.smoke, "hyde": args.hyde,
+                "splade": args.splade},
         started_at=started,
     )
     (out / "results.json").write_text(
