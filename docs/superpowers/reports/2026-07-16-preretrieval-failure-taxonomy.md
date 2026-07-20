@@ -384,6 +384,84 @@ retrieval as a third RRF leg) or accept these two probe failures as a
 documented, understood residual rather than continuing this intervention
 family.
 
+### 5.6 SPLADE learned-sparse third leg (iv11, 2026-07-20)
+
+The last untried report-§4 intervention. A learned-sparse leg
+(`prithivida/Splade_PP_en_v1`, Apache-2.0, ~110M) encodes every chunk to a
+max-pooled term-weight vector (10.78M nonzeros across 77,859 × 30,522,
+thresholded at 1e-2; `data/index/splade.npz`) and is fused as an opt-in
+**additive third RRF leg** on the raw query, alongside dense+BM25. The
+existing index is never mutated, so A (2-leg) is reproducible on demand by
+leaving the leg off — no snapshot/restore. Spec:
+`docs/superpowers/specs/2026-07-20-splade-third-leg-design.md`, plan:
+`docs/superpowers/plans/2026-07-20-splade-third-leg.md`.
+
+**Residual-shift note:** §4 justified SPLADE against 5
+`sparse_vocabulary_miss` failures, but iv6+iv7 had since closed 4 of them;
+this cycle measured SPLADE as a general recall leg against the current
+residual (probe-par-03, probe-sup-04, probe-num-05, probe-tbl-05;
+para-aifmaster, para-parrva).
+
+**Pilot gate (GO):** all 3 residual queries showed learned-expansion
+bridges to their answer text — AIF→{investment, registration, registered};
+CRA winding-down→{rating, agency, review, **stop**}; supersession→{appendix,
+number, **expired**, **refused**} — genuine topical overlap that exact-match
+sparse retrieval cannot produce.
+
+| run | answerable | answer-level failures | recall@10 |
+|---|---|---|---|
+| probes A (`iv11-a-probes`, 2-leg) | 25 | 4 | 1.0 |
+| probes B (`iv11-b-probes`, +SPLADE) | 25 | **5 (regression)** | **0.96 (regression)** |
+| probes SPLADE-only (`iv11-splade-only-probes`) | 25 | 6 | — |
+| golden A (`iv11-a-golden`, 2-leg) | 45 | 2 | 0.9556 |
+| golden B (`iv11-b-golden`, +SPLADE) | 45 | 2 (1-for-1 swap) | 0.9556 |
+| golden SPLADE-only (`iv11-splade-only-golden`) | 45 | 1 | — |
+
+Item-by-item diff (A vs B, by id):
+
+- **Resolved** (A fail → B hit): `para-aifmaster` — answer chunk 28 → **4**
+  fused; **SPLADE-only reaches it at rank 6** on its own. The learned
+  expansion genuinely bridges "Category II private pooled investment
+  vehicle" ↔ "Alternative Investment Fund", the pure paraphrase gap that
+  defeated dense, sparse, and the reranker alike (§2). **The mechanism is
+  validated.**
+- **Regressed** (A hit → B fail): `para-freeze` (golden) — SPLADE-only
+  retrieves it fine (a hit alone), yet 3-leg **fusion interference** pushed
+  the fused answer 6 → 14; `probe-par-01` (probes) — SPLADE-only ranks the
+  answer poorly (43), and that weak equal-weight vote dragged the fused
+  position 6 → 14.
+
+**Root cause of the regressions (evidence-based):** SPLADE is added as an
+*equal-weight, untuned* RRF leg. It helps queries whose answer it ranks
+well (para-aifmaster) but, because RRF gives every leg the same rank-mass,
+it displaces correct chunks in two ways — (a) a strong-elsewhere chunk
+loses relative position when SPLADE boosts competitors (para-freeze), and
+(b) a chunk SPLADE itself ranks poorly is dragged down by its vote
+(probe-par-01). This is fusion interference from the leg's weight/placement,
+not a defect in the SPLADE representation (which the pilot and the
+para-aifmaster resolution both show working as intended).
+
+Gate verdict: **not met — regression.** The gate required ≥1 residual
+resolved **with zero regressions vs A**; B resolves para-aifmaster but
+regresses para-freeze and probe-par-01, and both probes recall@10 and the
+probes answer-level count worsen (4 → 5). **The equal-weight additive SPLADE
+leg, as designed, is rejected — do not promote to the default retrieval
+path.** The working system is unaffected: the leg is opt-in
+(`use_splade` defaults False; the API/pipeline never set it), so
+`data/index/splade.npz` is inert unless `--splade` is passed, and the live
+2-leg index is already the known-good state (nothing was mutated).
+
+Unlike iv9/iv10 this is a *localized* negative with a validated mechanism:
+SPLADE demonstrably closes a true paraphrase gap (para-aifmaster) that no
+prior intervention reached. The failure is equal-weight fusion, not the
+representation. A future cycle could revisit SPLADE as a **weighted or
+reranker-gated** leg (down-weight its RRF contribution, or admit its
+candidates only into the reranker pool rather than the fused order) — but
+that is a materially different design, out of scope here. Recommended
+action for now: keep SPLADE eval-only, close this cycle as a
+mechanism-validated but net-negative equal-weight result, and treat the
+current probe residual as documented and understood (per §5.5's close).
+
 ## Self-check vs spec success criteria
 
 - [x] ≥90% of harvested failures assigned a primary bucket with evidence — 10/10 (100%).
