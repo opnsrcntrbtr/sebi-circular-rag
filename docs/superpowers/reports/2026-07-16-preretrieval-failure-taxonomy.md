@@ -256,6 +256,63 @@ design (boilerplate-free prompt, statutory-vocabulary conditioning, or a
 down-weighted leg). Eval-only flag stays off everywhere by default; the
 API path was never touched.
 
+### 5.4 Scoped contextual chunk headers (iv9, 2026-07-20)
+
+Index-side enrichment: one lay+statutory sentence per deep sub-clause and
+annex chunk (Qwen2.5-7B-Instruct-4bit, greedy, 80 tokens; 18,125 sidecar
+rows, commits 5e97151/c0cc002/d6f323f). Pilot verdict: 1.5B failed go/no-go
+(identical generic header on 4 distinct CRA sub-clauses, including the
+probe-par-03 answer chunk); escalated to 7B, which fixed distinctiveness
+(user-approved go, still statutory-register prose, no literal lay-vocabulary
+match). Known scope gap: probe-sup-04's answer chunk (section id `"4."`,
+depth 1) is excluded by the approved depth≥3-or-annex-heading scope
+regardless of model. Spec:
+`docs/superpowers/specs/2026-07-19-contextual-headers-design.md`, plan:
+`docs/superpowers/plans/2026-07-19-contextual-headers.md`.
+
+| run | answerable | answer-level failures | doc recall@10 |
+|---|---|---|---|
+| probes prior (`iv7-probes`) | 25 | 4 | 1.0 |
+| probes iv9 (`iv9-probes`) | 25 | **5 (regression)** | **0.96 (regression)** |
+| golden prior (`iv7-golden`) | 45 | 2 | 0.956 |
+| golden iv9 (`iv9-golden`) | 45 | 3 | **0.9333 (regression)** |
+
+probe-par-03: candidate_miss → **candidate_miss (unchanged)**, though doc
+rank improved substantially (7 → 2) — the header moved the *document* much
+closer but the specific answer chunk `…CIR/2025/101#4.1.1.2` still never
+enters the answer-level pool. probe-sup-04: candidate_miss → unchanged (as
+predicted by the documented scope gap). Chunk count: 77,859 (unchanged,
+gate met).
+
+Regression check vs iv7: **violated** — two previously-passing items newly
+fail: `probe-par-02` ("What fraction of the shares held by ordinary public
+investors must be kept in electronic form?", doc ranked_low 11, answer
+ranked_low 17) and `para-mfborrow` ("Can an asset manager take a
+short-term bank loan to bridge a same-day cash mismatch when paying out
+exiting unitholders?", doc+answer candidate_miss). Both eval sets also
+lost recall@10 (probes 1.0 → 0.96; golden 0.956 → 0.9333, below the 0.956
+floor). No prior failure was resolved by this intervention.
+
+Root cause (evidence-based, not exhaustively verified): headers were
+generated for ~23% of the corpus (18,125 / 77,859 chunks) in a fairly
+uniform "This provision governs..." register: with that much of the corpus
+gaining new, semantically similar-sounding dense-embedding mass at once,
+previously-correct chunks lose relative discriminative distance against
+newly-competitive header-bearing neighbors — a corpus-wide embedding-shift
+side effect, not a defect isolated to the target failure chunks.
+
+Gate verdict: **not met on any axis** — probes failures increased (5 > 4,
+worse than the 4 → ≤3 target), golden gained a new failure and dropped
+below the recall floor, and the standing no-new-failure-IDs rule is
+violated on both sets. **Scoped contextual chunk headers, as designed and
+scoped, are rejected.** Recommended action: do not merge this index state
+forward as the default; either revert to the iv7 index (pre-headers) or
+treat this as a closed negative result and pursue a materially different
+approach (report §4's SPLADE option, or a headers redesign restricted to a
+much smaller, more targeted chunk set with A/B measurement per batch
+rather than one 18k-chunk generation pass) — no silent iteration on the
+current design.
+
 ## Self-check vs spec success criteria
 
 - [x] ≥90% of harvested failures assigned a primary bucket with evidence — 10/10 (100%).
