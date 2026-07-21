@@ -92,3 +92,39 @@ def summarize(results: list[AsofCaseResult]) -> dict:
         "ci_method": ci.method,
         "failures": [r.id for r in results if not r.passed],
     }
+
+
+def build_report(
+    selector_results: list[AsofCaseResult],
+    pipeline_results: list[AsofCaseResult],
+    metadata: dict,
+) -> dict:
+    """Assemble the persisted as-of run artifact.
+
+    Pipeline accuracy is the headline measurement. Selector cases are a
+    governing_on unit regression over small pre-verified families (see the
+    module docstring) and are tagged as such. The pooled figure is retained
+    for continuity with the historical 92.3% but carries no interval, since
+    pooling incommensurable modes is not a valid measurement.
+    """
+    selector = summarize(selector_results)
+    selector["role"] = "regression"
+    selector["note"] = "governing_on unit check on pre-verified families"
+
+    pooled = summarize(selector_results + pipeline_results)
+    for key in ("ci_lo", "ci_hi", "ci_method"):
+        pooled.pop(key, None)
+    pooled["note"] = "pooled across incommensurable modes; no CI claimed"
+
+    return {
+        "metrics": {
+            "pipeline": summarize(pipeline_results),
+            "selector": selector,
+            "overall": pooled,
+        },
+        "cases": [
+            {"id": r.id, "mode": r.mode, "passed": r.passed, "detail": r.detail}
+            for r in selector_results + pipeline_results
+        ],
+        "metadata": metadata,
+    }
