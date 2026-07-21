@@ -626,7 +626,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_bench_rerankers",
-      "community": 51,
+      "community": 14,
       "norm_label": "bench_rerankers.py"
     },
     {
@@ -636,7 +636,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "scripts_bench_rerankers_auroc",
-      "community": 51,
+      "community": 14,
       "norm_label": "auroc()"
     },
     {
@@ -646,7 +646,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "scripts_bench_rerankers_best_threshold",
-      "community": 51,
+      "community": 14,
       "norm_label": "best_threshold()"
     },
     {
@@ -656,7 +656,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "scripts_bench_rerankers_evaluate",
-      "community": 51,
+      "community": 14,
       "norm_label": "evaluate()"
     },
     {
@@ -666,7 +666,7 @@
       "source_location": "L97",
       "_origin": "ast",
       "id": "scripts_bench_rerankers_main",
-      "community": 30,
+      "community": 28,
       "norm_label": "main()"
     },
     {
@@ -676,7 +676,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_bench_rerankers_rationale_1",
-      "community": 51,
+      "community": 14,
       "norm_label": "f2 (adr-001): benchmark rerankers on golden_v5 with cluster-separation metrics."
     },
     {
@@ -686,7 +686,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "scripts_bench_rerankers_rationale_43",
-      "community": 51,
+      "community": 14,
       "norm_label": "p(pos_score > neg_score); ties count half. pos = answerable top-scores,     neg"
     },
     {
@@ -696,7 +696,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "scripts_bench_rerankers_rationale_52",
-      "community": 51,
+      "community": 14,
       "norm_label": "threshold maximising abstention accuracy: answer if score >= thr.     returns (t"
     },
     {
@@ -746,7 +746,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_build_golden",
-      "community": 49,
+      "community": 11,
       "norm_label": "build_golden.py"
     },
     {
@@ -756,7 +756,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_build_golden_rationale_1",
-      "community": 49,
+      "community": 11,
       "norm_label": "build eval/golden/golden_v4.jsonl for the larger corpus. each query is mapped to"
     },
     {
@@ -796,7 +796,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_build_index",
-      "community": 47,
+      "community": 11,
       "norm_label": "build_index.py"
     },
     {
@@ -806,7 +806,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_build_index_rationale_1",
-      "community": 47,
+      "community": 11,
       "norm_label": "build the dense+sparse index once and persist it (run after corpus changes)."
     },
     {
@@ -816,7 +816,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_build_splade_index",
-      "community": 20,
+      "community": 15,
       "norm_label": "build_splade_index.py"
     },
     {
@@ -826,7 +826,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "scripts_build_splade_index_main",
-      "community": 20,
+      "community": 15,
       "norm_label": "main()"
     },
     {
@@ -836,7 +836,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_build_splade_index_rationale_1",
-      "community": 20,
+      "community": 15,
       "norm_label": "build the splade learned-sparse doc matrix once and persist it (iv11).  standalo"
     },
     {
@@ -846,7 +846,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_calibrate",
-      "community": 47,
+      "community": 11,
       "norm_label": "calibrate.py"
     },
     {
@@ -866,7 +866,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_calibrate_rationale_1",
-      "community": 47,
+      "community": 11,
       "norm_label": "calibrate top_k and the abstention threshold against the citation-precision sign"
     },
     {
@@ -1086,7 +1086,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_eval_asof",
-      "community": 47,
+      "community": 11,
       "norm_label": "eval_asof.py"
     },
     {
@@ -1096,7 +1096,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_eval_asof_rationale_1",
-      "community": 47,
+      "community": 11,
       "norm_label": "run eval/golden/golden_asof_v1.jsonl (selector + pipeline modes) against the per"
     },
     {
@@ -1106,7 +1106,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_eval_gate",
-      "community": 49,
+      "community": 11,
       "norm_label": "eval_gate.py"
     },
     {
@@ -1116,7 +1116,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "scripts_eval_gate_contexts_for",
-      "community": 50,
+      "community": 11,
       "norm_label": "contexts_for()"
     },
     {
@@ -1126,7 +1126,7 @@
       "source_location": "L60",
       "_origin": "ast",
       "id": "scripts_eval_gate_auroc",
-      "community": 49,
+      "community": 11,
       "norm_label": "auroc()"
     },
     {
@@ -1136,7 +1136,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_eval_gate_rationale_1",
-      "community": 49,
+      "community": 11,
       "norm_label": "adr-002 follow-up: compare the production subject-sim gate against the section-a"
     },
     {
@@ -1146,7 +1146,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_eval_json",
-      "community": 47,
+      "community": 11,
       "norm_label": "eval_json.py"
     },
     {
@@ -1156,7 +1156,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_eval_json_rationale_1",
-      "community": 47,
+      "community": 11,
       "norm_label": "emit one json line of retrieval/citation/abstention metrics over golden_v5 (env"
     },
     {
@@ -2072,7 +2072,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_renumber",
-      "community": 2,
+      "community": 50,
       "norm_label": "renumber.py"
     },
     {
@@ -2082,68 +2082,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_renumber_rationale_1",
-      "community": 2,
+      "community": 50,
       "norm_label": "re-derive circular number + dates from each record's stored text and rewrite the"
-    },
-    {
-      "label": "rescore_runs.py",
-      "file_type": "code",
-      "source_file": "scripts/rescore_runs.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "scripts_rescore_runs",
-      "community": 1,
-      "norm_label": "rescore_runs.py"
-    },
-    {
-      "label": "_fmt()",
-      "file_type": "code",
-      "source_file": "scripts/rescore_runs.py",
-      "source_location": "L47",
-      "_origin": "ast",
-      "id": "scripts_rescore_runs_fmt",
-      "community": 1,
-      "norm_label": "_fmt()"
-    },
-    {
-      "label": "score_run()",
-      "file_type": "code",
-      "source_file": "scripts/rescore_runs.py",
-      "source_location": "L51",
-      "_origin": "ast",
-      "id": "scripts_rescore_runs_score_run",
-      "community": 1,
-      "norm_label": "score_run()"
-    },
-    {
-      "label": "Path",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "scripts_rescore_runs_py_path",
-      "community": 1,
-      "norm_label": "path"
-    },
-    {
-      "label": "main()",
-      "file_type": "code",
-      "source_file": "scripts/rescore_runs.py",
-      "source_location": "L86",
-      "_origin": "ast",
-      "id": "scripts_rescore_runs_main",
-      "community": 1,
-      "norm_label": "main()"
-    },
-    {
-      "label": "Re-score archived benchmark runs with bootstrap CIs and paired significance.  Re",
-      "file_type": "rationale",
-      "source_file": "scripts/rescore_runs.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "scripts_rescore_runs_rationale_1",
-      "community": 1,
-      "norm_label": "re-score archived benchmark runs with bootstrap cis and paired significance.  re"
     },
     {
       "label": "scrape_sebi.py",
@@ -2452,7 +2392,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_verify_master",
-      "community": 5,
+      "community": 6,
       "norm_label": "verify_master.py"
     },
     {
@@ -2462,7 +2402,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "scripts_verify_master_fetch_manifest",
-      "community": 5,
+      "community": 6,
       "norm_label": "fetch_manifest()"
     },
     {
@@ -2472,7 +2412,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "scripts_verify_master_main",
-      "community": 5,
+      "community": 6,
       "norm_label": "main()"
     },
     {
@@ -2482,7 +2422,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_verify_master_rationale_1",
-      "community": 5,
+      "community": 6,
       "norm_label": "verify master-circular coverage: live ssid=6 listing vs corpus vs dist.  usage:"
     },
     {
@@ -2582,7 +2522,7 @@
       "source_location": "L138",
       "_origin": "ast",
       "id": "src_sebi_rag_api_create_app",
-      "community": 26,
+      "community": 28,
       "norm_label": "create_app()"
     },
     {
@@ -2592,7 +2532,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "fastapi",
-      "community": 26,
+      "community": 28,
       "norm_label": "fastapi"
     },
     {
@@ -2816,30 +2756,10 @@
       "norm_label": "write_trec_run()"
     },
     {
-      "label": "read_trec_run()",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L279",
-      "_origin": "ast",
-      "id": "src_sebi_rag_benchmark_read_trec_run",
-      "community": 1,
-      "norm_label": "read_trec_run()"
-    },
-    {
-      "label": "per_query_recall()",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L306",
-      "_origin": "ast",
-      "id": "src_sebi_rag_benchmark_per_query_recall",
-      "community": 1,
-      "norm_label": "per_query_recall()"
-    },
-    {
       "label": "export_beir()",
       "file_type": "code",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L334",
+      "source_location": "L279",
       "_origin": "ast",
       "id": "src_sebi_rag_benchmark_export_beir",
       "community": 1,
@@ -2849,7 +2769,7 @@
       "label": "run_retrieval_benchmark()",
       "file_type": "code",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L348",
+      "source_location": "L293",
       "_origin": "ast",
       "id": "src_sebi_rag_benchmark_run_retrieval_benchmark",
       "community": 1,
@@ -2859,7 +2779,7 @@
       "label": "write_judge_results()",
       "file_type": "code",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L378",
+      "source_location": "L323",
       "_origin": "ast",
       "id": "src_sebi_rag_benchmark_write_judge_results",
       "community": 1,
@@ -2896,32 +2816,12 @@
       "norm_label": "convert legacy golden rows into the v6 schema."
     },
     {
-      "label": "Parse a runfile written by `write_trec_run` back into {qid: [(doc, score)]}.",
-      "file_type": "rationale",
-      "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L280",
-      "_origin": "ast",
-      "id": "src_sebi_rag_benchmark_rationale_280",
-      "community": 1,
-      "norm_label": "parse a runfile written by `write_trec_run` back into {qid: [(doc, score)]}."
-    },
-    {
-      "label": "Per-query recall@k at circular level, matching `run_retrieval_benchmark`.      A",
-      "file_type": "rationale",
-      "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L312",
-      "_origin": "ast",
-      "id": "src_sebi_rag_benchmark_rationale_312",
-      "community": 1,
-      "norm_label": "per-query recall@k at circular level, matching `run_retrieval_benchmark`.      a"
-    },
-    {
       "label": "Write optional research-only judge outputs beside, never into, gold labels.",
       "file_type": "rationale",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L379",
+      "source_location": "L324",
       "_origin": "ast",
-      "id": "src_sebi_rag_benchmark_rationale_379",
+      "id": "src_sebi_rag_benchmark_rationale_324",
       "community": 1,
       "norm_label": "write optional research-only judge outputs beside, never into, gold labels."
     },
@@ -3072,7 +2972,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_corpus",
-      "community": 47,
+      "community": 11,
       "norm_label": "corpus.py"
     },
     {
@@ -3102,7 +3002,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_corpus_rationale_1",
-      "community": 47,
+      "community": 11,
       "norm_label": "load the real sebi circular corpus (data/corpus/circulars.jsonl) into chunks."
     },
     {
@@ -3222,7 +3122,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_embeddings",
-      "community": 47,
+      "community": 11,
       "norm_label": "embeddings.py"
     },
     {
@@ -3342,7 +3242,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_embeddings_rationale_1",
-      "community": 47,
+      "community": 11,
       "norm_label": "embedder protocol + a deterministic test embedder + the real bge-m3 embedder.  t"
     },
     {
@@ -3432,7 +3332,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_asof_load_golden_asof",
-      "community": 52,
+      "community": 3,
       "norm_label": "load_golden_asof()"
     },
     {
@@ -3442,7 +3342,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_asof_py_path",
-      "community": 52,
+      "community": 3,
       "norm_label": "path"
     },
     {
@@ -3462,7 +3362,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_asof_run_selector_cases",
-      "community": 3,
+      "community": 31,
       "norm_label": "run_selector_cases()"
     },
     {
@@ -3592,7 +3492,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_expand",
-      "community": 46,
+      "community": 11,
       "norm_label": "expand.py"
     },
     {
@@ -3602,7 +3502,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "src_sebi_rag_expand_expand_query",
-      "community": 46,
+      "community": 11,
       "norm_label": "expand_query()"
     },
     {
@@ -3612,7 +3512,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_expand_rationale_1",
-      "community": 46,
+      "community": 11,
       "norm_label": "query-side lexical expansion for bm25 (intervention #2, glossary variant).  sebi"
     },
     {
@@ -3622,7 +3522,7 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "src_sebi_rag_expand_rationale_55",
-      "community": 46,
+      "community": 11,
       "norm_label": "append statutory synonyms for lay tokens present in `query`.      deterministic"
     },
     {
@@ -3642,7 +3542,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_faithfulness",
-      "community": 53,
+      "community": 11,
       "norm_label": "faithfulness()"
     },
     {
@@ -3962,7 +3862,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_rationale_22",
-      "community": 53,
+      "community": 11,
       "norm_label": "check that every circular id the answer cites (in square brackets) was     actua"
     },
     {
@@ -4302,7 +4202,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf",
-      "community": 2,
+      "community": 46,
       "norm_label": "ingest_pdf.py"
     },
     {
@@ -4312,7 +4212,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_normalize_circular_number",
-      "community": 2,
+      "community": 46,
       "norm_label": "normalize_circular_number()"
     },
     {
@@ -4322,7 +4222,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_ocr_text",
-      "community": 2,
+      "community": 46,
       "norm_label": "_ocr_text()"
     },
     {
@@ -4332,7 +4232,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_py_path",
-      "community": 2,
+      "community": 46,
       "norm_label": "path"
     },
     {
@@ -4342,7 +4242,7 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_extract_text",
-      "community": 2,
+      "community": 46,
       "norm_label": "extract_text()"
     },
     {
@@ -4382,7 +4282,7 @@
       "source_location": "L121",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_rejoin_split",
-      "community": 2,
+      "community": 47,
       "norm_label": "_rejoin_split()"
     },
     {
@@ -4392,7 +4292,7 @@
       "source_location": "L133",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_s_header_token",
-      "community": 2,
+      "community": 51,
       "norm_label": "_s_header_token()"
     },
     {
@@ -4402,7 +4302,7 @@
       "source_location": "L143",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_s_dept_only",
-      "community": 2,
+      "community": 52,
       "norm_label": "_s_dept_only()"
     },
     {
@@ -4412,7 +4312,7 @@
       "source_location": "L153",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_s_anchor_merge",
-      "community": 2,
+      "community": 47,
       "norm_label": "_s_anchor_merge()"
     },
     {
@@ -4422,7 +4322,7 @@
       "source_location": "L166",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_s_dept_order",
-      "community": 2,
+      "community": 53,
       "norm_label": "_s_dept_order()"
     },
     {
@@ -4432,7 +4332,7 @@
       "source_location": "L176",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_s_mc_no",
-      "community": 2,
+      "community": 46,
       "norm_label": "_s_mc_no()"
     },
     {
@@ -4442,7 +4342,7 @@
       "source_location": "L187",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_primary_number",
-      "community": 2,
+      "community": 47,
       "norm_label": "_primary_number()"
     },
     {
@@ -4482,7 +4382,7 @@
       "source_location": "L252",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_injection_scan",
-      "community": 2,
+      "community": 49,
       "norm_label": "injection_scan()"
     },
     {
@@ -4492,7 +4392,7 @@
       "source_location": "L257",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_to_record",
-      "community": 2,
+      "community": 46,
       "norm_label": "to_record()"
     },
     {
@@ -4502,7 +4402,7 @@
       "source_location": "L278",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_existing_numbers",
-      "community": 2,
+      "community": 46,
       "norm_label": "_existing_numbers()"
     },
     {
@@ -4512,7 +4412,7 @@
       "source_location": "L290",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_rewrite_replacing",
-      "community": 2,
+      "community": 46,
       "norm_label": "_rewrite_replacing()"
     },
     {
@@ -4522,7 +4422,7 @@
       "source_location": "L305",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_ingest",
-      "community": 2,
+      "community": 46,
       "norm_label": "ingest()"
     },
     {
@@ -4532,7 +4432,7 @@
       "source_location": "L330",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_main",
-      "community": 2,
+      "community": 46,
       "norm_label": "main()"
     },
     {
@@ -4542,7 +4442,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_rationale_1",
-      "community": 2,
+      "community": 46,
       "norm_label": "local pdf ingestion for sebi circulars.  drop a circular pdf into data/raw/ and"
     },
     {
@@ -4552,7 +4452,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_rationale_32",
-      "community": 2,
+      "community": 46,
       "norm_label": "canonical comparison key for a circular number: strip whitespace and     trailin"
     },
     {
@@ -4562,7 +4462,7 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_rationale_57",
-      "community": 2,
+      "community": 46,
       "norm_label": "ocr a scanned pdf. requires pytesseract + pdf2image (+ system tesseract,     pop"
     },
     {
@@ -4582,7 +4482,7 @@
       "source_location": "L122",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_rationale_122",
-      "community": 2,
+      "community": 47,
       "norm_label": "rejoin numbers split by a space around a slash, e.g. \"cir/ 2025/104\",     \"ho/ ("
     },
     {
@@ -4592,7 +4492,7 @@
       "source_location": "L134",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_rationale_134",
-      "community": 2,
+      "community": 51,
       "norm_label": "standard formats (old cir, new sebi/ho, free-form 2026): first     slash-heavy h"
     },
     {
@@ -4602,7 +4502,7 @@
       "source_location": "L144",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_rationale_144",
-      "community": 2,
+      "community": 52,
       "norm_label": "department-only prefixes without ho/cir anchor,     e.g. afd/p/cir/2022/125."
     },
     {
@@ -4612,7 +4512,7 @@
       "source_location": "L154",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_rationale_154",
-      "community": 2,
+      "community": 47,
       "norm_label": "references split across tokens: merge up to 4 tokens after the first     ho/cir/"
     },
     {
@@ -4622,7 +4522,7 @@
       "source_location": "L167",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_rationale_167",
-      "community": 2,
+      "community": 53,
       "norm_label": "2026 departmental orders, bare or sebi/ho-prefixed \u2014 no /cir/ and     possibly t"
     },
     {
@@ -4632,7 +4532,7 @@
       "source_location": "L177",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_rationale_177",
-      "community": 2,
+      "community": 46,
       "norm_label": "2011-era master circulars: \"sebi/<dept>/mc no.<n>/<serial>/<year>\" \u2014     predate"
     },
     {
@@ -4642,7 +4542,7 @@
       "source_location": "L253",
       "_origin": "ast",
       "id": "src_sebi_rag_ingest_pdf_rationale_253",
-      "community": 2,
+      "community": 49,
       "norm_label": "return the list of matched instruction-like patterns (empty = clean)."
     },
     {
@@ -4652,7 +4552,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage",
-      "community": 49,
+      "community": 11,
       "norm_label": "lineage.py"
     },
     {
@@ -4772,7 +4672,7 @@
       "source_location": "L132",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_mc_topic",
-      "community": 49,
+      "community": 11,
       "norm_label": "mc_topic()"
     },
     {
@@ -4782,7 +4682,7 @@
       "source_location": "L150",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_currency",
-      "community": 30,
+      "community": 26,
       "norm_label": "_currency()"
     },
     {
@@ -4792,7 +4692,7 @@
       "source_location": "L154",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_build_lineage",
-      "community": 30,
+      "community": 26,
       "norm_label": "build_lineage()"
     },
     {
@@ -4802,7 +4702,7 @@
       "source_location": "L206",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_demote_superseded",
-      "community": 50,
+      "community": 11,
       "norm_label": "demote_superseded()"
     },
     {
@@ -4812,7 +4712,7 @@
       "source_location": "L218",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_superseded_citations",
-      "community": 50,
+      "community": 11,
       "norm_label": "superseded_citations()"
     },
     {
@@ -4822,7 +4722,7 @@
       "source_location": "L232",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_load_records",
-      "community": 30,
+      "community": 28,
       "norm_label": "load_records()"
     },
     {
@@ -4842,7 +4742,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_rationale_1",
-      "community": 49,
+      "community": 11,
       "norm_label": "p2 \u2014 cross-document supersession resolution.  classifies each circular's referen"
     },
     {
@@ -4892,7 +4792,7 @@
       "source_location": "L133",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_rationale_133",
-      "community": 49,
+      "community": 11,
       "norm_label": "normalised topic of a 'master circular for/on <topic>' title, else none.      us"
     },
     {
@@ -4902,7 +4802,7 @@
       "source_location": "L207",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_rationale_207",
-      "community": 50,
+      "community": 11,
       "norm_label": "down-weight reranked (chunk, score) pairs from superseded circulars and     re-s"
     },
     {
@@ -4912,7 +4812,7 @@
       "source_location": "L219",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_rationale_219",
-      "community": 50,
+      "community": 11,
       "norm_label": "map any cited circular that is superseded -> the circular(s) superseding it."
     },
     {
@@ -5082,7 +4982,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "src_sebi_rag_pipeline_ragpipeline_query",
-      "community": 50,
+      "community": 11,
       "norm_label": ".query()"
     },
     {
@@ -5272,7 +5172,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_retrieve",
-      "community": 47,
+      "community": 11,
       "norm_label": "retrieve.py"
     },
     {
@@ -5472,7 +5372,7 @@
       "source_location": "L244",
       "_origin": "ast",
       "id": "src_sebi_rag_retrieve_hybridretriever_index_exists",
-      "community": 15,
+      "community": 28,
       "norm_label": ".index_exists()"
     },
     {
@@ -5482,7 +5382,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_retrieve_rationale_1",
-      "community": 47,
+      "community": 11,
       "norm_label": "stage-1 hybrid retrieval: dense (faiss) + sparse (bm25) fused by rrf.  mandatory"
     },
     {
@@ -5906,106 +5806,6 @@
       "norm_label": "(batch, seq, vocab) logits + (batch, seq) mask -> (batch, vocab) weights."
     },
     {
-      "label": "stats.py",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/stats.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "src_sebi_rag_stats",
-      "community": 6,
-      "norm_label": "stats.py"
-    },
-    {
-      "label": "BootstrapCI",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/stats.py",
-      "source_location": "L26",
-      "_origin": "ast",
-      "id": "src_sebi_rag_stats_bootstrapci",
-      "community": 6,
-      "norm_label": "bootstrapci"
-    },
-    {
-      "label": "PairedResult",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/stats.py",
-      "source_location": "L36",
-      "_origin": "ast",
-      "id": "src_sebi_rag_stats_pairedresult",
-      "community": 6,
-      "norm_label": "pairedresult"
-    },
-    {
-      "label": ".significant()",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/stats.py",
-      "source_location": "L49",
-      "_origin": "ast",
-      "id": "src_sebi_rag_stats_pairedresult_significant",
-      "community": 6,
-      "norm_label": ".significant()"
-    },
-    {
-      "label": "bootstrap_ci()",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/stats.py",
-      "source_location": "L57",
-      "_origin": "ast",
-      "id": "src_sebi_rag_stats_bootstrap_ci",
-      "community": 6,
-      "norm_label": "bootstrap_ci()"
-    },
-    {
-      "label": "paired_delta()",
-      "file_type": "code",
-      "source_file": "src/sebi_rag/stats.py",
-      "source_location": "L79",
-      "_origin": "ast",
-      "id": "src_sebi_rag_stats_paired_delta",
-      "community": 6,
-      "norm_label": "paired_delta()"
-    },
-    {
-      "label": "Uncertainty quantification for benchmark runs.  The golden set is n=56 answerabl",
-      "file_type": "rationale",
-      "source_file": "src/sebi_rag/stats.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "src_sebi_rag_stats_rationale_1",
-      "community": 6,
-      "norm_label": "uncertainty quantification for benchmark runs.  the golden set is n=56 answerabl"
-    },
-    {
-      "label": "True when the randomization test rejects at 1 - confidence AND the         paire",
-      "file_type": "rationale",
-      "source_file": "src/sebi_rag/stats.py",
-      "source_location": "L50",
-      "_origin": "ast",
-      "id": "src_sebi_rag_stats_rationale_50",
-      "community": 6,
-      "norm_label": "true when the randomization test rejects at 1 - confidence and the         paire"
-    },
-    {
-      "label": "Percentile bootstrap interval for the mean of per-query scores.",
-      "file_type": "rationale",
-      "source_file": "src/sebi_rag/stats.py",
-      "source_location": "L64",
-      "_origin": "ast",
-      "id": "src_sebi_rag_stats_rationale_64",
-      "community": 6,
-      "norm_label": "percentile bootstrap interval for the mean of per-query scores."
-    },
-    {
-      "label": "Compare run `b` against run `a` on their shared queries.      Returns mean_b - m",
-      "file_type": "rationale",
-      "source_file": "src/sebi_rag/stats.py",
-      "source_location": "L87",
-      "_origin": "ast",
-      "id": "src_sebi_rag_stats_rationale_87",
-      "community": 6,
-      "norm_label": "compare run `b` against run `a` on their shared queries.      returns mean_b - m"
-    },
-    {
       "label": "ui.py",
       "file_type": "code",
       "source_file": "src/sebi_rag/ui.py",
@@ -6042,7 +5842,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_verify_master",
-      "community": 5,
+      "community": 6,
       "norm_label": "verify_master.py"
     },
     {
@@ -6052,7 +5852,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "src_sebi_rag_verify_master_iso",
-      "community": 5,
+      "community": 6,
       "norm_label": "_iso()"
     },
     {
@@ -6062,7 +5862,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "src_sebi_rag_verify_master_parse_listing",
-      "community": 5,
+      "community": 6,
       "norm_label": "parse_listing()"
     },
     {
@@ -6072,7 +5872,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "src_sebi_rag_verify_master_validation",
-      "community": 5,
+      "community": 6,
       "norm_label": "_validation()"
     },
     {
@@ -6082,7 +5882,7 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "src_sebi_rag_verify_master_diff_manifest",
-      "community": 5,
+      "community": 6,
       "norm_label": "diff_manifest()"
     },
     {
@@ -6092,7 +5892,7 @@
       "source_location": "L108",
       "_origin": "ast",
       "id": "src_sebi_rag_verify_master_summarize",
-      "community": 5,
+      "community": 6,
       "norm_label": "summarize()"
     },
     {
@@ -6102,7 +5902,7 @@
       "source_location": "L134",
       "_origin": "ast",
       "id": "src_sebi_rag_verify_master_render_markdown",
-      "community": 5,
+      "community": 6,
       "norm_label": "render_markdown()"
     },
     {
@@ -6112,7 +5912,7 @@
       "source_location": "L160",
       "_origin": "ast",
       "id": "src_sebi_rag_verify_master_write_reports",
-      "community": 5,
+      "community": 6,
       "norm_label": "write_reports()"
     },
     {
@@ -6122,7 +5922,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_sebi_rag_verify_master_py_path",
-      "community": 5,
+      "community": 6,
       "norm_label": "path"
     },
     {
@@ -6132,7 +5932,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_sebi_rag_verify_master_rationale_1",
-      "community": 5,
+      "community": 6,
       "norm_label": "master-circular coverage verification (spec 2026-07-13).  pure functions only: l"
     },
     {
@@ -6142,7 +5942,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "src_sebi_rag_verify_master_rationale_37",
-      "community": 5,
+      "community": 6,
       "norm_label": "(listing_date, detail_url, title) rows from one listing page, deduped."
     },
     {
@@ -6152,7 +5952,7 @@
       "source_location": "L67",
       "_origin": "ast",
       "id": "src_sebi_rag_verify_master_rationale_67",
-      "community": 5,
+      "community": 6,
       "norm_label": "assign exactly one status to every listed row + extra_in_corpus rows."
     },
     {
@@ -7272,7 +7072,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_eval_asof",
-      "community": 52,
+      "community": 11,
       "norm_label": "test_eval_asof.py"
     },
     {
@@ -7282,7 +7082,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "tests_test_eval_asof_test_load_golden_asof_has_both_modes",
-      "community": 52,
+      "community": 3,
       "norm_label": "test_load_golden_asof_has_both_modes()"
     },
     {
@@ -7292,7 +7092,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "tests_test_eval_asof_lin_chain",
-      "community": 52,
+      "community": 31,
       "norm_label": "_lin_chain()"
     },
     {
@@ -7302,7 +7102,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "tests_test_eval_asof_test_run_selector_cases_pass_and_fail",
-      "community": 52,
+      "community": 31,
       "norm_label": "test_run_selector_cases_pass_and_fail()"
     },
     {
@@ -7332,7 +7132,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_eval_asof_rationale_1",
-      "community": 52,
+      "community": 11,
       "norm_label": "p4b: as-of golden evaluation runner tests (offline)."
     },
     {
@@ -7392,7 +7192,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_expand",
-      "community": 46,
+      "community": 11,
       "norm_label": "test_expand.py"
     },
     {
@@ -7402,7 +7202,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "tests_test_expand_test_lay_term_gains_statutory_synonym",
-      "community": 46,
+      "community": 11,
       "norm_label": "test_lay_term_gains_statutory_synonym()"
     },
     {
@@ -7412,7 +7212,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "tests_test_expand_test_query_without_glossary_terms_is_unchanged",
-      "community": 46,
+      "community": 11,
       "norm_label": "test_query_without_glossary_terms_is_unchanged()"
     },
     {
@@ -7422,7 +7222,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "tests_test_expand_test_synonym_already_present_is_not_duplicated",
-      "community": 46,
+      "community": 11,
       "norm_label": "test_synonym_already_present_is_not_duplicated()"
     },
     {
@@ -7432,7 +7232,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "tests_test_expand_test_multiword_synonym_splits_into_tokens",
-      "community": 46,
+      "community": 11,
       "norm_label": "test_multiword_synonym_splits_into_tokens()"
     },
     {
@@ -7442,7 +7242,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "tests_test_expand_test_all_five_sparse_failure_queries_expand",
-      "community": 46,
+      "community": 11,
       "norm_label": "test_all_five_sparse_failure_queries_expand()"
     },
     {
@@ -7452,7 +7252,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "tests_test_expand_test_winding_down_gains_surrender_vocabulary",
-      "community": 46,
+      "community": 11,
       "norm_label": "test_winding_down_gains_surrender_vocabulary()"
     },
     {
@@ -7462,7 +7262,7 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "tests_test_expand_test_wind_down_phrasing_expands",
-      "community": 46,
+      "community": 11,
       "norm_label": "test_wind_down_phrasing_expands()"
     },
     {
@@ -7472,7 +7272,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "tests_test_expand_test_pull_maps_to_withdraw",
-      "community": 46,
+      "community": 11,
       "norm_label": "test_pull_maps_to_withdraw()"
     },
     {
@@ -7482,7 +7282,7 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "tests_test_expand_chunk",
-      "community": 46,
+      "community": 11,
       "norm_label": "_chunk()"
     },
     {
@@ -7492,7 +7292,7 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "tests_test_expand_test_expanded_sparse_query_hits_statutory_chunk",
-      "community": 46,
+      "community": 11,
       "norm_label": "test_expanded_sparse_query_hits_statutory_chunk()"
     },
     {
@@ -7502,7 +7302,7 @@
       "source_location": "L92",
       "_origin": "ast",
       "id": "tests_test_expand_test_retrieve_routes_expanded_query_to_sparse_leg",
-      "community": 46,
+      "community": 11,
       "norm_label": "test_retrieve_routes_expanded_query_to_sparse_leg()"
     },
     {
@@ -7512,7 +7312,7 @@
       "source_location": "L110",
       "_origin": "ast",
       "id": "tests_test_expand_test_retrieve_dense_leg_keeps_raw_query",
-      "community": 46,
+      "community": 11,
       "norm_label": "test_retrieve_dense_leg_keeps_raw_query()"
     },
     {
@@ -7522,7 +7322,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_expand_rationale_1",
-      "community": 46,
+      "community": 11,
       "norm_label": "query-side lexical expansion (intervention #2, glossary variant).  lay->statutor"
     },
     {
@@ -8112,7 +7912,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "tests_test_faithfulness_test_faithfulness_scoring",
-      "community": 53,
+      "community": 11,
       "norm_label": "test_faithfulness_scoring()"
     },
     {
@@ -8612,7 +8412,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_ingest_refs",
-      "community": 2,
+      "community": 47,
       "norm_label": "test_ingest_refs.py"
     },
     {
@@ -8622,7 +8422,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "tests_test_ingest_refs_test_primary_number_format_matrix",
-      "community": 2,
+      "community": 47,
       "norm_label": "test_primary_number_format_matrix()"
     },
     {
@@ -8632,7 +8432,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "tests_test_ingest_refs_test_fulltext_fallback_returns_earliest_body_reference",
-      "community": 2,
+      "community": 47,
       "norm_label": "test_fulltext_fallback_returns_earliest_body_reference()"
     },
     {
@@ -8642,7 +8442,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "tests_test_ingest_refs_test_ref_re_matches_all_three_reference_grammars",
-      "community": 2,
+      "community": 47,
       "norm_label": "test_ref_re_matches_all_three_reference_grammars()"
     },
     {
@@ -8652,7 +8452,7 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "tests_test_ingest_refs_test_parse_meta_dept_order_document_end_to_end",
-      "community": 2,
+      "community": 47,
       "norm_label": "test_parse_meta_dept_order_document_end_to_end()"
     },
     {
@@ -8662,7 +8462,7 @@
       "source_location": "L66",
       "_origin": "ast",
       "id": "tests_test_ingest_refs_test_normalize_treats_prefix_and_spacing_variants_as_same",
-      "community": 2,
+      "community": 47,
       "norm_label": "test_normalize_treats_prefix_and_spacing_variants_as_same()"
     },
     {
@@ -8672,7 +8472,7 @@
       "source_location": "L75",
       "_origin": "ast",
       "id": "tests_test_ingest_refs_test_dedup_uses_normalized_numbers",
-      "community": 2,
+      "community": 46,
       "norm_label": "test_dedup_uses_normalized_numbers()"
     },
     {
@@ -8682,7 +8482,7 @@
       "source_location": "L84",
       "_origin": "ast",
       "id": "tests_test_ingest_refs_test_parse_meta_excludes_prefix_variant_self_reference",
-      "community": 2,
+      "community": 47,
       "norm_label": "test_parse_meta_excludes_prefix_variant_self_reference()"
     },
     {
@@ -8692,7 +8492,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_ingest_refs_rationale_1",
-      "community": 2,
+      "community": 47,
       "norm_label": "regression matrix for sebi reference-number extraction.  one case per known form"
     },
     {
@@ -8702,7 +8502,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_injection",
-      "community": 2,
+      "community": 49,
       "norm_label": "test_injection.py"
     },
     {
@@ -8712,7 +8512,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "tests_test_injection_chunk",
-      "community": 2,
+      "community": 49,
       "norm_label": "_chunk()"
     },
     {
@@ -8722,7 +8522,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "tests_test_injection_test_grounded_prompt_delimits_sources_and_states_data_rule",
-      "community": 2,
+      "community": 49,
       "norm_label": "test_grounded_prompt_delimits_sources_and_states_data_rule()"
     },
     {
@@ -8732,7 +8532,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "tests_test_injection_test_injection_scan_flags_known_patterns",
-      "community": 2,
+      "community": 49,
       "norm_label": "test_injection_scan_flags_known_patterns()"
     },
     {
@@ -8742,7 +8542,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "tests_test_injection_test_injection_scan_clean_on_real_legal_text",
-      "community": 2,
+      "community": 49,
       "norm_label": "test_injection_scan_clean_on_real_legal_text()"
     },
     {
@@ -8752,7 +8552,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "tests_test_injection_test_to_record_carries_injection_flags",
-      "community": 2,
+      "community": 49,
       "norm_label": "test_to_record_carries_injection_flags()"
     },
     {
@@ -8762,7 +8562,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_injection_rationale_1",
-      "community": 2,
+      "community": 49,
       "norm_label": "offline tests for f4 prompt-injection hardening (adr-001)."
     },
     {
@@ -8852,7 +8652,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "tests_test_lineage_test_superseded_citations_flagged_for_retrieval",
-      "community": 50,
+      "community": 11,
       "norm_label": "test_superseded_citations_flagged_for_retrieval()"
     },
     {
@@ -8862,7 +8662,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "tests_test_lineage_test_lineage_save_load_roundtrip",
-      "community": 30,
+      "community": 31,
       "norm_label": "test_lineage_save_load_roundtrip()"
     },
     {
@@ -8882,7 +8682,7 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "tests_test_lineage_test_demote_superseded_puts_in_force_on_top",
-      "community": 50,
+      "community": 11,
       "norm_label": "test_demote_superseded_puts_in_force_on_top()"
     },
     {
@@ -8962,7 +8762,7 @@
       "source_location": "L172",
       "_origin": "ast",
       "id": "tests_test_lineage_test_governing_on_cycle_safe",
-      "community": 31,
+      "community": 30,
       "norm_label": "test_governing_on_cycle_safe()"
     },
     {
@@ -8972,7 +8772,7 @@
       "source_location": "L180",
       "_origin": "ast",
       "id": "tests_test_lineage_test_governing_on_parallel_branches_max_date_wins",
-      "community": 31,
+      "community": 30,
       "norm_label": "test_governing_on_parallel_branches_max_date_wins()"
     },
     {
@@ -9032,7 +8832,7 @@
       "source_location": "L249",
       "_origin": "ast",
       "id": "tests_test_lineage_test_lineage_load_old_file_defaults_empty_edges",
-      "community": 30,
+      "community": 31,
       "norm_label": "test_lineage_load_old_file_defaults_empty_edges()"
     },
     {
@@ -9462,7 +9262,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_persistence",
-      "community": 47,
+      "community": 11,
       "norm_label": "test_persistence.py"
     },
     {
@@ -9472,7 +9272,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "tests_test_persistence_chunks",
-      "community": 26,
+      "community": 11,
       "norm_label": "_chunks()"
     },
     {
@@ -9482,7 +9282,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "tests_test_persistence_test_index_save_load_roundtrip",
-      "community": 15,
+      "community": 11,
       "norm_label": "test_index_save_load_roundtrip()"
     },
     {
@@ -9492,7 +9292,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_persistence_rationale_1",
-      "community": 47,
+      "community": 11,
       "norm_label": "index persistence round-trip (offline)."
     },
     {
@@ -9864,156 +9664,6 @@
       "id": "tests_test_rerank_qwen3_rationale_18",
       "community": 12,
       "norm_label": "bypass __init__ (no mlx); score by keyword overlap to test ordering."
-    },
-    {
-      "label": "test_rescore.py",
-      "file_type": "code",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "tests_test_rescore",
-      "community": 11,
-      "norm_label": "test_rescore.py"
-    },
-    {
-      "label": "TestReadTrecRun",
-      "file_type": "code",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L19",
-      "_origin": "ast",
-      "id": "tests_test_rescore_testreadtrecrun",
-      "community": 1,
-      "norm_label": "testreadtrecrun"
-    },
-    {
-      "label": ".test_round_trips_a_simple_run()",
-      "file_type": "code",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L20",
-      "_origin": "ast",
-      "id": "tests_test_rescore_testreadtrecrun_test_round_trips_a_simple_run",
-      "community": 1,
-      "norm_label": ".test_round_trips_a_simple_run()"
-    },
-    {
-      "label": ".test_recovers_doc_ids_containing_spaces()",
-      "file_type": "code",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L28",
-      "_origin": "ast",
-      "id": "tests_test_rescore_testreadtrecrun_test_recovers_doc_ids_containing_spaces",
-      "community": 1,
-      "norm_label": ".test_recovers_doc_ids_containing_spaces()"
-    },
-    {
-      "label": ".test_orders_documents_by_rank_not_file_order()",
-      "file_type": "code",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L35",
-      "_origin": "ast",
-      "id": "tests_test_rescore_testreadtrecrun_test_orders_documents_by_rank_not_file_order",
-      "community": 1,
-      "norm_label": ".test_orders_documents_by_rank_not_file_order()"
-    },
-    {
-      "label": ".test_malformed_line_rejected()",
-      "file_type": "code",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L43",
-      "_origin": "ast",
-      "id": "tests_test_rescore_testreadtrecrun_test_malformed_line_rejected",
-      "community": 1,
-      "norm_label": ".test_malformed_line_rejected()"
-    },
-    {
-      "label": "TestPerQueryRecall",
-      "file_type": "code",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L50",
-      "_origin": "ast",
-      "id": "tests_test_rescore_testperqueryrecall",
-      "community": 26,
-      "norm_label": "testperqueryrecall"
-    },
-    {
-      "label": "._golden()",
-      "file_type": "code",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L51",
-      "_origin": "ast",
-      "id": "tests_test_rescore_testperqueryrecall_golden",
-      "community": 1,
-      "norm_label": "._golden()"
-    },
-    {
-      "label": ".test_scores_each_query_and_skips_abstain_items()",
-      "file_type": "code",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L58",
-      "_origin": "ast",
-      "id": "tests_test_rescore_testperqueryrecall_test_scores_each_query_and_skips_abstain_items",
-      "community": 1,
-      "norm_label": ".test_scores_each_query_and_skips_abstain_items()"
-    },
-    {
-      "label": ".test_deduplicates_chunks_to_circulars_before_cutoff()",
-      "file_type": "code",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L67",
-      "_origin": "ast",
-      "id": "tests_test_rescore_testperqueryrecall_test_deduplicates_chunks_to_circulars_before_cutoff",
-      "community": 1,
-      "norm_label": ".test_deduplicates_chunks_to_circulars_before_cutoff()"
-    },
-    {
-      "label": ".test_mean_reproduces_the_archived_aggregate()",
-      "file_type": "code",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L74",
-      "_origin": "ast",
-      "id": "tests_test_rescore_testperqueryrecall_test_mean_reproduces_the_archived_aggregate",
-      "community": 26,
-      "norm_label": ".test_mean_reproduces_the_archived_aggregate()"
-    },
-    {
-      "label": "Re-scoring archived runfiles: round-trip and agreement with the live metric.",
-      "file_type": "rationale",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "tests_test_rescore_rationale_1",
-      "community": 11,
-      "norm_label": "re-scoring archived runfiles: round-trip and agreement with the live metric."
-    },
-    {
-      "label": "The archived runfiles embed section headings in the doc id.",
-      "file_type": "rationale",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L29",
-      "_origin": "ast",
-      "id": "tests_test_rescore_rationale_29",
-      "community": 1,
-      "norm_label": "the archived runfiles embed section headings in the doc id."
-    },
-    {
-      "label": "Ten chunks of one circular must not crowd the cutoff: the k applies         to u",
-      "file_type": "rationale",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L68",
-      "_origin": "ast",
-      "id": "tests_test_rescore_rationale_68",
-      "community": 1,
-      "norm_label": "ten chunks of one circular must not crowd the cutoff: the k applies         to u"
-    },
-    {
-      "label": "End-to-end guarantee behind the re-scoring script: replaying a         runfile y",
-      "file_type": "rationale",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L75",
-      "_origin": "ast",
-      "id": "tests_test_rescore_rationale_75",
-      "community": 26,
-      "norm_label": "end-to-end guarantee behind the re-scoring script: replaying a         runfile y"
     },
     {
       "label": "test_scrape_sebi.py",
@@ -10856,216 +10506,6 @@
       "norm_label": "returns a fixed dense ranking regardless of query."
     },
     {
-      "label": "test_stats.py",
-      "file_type": "code",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "tests_test_stats",
-      "community": 6,
-      "norm_label": "test_stats.py"
-    },
-    {
-      "label": "TestBootstrapCI",
-      "file_type": "code",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L11",
-      "_origin": "ast",
-      "id": "tests_test_stats_testbootstrapci",
-      "community": 6,
-      "norm_label": "testbootstrapci"
-    },
-    {
-      "label": ".test_constant_values_give_degenerate_interval()",
-      "file_type": "code",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L12",
-      "_origin": "ast",
-      "id": "tests_test_stats_testbootstrapci_test_constant_values_give_degenerate_interval",
-      "community": 6,
-      "norm_label": ".test_constant_values_give_degenerate_interval()"
-    },
-    {
-      "label": ".test_interval_brackets_the_point_estimate()",
-      "file_type": "code",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L18",
-      "_origin": "ast",
-      "id": "tests_test_stats_testbootstrapci_test_interval_brackets_the_point_estimate",
-      "community": 6,
-      "norm_label": ".test_interval_brackets_the_point_estimate()"
-    },
-    {
-      "label": ".test_is_deterministic_for_a_given_seed()",
-      "file_type": "code",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L24",
-      "_origin": "ast",
-      "id": "tests_test_stats_testbootstrapci_test_is_deterministic_for_a_given_seed",
-      "community": 6,
-      "norm_label": ".test_is_deterministic_for_a_given_seed()"
-    },
-    {
-      "label": ".test_seed_changes_the_resampling()",
-      "file_type": "code",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L30",
-      "_origin": "ast",
-      "id": "tests_test_stats_testbootstrapci_test_seed_changes_the_resampling",
-      "community": 6,
-      "norm_label": ".test_seed_changes_the_resampling()"
-    },
-    {
-      "label": ".test_higher_confidence_widens_the_interval()",
-      "file_type": "code",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L38",
-      "_origin": "ast",
-      "id": "tests_test_stats_testbootstrapci_test_higher_confidence_widens_the_interval",
-      "community": 6,
-      "norm_label": ".test_higher_confidence_widens_the_interval()"
-    },
-    {
-      "label": ".test_small_sample_interval_is_wide_enough_to_matter()",
-      "file_type": "code",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L44",
-      "_origin": "ast",
-      "id": "tests_test_stats_testbootstrapci_test_small_sample_interval_is_wide_enough_to_matter",
-      "community": 6,
-      "norm_label": ".test_small_sample_interval_is_wide_enough_to_matter()"
-    },
-    {
-      "label": ".test_empty_input_rejected()",
-      "file_type": "code",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L51",
-      "_origin": "ast",
-      "id": "tests_test_stats_testbootstrapci_test_empty_input_rejected",
-      "community": 6,
-      "norm_label": ".test_empty_input_rejected()"
-    },
-    {
-      "label": "TestPairedDelta",
-      "file_type": "code",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L56",
-      "_origin": "ast",
-      "id": "tests_test_stats_testpaireddelta",
-      "community": 6,
-      "norm_label": "testpaireddelta"
-    },
-    {
-      "label": ".test_identical_runs_have_zero_delta_and_no_significance()",
-      "file_type": "code",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L57",
-      "_origin": "ast",
-      "id": "tests_test_stats_testpaireddelta_test_identical_runs_have_zero_delta_and_no_significance",
-      "community": 6,
-      "norm_label": ".test_identical_runs_have_zero_delta_and_no_significance()"
-    },
-    {
-      "label": ".test_uniform_improvement_is_detected()",
-      "file_type": "code",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L64",
-      "_origin": "ast",
-      "id": "tests_test_stats_testpaireddelta_test_uniform_improvement_is_detected",
-      "community": 6,
-      "norm_label": ".test_uniform_improvement_is_detected()"
-    },
-    {
-      "label": ".test_single_query_difference_is_not_significant()",
-      "file_type": "code",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L72",
-      "_origin": "ast",
-      "id": "tests_test_stats_testpaireddelta_test_single_query_difference_is_not_significant",
-      "community": 6,
-      "norm_label": ".test_single_query_difference_is_not_significant()"
-    },
-    {
-      "label": ".test_aligns_on_common_queries_only()",
-      "file_type": "code",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L82",
-      "_origin": "ast",
-      "id": "tests_test_stats_testpaireddelta_test_aligns_on_common_queries_only",
-      "community": 6,
-      "norm_label": ".test_aligns_on_common_queries_only()"
-    },
-    {
-      "label": ".test_disjoint_query_sets_rejected()",
-      "file_type": "code",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L89",
-      "_origin": "ast",
-      "id": "tests_test_stats_testpaireddelta_test_disjoint_query_sets_rejected",
-      "community": 6,
-      "norm_label": ".test_disjoint_query_sets_rejected()"
-    },
-    {
-      "label": ".test_delta_sign_is_b_minus_a()",
-      "file_type": "code",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L93",
-      "_origin": "ast",
-      "id": "tests_test_stats_testpaireddelta_test_delta_sign_is_b_minus_a",
-      "community": 6,
-      "norm_label": ".test_delta_sign_is_b_minus_a()"
-    },
-    {
-      "label": ".test_p_value_is_bounded_away_from_zero()",
-      "file_type": "code",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L101",
-      "_origin": "ast",
-      "id": "tests_test_stats_testpaireddelta_test_p_value_is_bounded_away_from_zero",
-      "community": 6,
-      "norm_label": ".test_p_value_is_bounded_away_from_zero()"
-    },
-    {
-      "label": "Uncertainty quantification for benchmark runs (bootstrap CIs + paired tests).",
-      "file_type": "rationale",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "tests_test_stats_rationale_1",
-      "community": 6,
-      "norm_label": "uncertainty quantification for benchmark runs (bootstrap cis + paired tests)."
-    },
-    {
-      "label": "The point of this module: at n=56 and recall ~0.956 the interval must         be",
-      "file_type": "rationale",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L45",
-      "_origin": "ast",
-      "id": "tests_test_stats_rationale_45",
-      "community": 6,
-      "norm_label": "the point of this module: at n=56 and recall ~0.956 the interval must         be"
-    },
-    {
-      "label": "One query flipping out of 56 is exactly the iv9-style verdict: the         rando",
-      "file_type": "rationale",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L73",
-      "_origin": "ast",
-      "id": "tests_test_stats_rationale_73",
-      "community": 6,
-      "norm_label": "one query flipping out of 56 is exactly the iv9-style verdict: the         rando"
-    },
-    {
-      "label": "Randomization p-values use the (count+1)/(n+1) estimator, so a         p-value o",
-      "file_type": "rationale",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L102",
-      "_origin": "ast",
-      "id": "tests_test_stats_rationale_102",
-      "community": 6,
-      "norm_label": "randomization p-values use the (count+1)/(n+1) estimator, so a         p-value o"
-    },
-    {
       "label": "test_validate_corpus.py",
       "file_type": "code",
       "source_file": "tests/test_validate_corpus.py",
@@ -11172,7 +10612,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_test_verify_master",
-      "community": 5,
+      "community": 6,
       "norm_label": "test_verify_master.py"
     },
     {
@@ -11182,7 +10622,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "tests_test_verify_master_test_parse_listing_extracts_rows_from_real_page",
-      "community": 5,
+      "community": 6,
       "norm_label": "test_parse_listing_extracts_rows_from_real_page()"
     },
     {
@@ -11192,7 +10632,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "tests_test_verify_master_test_parse_listing_dedupes_and_ignores_non_master_links",
-      "community": 5,
+      "community": 6,
       "norm_label": "test_parse_listing_dedupes_and_ignores_non_master_links()"
     },
     {
@@ -11202,7 +10642,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "tests_test_verify_master_test_parse_listing_empty_html",
-      "community": 5,
+      "community": 6,
       "norm_label": "test_parse_listing_empty_html()"
     },
     {
@@ -11212,7 +10652,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "tests_test_verify_master_row",
-      "community": 5,
+      "community": 6,
       "norm_label": "_row()"
     },
     {
@@ -11222,7 +10662,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "tests_test_verify_master_rec",
-      "community": 5,
+      "community": 6,
       "norm_label": "_rec()"
     },
     {
@@ -11232,7 +10672,7 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "tests_test_verify_master_test_diff_statuses",
-      "community": 5,
+      "community": 6,
       "norm_label": "test_diff_statuses()"
     },
     {
@@ -11242,7 +10682,7 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "tests_test_verify_master_test_summarize_and_markdown",
-      "community": 5,
+      "community": 6,
       "norm_label": "test_summarize_and_markdown()"
     },
     {
@@ -11252,7 +10692,7 @@
       "source_location": "L100",
       "_origin": "ast",
       "id": "tests_test_verify_master_test_coverage_pct_excludes_unfetchable",
-      "community": 5,
+      "community": 6,
       "norm_label": "test_coverage_pct_excludes_unfetchable()"
     },
     {
@@ -11262,7 +10702,7 @@
       "source_location": "L107",
       "_origin": "ast",
       "id": "tests_test_verify_master_test_write_reports",
-      "community": 5,
+      "community": 6,
       "norm_label": "test_write_reports()"
     }
   ],
@@ -15938,178 +15378,6 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "scripts/rescore_runs.py",
-      "source_location": "L47",
-      "weight": 1.0,
-      "source": "scripts_rescore_runs",
-      "target": "scripts_rescore_runs_fmt",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/rescore_runs.py",
-      "source_location": "L86",
-      "weight": 1.0,
-      "source": "scripts_rescore_runs",
-      "target": "scripts_rescore_runs_main",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/rescore_runs.py",
-      "source_location": "L51",
-      "weight": 1.0,
-      "source": "scripts_rescore_runs",
-      "target": "scripts_rescore_runs_score_run",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/rescore_runs.py",
-      "source_location": "L28",
-      "weight": 1.0,
-      "source": "scripts_rescore_runs",
-      "target": "src_sebi_rag_benchmark",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/rescore_runs.py",
-      "source_location": "L29",
-      "weight": 1.0,
-      "source": "scripts_rescore_runs",
-      "target": "src_sebi_rag_eval_harness",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/rescore_runs.py",
-      "source_location": "L30",
-      "weight": 1.0,
-      "source": "scripts_rescore_runs",
-      "target": "src_sebi_rag_stats",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/rescore_runs.py",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "scripts_rescore_runs_rationale_1",
-      "target": "scripts_rescore_runs",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/rescore_runs.py",
-      "source_location": "L154",
-      "weight": 1.0,
-      "source": "scripts_rescore_runs_main",
-      "target": "scripts_rescore_runs_fmt",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/rescore_runs.py",
-      "source_location": "L105",
-      "weight": 1.0,
-      "source": "scripts_rescore_runs_main",
-      "target": "scripts_rescore_runs_score_run",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "parameter_type",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/rescore_runs.py",
-      "source_location": "L51",
-      "weight": 1.0,
-      "source": "scripts_rescore_runs_score_run",
-      "target": "scripts_rescore_runs_py_path",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "scripts/rescore_runs.py",
-      "source_location": "L55",
-      "weight": 1.0,
-      "source": "scripts_rescore_runs_score_run",
-      "target": "src_sebi_rag_benchmark_per_query_recall"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "scripts/rescore_runs.py",
-      "source_location": "L55",
-      "weight": 1.0,
-      "source": "scripts_rescore_runs_score_run",
-      "target": "src_sebi_rag_benchmark_read_trec_run"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "scripts/rescore_runs.py",
-      "source_location": "L58",
-      "weight": 1.0,
-      "source": "scripts_rescore_runs_score_run",
-      "target": "src_sebi_rag_stats_bootstrap_ci"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/rescore_runs.py",
-      "source_location": "L95",
-      "weight": 1.0,
-      "source": "scripts_rescore_runs_main",
-      "target": "scripts_rescore_runs_py_path",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "scripts/rescore_runs.py",
-      "source_location": "L100",
-      "weight": 1.0,
-      "source": "scripts_rescore_runs_main",
-      "target": "src_sebi_rag_eval_harness_load_golden"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "scripts/rescore_runs.py",
-      "source_location": "L114",
-      "weight": 1.0,
-      "source": "scripts_rescore_runs_main",
-      "target": "src_sebi_rag_stats_paired_delta"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
       "source_file": "scripts/scrape_sebi.py",
       "source_location": "L140",
       "weight": 1.0,
@@ -18149,7 +17417,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L334",
+      "source_location": "L279",
       "weight": 1.0,
       "source": "src_sebi_rag_benchmark",
       "target": "src_sebi_rag_benchmark_export_beir",
@@ -18169,30 +17437,10 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L306",
-      "weight": 1.0,
-      "source": "src_sebi_rag_benchmark",
-      "target": "src_sebi_rag_benchmark_per_query_recall",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L231",
       "weight": 1.0,
       "source": "src_sebi_rag_benchmark",
       "target": "src_sebi_rag_benchmark_qrels_rows",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L279",
-      "weight": 1.0,
-      "source": "src_sebi_rag_benchmark",
-      "target": "src_sebi_rag_benchmark_read_trec_run",
       "confidence_score": 1.0
     },
     {
@@ -18209,7 +17457,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L348",
+      "source_location": "L293",
       "weight": 1.0,
       "source": "src_sebi_rag_benchmark",
       "target": "src_sebi_rag_benchmark_run_retrieval_benchmark",
@@ -18249,7 +17497,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L378",
+      "source_location": "L323",
       "weight": 1.0,
       "source": "src_sebi_rag_benchmark",
       "target": "src_sebi_rag_benchmark_write_judge_results",
@@ -18407,17 +17655,6 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L6",
-      "weight": 1.0,
-      "source": "tests_test_rescore",
-      "target": "src_sebi_rag_benchmark",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "src/sebi_rag/benchmark.py",
@@ -18508,7 +17745,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L334",
+      "source_location": "L279",
       "weight": 1.0,
       "source": "src_sebi_rag_benchmark_export_beir",
       "target": "src_sebi_rag_benchmark_py_path",
@@ -18522,17 +17759,6 @@
       "source_location": "L66",
       "weight": 1.0,
       "source": "src_sebi_rag_benchmark_git_commit",
-      "target": "src_sebi_rag_benchmark_py_path",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "parameter_type",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L279",
-      "weight": 1.0,
-      "source": "src_sebi_rag_benchmark_read_trec_run",
       "target": "src_sebi_rag_benchmark_py_path",
       "confidence_score": 1.0
     },
@@ -18563,7 +17789,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L378",
+      "source_location": "L323",
       "weight": 1.0,
       "source": "src_sebi_rag_benchmark_write_judge_results",
       "target": "src_sebi_rag_benchmark_py_path",
@@ -18694,20 +17920,9 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L334",
+      "source_location": "L279",
       "weight": 1.0,
       "source": "src_sebi_rag_benchmark_export_beir",
-      "target": "any",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "generic_arg",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L306",
-      "weight": 1.0,
-      "source": "src_sebi_rag_benchmark_per_query_recall",
       "target": "any",
       "confidence_score": 1.0
     },
@@ -18727,7 +17942,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L348",
+      "source_location": "L293",
       "weight": 1.0,
       "source": "src_sebi_rag_benchmark_run_retrieval_benchmark",
       "target": "any",
@@ -18760,7 +17975,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L378",
+      "source_location": "L323",
       "weight": 1.0,
       "source": "src_sebi_rag_benchmark_write_judge_results",
       "target": "any",
@@ -18825,7 +18040,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L341",
+      "source_location": "L286",
       "weight": 1.0,
       "source": "src_sebi_rag_benchmark_export_beir",
       "target": "src_sebi_rag_benchmark_beir_corpus_rows",
@@ -18836,7 +18051,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L342",
+      "source_location": "L287",
       "weight": 1.0,
       "source": "src_sebi_rag_benchmark_export_beir",
       "target": "src_sebi_rag_benchmark_beir_query_rows",
@@ -18847,7 +18062,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L343",
+      "source_location": "L288",
       "weight": 1.0,
       "source": "src_sebi_rag_benchmark_export_beir",
       "target": "src_sebi_rag_benchmark_qrels_rows",
@@ -18880,7 +18095,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L341",
+      "source_location": "L286",
       "weight": 1.0,
       "source": "src_sebi_rag_benchmark_export_beir",
       "target": "src_sebi_rag_benchmark_write_jsonl",
@@ -18891,7 +18106,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L385",
+      "source_location": "L330",
       "weight": 1.0,
       "source": "src_sebi_rag_benchmark_write_judge_results",
       "target": "src_sebi_rag_benchmark_write_jsonl",
@@ -18902,7 +18117,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L344",
+      "source_location": "L289",
       "weight": 1.0,
       "source": "src_sebi_rag_benchmark_export_beir",
       "target": "src_sebi_rag_benchmark_write_qrels",
@@ -18920,174 +18135,11 @@
       "target": "src_sebi_rag_benchmark_write_trec_run"
     },
     {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L90",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testperqueryrecall_test_mean_reproduces_the_archived_aggregate",
-      "target": "src_sebi_rag_benchmark_write_trec_run"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L32",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testreadtrecrun_test_recovers_doc_ids_containing_spaces",
-      "target": "src_sebi_rag_benchmark_write_trec_run"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L23",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testreadtrecrun_test_round_trips_a_simple_run",
-      "target": "src_sebi_rag_benchmark_write_trec_run"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L280",
-      "weight": 1.0,
-      "source": "src_sebi_rag_benchmark_rationale_280",
-      "target": "src_sebi_rag_benchmark_read_trec_run",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L91",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testperqueryrecall_test_mean_reproduces_the_archived_aggregate",
-      "target": "src_sebi_rag_benchmark_read_trec_run"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L47",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testreadtrecrun_test_malformed_line_rejected",
-      "target": "src_sebi_rag_benchmark_read_trec_run"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L41",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testreadtrecrun_test_orders_documents_by_rank_not_file_order",
-      "target": "src_sebi_rag_benchmark_read_trec_run"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L33",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testreadtrecrun_test_recovers_doc_ids_containing_spaces",
-      "target": "src_sebi_rag_benchmark_read_trec_run"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L24",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testreadtrecrun_test_round_trips_a_simple_run",
-      "target": "src_sebi_rag_benchmark_read_trec_run"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L327",
-      "weight": 1.0,
-      "source": "src_sebi_rag_benchmark_per_query_recall",
-      "target": "src_sebi_rag_eval_harness_doc",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L327",
-      "weight": 1.0,
-      "source": "src_sebi_rag_benchmark_per_query_recall",
-      "target": "src_sebi_rag_eval_harness_unique",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L312",
-      "weight": 1.0,
-      "source": "src_sebi_rag_benchmark_rationale_312",
-      "target": "src_sebi_rag_benchmark_per_query_recall",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L71",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testperqueryrecall_test_deduplicates_chunks_to_circulars_before_cutoff",
-      "target": "src_sebi_rag_benchmark_per_query_recall"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L91",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testperqueryrecall_test_mean_reproduces_the_archived_aggregate",
-      "target": "src_sebi_rag_benchmark_per_query_recall"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L64",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testperqueryrecall_test_scores_each_query_and_skips_abstain_items",
-      "target": "src_sebi_rag_benchmark_per_query_recall"
-    },
-    {
       "relation": "references",
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L334",
+      "source_location": "L279",
       "weight": 1.0,
       "source": "src_sebi_rag_benchmark_export_beir",
       "target": "src_sebi_rag_segment_chunk",
@@ -19109,7 +18161,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L364",
+      "source_location": "L309",
       "weight": 1.0,
       "source": "src_sebi_rag_benchmark_run_retrieval_benchmark",
       "target": "src_sebi_rag_eval_harness_doc",
@@ -19120,7 +18172,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L364",
+      "source_location": "L309",
       "weight": 1.0,
       "source": "src_sebi_rag_benchmark_run_retrieval_benchmark",
       "target": "src_sebi_rag_eval_harness_unique",
@@ -19131,30 +18183,19 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L348",
+      "source_location": "L293",
       "weight": 1.0,
       "source": "src_sebi_rag_benchmark_run_retrieval_benchmark",
       "target": "src_sebi_rag_pipeline_ragpipeline",
       "confidence_score": 1.0
     },
     {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L87",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testperqueryrecall_test_mean_reproduces_the_archived_aggregate",
-      "target": "src_sebi_rag_benchmark_run_retrieval_benchmark"
-    },
-    {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/benchmark.py",
-      "source_location": "L379",
+      "source_location": "L324",
       "weight": 1.0,
-      "source": "src_sebi_rag_benchmark_rationale_379",
+      "source": "src_sebi_rag_benchmark_rationale_324",
       "target": "src_sebi_rag_benchmark_write_judge_results",
       "confidence_score": 1.0
     },
@@ -20152,17 +19193,6 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L12",
-      "weight": 1.0,
-      "source": "tests_test_rescore",
-      "target": "src_sebi_rag_embeddings",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -20705,37 +19735,6 @@
       "weight": 1.0,
       "source": "tests_test_pipeline_test_supersession_note_only_for_circulars_cited_in_answer_text",
       "target": "src_sebi_rag_embeddings_hashembedder"
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L12",
-      "weight": 0.8,
-      "source": "tests_test_rescore_testperqueryrecall",
-      "target": "src_sebi_rag_embeddings_hashembedder",
-      "confidence_score": 0.5
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L82",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testperqueryrecall_test_mean_reproduces_the_archived_aggregate",
-      "target": "src_sebi_rag_embeddings_hashembedder"
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L12",
-      "weight": 0.8,
-      "source": "tests_test_rescore_testreadtrecrun",
-      "target": "src_sebi_rag_embeddings_hashembedder",
-      "confidence_score": 0.5
     },
     {
       "relation": "calls",
@@ -21807,17 +20806,6 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L13",
-      "weight": 1.0,
-      "source": "tests_test_rescore",
-      "target": "src_sebi_rag_generate",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -22187,37 +21175,6 @@
       "weight": 1.0,
       "source": "tests_test_pipeline_test_supersession_note_only_for_circulars_cited_in_answer_text",
       "target": "src_sebi_rag_generate_extractivestubgenerator"
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L13",
-      "weight": 0.8,
-      "source": "tests_test_rescore_testperqueryrecall",
-      "target": "src_sebi_rag_generate_extractivestubgenerator",
-      "confidence_score": 0.5
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L83",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testperqueryrecall_test_mean_reproduces_the_archived_aggregate",
-      "target": "src_sebi_rag_generate_extractivestubgenerator"
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L13",
-      "weight": 0.8,
-      "source": "tests_test_rescore_testreadtrecrun",
-      "target": "src_sebi_rag_generate_extractivestubgenerator",
-      "confidence_score": 0.5
     },
     {
       "relation": "references",
@@ -26303,17 +25260,6 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L14",
-      "weight": 1.0,
-      "source": "tests_test_rescore",
-      "target": "src_sebi_rag_pipeline",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/pipeline.py",
@@ -26423,26 +25369,6 @@
       "source_location": "L15",
       "weight": 0.8,
       "source": "tests_test_pipeline_fixedreranker",
-      "target": "src_sebi_rag_pipeline_ragpipeline",
-      "confidence_score": 0.5
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L14",
-      "weight": 0.8,
-      "source": "tests_test_rescore_testperqueryrecall",
-      "target": "src_sebi_rag_pipeline_ragpipeline",
-      "confidence_score": 0.5
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L14",
-      "weight": 0.8,
-      "source": "tests_test_rescore_testreadtrecrun",
       "target": "src_sebi_rag_pipeline_ragpipeline",
       "confidence_score": 0.5
     },
@@ -26634,17 +25560,6 @@
       "target": "src_sebi_rag_pipeline_ragpipeline_build"
     },
     {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L81",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testperqueryrecall_test_mean_reproduces_the_archived_aggregate",
-      "target": "src_sebi_rag_pipeline_ragpipeline_build"
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/sebi_rag/rerank.py",
@@ -26800,17 +25715,6 @@
       "source_location": "L5",
       "weight": 1.0,
       "source": "tests_test_rerank_qwen3",
-      "target": "src_sebi_rag_rerank",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L15",
-      "weight": 1.0,
-      "source": "tests_test_rescore",
       "target": "src_sebi_rag_rerank",
       "confidence_score": 1.0
     },
@@ -27003,37 +25907,6 @@
       "weight": 1.0,
       "source": "tests_test_pipeline_test_query_as_of_prefers_governing_circular",
       "target": "src_sebi_rag_rerank_lexicalreranker"
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L15",
-      "weight": 0.8,
-      "source": "tests_test_rescore_testperqueryrecall",
-      "target": "src_sebi_rag_rerank_lexicalreranker",
-      "confidence_score": 0.5
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L83",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testperqueryrecall_test_mean_reproduces_the_archived_aggregate",
-      "target": "src_sebi_rag_rerank_lexicalreranker"
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L15",
-      "weight": 0.8,
-      "source": "tests_test_rescore_testreadtrecrun",
-      "target": "src_sebi_rag_rerank_lexicalreranker",
-      "confidence_score": 0.5
     },
     {
       "relation": "references",
@@ -28333,17 +27206,6 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L16",
-      "weight": 1.0,
-      "source": "tests_test_rescore",
-      "target": "src_sebi_rag_segment",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
       "source_file": "tests/test_segment.py",
       "source_location": "L10",
       "weight": 1.0,
@@ -28555,37 +27417,6 @@
       "weight": 1.0,
       "source": "tests_test_pipeline_test_supersession_note_only_for_circulars_cited_in_answer_text",
       "target": "src_sebi_rag_segment_circularmeta"
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L16",
-      "weight": 0.8,
-      "source": "tests_test_rescore_testperqueryrecall",
-      "target": "src_sebi_rag_segment_circularmeta",
-      "confidence_score": 0.5
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L77",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testperqueryrecall_test_mean_reproduces_the_archived_aggregate",
-      "target": "src_sebi_rag_segment_circularmeta"
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L16",
-      "weight": 0.8,
-      "source": "tests_test_rescore_testreadtrecrun",
-      "target": "src_sebi_rag_segment_circularmeta",
-      "confidence_score": 0.5
     },
     {
       "relation": "references",
@@ -28995,17 +27826,6 @@
       "source_location": "L239",
       "weight": 1.0,
       "source": "tests_test_pipeline_test_supersession_note_only_for_circulars_cited_in_answer_text",
-      "target": "src_sebi_rag_segment_hierarchical_chunk"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L79",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testperqueryrecall_test_mean_reproduces_the_archived_aggregate",
       "target": "src_sebi_rag_segment_hierarchical_chunk"
     },
     {
@@ -29750,283 +28570,6 @@
       "source": "src_sebi_rag_splade_encoder_spladeencoder_load",
       "target": "src_sebi_rag_splade_encoder_py_csr_matrix",
       "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/stats.py",
-      "source_location": "L57",
-      "weight": 1.0,
-      "source": "src_sebi_rag_stats",
-      "target": "src_sebi_rag_stats_bootstrap_ci",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/stats.py",
-      "source_location": "L26",
-      "weight": 1.0,
-      "source": "src_sebi_rag_stats",
-      "target": "src_sebi_rag_stats_bootstrapci",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/stats.py",
-      "source_location": "L79",
-      "weight": 1.0,
-      "source": "src_sebi_rag_stats",
-      "target": "src_sebi_rag_stats_paired_delta",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/stats.py",
-      "source_location": "L36",
-      "weight": 1.0,
-      "source": "src_sebi_rag_stats",
-      "target": "src_sebi_rag_stats_pairedresult",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/stats.py",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "src_sebi_rag_stats_rationale_1",
-      "target": "src_sebi_rag_stats",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L8",
-      "weight": 1.0,
-      "source": "tests_test_stats",
-      "target": "src_sebi_rag_stats",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "return_type",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/stats.py",
-      "source_location": "L57",
-      "weight": 1.0,
-      "source": "src_sebi_rag_stats_bootstrap_ci",
-      "target": "src_sebi_rag_stats_bootstrapci",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "return_type",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/stats.py",
-      "source_location": "L79",
-      "weight": 1.0,
-      "source": "src_sebi_rag_stats_paired_delta",
-      "target": "src_sebi_rag_stats_pairedresult",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/stats.py",
-      "source_location": "L49",
-      "weight": 1.0,
-      "source": "src_sebi_rag_stats_pairedresult",
-      "target": "src_sebi_rag_stats_pairedresult_significant",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/stats.py",
-      "source_location": "L50",
-      "weight": 1.0,
-      "source": "src_sebi_rag_stats_rationale_50",
-      "target": "src_sebi_rag_stats_pairedresult_significant",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/stats.py",
-      "source_location": "L64",
-      "weight": 1.0,
-      "source": "src_sebi_rag_stats_rationale_64",
-      "target": "src_sebi_rag_stats_bootstrap_ci",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_stats.py",
-      "source_location": "L13",
-      "weight": 1.0,
-      "source": "tests_test_stats_testbootstrapci_test_constant_values_give_degenerate_interval",
-      "target": "src_sebi_rag_stats_bootstrap_ci"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_stats.py",
-      "source_location": "L53",
-      "weight": 1.0,
-      "source": "tests_test_stats_testbootstrapci_test_empty_input_rejected",
-      "target": "src_sebi_rag_stats_bootstrap_ci"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_stats.py",
-      "source_location": "L40",
-      "weight": 1.0,
-      "source": "tests_test_stats_testbootstrapci_test_higher_confidence_widens_the_interval",
-      "target": "src_sebi_rag_stats_bootstrap_ci"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_stats.py",
-      "source_location": "L20",
-      "weight": 1.0,
-      "source": "tests_test_stats_testbootstrapci_test_interval_brackets_the_point_estimate",
-      "target": "src_sebi_rag_stats_bootstrap_ci"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_stats.py",
-      "source_location": "L26",
-      "weight": 1.0,
-      "source": "tests_test_stats_testbootstrapci_test_is_deterministic_for_a_given_seed",
-      "target": "src_sebi_rag_stats_bootstrap_ci"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_stats.py",
-      "source_location": "L34",
-      "weight": 1.0,
-      "source": "tests_test_stats_testbootstrapci_test_seed_changes_the_resampling",
-      "target": "src_sebi_rag_stats_bootstrap_ci"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_stats.py",
-      "source_location": "L48",
-      "weight": 1.0,
-      "source": "tests_test_stats_testbootstrapci_test_small_sample_interval_is_wide_enough_to_matter",
-      "target": "src_sebi_rag_stats_bootstrap_ci"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/sebi_rag/stats.py",
-      "source_location": "L87",
-      "weight": 1.0,
-      "source": "src_sebi_rag_stats_rationale_87",
-      "target": "src_sebi_rag_stats_paired_delta",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_stats.py",
-      "source_location": "L85",
-      "weight": 1.0,
-      "source": "tests_test_stats_testpaireddelta_test_aligns_on_common_queries_only",
-      "target": "src_sebi_rag_stats_paired_delta"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_stats.py",
-      "source_location": "L96",
-      "weight": 1.0,
-      "source": "tests_test_stats_testpaireddelta_test_delta_sign_is_b_minus_a",
-      "target": "src_sebi_rag_stats_paired_delta"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_stats.py",
-      "source_location": "L91",
-      "weight": 1.0,
-      "source": "tests_test_stats_testpaireddelta_test_disjoint_query_sets_rejected",
-      "target": "src_sebi_rag_stats_paired_delta"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_stats.py",
-      "source_location": "L59",
-      "weight": 1.0,
-      "source": "tests_test_stats_testpaireddelta_test_identical_runs_have_zero_delta_and_no_significance",
-      "target": "src_sebi_rag_stats_paired_delta"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_stats.py",
-      "source_location": "L107",
-      "weight": 1.0,
-      "source": "tests_test_stats_testpaireddelta_test_p_value_is_bounded_away_from_zero",
-      "target": "src_sebi_rag_stats_paired_delta"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_stats.py",
-      "source_location": "L78",
-      "weight": 1.0,
-      "source": "tests_test_stats_testpaireddelta_test_single_query_difference_is_not_significant",
-      "target": "src_sebi_rag_stats_paired_delta"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_stats.py",
-      "source_location": "L67",
-      "weight": 1.0,
-      "source": "tests_test_stats_testpaireddelta_test_uniform_improvement_is_detected",
-      "target": "src_sebi_rag_stats_paired_delta"
     },
     {
       "relation": "contains",
@@ -34795,168 +33338,6 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L50",
-      "weight": 1.0,
-      "source": "tests_test_rescore",
-      "target": "tests_test_rescore_testperqueryrecall",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L19",
-      "weight": 1.0,
-      "source": "tests_test_rescore",
-      "target": "tests_test_rescore_testreadtrecrun",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "tests_test_rescore_rationale_1",
-      "target": "tests_test_rescore",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L43",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testreadtrecrun",
-      "target": "tests_test_rescore_testreadtrecrun_test_malformed_line_rejected",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L35",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testreadtrecrun",
-      "target": "tests_test_rescore_testreadtrecrun_test_orders_documents_by_rank_not_file_order",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L28",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testreadtrecrun",
-      "target": "tests_test_rescore_testreadtrecrun_test_recovers_doc_ids_containing_spaces",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L20",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testreadtrecrun",
-      "target": "tests_test_rescore_testreadtrecrun_test_round_trips_a_simple_run",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L29",
-      "weight": 1.0,
-      "source": "tests_test_rescore_rationale_29",
-      "target": "tests_test_rescore_testreadtrecrun_test_recovers_doc_ids_containing_spaces",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L51",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testperqueryrecall",
-      "target": "tests_test_rescore_testperqueryrecall_golden",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L67",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testperqueryrecall",
-      "target": "tests_test_rescore_testperqueryrecall_test_deduplicates_chunks_to_circulars_before_cutoff",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L74",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testperqueryrecall",
-      "target": "tests_test_rescore_testperqueryrecall_test_mean_reproduces_the_archived_aggregate",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L58",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testperqueryrecall",
-      "target": "tests_test_rescore_testperqueryrecall_test_scores_each_query_and_skips_abstain_items",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L71",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testperqueryrecall_test_deduplicates_chunks_to_circulars_before_cutoff",
-      "target": "tests_test_rescore_testperqueryrecall_golden",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L64",
-      "weight": 1.0,
-      "source": "tests_test_rescore_testperqueryrecall_test_scores_each_query_and_skips_abstain_items",
-      "target": "tests_test_rescore_testperqueryrecall_golden",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L68",
-      "weight": 1.0,
-      "source": "tests_test_rescore_rationale_68",
-      "target": "tests_test_rescore_testperqueryrecall_test_deduplicates_chunks_to_circulars_before_cutoff",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_rescore.py",
-      "source_location": "L75",
-      "weight": 1.0,
-      "source": "tests_test_rescore_rationale_75",
-      "target": "tests_test_rescore_testperqueryrecall_test_mean_reproduces_the_archived_aggregate",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
       "source_file": "tests/test_scrape_sebi.py",
       "source_location": "L18",
       "weight": 1.0,
@@ -36058,206 +34439,6 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L11",
-      "weight": 1.0,
-      "source": "tests_test_stats",
-      "target": "tests_test_stats_testbootstrapci",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L56",
-      "weight": 1.0,
-      "source": "tests_test_stats",
-      "target": "tests_test_stats_testpaireddelta",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "tests_test_stats_rationale_1",
-      "target": "tests_test_stats",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L12",
-      "weight": 1.0,
-      "source": "tests_test_stats_testbootstrapci",
-      "target": "tests_test_stats_testbootstrapci_test_constant_values_give_degenerate_interval",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L51",
-      "weight": 1.0,
-      "source": "tests_test_stats_testbootstrapci",
-      "target": "tests_test_stats_testbootstrapci_test_empty_input_rejected",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L38",
-      "weight": 1.0,
-      "source": "tests_test_stats_testbootstrapci",
-      "target": "tests_test_stats_testbootstrapci_test_higher_confidence_widens_the_interval",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L18",
-      "weight": 1.0,
-      "source": "tests_test_stats_testbootstrapci",
-      "target": "tests_test_stats_testbootstrapci_test_interval_brackets_the_point_estimate",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L24",
-      "weight": 1.0,
-      "source": "tests_test_stats_testbootstrapci",
-      "target": "tests_test_stats_testbootstrapci_test_is_deterministic_for_a_given_seed",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L30",
-      "weight": 1.0,
-      "source": "tests_test_stats_testbootstrapci",
-      "target": "tests_test_stats_testbootstrapci_test_seed_changes_the_resampling",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L44",
-      "weight": 1.0,
-      "source": "tests_test_stats_testbootstrapci",
-      "target": "tests_test_stats_testbootstrapci_test_small_sample_interval_is_wide_enough_to_matter",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L45",
-      "weight": 1.0,
-      "source": "tests_test_stats_rationale_45",
-      "target": "tests_test_stats_testbootstrapci_test_small_sample_interval_is_wide_enough_to_matter",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L82",
-      "weight": 1.0,
-      "source": "tests_test_stats_testpaireddelta",
-      "target": "tests_test_stats_testpaireddelta_test_aligns_on_common_queries_only",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L93",
-      "weight": 1.0,
-      "source": "tests_test_stats_testpaireddelta",
-      "target": "tests_test_stats_testpaireddelta_test_delta_sign_is_b_minus_a",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L89",
-      "weight": 1.0,
-      "source": "tests_test_stats_testpaireddelta",
-      "target": "tests_test_stats_testpaireddelta_test_disjoint_query_sets_rejected",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L57",
-      "weight": 1.0,
-      "source": "tests_test_stats_testpaireddelta",
-      "target": "tests_test_stats_testpaireddelta_test_identical_runs_have_zero_delta_and_no_significance",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L101",
-      "weight": 1.0,
-      "source": "tests_test_stats_testpaireddelta",
-      "target": "tests_test_stats_testpaireddelta_test_p_value_is_bounded_away_from_zero",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L72",
-      "weight": 1.0,
-      "source": "tests_test_stats_testpaireddelta",
-      "target": "tests_test_stats_testpaireddelta_test_single_query_difference_is_not_significant",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L64",
-      "weight": 1.0,
-      "source": "tests_test_stats_testpaireddelta",
-      "target": "tests_test_stats_testpaireddelta_test_uniform_improvement_is_detected",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L73",
-      "weight": 1.0,
-      "source": "tests_test_stats_rationale_73",
-      "target": "tests_test_stats_testpaireddelta_test_single_query_difference_is_not_significant",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_stats.py",
-      "source_location": "L102",
-      "weight": 1.0,
-      "source": "tests_test_stats_rationale_102",
-      "target": "tests_test_stats_testpaireddelta_test_p_value_is_bounded_away_from_zero",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
       "source_file": "tests/test_validate_corpus.py",
       "source_location": "L8",
       "weight": 1.0,
@@ -36602,5 +34783,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "0105c59bf80a1e4e28d860914173938a27ec0ef8"
+  "built_at_commit": "8a5da30c4ffaf4dc0d9545bef1b40dfab5f86495"
 }

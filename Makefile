@@ -5,7 +5,7 @@ PORT ?= 8000
 MAX  ?= 25
 MAX_MASTER ?= 200
 
-.PHONY: help test annotate index reindex calibrate bench-rerank bench-retrieval benchmark-export export-datasets eval-asof serve scrape ops scrape-master verify-master
+.PHONY: help test annotate index reindex calibrate bench-rerank bench-retrieval rescore benchmark-export export-datasets eval-asof serve scrape ops scrape-master verify-master
 
 help:
 	@echo "test       run offline test suite"
@@ -14,6 +14,7 @@ help:
 	@echo "annotate   recompute supersession status in the corpus"
 	@echo "calibrate  run the retrieval calibration sweep"
 	@echo "bench-retrieval run retrieval-only benchmark + TREC runfile"
+	@echo "rescore    re-score archived runs with bootstrap CIs + paired significance"
 	@echo "benchmark-export export BEIR/TREC + RAG benchmark artifacts"
 	@echo "export-datasets  export publishable dataset configs to dist/datasets"
 	@echo "eval-asof  run the as-of-date golden eval (selector + pipeline cases)"
@@ -46,6 +47,9 @@ eval-asof:
 
 bench-retrieval:
 	$(ENV) $(PY) scripts/bench_retrieval.py
+
+rescore:
+	$(ENV) $(PY) scripts/rescore_runs.py
 
 benchmark-export:
 	$(ENV) $(PY) scripts/build_golden_v6.py

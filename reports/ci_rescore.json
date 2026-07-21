@@ -1,0 +1,596 @@
+{
+  "suites": {
+    "golden": {
+      "runs": [
+        {
+          "run": "ft-golden",
+          "n": 45,
+          "recall_at_10": 0.9555555555555556,
+          "ci_lo": 0.8888888888888888,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 0.9555555555555556,
+          "replay_matches_archive": true,
+          "corpus_sha256": "4083518f170e1ff4e4b27f305234faeadf8328e889e19fb4c2eaf49218a00c82",
+          "index_fingerprint": "8ccf2e9031f539692f9b214ac5b76742813478e308dbd2759346a9a85443264a",
+          "golden_sha256": "f01d877949d12cfd59f0104d45cf800400949e6fce703e96cec052b003e26eb9",
+          "git_commit": "cb94d5b5a80d02ae5bbb697389eff2ba3fe53b77",
+          "params": {
+            "top_n": 50,
+            "smoke": false
+          }
+        },
+        {
+          "run": "iv-final-golden",
+          "n": 45,
+          "recall_at_10": 0.9555555555555556,
+          "ci_lo": 0.8888888888888888,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 0.9555555555555556,
+          "replay_matches_archive": true,
+          "corpus_sha256": "913e762c3b3b6f2327d852c0fad89d48cf4fe69fb8b9ee7ffe647e4626ae96e6",
+          "index_fingerprint": "76cc973177c534fefeb1ffbaebbaf56b4924fc7debbbe597fc2004744c57de93",
+          "golden_sha256": "f01d877949d12cfd59f0104d45cf800400949e6fce703e96cec052b003e26eb9",
+          "git_commit": "1d3cd401317f48cc91544d0e5e335506ed175fe8",
+          "params": {
+            "top_n": 50,
+            "smoke": false
+          }
+        },
+        {
+          "run": "iv10-a-golden",
+          "n": 45,
+          "recall_at_10": 0.9555555555555556,
+          "ci_lo": 0.8888888888888888,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 0.9555555555555556,
+          "replay_matches_archive": true,
+          "corpus_sha256": "913e762c3b3b6f2327d852c0fad89d48cf4fe69fb8b9ee7ffe647e4626ae96e6",
+          "index_fingerprint": "35bd983f3a5d83901ca7b247acc08d232bb38d557ab3dd29c7cc419303490a66",
+          "golden_sha256": "f01d877949d12cfd59f0104d45cf800400949e6fce703e96cec052b003e26eb9",
+          "git_commit": "d6e6058967fb7a8c0e52873976aff9828ac330f1",
+          "params": {
+            "top_n": 50,
+            "smoke": false,
+            "hyde": false
+          }
+        },
+        {
+          "run": "iv10-b-golden",
+          "n": 45,
+          "recall_at_10": 0.9555555555555556,
+          "ci_lo": 0.8888888888888888,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 0.9555555555555556,
+          "replay_matches_archive": true,
+          "corpus_sha256": "913e762c3b3b6f2327d852c0fad89d48cf4fe69fb8b9ee7ffe647e4626ae96e6",
+          "index_fingerprint": "a925e4d32cd46c512f5a4c0044cc0ba3a66a44d36c6d97aada10a8cfce34e30c",
+          "golden_sha256": "f01d877949d12cfd59f0104d45cf800400949e6fce703e96cec052b003e26eb9",
+          "git_commit": "d6e6058967fb7a8c0e52873976aff9828ac330f1",
+          "params": {
+            "top_n": 50,
+            "smoke": false,
+            "hyde": false
+          }
+        },
+        {
+          "run": "iv11-a-golden",
+          "n": 45,
+          "recall_at_10": 0.9555555555555556,
+          "ci_lo": 0.8888888888888888,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 0.9555555555555556,
+          "replay_matches_archive": true,
+          "corpus_sha256": "913e762c3b3b6f2327d852c0fad89d48cf4fe69fb8b9ee7ffe647e4626ae96e6",
+          "index_fingerprint": "414cb6e3233eb43b4eb81844b5d9e54254ad31e858875c4e8fc48f5b17baa8c8",
+          "golden_sha256": "f01d877949d12cfd59f0104d45cf800400949e6fce703e96cec052b003e26eb9",
+          "git_commit": "64fad062747c348c538fdd0a8292f263725bf460",
+          "params": {
+            "top_n": 50,
+            "smoke": false,
+            "hyde": false,
+            "splade": false
+          }
+        },
+        {
+          "run": "iv11-b-golden",
+          "n": 45,
+          "recall_at_10": 0.9555555555555556,
+          "ci_lo": 0.8888888888888888,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 0.9555555555555556,
+          "replay_matches_archive": true,
+          "corpus_sha256": "913e762c3b3b6f2327d852c0fad89d48cf4fe69fb8b9ee7ffe647e4626ae96e6",
+          "index_fingerprint": "414cb6e3233eb43b4eb81844b5d9e54254ad31e858875c4e8fc48f5b17baa8c8",
+          "golden_sha256": "f01d877949d12cfd59f0104d45cf800400949e6fce703e96cec052b003e26eb9",
+          "git_commit": "64fad062747c348c538fdd0a8292f263725bf460",
+          "params": {
+            "top_n": 50,
+            "smoke": false,
+            "hyde": false,
+            "splade": true
+          }
+        },
+        {
+          "run": "iv11-splade-only-golden",
+          "n": 45,
+          "recall_at_10": 0.8666666666666667,
+          "ci_lo": 0.7555555555555555,
+          "ci_hi": 0.9555555555555556,
+          "archived_recall_at_10": null,
+          "replay_matches_archive": null,
+          "corpus_sha256": "",
+          "index_fingerprint": "",
+          "golden_sha256": "",
+          "git_commit": "",
+          "params": {}
+        },
+        {
+          "run": "iv2-golden",
+          "n": 45,
+          "recall_at_10": 0.9777777777777777,
+          "ci_lo": 0.9333333333333333,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 0.9777777777777777,
+          "replay_matches_archive": true,
+          "corpus_sha256": "4083518f170e1ff4e4b27f305234faeadf8328e889e19fb4c2eaf49218a00c82",
+          "index_fingerprint": "8ccf2e9031f539692f9b214ac5b76742813478e308dbd2759346a9a85443264a",
+          "golden_sha256": "f01d877949d12cfd59f0104d45cf800400949e6fce703e96cec052b003e26eb9",
+          "git_commit": "ea1a104a2ff418e44922e60a1a24990d5f634f9a",
+          "params": {
+            "top_n": 50,
+            "smoke": false
+          }
+        },
+        {
+          "run": "iv6-golden",
+          "n": 45,
+          "recall_at_10": 0.9555555555555556,
+          "ci_lo": 0.8888888888888888,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 0.9555555555555556,
+          "replay_matches_archive": true,
+          "corpus_sha256": "913e762c3b3b6f2327d852c0fad89d48cf4fe69fb8b9ee7ffe647e4626ae96e6",
+          "index_fingerprint": "35bd983f3a5d83901ca7b247acc08d232bb38d557ab3dd29c7cc419303490a66",
+          "golden_sha256": "f01d877949d12cfd59f0104d45cf800400949e6fce703e96cec052b003e26eb9",
+          "git_commit": "44b86b63e744a04adbdb092b4af8aa3bc770151d",
+          "params": {
+            "top_n": 50,
+            "smoke": false
+          }
+        },
+        {
+          "run": "iv7-golden",
+          "n": 45,
+          "recall_at_10": 0.9555555555555556,
+          "ci_lo": 0.8888888888888888,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 0.9555555555555556,
+          "replay_matches_archive": true,
+          "corpus_sha256": "913e762c3b3b6f2327d852c0fad89d48cf4fe69fb8b9ee7ffe647e4626ae96e6",
+          "index_fingerprint": "35bd983f3a5d83901ca7b247acc08d232bb38d557ab3dd29c7cc419303490a66",
+          "golden_sha256": "f01d877949d12cfd59f0104d45cf800400949e6fce703e96cec052b003e26eb9",
+          "git_commit": "2046c4fd76d3881f9b7d614e5ad7263348067f9c",
+          "params": {
+            "top_n": 50,
+            "smoke": false
+          }
+        },
+        {
+          "run": "iv8-golden",
+          "n": 45,
+          "recall_at_10": 0.9555555555555556,
+          "ci_lo": 0.8888888888888888,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 0.9555555555555556,
+          "replay_matches_archive": true,
+          "corpus_sha256": "913e762c3b3b6f2327d852c0fad89d48cf4fe69fb8b9ee7ffe647e4626ae96e6",
+          "index_fingerprint": "35bd983f3a5d83901ca7b247acc08d232bb38d557ab3dd29c7cc419303490a66",
+          "golden_sha256": "f01d877949d12cfd59f0104d45cf800400949e6fce703e96cec052b003e26eb9",
+          "git_commit": "8f997ad094b380aa1f65fa11f88d9f474a0e8424",
+          "params": {
+            "top_n": 50,
+            "smoke": false,
+            "hyde": true
+          }
+        },
+        {
+          "run": "iv9-golden",
+          "n": 45,
+          "recall_at_10": 0.9333333333333333,
+          "ci_lo": 0.8444444444444444,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 0.9333333333333333,
+          "replay_matches_archive": true,
+          "corpus_sha256": "913e762c3b3b6f2327d852c0fad89d48cf4fe69fb8b9ee7ffe647e4626ae96e6",
+          "index_fingerprint": "eb5448f3195d907025a8bf678cdc683ead2a1f6391a8ccc1ceff54d0b402ca41",
+          "golden_sha256": "f01d877949d12cfd59f0104d45cf800400949e6fce703e96cec052b003e26eb9",
+          "git_commit": "56f39566dc7ad7d2850009cc26841ec3b2e2f16a",
+          "params": {
+            "top_n": 50,
+            "smoke": false,
+            "hyde": false
+          }
+        }
+      ],
+      "pairs": [
+        {
+          "control": "ft",
+          "treatment": "iv2",
+          "label": "iv1+iv2 governing-clause folding + glossary (ADOPTED)",
+          "n": 45,
+          "mean_control": 0.9555555555555556,
+          "mean_treatment": 0.9777777777777777,
+          "delta": 0.022222222222222223,
+          "ci_lo": 0.0,
+          "ci_hi": 0.06666666666666667,
+          "p_value": 1.0,
+          "significant": false,
+          "queries_changed": 1,
+          "same_corpus": true,
+          "same_index": true
+        },
+        {
+          "control": "iv7",
+          "treatment": "iv8",
+          "label": "iv8 HyDE hypothetical-passage third leg",
+          "n": 45,
+          "mean_control": 0.9555555555555556,
+          "mean_treatment": 0.9555555555555556,
+          "delta": 0.0,
+          "ci_lo": 0.0,
+          "ci_hi": 0.0,
+          "p_value": 1.0,
+          "significant": false,
+          "queries_changed": 0,
+          "same_corpus": true,
+          "same_index": true
+        },
+        {
+          "control": "iv7",
+          "treatment": "iv9",
+          "label": "iv9 contextual headers (full corpus)",
+          "n": 45,
+          "mean_control": 0.9555555555555556,
+          "mean_treatment": 0.9333333333333333,
+          "delta": -0.022222222222222223,
+          "ci_lo": -0.06666666666666667,
+          "ci_hi": 0.0,
+          "p_value": 1.0,
+          "significant": false,
+          "queries_changed": 1,
+          "same_corpus": true,
+          "same_index": false
+        },
+        {
+          "control": "iv10-a",
+          "treatment": "iv10-b",
+          "label": "iv10 targeted headers (scoped sidecar)",
+          "n": 45,
+          "mean_control": 0.9555555555555556,
+          "mean_treatment": 0.9555555555555556,
+          "delta": 0.0,
+          "ci_lo": 0.0,
+          "ci_hi": 0.0,
+          "p_value": 1.0,
+          "significant": false,
+          "queries_changed": 0,
+          "same_corpus": true,
+          "same_index": false
+        },
+        {
+          "control": "iv11-a",
+          "treatment": "iv11-b",
+          "label": "iv11 SPLADE learned-sparse third leg",
+          "n": 45,
+          "mean_control": 0.9555555555555556,
+          "mean_treatment": 0.9555555555555556,
+          "delta": 0.0,
+          "ci_lo": -0.06666666666666667,
+          "ci_hi": 0.06666666666666667,
+          "p_value": 1.0,
+          "significant": false,
+          "queries_changed": 2,
+          "same_corpus": true,
+          "same_index": true
+        }
+      ]
+    },
+    "probes": {
+      "runs": [
+        {
+          "run": "ft-probes",
+          "n": 25,
+          "recall_at_10": 0.96,
+          "ci_lo": 0.88,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 0.96,
+          "replay_matches_archive": true,
+          "corpus_sha256": "4083518f170e1ff4e4b27f305234faeadf8328e889e19fb4c2eaf49218a00c82",
+          "index_fingerprint": "8ccf2e9031f539692f9b214ac5b76742813478e308dbd2759346a9a85443264a",
+          "golden_sha256": "99a9da66576a897f6fbcc2e67f5501cd147559c7d58060a47bdecf33ee91f374",
+          "git_commit": "47d54dd6b704faa660e0e61309b1dce517594005",
+          "params": {
+            "top_n": 50,
+            "smoke": false
+          }
+        },
+        {
+          "run": "iv-final-probes",
+          "n": 25,
+          "recall_at_10": 1.0,
+          "ci_lo": 1.0,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 1.0,
+          "replay_matches_archive": true,
+          "corpus_sha256": "913e762c3b3b6f2327d852c0fad89d48cf4fe69fb8b9ee7ffe647e4626ae96e6",
+          "index_fingerprint": "76cc973177c534fefeb1ffbaebbaf56b4924fc7debbbe597fc2004744c57de93",
+          "golden_sha256": "99a9da66576a897f6fbcc2e67f5501cd147559c7d58060a47bdecf33ee91f374",
+          "git_commit": "1d3cd401317f48cc91544d0e5e335506ed175fe8",
+          "params": {
+            "top_n": 50,
+            "smoke": false
+          }
+        },
+        {
+          "run": "iv10-a-probes",
+          "n": 25,
+          "recall_at_10": 1.0,
+          "ci_lo": 1.0,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 1.0,
+          "replay_matches_archive": true,
+          "corpus_sha256": "913e762c3b3b6f2327d852c0fad89d48cf4fe69fb8b9ee7ffe647e4626ae96e6",
+          "index_fingerprint": "35bd983f3a5d83901ca7b247acc08d232bb38d557ab3dd29c7cc419303490a66",
+          "golden_sha256": "99a9da66576a897f6fbcc2e67f5501cd147559c7d58060a47bdecf33ee91f374",
+          "git_commit": "d6e6058967fb7a8c0e52873976aff9828ac330f1",
+          "params": {
+            "top_n": 50,
+            "smoke": false,
+            "hyde": false
+          }
+        },
+        {
+          "run": "iv10-b-probes",
+          "n": 25,
+          "recall_at_10": 1.0,
+          "ci_lo": 1.0,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 1.0,
+          "replay_matches_archive": true,
+          "corpus_sha256": "913e762c3b3b6f2327d852c0fad89d48cf4fe69fb8b9ee7ffe647e4626ae96e6",
+          "index_fingerprint": "a925e4d32cd46c512f5a4c0044cc0ba3a66a44d36c6d97aada10a8cfce34e30c",
+          "golden_sha256": "99a9da66576a897f6fbcc2e67f5501cd147559c7d58060a47bdecf33ee91f374",
+          "git_commit": "d6e6058967fb7a8c0e52873976aff9828ac330f1",
+          "params": {
+            "top_n": 50,
+            "smoke": false,
+            "hyde": false
+          }
+        },
+        {
+          "run": "iv11-a-probes",
+          "n": 25,
+          "recall_at_10": 1.0,
+          "ci_lo": 1.0,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 1.0,
+          "replay_matches_archive": true,
+          "corpus_sha256": "913e762c3b3b6f2327d852c0fad89d48cf4fe69fb8b9ee7ffe647e4626ae96e6",
+          "index_fingerprint": "414cb6e3233eb43b4eb81844b5d9e54254ad31e858875c4e8fc48f5b17baa8c8",
+          "golden_sha256": "99a9da66576a897f6fbcc2e67f5501cd147559c7d58060a47bdecf33ee91f374",
+          "git_commit": "64fad062747c348c538fdd0a8292f263725bf460",
+          "params": {
+            "top_n": 50,
+            "smoke": false,
+            "hyde": false,
+            "splade": false
+          }
+        },
+        {
+          "run": "iv11-b-probes",
+          "n": 25,
+          "recall_at_10": 0.96,
+          "ci_lo": 0.88,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 0.96,
+          "replay_matches_archive": true,
+          "corpus_sha256": "913e762c3b3b6f2327d852c0fad89d48cf4fe69fb8b9ee7ffe647e4626ae96e6",
+          "index_fingerprint": "414cb6e3233eb43b4eb81844b5d9e54254ad31e858875c4e8fc48f5b17baa8c8",
+          "golden_sha256": "99a9da66576a897f6fbcc2e67f5501cd147559c7d58060a47bdecf33ee91f374",
+          "git_commit": "64fad062747c348c538fdd0a8292f263725bf460",
+          "params": {
+            "top_n": 50,
+            "smoke": false,
+            "hyde": false,
+            "splade": true
+          }
+        },
+        {
+          "run": "iv11-splade-only-probes",
+          "n": 25,
+          "recall_at_10": 0.96,
+          "ci_lo": 0.88,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": null,
+          "replay_matches_archive": null,
+          "corpus_sha256": "",
+          "index_fingerprint": "",
+          "golden_sha256": "",
+          "git_commit": "",
+          "params": {}
+        },
+        {
+          "run": "iv2-probes",
+          "n": 25,
+          "recall_at_10": 1.0,
+          "ci_lo": 1.0,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 1.0,
+          "replay_matches_archive": true,
+          "corpus_sha256": "4083518f170e1ff4e4b27f305234faeadf8328e889e19fb4c2eaf49218a00c82",
+          "index_fingerprint": "8ccf2e9031f539692f9b214ac5b76742813478e308dbd2759346a9a85443264a",
+          "golden_sha256": "99a9da66576a897f6fbcc2e67f5501cd147559c7d58060a47bdecf33ee91f374",
+          "git_commit": "ea1a104a2ff418e44922e60a1a24990d5f634f9a",
+          "params": {
+            "top_n": 50,
+            "smoke": false
+          }
+        },
+        {
+          "run": "iv6-probes",
+          "n": 25,
+          "recall_at_10": 1.0,
+          "ci_lo": 1.0,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 1.0,
+          "replay_matches_archive": true,
+          "corpus_sha256": "913e762c3b3b6f2327d852c0fad89d48cf4fe69fb8b9ee7ffe647e4626ae96e6",
+          "index_fingerprint": "35bd983f3a5d83901ca7b247acc08d232bb38d557ab3dd29c7cc419303490a66",
+          "golden_sha256": "99a9da66576a897f6fbcc2e67f5501cd147559c7d58060a47bdecf33ee91f374",
+          "git_commit": "44b86b63e744a04adbdb092b4af8aa3bc770151d",
+          "params": {
+            "top_n": 50,
+            "smoke": false
+          }
+        },
+        {
+          "run": "iv7-probes",
+          "n": 25,
+          "recall_at_10": 1.0,
+          "ci_lo": 1.0,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 1.0,
+          "replay_matches_archive": true,
+          "corpus_sha256": "913e762c3b3b6f2327d852c0fad89d48cf4fe69fb8b9ee7ffe647e4626ae96e6",
+          "index_fingerprint": "35bd983f3a5d83901ca7b247acc08d232bb38d557ab3dd29c7cc419303490a66",
+          "golden_sha256": "99a9da66576a897f6fbcc2e67f5501cd147559c7d58060a47bdecf33ee91f374",
+          "git_commit": "2046c4fd76d3881f9b7d614e5ad7263348067f9c",
+          "params": {
+            "top_n": 50,
+            "smoke": false
+          }
+        },
+        {
+          "run": "iv8-probes",
+          "n": 25,
+          "recall_at_10": 1.0,
+          "ci_lo": 1.0,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 1.0,
+          "replay_matches_archive": true,
+          "corpus_sha256": "913e762c3b3b6f2327d852c0fad89d48cf4fe69fb8b9ee7ffe647e4626ae96e6",
+          "index_fingerprint": "35bd983f3a5d83901ca7b247acc08d232bb38d557ab3dd29c7cc419303490a66",
+          "golden_sha256": "99a9da66576a897f6fbcc2e67f5501cd147559c7d58060a47bdecf33ee91f374",
+          "git_commit": "8f997ad094b380aa1f65fa11f88d9f474a0e8424",
+          "params": {
+            "top_n": 50,
+            "smoke": false,
+            "hyde": true
+          }
+        },
+        {
+          "run": "iv9-probes",
+          "n": 25,
+          "recall_at_10": 0.96,
+          "ci_lo": 0.88,
+          "ci_hi": 1.0,
+          "archived_recall_at_10": 0.96,
+          "replay_matches_archive": true,
+          "corpus_sha256": "913e762c3b3b6f2327d852c0fad89d48cf4fe69fb8b9ee7ffe647e4626ae96e6",
+          "index_fingerprint": "eb5448f3195d907025a8bf678cdc683ead2a1f6391a8ccc1ceff54d0b402ca41",
+          "golden_sha256": "99a9da66576a897f6fbcc2e67f5501cd147559c7d58060a47bdecf33ee91f374",
+          "git_commit": "56f39566dc7ad7d2850009cc26841ec3b2e2f16a",
+          "params": {
+            "top_n": 50,
+            "smoke": false,
+            "hyde": false
+          }
+        }
+      ],
+      "pairs": [
+        {
+          "control": "ft",
+          "treatment": "iv2",
+          "label": "iv1+iv2 governing-clause folding + glossary (ADOPTED)",
+          "n": 25,
+          "mean_control": 0.96,
+          "mean_treatment": 1.0,
+          "delta": 0.04,
+          "ci_lo": 0.0,
+          "ci_hi": 0.12,
+          "p_value": 1.0,
+          "significant": false,
+          "queries_changed": 1,
+          "same_corpus": true,
+          "same_index": true
+        },
+        {
+          "control": "iv7",
+          "treatment": "iv8",
+          "label": "iv8 HyDE hypothetical-passage third leg",
+          "n": 25,
+          "mean_control": 1.0,
+          "mean_treatment": 1.0,
+          "delta": 0.0,
+          "ci_lo": 0.0,
+          "ci_hi": 0.0,
+          "p_value": 1.0,
+          "significant": false,
+          "queries_changed": 0,
+          "same_corpus": true,
+          "same_index": true
+        },
+        {
+          "control": "iv7",
+          "treatment": "iv9",
+          "label": "iv9 contextual headers (full corpus)",
+          "n": 25,
+          "mean_control": 1.0,
+          "mean_treatment": 0.96,
+          "delta": -0.04,
+          "ci_lo": -0.12,
+          "ci_hi": 0.0,
+          "p_value": 1.0,
+          "significant": false,
+          "queries_changed": 1,
+          "same_corpus": true,
+          "same_index": false
+        },
+        {
+          "control": "iv10-a",
+          "treatment": "iv10-b",
+          "label": "iv10 targeted headers (scoped sidecar)",
+          "n": 25,
+          "mean_control": 1.0,
+          "mean_treatment": 1.0,
+          "delta": 0.0,
+          "ci_lo": 0.0,
+          "ci_hi": 0.0,
+          "p_value": 1.0,
+          "significant": false,
+          "queries_changed": 0,
+          "same_corpus": true,
+          "same_index": false
+        },
+        {
+          "control": "iv11-a",
+          "treatment": "iv11-b",
+          "label": "iv11 SPLADE learned-sparse third leg",
+          "n": 25,
+          "mean_control": 1.0,
+          "mean_treatment": 0.96,
+          "delta": -0.04,
+          "ci_lo": -0.12,
+          "ci_hi": 0.0,
+          "p_value": 1.0,
+          "significant": false,
+          "queries_changed": 1,
+          "same_corpus": true,
+          "same_index": true
+        }
+      ]
+    }
+  },
+  "resamples": 10000,
+  "seed": 0
+}

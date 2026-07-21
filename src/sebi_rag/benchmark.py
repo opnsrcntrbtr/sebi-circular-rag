@@ -276,6 +276,61 @@ def write_trec_run(
                 f.write(f"{qid} Q0 {doc_id} {rank} {score:.8f} {run_name}\n")
 
 
+def read_trec_run(path: str | Path) -> dict[str, list[tuple[str, float]]]:
+    """Parse a runfile written by `write_trec_run` back into {qid: [(doc, score)]}.
+
+    Tolerates whitespace inside the doc id. Chunk ids embed the section heading
+    ("<circular>#3. With the issuance of this Master Circular, ...#8"), which
+    contains spaces, so the archived runfiles are NOT valid TREC and trec_eval
+    cannot read them. They stay recoverable here because the query id and run
+    name never contain whitespace and rank/score sit at fixed tail positions:
+    the doc id is everything between field 2 and the final three fields.
+    """
+    out: dict[str, list[tuple[int, str, float]]] = {}
+    for line in Path(path).read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        parts = line.split()
+        if len(parts) < 6:
+            raise ValueError(f"malformed run line in {path}: {line!r}")
+        qid = parts[0]
+        rank, score = int(parts[-3]), float(parts[-2])
+        doc_id = " ".join(parts[2:-3])
+        out.setdefault(qid, []).append((rank, doc_id, score))
+    return {
+        qid: [(d, s) for _, d, s in sorted(rows, key=lambda r: r[0])]
+        for qid, rows in out.items()
+    }
+
+
+def per_query_recall(
+    rankings: dict[str, list[tuple[str, float]]],
+    golden: list[dict[str, Any]],
+    *,
+    k: int = 10,
+) -> dict[str, float]:
+    """Per-query recall@k at circular level, matching `run_retrieval_benchmark`.
+
+    Abstain items carry no relevant circulars and are excluded, so the returned
+    mean equals the archived `recall_at_10`. Returning the per-query vector
+    (rather than only its mean) is what makes bootstrap CIs and paired tests
+    possible on runs that were scored months ago.
+    """
+    scores: dict[str, float] = {}
+    for item in golden:
+        if item.get("abstain"):
+            continue
+        qid = item["id"]
+        ranked = rankings.get(qid)
+        if ranked is None:
+            continue
+        docs = _unique(_doc(doc_id) for doc_id, _ in ranked)
+        relevant = set(item.get("relevant_circulars", []))
+        hit = len(set(docs[:k]) & relevant)
+        scores[qid] = hit / len(relevant) if relevant else 0.0
+    return scores
+
+
 def export_beir(
     *,
     chunks: list[Chunk],
