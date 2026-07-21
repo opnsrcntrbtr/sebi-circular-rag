@@ -1,6 +1,8 @@
 """P4b: as-of golden evaluation runner tests (offline)."""
 from __future__ import annotations
 
+import pytest
+
 from pathlib import Path
 
 from sebi_rag.embeddings import HashEmbedder
@@ -85,3 +87,34 @@ def test_summarize_reports_accuracy_and_failures():
     assert summary["passed"] == 1
     assert summary["accuracy"] == 0.5
     assert summary["failures"] == ["b"]
+
+
+def test_summarize_reports_a_clopper_pearson_interval():
+    from sebi_rag.eval_asof import AsofCaseResult
+    results = [
+        AsofCaseResult(id=f"p{i}", mode="pipeline", passed=True, detail="")
+        for i in range(9)
+    ] + [AsofCaseResult(id="p9", mode="pipeline", passed=False, detail="")]
+    summary = summarize(results)
+    assert summary["accuracy"] == 0.9
+    assert summary["ci_lo"] == pytest.approx(0.554984, abs=1e-5)
+    assert summary["ci_hi"] == pytest.approx(0.997471, abs=1e-5)
+    assert summary["ci_method"] == "clopper-pearson"
+
+
+def test_summarize_all_pass_pins_upper_bound():
+    from sebi_rag.eval_asof import AsofCaseResult
+    results = [
+        AsofCaseResult(id=f"s{i}", mode="selector", passed=True, detail="")
+        for i in range(3)
+    ]
+    summary = summarize(results)
+    assert summary["ci_hi"] == 1.0
+    assert summary["ci_lo"] < 1.0
+
+
+def test_summarize_handles_an_empty_mode():
+    summary = summarize([])
+    assert summary["n"] == 0
+    assert summary["accuracy"] == 0.0
+    assert (summary["ci_lo"], summary["ci_hi"]) == (0.0, 1.0)

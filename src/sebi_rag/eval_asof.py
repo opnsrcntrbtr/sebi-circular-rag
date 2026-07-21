@@ -18,6 +18,7 @@ from pathlib import Path
 
 from .lineage import Lineage
 from .pipeline import RAGPipeline
+from .stats import clopper_pearson_ci
 
 
 def load_golden_asof(path: str | Path) -> list[dict]:
@@ -72,11 +73,22 @@ def run_pipeline_cases(pipeline: RAGPipeline, cases: list[dict]) -> list[AsofCas
 
 
 def summarize(results: list[AsofCaseResult]) -> dict:
+    """Aggregate case results with an exact confidence interval.
+
+    Pure function of the pass/fail counts, so it computes an interval for
+    whatever it is handed. Whether that interval is a *measurement* or a
+    regression check is a reporting decision made by the caller — see
+    scripts/eval_asof.py, which labels selector cases as regression-only.
+    """
     n = len(results)
     n_pass = sum(1 for r in results if r.passed)
+    ci = clopper_pearson_ci(n_pass, n)
     return {
         "n": n,
         "passed": n_pass,
         "accuracy": (n_pass / n) if n else 0.0,
+        "ci_lo": ci.lo,
+        "ci_hi": ci.hi,
+        "ci_method": ci.method,
         "failures": [r.id for r in results if not r.passed],
     }
