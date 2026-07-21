@@ -48,5 +48,10 @@
   "46": "bench_rerankers.py",
   "47": "bench_retrieval.py",
   "48": "app.py",
-  "59": "Path"
+  "49": "test_gate.py",
+  "50": "eval_gate.py",
+  "51": "annotate_corpus",
+  "52": "eval.py",
+  "53": "detect_relations",
+  "54": ".family"
 }
