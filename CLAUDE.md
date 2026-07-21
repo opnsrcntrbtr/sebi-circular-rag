@@ -20,7 +20,7 @@ make scrape   # Fetch SEBI circulars (MAX=N to limit count)
 make scrape-master   # Fetch SEBI master circulars (MAX_MASTER=N to limit count)
 make verify-master    # Coverage report vs live SEBI master-circular listing (OFFLINE=1 to skip fetch)
 make calibrate       # Retrieval calibration sweep
-make eval-asof # As-of-date golden eval (selector + pipeline cases)
+make eval-asof # As-of-date golden eval; writes eval/runs/asof-$ASOF_OUT (default: baseline)
 make bench-retrieval # Retrieval-only benchmark + TREC runfile
 make bench-rerank    # Reranker benchmark (--models bge,qwen0.6b)
 make benchmark-export # Golden v6 build + BEIR/TREC/RAG benchmark export
