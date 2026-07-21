@@ -5,7 +5,7 @@ import math
 
 import pytest
 
-from sebi_rag.stats import bootstrap_ci, paired_delta
+from sebi_rag.stats import bootstrap_ci, clopper_pearson_ci, paired_delta
 
 
 class TestBootstrapCI:
@@ -107,3 +107,67 @@ class TestPairedDelta:
         r = paired_delta(a, b, n_resamples=1000, seed=0)
         assert r.p_value > 0
         assert math.isclose(r.p_value, 1 / 1001, rel_tol=1e-9)
+
+
+class TestClopperPearson:
+    def test_known_interval_for_nine_of_ten(self):
+        ci = clopper_pearson_ci(9, 10)
+        assert ci.point == pytest.approx(0.9)
+        assert ci.lo == pytest.approx(0.554984, abs=1e-5)
+        assert ci.hi == pytest.approx(0.997471, abs=1e-5)
+        assert ci.method == "clopper-pearson"
+
+    def test_known_interval_for_twelve_of_thirteen(self):
+        ci = clopper_pearson_ci(12, 13)
+        assert ci.lo == pytest.approx(0.639703, abs=1e-5)
+        assert ci.hi == pytest.approx(0.998054, abs=1e-5)
+
+    def test_all_successes_pins_upper_bound_at_one(self):
+        # The Beta quantile is undefined at k == n; must be pinned explicitly.
+        ci = clopper_pearson_ci(3, 3)
+        assert ci.hi == 1.0
+        assert ci.lo == pytest.approx(0.292402, abs=1e-5)
+
+    def test_zero_successes_pins_lower_bound_at_zero(self):
+        ci = clopper_pearson_ci(0, 5)
+        assert ci.lo == 0.0
+        assert ci.hi == pytest.approx(0.521824, abs=1e-5)
+
+    def test_empty_sample_gives_vacuous_interval(self):
+        # An as-of run with no cases in a mode must not crash the run.
+        ci = clopper_pearson_ci(0, 0)
+        assert (ci.lo, ci.hi) == (0.0, 1.0)
+        assert ci.point == 0.0
+
+    def test_interval_brackets_the_point_estimate(self):
+        ci = clopper_pearson_ci(7, 10)
+        assert ci.lo <= ci.point <= ci.hi
+
+    def test_higher_confidence_widens_the_interval(self):
+        narrow = clopper_pearson_ci(9, 10, confidence=0.80)
+        wide = clopper_pearson_ci(9, 10, confidence=0.99)
+        assert wide.hi - wide.lo > narrow.hi - narrow.lo
+
+    def test_is_more_conservative_than_the_bootstrap_on_binary_data(self):
+        """The reason for the switch. On 9/10 the percentile bootstrap returns
+        [0.70, 1.00]: its upper bound is pinned at exactly 1.0 because
+        resampling ten values that are 90% ones draws all-ones often, so it
+        reports certainty of perfection from a single miss. The exact interval
+        is wider overall and reaches much further down."""
+        values = [1.0] * 9 + [0.0]
+        boot = bootstrap_ci(values, n_resamples=4000, seed=0)
+        exact = clopper_pearson_ci(9, 10)
+        assert boot.hi == 1.0
+        assert exact.hi < 1.0
+        assert exact.lo < boot.lo
+        assert (exact.hi - exact.lo) > (boot.hi - boot.lo)
+
+    def test_rejects_more_successes_than_trials(self):
+        with pytest.raises(ValueError):
+            clopper_pearson_ci(11, 10)
+
+    def test_rejects_negative_inputs(self):
+        with pytest.raises(ValueError):
+            clopper_pearson_ci(-1, 10)
+        with pytest.raises(ValueError):
+            clopper_pearson_ci(1, -10)

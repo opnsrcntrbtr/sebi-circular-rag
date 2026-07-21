@@ -12,6 +12,10 @@ rest on one or two queries changing. Two standard IR tools close that gap:
   randomization (permutation) p-value — the significance test recommended for
   IR run comparison by Smucker, Allan & Carterette (CIKM 2007), which pairs on
   the query and makes no distributional assumption.
+- `clopper_pearson_ci`: exact interval for a binomial proportion. Reach for
+  this when outcomes are strictly binary pass/fail (the as-of cases) and for
+  the bootstrap when per-query scores are continuous or mixed-valued
+  (recall@10, where multi-circular queries score fractionally).
 
 Every function takes an explicit seed and is deterministic given one.
 """
@@ -20,6 +24,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 import numpy as np
+from scipy.stats import beta
 
 
 @dataclass(frozen=True)
@@ -73,6 +78,54 @@ def bootstrap_ci(
     return BootstrapCI(
         point=float(arr.mean()), lo=float(lo), hi=float(hi), n=int(arr.size),
         confidence=confidence, n_resamples=n_resamples,
+    )
+
+
+@dataclass(frozen=True)
+class ProportionCI:
+    point: float          # successes / n
+    lo: float
+    hi: float
+    n: int
+    successes: int
+    confidence: float
+    method: str
+
+
+def clopper_pearson_ci(
+    successes: int,
+    n: int,
+    *,
+    confidence: float = 0.95,
+) -> ProportionCI:
+    """Clopper-Pearson exact interval for a binomial proportion.
+
+    Use this for strictly binary pass/fail outcomes — as-of case results, for
+    instance. `bootstrap_ci` is the wrong tool there: a percentile bootstrap
+    can never return a bound above the observed maximum, so at 12/13 it pins
+    the upper bound at 100% and under-covers. Clopper-Pearson inverts the
+    exact binomial test and guarantees at least nominal coverage, at the cost
+    of being conservative (intervals slightly too wide).
+
+    n == 0 yields the vacuous [0, 1] rather than raising, so a mode with no
+    cases does not abort a run.
+    """
+    if successes < 0 or n < 0:
+        raise ValueError(f"negative counts: successes={successes}, n={n}")
+    if successes > n:
+        raise ValueError(f"successes={successes} exceeds n={n}")
+    if n == 0:
+        return ProportionCI(point=0.0, lo=0.0, hi=1.0, n=0, successes=0,
+                            confidence=confidence, method="clopper-pearson")
+
+    tail = (1.0 - confidence) / 2.0
+    # The Beta quantile is undefined at the boundaries, so pin them.
+    lo = 0.0 if successes == 0 else float(beta.ppf(tail, successes, n - successes + 1))
+    hi = 1.0 if successes == n else float(
+        beta.ppf(1.0 - tail, successes + 1, n - successes))
+    return ProportionCI(
+        point=successes / n, lo=lo, hi=hi, n=n, successes=successes,
+        confidence=confidence, method="clopper-pearson",
     )
 
 
