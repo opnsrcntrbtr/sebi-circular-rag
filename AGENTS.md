@@ -9,7 +9,7 @@ Local-first, Apple Silicon RAG over Indian SEBI Circulars. FastAPI service + Gra
 ## Quick Start
 
 ```bash
-# Install deps (requires Python 3.12-3.13)
+# Install deps (Python 3.12 only — pyproject pins >=3.12,<3.13; creates .venv/ which the Makefile uses)
 uv sync
 
 # Run commands
