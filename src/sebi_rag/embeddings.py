@@ -51,7 +51,8 @@ class HashEmbedder:
 class BGEM3Embedder:
     """Production dense embedder: BAAI/bge-m3 on Apple Silicon MPS (Step 10)."""
 
-    def __init__(self, model_path: str = "BAAI/bge-m3", device: str = "mps") -> None:
+    def __init__(self, model_path: str = "BAAI/bge-m3", device: str = "mps",
+                 use_fp16: bool = False, batch_size: int = 32) -> None:
         from FlagEmbedding import BGEM3FlagModel
         from huggingface_hub import snapshot_download
 
@@ -61,11 +62,13 @@ class BGEM3Embedder:
                 model_path,
                 ignore_patterns=["onnx/*", "imgs/*", "*.onnx", "*.onnx_data"],
             )
-        self._m = BGEM3FlagModel(model_path, use_fp16=False, devices=device)
+        self._m = BGEM3FlagModel(model_path, use_fp16=use_fp16, devices=device)
+        self._batch_size = batch_size
         self.dim = 1024
 
     def encode(self, texts: list[str]) -> np.ndarray:
-        out = self._m.encode(texts, return_dense=True)["dense_vecs"]
+        out = self._m.encode(texts, return_dense=True,
+                             batch_size=self._batch_size)["dense_vecs"]
         v = np.asarray(out, dtype="float32")
         norms = np.linalg.norm(v, axis=1, keepdims=True)
         norms[norms == 0] = 1.0

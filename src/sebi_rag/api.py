@@ -67,6 +67,15 @@ class QueryResponse(BaseModel):
     draft_answer: str       # advisory mode only; never authoritative
 
 
+def _compute_kwargs(s: Settings) -> dict:
+    """Resolve device/fp16/batch for the torch embedder + reranker."""
+    from .device import pick_device, should_use_fp16
+    device = pick_device(s.device)
+    return {"device": device,
+            "use_fp16": should_use_fp16(device, s.use_fp16),
+            "batch_size": s.encode_batch_size}
+
+
 def build_default_pipeline() -> RAGPipeline:
     os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
     os.environ.setdefault("OMP_NUM_THREADS", "1")
@@ -86,7 +95,8 @@ def build_default_pipeline() -> RAGPipeline:
         from .generate import MLXGenerator
         generator = MLXGenerator(s.mlx_model)
 
-    embedder = BGEM3Embedder(device="mps")
+    ck = _compute_kwargs(s)
+    embedder = BGEM3Embedder(**ck)
     judge = None
     if os.environ.get("SEBI_RAG_GATE", "on").lower() not in ("off", "0"):
         from .generate import SubjectSimJudge
@@ -109,7 +119,7 @@ def build_default_pipeline() -> RAGPipeline:
                else build_lineage(load_records(s.corpus_path)))
     return RAGPipeline(
         retriever=retriever,
-        reranker=CrossEncoderReranker(device="mps"),
+        reranker=CrossEncoderReranker(**ck),
         generator=generator,
         lineage=lineage,
         abstain_threshold=s.abstain_threshold,

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import time
 
+import pytest
 from fastapi.testclient import TestClient
 
 from sebi_rag.api import CORPUS, create_app
@@ -187,3 +188,38 @@ def test_mode_retrieval_only_shares_retrieval():
     rag = _distinct_client.post("/query", json={**q, "mode": "rag"}).json()
     ret = _distinct_client.post("/query", json={**q, "mode": "retrieval_only"}).json()
     assert rag["citations"] == ret["citations"]  # same retriever/reranker/lineage
+
+
+def test_compute_kwargs_cpu_disables_fp16():
+    from sebi_rag.api import _compute_kwargs
+    from sebi_rag.settings import Settings
+    s = Settings(corpus_path="c", index_dir="i",
+                 device="cpu", use_fp16=True, encode_batch_size=16)
+    assert _compute_kwargs(s) == {"device": "cpu", "use_fp16": False, "batch_size": 16}
+
+
+def test_compute_kwargs_mps_keeps_fp16():
+    from sebi_rag.api import _compute_kwargs
+    from sebi_rag.settings import Settings
+    s = Settings(corpus_path="c", index_dir="i",
+                 device="mps", use_fp16=True, encode_batch_size=8)
+    assert _compute_kwargs(s) == {"device": "mps", "use_fp16": True, "batch_size": 8}
+
+
+def test_embedder_reranker_accept_compute_kwargs():
+    import inspect
+    from sebi_rag.embeddings import BGEM3Embedder
+    from sebi_rag.rerank import CrossEncoderReranker
+    for cls in (BGEM3Embedder, CrossEncoderReranker):
+        params = set(inspect.signature(cls.__init__).parameters)
+        assert {"device", "use_fp16", "batch_size"} <= params
+
+
+@pytest.mark.integration
+def test_bge_fp16_encode_is_normalized():
+    from sebi_rag.embeddings import BGEM3Embedder
+    emb = BGEM3Embedder(device="mps", use_fp16=True, batch_size=4)
+    v = emb.encode(["nomination norms for demat accounts", "unrelated text"])
+    assert v.shape == (2, 1024)
+    import numpy as np
+    assert np.allclose(np.linalg.norm(v, axis=1), 1.0, atol=1e-3)

@@ -119,16 +119,20 @@ class CrossEncoderReranker:
     """
 
     def __init__(
-        self, model: str = "BAAI/bge-reranker-v2-m3", device: str = "mps"
+        self, model: str = "BAAI/bge-reranker-v2-m3", device: str = "mps",
+        use_fp16: bool = False, batch_size: int = 32
     ) -> None:
         from sentence_transformers import CrossEncoder
 
-        self._ce = CrossEncoder(model, device=device)
+        model_kwargs = {"torch_dtype": "float16"} if use_fp16 else {}
+        self._ce = CrossEncoder(model, device=device, model_kwargs=model_kwargs)
+        self._batch_size = batch_size
 
     def rerank(self, query: str, candidates: list[Chunk]) -> list[tuple[Chunk, float]]:
         if not candidates:
             return []
-        scores = self._ce.predict([[query, c.text] for c in candidates])
+        scores = self._ce.predict([[query, c.text] for c in candidates],
+                                  batch_size=self._batch_size)
         paired = list(zip(candidates, (float(s) for s in scores)))
         paired.sort(key=lambda cs: -cs[1])
         return paired
