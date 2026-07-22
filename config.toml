@@ -13,6 +13,13 @@ rate_per_min = 60                                      # per key/IP
 timeout_s = 30                                         # /query budget -> 504
 # corpus_path and index_dir default to data/corpus/circulars.jsonl and data/index
 
+# Apple-Silicon compute (Track B). Omit `device` to auto-detect (mps else cpu).
+# device = "mps"                                       # force: mps | cpu | cuda
+use_fp16 = false                                       # fp16 on mps/cuda (never bf16); flipped by eval gate
+encode_batch_size = 32                                 # embed/rerank batch size (MPS prefers larger)
+embed_backend = "torch"                                # torch | mlx  (mlx = eval-gated, Phase 2)
+rerank_backend = "torch"                               # torch | mlx  (mlx = eval-gated, Phase 2)
+
 # Hugging Face Spaces demo (CPU-only). Read ONLY by Settings.load_spaces();
 # the Apple-Silicon local stack above is unaffected. Env prefix: SEBI_RAG_SPACES_.
 [spaces]

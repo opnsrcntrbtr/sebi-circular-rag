@@ -22,6 +22,14 @@ def _get(key: str, default, prefix: str, svc: dict) -> object:
     return os.environ.get(prefix + key.upper(), svc.get(key, default))
 
 
+def _as_bool(v: object) -> bool:
+    """Coerce a config/env value to bool. Env vars arrive as strings; toml/default
+    may already be bool."""
+    if isinstance(v, bool):
+        return v
+    return str(v).strip().lower() in ("1", "true", "yes", "on")
+
+
 @dataclass(frozen=True)
 class SpacesSettings:
     """[spaces] table: Hugging Face Spaces demo (CPU-only, HF-dataset corpus).
@@ -59,6 +67,11 @@ class Settings:
     superseded_penalty: float = 0.3
     rate_per_min: int = 60
     timeout_s: float = 30.0
+    device: str | None = None          # None = auto-detect (mps else cpu)
+    use_fp16: bool = False             # fp16 on mps/cuda; flipped True by eval gate
+    encode_batch_size: int = 32        # embed/rerank batch size
+    embed_backend: str = "torch"       # torch | mlx (mlx = eval-gated, Phase 2)
+    rerank_backend: str = "torch"      # torch | mlx (mlx = eval-gated, Phase 2)
     spaces: SpacesSettings | None = None  # populated only by load_spaces()
 
     @classmethod
@@ -67,6 +80,9 @@ class Settings:
         svc: dict = {}
         if p.exists():
             svc = tomllib.loads(p.read_text(encoding="utf-8")).get("service", {})
+
+        dev = _get("device", None, "SEBI_RAG_", svc)
+        device = str(dev) if dev else None
 
         return cls(
             corpus_path=str(_get("corpus_path", str(ROOT / "data" / "corpus" / "circulars.jsonl"), "SEBI_RAG_", svc)),
@@ -78,6 +94,11 @@ class Settings:
             superseded_penalty=float(_get("superseded_penalty", 0.3, "SEBI_RAG_", svc)),
             rate_per_min=int(_get("rate_per_min", 60, "SEBI_RAG_", svc)),
             timeout_s=float(_get("timeout_s", 30.0, "SEBI_RAG_", svc)),
+            device=device,
+            use_fp16=_as_bool(_get("use_fp16", False, "SEBI_RAG_", svc)),
+            encode_batch_size=int(_get("encode_batch_size", 32, "SEBI_RAG_", svc)),
+            embed_backend=str(_get("embed_backend", "torch", "SEBI_RAG_", svc)),
+            rerank_backend=str(_get("rerank_backend", "torch", "SEBI_RAG_", svc)),
         )
 
     @classmethod
