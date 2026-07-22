@@ -22,11 +22,13 @@ for k, v in {
 }.items():
     os.environ.setdefault(k, v)
 
+from sebi_rag.api import _compute_kwargs  # noqa: E402
 from sebi_rag.context_headers import apply_context_headers, load_headers  # noqa: E402
 from sebi_rag.corpus import load_circulars  # noqa: E402
 from sebi_rag.embeddings import BGEM3Embedder  # noqa: E402
 from sebi_rag.lineage import build_lineage, load_records  # noqa: E402
 from sebi_rag.retrieve import HybridRetriever  # noqa: E402
+from sebi_rag.settings import Settings  # noqa: E402
 
 CORPUS = ROOT / "data" / "corpus" / "circulars.jsonl"
 INDEX = ROOT / "data" / "index"
@@ -45,7 +47,7 @@ chunks = apply_context_headers(
 )
 print(f"chunks={len(chunks)}  building index...", flush=True)
 t0 = time.time()
-emb = BGEM3Embedder(device="mps")
+emb = BGEM3Embedder(**_compute_kwargs(Settings.load()))
 if args.full:
     retriever = HybridRetriever.build(chunks, emb)
     stats = {"mode": "full (--full)", "chunks_encoded": len(chunks)}
