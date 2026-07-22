@@ -55,12 +55,5 @@
   "53": "bootstrap_ci",
   "54": "build_index.py",
   "55": "eval_harness.py",
-  "56": "SparseIndex",
-  "57": "test_pipeline.py",
-  "58": "corpus.py",
-  "59": "corpus_spaces.py",
-  "60": "test_integration_e2e.py",
-  "61": "segment.py",
-  "62": "api_spaces.py",
-  "63": "TestPerQueryRecall"
+  "56": "SparseIndex"
 }

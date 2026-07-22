@@ -4,34 +4,14 @@
   "graph": {},
   "nodes": [
     {
-      "label": "build_index.py",
-      "file_type": "code",
-      "source_file": "scripts/build_index.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "scripts_build_index",
-      "community": 17,
-      "norm_label": "build_index.py"
-    },
-    {
-      "label": "Build the dense+sparse index once and persist it (run after corpus changes).",
-      "file_type": "rationale",
-      "source_file": "scripts/build_index.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "scripts_build_index_rationale_1",
-      "community": 17,
-      "norm_label": "build the dense+sparse index once and persist it (run after corpus changes)."
-    },
-    {
       "label": "bench_retrieval.py",
       "file_type": "code",
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
-      "norm_label": "bench_retrieval.py",
-      "id": "scripts_bench_retrieval"
+      "id": "scripts_bench_retrieval",
+      "community": 50,
+      "norm_label": "bench_retrieval.py"
     },
     {
       "label": "smoke_pipeline()",
@@ -39,9 +19,9 @@
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L41",
       "_origin": "ast",
-      "community": 29,
-      "norm_label": "smoke_pipeline()",
-      "id": "scripts_bench_retrieval_smoke_pipeline"
+      "id": "scripts_bench_retrieval_smoke_pipeline",
+      "community": 50,
+      "norm_label": "smoke_pipeline()"
     },
     {
       "label": "RAGPipeline",
@@ -49,9 +29,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 29,
-      "norm_label": "ragpipeline",
-      "id": "ragpipeline"
+      "id": "ragpipeline",
+      "community": 50,
+      "norm_label": "ragpipeline"
     },
     {
       "label": "main()",
@@ -59,9 +39,9 @@
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L60",
       "_origin": "ast",
-      "community": 29,
-      "norm_label": "main()",
-      "id": "scripts_bench_retrieval_main"
+      "id": "scripts_bench_retrieval_main",
+      "community": 50,
+      "norm_label": "main()"
     },
     {
       "label": "Retrieval-only benchmark with TREC runfile and reproducibility metadata.  Use --",
@@ -69,9 +49,9 @@
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
-      "norm_label": "retrieval-only benchmark with trec runfile and reproducibility metadata.  use --",
-      "id": "scripts_bench_retrieval_rationale_1"
+      "id": "scripts_bench_retrieval_rationale_1",
+      "community": 50,
+      "norm_label": "retrieval-only benchmark with trec runfile and reproducibility metadata.  use --"
     },
     {
       "label": "eval_asof.py",
@@ -79,9 +59,9 @@
       "source_file": "scripts/eval_asof.py",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "scripts_eval_asof",
       "community": 29,
-      "norm_label": "eval_asof.py",
-      "id": "scripts_eval_asof"
+      "norm_label": "eval_asof.py"
     },
     {
       "label": "Run eval/golden/golden_asof_v1.jsonl (selector + pipeline modes) against the per",
@@ -89,9 +69,9 @@
       "source_file": "scripts/eval_asof.py",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "scripts_eval_asof_rationale_1",
       "community": 29,
-      "norm_label": "run eval/golden/golden_asof_v1.jsonl (selector + pipeline modes) against the per",
-      "id": "scripts_eval_asof_rationale_1"
+      "norm_label": "run eval/golden/golden_asof_v1.jsonl (selector + pipeline modes) against the per"
     },
     {
       "label": "api.py",
@@ -279,7 +259,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 50,
+      "community": 29,
       "norm_label": "protocol",
       "id": "protocol"
     },
@@ -409,7 +389,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L15",
       "_origin": "ast",
-      "community": 50,
+      "community": 29,
       "norm_label": "reranker",
       "id": "src_sebi_rag_rerank_reranker"
     },
@@ -749,7 +729,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L146",
       "_origin": "ast",
-      "community": 26,
+      "community": 3,
       "norm_label": "_cannedgenerator",
       "id": "tests_test_api_cannedgenerator"
     },
@@ -759,7 +739,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L147",
       "_origin": "ast",
-      "community": 26,
+      "community": 3,
       "norm_label": ".generate()",
       "id": "tests_test_api_cannedgenerator_generate"
     },
@@ -769,7 +749,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L151",
       "_origin": "ast",
-      "community": 26,
+      "community": 3,
       "norm_label": "_distinct_pipeline()",
       "id": "tests_test_api_distinct_pipeline"
     },
@@ -1618,6 +1598,26 @@
       "community": 1,
       "norm_label": "create the enriched golden_v6 benchmark seed from frozen golden_v5.  this does n",
       "id": "scripts_build_golden_v6_rationale_1"
+    },
+    {
+      "label": "build_index.py",
+      "file_type": "code",
+      "source_file": "scripts/build_index.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 54,
+      "norm_label": "build_index.py",
+      "id": "scripts_build_index"
+    },
+    {
+      "label": "Build the dense+sparse index once and persist it (run after corpus changes).",
+      "file_type": "rationale",
+      "source_file": "scripts/build_index.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 54,
+      "norm_label": "build the dense+sparse index once and persist it (run after corpus changes).",
+      "id": "scripts_build_index_rationale_1"
     },
     {
       "label": "build_splade_index.py",
@@ -3301,7 +3301,7 @@
       "source_file": "src/sebi_rag/api_spaces.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 62,
+      "community": 0,
       "norm_label": "api_spaces.py",
       "id": "src_sebi_rag_api_spaces"
     },
@@ -3311,7 +3311,7 @@
       "source_file": "src/sebi_rag/api_spaces.py",
       "source_location": "L30",
       "_origin": "ast",
-      "community": 62,
+      "community": 0,
       "norm_label": "_cpu_env()",
       "id": "src_sebi_rag_api_spaces_cpu_env"
     },
@@ -3321,7 +3321,7 @@
       "source_file": "src/sebi_rag/api_spaces.py",
       "source_location": "L36",
       "_origin": "ast",
-      "community": 62,
+      "community": 0,
       "norm_label": "build_spaces_pipeline()",
       "id": "src_sebi_rag_api_spaces_build_spaces_pipeline"
     },
@@ -3331,7 +3331,7 @@
       "source_file": "src/sebi_rag/api_spaces.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 62,
+      "community": 0,
       "norm_label": "pipeline builder for the hugging face spaces demo (cpu-only, linux).  parallel t",
       "id": "src_sebi_rag_api_spaces_rationale_1"
     },
@@ -3761,7 +3761,7 @@
       "source_file": "src/sebi_rag/corpus.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 58,
+      "community": 26,
       "norm_label": "corpus.py",
       "id": "src_sebi_rag_corpus"
     },
@@ -3771,7 +3771,7 @@
       "source_file": "src/sebi_rag/corpus.py",
       "source_location": "L10",
       "_origin": "ast",
-      "community": 58,
+      "community": 26,
       "norm_label": "load_circulars()",
       "id": "src_sebi_rag_corpus_load_circulars"
     },
@@ -3781,7 +3781,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 58,
+      "community": 26,
       "norm_label": "path",
       "id": "src_sebi_rag_corpus_py_path"
     },
@@ -3791,7 +3791,7 @@
       "source_file": "src/sebi_rag/corpus.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 58,
+      "community": 26,
       "norm_label": "load the real sebi circular corpus (data/corpus/circulars.jsonl) into chunks.",
       "id": "src_sebi_rag_corpus_rationale_1"
     },
@@ -3801,7 +3801,7 @@
       "source_file": "src/sebi_rag/corpus_spaces.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 59,
+      "community": 21,
       "norm_label": "corpus_spaces.py",
       "id": "src_sebi_rag_corpus_spaces"
     },
@@ -3811,7 +3811,7 @@
       "source_file": "src/sebi_rag/corpus_spaces.py",
       "source_location": "L21",
       "_origin": "ast",
-      "community": 59,
+      "community": 21,
       "norm_label": "_year()",
       "id": "src_sebi_rag_corpus_spaces_year"
     },
@@ -3821,7 +3821,7 @@
       "source_file": "src/sebi_rag/corpus_spaces.py",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 59,
+      "community": 21,
       "norm_label": "_keep()",
       "id": "src_sebi_rag_corpus_spaces_keep"
     },
@@ -3831,7 +3831,7 @@
       "source_file": "src/sebi_rag/corpus_spaces.py",
       "source_location": "L32",
       "_origin": "ast",
-      "community": 59,
+      "community": 21,
       "norm_label": "_meta_from_row()",
       "id": "src_sebi_rag_corpus_spaces_meta_from_row"
     },
@@ -3841,7 +3841,7 @@
       "source_file": "src/sebi_rag/corpus_spaces.py",
       "source_location": "L44",
       "_origin": "ast",
-      "community": 59,
+      "community": 21,
       "norm_label": "load_hf_rows()",
       "id": "src_sebi_rag_corpus_spaces_load_hf_rows"
     },
@@ -3851,7 +3851,7 @@
       "source_file": "src/sebi_rag/corpus_spaces.py",
       "source_location": "L53",
       "_origin": "ast",
-      "community": 62,
+      "community": 21,
       "norm_label": "load_corpus_records_from_hf()",
       "id": "src_sebi_rag_corpus_spaces_load_corpus_records_from_hf"
     },
@@ -3861,7 +3861,7 @@
       "source_file": "src/sebi_rag/corpus_spaces.py",
       "source_location": "L63",
       "_origin": "ast",
-      "community": 59,
+      "community": 21,
       "norm_label": "load_circulars_from_hf()",
       "id": "src_sebi_rag_corpus_spaces_load_circulars_from_hf"
     },
@@ -3871,7 +3871,7 @@
       "source_file": "src/sebi_rag/corpus_spaces.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 59,
+      "community": 21,
       "norm_label": "hf-hub corpus loading for the hugging face spaces demo (cpu path).  loads the pu",
       "id": "src_sebi_rag_corpus_spaces_rationale_1"
     },
@@ -3881,7 +3881,7 @@
       "source_file": "src/sebi_rag/corpus_spaces.py",
       "source_location": "L45",
       "_origin": "ast",
-      "community": 59,
+      "community": 21,
       "norm_label": "one hf dataset config as plain dicts (network; cached by `datasets`).",
       "id": "src_sebi_rag_corpus_spaces_rationale_45"
     },
@@ -3891,7 +3891,7 @@
       "source_file": "src/sebi_rag/corpus_spaces.py",
       "source_location": "L56",
       "_origin": "ast",
-      "community": 62,
+      "community": 21,
       "norm_label": "full-circular records (dicts) for build_lineage() \u2014 always the     \"corpus\" conf",
       "id": "src_sebi_rag_corpus_spaces_rationale_56"
     },
@@ -3901,7 +3901,7 @@
       "source_file": "src/sebi_rag/corpus_spaces.py",
       "source_location": "L68",
       "_origin": "ast",
-      "community": 59,
+      "community": 21,
       "norm_label": "hf-dataset counterpart of corpus.load_circulars() \u2014 returns chunks     ready for",
       "id": "src_sebi_rag_corpus_spaces_rationale_68"
     },
@@ -3991,7 +3991,7 @@
       "source_file": "src/sebi_rag/eval.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 57,
+      "community": 26,
       "norm_label": "eval.py",
       "id": "src_sebi_rag_eval"
     },
@@ -4001,7 +4001,7 @@
       "source_file": "src/sebi_rag/eval.py",
       "source_location": "L11",
       "_origin": "ast",
-      "community": 57,
+      "community": 26,
       "norm_label": "recall_at_k()",
       "id": "src_sebi_rag_eval_recall_at_k"
     },
@@ -4011,7 +4011,7 @@
       "source_file": "src/sebi_rag/eval.py",
       "source_location": "L18",
       "_origin": "ast",
-      "community": 57,
+      "community": 26,
       "norm_label": "mrr()",
       "id": "src_sebi_rag_eval_mrr"
     },
@@ -4021,7 +4021,7 @@
       "source_file": "src/sebi_rag/eval.py",
       "source_location": "L25",
       "_origin": "ast",
-      "community": 57,
+      "community": 26,
       "norm_label": "ndcg_at_k()",
       "id": "src_sebi_rag_eval_ndcg_at_k"
     },
@@ -4031,7 +4031,7 @@
       "source_file": "src/sebi_rag/eval.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 57,
+      "community": 26,
       "norm_label": "minimal retrieval metrics (subset of docs/project_context.md section 7).  recall",
       "id": "src_sebi_rag_eval_rationale_1"
     },
@@ -4281,7 +4281,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 20,
+      "community": 29,
       "norm_label": "generate.py",
       "id": "src_sebi_rag_generate"
     },
@@ -4291,7 +4291,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L21",
       "_origin": "ast",
-      "community": 20,
+      "community": 29,
       "norm_label": "faithfulness()",
       "id": "src_sebi_rag_generate_faithfulness"
     },
@@ -4301,7 +4301,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L41",
       "_origin": "ast",
-      "community": 50,
+      "community": 29,
       "norm_label": "answer",
       "id": "src_sebi_rag_generate_answer"
     },
@@ -4311,7 +4311,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L55",
       "_origin": "ast",
-      "community": 50,
+      "community": 29,
       "norm_label": "generator",
       "id": "src_sebi_rag_generate_generator"
     },
@@ -4321,7 +4321,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L56",
       "_origin": "ast",
-      "community": 50,
+      "community": 20,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_generator_generate"
     },
@@ -4351,7 +4351,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L76",
       "_origin": "ast",
-      "community": 50,
+      "community": 29,
       "norm_label": "judge",
       "id": "src_sebi_rag_generate_judge"
     },
@@ -4361,7 +4361,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L77",
       "_origin": "ast",
-      "community": 50,
+      "community": 20,
       "norm_label": ".grounded()",
       "id": "src_sebi_rag_generate_judge_grounded"
     },
@@ -4521,7 +4521,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L247",
       "_origin": "ast",
-      "community": 50,
+      "community": 20,
       "norm_label": "_grounded_prompt()",
       "id": "src_sebi_rag_generate_grounded_prompt"
     },
@@ -4531,7 +4531,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L265",
       "_origin": "ast",
-      "community": 50,
+      "community": 20,
       "norm_label": "mlxgenerator",
       "id": "src_sebi_rag_generate_mlxgenerator"
     },
@@ -4541,7 +4541,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L273",
       "_origin": "ast",
-      "community": 50,
+      "community": 20,
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_generate_mlxgenerator_init"
     },
@@ -4551,7 +4551,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L283",
       "_origin": "ast",
-      "community": 50,
+      "community": 20,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_mlxgenerator_generate"
     },
@@ -4561,7 +4561,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L301",
       "_origin": "ast",
-      "community": 60,
+      "community": 20,
       "norm_label": "ollamagenerator",
       "id": "src_sebi_rag_generate_ollamagenerator"
     },
@@ -4571,7 +4571,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L308",
       "_origin": "ast",
-      "community": 60,
+      "community": 20,
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_generate_ollamagenerator_init"
     },
@@ -4581,7 +4581,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L320",
       "_origin": "ast",
-      "community": 50,
+      "community": 20,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_ollamagenerator_generate"
     },
@@ -4601,7 +4601,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 20,
+      "community": 29,
       "norm_label": "generation with a hard abstention gate (d5).  if the top reranked score is below",
       "id": "src_sebi_rag_generate_rationale_1"
     },
@@ -4611,7 +4611,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 20,
+      "community": 29,
       "norm_label": "check that every circular id the answer cites (in square brackets) was     actua",
       "id": "src_sebi_rag_generate_rationale_22"
     },
@@ -4701,7 +4701,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L248",
       "_origin": "ast",
-      "community": 50,
+      "community": 20,
       "norm_label": "f4 (adr-001): retrieved text is explicitly delimited as quoted data and     the",
       "id": "src_sebi_rag_generate_rationale_248"
     },
@@ -4711,7 +4711,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L266",
       "_origin": "ast",
-      "community": 50,
+      "community": 20,
       "norm_label": "apple-silicon-native generation via mlx-lm (d6 preferred runtime).      loads a",
       "id": "src_sebi_rag_generate_rationale_266"
     },
@@ -4721,7 +4721,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L302",
       "_origin": "ast",
-      "community": 60,
+      "community": 20,
       "norm_label": "grounded generation via local ollama (d6 canonical runtime option).      determi",
       "id": "src_sebi_rag_generate_rationale_302"
     },
@@ -5701,7 +5701,7 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 50,
+      "community": 29,
       "norm_label": "pipeline.py",
       "id": "src_sebi_rag_pipeline"
     },
@@ -5711,7 +5711,7 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L15",
       "_origin": "ast",
-      "community": 50,
+      "community": 29,
       "norm_label": "ragpipeline",
       "id": "src_sebi_rag_pipeline_ragpipeline"
     },
@@ -5731,7 +5731,7 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L42",
       "_origin": "ast",
-      "community": 50,
+      "community": 29,
       "norm_label": ".query()",
       "id": "src_sebi_rag_pipeline_ragpipeline_query"
     },
@@ -5741,7 +5741,7 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 50,
+      "community": 29,
       "norm_label": "end-to-end wiring: segment -> hybrid retrieve -> rerank -> generate/abstain.",
       "id": "src_sebi_rag_pipeline_rationale_1"
     },
@@ -6021,7 +6021,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 61,
+      "community": 26,
       "norm_label": "segment.py",
       "id": "src_sebi_rag_segment"
     },
@@ -6041,7 +6041,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L33",
       "_origin": "ast",
-      "community": 50,
+      "community": 20,
       "norm_label": "chunk",
       "id": "src_sebi_rag_segment_chunk"
     },
@@ -6051,7 +6051,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L41",
       "_origin": "ast",
-      "community": 61,
+      "community": 26,
       "norm_label": "_paragraphs()",
       "id": "src_sebi_rag_segment_paragraphs"
     },
@@ -6061,7 +6061,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L78",
       "_origin": "ast",
-      "community": 54,
+      "community": 26,
       "norm_label": "hierarchical_chunk()",
       "id": "src_sebi_rag_segment_hierarchical_chunk"
     },
@@ -6071,7 +6071,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 61,
+      "community": 26,
       "norm_label": "segmentation: hierarchical chunking + metadata + stable citation ids.  minimal,",
       "id": "src_sebi_rag_segment_rationale_1"
     },
@@ -6081,7 +6081,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L42",
       "_origin": "ast",
-      "community": 61,
+      "community": 26,
       "norm_label": "split into units each <= max_chars.      pdf-extracted text often lacks blank-li",
       "id": "src_sebi_rag_segment_rationale_42"
     },
@@ -6091,7 +6091,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L84",
       "_origin": "ast",
-      "community": 54,
+      "community": 26,
       "norm_label": "document -> section -> paragraph chunks with stable ids.      a \"section\" is det",
       "id": "src_sebi_rag_segment_rationale_84"
     },
@@ -7921,7 +7921,7 @@
       "source_file": "tests/test_eval_harness.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 58,
+      "community": 26,
       "norm_label": "test_eval_harness.py",
       "id": "tests_test_eval_harness"
     },
@@ -7931,7 +7931,7 @@
       "source_file": "tests/test_eval_harness.py",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 58,
+      "community": 26,
       "norm_label": "_pipeline()",
       "id": "tests_test_eval_harness_pipeline"
     },
@@ -7941,7 +7941,7 @@
       "source_file": "tests/test_eval_harness.py",
       "source_location": "L41",
       "_origin": "ast",
-      "community": 58,
+      "community": 26,
       "norm_label": "test_real_corpus_loads_with_provenance_fields()",
       "id": "tests_test_eval_harness_test_real_corpus_loads_with_provenance_fields"
     },
@@ -7951,7 +7951,7 @@
       "source_file": "tests/test_eval_harness.py",
       "source_location": "L49",
       "_origin": "ast",
-      "community": 58,
+      "community": 26,
       "norm_label": "test_eval_harness_metric_suite()",
       "id": "tests_test_eval_harness_test_eval_harness_metric_suite"
     },
@@ -7961,7 +7961,7 @@
       "source_file": "tests/test_eval_harness.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 58,
+      "community": 26,
       "norm_label": "p1 evaluation-harness test (offline).  loads the real seed corpus (data/corpus/c",
       "id": "tests_test_eval_harness_rationale_1"
     },
@@ -8681,7 +8681,7 @@
       "source_file": "tests/test_faithfulness.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 20,
+      "community": 29,
       "norm_label": "test_faithfulness.py",
       "id": "tests_test_faithfulness"
     },
@@ -8691,7 +8691,7 @@
       "source_file": "tests/test_faithfulness.py",
       "source_location": "L14",
       "_origin": "ast",
-      "community": 20,
+      "community": 29,
       "norm_label": "test_faithfulness_scoring()",
       "id": "tests_test_faithfulness_test_faithfulness_scoring"
     },
@@ -8731,7 +8731,7 @@
       "source_file": "tests/test_faithfulness.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 20,
+      "community": 29,
       "norm_label": "faithfulness: catch answers that cite circulars not in the retrieved context.",
       "id": "tests_test_faithfulness_rationale_1"
     },
@@ -9351,7 +9351,7 @@
       "source_file": "tests/test_integration_e2e.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 60,
+      "community": 26,
       "norm_label": "test_integration_e2e.py",
       "id": "tests_test_integration_e2e"
     },
@@ -9361,7 +9361,7 @@
       "source_file": "tests/test_integration_e2e.py",
       "source_location": "L26",
       "_origin": "ast",
-      "community": 60,
+      "community": 26,
       "norm_label": "_ollama_up()",
       "id": "tests_test_integration_e2e_ollama_up"
     },
@@ -9371,7 +9371,7 @@
       "source_file": "tests/test_integration_e2e.py",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 60,
+      "community": 26,
       "norm_label": "pipeline()",
       "id": "tests_test_integration_e2e_pipeline"
     },
@@ -9381,7 +9381,7 @@
       "source_file": "tests/test_integration_e2e.py",
       "source_location": "L50",
       "_origin": "ast",
-      "community": 60,
+      "community": 26,
       "norm_label": "test_e2e_grounded_answer_with_citation()",
       "id": "tests_test_integration_e2e_test_e2e_grounded_answer_with_citation"
     },
@@ -9391,7 +9391,7 @@
       "source_file": "tests/test_integration_e2e.py",
       "source_location": "L61",
       "_origin": "ast",
-      "community": 60,
+      "community": 26,
       "norm_label": "test_e2e_abstains_out_of_domain()",
       "id": "tests_test_integration_e2e_test_e2e_abstains_out_of_domain"
     },
@@ -9401,7 +9401,7 @@
       "source_file": "tests/test_integration_e2e.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 60,
+      "community": 26,
       "norm_label": "step 12 \u2014 end-to-end rag integration test with the real stack.  bge-m3 (mps) + b",
       "id": "tests_test_integration_e2e_rationale_1"
     },
@@ -10041,7 +10041,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 61,
+      "community": 15,
       "norm_label": "test_persistence.py",
       "id": "tests_test_persistence"
     },
@@ -10051,7 +10051,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L9",
       "_origin": "ast",
-      "community": 61,
+      "community": 26,
       "norm_label": "_chunks()",
       "id": "tests_test_persistence_chunks"
     },
@@ -10061,7 +10061,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 61,
+      "community": 15,
       "norm_label": "test_index_save_load_roundtrip()",
       "id": "tests_test_persistence_test_index_save_load_roundtrip"
     },
@@ -10071,7 +10071,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 61,
+      "community": 15,
       "norm_label": "index persistence round-trip (offline).",
       "id": "tests_test_persistence_rationale_1"
     },
@@ -10081,7 +10081,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 57,
+      "community": 26,
       "norm_label": "test_pipeline.py",
       "id": "tests_test_pipeline"
     },
@@ -10091,7 +10091,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L64",
       "_origin": "ast",
-      "community": 57,
+      "community": 26,
       "norm_label": "_build_chunks()",
       "id": "tests_test_pipeline_build_chunks"
     },
@@ -10101,7 +10101,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L71",
       "_origin": "ast",
-      "community": 57,
+      "community": 26,
       "norm_label": "_build_pipeline()",
       "id": "tests_test_pipeline_build_pipeline"
     },
@@ -10111,7 +10111,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L81",
       "_origin": "ast",
-      "community": 57,
+      "community": 26,
       "norm_label": "test_segmentation_has_stable_ids_and_metadata()",
       "id": "tests_test_pipeline_test_segmentation_has_stable_ids_and_metadata"
     },
@@ -10131,7 +10131,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L100",
       "_origin": "ast",
-      "community": 57,
+      "community": 26,
       "norm_label": "test_hybrid_retrieval_finds_relevant_circular()",
       "id": "tests_test_pipeline_test_hybrid_retrieval_finds_relevant_circular"
     },
@@ -10141,7 +10141,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L111",
       "_origin": "ast",
-      "community": 57,
+      "community": 26,
       "norm_label": "test_abstention_on_out_of_domain_query()",
       "id": "tests_test_pipeline_test_abstention_on_out_of_domain_query"
     },
@@ -10171,7 +10171,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L169",
       "_origin": "ast",
-      "community": 57,
+      "community": 26,
       "norm_label": "test_retrieval_metrics()",
       "id": "tests_test_pipeline_test_retrieval_metrics"
     },
@@ -10251,7 +10251,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 57,
+      "community": 26,
       "norm_label": "minimal end-to-end test of the sebi rag pipeline.  runs fully offline (hashembed",
       "id": "tests_test_pipeline_rationale_1"
     },
@@ -10461,7 +10461,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L19",
       "_origin": "ast",
-      "community": 26,
+      "community": 1,
       "norm_label": "testreadtrecrun",
       "id": "tests_test_rescore_testreadtrecrun"
     },
@@ -10511,7 +10511,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L50",
       "_origin": "ast",
-      "community": 63,
+      "community": 26,
       "norm_label": "testperqueryrecall",
       "id": "tests_test_rescore_testperqueryrecall"
     },
@@ -10521,7 +10521,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L51",
       "_origin": "ast",
-      "community": 63,
+      "community": 26,
       "norm_label": "._golden()",
       "id": "tests_test_rescore_testperqueryrecall_golden"
     },
@@ -10531,7 +10531,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L58",
       "_origin": "ast",
-      "community": 63,
+      "community": 26,
       "norm_label": ".test_scores_each_query_and_skips_abstain_items()",
       "id": "tests_test_rescore_testperqueryrecall_test_scores_each_query_and_skips_abstain_items"
     },
@@ -10541,7 +10541,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L67",
       "_origin": "ast",
-      "community": 63,
+      "community": 26,
       "norm_label": ".test_deduplicates_chunks_to_circulars_before_cutoff()",
       "id": "tests_test_rescore_testperqueryrecall_test_deduplicates_chunks_to_circulars_before_cutoff"
     },
@@ -10581,7 +10581,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L68",
       "_origin": "ast",
-      "community": 63,
+      "community": 26,
       "norm_label": "ten chunks of one circular must not crowd the cutoff: the k applies         to u",
       "id": "tests_test_rescore_rationale_68"
     },
@@ -10781,7 +10781,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 54,
+      "community": 26,
       "norm_label": "test_segment.py",
       "id": "tests_test_segment"
     },
@@ -10791,7 +10791,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 54,
+      "community": 26,
       "norm_label": "_body()",
       "id": "tests_test_segment_body"
     },
@@ -10801,7 +10801,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L33",
       "_origin": "ast",
-      "community": 54,
+      "community": 26,
       "norm_label": "test_bare_parent_heading_not_emitted_as_standalone_chunk()",
       "id": "tests_test_segment_test_bare_parent_heading_not_emitted_as_standalone_chunk"
     },
@@ -10811,7 +10811,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L41",
       "_origin": "ast",
-      "community": 54,
+      "community": 26,
       "norm_label": "test_bare_parent_heading_folds_into_first_subsection()",
       "id": "tests_test_segment_test_bare_parent_heading_folds_into_first_subsection"
     },
@@ -10821,7 +10821,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L49",
       "_origin": "ast",
-      "community": 54,
+      "community": 26,
       "norm_label": "test_leaf_single_line_provision_is_preserved_not_overmerged()",
       "id": "tests_test_segment_test_leaf_single_line_provision_is_preserved_not_overmerged"
     },
@@ -10831,7 +10831,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L76",
       "_origin": "ast",
-      "community": 54,
+      "community": 26,
       "norm_label": "test_sibling_list_item_carries_governing_clause()",
       "id": "tests_test_segment_test_sibling_list_item_carries_governing_clause"
     },
@@ -10841,7 +10841,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L90",
       "_origin": "ast",
-      "community": 54,
+      "community": 26,
       "norm_label": "test_governing_clause_not_duplicated()",
       "id": "tests_test_segment_test_governing_clause_not_duplicated"
     },
@@ -10851,7 +10851,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L98",
       "_origin": "ast",
-      "community": 54,
+      "community": 26,
       "norm_label": "test_nominee_regression_corpus_unchanged_behaviour()",
       "id": "tests_test_segment_test_nominee_regression_corpus_unchanged_behaviour"
     },
@@ -10861,7 +10861,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L125",
       "_origin": "ast",
-      "community": 54,
+      "community": 26,
       "norm_label": "test_wrapped_governing_clause_folds_full_text_into_sibling()",
       "id": "tests_test_segment_test_wrapped_governing_clause_folds_full_text_into_sibling"
     },
@@ -10871,7 +10871,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L140",
       "_origin": "ast",
-      "community": 54,
+      "community": 26,
       "norm_label": "test_terminator_head_absorbs_nothing()",
       "id": "tests_test_segment_test_terminator_head_absorbs_nothing"
     },
@@ -10881,7 +10881,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L161",
       "_origin": "ast",
-      "community": 54,
+      "community": 26,
       "norm_label": "test_absorption_respects_300_char_cap()",
       "id": "tests_test_segment_test_absorption_respects_300_char_cap"
     },
@@ -10891,7 +10891,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 54,
+      "community": 26,
       "norm_label": "chunker (segment.hierarchical_chunk) behaviour.  regression guard for the \"5. nu",
       "id": "tests_test_segment_rationale_1"
     },
@@ -10901,7 +10901,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L29",
       "_origin": "ast",
-      "community": 54,
+      "community": 26,
       "norm_label": "chunk text is 'breadcrumb-header\\\\nbody'; return the body.",
       "id": "tests_test_segment_rationale_29"
     },
@@ -12128,101 +12128,14 @@
   ],
   "links": [
     {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/build_index.py",
-      "source_location": "L25",
-      "weight": 1.0,
-      "source": "scripts_build_index",
-      "target": "src_sebi_rag_api",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/build_index.py",
-      "source_location": "L26",
-      "weight": 1.0,
-      "source": "scripts_build_index",
-      "target": "src_sebi_rag_context_headers",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/build_index.py",
-      "source_location": "L27",
-      "weight": 1.0,
-      "source": "scripts_build_index",
-      "target": "src_sebi_rag_corpus",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/build_index.py",
-      "source_location": "L28",
-      "weight": 1.0,
-      "source": "scripts_build_index",
-      "target": "src_sebi_rag_embeddings",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/build_index.py",
-      "source_location": "L29",
-      "weight": 1.0,
-      "source": "scripts_build_index",
-      "target": "src_sebi_rag_lineage",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/build_index.py",
-      "source_location": "L30",
-      "weight": 1.0,
-      "source": "scripts_build_index",
-      "target": "src_sebi_rag_retrieve",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/build_index.py",
-      "source_location": "L31",
-      "weight": 1.0,
-      "source": "scripts_build_index",
-      "target": "src_sebi_rag_settings",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/build_index.py",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "scripts_build_index_rationale_1",
-      "target": "scripts_build_index",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L60",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_bench_retrieval",
-      "target": "scripts_bench_retrieval_main"
+      "target": "scripts_bench_retrieval_main",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -12230,9 +12143,9 @@
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L41",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_bench_retrieval",
-      "target": "scripts_bench_retrieval_smoke_pipeline"
+      "target": "scripts_bench_retrieval_smoke_pipeline",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -12241,9 +12154,9 @@
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L25",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_bench_retrieval",
-      "target": "src_sebi_rag_benchmark"
+      "target": "src_sebi_rag_benchmark",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -12252,9 +12165,9 @@
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L31",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_bench_retrieval",
-      "target": "src_sebi_rag_embeddings"
+      "target": "src_sebi_rag_embeddings",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -12263,9 +12176,9 @@
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L32",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_bench_retrieval",
-      "target": "src_sebi_rag_eval_harness"
+      "target": "src_sebi_rag_eval_harness",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -12274,9 +12187,9 @@
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L33",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_bench_retrieval",
-      "target": "src_sebi_rag_generate"
+      "target": "src_sebi_rag_generate",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -12285,9 +12198,9 @@
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L34",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_bench_retrieval",
-      "target": "src_sebi_rag_lineage"
+      "target": "src_sebi_rag_lineage",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -12296,9 +12209,9 @@
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L35",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_bench_retrieval",
-      "target": "src_sebi_rag_pipeline"
+      "target": "src_sebi_rag_pipeline",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -12307,9 +12220,9 @@
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L36",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_bench_retrieval",
-      "target": "src_sebi_rag_rerank"
+      "target": "src_sebi_rag_rerank",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -12318,9 +12231,9 @@
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L37",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_bench_retrieval",
-      "target": "src_sebi_rag_retrieve"
+      "target": "src_sebi_rag_retrieve",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -12329,9 +12242,9 @@
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L38",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_bench_retrieval",
-      "target": "src_sebi_rag_segment"
+      "target": "src_sebi_rag_segment",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -12339,9 +12252,9 @@
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_bench_retrieval_rationale_1",
-      "target": "scripts_bench_retrieval"
+      "target": "scripts_bench_retrieval",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -12350,9 +12263,9 @@
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L89",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_bench_retrieval_main",
-      "target": "scripts_bench_retrieval_smoke_pipeline"
+      "target": "scripts_bench_retrieval_smoke_pipeline",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -12361,9 +12274,9 @@
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L41",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_bench_retrieval_smoke_pipeline",
-      "target": "ragpipeline"
+      "target": "ragpipeline",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -12372,9 +12285,9 @@
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L107",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_bench_retrieval_main",
-      "target": "ragpipeline"
+      "target": "ragpipeline",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -12383,9 +12296,9 @@
       "source_file": "scripts/eval_asof.py",
       "source_location": "L29",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_asof",
-      "target": "src_sebi_rag_api"
+      "target": "src_sebi_rag_api",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -12394,9 +12307,9 @@
       "source_file": "scripts/eval_asof.py",
       "source_location": "L30",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_asof",
-      "target": "src_sebi_rag_benchmark"
+      "target": "src_sebi_rag_benchmark",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -12405,9 +12318,9 @@
       "source_file": "scripts/eval_asof.py",
       "source_location": "L31",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_asof",
-      "target": "src_sebi_rag_embeddings"
+      "target": "src_sebi_rag_embeddings",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -12416,9 +12329,9 @@
       "source_file": "scripts/eval_asof.py",
       "source_location": "L32",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_asof",
-      "target": "src_sebi_rag_eval_asof"
+      "target": "src_sebi_rag_eval_asof",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -12427,9 +12340,9 @@
       "source_file": "scripts/eval_asof.py",
       "source_location": "L35",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_asof",
-      "target": "src_sebi_rag_generate"
+      "target": "src_sebi_rag_generate",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -12438,9 +12351,9 @@
       "source_file": "scripts/eval_asof.py",
       "source_location": "L36",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_asof",
-      "target": "src_sebi_rag_lineage"
+      "target": "src_sebi_rag_lineage",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -12449,9 +12362,9 @@
       "source_file": "scripts/eval_asof.py",
       "source_location": "L37",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_asof",
-      "target": "src_sebi_rag_pipeline"
+      "target": "src_sebi_rag_pipeline",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -12460,9 +12373,9 @@
       "source_file": "scripts/eval_asof.py",
       "source_location": "L38",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_asof",
-      "target": "src_sebi_rag_rerank"
+      "target": "src_sebi_rag_rerank",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -12471,9 +12384,9 @@
       "source_file": "scripts/eval_asof.py",
       "source_location": "L39",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_asof",
-      "target": "src_sebi_rag_retrieve"
+      "target": "src_sebi_rag_retrieve",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -12482,9 +12395,9 @@
       "source_file": "scripts/eval_asof.py",
       "source_location": "L40",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_asof",
-      "target": "src_sebi_rag_settings"
+      "target": "src_sebi_rag_settings",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -12492,9 +12405,9 @@
       "source_file": "scripts/eval_asof.py",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_asof_rationale_1",
-      "target": "scripts_eval_asof"
+      "target": "scripts_eval_asof",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -12993,6 +12906,17 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "scripts_bench_rerankers",
+      "target": "src_sebi_rag_embeddings"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build_index.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_build_index",
       "target": "src_sebi_rag_embeddings"
     },
     {
@@ -16582,6 +16506,60 @@
       "weight": 1.0,
       "source": "scripts_build_golden_v6_main",
       "target": "src_sebi_rag_benchmark_validate_golden"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build_index.py",
+      "source_location": "L25",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_build_index",
+      "target": "src_sebi_rag_context_headers"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build_index.py",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_build_index",
+      "target": "src_sebi_rag_corpus"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build_index.py",
+      "source_location": "L28",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_build_index",
+      "target": "src_sebi_rag_lineage"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build_index.py",
+      "source_location": "L29",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_build_index",
+      "target": "src_sebi_rag_retrieve"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/build_index.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_build_index_rationale_1",
+      "target": "scripts_build_index"
     },
     {
       "relation": "contains",
@@ -37992,5 +37970,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "83d71f7b1450d49b2517b1f549211047a0efa300"
+  "built_at_commit": "7525099801203274c8899860c9f51b28752f40d8"
 }
