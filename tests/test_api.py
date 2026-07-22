@@ -140,3 +140,50 @@ def test_ready_triggers_pipeline() -> None:
     resp = c.get("/ready")
     assert resp.status_code == 200
     assert resp.json() == {"ready": True}
+
+
+class _CannedGenerator:
+    def generate(self, query, contexts):
+        return "CANNED-LLM-ANSWER"
+
+
+def _distinct_pipeline() -> RAGPipeline:
+    chunks = hierarchical_chunk("Nomination norms for demat accounts.",
+                                CircularMeta(circular_number="SEBI/HO/Z/P/CIR/2024/7"))
+    return RAGPipeline.build(
+        chunks=chunks, embedder=HashEmbedder(128), reranker=LexicalReranker(),
+        generator=_CannedGenerator(), abstain_threshold=0.05,
+        lineage=build_lineage([{"circular_number": "SEBI/HO/Z/P/CIR/2024/7",
+                                "text": "nomination norms"}]))
+
+
+_distinct_client = TestClient(create_app(_distinct_pipeline))
+
+
+def test_mode_defaults_to_rag():
+    r = _distinct_client.post("/query", json={"question": "nomination norms"})
+    assert r.status_code == 200
+    assert r.json()["answer"] == "CANNED-LLM-ANSWER"
+
+
+def test_mode_retrieval_only_swaps_generator():
+    r = _distinct_client.post(
+        "/query", json={"question": "nomination norms", "mode": "retrieval_only"})
+    assert r.status_code == 200
+    body = r.json()
+    # ExtractiveStubGenerator returns the top context text, never the canned LLM string
+    assert body["answer"] != "CANNED-LLM-ANSWER"
+    assert "nomination" in body["answer"].lower()
+
+
+def test_mode_invalid_rejected_422():
+    r = _distinct_client.post(
+        "/query", json={"question": "nomination norms", "mode": "bogus"})
+    assert r.status_code == 422
+
+
+def test_mode_retrieval_only_shares_retrieval():
+    q = {"question": "nomination norms"}
+    rag = _distinct_client.post("/query", json={**q, "mode": "rag"}).json()
+    ret = _distinct_client.post("/query", json={**q, "mode": "retrieval_only"}).json()
+    assert rag["citations"] == ret["citations"]  # same retriever/reranker/lineage

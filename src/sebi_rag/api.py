@@ -21,7 +21,7 @@ from collections import defaultdict, deque
 from concurrent.futures import ThreadPoolExecutor
 from concurrent.futures import TimeoutError as FutureTimeout
 from pathlib import Path
-from typing import Callable
+from typing import Callable, Literal
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request
 from pydantic import BaseModel, Field
@@ -41,6 +41,7 @@ class QueryRequest(BaseModel):
     top_k: int | None = Field(default=None, ge=1, le=10)
     advisory: bool = False  # opt-in low-confidence draft on gate failure
     as_of: str | None = None  # date-scoped query: score against law as of date
+    mode: Literal["rag", "retrieval_only"] = "rag"  # retrieval_only swaps in the stub generator
 
 
 class CitationMeta(BaseModel):
@@ -150,10 +151,16 @@ def create_app(
     def _shutdown() -> None:
         _executor.shutdown(wait=True)
 
-    def pipe() -> RAGPipeline:
-        if "p" not in state:
-            state["p"] = pipeline_factory()
-        return state["p"]
+    def pipe(mode: str = "rag") -> RAGPipeline:
+        if "rag" not in state:
+            state["rag"] = pipeline_factory()
+        if mode == "retrieval_only" and "retrieval_only" not in state:
+            import dataclasses
+
+            from .generate import ExtractiveStubGenerator
+            state["retrieval_only"] = dataclasses.replace(
+                state["rag"], generator=ExtractiveStubGenerator())
+        return state[mode if mode == "retrieval_only" else "rag"]
 
     def guard(request: Request, x_api_key: str | None = Header(default=None)) -> None:
         nonlocal _request_count
@@ -179,7 +186,7 @@ def create_app(
     @app.get("/ready")
     def ready() -> dict:
         pipe()  # trigger eager pipeline build so readiness probe works immediately
-        return {"ready": "p" in state}
+        return {"ready": "rag" in state}
 
     @app.get("/health")
     def health() -> dict:
@@ -193,7 +200,7 @@ def create_app(
 
     @app.post("/query", response_model=QueryResponse)
     def query(req: QueryRequest, _: None = Depends(guard)) -> QueryResponse:
-        p = pipe()  # build (model load) outside the per-query time budget
+        p = pipe(req.mode)  # build (model load) outside the per-query time budget
         t0 = time.perf_counter()
         top_k = req.top_k if req.top_k is not None else cfg.top_k
         budget = cfg.timeout_s
