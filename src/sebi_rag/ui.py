@@ -1,66 +1,94 @@
 import json
+from datetime import date
+
 import gradio as gr
 import httpx
 import pandas as pd
 
-def submit_query(question: str, api_url: str, api_key: str, top_k: float):
+_EMPTY_DF_COLS = ["Circular", "Status", "Superseded By"]
+_RETRIEVAL_ONLY_BANNER = (
+    "**Retrieval-only mode** — no LLM generation; the text below is the "
+    "top retrieved excerpt. Evaluate the citations and metadata.\n\n"
+)
+
+
+def _empty_outputs(message: str) -> tuple:
+    """Ten-slot output tuple for early returns (matches build_ui outputs order)."""
+    return (message, pd.DataFrame(columns=_EMPTY_DF_COLS),
+            "", "", "", "", "", "", "", "")
+
+
+def _parse_as_of(raw: str) -> str | None:
+    """Normalise the optional as-of field: empty -> None, else strict ISO
+    YYYY-MM-DD. Raises ValueError for anything else (caller shows a message)."""
+    raw = (raw or "").strip()
+    if not raw:
+        return None
+    return date.fromisoformat(raw).isoformat()
+
+
+def submit_query(question: str, api_url: str, api_key: str, top_k: float,
+                 mode: str, as_of_raw: str, advisory: bool) -> tuple:
     if not question.strip():
-        return "Please enter a question.", pd.DataFrame(), "", "", "", "", ""
-        
+        return _empty_outputs("Please enter a question.")
+
+    try:
+        as_of = _parse_as_of(as_of_raw)
+    except ValueError:
+        return _empty_outputs(
+            "**Error:** 'As of date' must be YYYY-MM-DD (e.g. 2025-01-10).")
+
     headers = {}
     if api_key:
         headers["X-API-Key"] = api_key
-        
-    payload = {"question": question, "top_k": int(top_k)}
-    
+
+    payload = {"question": question, "top_k": int(top_k),
+               "mode": mode, "advisory": bool(advisory), "as_of": as_of}
+
     try:
         resp = httpx.post(api_url, json=payload, headers=headers, timeout=120.0)
         if resp.status_code != 200:
-            return (
-                f"**Error:** API returned status code {resp.status_code}\n\n{resp.text}",
-                pd.DataFrame(),
-                "", "", "", "", ""
-            )
-        
+            return _empty_outputs(
+                f"**Error:** API returned status code {resp.status_code}\n\n{resp.text}")
         data = resp.json()
-        
-        # Format dataframe
-        meta = data.get("citations_meta", [])
-        df_rows = []
-        for item in meta:
-            superseded_by = ", ".join(item.get("superseded_by", []))
-            df_rows.append({
-                "Circular": item.get("circular"),
-                "Status": item.get("status"),
-                "Superseded By": superseded_by if superseded_by else "-"
-            })
-        df = pd.DataFrame(df_rows) if df_rows else pd.DataFrame(columns=["Circular", "Status", "Superseded By"])
-        
-        # Format metadata
-        latency = f"{data.get('latency_ms', 0)} ms"
-        faithfulness = f"{data.get('faithfulness', 0.0):.2f}"
-        
-        certainty_str = data.get('certainty', 'unknown')
-        if data.get('abstained'):
-            certainty_str += f" (Abstained: {data.get('abstention_reason', '')})"
-            
-        superseded = json.dumps(data.get('superseded', {}), indent=2)
-        unsupported = ", ".join(data.get('unsupported_citations', [])) or "None"
-        
-        return (
-            data.get("answer", ""),
-            df,
-            latency,
-            faithfulness,
-            certainty_str,
-            superseded,
-            unsupported
-        )
-        
     except httpx.TimeoutException:
-        return "**Request Failed:** API timed out.", pd.DataFrame(), "", "", "", "", ""
-    except Exception as e:
-        return f"**Request Failed:** {str(e)}", pd.DataFrame(), "", "", "", "", ""
+        return _empty_outputs("**Request Failed:** API timed out.")
+    except Exception as e:  # noqa: BLE001 - surface, don't crash the UI
+        return _empty_outputs(f"**Request Failed:** {str(e)}")
+
+    df_rows = []
+    for item in data.get("citations_meta", []):
+        superseded_by = ", ".join(item.get("superseded_by", []))
+        df_rows.append({
+            "Circular": item.get("circular"),
+            "Status": item.get("status"),
+            "Superseded By": superseded_by if superseded_by else "-",
+        })
+    df = pd.DataFrame(df_rows) if df_rows else pd.DataFrame(columns=_EMPTY_DF_COLS)
+
+    latency = f"{data.get('latency_ms', 0)} ms"
+    faithfulness = f"{data.get('faithfulness', 0.0):.2f}"
+
+    certainty_str = data.get("certainty", "unknown")
+    abstained = data.get("abstained", False)
+    if abstained:
+        certainty_str += f" (Abstained: {data.get('abstention_reason', '')})"
+
+    superseded = json.dumps(data.get("superseded", {}), indent=2)
+    unsupported = ", ".join(data.get("unsupported_citations", [])) or "None"
+
+    answer_text = data.get("answer", "")
+    if mode == "retrieval_only" and not abstained:
+        answer_text = _RETRIEVAL_ONLY_BANNER + answer_text
+
+    confidence_json = json.dumps(data.get("confidence", {}), indent=2)
+    draft = data.get("draft_answer", "") or ""
+    draft_md = (f"**Advisory draft — not authoritative**\n\n{draft}" if draft else "")
+    retrieved_json = json.dumps(data.get("retrieved", []), indent=2)
+
+    return (answer_text, df, latency, faithfulness, certainty_str, superseded,
+            unsupported, confidence_json, draft_md, retrieved_json)
+
 
 def build_ui():
     with gr.Blocks(title="SEBI Circular RAG", theme=gr.themes.Soft()) as demo:
