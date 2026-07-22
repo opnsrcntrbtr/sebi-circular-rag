@@ -97,12 +97,16 @@ def main() -> None:
             for issue in issues:
                 print(f"{issue.item_id}: {issue.message}", file=sys.stderr)
             raise SystemExit(1)
-        emb = BGEM3Embedder(device="mps")
+        from sebi_rag.api import _compute_kwargs
+        from sebi_rag.settings import Settings
+
+        ck = _compute_kwargs(Settings.load())
+        emb = BGEM3Embedder(**ck)
         retr = HybridRetriever.load(ROOT / "data" / "index", emb)
         lin = build_lineage(load_records(ROOT / "data" / "corpus" / "circulars.jsonl"))
         pipeline = RAGPipeline(
             retriever=retr,
-            reranker=CrossEncoderReranker(device="mps"),
+            reranker=CrossEncoderReranker(**ck),
             generator=ExtractiveStubGenerator(),
             lineage=lin,
         )
