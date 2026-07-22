@@ -93,54 +93,77 @@ def submit_query(question: str, api_url: str, api_key: str, top_k: float,
 def build_ui():
     with gr.Blocks(title="SEBI Circular RAG", theme=gr.themes.Soft()) as demo:
         gr.Markdown("# SEBI Circular RAG")
-        gr.Markdown("Local-first, Apple-Silicon Retrieval-Augmented Generation over Indian SEBI circulars.")
-        
+        gr.Markdown("Local-first, Apple-Silicon Retrieval-Augmented Generation "
+                    "over Indian SEBI circulars.")
+
         with gr.Row():
             with gr.Column(scale=3):
                 question_input = gr.Textbox(
-                    label="Question", 
-                    placeholder="Ask a question about SEBI circulars (e.g. 'What are the modified norms for nomination in demat accounts?')...", 
-                    lines=3
+                    label="Question",
+                    placeholder="Ask a question about SEBI circulars (e.g. 'What are "
+                                "the modified norms for nomination in demat accounts?')...",
+                    lines=3,
                 )
                 submit_btn = gr.Button("Submit Query", variant="primary")
-                
                 answer_output = gr.Markdown(label="Answer")
-                
                 gr.Markdown("### Citations")
                 citations_df = gr.Dataframe(
-                    headers=["Circular", "Status", "Superseded By"], 
-                    interactive=False,
-                    wrap=True
+                    headers=["Circular", "Status", "Superseded By"],
+                    interactive=False, wrap=True,
                 )
-                
+
             with gr.Column(scale=1):
-                with gr.Accordion("Settings", open=True):
-                    api_url = gr.Textbox(label="API Endpoint URL", value="http://127.0.0.1:8000/query")
-                    api_key = gr.Textbox(label="API Key", type="password", placeholder="Required if server uses auth")
-                    top_k = gr.Slider(minimum=1, maximum=10, value=3, step=1, label="Top K Citations")
-                    
+                with gr.Accordion("Connection", open=True):
+                    api_url = gr.Textbox(label="API Endpoint URL",
+                                         value="http://127.0.0.1:8000/query")
+                    api_key = gr.Textbox(label="API Key", type="password",
+                                         placeholder="Required if server uses auth")
+
+                with gr.Accordion("Query controls", open=True):
+                    top_k = gr.Slider(minimum=1, maximum=10, value=3, step=1,
+                                      label="Top K Citations")
+                    mode = gr.Radio(
+                        choices=["rag", "retrieval_only"], value="rag", label="Mode",
+                        info="Full RAG answer, or retrieval-only academic benchmark "
+                             "(citations + metadata, no LLM).",
+                    )
+                    as_of_input = gr.Textbox(
+                        label="As of date (optional)",
+                        placeholder="YYYY-MM-DD — answer per the law in force on this date",
+                        max_lines=1,
+                    )
+                    advisory = gr.Checkbox(
+                        label="Advisory draft on gate failure", value=False,
+                        info="Opt-in low-confidence draft when the abstention gate trips.",
+                    )
+
                 with gr.Accordion("Metadata", open=True):
                     latency_out = gr.Textbox(label="Latency", interactive=False)
                     faithfulness_out = gr.Textbox(label="Faithfulness", interactive=False)
-                    certainty_out = gr.Textbox(label="Certainty & Abstention", interactive=False)
-                    superseded_out = gr.Code(label="Superseded Warnings", language="json", interactive=False)
-                    unsupported_out = gr.Textbox(label="Unsupported Citations", interactive=False)
-                    
+                    certainty_out = gr.Textbox(label="Certainty & Abstention",
+                                               interactive=False)
+                    superseded_out = gr.Code(label="Superseded Warnings",
+                                             language="json", interactive=False)
+                    unsupported_out = gr.Textbox(label="Unsupported Citations",
+                                                 interactive=False)
+
+                with gr.Accordion("Advanced outputs", open=False):
+                    confidence_out = gr.Code(label="Confidence", language="json",
+                                             interactive=False)
+                    draft_out = gr.Markdown(label="Advisory Draft")
+                    retrieved_out = gr.Code(label="Retrieved (doc ids)",
+                                            language="json", interactive=False)
+
         submit_btn.click(
             fn=submit_query,
-            inputs=[question_input, api_url, api_key, top_k],
-            outputs=[
-                answer_output,
-                citations_df,
-                latency_out,
-                faithfulness_out,
-                certainty_out,
-                superseded_out,
-                unsupported_out
-            ]
+            inputs=[question_input, api_url, api_key, top_k, mode, as_of_input, advisory],
+            outputs=[answer_output, citations_df, latency_out, faithfulness_out,
+                     certainty_out, superseded_out, unsupported_out,
+                     confidence_out, draft_out, retrieved_out],
         )
-        
+
     return demo
+
 
 if __name__ == "__main__":
     demo = build_ui()

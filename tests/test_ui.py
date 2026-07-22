@@ -93,3 +93,8 @@ def test_submit_query_surfaces_confidence_and_retrieved(monkeypatch):
     assert json.loads(confidence_json) == {"score": 0.8}
     assert draft_md == ""  # empty draft renders nothing
     assert json.loads(retrieved_json) == ["SEBI/2025/9#0"]
+
+
+def test_build_ui_constructs():
+    demo = ui.build_ui()
+    assert demo is not None
