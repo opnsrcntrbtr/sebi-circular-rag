@@ -13,8 +13,10 @@ extend the table rather than lowering the threshold.
 """
 from __future__ import annotations
 
+import json
 import re
 from dataclasses import dataclass
+from pathlib import Path
 
 STATUSES = ("in_force", "repealed", "unknown")
 BASIS_STATUSES = ("current", "repealed_basis", "mixed", "unknown")
@@ -177,3 +179,23 @@ def derive_regulatory_basis(statuses: list[str]) -> str:
     if has_live and has_dead:
         return "mixed"
     return "current" if has_live else "repealed_basis"
+
+
+def load_regulations(path: str | Path) -> list[dict]:
+    """Load data/corpus/regulations.jsonl into a list of regulation records.
+
+    Thin JSONL loader, symmetric with lineage.load_records / corpus.load_circulars.
+    """
+    out: list[dict] = []
+    for line in Path(path).read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line:
+            out.append(json.loads(line))
+    return out
+
+
+def reg_display_name(short_name: str, year: int | None) -> str:
+    """Human-readable regulation name. Year disambiguates same-short_name repeal
+    pairs (e.g. 'Stock Brokers' 1992 vs 2026), so it is included whenever known.
+    """
+    return f"{short_name} Regulations, {year}" if year else short_name
