@@ -223,3 +223,39 @@ def test_bge_fp16_encode_is_normalized():
     assert v.shape == (2, 1024)
     import numpy as np
     assert np.allclose(np.linalg.norm(v, axis=1), 1.0, atol=1e-3)
+
+
+from sebi_rag.api import _citation_meta
+
+_API_INDEX = {
+    "SEBI/HO/Z/P/CIR/2021/1": {
+        "regulatory_basis_status": "repealed_basis",
+        "primary_regulation": "stock-brokers-1992",
+        "regulations": [{
+            "reg_id": "stock-brokers-1992", "short_name": "Stock Brokers",
+            "year": 1992, "status": "repealed",
+            "superseded_by": {"reg_id": "stock-brokers-2026",
+                              "short_name": "Stock Brokers", "year": 2026}}]},
+}
+
+
+def test_citation_meta_fills_regulatory_fields():
+    out = _citation_meta(["SEBI/HO/Z/P/CIR/2021/1#0"], None, _API_INDEX)
+    assert len(out) == 1
+    m = out[0]
+    assert m.regulatory_basis_status == "repealed_basis"
+    assert len(m.regulations) == 1
+    assert m.regulations[0].year == 1992
+    assert m.regulations[0].superseded_by.year == 2026
+
+
+def test_citation_meta_defaults_when_index_none():
+    out = _citation_meta(["SEBI/HO/Z/P/CIR/2021/1"], None, None)
+    assert out[0].regulatory_basis_status == "unknown"
+    assert out[0].regulations == []
+
+
+def test_citation_meta_defaults_when_circular_absent_from_index():
+    out = _citation_meta(["SEBI/HO/NOT/IN/INDEX/9"], None, _API_INDEX)
+    assert out[0].regulatory_basis_status == "unknown"
+    assert out[0].regulations == []

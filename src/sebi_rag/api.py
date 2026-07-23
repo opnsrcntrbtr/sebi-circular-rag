@@ -44,10 +44,26 @@ class QueryRequest(BaseModel):
     mode: Literal["rag", "retrieval_only"] = "rag"  # retrieval_only swaps in the stub generator
 
 
+class RegulationSuccessor(BaseModel):
+    reg_id: str
+    short_name: str
+    year: int | None = None
+
+
+class RegulationRef(BaseModel):
+    reg_id: str
+    short_name: str
+    year: int | None = None
+    status: str
+    superseded_by: RegulationSuccessor | None = None
+
+
 class CitationMeta(BaseModel):
     circular: str
     status: str                       # in_force | superseded | amended | unknown
     superseded_by: list[str] = []
+    regulatory_basis_status: str = "unknown"  # current|repealed_basis|mixed|unknown
+    regulations: list[RegulationRef] = []
 
 
 class QueryResponse(BaseModel):
@@ -117,6 +133,13 @@ def build_default_pipeline() -> RAGPipeline:
     lin_path = index / "lineage.json"
     lineage = (Lineage.load(lin_path) if lin_path.exists()
                else build_lineage(load_records(s.corpus_path)))
+    regs_path = Path(s.corpus_path).with_name("regulations.jsonl")
+    regulatory_index = None
+    if regs_path.exists():
+        from .reg_lineage import build_regulatory_index
+        from .regulations import load_regulations
+        regulatory_index = build_regulatory_index(
+            load_records(s.corpus_path), load_regulations(regs_path))
     return RAGPipeline(
         retriever=retriever,
         reranker=CrossEncoderReranker(**ck),
@@ -125,10 +148,12 @@ def build_default_pipeline() -> RAGPipeline:
         abstain_threshold=s.abstain_threshold,
         superseded_penalty=s.superseded_penalty,
         judge=judge,
+        regulatory_index=regulatory_index,
     )
 
 
-def _citation_meta(citations: list[str], lineage: Lineage | None) -> list[CitationMeta]:
+def _citation_meta(citations: list[str], lineage: Lineage | None,
+                   regulatory_index: dict[str, dict] | None = None) -> list[CitationMeta]:
     seen, out = set(), []
     for c in citations:
         cn = c.split("#", 1)[0]
@@ -136,13 +161,18 @@ def _citation_meta(citations: list[str], lineage: Lineage | None) -> list[Citati
             continue
         seen.add(cn)
         if lineage is None:
-            out.append(CitationMeta(circular=cn, status="unknown"))
+            meta = CitationMeta(circular=cn, status="unknown")
         else:
-            out.append(CitationMeta(
+            meta = CitationMeta(
                 circular=cn,
                 status=lineage.status(cn),
                 superseded_by=lineage.superseded_by.get(cn, []),
-            ))
+            )
+        entry = regulatory_index.get(cn) if regulatory_index else None
+        if entry is not None:
+            meta.regulatory_basis_status = entry["regulatory_basis_status"]
+            meta.regulations = [RegulationRef(**r) for r in entry["regulations"]]
+        out.append(meta)
     return out
 
 
@@ -223,7 +253,7 @@ def create_app(
         return QueryResponse(
             answer=ans.text,
             citations=ans.citations,
-            citations_meta=_citation_meta(ans.citations, p.lineage),
+            citations_meta=_citation_meta(ans.citations, p.lineage, p.regulatory_index),
             abstained=ans.abstained,
             superseded=ans.superseded,
             faithfulness=ans.faithfulness,
