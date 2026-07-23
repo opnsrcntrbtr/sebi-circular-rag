@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from .embeddings import Embedder
 from .generate import Answer, Generator, Judge, answer_with_abstention
 from .lineage import Lineage, demote_superseded, superseded_citations
+from .regulations import reg_display_name
 from .rerank import Reranker
 from .retrieve import HybridRetriever
 from .segment import Chunk
@@ -20,6 +21,7 @@ class RAGPipeline:
     lineage: Lineage | None = None  # P2: flag superseded citations in answers
     superseded_penalty: float = 0.3  # demote superseded chunks in rerank (0 = drop)
     judge: Judge | None = None  # groundedness gate (ADR-001 item 7)
+    regulatory_index: dict[str, dict] | None = None  # repealed-basis staleness signal
 
     @classmethod
     def build(
@@ -90,6 +92,38 @@ class RAGPipeline:
                         f"force — {notes}. Refer to the superseding circular(s) for "
                         "current requirements."
                     )
+        if (self.regulatory_index is not None and not ans.abstained
+                and ans.citations):
+            seen, notes = set(), []
+            for cit in ans.citations:
+                cn = cit.split("#", 1)[0]
+                if cn in seen:
+                    continue
+                seen.add(cn)
+                entry = self.regulatory_index.get(cn)
+                if (entry is None
+                        or entry["regulatory_basis_status"] != "repealed_basis"
+                        or cn not in ans.text):
+                    continue
+                for reg in entry["regulations"]:
+                    if reg["status"] != "repealed":
+                        continue
+                    name = reg_display_name(reg["short_name"], reg["year"])
+                    succ = reg["superseded_by"]
+                    if succ:
+                        sname = reg_display_name(succ["short_name"], succ["year"])
+                        notes.append(f"{cn} rests on the {name}, which has been "
+                                     f"repealed and replaced by the {sname}")
+                    else:
+                        notes.append(f"{cn} rests on the {name}, which has been "
+                                     "repealed")
+            if notes:
+                ans.text += (
+                    "\n\nNote: this answer cites circular(s) resting on a repealed "
+                    "regulation — " + "; ".join(notes)
+                    + ". Refer to the current regulation(s) for the governing "
+                    "requirements."
+                )
         if not ans.abstained and ans.unsupported_citations:
             refs = ", ".join(ans.unsupported_citations)
             ans.text += (
