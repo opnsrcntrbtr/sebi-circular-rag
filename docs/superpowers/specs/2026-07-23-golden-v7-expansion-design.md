@@ -26,7 +26,7 @@ for all further retrieval work. Three defects to fix at once:
 |---|---|
 | External slice | Hybrid: user blind-labels 30 rows via a packet; Gemini (key present in env) independently adjudicates 100 rows; the 30 are a subset of the 100 for three-way agreement |
 | Strata mix | "Proposed mix" (§4), n=260 total, ~19% abstain |
-| Gate policy | Self-expanding: CI reports full v7 but hard pass/fail is computed only over `review_status == "adjudicated"` rows; v5/v6 frozen read-only |
+| Gate policy | Self-expanding: CI reports full v7 but hard pass/fail is computed only over `review_status == "adjudicated"` rows; **no grandfathering** — all 260 rows (the 56 carried included) promote only through review; CI keeps gating on frozen golden_v5 until the v7 adjudicated subset reaches ≥100 rows, then flips; v5/v6 frozen read-only |
 | Build approach | Approach A: deterministic scripted machinery for sampling/mining/pooling/packets/agreement; Claude judgment only for query drafting and pooled-chunk relevance, in resumable batches |
 
 ## 3. Row schema (v7)
@@ -120,8 +120,9 @@ non-relevant for metric purposes.
 
 ## 7. External slice
 
-- **Sampling:** 100 rows stratified proportionally across all 8 strata (negatives
-  included); 30 of the 100 additionally form the human packet.
+- **Sampling:** 100 rows (default; configurable) stratified proportionally across
+  all 8 strata (negatives included), drawn from **all 260 rows — carried and new
+  alike**; 30 of the 100 additionally form the human packet.
 - **Human packet:** self-contained HTML in `v7_annotations/packet_human/` — per row:
   the query + shuffled pooled excerpts (no scores, no ranks, no system answers) +
   "which excerpt(s) contain the governing provision, or none?" + a free-text
@@ -143,9 +144,13 @@ non-relevant for metric purposes.
     per stratum.
   - `agreement.py` emits `reports/golden_v7_agreement.md`: Cohen's κ per annotator
     pair per stratum + Clopper-Pearson CI on Claude-label accuracy.
-- The 56 v5-lineage rows are grandfathered `adjudicated` (they have gated CI for
-  weeks). Expected gate size immediately after the external pass: ~156 rows
-  (56 + ~100), growing later via user arbitration/spot-review batches.
+- **No grandfathering.** The 56 carried v5-lineage rows go through the same
+  review pipeline as new rows: they sit in the external-slice sampling universe,
+  their `seeded` status behaves as `draft` for promotion purposes, and they reach
+  `adjudicated` only via agreement, arbitration, or user spot-review. Having
+  gated CI historically earns them nothing. Expected gate size immediately after
+  the external pass: ~100 rows, growing later via user arbitration/spot-review
+  batches.
 
 ## 8. Harness & gate changes
 
@@ -160,7 +165,9 @@ non-relevant for metric purposes.
   over the `adjudicated` subset. The CI emitter script and
   gate thresholds switch from golden_v5 to the v7 adjudicated subset; abort
   thresholds are re-derived once on that subset with the existing bootstrap
-  machinery (`stats.py`) before the flip lands.
+  machinery (`stats.py`) before the flip lands. **Flip condition:** the switch
+  happens only once the adjudicated subset holds ≥100 rows; until then CI
+  continues to gate on frozen golden_v5, so there is never an ungated window.
 
 `benchmark.py`: `validate_golden` rails extended — id uniqueness/format, strata
 counts match §4, every non-abstain row has ≥1 `relevant_circulars`, every
@@ -194,8 +201,8 @@ Makefile: `make golden-v7-mine`, `golden-v7-pool`, `golden-v7-packet`,
 4. **Pooling + labeling:** `build_pool.py`, then Claude judges pools in batches;
    `relevant_chunks` filled for all 210 answerable rows.
 5. **External pass:** packet + Gemini leg + agreement + promotion.
-6. **Gate flip:** threshold re-derivation on the adjudicated subset; CI emitter
-   repointed; v5/v6 marked frozen in docs.
+6. **Gate flip (conditional on adjudicated n ≥ 100):** threshold re-derivation on
+   the adjudicated subset; CI emitter repointed; v5/v6 marked frozen in docs.
 7. **Reporting:** agreement report, strata census, CLAUDE.md/status.md updates.
 
 ## 11. Out of scope
