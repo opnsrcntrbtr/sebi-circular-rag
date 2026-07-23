@@ -211,6 +211,31 @@ def test_annotation_adds_no_circular_meta_field():
     assert meta_fields.isdisjoint(new_fields)
 
 
+def test_every_alias_target_is_in_force_or_has_a_succession_entry():
+    """An alias pointing at a slug that is neither a scraped in-force
+    regulation nor a known-repealed one mints a phantom stub instead of
+    linking. Guards the real FVCI singular/plural typo."""
+    from pathlib import Path
+
+    from sebi_rag.regulations import REGULATION_ALIASES
+    corpus = Path(__file__).resolve().parents[1] / "data/corpus/regulations.jsonl"
+    if not corpus.exists():
+        pytest.skip("regulations.jsonl not built yet")
+    import json
+    in_force = {json.loads(line)["reg_id"]
+                for line in corpus.read_text(encoding="utf-8").splitlines()
+                if line.strip()}
+    orphans = {k: v for k, v in REGULATION_ALIASES.items()
+               if v not in in_force and v not in REG_SUCCESSION}
+    assert orphans == {}, f"alias targets resolve to nothing: {orphans}"
+
+
+def test_every_succession_source_and_target_is_well_formed():
+    for src, dst in REG_SUCCESSION.items():
+        assert src[-5] == "-" and src[-4:].isdigit(), src
+        assert dst[-5] == "-" and dst[-4:].isdigit(), dst
+
+
 def test_succession_table_targets_are_distinct_from_sources():
     for src, dst in REG_SUCCESSION.items():
         assert src != dst

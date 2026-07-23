@@ -96,6 +96,29 @@ def test_parenthetical_containing_the_word_regulations_is_handled():
     assert cits[0].year == 2025
 
 
+def test_circular_number_spliced_into_a_title_is_rejected():
+    """Real corpus artefact: PDF table extraction interleaves columns, landing
+    a circular number and a row marker inside a wrapped regulation title."""
+    text = ("Non-compliance with certain provisions of the\n"
+            "SEBI (Listing Obligations and Disclosure\n"
+            "SEBI/HO/CFD/CMD/C\n22. Requirements) Regulations, 2015 and the")
+    assert extract_citations("", text) == []
+
+
+def test_inner_regulations_word_is_rejected_as_a_splice():
+    text = "per SEBI (Issue and NCS Regulations Listing of Securities) Regulations, 2021."
+    assert extract_citations("", text) == []
+
+
+def test_trailing_regulations_word_is_still_accepted():
+    """The sole legitimate title ending in the word must survive the guard."""
+    text = ("per SEBI (Procedure for making, amending and reviewing of "
+            "Regulations) Regulations, 2025.")
+    cits = extract_citations("", text)
+    assert len(cits) == 1
+    assert cits[0].name.endswith("of Regulations")
+
+
 def test_no_citation_returns_empty_list():
     assert extract_citations("", "A circular with no statutory reference.") == []
 

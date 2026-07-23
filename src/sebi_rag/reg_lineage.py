@@ -34,6 +34,19 @@ REG_SUCCESSION: dict[str, str] = {
     "issue-of-capital-and-disclosure-requirements-2009":
         "issue-of-capital-and-disclosure-requirements-2018",
     "foreign-portfolio-investors-2014": "foreign-portfolio-investors-2019",
+    # Added from the unknown-stub report after the first full run. Each is a
+    # documented repeal-and-replace, not an inference from absence.
+    "venture-capital-funds-1996": "alternative-investment-funds-2012",
+    "portfolio-managers-1993": "portfolio-managers-2020",
+    "share-based-employee-benefits-2014":
+        "share-based-employee-benefits-and-sweat-equity-2021",
+    "substantial-acquisition-of-shares-and-takeovers-1997":
+        "substantial-acquisition-of-shares-and-takeovers-2011",
+    "issue-and-listing-of-non-convertible-redeemable-preference-shares-2013":
+        "issue-and-listing-of-non-convertible-securities-2021",
+    "stock-brokers-and-sub-brokers-1992": "stock-brokers-2026",
+    "procedure-for-holding-enquiry-by-enquiry-officer-and-imposing-penalty-2002":
+        "intermediaries-2008",
 }
 
 _TIER_RANK = {t: i for i, t in enumerate(EVIDENCE_TIERS)}

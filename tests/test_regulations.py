@@ -128,6 +128,32 @@ def test_alias_table_targets_are_well_formed_reg_ids():
         assert target.endswith(f"-{year}"), (alias, year, target)
 
 
+def test_acronyms_ending_in_s_reach_their_own_entry():
+    """PMS/NCS/ILDS end in a literal S. Unconditional plural-stripping mapped
+    them to 'pm'/'nc'/'ild' and silently disabled all three entries."""
+    from sebi_rag.regulations import _alias_keys
+    assert REGULATION_ALIASES[("pms", 2020)] in _resolved("PMS", 2020)
+    assert REGULATION_ALIASES[("ncs", 2021)] in _resolved("NCS", 2021)
+    assert REGULATION_ALIASES[("ilds", 2008)] in _resolved("ILDS", 2008)
+    # ...while a genuine plural still reaches the singular entry.
+    assert "mf" in _alias_keys("MFs")
+
+
+def _resolved(name, year):
+    """reg_id resolved purely through the alias table, ignoring the corpus."""
+    from sebi_rag.regulations import _alias_keys
+    return [REGULATION_ALIASES[(k, year)] for k in _alias_keys(name)
+            if (k, year) in REGULATION_ALIASES]
+
+
+def test_every_alias_entry_is_reachable_from_some_spelling():
+    """A table key that no _alias_keys() output can produce is dead config."""
+    from sebi_rag.regulations import _alias_keys
+    unreachable = [(a, y) for (a, y) in REGULATION_ALIASES
+                   if a not in _alias_keys(a)]
+    assert unreachable == []
+
+
 def test_regulation_meta_defaults():
     m = RegulationMeta(reg_id="x-2020", title="T", short_name="X", year=2020)
     assert m.status == "unknown"

@@ -98,19 +98,36 @@ REGULATION_ALIASES: dict[tuple[str, int], str] = {
     ("sast", 2011): "substantial-acquisition-of-shares-and-takeovers-2011",  # 3
     ("cra", 1999): "credit-rating-agencies-1999",                      # 3
     ("pms", 2020): "portfolio-managers-2020",                          # 2
-    ("fvci", 2000): "foreign-venture-capital-investors-2000",          # 1
+    # SEBI's own title is singular ("...Investor..."), so the slug is too.
+    ("fvci", 2000): "foreign-venture-capital-investor-2000",           # 1
     ("ilds", 2008): "issue-and-listing-of-debt-securities-2008",
     ("ncs", 2021): "issue-and-listing-of-non-convertible-securities-2021",
     ("ra", 2014): "research-analysts-2014",
     ("ia", 2013): "investment-advisers-2013",
+    # Rename / spelling variants of IN-FORCE regulations, found in the
+    # unknown-stub report after the first full run. Fuzzy cannot reach these:
+    # "Custodian of Securities" vs "Custodian" scores 0.5.
+    ("custodianofsecuritie", 1996): "custodian-1996",
+    ("creditratingagency", 1999): "credit-rating-agencies-1999",
+    ("creditrating", 1999): "credit-rating-agencies-1999",
+    ("kycregistrationagency", 2011): "kyc-know-your-client-registration-agency-2011",
+    ("buybackofsecuritie", 2018): "buy-back-of-securities-2018",
 }
 
 
-def _alias_key(name: str) -> str:
-    """Normalised alias lookup key: alphanumerics only, lowercased, trailing
-    plural 's' dropped so 'MFs' and 'MF' collide."""
+def _alias_keys(name: str) -> tuple[str, ...]:
+    """Candidate alias lookup keys, most literal first.
+
+    Both the raw normalised form and its plural-stripped form are returned,
+    because either can be the canonical one: 'MFs' must reach the 'mf' entry,
+    while 'PMS'/'NCS'/'ILDS' are acronyms whose final S is part of the name and
+    must reach 'pms'/'ncs'/'ilds'. Stripping unconditionally would silently
+    disable those three entries.
+    """
     k = re.sub(r"[^a-z0-9]+", "", name.lower())
-    return k[:-1] if len(k) > 2 and k.endswith("s") else k
+    if len(k) > 2 and k.endswith("s"):
+        return (k, k[:-1])
+    return (k,)
 
 
 def resolve_regulation(
@@ -130,9 +147,10 @@ def resolve_regulation(
         if name_tokens(r["short_name"]) == target:
             return r["reg_id"], "explicit_text"
 
-    alias_target = REGULATION_ALIASES.get((_alias_key(name), year))
-    if alias_target:
-        return alias_target, "explicit_text"
+    for key in _alias_keys(name):
+        alias_target = REGULATION_ALIASES.get((key, year))
+        if alias_target:
+            return alias_target, "explicit_text"
 
     best_id, best_score = None, 0.0
     for r in same_year:

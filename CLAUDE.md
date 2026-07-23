@@ -19,6 +19,9 @@ make reindex # Annotate corpus + rebuild FAISS/BM25 index (chains annotate + ind
 make scrape   # Fetch SEBI circulars (MAX=N to limit count)
 make scrape-master   # Fetch SEBI master circulars (MAX_MASTER=N to limit count)
 make verify-master    # Coverage report vs live SEBI master-circular listing (OFFLINE=1 to skip fetch)
+make scrape-regs      # Fetch SEBI regulations (Updated List, sid=1&ssid=3)
+make reg-edges        # Build circular→regulation edges + annotate corpus (offline, idempotent)
+make audit-regs       # Precision audit of regulation edges (sample + Clopper-Pearson CI)
 make calibrate       # Retrieval calibration sweep
 make eval-asof # As-of-date golden eval; writes eval/runs/asof-$ASOF_OUT (default: baseline)
 make bench-retrieval # Retrieval-only benchmark + TREC runfile
@@ -39,6 +42,9 @@ Pipeline: scrape → ingest_pdf → lineage.annotate → build_index → retriev
 | `rerank.py` / `embeddings.py` | Cross-encoder reranking / BGE-M3 embedding |
 | `segment.py` | Hierarchical chunking (`CircularMeta`, `Chunk`) |
 | `lineage.py` | Supersession tracking + corpus annotation |
+| `regulations.py` | Regulation identity, alias table, name resolution |
+| `reg_citations.py` | Regulation citations extracted from circular text |
+| `reg_lineage.py` | Circular→regulation edges + `regulatory_basis_status` annotation |
 | `generate.py` | Local generation + abstention gate (MLX-LM/Ollama via `Generator` protocol) |
 | `eval.py` / `eval_harness.py` / `benchmark.py` | Metrics, golden-set runner, BEIR/TREC export |
 | `splade.py`, `hyde.py`, `context_headers.py` | Retrieval experiments (opt-in, off by default) |
@@ -49,6 +55,14 @@ Pipeline: scrape → ingest_pdf → lineage.annotate → build_index → retriev
 CPU-only Hugging Face Spaces demo — no MLX/MPS. **Do not edit the Spaces modules when fixing
 the local Apple-Silicon pipeline, or vice versa.** Config lives in `config.toml [spaces]`;
 runbook in `README-spaces.md`.
+
+### ⚠️ Never add fields to `CircularMeta`
+
+`hierarchical_chunk()` does `meta=asdict(meta)` (`segment.py:131`), so a new
+`CircularMeta` field lands in every chunk payload (77.8k chunks) and mutates the
+persisted index. Additive per-circular metadata goes on the corpus JSONL record
+only — see `master_meta.annotate_master_fields` and
+`reg_lineage.annotate_regulation_fields`.
 
 ## Testing & Evaluation
 

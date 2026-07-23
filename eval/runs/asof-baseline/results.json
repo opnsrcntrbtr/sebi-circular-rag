@@ -51,7 +51,7 @@
       "id": "asof-p1",
       "mode": "pipeline",
       "passed": true,
-      "detail": "citations=['SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/136#3.2. Allocation of any investment made by such Angel Funds p#4', 'SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/136#4. Based on representation from the AIF industry requesting #5', 'SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/128#8.3. Existing Angel Funds shall disclose such methodology in#26']"
+      "detail": "citations=['SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/136#4. Based on representation from the AIF industry requesting #5', 'SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/136#3.2. Allocation of any investment made by such Angel Funds p#4', 'SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/128#8.3. Existing Angel Funds shall disclose such methodology in#26']"
     },
     {
       "id": "asof-p2",
@@ -99,7 +99,7 @@
       "id": "asof-p9",
       "mode": "pipeline",
       "passed": true,
-      "detail": "citations=['SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/126#1. With an objective to enhance ease of doing business for A#1', 'SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/126#preamble#0', 'SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/126#2.4.2. State Industrial Development Corporations;#8']"
+      "detail": "citations=['SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/126#1. With an objective to enhance ease of doing business for A#1', 'SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/126#preamble#0', 'SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/126#5. This circular shall come into force with immediate effect#20']"
     },
     {
       "id": "asof-p10",
@@ -110,8 +110,8 @@
   ],
   "metadata": {
     "run_name": "asof-baseline",
-    "ts": "2026-07-22T22:20:23+0530",
-    "git_commit": "83d71f7b1450d49b2517b1f549211047a0efa300",
+    "ts": "2026-07-23T10:48:01+0530",
+    "git_commit": "f6585b12f5f3e928613d5c79fe23d24c2384c21f",
     "python": "3.12.13",
     "platform": "macOS-26.5.2-arm64-arm-64bit",
     "models": {
@@ -129,8 +129,8 @@
       "PYTORCH_ENABLE_MPS_FALLBACK": "1",
       "HF_HUB_DISABLE_XET": "1"
     },
-    "corpus_sha256": "913e762c3b3b6f2327d852c0fad89d48cf4fe69fb8b9ee7ffe647e4626ae96e6",
-    "index_fingerprint": "a4047015e799c84704fa439c3a60eb1436b5cb782ddea36c76371e53077d7ab3",
+    "corpus_sha256": "7943809e4ff6347b6ed638bbababdd17e77fba8cb3be40edb27ae14036ba677f",
+    "index_fingerprint": "414cb6e3233eb43b4eb81844b5d9e54254ad31e858875c4e8fc48f5b17baa8c8",
     "golden_sha256": "00999d421a2414693f2c1a27272a40530c062a8eae55fefe78a04d44aff026bb"
   }
 }

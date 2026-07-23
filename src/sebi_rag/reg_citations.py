@@ -28,6 +28,22 @@ CITATION_RE = re.compile(
 
 POWERS_RE = re.compile(r"in\s+exercise\s+of\s+the\s+powers\s+conferred", re.I)
 
+# SEBI PDFs render appendix tables by interleaving columns, so a circular number
+# and a row marker can land inside a regulation title that wraps across lines:
+#   "SEBI (Listing Obligations and Disclosure\nSEBI/HO/CFD/CMD/C\n22. Requirements)
+#    Regulations, 2015"
+# Such a parenthetical is a table artefact, not a regulation name. Two signals
+# reject it, both absent from every one of the 42 real short names:
+#   - a "/" (circular numbers; no real short name contains one)
+#   - the word "Regulations" anywhere but at the very end (the sole legitimate
+#     case is "...reviewing of Regulations", which ends with it)
+_SPLICE_SLASH = re.compile(r"/")
+_INNER_REGULATIONS = re.compile(r"\bRegulations?\b(?!\s*$)", re.I)
+
+
+def _is_table_artefact(name: str) -> bool:
+    return bool(_SPLICE_SLASH.search(name) or _INNER_REGULATIONS.search(name))
+
 # A clause reference: "regulation 30", "regulation 30A", "regulation 30(2)".
 CLAUSE_RE = re.compile(r"\bregulations?\s+(\d+[A-Z]{0,2}(?:\(\d+\))?)", re.I)
 _YEAR_RE = re.compile(r"^(?:19|20)\d{2}$")
@@ -77,6 +93,8 @@ def _scan(body: str, evidence: str, force_clause_none: bool = False
     spans = _sentences(body)
     for m in CITATION_RE.finditer(body):
         name = re.sub(r"\s+", " ", m.group(1)).strip()
+        if _is_table_artefact(name):
+            continue
         year = int(m.group(2))
         sentence = next((s for a, b, s in spans if a <= m.start() < b), body)
         tier = evidence
