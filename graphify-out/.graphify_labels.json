@@ -84,5 +84,11 @@
   "82": "verify_master.py",
   "83": "load_regulations",
   "84": "reg_display_name",
-  "85": "name_tokens"
+  "85": "name_tokens",
+  "86": "annotate_corpus",
+  "87": "test_faithfulness.py",
+  "88": "test_incremental_index.py",
+  "89": ".encode",
+  "90": "eval.py",
+  "91": ".build"
 }

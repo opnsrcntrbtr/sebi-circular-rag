@@ -75,8 +75,14 @@
   "73": "bootstrap_ci",
   "74": "detect_relations_ex",
   "75": "test_build_reg_edges.py",
+  "76": "test_gate.py",
   "77": "test_acquire_missing.py",
   "78": "_alias_keys",
+  "79": "stats.py",
+  "80": "app.py",
   "81": "main",
-  "82": "verify_master.py"
+  "82": "verify_master.py",
+  "83": "load_regulations",
+  "84": "reg_display_name",
+  "85": "name_tokens"
 }
