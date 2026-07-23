@@ -120,36 +120,56 @@ Returns `{circular_number: entry}` for **every** circular in `circulars`, where
 ```python
 {
   "regulatory_basis_status": str,      # current | repealed_basis | mixed | unknown
-  "primary_regulation": str | None,    # reg_id, verbatim from the record
+  "primary_regulation": str | None,    # reg_id, verbatim from the record (internal-only)
   "regulations": [                     # one per reg_id in c["regulations"]
     {
       "reg_id": str,
       "short_name": str,               # from regulations.jsonl; falls back to reg_id
+      "year": int | None,              # from regulations.jsonl; None if unresolvable
       "status": str,                   # in_force | repealed | unknown
-      "superseded_by": str | None,     # successor short_name, populated iff repealed
+      "superseded_by": {               # successor, populated iff status == repealed
+        "reg_id": str,
+        "short_name": str,
+        "year": int | None,
+      } | None,
     },
     ...
   ],
 }
 ```
 
+**Why `short_name` alone is not enough (verified against real data
+2026-07-23):** `short_name` is a bare noun (`"Stock Brokers"`, `"Mutual
+Funds"`), and the year lives in a separate `year: int` field. Repeal-and-replace
+pairs share the same `short_name` — e.g. repealed `stock-brokers-1992` and its
+successor `stock-brokers-2026` are **both** `short_name: "Stock Brokers"`. A
+note built from `short_name` alone reads "…the Stock Brokers, replaced by the
+Stock Brokers" — useless. Every displayed regulation name MUST be composed as
+`"{short_name} Regulations, {year}"` so the year disambiguates.
+
 Construction:
 - `regulatory_basis_status` and `primary_regulation` are copied verbatim from
   the annotated record (`c.get(...)`, defaulting to `"unknown"` / `None`). This
   function does not recompute them — it is a presentation join, not logic.
+  `primary_regulation` is carried for completeness/debuggability; it is NOT
+  used by the note (see §4.3 step 3) and is NOT surfaced in the API (§4.4).
 - `regulations` is built by resolving each `reg_id` in `c.get("regulations", [])`
-  against a `by_id = {r["reg_id"]: r}` map of `regulations`.
+  against a `by_id = {r["reg_id"]: r}` map of `regulations`. `short_name` and
+  `year` come from the resolved record.
 - **Dangling `reg_id`** (present on the circular but absent from
   `regulations.jsonl`): include a `RegRef` with `short_name = reg_id`,
-  `status = "unknown"`, `superseded_by = None`. Never raise.
+  `year = None`, `status = "unknown"`, `superseded_by = None`. Never raise.
 - **`superseded_by`** is populated only when `status == "repealed"`: read the
-  reg's `superseded_by_reg` (successor reg_id), resolve it through `by_id` to
-  the successor's `short_name`. If the successor reg_id is itself missing,
-  leave `superseded_by = None` (note degrades to naming the repealed reg only).
+  reg's `superseded_by_reg` (a `str | None` successor reg_id, verified not a
+  list), resolve it through `by_id` to `{reg_id, short_name, year}`. If the
+  successor reg_id is missing from `by_id`, leave `superseded_by = None`
+  (note degrades to naming the repealed reg only).
 
 Invariant relied on (from the cross-reference layer, `reg_lineage.py:88`): a reg
 earns `status: "repealed"` only when it has a `REG_SUCCESSION` successor, so a
-`repealed` reg always has a `superseded_by_reg` to resolve.
+`repealed` reg always has a `superseded_by_reg` to resolve, and in the common
+case (verified: `mutual-funds-1996` → in-force `mutual-funds-2026`) that
+successor record is present in `regulations.jsonl`.
 
 ### 4.3 `pipeline.py` — in-text note
 
@@ -174,15 +194,20 @@ Logic (mirrors the supersession note's structure and its text-referenced gate):
    evidence tier and may point at an `unknown`-status reg even when the basis
    is `repealed_basis`).
 4. Compose one note per kept circular naming the repealed reg(s) and, where
-   `superseded_by` is present, the successor:
+   `superseded_by` is present, the successor. Every regulation name is composed
+   as `"{short_name} Regulations, {year}"` (§4.2 — year is required to
+   disambiguate same-`short_name` repeal pairs). When `year is None`, fall back
+   to `short_name` alone.
 
    > Note: this answer cites circular(s) resting on a repealed regulation —
-   > `{cn}` rests on the `{short_name}`, which has been repealed and replaced
-   > by the `{successor_short_name}`. Refer to the current regulation.
+   > `{cn}` rests on the Stock Brokers Regulations, 1992, which has been
+   > repealed and replaced by the Stock Brokers Regulations, 2026. Refer to
+   > the current regulation.
 
-   When `superseded_by is None`: "…which has been repealed. Verify the current
-   regulatory basis." When a circular has multiple repealed regs, join them in
-   one clause (mirroring the supersession note's `"; ".join(...)`).
+   When `superseded_by is None`: "…rests on the {name}, which has been
+   repealed. Verify the current regulatory basis." When a circular has multiple
+   repealed regs, join them in one clause (mirroring the supersession note's
+   `"; ".join(...)`).
 5. Append the composed text to `ans.text` (same mechanism as the supersession
    note). Do **not** add a new `Answer` field.
 
@@ -206,11 +231,18 @@ Logic (mirrors the supersession note's structure and its text-referenced gate):
 
   Pass `regulatory_index=regulatory_index` into the `RAGPipeline(...)`.
 
-- **New model** `RegulationRef(BaseModel)`: `reg_id: str`, `short_name: str`,
-  `status: str`, `superseded_by: str | None = None`.
+- **New models**:
+  - `RegulationSuccessor(BaseModel)`: `reg_id: str`, `short_name: str`,
+    `year: int | None = None`.
+  - `RegulationRef(BaseModel)`: `reg_id: str`, `short_name: str`,
+    `year: int | None = None`, `status: str`,
+    `superseded_by: RegulationSuccessor | None = None`. These mirror the
+    internal index `RegRef` shape (§4.2) 1:1, so `_citation_meta` maps
+    dict → model field-for-field.
 
 - **`CitationMeta`** gains: `regulatory_basis_status: str = "unknown"` and
-  `regulations: list[RegulationRef] = []`.
+  `regulations: list[RegulationRef] = []`. (`primary_regulation` is NOT
+  surfaced — the user chose status + full regulations list only.)
 
 - **`_citation_meta(citations, lineage, regulatory_index)`**: for each distinct
   cited circular, when `regulatory_index` is not None and has the circular,
@@ -223,9 +255,10 @@ Logic (mirrors the supersession note's structure and its text-referenced gate):
 
 The per-citation loop over `citations_meta` gains a **"Regulatory Basis"**
 column. Value: the `regulatory_basis_status`; when regs are present and any is
-not `in_force`, append the non-`in_force` short names in parentheses for
-context (e.g. `repealed_basis (Mutual Funds 1996)`). Same mechanism as the
-existing "Status" / "Superseded By" columns — no new request field, no logic.
+not `in_force`, append the non-`in_force` regulation names as
+`"{short_name} {year}"` in parentheses for context (e.g.
+`repealed_basis (Stock Brokers 1992)`). Same mechanism as the existing
+"Status" / "Superseded By" columns — no new request field, no logic.
 
 ## 5. Error handling / graceful degradation
 
@@ -244,9 +277,10 @@ All new tests run under `-m "not integration"` (stdlib-only modules).
 - **`test_regulations.py`** — `load_regulations` round-trips a temp JSONL.
 - **`test_reg_lineage.py`** — `build_regulatory_index`:
   - happy path: `repealed_basis` circular yields regs with `superseded_by`
-    resolved to successor short_name;
+    resolved to `{reg_id, short_name, year}`;
   - uncited circular → `unknown` / `None` / `[]`;
-  - dangling `reg_id` → `RegRef` with `short_name==reg_id`, `status=="unknown"`;
+  - dangling `reg_id` → `RegRef` with `short_name==reg_id`, `year is None`,
+    `status=="unknown"`;
   - **`primary_regulation` is an `unknown`-status reg while basis is
     `repealed_basis`** (guards §4.3 step 3 — note must select repealed regs,
     not primary);
@@ -254,6 +288,10 @@ All new tests run under `-m "not integration"` (stdlib-only modules).
 - **`test_pipeline.py`** — with a fixture `regulatory_index`:
   - note fires for a `repealed_basis` circular whose number is in `ans.text`,
     and names the successor;
+  - **year-disambiguation regression guard**: a repealed reg and its successor
+    that share a `short_name` (e.g. Stock Brokers 1992 → 2026) produce a note
+    naming both years distinctly — asserts the note is NOT "…Stock Brokers …
+    replaced by the Stock Brokers" (the bug this fix prevents);
   - note does **not** fire when the circular number is absent from `ans.text`;
   - note does **not** fire for `current` / `mixed` / `unknown`;
   - `regulatory_index=None` → no note, no error.
