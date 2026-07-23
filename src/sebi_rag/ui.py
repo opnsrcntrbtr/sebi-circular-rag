@@ -5,7 +5,9 @@ import gradio as gr
 import httpx
 import pandas as pd
 
-_EMPTY_DF_COLS = ["Circular", "Status", "Superseded By"]
+from sebi_rag.regulations import reg_display_name
+
+_EMPTY_DF_COLS = ["Circular", "Status", "Superseded By", "Regulatory Basis"]
 _RETRIEVAL_ONLY_BANNER = (
     "**Retrieval-only mode** — no LLM generation; the text below is the "
     "top retrieved excerpt. Evaluate the citations and metadata.\n\n"
@@ -59,10 +61,17 @@ def submit_query(question: str, api_url: str, api_key: str, top_k: float,
     df_rows = []
     for item in data.get("citations_meta", []):
         superseded_by = ", ".join(item.get("superseded_by", []))
+        basis = item.get("regulatory_basis_status", "unknown")
+        stale = [reg_display_name(r.get("short_name", r.get("reg_id", "?")),
+                                  r.get("year"))
+                 for r in item.get("regulations", [])
+                 if r.get("status") != "in_force"]
+        basis_cell = f"{basis} ({', '.join(stale)})" if stale else basis
         df_rows.append({
             "Circular": item.get("circular"),
             "Status": item.get("status"),
             "Superseded By": superseded_by if superseded_by else "-",
+            "Regulatory Basis": basis_cell,
         })
     df = pd.DataFrame(df_rows) if df_rows else pd.DataFrame(columns=_EMPTY_DF_COLS)
 

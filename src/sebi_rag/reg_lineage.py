@@ -175,3 +175,41 @@ def annotate_regulation_fields(circulars: list[dict], edges: list[dict],
                  c["regulatory_basis_status"])
         changed += after != before
     return changed
+
+
+def build_regulatory_index(circulars: list[dict],
+                           regulations: list[dict]) -> dict[str, dict]:
+    """Per-circular regulatory-basis lookup for the query/citation layer.
+
+    Read-only join of already-annotated corpus fields with regulations.jsonl.
+    Every circular gets an entry. Never recomputes regulatory_basis_status and
+    never touches validity_status/supersession_status.
+    """
+    by_id = {r["reg_id"]: r for r in regulations}
+
+    def _ref(reg_id: str) -> dict:
+        rec = by_id.get(reg_id)
+        if rec is None:  # dangling reg_id: present on circular, absent from listing
+            return {"reg_id": reg_id, "short_name": reg_id, "year": None,
+                    "status": "unknown", "superseded_by": None}
+        status = rec.get("status", "unknown")
+        superseded_by = None
+        if status == "repealed":
+            succ = by_id.get(rec.get("superseded_by_reg"))
+            if succ is not None:
+                superseded_by = {"reg_id": succ["reg_id"],
+                                 "short_name": succ.get("short_name", succ["reg_id"]),
+                                 "year": succ.get("year")}
+        return {"reg_id": reg_id, "short_name": rec.get("short_name", reg_id),
+                "year": rec.get("year"), "status": status,
+                "superseded_by": superseded_by}
+
+    index: dict[str, dict] = {}
+    for c in circulars or []:
+        reg_ids = c.get("regulations") or []
+        index[c["circular_number"]] = {
+            "regulatory_basis_status": c.get("regulatory_basis_status") or "unknown",
+            "primary_regulation": c.get("primary_regulation"),
+            "regulations": [_ref(rid) for rid in reg_ids],
+        }
+    return index

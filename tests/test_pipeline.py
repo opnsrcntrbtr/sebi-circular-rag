@@ -138,6 +138,51 @@ def test_answer_flags_superseded_citation():
     assert "superseded by" in ans.text
 
 
+def _repealed_basis_pipeline():
+    """Offline pipeline whose single circular rests on a repealed regulation."""
+    C = "SEBI/HO/W/P/CIR/2020/07"
+    text = (f"CIRCULAR {C}. Registration norms for stock brokers under the "
+            "erstwhile regulations.")
+    chunks = hierarchical_chunk(text, CircularMeta(circular_number=C))
+    lineage = build_lineage([{"circular_number": C, "text": text}])
+    pipe = RAGPipeline.build(
+        chunks=chunks, embedder=HashEmbedder(256), reranker=LexicalReranker(),
+        generator=ExtractiveStubGenerator(), abstain_threshold=0.05, lineage=lineage,
+    )
+    pipe.regulatory_index = {
+        C: {"regulatory_basis_status": "repealed_basis", "primary_regulation":
+            "stock-brokers-1992", "regulations": [
+            {"reg_id": "stock-brokers-1992", "short_name": "Stock Brokers",
+             "year": 1992, "status": "repealed", "superseded_by": {
+                 "reg_id": "stock-brokers-2026", "short_name": "Stock Brokers",
+                 "year": 2026}}]}}
+    return pipe, C
+
+
+def test_note_fires_and_disambiguates_year():
+    pipe, C = _repealed_basis_pipeline()
+    ans, _ = pipe.query("What are the registration norms for stock brokers?")
+    assert not ans.abstained and C in ans.text
+    # names BOTH years distinctly — guards the short_name-collision bug
+    assert "Stock Brokers Regulations, 1992" in ans.text
+    assert "Stock Brokers Regulations, 2026" in ans.text
+    assert "repealed" in ans.text.lower()
+
+
+def test_note_absent_when_status_not_repealed_basis():
+    pipe, C = _repealed_basis_pipeline()
+    pipe.regulatory_index[C]["regulatory_basis_status"] = "mixed"
+    ans, _ = pipe.query("What are the registration norms for stock brokers?")
+    assert "Stock Brokers Regulations, 1992" not in ans.text
+
+
+def test_note_absent_when_index_is_none():
+    pipe, _ = _repealed_basis_pipeline()
+    pipe.regulatory_index = None
+    ans, _ = pipe.query("What are the registration norms for stock brokers?")
+    assert "repealed regulation" not in ans.text
+
+
 def test_query_as_of_prefers_governing_circular():
     OLD = "SEBI/HO/MRD/2020/010"
     NEW = "SEBI/HO/MRD/2023/050"

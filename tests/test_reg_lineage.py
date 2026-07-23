@@ -246,3 +246,79 @@ def test_succession_table_targets_are_distinct_from_sources():
 def test_empty_inputs_do_not_raise(bad):
     edges, unresolved = build_regulation_edges(bad or [], REGS)
     assert edges == [] and unresolved == {}
+
+
+from sebi_rag.reg_lineage import build_regulatory_index
+
+_INDEX_REGS = [
+    {"reg_id": "stock-brokers-1992", "short_name": "Stock Brokers", "year": 1992,
+     "status": "repealed", "superseded_by_reg": "stock-brokers-2026"},
+    {"reg_id": "stock-brokers-2026", "short_name": "Stock Brokers", "year": 2026,
+     "status": "in_force", "superseded_by_reg": None},
+    {"reg_id": "aif-2012", "short_name": "Alternative Investment Funds", "year": 2012,
+     "status": "in_force", "superseded_by_reg": None},
+    {"reg_id": "orphan-2009", "short_name": "Orphan", "year": 2009,
+     "status": "unknown", "superseded_by_reg": None},
+    {"reg_id": "no-successor-record-1999", "short_name": "No Successor Record",
+     "year": 1999, "status": "repealed", "superseded_by_reg": "missing-2030"},
+]
+
+
+def _icirc(num, regs, primary, basis):
+    return {"circular_number": num, "regulations": regs,
+            "primary_regulation": primary, "regulatory_basis_status": basis}
+
+
+def test_index_happy_path_resolves_successor_object():
+    circs = [_icirc("C/1", ["stock-brokers-1992"], "stock-brokers-1992",
+                    "repealed_basis")]
+    idx = build_regulatory_index(circs, _INDEX_REGS)
+    entry = idx["C/1"]
+    assert entry["regulatory_basis_status"] == "repealed_basis"
+    (reg,) = entry["regulations"]
+    assert reg["reg_id"] == "stock-brokers-1992"
+    assert reg["short_name"] == "Stock Brokers" and reg["year"] == 1992
+    assert reg["status"] == "repealed"
+    assert reg["superseded_by"] == {"reg_id": "stock-brokers-2026",
+                                    "short_name": "Stock Brokers", "year": 2026}
+
+
+def test_index_uncited_circular_is_unknown_empty():
+    circs = [_icirc("C/2", [], None, "unknown")]
+    entry = build_regulatory_index(circs, _INDEX_REGS)["C/2"]
+    assert entry["regulatory_basis_status"] == "unknown"
+    assert entry["primary_regulation"] is None
+    assert entry["regulations"] == []
+
+
+def test_index_missing_basis_fields_default():
+    entry = build_regulatory_index([{"circular_number": "C/3"}], _INDEX_REGS)["C/3"]
+    assert entry["regulatory_basis_status"] == "unknown"
+    assert entry["primary_regulation"] is None
+    assert entry["regulations"] == []
+
+
+def test_index_dangling_reg_id_falls_back():
+    circs = [_icirc("C/4", ["ghost-2000"], "ghost-2000", "unknown")]
+    (reg,) = build_regulatory_index(circs, _INDEX_REGS)["C/4"]["regulations"]
+    assert reg == {"reg_id": "ghost-2000", "short_name": "ghost-2000",
+                   "year": None, "status": "unknown", "superseded_by": None}
+
+
+def test_index_primary_is_unknown_but_a_repealed_reg_is_present():
+    # basis repealed_basis; primary points at the unknown reg, not the repealed one.
+    circs = [_icirc("C/5", ["orphan-2009", "stock-brokers-1992"], "orphan-2009",
+                    "repealed_basis")]
+    regs = build_regulatory_index(circs, _INDEX_REGS)["C/5"]["regulations"]
+    by_id = {r["reg_id"]: r for r in regs}
+    assert by_id["orphan-2009"]["status"] == "unknown"
+    assert by_id["stock-brokers-1992"]["status"] == "repealed"
+    assert by_id["stock-brokers-1992"]["superseded_by"]["reg_id"] == "stock-brokers-2026"
+
+
+def test_index_repealed_with_missing_successor_record():
+    circs = [_icirc("C/6", ["no-successor-record-1999"], "no-successor-record-1999",
+                    "repealed_basis")]
+    (reg,) = build_regulatory_index(circs, _INDEX_REGS)["C/6"]["regulations"]
+    assert reg["status"] == "repealed"
+    assert reg["superseded_by"] is None

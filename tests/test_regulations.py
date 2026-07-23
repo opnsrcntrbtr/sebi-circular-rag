@@ -165,3 +165,33 @@ def test_regulation_meta_defaults():
 
 def test_threshold_is_documented_constant():
     assert FUZZY_THRESHOLD == 0.8
+
+
+import json
+
+from sebi_rag.regulations import load_regulations, reg_display_name
+
+
+def test_load_regulations_round_trips(tmp_path):
+    p = tmp_path / "regulations.jsonl"
+    recs = [
+        {"reg_id": "mutual-funds-1996", "short_name": "Mutual Funds", "year": 1996},
+        {"reg_id": "mutual-funds-2026", "short_name": "Mutual Funds", "year": 2026},
+    ]
+    p.write_text("\n".join(json.dumps(r) for r in recs) + "\n", encoding="utf-8")
+    out = load_regulations(p)
+    assert out == recs
+
+
+def test_load_regulations_skips_blank_lines(tmp_path):
+    p = tmp_path / "regulations.jsonl"
+    p.write_text('{"reg_id": "x"}\n\n   \n', encoding="utf-8")
+    assert load_regulations(p) == [{"reg_id": "x"}]
+
+
+def test_reg_display_name_composes_year():
+    assert reg_display_name("Stock Brokers", 1992) == "Stock Brokers Regulations, 1992"
+
+
+def test_reg_display_name_falls_back_without_year():
+    assert reg_display_name("Stock Brokers", None) == "Stock Brokers"
