@@ -5,7 +5,7 @@ PORT ?= 8000
 MAX  ?= 25
 MAX_MASTER ?= 200
 
-.PHONY: help test annotate index reindex calibrate bench-rerank bench-retrieval rescore benchmark-export export-datasets eval-asof serve scrape ops scrape-master verify-master
+.PHONY: help test annotate index reindex calibrate bench-rerank bench-retrieval rescore benchmark-export export-datasets eval-asof serve scrape ops scrape-master verify-master scrape-regs reg-edges audit-regs
 
 help:
 	@echo "test       run offline test suite"
@@ -24,6 +24,9 @@ help:
 	@echo "scrape     fetch circulars (MAX=$(MAX)); runs on this machine"
 	@echo "scrape-master  fetch master circulars (MAX_MASTER=$(MAX_MASTER))"
 	@echo "verify-master  coverage report vs live SEBI master-circular listing (OFFLINE=1 to skip fetch)"
+	@echo "scrape-regs    fetch SEBI regulations (Updated List, sid=1&ssid=3)"
+	@echo "reg-edges      build circular->regulation edges + annotate corpus (offline)"
+	@echo "audit-regs     precision audit of regulation edges (sample + CI)"
 
 test:
 	$(PY) -m pytest -q -m "not integration"
@@ -75,3 +78,12 @@ scrape-master:
 
 verify-master:
 	$(ENV) $(PY) scripts/verify_master.py $(if $(OFFLINE),--offline,)
+
+scrape-regs:
+	$(ENV) $(PY) scripts/scrape_regulations.py --rate 3
+
+reg-edges:
+	$(ENV) $(PY) scripts/build_reg_edges.py
+
+audit-regs:
+	$(ENV) $(PY) scripts/audit_reg_edges.py
