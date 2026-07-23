@@ -58,6 +58,9 @@ benchmark-export:
 	$(ENV) $(PY) scripts/build_golden_v6.py
 	$(ENV) $(PY) scripts/export_benchmark.py
 
+golden-v7-seed:
+	$(ENV) $(PY) scripts/golden_v7/seed_v7.py
+
 export-datasets:
 	$(PY) scripts/export_datasets.py
 
