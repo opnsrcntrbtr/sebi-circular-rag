@@ -23,3 +23,4 @@ logs/
 src/graphify-out/cache/
 
 .tokensave/
+.worktrees/
