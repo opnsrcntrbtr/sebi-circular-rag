@@ -344,16 +344,13 @@ def beir_query_rows(golden: list[dict[str, Any]]) -> list[dict[str, str]]:
 
 
 def qrels_rows(golden: list[dict[str, Any]], chunks: list[Chunk]) -> list[tuple[str, str, int]]:
-    by_doc: dict[str, list[Chunk]] = {}
     by_id = {c.id: c for c in chunks}
-    for c in chunks:
-        by_doc.setdefault(normalize_circular_number(c.doc_id), []).append(c)
-    chunks_by_doc_normalized = chunks_by_doc(chunks)
+    by_doc = chunks_by_doc(chunks)
     rows: list[tuple[str, str, int]] = []
     for item in golden:
         if item.get("abstain"):
             continue
-        explicit = [cid for cid in resolve_chunk_spans(item, chunks_by_doc_normalized)
+        explicit = [cid for cid in resolve_chunk_spans(item, by_doc)
                     if cid in by_id]
         if explicit:
             rows.extend((item["id"], cid, 2) for cid in explicit)
