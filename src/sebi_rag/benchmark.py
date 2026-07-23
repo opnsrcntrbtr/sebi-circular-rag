@@ -276,7 +276,7 @@ def validate_golden_v7(
 def chunks_by_doc(chunks: list[Chunk]) -> dict[str, list[Chunk]]:
     out: dict[str, list[Chunk]] = {}
     for c in chunks:
-        out.setdefault(c.doc_id, []).append(c)
+        out.setdefault(normalize_circular_number(c.doc_id), []).append(c)
     return out
 
 
@@ -294,7 +294,10 @@ def resolve_chunk_spans(
         q = _norm_ws(span.get("quote", ""))
         if not q:
             continue
-        ids.extend(c.id for c in by_doc.get(span.get("doc", ""), [])
+        doc = span.get("doc", "")
+        if doc:
+            doc = normalize_circular_number(doc)
+        ids.extend(c.id for c in by_doc.get(doc, [])
                    if q in _norm_ws(c.text))
     return _unique(ids)
 
@@ -345,11 +348,12 @@ def qrels_rows(golden: list[dict[str, Any]], chunks: list[Chunk]) -> list[tuple[
     by_id = {c.id: c for c in chunks}
     for c in chunks:
         by_doc.setdefault(normalize_circular_number(c.doc_id), []).append(c)
+    chunks_by_doc_normalized = chunks_by_doc(chunks)
     rows: list[tuple[str, str, int]] = []
     for item in golden:
         if item.get("abstain"):
             continue
-        explicit = [cid for cid in resolve_chunk_spans(item, chunks_by_doc(chunks))
+        explicit = [cid for cid in resolve_chunk_spans(item, chunks_by_doc_normalized)
                     if cid in by_id]
         if explicit:
             rows.extend((item["id"], cid, 2) for cid in explicit)
