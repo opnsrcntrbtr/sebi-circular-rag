@@ -273,10 +273,45 @@ def validate_golden_v7(
     return issues
 
 
+def chunks_by_doc(chunks: list[Chunk]) -> dict[str, list[Chunk]]:
+    out: dict[str, list[Chunk]] = {}
+    for c in chunks:
+        out.setdefault(c.doc_id, []).append(c)
+    return out
+
+
+def resolve_chunk_spans(
+    row: dict[str, Any], by_doc: dict[str, list[Chunk]]
+) -> list[str]:
+    """Span {doc, quote} -> matching chunk ids (all overlap matches count).
+
+    Legacy plain-string entries pass through untouched (v6 compat)."""
+    ids: list[str] = []
+    for span in row.get("relevant_chunks", []):
+        if isinstance(span, str):
+            ids.append(span)
+            continue
+        q = _norm_ws(span.get("quote", ""))
+        if not q:
+            continue
+        ids.extend(c.id for c in by_doc.get(span.get("doc", ""), [])
+                   if q in _norm_ws(c.text))
+    return _unique(ids)
+
+
 def _span_resolution_issues(
     rows: list[dict[str, Any]], chunks: list[Chunk]
 ) -> list[BenchmarkIssue]:
-    return []  # replaced in Task 2 with real resolution checks
+    by_doc = chunks_by_doc(chunks)
+    issues = []
+    for row in rows:
+        rid = str(row.get("id", "<no-id>"))
+        for span in row.get("relevant_chunks", []):
+            if isinstance(span, dict) and not resolve_chunk_spans(
+                    {"relevant_chunks": [span]}, by_doc):
+                issues.append(BenchmarkIssue(
+                    rid, f"quote does not resolve to any chunk of {span.get('doc')}"))
+    return issues
 
 
 def beir_corpus_rows(chunks: list[Chunk]) -> list[dict[str, Any]]:
@@ -314,7 +349,8 @@ def qrels_rows(golden: list[dict[str, Any]], chunks: list[Chunk]) -> list[tuple[
     for item in golden:
         if item.get("abstain"):
             continue
-        explicit = [cid for cid in item.get("relevant_chunks", []) if cid in by_id]
+        explicit = [cid for cid in resolve_chunk_spans(item, chunks_by_doc(chunks))
+                    if cid in by_id]
         if explicit:
             rows.extend((item["id"], cid, 2) for cid in explicit)
             continue
