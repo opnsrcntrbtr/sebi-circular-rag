@@ -61,6 +61,9 @@ benchmark-export:
 golden-v7-seed:
 	$(ENV) $(PY) scripts/golden_v7/seed_v7.py
 
+golden-v7-mine:
+	$(ENV) $(PY) scripts/golden_v7/mine_strata.py
+
 export-datasets:
 	$(PY) scripts/export_datasets.py
 
