@@ -48,7 +48,6 @@
   "46": "bench_rerankers.py",
   "47": "bench_retrieval.py",
   "48": ".encode",
-  "49": "test_gate.py",
   "50": "bench_retrieval.py",
   "51": "_compute_kwargs",
   "52": "paired_delta",
@@ -56,8 +55,6 @@
   "54": "build_index.py",
   "55": "eval_harness.py",
   "56": "SparseIndex",
-  "57": "test_pipeline.py",
-  "58": "corpus.py",
   "59": "corpus_spaces.py",
   "60": "eval.py",
   "61": "test_integration_e2e.py",
@@ -69,7 +66,6 @@
   "67": "_s_header_token",
   "68": "_s_mc_no",
   "69": "acquire_missing_pdfs.py",
-  "70": "audit_reg_edges.py",
   "71": "paired_delta",
   "72": "scrape_regulations.py",
   "73": "bootstrap_ci",
@@ -78,8 +74,6 @@
   "76": "test_gate.py",
   "77": "test_acquire_missing.py",
   "78": "_alias_keys",
-  "79": "stats.py",
-  "80": "app.py",
   "81": "main",
   "82": "verify_master.py",
   "83": "load_regulations",
@@ -88,7 +82,5 @@
   "86": "annotate_corpus",
   "87": "test_faithfulness.py",
   "88": "test_incremental_index.py",
-  "89": ".encode",
-  "90": "eval.py",
-  "91": ".build"
+  "89": ".encode"
 }
