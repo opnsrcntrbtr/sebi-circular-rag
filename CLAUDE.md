@@ -37,14 +37,14 @@ Pipeline: scrape → ingest_pdf → lineage.annotate → build_index → retriev
 | File (`src/sebi_rag/`) | Purpose |
 |------|---------|
 | `api.py` | FastAPI entry point, app factory, key-in-body auth |
-| `pipeline.py` | `RAGPipeline` orchestration |
+| `pipeline.py` | `RAGPipeline` orchestration; `regulatory_basis_status` is surfaced per-citation in the API (`CitationMeta.regulations`) and UI, with an in-text advisory note for `repealed_basis` circulars |
 | `retrieve.py` | `HybridRetriever` — FAISS + BM25 RRF fusion (optional SPLADE leg, eval-only) |
 | `rerank.py` / `embeddings.py` | Cross-encoder reranking / BGE-M3 embedding |
 | `segment.py` | Hierarchical chunking (`CircularMeta`, `Chunk`) |
 | `lineage.py` | Supersession tracking + corpus annotation |
-| `regulations.py` | Regulation identity, alias table, name resolution |
+| `regulations.py` | Regulation identity, alias table, name resolution, `load_regulations`/`reg_display_name` |
 | `reg_citations.py` | Regulation citations extracted from circular text |
-| `reg_lineage.py` | Circular→regulation edges + `regulatory_basis_status` annotation |
+| `reg_lineage.py` | Circular→regulation edges + `regulatory_basis_status` annotation; `build_regulatory_index` (query-layer lookup) |
 | `generate.py` | Local generation + abstention gate (MLX-LM/Ollama via `Generator` protocol) |
 | `eval.py` / `eval_harness.py` / `benchmark.py` | Metrics, golden-set runner, BEIR/TREC export |
 | `splade.py`, `hyde.py`, `context_headers.py` | Retrieval experiments (opt-in, off by default) |
