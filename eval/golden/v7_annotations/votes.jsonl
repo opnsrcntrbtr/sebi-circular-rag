@@ -123,3 +123,44 @@
 {"id": "v7-nt-023", "annotator": "claude", "governing": ["SEBI/HO/CFD/PoD-1/P/CIR/2022/120#1. Vide notification dated July 25, 2022, Securities and Exc#11"], "expected_literal": "45 days from the end of quarter"}
 {"id": "v7-nt-024", "annotator": "claude", "governing": ["SEBI/HO/DDHS-PoD-2/P/CIR/2024/44#3. The option to retain 10% distribution under Regulation 18#154"], "expected_literal": "retain 10% distribution"}
 {"id": "v7-nt-025", "annotator": "claude", "governing": ["HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#2. Asset Allocation for Life Cycle Funds to be followed in f#1582"], "expected_literal": "65-95"}
+{"id": "v7-nt-026", "annotator": "claude", "governing": ["SEBI/HO/DDHS-PoD-2/P/CIR/2025/102#3.32. If the InvIT or its sponsor, sponsor group, investment#205"], "expected_literal": "past three years"}
+{"id": "v7-nt-027", "annotator": "claude", "governing": ["HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#7.2.1. Reporting of transactions#364"], "expected_literal": "INR 1 lakh"}
+{"id": "v7-nt-028", "annotator": "claude", "governing": ["SEBI/HO/CFD/PoD2/CIR/P/2023/120#7. Holding of specified securities in dematerialized form:#27"], "expected_literal": "at least 50%"}
+{"id": "v7-nt-029", "annotator": "claude", "governing": ["SEBI/HO/MRD/POD-III/CIR/P/2025/12#5. The minimum criteria for the independent external evaluat#11"], "expected_literal": "40%"}
+{"id": "v7-nt-030", "annotator": "claude", "governing": ["HO/38/12/11(1)2026-MIRSD-POD/I/4360/2026#26. What are trading restrictions imposed under regulation 1#335"], "expected_literal": "30 days before and 5 days after"}
+{"id": "v7-ls-001", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/POD-1/P/CIR/2024/37#41. Model Tripartite Agreement between the Issuer Company, E#335"], "expected_literal": "Model Tripartite Agreement"}
+{"id": "v7-ls-002", "annotator": "claude", "governing": ["HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#18.1.2. CDMDF shall comply with the Guarantee Scheme for Cor#1009"], "expected_literal": "Category I AIF"}
+{"id": "v7-ls-003", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/110#40. Framework to Enable Verification of Upfront Collection o#344"], "expected_literal": "two snapshots ... three snapshots"}
+{"id": "v7-ls-004", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/POD-1/P/CIR/2023/70#42. Issue and listing of Non-Convertible Securities (NCS), S#319"], "expected_literal": "'debit' file"}
+{"id": "v7-ls-005", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/POD-1/P/CIR/2023/70#35. Approach to securities market data access and terms of u#301"], "expected_literal": "free of charge"}
+{"id": "v7-ls-006", "annotator": "claude", "governing": ["SEBI/HO/MIRSD-PoD-2/P/CIR/2023/90#3. To conduct annual audit:#92"], "expected_literal": "SCORES"}
+{"id": "v7-ls-007", "annotator": "claude", "governing": ["SEBI/HO/MRD/MRD-PoD-2/P/CIR/2023/166#10. For cases where the value of securities is up to#116"], "expected_literal": "exemption from sending quarterly statements"}
+{"id": "v7-ls-008", "annotator": "claude", "governing": ["HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#7. Any other instrument#2464"], "expected_literal": "functional web link"}
+{"id": "v7-ls-009", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#19.1. In order to further strengthen the compliance and moni#331"], "expected_literal": "Qualified Stock Brokers (QSBs)"}
+{"id": "v7-ls-010", "annotator": "claude", "governing": [], "expected_literal": "Will"}
+{"id": "v7-ls-011", "annotator": "claude", "governing": ["SEBI/HO/DDHS-PoD-2/P/CIR/2025/99#18.1. Regulation 4(2)(g) of SEBI (Real Estate Investment Tru#452"], "expected_literal": "not less than ten percent"}
+{"id": "v7-ls-012", "annotator": "claude", "governing": ["SEBI/HO/DDHS-PoD-2/P/CIR/2025/102#7.6.1. [The units allotted to sponsor(s) and sponsor group(s#319"], "expected_literal": "twenty-five percent"}
+{"id": "v7-ls-013", "annotator": "claude", "governing": ["SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2024/113#2. Thresholds for REs’ categorization:#310"], "expected_literal": "Mid-size REs"}
+{"id": "v7-ls-014", "annotator": "claude", "governing": ["SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#2. Cyber Security  Standing Committee on Technology of#541"], "expected_literal": "draft scheme"}
+{"id": "v7-ls-015", "annotator": "claude", "governing": ["SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2023/195#1. After extensive public consultations and in furtherance o#1"], "expected_literal": "ODR Portal"}
+{"id": "v7-ls-016", "annotator": "claude", "governing": ["SEBI/HO/MRD/MRD-PoD-2/P/CIR/2023/166#7. This Master Circular is available on the SEBI website at #9"], "expected_literal": "settlement obligations"}
+{"id": "v7-ls-017", "annotator": "claude", "governing": ["SEBI/HO/CFD/PoD-1/P/CIR/2024/072#3.1.1. BTIs shall make an online application to SEBI for pri#32"], "expected_literal": "SEBI Intermediary Portal"}
+{"id": "v7-ls-018", "annotator": "claude", "governing": ["HO/19/34/11(6)2025-AFD-POD1/I/12928/2026#19.1.2. In this regard, it is specified that the requirement#333"], "expected_literal": "excused or excluded"}
+{"id": "v7-ls-019", "annotator": "claude", "governing": ["SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#6. Investment a. The Committee may include the MD, NIDs (oth#488"], "expected_literal": "40%"}
+{"id": "v7-ls-020", "annotator": "claude", "governing": ["SEBI/HO/MRD/DP/CIR/P/2016/134#2. The DP shall open/activate demat account of a beneficial #45"], "expected_literal": "Beneficial Owner"}
+{"id": "v7-ls-021", "annotator": "claude", "governing": ["SEBI/HO/DDHS/DDHS_Div1/P/CIR/2022/0000000103#2. Add the list of all observations in the reports pertainin#203"], "expected_literal": "applicable to high value debt listed entities"}
+{"id": "v7-ls-022", "annotator": "claude", "governing": ["HO/19/34/11(6)2025-AFD-POD1/I/12928/2026#18.1.2. Valuation of securities which are not covered in par#319"], "expected_literal": "IPEV Guidelines"}
+{"id": "v7-ls-023", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/37#4. Mandatory furnishing of PAN, KYC details and Nomination b#4"], "expected_literal": "mandatory"}
+{"id": "v7-ls-024", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-SEC-5/P/CIR/2023/022#1. The Prevention of Money Laundering Act, 2002 (“PMLA”) and#3"], "expected_literal": "Prevention of Money Laundering Act"}
+{"id": "v7-ls-025", "annotator": "claude", "governing": ["HO/38/12/11(2)2026-MIRSD-POD/I/4300/2026#15. Optional mechanism for fee collection by SEBI registered#133"], "expected_literal": "CeFCoM"}
+{"id": "v7-ls-026", "annotator": "claude", "governing": ["SEBI/HO/IMD/IMD-TPD-1/P/CIR/2023/173#3.2. The manpower deployed at DRS/ Near Site (NS) shall have#4"], "expected_literal": "same expertise as available at PDC"}
+{"id": "v7-ls-027", "annotator": "claude", "governing": ["SEBI/HO/ITD/ITD_VAPT/P/CIR/2023/032#6. Password Policy/ Authentication Mechanisms:#14"], "expected_literal": "multi factor authentication (MFA)"}
+{"id": "v7-ls-028", "annotator": "claude", "governing": ["SEBI/HO/DDHS/DDHS_Div3/P/CIR/2022/52#2.3.1. In an issue made through the book building process or#23"], "expected_literal": "not more than 75%"}
+{"id": "v7-ls-029", "annotator": "claude", "governing": ["CIR/4/51/2000#2010. However, those mutual funds which voluntarily propose #169"], "expected_literal": "no entry load"}
+{"id": "v7-ls-030", "annotator": "claude", "governing": ["SEBI/HO/AFD-1/PoD/P/CIR/2022/155#2.1. The First Close of a scheme shall be declared not later#3"], "expected_literal": "12 months"}
+{"id": "v7-ls-031", "annotator": "claude", "governing": ["SEBI/HO/CFD/PoD-1/P/CIR/2023/31#8. Declaration by the acquirer, that the acquisition price w#296"], "expected_literal": "not higher by more than 25%"}
+{"id": "v7-ls-032", "annotator": "claude", "governing": ["SEBI/HO/CFD/SSEP/CIR/P/2022/66#2. In respect of the aforesaid circular, para 1.4.1 and at A#2"], "expected_literal": "four days"}
+{"id": "v7-ls-033", "annotator": "claude", "governing": ["SEBI/HO/ITD/ITD_VAPT/P/CIR/2023/033#3. Data Ownership and Localization:#81", "SEBI/HO/ITD/ITD_VAPT/P/CIR/2023/033#9. Principle 9: Vendor Lock-in and Concentration Risk Manage#184"], "expected_literal": "data localization"}
+{"id": "v7-ls-034", "annotator": "claude", "governing": ["SEBI/HO/AFD/PoD1/CIR/2024/2#2. In view of the amendments to the Prevention of Money-Laun#2"], "expected_literal": "Sanctions List notified ... by the United Nations Security Council"}
+{"id": "v7-ls-035", "annotator": "claude", "governing": ["SEBI/HO/IMD/IMD-PoD-2/P/CIR/2023/118#3. In furtherance to the same, the following has been decide#3"], "expected_literal": "Government Securities"}
+{"id": "v7-ls-036", "annotator": "claude", "governing": ["SEBI/HO/DDHS/CIR/2021/0000000637#1. Vide notification dated September 07, 2021, Regulation 52#1"], "expected_literal": "Schedule III"}
