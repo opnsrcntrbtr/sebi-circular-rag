@@ -1,0 +1,42 @@
+{"id": "surv", "annotator": "claude", "governing": ["HO/43/15/12(3)2025-ISD-POD2/I/11734/2026#1. For effective surveillance of the securities market, the #6"], "expected_literal": "surveillance"}
+{"id": "icdr", "annotator": "claude", "governing": ["HO/49/14/14(2)2026-CFD-POD2/I/4518/2026preamble"], "expected_literal": "capital"}
+{"id": "depo", "annotator": "claude", "governing": ["SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168preamble"], "expected_literal": "depositor"}
+{"id": "secc", "annotator": "claude", "governing": ["SEBI/HO/MRD-PoD2/CIR/P/2024/00181preamble"], "expected_literal": "clearing"}
+{"id": "broker", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90preamble"], "expected_literal": "broker"}
+{"id": "esg", "annotator": "claude", "governing": ["SEBI/HO/DDHS/DDHS-POD-2/P/CIR/2025/100preamble"], "expected_literal": "esg"}
+{"id": "cra", "annotator": "claude", "governing": ["SEBI/HO/DDHS/DDHS-POD2/P/CIR/2025/101preamble"], "expected_literal": "credit rating"}
+{"id": "reit", "annotator": "claude", "governing": ["SEBI/HO/DDHS-PoD-2/P/CIR/2025/99preamble"], "expected_literal": "real estate"}
+{"id": "invit", "annotator": "claude", "governing": ["SEBI/HO/DDHS-PoD-2/P/CIR/2025/102preamble"], "expected_literal": "infrastructure"}
+{"id": "pms", "annotator": "claude", "governing": ["SEBI/HO/IMD/IMD-POD-1/P/CIR/2025/104preamble"], "expected_literal": "portfolio"}
+{"id": "dt", "annotator": "claude", "governing": ["SEBI/HO/DDHS-PoD-1/P/CIR/2025/117preamble"], "expected_literal": "debenture"}
+{"id": "sse", "annotator": "claude", "governing": ["HO/49/14/14(6)2025-CFD-PoD1/I/2771/2026preamble"], "expected_literal": "social stock"}
+{"id": "ia", "annotator": "claude", "governing": ["HO/38/12/11(2)2026-MIRSD-POD/I/4300/2026preamble"], "expected_literal": "investment adviser"}
+{"id": "ra", "annotator": "claude", "governing": ["HO/38/12/11(1)2026-MIRSD-POD/I/4360/2026preamble"], "expected_literal": "research analyst"}
+{"id": "rta", "annotator": "claude", "governing": ["HO/38/13/(4)2026-MIRSD-POD/I/4298/2026preamble"], "expected_literal": "registrar"}
+{"id": "matevents", "annotator": "claude", "governing": ["SEBI/HO/CFD/CFD-PoD-1/P/CIR/2023/123#2.3. Buy back of securities:#23"], "expected_literal": "buyback"}
+{"id": "blockdeal", "annotator": "claude", "governing": ["SEBI/HO/MRD/POD-III/CIR/P/2025/134#2.1. Block deal is execution of large trades through a singl#3"], "expected_literal": "block deal"}
+{"id": "cas", "annotator": "claude", "governing": ["HO/47/11/11(3)2025-MRD-POD2/I/2765/2026preamble"], "expected_literal": "closing auction"}
+{"id": "otr", "annotator": "claude", "governing": ["HO/47/11/16(2)2025-MRD-POD2/I/4113/2026#2. Taking into account the representations received from the#2"], "expected_literal": "order-to-trade"}
+{"id": "calspread", "annotator": "claude", "governing": ["HO/47/15/11(2)2025-MRD-TPD1/I/4226/2026#2. On the basis of reference received from trading member(s)#2"], "expected_literal": "calendar spread"}
+{"id": "intraday", "annotator": "claude", "governing": ["SEBI/HO/MRD/TPD/CIR/P/2025/122preamble"], "expected_literal": "intraday"}
+{"id": "disc_doc", "annotator": "claude", "governing": ["SEBI/HO/IMD/IMD-RAC-3/P/CIR/2025/125#1. Regulation 22(3) of SEBI (Portfolio Managers) Regulations#1"], "expected_literal": "disclosure document"}
+{"id": "pms_transfer", "annotator": "claude", "governing": ["SEBI/HO/IMD/RAC/CIR/P/2025/0000000138#1. As an initiative towards ease of doing business and for t#1"], "expected_literal": "transfer of portfolios"}
+{"id": "reit_reclass", "annotator": "claude", "governing": ["HO/24/13/12(1)2025-IMD-POD-2/I/157/2025#1. With a view to facilitate enhanced participation by Mutua#1"], "expected_literal": "reclassification"}
+{"id": "sif", "annotator": "claude", "governing": ["HO/24/13/12(4)2025-IMD-POD-1/I/2062/2026#2. In order to ensure uniformity and clarity in compliance r#2"], "expected_literal": "specialized investment"}
+{"id": "pledge", "annotator": "claude", "governing": ["HO/47/14/12(1)2026-MRD-POD2/I/4229/2026#1. The framework for pledging of shares through the deposito#1"], "expected_literal": "pledge"}
+{"id": "swagat", "annotator": "claude", "governing": ["HO/19/34/14(5)2025-AFD-POD2/I/2703/2026#4. The Stock Exchanges and Clearing Corporations#4"], "expected_literal": "single window"}
+{"id": "aif_co", "annotator": "claude", "governing": ["HO/19/(8)2025-AFD-POD1/I/1266/2025#2.1. The Compliance Officer of Manager of an AIF shall obtai#2"], "expected_literal": "compliance officer"}
+{"id": "nomination", "annotator": "claude", "governing": ["SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#3. Registered Depository Participants#3"], "expected_literal": "nomination"}
+{"id": "pricedata", "annotator": "claude", "governing": ["HO/47/17/12(11)2025-MRD-POD3/I/11107/2026#4. Based on feedback received from various stakeholders that#4"], "expected_literal": "price data"}
+{"id": "para-nom", "annotator": "claude", "governing": ["SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#4.1. For all single accounts / folios opened on or after the#7"], "expected_literal": "nominat"}
+{"id": "para-pricedata", "annotator": "claude", "governing": ["HO/47/17/12(11)2025-MRD-POD3/I/11107/2026#6.2. Question No.8 of FAQ at Annexure-A of SEBI Circular No.#8"], "expected_literal": "price"}
+{"id": "para-mfmaster", "annotator": "claude", "governing": ["HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#8. This Master Circular shall come into force with effect fr#10"], "expected_literal": "mutual fund"}
+{"id": "para-aifmaster", "annotator": "claude", "governing": ["HO/19/34/11(6)2025-AFD-POD1/I/12928/2026#1. For effective regulation of Alternative Investment Funds #1"], "expected_literal": "alternative investment"}
+{"id": "para-mfborrow", "annotator": "claude", "governing": ["HO/(92)2026-IMD-POD-2/I/6961/2026#1. As per prevalent industry practice, primarily for liquid #1"], "expected_literal": "borrow"}
+{"id": "para-freeze", "annotator": "claude", "governing": ["HO/24/12/12(5)2026-IMD-SEC-1/I/6373/2026#1. In order to promote digital security of units of Mutual F#1"], "expected_literal": "freeze"}
+{"id": "para-cas", "annotator": "claude", "governing": ["HO/47/11/11(3)2025-MRD-POD2/I/2765/2026#3. Considering the above and taking into account public comm#7"], "expected_literal": "auction"}
+{"id": "para-otr", "annotator": "claude", "governing": ["HO/47/11/16(2)2025-MRD-POD2/I/4113/2026#2.2. The Algorithmic orders placed by Designated Market Make#4"], "expected_literal": "order"}
+{"id": "para-parrva", "annotator": "claude", "governing": ["HO/38/14/(4)2026-MIRSD-POD/I/10557/2026#2. In pursuance of the above circular, Care Ratings Limited #2"], "expected_literal": "care"}
+{"id": "para-glitch", "annotator": "claude", "governing": ["HO/38/44/12(1)2026-MIRSD-TPD1#7. Reporting Requirements:#10", "HO/38/44/12(1)2026-MIRSD-TPD1#6. Applicability of framework:#9"], "expected_literal": "glitch"}
+{"id": "para-block", "annotator": "claude", "governing": ["SEBI/HO/MRD/POD-III/CIR/P/2025/134#2.2.1.1. Morning Block Deal Window: This window shall operat#4", "SEBI/HO/MRD/POD-III/CIR/P/2025/134#2.2.1.2. Afternoon Block Deal Window: This window shall oper#5"], "expected_literal": "block"}
+{"id": "para-poslimit", "annotator": "claude", "governing": ["SEBI/HO/MRD/TPD/CIR/P/2025/122#4.1. Intraday Net position limit (FutEq basis) for each enti#5", "SEBI/HO/MRD/TPD/CIR/P/2025/122#4.2. Intraday Gross position limit (FutEq basis) for each en#6", "SEBI/HO/MRD/TPD/CIR/P/2025/122#4.3. The aforesaid intraday limits shall continue to be moni#7"], "expected_literal": "limit"}
