@@ -1,0 +1,13 @@
+v7-bp-002: Pool has only conflict-of-interest / registration chunks from SEBI/HO/DDHS/POD3/P/CIR/2024/45; none of the 20 pooled candidates cover the actual internal-audit-personnel requirement (Chartered Accountants/Company Secretaries, independence) — pooling miss.
+v7-bp-003: Pool for CIR/MRD/DP/41 is dominated by table-of-contents rows and unrelated DP topics (PAN exemptions, complaint reporting); no candidate covers R&T Agent -> DP lodgement-wise transfer intimation — pooling miss.
+v7-bp-008: Pool for SEBI/HO/MIRSD/DOP1/CIR/P/2018/87 is entirely table-of-contents entries (page-number stubs); none of the 20 candidates reach the substantive text on surprise/trigger-based broker inspections — pooling miss.
+v7-bp-009: Same doc/pool as v7-bp-008 (table-of-contents stubs only); no candidate reaches the client-funds segregation ('separate account') provision — pooling miss.
+v7-bp-013: Pool covers CSCRF critical-systems/CII/NCIIPC topics but no candidate defines cyberattack severity levels or mentions ransomware as a 'critical' incident — pooling miss.
+v7-bp-014: Pool covers stock-broker margin/DMA/algo-trading provisions; none of the 20 candidates address market-rumour/news forwarding requiring Compliance Officer approval — pooling miss.
+v7-bp-019: Pool is the SEBI/HO/IMD/DF2/CIR/P/2020/156 master circular but candidates are TOC/glossary/unrelated provisions (exit load, AI/ML, disclosure formats); none cover the unclaimed-amounts investor lookup/PAN-credential provision — pooling miss.
+v7-bp-021: Pool covers QSB designation parameters and system-audit process; no candidate discusses Board of Directors oversight of cybersecurity incidents — pooling miss.
+v7-bp-022: Pool is CIR/IMD/DF/18/2014 master circular but candidates are TOC/SID/benchmark provisions; none cover AMC proxy-voting disclosure obligations — pooling miss.
+v7-bp-023: Pool covers UPI/ASBA mechanics (NPCI, Sponsor Bank definitions, application channels) but no candidate mentions a web portal/dashboard for real-time UPI mandate tracking — pooling miss.
+v7-bp-024: Pool covers SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90 outsourcing guidelines (FIU reporting, risk assessment, group-entity arm's-length dealing) but no candidate addresses co-mingling of client data across a shared vendor's multiple broker clients — pooling miss.
+v7-bp-025: Pool is SEBI/HO/AFD/AFD-PoD-2/P/CIR/2024/70 master circular TOC and general FPI provisions; none of the 20 candidates define 'appropriately regulated' status for a bank home regulator — pooling miss.
+v7-bp-027: Pool is SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/53 master circular TOC entries only; none reach the cloud-data-localisation ('legal boundaries of India') provision — pooling miss.
