@@ -78,3 +78,33 @@ def test_census_enforced_at_full_size():
     rows = [_row(id=f"v7-ls-{i:03d}") for i in range(260)]
     issues = validate_golden_v7(rows)
     assert any("census" in i.message for i in issues)
+
+
+def test_far_negative_exempt_from_hard_floor():
+    rows = [_row(id=f"v7-ls-{i:03d}", task_type="lineage_supersession")
+            for i in range(STRATA_TARGETS_V7["lineage_supersession"])]
+    rows += [_row(id=f"v7-td-{i:03d}", task_type="title_direct", difficulty="hard",
+                  must_not_cite=[], as_of=None)
+             for i in range(STRATA_TARGETS_V7["title_direct"])]
+    rows += [_row(id=f"v7-bp-{i:03d}", task_type="body_paraphrase", difficulty="hard",
+                  must_not_cite=[], as_of=None)
+             for i in range(STRATA_TARGETS_V7["body_paraphrase"])]
+    rows += [_row(id=f"v7-nt-{i:03d}", task_type="numeric_table", difficulty="hard",
+                  must_not_cite=[], as_of=None)
+             for i in range(STRATA_TARGETS_V7["numeric_table"])]
+    rows += [_row(id=f"v7-mh-{i:03d}", task_type="multi_hop", difficulty="hard",
+                  must_not_cite=[], as_of=None)
+             for i in range(STRATA_TARGETS_V7["multi_hop"])]
+    rows += [_row(id=f"v7-rb-{i:03d}", task_type="repealed_basis", difficulty="hard",
+                  must_not_cite=[], as_of=None)
+             for i in range(STRATA_TARGETS_V7["repealed_basis"])]
+    rows += [_row(id=f"v7-hn-{i:03d}", task_type="hard_negative", difficulty="hard",
+                  must_not_cite=[], as_of=None, abstain=True, relevant_circulars=[],
+                  relevant_chunks=[], must_contain=[], expected_citation_level="none")
+             for i in range(STRATA_TARGETS_V7["hard_negative"])]
+    rows += [_row(id=f"v7-fn-{i:03d}", task_type="far_negative", difficulty="easy",
+                  must_not_cite=[], as_of=None, abstain=True, relevant_circulars=[],
+                  relevant_chunks=[], must_contain=[], expected_citation_level="none")
+             for i in range(STRATA_TARGETS_V7["far_negative"])]
+    issues = validate_golden_v7(rows)
+    assert not any("far_negative under 20% hard" in i.message for i in issues)

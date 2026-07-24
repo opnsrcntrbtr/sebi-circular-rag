@@ -264,6 +264,8 @@ def validate_golden_v7(
                 issues.append(BenchmarkIssue(
                     "<census>", f"census: {tt} has {census.get(tt, 0)}, want {want}"))
         for tt in STRATA_TARGETS_V7:
+            if tt == "far_negative":
+                continue  # by design: obviously-off-domain, uniformly easy
             strat = [r for r in rows if r.get("task_type") == tt]
             hard = sum(1 for r in strat if r.get("difficulty") == "hard")
             if strat and hard / len(strat) < 0.2:
