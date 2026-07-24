@@ -82,3 +82,44 @@
 {"id": "v7-bp-027", "annotator": "claude", "governing": [], "expected_literal": "within the legal boundaries of India"}
 {"id": "v7-bp-028", "annotator": "claude", "governing": ["SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90#2022) and its impact, if any, on the Fund score.#152"], "expected_literal": "created only in case of actual default"}
 {"id": "v7-bp-029", "annotator": "claude", "governing": ["SEBI/HO/DDHS-PoD-2/P/CIR/2024/43#19.5. In order to define the manner of handling the unclaime#422", "SEBI/HO/DDHS-PoD-2/P/CIR/2024/43#7. Policy for filing of claim: The Manager of the REIT shall#626", "SEBI/HO/DDHS-PoD-2/P/CIR/2024/43#7.1. the format in which claim has to be submitted by a unit#627"], "expected_literal": "transfer of such amounts to the IPEF"}
+{"id": "v7-bp-030", "annotator": "claude", "governing": ["SEBI/HO/DDHS-PoD-2/P/CIR/2025/102#2.3.1. In an issue made through the book building process or#31"], "expected_literal": "not more than 75% to Institutional Investors"}
+{"id": "v7-bp-031", "annotator": "claude", "governing": ["SEBI/HO/CFD/PoD2/CIR/P/2023/120#7. Whether the Board ‘steps back’ to assist executive manage#1025"], "expected_literal": "Ability to keep shareholders"}
+{"id": "v7-bp-032", "annotator": "claude", "governing": [], "expected_literal": "single consolidated view of all the investments"}
+{"id": "v7-bp-033", "annotator": "claude", "governing": [], "expected_literal": "50 percent or more of the corpus"}
+{"id": "v7-bp-034", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/DoP/P/CIR/2022/74#40. KRAs shall carry out periodic vulnerability assessment a#4"], "expected_literal": "conduct VAPT at least once in a financial year"}
+{"id": "v7-bp-035", "annotator": "claude", "governing": ["SEBI/HO/MRD/MRD-PoD-3/P/CIR/2023/81#3. The comprehensive guidelines for IPF and ISF are as under#13"], "expected_literal": "within three years from the date of expiry"}
+{"id": "v7-bp-036", "annotator": "claude", "governing": ["SEBI/HO/ISD/ISD/CIR/P/2021/22#2.3.4. Logs for any usage of such Blogs/Chat forums/Messenge#37"], "expected_literal": "shall be treated as records"}
+{"id": "v7-bp-037", "annotator": "claude", "governing": ["SEBI/HO/IMD/IMD-POD-1/P/CIR/2024/80#4.1.1. Material change, for the purpose of the PM Regulation#181"], "expected_literal": "fees charged"}
+{"id": "v7-bp-038", "annotator": "claude", "governing": ["SEBI/HO/DDHS-PoD-2/P/CIR/2024/43#18.2.8. Vacating of office of a Unitholder Nominee Director#413"], "expected_literal": "within two working days"}
+{"id": "v7-bp-039", "annotator": "claude", "governing": [], "expected_literal": "country risks"}
+{"id": "v7-bp-040", "annotator": "claude", "governing": ["HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#5.11.1. In order to deal with various technology related iss#252"], "expected_literal": "constitute a Technology Committee"}
+{"id": "v7-bp-041", "annotator": "claude", "governing": [], "expected_literal": "takes into account all dividends"}
+{"id": "v7-bp-042", "annotator": "claude", "governing": [], "expected_literal": "Order quantity / order value limit"}
+{"id": "v7-bp-043", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/91#5. What constitutes an association between persons regulated#647"], "expected_literal": "referral of a client"}
+{"id": "v7-bp-044", "annotator": "claude", "governing": ["SEBI/HO/OIAE/OIAE_IAD-3/P/ON/2025/01650#2.7. In case of any subsisting credit facilities secured by #18"], "expected_literal": "obtain due discharge from the creditors"}
+{"id": "v7-bp-045", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2022/177#3.1. A joint platform to provide Investor Risk Reduction Acc#4"], "expected_literal": "square off/close the open positions"}
+{"id": "v7-nt-001", "annotator": "claude", "governing": ["CIR/IMD/DF/18/2014#3. The lower of (1) and (2) above shall be used for calculat#235"], "expected_literal": "15 per cent per annum"}
+{"id": "v7-nt-002", "annotator": "claude", "governing": ["HO/49/14/14(7)2025-CFD-POD2/I/3762/2026#1. In terms of sub-regulation (1) of regulation 69 of the LO#41"], "expected_literal": "fifteen days"}
+{"id": "v7-nt-003", "annotator": "claude", "governing": ["SEBI/HO/AFD-2/CIR/P/2022/175#11. Position limits available to FPIs for stock and stock in#133"], "expected_literal": "INR 300 crore or 10% of open interest"}
+{"id": "v7-nt-004", "annotator": "claude", "governing": ["CIR/IMD/DF/18/2014#2. In respect of closed ended funds, for the purposes of val#156"], "expected_literal": "20 per cent. and 25 per cent."}
+{"id": "v7-nt-005", "annotator": "claude", "governing": ["SEBI/HO/IMD/IMD-PoD-1/P/CIR/2025/26#4.1. In terms of Regulation 49X(1) of the MF Regulations, th#34"], "expected_literal": "ten lakh rupees"}
+{"id": "v7-nt-006", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/67#5. During the conciliation process, the conciliator#30"], "expected_literal": "21 days"}
+{"id": "v7-nt-007", "annotator": "claude", "governing": ["SEBI/HO/CFD/PoD2/CIR/P/2023/120#14. Details of business activities (accounting for 90% of th#592"], "expected_literal": "90% of the turnover"}
+{"id": "v7-nt-008", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/POD-1/P/CIR/2023/70#10. Registrar to receive confirmation for pre-issue capital #886"], "expected_literal": "T+4"}
+{"id": "v7-nt-009", "annotator": "claude", "governing": ["CIR/DNPD/1/2012#5. generate trading pattern by a broker over a period of tim#223"], "expected_literal": "15% of the total open interest or Rs. 1000 crores"}
+{"id": "v7-nt-010", "annotator": "claude", "governing": ["SEBI/HO/CDMRD/DMP/P/CIR/2021/589#6.1.2. Eligibility criteria for selection of underlying Comm#313"], "expected_literal": "INR 200 crore for agricultural and agri-processed commodities"}
+{"id": "v7-nt-011", "annotator": "claude", "governing": ["SEBI/HO/MRD/MRD-PoD-1/P/CIR/2023/136#14.5.1. In order to bring about transparency in the Investor#598"], "expected_literal": "7th of succeeding month"}
+{"id": "v7-nt-012", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/53#42. Segregation and Monitoring of Collateral at Client Level#367"], "expected_literal": "in excess of 90% of the client collateral"}
+{"id": "v7-nt-013", "annotator": "claude", "governing": ["CIR/MRD/DRMNP/11/2013#8. Trading Hours#134"], "expected_literal": "more than 1%"}
+{"id": "v7-nt-014", "annotator": "claude", "governing": ["CIR/IMD/DF/5/2013#3. The lower of (1) and (2) above shall be used for calculat#202"], "expected_literal": "100% of the net assets"}
+{"id": "v7-nt-015", "annotator": "claude", "governing": ["SEBI/HO/CFD/PoD-1/P/CIR/2024/072#6.1. The BTIs are required to submit half-yearly reports to #51"], "expected_literal": "three months"}
+{"id": "v7-nt-016", "annotator": "claude", "governing": ["SEBI/HO/CDMRD/DNPMP/CIR/P/2020/118#1.15.1. In order to promote transparency in the markets, the#179"], "expected_literal": "10 days after completion of settlement"}
+{"id": "v7-nt-017", "annotator": "claude", "governing": ["SEBI/HO/DDHS/PoD1/P/CIR/2023/119#4. Issuers of debt securities and NCRPS on private placement#135"], "expected_literal": "issue size less than Rs.50 crore"}
+{"id": "v7-nt-018", "annotator": "claude", "governing": ["HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#7.19.2. Applicability for a Close ended scheme/Interval sche#483"], "expected_literal": "refunded within 6 weeks"}
+{"id": "v7-nt-019", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/53#37. Modification of Client Codes of Non-institutional Trades#322"], "expected_literal": "> 5"}
+{"id": "v7-nt-020", "annotator": "claude", "governing": ["SEBI/HO/AFD/AFD-PoD-2/P/CIR/2024/70#2. Continuance#204"], "expected_literal": "Within 30 days"}
+{"id": "v7-nt-021", "annotator": "claude", "governing": [], "expected_literal": "High risk 3"}
+{"id": "v7-nt-022", "annotator": "claude", "governing": ["SEBI/HO/CDMRD/DMP/P/CIR/2022/64#7.1.3. Eligibility criteria: Constituents of the commodity i#347"], "expected_literal": "traded for at least 90% of the trading days"}
+{"id": "v7-nt-023", "annotator": "claude", "governing": ["SEBI/HO/CFD/PoD-1/P/CIR/2022/120#1. Vide notification dated July 25, 2022, Securities and Exc#11"], "expected_literal": "45 days from the end of quarter"}
+{"id": "v7-nt-024", "annotator": "claude", "governing": ["SEBI/HO/DDHS-PoD-2/P/CIR/2024/44#3. The option to retain 10% distribution under Regulation 18#154"], "expected_literal": "retain 10% distribution"}
+{"id": "v7-nt-025", "annotator": "claude", "governing": ["HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#2. Asset Allocation for Life Cycle Funds to be followed in f#1582"], "expected_literal": "65-95"}
