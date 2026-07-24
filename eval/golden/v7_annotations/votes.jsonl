@@ -111,7 +111,7 @@
 {"id": "v7-nt-011", "annotator": "claude", "governing": ["SEBI/HO/MRD/MRD-PoD-1/P/CIR/2023/136#14.5.1. In order to bring about transparency in the Investor#598"], "expected_literal": "7th of succeeding month"}
 {"id": "v7-nt-012", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/53#42. Segregation and Monitoring of Collateral at Client Level#367"], "expected_literal": "in excess of 90% of the client collateral"}
 {"id": "v7-nt-013", "annotator": "claude", "governing": ["CIR/MRD/DRMNP/11/2013#8. Trading Hours#134"], "expected_literal": "more than 1%"}
-{"id": "v7-nt-014", "annotator": "claude", "governing": ["CIR/IMD/DF/5/2013#3. The lower of (1) and (2) above shall be used for calculat#202"], "expected_literal": "100% of the net assets"}
+{"id": "v7-nt-014", "annotator": "claude", "governing": ["CIR/IMD/DF/5/2013#3. The lower of (1) and (2) above shall be used for calculat#215"], "expected_literal": "100% of the net assets"}
 {"id": "v7-nt-015", "annotator": "claude", "governing": ["SEBI/HO/CFD/PoD-1/P/CIR/2024/072#6.1. The BTIs are required to submit half-yearly reports to #51"], "expected_literal": "three months"}
 {"id": "v7-nt-016", "annotator": "claude", "governing": ["SEBI/HO/CDMRD/DNPMP/CIR/P/2020/118#1.15.1. In order to promote transparency in the markets, the#179"], "expected_literal": "10 days after completion of settlement"}
 {"id": "v7-nt-017", "annotator": "claude", "governing": ["SEBI/HO/DDHS/PoD1/P/CIR/2023/119#4. Issuers of debt securities and NCRPS on private placement#135"], "expected_literal": "issue size less than Rs.50 crore"}
