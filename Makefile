@@ -93,3 +93,6 @@ reg-edges:
 
 audit-regs:
 	$(ENV) $(PY) scripts/audit_reg_edges.py
+
+golden-v7-pool:
+	$(ENV) $(PY) scripts/golden_v7/build_pool.py
