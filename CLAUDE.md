@@ -70,6 +70,10 @@ only — see `master_meta.annotate_master_fields` and
   bge-m3 / cross-encoder weights (slow) — run explicitly with `pytest -m integration`.
 - Golden sets and probe queries live in `eval/golden/` and `eval/probes/`; benchmark runs land
   in `eval/runs/`. Retrieval changes are gated by an A/B run against these before promotion.
+- `make validate-corpus` checks corpus integrity: no two records share a body text, and each
+  record's `circular_number` is derivable from its own text. Add `--deep` to also re-extract
+  every PDF and compare. **Run it after any ingest, backfill, or repair** — both invariants
+  exist because those bug classes shipped undetected (see `docs/status.md` 2026-07-25).
 - Interventions are specced in `docs/superpowers/specs/`, planned in `plans/`, results in `reports/`.
 
 ## Environment

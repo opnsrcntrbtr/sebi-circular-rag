@@ -442,6 +442,65 @@ tests). System is end-to-end complete. Next: grow the corpus / API hardening.
 - **B1 (resolved)** — Step 6 mlx-lm: fixed by pinning Python 3.12.13 venv.
 - P1 / P2 — implementation prerequisites (not blockers).
 
+## 2026-07-25 — Corpus integrity + pooling remediation (golden v7)
+
+Two defects found while reviewing the completed golden-v7 chunk-labelling
+phase. Both were root-caused, not patched around.
+
+**Corpus: 6 text-corrupted + 12 stale-numbered records (of 705).**
+- 5 records had their body text overwritten with one shared circular's text
+  (byte-identical). `ingest()` cannot produce that shape, so a batch write
+  assigned `text`/`provenance` from stale variables while metadata came
+  per-record from elsewhere. Their correct PDFs were still on disk as
+  orphans, so repair was fully offline (`scripts/repair_corpus_text.py`).
+- 12 records carried a stale `circular_number` — either truncated
+  (`CIR/MRD/DP/41`) or taken from a circular they merely CITED. The current
+  parser already derives all 12 correctly; `scripts/renumber.py` had simply
+  never been re-run after the parser improved. Every derived value was
+  verified present in its own document's header before accepting.
+- Root cause of one sub-class fixed in the parser: `_rejoin_split` converted
+  every en-dash to `/`, so `AFD - PoD - 2` became `AFD/PoD/2` and could not
+  normalize-match the document's own number. Spacing disambiguates (spaced
+  both sides = the document's own hyphen). Measured to change exactly the 2
+  affected records and nothing else.
+- **Why it mattered beyond one eval row:** the mislabelling was silently
+  corrupting the supersession graph, which is what `as_of` lineage-gating
+  rests on. A record misnamed after a circular it cited was inheriting that
+  circular's supersession claims. Fixing it removed 90 false-positive
+  supersession pairs (2850 -> 2760); the entire delta is attributable to
+  those 12 records, with 0 change on every other record.
+- Guardrail added (`make validate-corpus`, `scripts/validate_corpus.py`):
+  no duplicate body text, `circular_number` derivable from own text, plus a
+  `--deep` PDF re-extraction match. The pre-existing validator reported
+  "705 records, 0 violations" throughout because it had no invariant tying
+  `text` to its record. It now reports 22 -> 0 across the repair.
+
+**Pooling: `assemble_pool` cap saturation.**
+Step 1 walked chunks in DOCUMENT order and consumed the entire `cap=20`
+whenever a `must_contain` literal was a common word ("broker", "capital"),
+so the reranked/dense/BM25 legs never ran. Measured: 92 of 207 pools fully
+saturated, and 24 of the 25 labelling escalations sat in that group
+(e.g. `v7-bp-008`'s pool was chunks #0-#19; its true chunk is #326 of 1565).
+Now bounded (`gold_literal_cap=6`) and reranked rather than document-ordered.
+
+**Golden v7 final census.** 260 rows, 0 validator issues (incl. span
+resolution against the live corpus). 207/207 answerable rows labelled,
+**escalations 25 -> 0**. 18 were recovered deterministically from the
+Task-5 drafting candidate that each query was written from (no
+re-judgment); the remaining 7 were recovered by re-pooling after the fix —
+including 4 multi_hop rows whose base circular had been absent from its
+pool entirely, and `v7-rb-010`, which was unblocked by the text repair.
+multi_hop both-sides coverage 11 -> 15 of 20. `votes.jsonl` reconciled to
+207 records, one per answerable row, none with empty `governing`.
+Corpus 705 records / 77,841 chunks (was 77,859). Suite 514 passing.
+
+**Residual, out of scope:** 22 further orphan PDFs in `data/raw/` belong to
+no corpus record — a possible ingestion coverage gap worth its own audit.
+The SPLADE sidecar (`data/index/splade.npz`) is pinned to the old 77,859
+chunk count; it is eval-only and off by default, so it needs a rebuild
+before any SPLADE run.
+
 ## Last Updated
 
-2026-06-29
+2026-07-25
+
