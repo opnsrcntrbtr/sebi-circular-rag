@@ -35,6 +35,17 @@ DEFAULT_POOLS_PATH = ROOT / "eval" / "golden" / "v7_annotations" / "pools.jsonl"
 DEFAULT_SAMPLE_PATH = ROOT / "eval" / "golden" / "v7_annotations" / "external_sample.json"
 DEFAULT_GOLDEN_PATH = ROOT / "eval" / "golden" / "golden_v7.jsonl"
 
+# The design spec named gemini-3-flash-preview, but its free tier allows 20
+# requests/DAY (measured 2026-07-26) against this task's 100, so it can never
+# finish a pass. gemini-2.5-flash is the pinned replacement: non-preview and
+# non-alias, so the annotator identity in the eval record stays reproducible -
+# `gemini-flash-latest` would silently re-point as Google ships new versions.
+DEFAULT_MODEL = "gemini-2.5-flash"
+
+
+def _current_model() -> str:
+    return os.environ.get("GOLDEN_GEMINI_MODEL", DEFAULT_MODEL)
+
 # Same judging bar Task 8 held the claude annotator to (spec sec 6): without
 # it the two annotators answer materially different questions - measured
 # 2026-07-26 on a 5-row probe, the bare "governing provision" wording drew
@@ -206,8 +217,13 @@ def adjudicate(rows: list[dict], pools: list[dict], ids: list[str], post,
             chosen, expected, parse_error = _parse_reply(reply, letters)
             governing = [letter_to_chunk[l] for l in chosen]
 
-            cached = {"id": rid, "reply": reply, "governing": governing,
-                      "expected_literal": expected, "parse_error": parse_error}
+            # `model` is provenance, not plumbing: every row in one leg must
+            # come from the SAME annotator or the agreement stats are
+            # meaningless, and a cache dir is long-lived enough to outlast a
+            # model swap silently. Recording it makes a mixed leg auditable.
+            cached = {"id": rid, "model": _current_model(), "reply": reply,
+                      "governing": governing, "expected_literal": expected,
+                      "parse_error": parse_error}
             cache_path.write_text(
                 json.dumps(cached, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -261,7 +277,7 @@ def _post_gemini(prompt: str) -> str:
     free tier's per-minute limit and the occasional 503, and without this a
     single blip aborts the whole pass (rows already cached still survive).
     """
-    model = os.environ.get("GOLDEN_GEMINI_MODEL", "gemini-3-flash-preview")
+    model = _current_model()
     api_key = os.environ["GEMINI_API_KEY"]
     url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
            f"{model}:generateContent")
