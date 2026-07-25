@@ -103,5 +103,8 @@ golden-v7-packet:
 golden-v7-gemini:
 	$(ENV) $(PY) scripts/golden_v7/gemini_adjudicate.py
 
+golden-v7-agree:
+	$(ENV) $(PY) scripts/golden_v7/agreement.py
+
 validate-corpus:
 	$(ENV) $(PY) scripts/validate_corpus.py data/corpus/circulars.jsonl
