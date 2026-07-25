@@ -66,10 +66,19 @@ def assemble_pool(row, retriever, reranker, cap: int = 20,
 
 
 def main() -> None:
+    import argparse
+
     from sebi_rag.embeddings import BGEM3Embedder
     from sebi_rag.rerank import CrossEncoderReranker
     from sebi_rag.retrieve import HybridRetriever
     from sebi_rag.settings import Settings
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--only", default="",
+                    help="comma-separated row ids to (re)pool; merged into "
+                         "the existing pools.jsonl, other records untouched")
+    args = ap.parse_args()
+    only = {t.strip() for t in args.only.split(",") if t.strip()}
 
     s = Settings.load()
     emb = BGEM3Embedder(device="mps")
@@ -78,16 +87,31 @@ def main() -> None:
     golden = load_golden(ROOT / "eval" / "golden" / "golden_v7.jsonl")
     out = ROOT / "eval" / "golden" / "v7_annotations" / "pools.jsonl"
     out.parent.mkdir(parents=True, exist_ok=True)
-    with out.open("w", encoding="utf-8") as f:
+
+    def record(row):
+        pool = assemble_pool(row, retr, rer)
+        print(row["id"], len(pool), file=sys.stderr)
+        return {"id": row["id"], "candidates": [
+            {"chunk_id": c.id, "doc": c.doc_id, "text": c.text} for c in pool]}
+
+    if only:
+        existing = [json.loads(l) for l in
+                    out.read_text(encoding="utf-8").splitlines() if l.strip()]
+        by_id = {r["id"]: r for r in existing}
+        missing = only - by_id.keys()
+        if missing:
+            raise SystemExit(f"--only ids not present in {out.name}: {sorted(missing)}")
         for row in golden:
-            if row.get("abstain"):
-                continue
-            pool = assemble_pool(row, retr, rer)
-            f.write(json.dumps({"id": row["id"], "candidates": [
-                {"chunk_id": c.id, "doc": c.doc_id, "text": c.text}
-                for c in pool]}, ensure_ascii=False) + "\n")
-            print(row["id"], len(pool), file=sys.stderr)
-    print(f"wrote pools -> {out}")
+            if row["id"] in only and not row.get("abstain"):
+                by_id[row["id"]] = record(row)
+        rows_out = [by_id[r["id"]] for r in existing]   # preserve original order
+    else:
+        rows_out = [record(row) for row in golden if not row.get("abstain")]
+
+    with out.open("w", encoding="utf-8") as f:
+        for rec in rows_out:
+            f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    print(f"wrote {len(rows_out)} pool records -> {out}")
 
 
 if __name__ == "__main__":

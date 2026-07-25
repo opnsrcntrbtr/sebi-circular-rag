@@ -54,47 +54,47 @@
 {"id": "v7-td-009", "annotator": "claude", "governing": ["SEBI/HO/CDMRD/DNPMP/CIR/P/2020/118#2. This Master Circular is a compilation of the circulars is#2"], "expected_literal": "which now stand repealed have been suitably updated"}
 {"id": "v7-td-010", "annotator": "claude", "governing": ["SEBI/HO/DDHS_Div2/P/CIR/2021/699#1. SEBI vide circular no. SEBI/HO/DDHS/DDHS/CIR/P/2020/231 d#1"], "expected_literal": "uniform structure for levying fines"}
 {"id": "v7-bp-001", "annotator": "claude", "governing": ["HO/19/(1)2025-AFD-FPICELL/I/5928/2026#2.2. The requirements of clauses (i) and (ii) of Regulation #6", "HO/19/(1)2025-AFD-FPICELL/I/5928/2026#2.2.1. Custodian shall ensure that adequate controls and mec#7"], "expected_literal": "conflict of interest"}
-{"id": "v7-bp-002", "annotator": "claude", "governing": [], "expected_literal": "Chartered Accountants, Company Secretaries"}
-{"id": "v7-bp-003", "annotator": "claude", "governing": [], "expected_literal": "lodgement-wise"}
+{"id": "v7-bp-002", "annotator": "claude", "governing": ["SEBI/HO/DDHS/POD3/P/CIR/2024/45#22.1.2. It shall be conducted by Chartered Accountants, Comp#236"], "expected_literal": "Chartered Accountants, Company Secretaries"}
+{"id": "v7-bp-003", "annotator": "claude", "governing": ["CIR/MRD/DP/41#2. The Issuer or its R&T Agent shall, on completion of the p#120"], "expected_literal": "lodgement-wise"}
 {"id": "v7-bp-004", "annotator": "claude", "governing": ["SEBI/HO/IMD/DF3/CIR/P/2016/84#3. The lower of (1) and (2) above shall be used for calculat#264"], "expected_literal": "No Objection Certificate"}
 {"id": "v7-bp-005", "annotator": "claude", "governing": ["HO/19/34/11(5)2025-AFD-POD1/I/188/2025#1.1. facilitate introduction of a separate category of AIF s#2"], "expected_literal": "AI-only schemes"}
 {"id": "v7-bp-006", "annotator": "claude", "governing": ["SEBI/HO/IMD/DF2/CIR/P/2020/156#3. Investments in government securities, money market#145"], "expected_literal": "7 trading days"}
 {"id": "v7-bp-007", "annotator": "claude", "governing": ["SEBI/HO/IMD/IMD-PoD-1/P/CIR/2023/74#5.1.6. Mutual funds/AMCs may disclose additional information#195"], "expected_literal": "at least once annually without engagement of management"}
-{"id": "v7-bp-008", "annotator": "claude", "governing": [], "expected_literal": "patterns found during investor complaint resolution"}
-{"id": "v7-bp-009", "annotator": "claude", "governing": [], "expected_literal": "keep the money of the clients in a separate account"}
+{"id": "v7-bp-008", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/DOP1/CIR/P/2018/87#1.8. Besides the above, the special purpose/limited inspecti#326"], "expected_literal": "patterns found during investor complaint resolution"}
+{"id": "v7-bp-009", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/DOP1/CIR/P/2018/87#25.1.1. Member Broker to keep accounts: Every member broker #653"], "expected_literal": "keep the money of the clients in a separate account"}
 {"id": "v7-bp-010", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/71#63.5. Scope:#572"], "expected_literal": "private cloud shall be considered as an on-premise deployment model"}
 {"id": "v7-bp-011", "annotator": "claude", "governing": ["SEBI/HO/DDHS/DDHS-POD2/P/CIR/2023/111#13.1.5. Unaccepted provisional rating: In case the provision#250", "SEBI/HO/DDHS/DDHS-POD2/P/CIR/2023/111#13.1.5.1. the details of the steps taken for assigning the p#251", "SEBI/HO/DDHS/DDHS-POD2/P/CIR/2023/111#13.1.5.2. the rating referred to in para 13.1.4.6 viz. ratin#252", "SEBI/HO/DDHS/DDHS-POD2/P/CIR/2023/111#13.1.5.1. the details of the steps taken for assigning the p#251"], "expected_literal": "non-accepted ratings"}
 {"id": "v7-bp-012", "annotator": "claude", "governing": ["SEBI/HO/IMD/IMD-POD-1/P/CIR/2023/38#4.5.3.1. Consider all cash holdings and investments in liqui#184"], "expected_literal": "Consider all cash holdings and investments in liquid funds"}
-{"id": "v7-bp-013", "annotator": "claude", "governing": [], "expected_literal": "ransomware attack"}
-{"id": "v7-bp-014", "annotator": "claude", "governing": [], "expected_literal": "seen and approved by the concerned"}
+{"id": "v7-bp-013", "annotator": "claude", "governing": ["SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2024/113#3. The parameters for classification of the incidents are as#1134"], "expected_literal": "ransomware attack"}
+{"id": "v7-bp-014", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/110#82. Unauthenticated news circulated by SEBI Registered Marke#611"], "expected_literal": "seen and approved by the concerned"}
 {"id": "v7-bp-015", "annotator": "claude", "governing": ["SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2024/113#4. REs shall maintain regularly updated ‘golden images’ of c#875"], "expected_literal": "golden images"}
 {"id": "v7-bp-016", "annotator": "claude", "governing": ["SEBI/HO/MIRSD-PoD-2/P/CIR/2023/89#12.6. Other Obligations:#87"], "expected_literal": "reporting of any suspicious transactions"}
 {"id": "v7-bp-017", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/110#85. Digital Mode of Payment105#630"], "expected_literal": "direct credit of amounts"}
 {"id": "v7-bp-018", "annotator": "claude", "governing": ["SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2024/113#11. The cybersecurity policy shall encompass the principles #691"], "expected_literal": "Information Infrastructure Protection Centre"}
-{"id": "v7-bp-019", "annotator": "claude", "governing": [], "expected_literal": "providing his proper credentials"}
+{"id": "v7-bp-019", "annotator": "claude", "governing": ["SEBI/HO/IMD/DF2/CIR/P/2020/156#3. The lower of (1) and (2) above shall be used for calculat#365"], "expected_literal": "providing his proper credentials"}
 {"id": "v7-bp-020", "annotator": "claude", "governing": ["SEBI/HO/AFD/PoD1/CIR/2023/189#1. SEBI vide Circular No. SEBI/HO/IMD/IMD-I/DF9/P/CIR/2021/6#1"], "expected_literal": "simplify the"}
-{"id": "v7-bp-021", "annotator": "claude", "governing": [], "expected_literal": "exercise oversight over incidents"}
-{"id": "v7-bp-022", "annotator": "claude", "governing": [], "expected_literal": "record and disclose specific"}
-{"id": "v7-bp-023", "annotator": "claude", "governing": [], "expected_literal": "host a web portal for intermediaries"}
-{"id": "v7-bp-024", "annotator": "claude", "governing": [], "expected_literal": "co-mingling of information"}
-{"id": "v7-bp-025", "annotator": "claude", "governing": [], "expected_literal": "deemed to be"}
+{"id": "v7-bp-021", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#19.5.1.1. The Board of Directors (BoD) or analogous body of #354"], "expected_literal": "exercise oversight over incidents"}
+{"id": "v7-bp-022", "annotator": "claude", "governing": ["CIR/IMD/DF/18/2014#2. If such shares and/or debentures and/or bonds and/or#111"], "expected_literal": "record and disclose specific"}
+{"id": "v7-bp-023", "annotator": "claude", "governing": ["SEBI/HO/CFD/PoD-1/P/CIR/2024/0154#13.6. For ease of doing business, Sponsor Banks shall host a#205"], "expected_literal": "host a web portal for intermediaries"}
+{"id": "v7-bp-024", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#86.14.1. In instances, where the third party acts as an outs#1437"], "expected_literal": "co-mingling of information"}
+{"id": "v7-bp-025", "annotator": "claude", "governing": ["SEBI/HO/AFD/AFD-PoD-2/P/CIR/2024/70#2. Guidance for certain specific entities#70"], "expected_literal": "deemed to be"}
 {"id": "v7-bp-026", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/DOP1/CIR/P/2018/87#45.9. The facility of DMA provided by the stock broker shall#901"], "expected_literal": "act as an investment manager on behalf of institutional clients"}
-{"id": "v7-bp-027", "annotator": "claude", "governing": [], "expected_literal": "within the legal boundaries of India"}
+{"id": "v7-bp-027", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/53#2. However, for the investors whose country of incorporation#1249"], "expected_literal": "within the legal boundaries of India"}
 {"id": "v7-bp-028", "annotator": "claude", "governing": ["SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90#2022) and its impact, if any, on the Fund score.#152"], "expected_literal": "created only in case of actual default"}
 {"id": "v7-bp-029", "annotator": "claude", "governing": ["SEBI/HO/DDHS-PoD-2/P/CIR/2024/43#19.5. In order to define the manner of handling the unclaime#422", "SEBI/HO/DDHS-PoD-2/P/CIR/2024/43#7. Policy for filing of claim: The Manager of the REIT shall#626", "SEBI/HO/DDHS-PoD-2/P/CIR/2024/43#7.1. the format in which claim has to be submitted by a unit#627"], "expected_literal": "transfer of such amounts to the IPEF"}
 {"id": "v7-bp-030", "annotator": "claude", "governing": ["SEBI/HO/DDHS-PoD-2/P/CIR/2025/102#2.3.1. In an issue made through the book building process or#31"], "expected_literal": "not more than 75% to Institutional Investors"}
 {"id": "v7-bp-031", "annotator": "claude", "governing": ["SEBI/HO/CFD/PoD2/CIR/P/2023/120#7. Whether the Board ‘steps back’ to assist executive manage#1025"], "expected_literal": "Ability to keep shareholders"}
-{"id": "v7-bp-032", "annotator": "claude", "governing": [], "expected_literal": "single consolidated view of all the investments"}
-{"id": "v7-bp-033", "annotator": "claude", "governing": [], "expected_literal": "50 percent or more of the corpus"}
+{"id": "v7-bp-032", "annotator": "claude", "governing": ["CIR/MRD/DP/6/2015#31. If the rights and obligations of the parties hereto are #77"], "expected_literal": "single consolidated view of all the investments"}
+{"id": "v7-bp-033", "annotator": "claude", "governing": ["SEBI/HO/AFD/AFD-POD-1/P/CIR/2024/135#8.2.1. For every scheme of AIFs where 50 percent or more of #22"], "expected_literal": "50 percent or more of the corpus"}
 {"id": "v7-bp-034", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/DoP/P/CIR/2022/74#40. KRAs shall carry out periodic vulnerability assessment a#4"], "expected_literal": "conduct VAPT at least once in a financial year"}
 {"id": "v7-bp-035", "annotator": "claude", "governing": ["SEBI/HO/MRD/MRD-PoD-3/P/CIR/2023/81#3. The comprehensive guidelines for IPF and ISF are as under#13"], "expected_literal": "within three years from the date of expiry"}
 {"id": "v7-bp-036", "annotator": "claude", "governing": ["SEBI/HO/ISD/ISD/CIR/P/2021/22#2.3.4. Logs for any usage of such Blogs/Chat forums/Messenge#37"], "expected_literal": "shall be treated as records"}
 {"id": "v7-bp-037", "annotator": "claude", "governing": ["SEBI/HO/IMD/IMD-POD-1/P/CIR/2024/80#4.1.1. Material change, for the purpose of the PM Regulation#181"], "expected_literal": "fees charged"}
 {"id": "v7-bp-038", "annotator": "claude", "governing": ["SEBI/HO/DDHS-PoD-2/P/CIR/2024/43#18.2.8. Vacating of office of a Unitholder Nominee Director#413"], "expected_literal": "within two working days"}
-{"id": "v7-bp-039", "annotator": "claude", "governing": [], "expected_literal": "country risks"}
+{"id": "v7-bp-039", "annotator": "claude", "governing": ["HO/38/12/11(2)2026-MIRSD-POD/I/4300/2026#5.2.11. addresses additional issues arising from country ris#306"], "expected_literal": "country risks"}
 {"id": "v7-bp-040", "annotator": "claude", "governing": ["HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#5.11.1. In order to deal with various technology related iss#252"], "expected_literal": "constitute a Technology Committee"}
-{"id": "v7-bp-041", "annotator": "claude", "governing": [], "expected_literal": "takes into account all dividends"}
-{"id": "v7-bp-042", "annotator": "claude", "governing": [], "expected_literal": "Order quantity / order value limit"}
+{"id": "v7-bp-041", "annotator": "claude", "governing": ["HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#7.23.1. Total Return variant of an Index (TRI) takes into ac#501"], "expected_literal": "takes into account all dividends"}
+{"id": "v7-bp-042", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#57.5.3. All DMA orders shall be subjected to the following l#924"], "expected_literal": "Order quantity / order value limit"}
 {"id": "v7-bp-043", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/91#5. What constitutes an association between persons regulated#647"], "expected_literal": "referral of a client"}
 {"id": "v7-bp-044", "annotator": "claude", "governing": ["SEBI/HO/OIAE/OIAE_IAD-3/P/ON/2025/01650#2.7. In case of any subsisting credit facilities secured by #18"], "expected_literal": "obtain due discharge from the creditors"}
 {"id": "v7-bp-045", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2022/177#3.1. A joint platform to provide Investor Risk Reduction Acc#4"], "expected_literal": "square off/close the open positions"}
@@ -118,7 +118,7 @@
 {"id": "v7-nt-018", "annotator": "claude", "governing": ["HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#7.19.2. Applicability for a Close ended scheme/Interval sche#483"], "expected_literal": "refunded within 6 weeks"}
 {"id": "v7-nt-019", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/53#37. Modification of Client Codes of Non-institutional Trades#322"], "expected_literal": "> 5"}
 {"id": "v7-nt-020", "annotator": "claude", "governing": ["SEBI/HO/AFD/AFD-PoD-2/P/CIR/2024/70#2. Continuance#204"], "expected_literal": "Within 30 days"}
-{"id": "v7-nt-021", "annotator": "claude", "governing": [], "expected_literal": "High risk 3"}
+{"id": "v7-nt-021", "annotator": "claude", "governing": ["SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#6. FMIs shall be monitored and assessed against the PFMIs on#321"], "expected_literal": "High risk 3"}
 {"id": "v7-nt-022", "annotator": "claude", "governing": ["SEBI/HO/CDMRD/DMP/P/CIR/2022/64#7.1.3. Eligibility criteria: Constituents of the commodity i#347"], "expected_literal": "traded for at least 90% of the trading days"}
 {"id": "v7-nt-023", "annotator": "claude", "governing": ["SEBI/HO/CFD/PoD-1/P/CIR/2022/120#1. Vide notification dated July 25, 2022, Securities and Exc#11"], "expected_literal": "45 days from the end of quarter"}
 {"id": "v7-nt-024", "annotator": "claude", "governing": ["SEBI/HO/DDHS-PoD-2/P/CIR/2024/44#3. The option to retain 10% distribution under Regulation 18#154"], "expected_literal": "retain 10% distribution"}
@@ -137,7 +137,7 @@
 {"id": "v7-ls-007", "annotator": "claude", "governing": ["SEBI/HO/MRD/MRD-PoD-2/P/CIR/2023/166#10. For cases where the value of securities is up to#116"], "expected_literal": "exemption from sending quarterly statements"}
 {"id": "v7-ls-008", "annotator": "claude", "governing": ["HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#7. Any other instrument#2464"], "expected_literal": "functional web link"}
 {"id": "v7-ls-009", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#19.1. In order to further strengthen the compliance and moni#331"], "expected_literal": "Qualified Stock Brokers (QSBs)"}
-{"id": "v7-ls-010", "annotator": "claude", "governing": [], "expected_literal": "Will"}
+{"id": "v7-ls-010", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/91#8. In case the legal heir(s)/claimant(s) NA ✓#616"], "expected_literal": "Will"}
 {"id": "v7-ls-011", "annotator": "claude", "governing": ["SEBI/HO/DDHS-PoD-2/P/CIR/2025/99#18.1. Regulation 4(2)(g) of SEBI (Real Estate Investment Tru#452"], "expected_literal": "not less than ten percent"}
 {"id": "v7-ls-012", "annotator": "claude", "governing": ["SEBI/HO/DDHS-PoD-2/P/CIR/2025/102#7.6.1. [The units allotted to sponsor(s) and sponsor group(s#319"], "expected_literal": "twenty-five percent"}
 {"id": "v7-ls-013", "annotator": "claude", "governing": ["SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2024/113#2. Thresholds for REs’ categorization:#310"], "expected_literal": "Mid-size REs"}
@@ -173,16 +173,16 @@
 {"id": "v7-mh-006", "annotator": "claude", "governing": ["SEBI/HO/IMD/DF2/CIR/P/2022/102#3. Subsequently, feedback was received from stakeholders exp#3", "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90#8. Any other disclosure as directed by the Board.#122"], "expected_literal": "November 01, 2022"}
 {"id": "v7-mh-007", "annotator": "claude", "governing": ["SEBI/HO/OIAE/OIAE_IAD-3/P/ON/2025/01650#2.1.1. In case of joint accounts / holdings, upon demise of #7", "SEBI/HO/OIAE/OIAE_IAD-3/P/ON/2025/0027#2.1. Clause 2.1.1: In case of joint accounts / holdings, upo#7"], "expected_literal": "new account"}
 {"id": "v7-mh-008", "annotator": "claude", "governing": ["SEBI/HO/AFD/PoD/CIR/2023/97#3.1. Valuation of securities for which valuation norms have #3", "SEBI/HO/AFD/PoD-1/P/CIR/2024/123#4.3. With respect to thinly traded and non-traded securities#7"], "expected_literal": "March 31, 2025"}
-{"id": "v7-mh-009", "annotator": "claude", "governing": [], "expected_literal": "December 31, 2022"}
+{"id": "v7-mh-009", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/24#7.3. Initially, stock brokers with a total score greater tha#9", "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#19.7. The effective date of implementation for different QSB#393"], "expected_literal": "December 31, 2022"}
 {"id": "v7-mh-010", "annotator": "claude", "governing": ["SEBI/HO/AFD-1/PoD/P/CIR/2022/155#2.5. Existing schemes of AIFs, who have not declared their F#7"], "expected_literal": "12 months from the date of this circular"}
 {"id": "v7-mh-011", "annotator": "claude", "governing": ["SEBI/HO/AFD/AFD-POD-1/P/CIR/2024/175#14. The implementation standards formulated by SFA shall be #20"], "expected_literal": "January 15, 2025"}
-{"id": "v7-mh-012", "annotator": "claude", "governing": [], "expected_literal": "six months"}
+{"id": "v7-mh-012", "annotator": "claude", "governing": ["SEBI/HO/IMD/IMD-PoD-1/P/CIR/2023/117#4.4.2. Accordingly, it is decided that the Trustee company, #24", "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#7.3.5. AMC(s)/Trustees shall appoint Independent Directors i#372"], "expected_literal": "six months"}
 {"id": "v7-mh-013", "annotator": "claude", "governing": ["SEBI/HO/MRD-PoD2/CIR/P/2024/153#6. The provisions of this circular will come into effect fro#13", "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#19.8.1. In addition to the current mode of trading, the Qual#394"], "expected_literal": "February 01, 2025"}
 {"id": "v7-mh-014", "annotator": "claude", "governing": ["SEBI/HO/IMD/IMD-PoD-2/P/CIR/2022/172#3.1. The provisions of this Circular shall be applicable wit#25", "SEBI/HO/IMD/IMD-POD-1/P/CIR/2024/80#4.6.2.8. other salient features, if any.#215"], "expected_literal": "April 01, 2023"}
 {"id": "v7-mh-015", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#37.8. For the clients who issue the DDPI to stock broker/sto#595"], "expected_literal": "July 01, 2022"}
-{"id": "v7-mh-016", "annotator": "claude", "governing": [], "expected_literal": "October 01, 2023"}
+{"id": "v7-mh-016", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2022/177#7. Stock exchanges and CCs shall put in place appropriate sy#23", "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#92.2. To address the issue, SEBI had extensive consultations#1476"], "expected_literal": "October 01, 2023"}
 {"id": "v7-mh-017", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD_RTAMB/P/CIR/2022/65#2. As an on-going measure to enhance ease of dealing in secu#2"], "expected_literal": "SEBI/LAD-NRO/GN/2022/80"}
-{"id": "v7-mh-018", "annotator": "claude", "governing": [], "expected_literal": "six months"}
+{"id": "v7-mh-018", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/TPD/CIR/2025/10#8. The web portal shall be developed by stock exchanges with#13", "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#17.2. Standardization System Audit Process and Audit Report:#292"], "expected_literal": "six months"}
 {"id": "v7-mh-019", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2022/153#2. SEBI, vide circular no. CIR/HO/MIRSD/DOP/CIR/P/2019/75 da#2"], "expected_literal": "five trading days"}
 {"id": "v7-mh-020", "annotator": "claude", "governing": ["SEBI/HO/AFD/PoD1/CIR/2024/2#2. In view of the amendments to the Prevention of Money-Laun#2", "SEBI/HO/AFD-1/AFD-1-PoD/P/CIR/2024/39#4.1.2. The investor, or its beneficial owner as determined i#58"], "expected_literal": "para 4.1.2"}
 {"id": "v7-rb-001", "annotator": "claude", "governing": ["SEBI/HO/IMD/IMD-SEC-3/P/CIR/2025/15#14. This circular is issued in exercise of the powers confer#19"], "expected_literal": "MITRA"}
@@ -194,7 +194,7 @@
 {"id": "v7-rb-007", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/POD-1/P/CIR/2024/81#3.1. Non-submission of ‘choice of nomination’ shall not resu#6"], "expected_literal": "freezing"}
 {"id": "v7-rb-008", "annotator": "claude", "governing": ["SEBI/HO/MRD/POD-III/CIR/2023/165#4. In this regard, it has been decided that the members of s#4"], "expected_literal": "Base Minimum Capital"}
 {"id": "v7-rb-009", "annotator": "claude", "governing": ["SEBI/HO/IMD/IMD-PoD-1/P/CIR/2025/115#1. Paragraph 10.5 read with paragraph 10.4.1.b of SEBI Maste#1"], "expected_literal": "INR 10,000"}
-{"id": "v7-rb-010", "annotator": "claude", "governing": [], "expected_literal": "uniformity"}
+{"id": "v7-rb-010", "annotator": "claude", "governing": ["DOF3/P/CIR/2022/82#preamble#0"], "expected_literal": "uniformity"}
 {"id": "v7-rb-011", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/109#1. SEBI, vide Para II of Circular no. SEBI/DNPD/Cir-17/2003/#1"], "expected_literal": "SEBI/DNPD/Cir-17/2003/10/29"}
 {"id": "v7-rb-012", "annotator": "claude", "governing": ["SEBI/HO/MRD/DP/CIR/P/2016/134#preamble#0"], "expected_literal": "CIR/MRD/DP/6/2015"}
 {"id": "v7-rb-013", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/180#1. SEBI has prescribed the following uniform documents for f#1"], "expected_literal": "Risk disclosure documents"}
@@ -205,21 +205,3 @@
 {"id": "v7-rb-018", "annotator": "claude", "governing": ["CIR/MRD/DP/13#preamble#0"], "expected_literal": "CIR/MRD/DP/10/2012"}
 {"id": "v7-rb-019", "annotator": "claude", "governing": ["SEBI/HO/IMD/POD-II/CIR/P/2023/0069#1. In partial modification to the above SEBI circular, it ha#1"], "expected_literal": "legal guardian"}
 {"id": "v7-rb-020", "annotator": "claude", "governing": ["SEBI/HO/IMD/DF2/CIR/P/2019/65#1. Reference may be drawn to SEBI circulars MFD/Cir No.11/17#1"], "expected_literal": "MFD/Cir No.11/171/01"}
-{"id": "v7-bp-002", "annotator": "claude", "governing": ["SEBI/HO/DDHS/POD3/P/CIR/2024/45#22.1.2. It shall be conducted by Chartered Accountants, Comp#236"], "expected_literal": "Chartered Accountants, Company Secretaries"}
-{"id": "v7-bp-003", "annotator": "claude", "governing": ["CIR/MRD/DP/41#2. The Issuer or its R&T Agent shall, on completion of the p#120"], "expected_literal": "lodgement-wise"}
-{"id": "v7-bp-008", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/DOP1/CIR/P/2018/87#1.8. Besides the above, the special purpose/limited inspecti#326"], "expected_literal": "patterns found during investor complaint resolution"}
-{"id": "v7-bp-009", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/DOP1/CIR/P/2018/87#25.1.1. Member Broker to keep accounts: Every member broker #653"], "expected_literal": "keep the money of the clients in a separate account"}
-{"id": "v7-bp-014", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/110#82. Unauthenticated news circulated by SEBI Registered Marke#611"], "expected_literal": "seen and approved by the concerned"}
-{"id": "v7-bp-019", "annotator": "claude", "governing": ["SEBI/HO/IMD/DF2/CIR/P/2020/156#3. The lower of (1) and (2) above shall be used for calculat#365"], "expected_literal": "providing his proper credentials"}
-{"id": "v7-bp-021", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#19.5.1.1. The Board of Directors (BoD) or analogous body of #354"], "expected_literal": "exercise oversight over incidents"}
-{"id": "v7-bp-022", "annotator": "claude", "governing": ["CIR/IMD/DF/18/2014#2. If such shares and/or debentures and/or bonds and/or#111"], "expected_literal": "record and disclose specific"}
-{"id": "v7-bp-023", "annotator": "claude", "governing": ["SEBI/HO/CFD/PoD-1/P/CIR/2024/0154#13.6. For ease of doing business, Sponsor Banks shall host a#205"], "expected_literal": "host a web portal for intermediaries"}
-{"id": "v7-bp-024", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#86.14.1. In instances, where the third party acts as an outs#1437"], "expected_literal": "co-mingling of information"}
-{"id": "v7-bp-025", "annotator": "claude", "governing": ["SEBI/HO/AFD/AFD-PoD-2/P/CIR/2024/70#2. Guidance for certain specific entities#70"], "expected_literal": "deemed to be"}
-{"id": "v7-bp-027", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/53#2. However, for the investors whose country of incorporation#1249"], "expected_literal": "within the legal boundaries of India"}
-{"id": "v7-bp-032", "annotator": "claude", "governing": ["CIR/MRD/DP/6/2015#31. If the rights and obligations of the parties hereto are #77"], "expected_literal": "single consolidated view of all the investments"}
-{"id": "v7-bp-033", "annotator": "claude", "governing": ["SEBI/HO/AFD/AFD-POD-1/P/CIR/2024/135#8.2.1. For every scheme of AIFs where 50 percent or more of #22"], "expected_literal": "50 percent or more of the corpus"}
-{"id": "v7-bp-039", "annotator": "claude", "governing": ["HO/38/12/11(2)2026-MIRSD-POD/I/4300/2026#5.2.11. addresses additional issues arising from country ris#306"], "expected_literal": "country risks"}
-{"id": "v7-bp-041", "annotator": "claude", "governing": ["HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#7.23.1. Total Return variant of an Index (TRI) takes into ac#501"], "expected_literal": "takes into account all dividends"}
-{"id": "v7-bp-042", "annotator": "claude", "governing": ["SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#57.5.3. All DMA orders shall be subjected to the following l#924"], "expected_literal": "Order quantity / order value limit"}
-{"id": "v7-nt-021", "annotator": "claude", "governing": ["SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#6. FMIs shall be monitored and assessed against the PFMIs on#321"], "expected_literal": "High risk 3"}
