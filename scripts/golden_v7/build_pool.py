@@ -21,22 +21,36 @@ from sebi_rag.benchmark import _norm_ws  # noqa: E402
 from sebi_rag.eval_harness import load_golden  # noqa: E402
 
 
-def assemble_pool(row, retriever, reranker, cap: int = 20):
+def assemble_pool(row, retriever, reranker, cap: int = 20,
+                  gold_literal_cap: int = 6):
+    """TREC-style pool: gold-doc literal matches lead, then round-robin over
+    [reranked, dense, raw-BM25] top-15 legs until `cap`, deduped by chunk id.
+
+    `gold_literal_cap` bounds the literal-match step, and those matches are
+    reranked rather than taken in document order. Without both, a common
+    must_contain literal ("broker") matches hundreds of chunks in a master
+    circular and fills the entire cap with the document's opening pages —
+    preamble and table-of-contents stubs — starving the ranked legs entirely.
+    Measured 2026-07-25: this saturated 92 of 207 pools and caused 24 of 25
+    labelling escalations.
+    """
     gold_docs = set(row.get("relevant_circulars", []))
     literals = [_norm_ws(m) for m in row.get("must_contain", []) if m]
     q = row["query"]
 
     pool, seen = [], set()
 
-    def add(c):
-        if c.id not in seen and len(pool) < cap:
+    def add(c, limit=None):
+        if c.id not in seen and len(pool) < (cap if limit is None else limit):
             seen.add(c.id)
             pool.append(c)
 
-    for c in retriever.chunks:
-        if c.doc_id in gold_docs and literals and any(
-                lit in _norm_ws(c.text) for lit in literals):
-            add(c)
+    literal_hits = [c for c in retriever.chunks
+                    if c.doc_id in gold_docs and literals
+                    and any(lit in _norm_ws(c.text) for lit in literals)]
+    if literal_hits:
+        for c in [c for c, _ in reranker.rerank(q, literal_hits)]:
+            add(c, limit=min(gold_literal_cap, cap))
     rrf = retriever.retrieve(q, top_n=50)
     reranked = [c for c, _ in reranker.rerank(q, [c for c, _ in rrf])[:15]]
     dense = [retriever.chunks[i] for i, _ in retriever.dense.search(q, 15)]

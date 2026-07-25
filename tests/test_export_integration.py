@@ -272,16 +272,33 @@ def test_row_count_accuracy_in_live_export():
     # 2026-07-15 supersede-classification fix (f2c20b6) — trigger-word matches
     # now count regardless of ref position, adding +86 lineage edges and
     # +81 supersession pairs over the 2026-07-14 pins)
+    #
+    # Updated 2026-07-25 by the corpus remediation. Two repairs moved these:
+    #   (a) 5 records had their body text overwritten with one shared
+    #       circular's text; re-ingested from their real PDFs.
+    #   (b) 12 records carried a stale circular_number — either truncated
+    #       ("CIR/MRD/DP/41") or taken from a circular they merely CITED.
+    # chunks   77859 -> 77841: the 5 repaired records' true text is shorter.
+    # lineage   4569 -> 4574 (+5) and citation-normalization 8802 -> 8812
+    #       (+10): the repaired records now contribute their real citations.
+    # supersession-pairs 2850 -> 2760 (-90): FALSE POSITIVES REMOVED, not lost
+    #       data. A record misnamed after a circular it cited was inheriting
+    #       that circular's supersession claims. Verified: the entire delta is
+    #       attributable to those 12 records (every other record: 0 change);
+    #       records with a wrong cited number went 4->0, 9->0, 8->0, while
+    #       truncated numbers now resolve correctly (0->1).
     expected = {
         "corpus": 705,
-        "chunks": 77859,
-        "lineage": 4569,
+        "chunks": 77841,
+        "lineage": 4574,
         "eval": 56,
-        "citation-normalization": 8802,
-        "supersession-pairs": 2850,
+        "citation-normalization": 8812,
+        "supersession-pairs": 2760,
     }
 
-    for cfg, expected_rows in expected.items():
-        actual_rows = configs.get(cfg, {}).get("rows")
-        assert actual_rows == expected_rows, \
-            f"{cfg}: expected {expected_rows}, got {actual_rows}"
+    # Report every drift in one run: a re-annotation usually moves several
+    # counts at once, and failing on only the first turns one fix into N.
+    drift = {cfg: (exp, configs.get(cfg, {}).get("rows"))
+             for cfg, exp in expected.items()
+             if configs.get(cfg, {}).get("rows") != exp}
+    assert not drift, "row-count drift (expected, actual): " + repr(drift)
