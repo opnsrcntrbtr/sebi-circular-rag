@@ -11,6 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from golden_v7.gemini_adjudicate import (  # noqa: E402
     _parse_error_ids,
     _replace_annotator_votes,
+    _should_retry,
     adjudicate,
     build_prompt,
     parse_reply,
@@ -36,6 +37,40 @@ def _pool(row_id: str, n: int = 3) -> dict:
 # ---------------------------------------------------------------------------
 # (a) build_prompt
 # ---------------------------------------------------------------------------
+
+def test_governing_prompt_carries_the_spec_sec6_strictness_bar():
+    """The claude annotator (Task 8) judged under an explicit bar: a chunk is
+    governing iff its text contains the provision that answers the query,
+    and "topical relatedness is NOT enough". The gemini prompt originally
+    said only "the governing provision", so the two annotators were answering
+    materially different questions - a 5-row probe on 2026-07-26 measured 0/5
+    exact-set agreement, with gemini returning a strict superset of claude's
+    pick on 3 of 5. Agreement is only evidence when both raters were asked
+    the same question, so the bar must appear in the prompt itself."""
+    prompt = build_prompt(_row(), _pool("v7-td-001", n=2))
+    lowered = prompt.lower()
+    assert "topical relatedness is not enough" in lowered
+    assert "operative provision" in lowered
+
+
+def test_governing_prompt_does_not_leak_how_many_chunks_usually_govern():
+    """Guard against the tempting-but-circular fix: claude's labels are
+    mostly single-chunk, so telling gemini "usually exactly one governs"
+    would raise agreement by feeding claude's own answer distribution back
+    into the supposedly independent leg. The prompt ports the DEFINITION
+    only - anything about cardinality is leakage, not calibration."""
+    lowered = build_prompt(_row(), _pool("v7-td-001", n=2)).lower()
+    for leak in ("usually one", "usually exactly one", "typically one",
+                 "select one", "only one excerpt"):
+        assert leak not in lowered
+
+
+def test_should_retry_only_on_transient_statuses():
+    for status in (429, 500, 502, 503, 504):
+        assert _should_retry(status), status
+    for status in (200, 400, 401, 403, 404):
+        assert not _should_retry(status), status
+
 
 def test_build_prompt_contains_every_letter_and_excerpt_no_scores_or_ranks():
     row = _row()

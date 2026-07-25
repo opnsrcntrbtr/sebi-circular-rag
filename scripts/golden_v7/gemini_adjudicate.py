@@ -18,6 +18,7 @@ import json
 import os
 import random
 import sys
+import time
 from pathlib import Path
 
 import httpx
@@ -33,7 +34,20 @@ DEFAULT_POOLS_PATH = ROOT / "eval" / "golden" / "v7_annotations" / "pools.jsonl"
 DEFAULT_SAMPLE_PATH = ROOT / "eval" / "golden" / "v7_annotations" / "external_sample.json"
 DEFAULT_GOLDEN_PATH = ROOT / "eval" / "golden" / "golden_v7.jsonl"
 
+# Same judging bar Task 8 held the claude annotator to (spec sec 6): without
+# it the two annotators answer materially different questions - measured
+# 2026-07-26 on a 5-row probe, the bare "governing provision" wording drew
+# 0/5 exact-set agreement, gemini returning a strict SUPERSET of claude's
+# pick on 3 of 5 (topically-relevant excerpts, not the operative provision).
+# Deliberately ports the DEFINITION only, never how many chunks typically
+# govern: that distribution is derived from claude's own labels, and feeding
+# it back would tune this leg toward agreement instead of measuring it.
 GOVERNING_INSTRUCTIONS = (
+    "An excerpt is GOVERNING only if its own text contains the provision that "
+    "answers the query. Topical relatedness is NOT enough - an excerpt that "
+    "merely discusses the same subject, cross-references the rule, or lists it "
+    "in a heading or table of contents does not govern. Select only the "
+    "excerpt(s) whose text carries the operative provision itself.\n"
     "Reply with the letter(s) that contain the governing provision, "
     "comma-separated, or NONE; then on a new line EXPECTED: <short literal>."
 )
@@ -202,20 +216,53 @@ def adjudicate(rows: list[dict], pools: list[dict], ids: list[str], post,
     return votes
 
 
+_RETRY_STATUSES = frozenset({429, 500, 502, 503, 504})
+_MAX_ATTEMPTS = 5
+
+
+def _should_retry(status: int) -> bool:
+    """Transient-failure predicate for the real Gemini call: rate limiting
+    (429) and the 5xx family are worth another attempt, everything else
+    (401/403 bad key, 404 unknown model, 400 malformed request) is a hard
+    error no amount of waiting fixes."""
+    return status in _RETRY_STATUSES
+
+
 def _post_gemini(prompt: str) -> str:
     """Real Gemini call (not exercised by unit tests - those inject a fake
     `post`). model from GOLDEN_GEMINI_MODEL, default gemini-3-flash-preview;
-    GEMINI_API_KEY is required - plain env access, no config abstraction."""
+    GEMINI_API_KEY is required - plain env access, no config abstraction.
+
+    The key travels in the `x-goog-api-key` HEADER, never the query string:
+    httpx echoes the full URL into HTTPStatusError, so a query-string key
+    leaks verbatim into any traceback, log, or CI output on the first 503.
+
+    Retries transient failures with linear backoff - a 100-row run hits the
+    free tier's per-minute limit and the occasional 503, and without this a
+    single blip aborts the whole pass (rows already cached still survive).
+    """
     model = os.environ.get("GOLDEN_GEMINI_MODEL", "gemini-3-flash-preview")
     api_key = os.environ["GEMINI_API_KEY"]
     url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
            f"{model}:generateContent")
-    resp = httpx.post(url, params={"key": api_key},
-                       json={"contents": [{"parts": [{"text": prompt}]}]},
-                       timeout=60.0)
-    resp.raise_for_status()
-    data = resp.json()
-    return data["candidates"][0]["content"]["parts"][0]["text"]
+    last: Exception | None = None
+    for attempt in range(_MAX_ATTEMPTS):
+        try:
+            resp = httpx.post(url, headers={"x-goog-api-key": api_key},
+                               json={"contents": [{"parts": [{"text": prompt}]}]},
+                               timeout=90.0)
+            if _should_retry(resp.status_code) and attempt < _MAX_ATTEMPTS - 1:
+                time.sleep(2 * (attempt + 1))
+                continue
+            resp.raise_for_status()
+            data = resp.json()
+            return data["candidates"][0]["content"]["parts"][0]["text"]
+        except httpx.TransportError as e:  # connect/read timeouts, DNS blips
+            last = e
+            if attempt == _MAX_ATTEMPTS - 1:
+                raise
+            time.sleep(2 * (attempt + 1))
+    raise RuntimeError(f"gemini call failed after {_MAX_ATTEMPTS} attempts: {last}")
 
 
 def _parse_error_ids(ids: list[str], cache_dir: str | Path) -> list[str]:
