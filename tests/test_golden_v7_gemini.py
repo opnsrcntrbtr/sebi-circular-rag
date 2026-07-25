@@ -9,8 +9,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from golden_v7.gemini_adjudicate import (  # noqa: E402
+    _daily_quota_exhausted,
     _parse_error_ids,
     _replace_annotator_votes,
+    _retry_delay_s,
     _should_retry,
     adjudicate,
     build_prompt,
@@ -70,6 +72,31 @@ def test_should_retry_only_on_transient_statuses():
         assert _should_retry(status), status
     for status in (200, 400, 401, 403, 404):
         assert not _should_retry(status), status
+
+
+def test_daily_quota_429_is_distinguished_from_per_minute_429():
+    """Both arrive as 429 but need opposite handling: a per-minute burst
+    limit clears in under a minute and is worth waiting out, the daily cap
+    does not reset until tomorrow so retrying just burns wall-clock and
+    hides why the run stopped. Bodies are the real shapes returned by the
+    API on 2026-07-26."""
+    per_day = ('{"error":{"code":429,"details":[{"@type":"type.googleapis.com'
+               '/google.rpc.QuotaFailure","violations":[{"quotaId":'
+               '"GenerateRequestsPerDayPerProjectPerModel-FreeTier",'
+               '"quotaValue":"20"}]}]}}')
+    per_min = ('{"error":{"code":429,"details":[{"@type":"type.googleapis.com'
+               '/google.rpc.QuotaFailure","violations":[{"quotaId":'
+               '"GenerateContentInputTokensPerModelPerMinute-FreeTier"}]}]}}')
+    assert _daily_quota_exhausted(per_day)
+    assert not _daily_quota_exhausted(per_min)
+
+
+def test_retry_delay_honours_the_api_advice_and_is_capped():
+    assert _retry_delay_s('{"retryDelay": "54s"}') == 54.0
+    assert _retry_delay_s('{"retryDelay": "54.47s"}') == 54.47
+    # a pathological advisory must not stall the run for hours
+    assert _retry_delay_s('{"retryDelay": "86400s"}') == 90
+    assert _retry_delay_s('{"error": "no advice here"}') is None
 
 
 def test_build_prompt_contains_every_letter_and_excerpt_no_scores_or_ranks():

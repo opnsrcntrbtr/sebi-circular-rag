@@ -17,6 +17,7 @@ from __future__ import annotations
 import json
 import os
 import random
+import re as _re
 import sys
 import time
 from pathlib import Path
@@ -218,6 +219,7 @@ def adjudicate(rows: list[dict], pools: list[dict], ids: list[str], post,
 
 _RETRY_STATUSES = frozenset({429, 500, 502, 503, 504})
 _MAX_ATTEMPTS = 5
+_MAX_BACKOFF_S = 90
 
 
 def _should_retry(status: int) -> bool:
@@ -226,6 +228,24 @@ def _should_retry(status: int) -> bool:
     (401/403 bad key, 404 unknown model, 400 malformed request) is a hard
     error no amount of waiting fixes."""
     return status in _RETRY_STATUSES
+
+
+def _daily_quota_exhausted(body: str) -> bool:
+    """True when a 429 is the per-DAY free-tier cap rather than a per-minute
+    burst limit. The two are not the same failure: a per-minute limit clears
+    in under a minute and is worth waiting out, while the daily cap does not
+    reset until tomorrow, so retrying only burns wall-clock and hides the
+    real reason the run stopped. Measured 2026-07-26: gemini-3-flash-preview
+    caps the free tier at 20 requests/day, far under this task's 100."""
+    return "PerDay" in body
+
+
+def _retry_delay_s(body: str) -> float | None:
+    """Google advises its own wait in the 429 body (`retryDelay: "54s"`).
+    Honouring it beats a fixed local backoff, which is either wastefully long
+    or too short to clear the window."""
+    m = _re.search(r'"retryDelay":\s*"(\d+(?:\.\d+)?)s"', body)
+    return min(float(m.group(1)), _MAX_BACKOFF_S) if m else None
 
 
 def _post_gemini(prompt: str) -> str:
@@ -251,8 +271,14 @@ def _post_gemini(prompt: str) -> str:
             resp = httpx.post(url, headers={"x-goog-api-key": api_key},
                                json={"contents": [{"parts": [{"text": prompt}]}]},
                                timeout=90.0)
+            if resp.status_code == 429 and _daily_quota_exhausted(resp.text):
+                raise RuntimeError(
+                    f"{model}: free-tier DAILY quota exhausted - rows already "
+                    "cached are kept, so rerunning tomorrow resumes where this "
+                    "stopped. Set GOLDEN_GEMINI_MODEL to a model with a larger "
+                    "free daily allowance to finish sooner.")
             if _should_retry(resp.status_code) and attempt < _MAX_ATTEMPTS - 1:
-                time.sleep(2 * (attempt + 1))
+                time.sleep(_retry_delay_s(resp.text) or 2 * (attempt + 1))
                 continue
             resp.raise_for_status()
             data = resp.json()
