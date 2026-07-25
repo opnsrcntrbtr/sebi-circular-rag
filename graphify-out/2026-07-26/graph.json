@@ -4,484 +4,14 @@
   "graph": {},
   "nodes": [
     {
-      "label": "agreement.py",
-      "file_type": "code",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "scripts_golden_v7_agreement",
-      "community": 51,
-      "norm_label": "agreement.py"
-    },
-    {
-      "label": "_label()",
-      "file_type": "code",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L34",
-      "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_label",
-      "community": 51,
-      "norm_label": "_label()"
-    },
-    {
-      "label": "cohen_kappa()",
-      "file_type": "code",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L38",
-      "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_cohen_kappa",
-      "community": 51,
-      "norm_label": "cohen_kappa()"
-    },
-    {
-      "label": "decide()",
-      "file_type": "code",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L66",
-      "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_decide",
-      "community": 51,
-      "norm_label": "decide()"
-    },
-    {
-      "label": "apply()",
-      "file_type": "code",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L116",
-      "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_apply",
-      "community": 51,
-      "norm_label": "apply()"
-    },
-    {
-      "label": "_body()",
-      "file_type": "code",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L144",
-      "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_body",
-      "community": 51,
-      "norm_label": "_body()"
-    },
-    {
-      "label": "_resolve_governing_spans()",
-      "file_type": "code",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L149",
-      "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_resolve_governing_spans",
-      "community": 51,
-      "norm_label": "_resolve_governing_spans()"
-    },
-    {
-      "label": "_votes_by_row()",
-      "file_type": "code",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L176",
-      "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_votes_by_row",
-      "community": 51,
-      "norm_label": "_votes_by_row()"
-    },
-    {
-      "label": "_stratum_kappas()",
-      "file_type": "code",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L183",
-      "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_stratum_kappas",
-      "community": 51,
-      "norm_label": "_stratum_kappas()"
-    },
-    {
-      "label": "_claude_accuracy_ci()",
-      "file_type": "code",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L215",
-      "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_claude_accuracy_ci",
-      "community": 51,
-      "norm_label": "_claude_accuracy_ci()"
-    },
-    {
-      "label": "_render_report()",
-      "file_type": "code",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L236",
-      "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_render_report",
-      "community": 51,
-      "norm_label": "_render_report()"
-    },
-    {
-      "label": "main()",
-      "file_type": "code",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L270",
-      "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_main",
-      "community": 51,
-      "norm_label": "main()"
-    },
-    {
-      "label": "Agreement, promotion, and arbitration for the golden-v7 external annotation slic",
-      "file_type": "rationale",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_rationale_1",
-      "community": 51,
-      "norm_label": "agreement, promotion, and arbitration for the golden-v7 external annotation slic"
-    },
-    {
-      "label": "Categorical Cohen's kappa over paired labels (row-aligned). Each raw     element",
-      "file_type": "rationale",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L39",
-      "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_rationale_39",
-      "community": 51,
-      "norm_label": "categorical cohen's kappa over paired labels (row-aligned). each raw     element"
-    },
-    {
-      "label": "Spec sec7 promotion rules for one row.      `votes_by_annotator` is this row's v",
-      "file_type": "rationale",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L68",
-      "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_rationale_68",
-      "community": 51,
-      "norm_label": "spec sec7 promotion rules for one row.      `votes_by_annotator` is this row's v"
-    },
-    {
-      "label": "Applies each row's `(decision, new_governing_spans)` from `decisions`     (keyed",
-      "file_type": "rationale",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L118",
-      "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_rationale_118",
-      "community": 51,
-      "norm_label": "applies each row's `(decision, new_governing_spans)` from `decisions`     (keyed"
-    },
-    {
-      "label": "Winning chunk ids (from a flip_promote decision) -> {doc, quote}     spans, look",
-      "file_type": "rationale",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L150",
-      "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_rationale_150",
-      "community": 51,
-      "norm_label": "winning chunk ids (from a flip_promote decision) -> {doc, quote}     spans, look"
-    },
-    {
-      "label": "\u03ba + raw agreement %, per annotator-pair per stratum, over rows in     `external_",
-      "file_type": "rationale",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L184",
-      "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_rationale_184",
-      "community": 51,
-      "norm_label": "\u03ba + raw agreement %, per annotator-pair per stratum, over rows in     `external_"
-    },
-    {
-      "label": "Clopper-Pearson 95% CI on claude-label accuracy vs externals: every     (row, ex",
-      "file_type": "rationale",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L216",
-      "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_rationale_216",
-      "community": 51,
-      "norm_label": "clopper-pearson 95% ci on claude-label accuracy vs externals: every     (row, ex"
-    },
-    {
-      "label": "test_golden_v7_agreement.py",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement",
-      "community": 51,
-      "norm_label": "test_golden_v7_agreement.py"
-    },
-    {
-      "label": "_row()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L17",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_row",
-      "community": 51,
-      "norm_label": "_row()"
-    },
-    {
-      "label": "_pool()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L31",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_pool",
-      "community": 51,
-      "norm_label": "_pool()"
-    },
-    {
-      "label": "test_cohen_kappa_identical_lists_is_one()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L39",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_cohen_kappa_identical_lists_is_one",
-      "community": 51,
-      "norm_label": "test_cohen_kappa_identical_lists_is_one()"
-    },
-    {
-      "label": "test_cohen_kappa_independent_looking_lists_is_low()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L44",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_cohen_kappa_independent_looking_lists_is_low",
-      "community": 51,
-      "norm_label": "test_cohen_kappa_independent_looking_lists_is_low()"
-    },
-    {
-      "label": "test_cohen_kappa_both_constant_and_identical_is_one()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L50",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_cohen_kappa_both_constant_and_identical_is_one",
-      "community": 51,
-      "norm_label": "test_cohen_kappa_both_constant_and_identical_is_one()"
-    },
-    {
-      "label": "test_cohen_kappa_empty_input_is_one()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L56",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_cohen_kappa_empty_input_is_one",
-      "community": 51,
-      "norm_label": "test_cohen_kappa_empty_input_is_one()"
-    },
-    {
-      "label": "test_decide_gemini_only_agrees_with_claude_promotes()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L64",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_gemini_only_agrees_with_claude_promotes",
-      "community": 51,
-      "norm_label": "test_decide_gemini_only_agrees_with_claude_promotes()"
-    },
-    {
-      "label": "test_decide_gemini_only_disagrees_with_claude_queues()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L72",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_gemini_only_disagrees_with_claude_queues",
-      "community": 51,
-      "norm_label": "test_decide_gemini_only_disagrees_with_claude_queues()"
-    },
-    {
-      "label": "test_decide_three_way_all_agree_promotes()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L79",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_three_way_all_agree_promotes",
-      "community": 51,
-      "norm_label": "test_decide_three_way_all_agree_promotes()"
-    },
-    {
-      "label": "test_decide_three_way_split_queues()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L87",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_three_way_split_queues",
-      "community": 51,
-      "norm_label": "test_decide_three_way_split_queues()"
-    },
-    {
-      "label": "test_decide_human_and_gemini_agree_on_alternative_flips()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L94",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_human_and_gemini_agree_on_alternative_flips",
-      "community": 51,
-      "norm_label": "test_decide_human_and_gemini_agree_on_alternative_flips()"
-    },
-    {
-      "label": "test_decide_dated_id_queues_even_on_full_agreement()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L102",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_dated_id_queues_even_on_full_agreement",
-      "community": 51,
-      "norm_label": "test_decide_dated_id_queues_even_on_full_agreement()"
-    },
-    {
-      "label": "test_decide_abstain_row_no_claude_vote_externals_confirm_promotes()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L109",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_confirm_promotes",
-      "community": 51,
-      "norm_label": "test_decide_abstain_row_no_claude_vote_externals_confirm_promotes()"
-    },
-    {
-      "label": "test_decide_abstain_row_no_claude_vote_externals_dispute_flips()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L124",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_dispute_flips",
-      "community": 51,
-      "norm_label": "test_decide_abstain_row_no_claude_vote_externals_dispute_flips()"
-    },
-    {
-      "label": "test_decide_no_external_votes_queues()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L137",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_no_external_votes_queues",
-      "community": 51,
-      "norm_label": "test_decide_no_external_votes_queues()"
-    },
-    {
-      "label": "test_apply_promote_sets_adjudicated_only()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L147",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_apply_promote_sets_adjudicated_only",
-      "community": 51,
-      "norm_label": "test_apply_promote_sets_adjudicated_only()"
-    },
-    {
-      "label": "test_apply_flip_promote_rebuilds_spans_and_label_source()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L156",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_apply_flip_promote_rebuilds_spans_and_label_source",
-      "community": 51,
-      "norm_label": "test_apply_flip_promote_rebuilds_spans_and_label_source()"
-    },
-    {
-      "label": "test_apply_queue_decision_leaves_row_untouched()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L166",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_apply_queue_decision_leaves_row_untouched",
-      "community": 51,
-      "norm_label": "test_apply_queue_decision_leaves_row_untouched()"
-    },
-    {
-      "label": "test_apply_row_without_a_decision_is_never_touched()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L174",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_apply_row_without_a_decision_is_never_touched",
-      "community": 51,
-      "norm_label": "test_apply_row_without_a_decision_is_never_touched()"
-    },
-    {
-      "label": "test_apply_does_not_mutate_input_rows()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L183",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_apply_does_not_mutate_input_rows",
-      "community": 51,
-      "norm_label": "test_apply_does_not_mutate_input_rows()"
-    },
-    {
-      "label": "test_resolve_governing_spans_uses_first_60_body_chars()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L194",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_resolve_governing_spans_uses_first_60_body_chars",
-      "community": 51,
-      "norm_label": "test_resolve_governing_spans_uses_first_60_body_chars()"
-    },
-    {
-      "label": "test_resolve_governing_spans_short_body_uses_whole_body()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L203",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_resolve_governing_spans_short_body_uses_whole_body",
-      "community": 51,
-      "norm_label": "test_resolve_governing_spans_short_body_uses_whole_body()"
-    },
-    {
-      "label": "test_resolve_governing_spans_raises_on_chunk_not_in_pool()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L211",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_resolve_governing_spans_raises_on_chunk_not_in_pool",
-      "community": 51,
-      "norm_label": "test_resolve_governing_spans_raises_on_chunk_not_in_pool()"
-    },
-    {
-      "label": "test_resolve_governing_spans_multiple_ids_dedupes_and_preserves_order()",
-      "file_type": "code",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L222",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_resolve_governing_spans_multiple_ids_dedupes_and_preserves_order",
-      "community": 51,
-      "norm_label": "test_resolve_governing_spans_multiple_ids_dedupes_and_preserves_order()"
-    },
-    {
-      "label": "Offline tests for golden-v7 agreement/promotion (spec 2026-07-23 sec 7): Cohen's",
-      "file_type": "rationale",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_rationale_1",
-      "community": 51,
-      "norm_label": "offline tests for golden-v7 agreement/promotion (spec 2026-07-23 sec 7): cohen's"
-    },
-    {
-      "label": "Abstain rows have no explicit claude vote at all (Task 8 never judged     them)",
-      "file_type": "rationale",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L110",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_rationale_110",
-      "community": 51,
-      "norm_label": "abstain rows have no explicit claude vote at all (task 8 never judged     them)"
-    },
-    {
-      "label": "Both externals independently think something DOES govern (disputing     the auth",
-      "file_type": "rationale",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L125",
-      "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_rationale_125",
-      "community": 51,
-      "norm_label": "both externals independently think something does govern (disputing     the auth"
-    },
-    {
       "label": "gemini_adjudicate.py",
       "file_type": "code",
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate",
       "community": 3,
-      "norm_label": "gemini_adjudicate.py",
-      "id": "scripts_golden_v7_gemini_adjudicate"
+      "norm_label": "gemini_adjudicate.py"
     },
     {
       "label": "_shuffled_candidates()",
@@ -489,9 +19,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L47",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate_shuffled_candidates",
       "community": 3,
-      "norm_label": "_shuffled_candidates()",
-      "id": "scripts_golden_v7_gemini_adjudicate_shuffled_candidates"
+      "norm_label": "_shuffled_candidates()"
     },
     {
       "label": "build_prompt()",
@@ -499,9 +29,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L55",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate_build_prompt",
       "community": 3,
-      "norm_label": "build_prompt()",
-      "id": "scripts_golden_v7_gemini_adjudicate_build_prompt"
+      "norm_label": "build_prompt()"
     },
     {
       "label": "_parse_letter_choice()",
@@ -509,9 +39,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L78",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate_parse_letter_choice",
       "community": 3,
-      "norm_label": "_parse_letter_choice()",
-      "id": "scripts_golden_v7_gemini_adjudicate_parse_letter_choice"
+      "norm_label": "_parse_letter_choice()"
     },
     {
       "label": "_parse_yes_no()",
@@ -519,9 +49,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L114",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate_parse_yes_no",
       "community": 3,
-      "norm_label": "_parse_yes_no()",
-      "id": "scripts_golden_v7_gemini_adjudicate_parse_yes_no"
+      "norm_label": "_parse_yes_no()"
     },
     {
       "label": "_parse_reply()",
@@ -529,9 +59,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L137",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate_parse_reply",
       "community": 3,
-      "norm_label": "_parse_reply()",
-      "id": "scripts_golden_v7_gemini_adjudicate_parse_reply"
+      "norm_label": "_parse_reply()"
     },
     {
       "label": "adjudicate()",
@@ -539,9 +69,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L154",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate_adjudicate",
       "community": 3,
-      "norm_label": "adjudicate()",
-      "id": "scripts_golden_v7_gemini_adjudicate_adjudicate"
+      "norm_label": "adjudicate()"
     },
     {
       "label": "Path",
@@ -549,9 +79,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "path",
       "community": 3,
-      "norm_label": "path",
-      "id": "path"
+      "norm_label": "path"
     },
     {
       "label": "_post_gemini()",
@@ -559,9 +89,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L205",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate_post_gemini",
       "community": 3,
-      "norm_label": "_post_gemini()",
-      "id": "scripts_golden_v7_gemini_adjudicate_post_gemini"
+      "norm_label": "_post_gemini()"
     },
     {
       "label": "_parse_error_ids()",
@@ -569,9 +99,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L221",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate_parse_error_ids",
       "community": 3,
-      "norm_label": "_parse_error_ids()",
-      "id": "scripts_golden_v7_gemini_adjudicate_parse_error_ids"
+      "norm_label": "_parse_error_ids()"
     },
     {
       "label": "_replace_annotator_votes()",
@@ -579,9 +109,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L241",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate_replace_annotator_votes",
       "community": 3,
-      "norm_label": "_replace_annotator_votes()",
-      "id": "scripts_golden_v7_gemini_adjudicate_replace_annotator_votes"
+      "norm_label": "_replace_annotator_votes()"
     },
     {
       "label": "main()",
@@ -589,9 +119,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L253",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate_main",
       "community": 3,
-      "norm_label": "main()",
-      "id": "scripts_golden_v7_gemini_adjudicate_main"
+      "norm_label": "main()"
     },
     {
       "label": "External annotation slice: second-family LLM leg via the Gemini API (spec 2026-0",
@@ -599,9 +129,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate_rationale_1",
       "community": 3,
-      "norm_label": "external annotation slice: second-family llm leg via the gemini api (spec 2026-0",
-      "id": "scripts_golden_v7_gemini_adjudicate_rationale_1"
+      "norm_label": "external annotation slice: second-family llm leg via the gemini api (spec 2026-0"
     },
     {
       "label": "Same per-row deterministic shuffle as make_packet.py's write_packet:     random.",
@@ -609,9 +139,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L48",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate_rationale_48",
       "community": 3,
-      "norm_label": "same per-row deterministic shuffle as make_packet.py's write_packet:     random.",
-      "id": "scripts_golden_v7_gemini_adjudicate_rationale_48"
+      "norm_label": "same per-row deterministic shuffle as make_packet.py's write_packet:     random."
     },
     {
       "label": "Blind-protocol prompt text (plain text, not HTML - no html.escape).     Non-abst",
@@ -619,9 +149,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L56",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate_rationale_56",
       "community": 3,
-      "norm_label": "blind-protocol prompt text (plain text, not html - no html.escape).     non-abst",
-      "id": "scripts_golden_v7_gemini_adjudicate_rationale_56"
+      "norm_label": "blind-protocol prompt text (plain text, not html - no html.escape).     non-abst"
     },
     {
       "label": "Letter-choice protocol: first non-blank line is the choice (comma or     semicol",
@@ -629,9 +159,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L79",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate_rationale_79",
       "community": 3,
-      "norm_label": "letter-choice protocol: first non-blank line is the choice (comma or     semicol",
-      "id": "scripts_golden_v7_gemini_adjudicate_rationale_79"
+      "norm_label": "letter-choice protocol: first non-blank line is the choice (comma or     semicol"
     },
     {
       "label": "Abstain-protocol reply parser. governing is always [] - no excerpts     were eve",
@@ -639,9 +169,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L115",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate_rationale_115",
       "community": 3,
-      "norm_label": "abstain-protocol reply parser. governing is always [] - no excerpts     were eve",
-      "id": "scripts_golden_v7_gemini_adjudicate_rationale_115"
+      "norm_label": "abstain-protocol reply parser. governing is always [] - no excerpts     were eve"
     },
     {
       "label": "Full parse result including the parse_error flag cached per row.     letters=[]",
@@ -649,9 +179,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L138",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate_rationale_138",
       "community": 3,
-      "norm_label": "full parse result including the parse_error flag cached per row.     letters=[]",
-      "id": "scripts_golden_v7_gemini_adjudicate_rationale_138"
+      "norm_label": "full parse result including the parse_error flag cached per row.     letters=[]"
     },
     {
       "label": "Public letter-choice-protocol parser: (chosen letters, expected     literal). Un",
@@ -659,9 +189,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L147",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate_rationale_147",
       "community": 3,
-      "norm_label": "public letter-choice-protocol parser: (chosen letters, expected     literal). un",
-      "id": "scripts_golden_v7_gemini_adjudicate_rationale_147"
+      "norm_label": "public letter-choice-protocol parser: (chosen letters, expected     literal). un"
     },
     {
       "label": "Runs the blind protocol over every id in `ids`, calling `post(prompt)     -> str",
@@ -669,9 +199,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L156",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate_rationale_156",
       "community": 3,
-      "norm_label": "runs the blind protocol over every id in `ids`, calling `post(prompt)     -> str",
-      "id": "scripts_golden_v7_gemini_adjudicate_rationale_156"
+      "norm_label": "runs the blind protocol over every id in `ids`, calling `post(prompt)     -> str"
     },
     {
       "label": "Real Gemini call (not exercised by unit tests - those inject a fake     `post`).",
@@ -679,9 +209,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L206",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate_rationale_206",
       "community": 3,
-      "norm_label": "real gemini call (not exercised by unit tests - those inject a fake     `post`).",
-      "id": "scripts_golden_v7_gemini_adjudicate_rationale_206"
+      "norm_label": "real gemini call (not exercised by unit tests - those inject a fake     `post`)."
     },
     {
       "label": "Scans the per-row cache for `ids` and returns the ones flagged     parse_error:",
@@ -689,9 +219,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L222",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate_rationale_222",
       "community": 3,
-      "norm_label": "scans the per-row cache for `ids` and returns the ones flagged     parse_error:",
-      "id": "scripts_golden_v7_gemini_adjudicate_rationale_222"
+      "norm_label": "scans the per-row cache for `ids` and returns the ones flagged     parse_error:"
     },
     {
       "label": "Rerun-safety for votes.jsonl itself (plan Task 10 decision #7): drops     every",
@@ -699,9 +229,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L243",
       "_origin": "ast",
+      "id": "scripts_golden_v7_gemini_adjudicate_rationale_243",
       "community": 3,
-      "norm_label": "rerun-safety for votes.jsonl itself (plan task 10 decision #7): drops     every",
-      "id": "scripts_golden_v7_gemini_adjudicate_rationale_243"
+      "norm_label": "rerun-safety for votes.jsonl itself (plan task 10 decision #7): drops     every"
     },
     {
       "label": "test_golden_v7_gemini.py",
@@ -709,9 +239,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini",
       "community": 3,
-      "norm_label": "test_golden_v7_gemini.py",
-      "id": "tests_test_golden_v7_gemini"
+      "norm_label": "test_golden_v7_gemini.py"
     },
     {
       "label": "_row()",
@@ -719,9 +249,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L22",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_row",
       "community": 3,
-      "norm_label": "_row()",
-      "id": "tests_test_golden_v7_gemini_row"
+      "norm_label": "_row()"
     },
     {
       "label": "_pool()",
@@ -729,9 +259,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L29",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_pool",
       "community": 3,
-      "norm_label": "_pool()",
-      "id": "tests_test_golden_v7_gemini_pool"
+      "norm_label": "_pool()"
     },
     {
       "label": "test_build_prompt_contains_every_letter_and_excerpt_no_scores_or_ranks()",
@@ -739,9 +269,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L40",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_test_build_prompt_contains_every_letter_and_excerpt_no_scores_or_ranks",
       "community": 3,
-      "norm_label": "test_build_prompt_contains_every_letter_and_excerpt_no_scores_or_ranks()",
-      "id": "tests_test_golden_v7_gemini_test_build_prompt_contains_every_letter_and_excerpt_no_scores_or_ranks"
+      "norm_label": "test_build_prompt_contains_every_letter_and_excerpt_no_scores_or_ranks()"
     },
     {
       "label": "test_build_prompt_abstain_row_has_no_excerpts_and_uses_yes_no_protocol()",
@@ -749,9 +279,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L57",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_test_build_prompt_abstain_row_has_no_excerpts_and_uses_yes_no_protocol",
       "community": 3,
-      "norm_label": "test_build_prompt_abstain_row_has_no_excerpts_and_uses_yes_no_protocol()",
-      "id": "tests_test_golden_v7_gemini_test_build_prompt_abstain_row_has_no_excerpts_and_uses_yes_no_protocol"
+      "norm_label": "test_build_prompt_abstain_row_has_no_excerpts_and_uses_yes_no_protocol()"
     },
     {
       "label": "test_abstain_prompt_tells_model_to_blank_expected_on_no()",
@@ -759,9 +289,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L69",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_test_abstain_prompt_tells_model_to_blank_expected_on_no",
       "community": 3,
-      "norm_label": "test_abstain_prompt_tells_model_to_blank_expected_on_no()",
-      "id": "tests_test_golden_v7_gemini_test_abstain_prompt_tells_model_to_blank_expected_on_no"
+      "norm_label": "test_abstain_prompt_tells_model_to_blank_expected_on_no()"
     },
     {
       "label": "test_build_prompt_zero_candidate_pool_also_uses_yes_no_protocol()",
@@ -769,9 +299,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L91",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_test_build_prompt_zero_candidate_pool_also_uses_yes_no_protocol",
       "community": 3,
-      "norm_label": "test_build_prompt_zero_candidate_pool_also_uses_yes_no_protocol()",
-      "id": "tests_test_golden_v7_gemini_test_build_prompt_zero_candidate_pool_also_uses_yes_no_protocol"
+      "norm_label": "test_build_prompt_zero_candidate_pool_also_uses_yes_no_protocol()"
     },
     {
       "label": "test_build_prompt_shuffle_is_deterministic_per_row_id()",
@@ -779,9 +309,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L102",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_test_build_prompt_shuffle_is_deterministic_per_row_id",
       "community": 3,
-      "norm_label": "test_build_prompt_shuffle_is_deterministic_per_row_id()",
-      "id": "tests_test_golden_v7_gemini_test_build_prompt_shuffle_is_deterministic_per_row_id"
+      "norm_label": "test_build_prompt_shuffle_is_deterministic_per_row_id()"
     },
     {
       "label": "test_parse_reply_letters_and_expected()",
@@ -789,9 +319,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L112",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_test_parse_reply_letters_and_expected",
       "community": 3,
-      "norm_label": "test_parse_reply_letters_and_expected()",
-      "id": "tests_test_golden_v7_gemini_test_parse_reply_letters_and_expected"
+      "norm_label": "test_parse_reply_letters_and_expected()"
     },
     {
       "label": "test_parse_reply_none_means_no_governing_excerpt()",
@@ -799,9 +329,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L117",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_test_parse_reply_none_means_no_governing_excerpt",
       "community": 3,
-      "norm_label": "test_parse_reply_none_means_no_governing_excerpt()",
-      "id": "tests_test_golden_v7_gemini_test_parse_reply_none_means_no_governing_excerpt"
+      "norm_label": "test_parse_reply_none_means_no_governing_excerpt()"
     },
     {
       "label": "test_parse_reply_garbage_is_unparseable()",
@@ -809,9 +339,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L121",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_test_parse_reply_garbage_is_unparseable",
       "community": 3,
-      "norm_label": "test_parse_reply_garbage_is_unparseable()",
-      "id": "tests_test_golden_v7_gemini_test_parse_reply_garbage_is_unparseable"
+      "norm_label": "test_parse_reply_garbage_is_unparseable()"
     },
     {
       "label": "test_parse_reply_unknown_letter_fails_the_whole_reply_closed()",
@@ -819,9 +349,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L125",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_test_parse_reply_unknown_letter_fails_the_whole_reply_closed",
       "community": 3,
-      "norm_label": "test_parse_reply_unknown_letter_fails_the_whole_reply_closed()",
-      "id": "tests_test_golden_v7_gemini_test_parse_reply_unknown_letter_fails_the_whole_reply_closed"
+      "norm_label": "test_parse_reply_unknown_letter_fails_the_whole_reply_closed()"
     },
     {
       "label": "test_parse_reply_single_letter_no_expected_line()",
@@ -829,9 +359,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L131",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_test_parse_reply_single_letter_no_expected_line",
       "community": 3,
-      "norm_label": "test_parse_reply_single_letter_no_expected_line()",
-      "id": "tests_test_golden_v7_gemini_test_parse_reply_single_letter_no_expected_line"
+      "norm_label": "test_parse_reply_single_letter_no_expected_line()"
     },
     {
       "label": "test_parse_reply_empty_letters_dispatches_to_yes_no_protocol()",
@@ -839,9 +369,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L135",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_test_parse_reply_empty_letters_dispatches_to_yes_no_protocol",
       "community": 3,
-      "norm_label": "test_parse_reply_empty_letters_dispatches_to_yes_no_protocol()",
-      "id": "tests_test_golden_v7_gemini_test_parse_reply_empty_letters_dispatches_to_yes_no_protocol"
+      "norm_label": "test_parse_reply_empty_letters_dispatches_to_yes_no_protocol()"
     },
     {
       "label": "test_adjudicate_writes_votes_and_caches_then_zero_post_calls_on_rerun()",
@@ -849,9 +379,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L149",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_test_adjudicate_writes_votes_and_caches_then_zero_post_calls_on_rerun",
       "community": 3,
-      "norm_label": "test_adjudicate_writes_votes_and_caches_then_zero_post_calls_on_rerun()",
-      "id": "tests_test_golden_v7_gemini_test_adjudicate_writes_votes_and_caches_then_zero_post_calls_on_rerun"
+      "norm_label": "test_adjudicate_writes_votes_and_caches_then_zero_post_calls_on_rerun()"
     },
     {
       "label": "test_adjudicate_marks_parse_error_in_cache_for_garbage_reply()",
@@ -859,9 +389,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L194",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_test_adjudicate_marks_parse_error_in_cache_for_garbage_reply",
       "community": 3,
-      "norm_label": "test_adjudicate_marks_parse_error_in_cache_for_garbage_reply()",
-      "id": "tests_test_golden_v7_gemini_test_adjudicate_marks_parse_error_in_cache_for_garbage_reply"
+      "norm_label": "test_adjudicate_marks_parse_error_in_cache_for_garbage_reply()"
     },
     {
       "label": "test_adjudicate_marks_parse_error_for_garbled_abstain_protocol_reply()",
@@ -869,9 +399,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L208",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_test_adjudicate_marks_parse_error_for_garbled_abstain_protocol_reply",
       "community": 3,
-      "norm_label": "test_adjudicate_marks_parse_error_for_garbled_abstain_protocol_reply()",
-      "id": "tests_test_golden_v7_gemini_test_adjudicate_marks_parse_error_for_garbled_abstain_protocol_reply"
+      "norm_label": "test_adjudicate_marks_parse_error_for_garbled_abstain_protocol_reply()"
     },
     {
       "label": "test_adjudicate_abstain_row_dispute_keeps_governing_empty()",
@@ -879,9 +409,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L225",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_test_adjudicate_abstain_row_dispute_keeps_governing_empty",
       "community": 3,
-      "norm_label": "test_adjudicate_abstain_row_dispute_keeps_governing_empty()",
-      "id": "tests_test_golden_v7_gemini_test_adjudicate_abstain_row_dispute_keeps_governing_empty"
+      "norm_label": "test_adjudicate_abstain_row_dispute_keeps_governing_empty()"
     },
     {
       "label": "test_adjudicate_creates_cache_dir_if_missing()",
@@ -889,9 +419,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L242",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_test_adjudicate_creates_cache_dir_if_missing",
       "community": 3,
-      "norm_label": "test_adjudicate_creates_cache_dir_if_missing()",
-      "id": "tests_test_golden_v7_gemini_test_adjudicate_creates_cache_dir_if_missing"
+      "norm_label": "test_adjudicate_creates_cache_dir_if_missing()"
     },
     {
       "label": "test_parse_error_ids_finds_only_the_flagged_rows()",
@@ -899,9 +429,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L256",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_test_parse_error_ids_finds_only_the_flagged_rows",
       "community": 3,
-      "norm_label": "test_parse_error_ids_finds_only_the_flagged_rows()",
-      "id": "tests_test_golden_v7_gemini_test_parse_error_ids_finds_only_the_flagged_rows"
+      "norm_label": "test_parse_error_ids_finds_only_the_flagged_rows()"
     },
     {
       "label": "test_parse_error_ids_empty_when_nothing_flagged()",
@@ -909,9 +439,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L271",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_test_parse_error_ids_empty_when_nothing_flagged",
       "community": 3,
-      "norm_label": "test_parse_error_ids_empty_when_nothing_flagged()",
-      "id": "tests_test_golden_v7_gemini_test_parse_error_ids_empty_when_nothing_flagged"
+      "norm_label": "test_parse_error_ids_empty_when_nothing_flagged()"
     },
     {
       "label": "test_parse_error_ids_skips_ids_with_no_cache_file()",
@@ -919,9 +449,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L281",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_test_parse_error_ids_skips_ids_with_no_cache_file",
       "community": 3,
-      "norm_label": "test_parse_error_ids_skips_ids_with_no_cache_file()",
-      "id": "tests_test_golden_v7_gemini_test_parse_error_ids_skips_ids_with_no_cache_file"
+      "norm_label": "test_parse_error_ids_skips_ids_with_no_cache_file()"
     },
     {
       "label": "test_replace_annotator_votes_drops_old_gemini_keeps_others_untouched()",
@@ -929,9 +459,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L294",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_test_replace_annotator_votes_drops_old_gemini_keeps_others_untouched",
       "community": 3,
-      "norm_label": "test_replace_annotator_votes_drops_old_gemini_keeps_others_untouched()",
-      "id": "tests_test_golden_v7_gemini_test_replace_annotator_votes_drops_old_gemini_keeps_others_untouched"
+      "norm_label": "test_replace_annotator_votes_drops_old_gemini_keeps_others_untouched()"
     },
     {
       "label": "test_replace_annotator_votes_on_empty_existing_just_returns_fresh()",
@@ -939,9 +469,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L310",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_test_replace_annotator_votes_on_empty_existing_just_returns_fresh",
       "community": 3,
-      "norm_label": "test_replace_annotator_votes_on_empty_existing_just_returns_fresh()",
-      "id": "tests_test_golden_v7_gemini_test_replace_annotator_votes_on_empty_existing_just_returns_fresh"
+      "norm_label": "test_replace_annotator_votes_on_empty_existing_just_returns_fresh()"
     },
     {
       "label": "Offline tests for gemini_adjudicate.py: blind-protocol prompts, reply parsing, a",
@@ -949,9 +479,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_rationale_1",
       "community": 3,
-      "norm_label": "offline tests for gemini_adjudicate.py: blind-protocol prompts, reply parsing, a",
-      "id": "tests_test_golden_v7_gemini_rationale_1"
+      "norm_label": "offline tests for gemini_adjudicate.py: blind-protocol prompts, reply parsing, a"
     },
     {
       "label": "Reviewer Important #1: _parse_yes_no reads a blank EXPECTED as     \"confirms abs",
@@ -959,9 +489,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L70",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_rationale_70",
       "community": 3,
-      "norm_label": "reviewer important #1: _parse_yes_no reads a blank expected as     \"confirms abs",
-      "id": "tests_test_golden_v7_gemini_rationale_70"
+      "norm_label": "reviewer important #1: _parse_yes_no reads a blank expected as     \"confirms abs"
     },
     {
       "label": "A non-abstain row whose pool happens to have zero candidates can't     offer any",
@@ -969,9 +499,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L92",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_rationale_92",
       "community": 3,
-      "norm_label": "a non-abstain row whose pool happens to have zero candidates can't     offer any",
-      "id": "tests_test_golden_v7_gemini_rationale_92"
+      "norm_label": "a non-abstain row whose pool happens to have zero candidates can't     offer any"
     },
     {
       "label": "Decision #3: a valid letter alongside an unrecognized one invalidates     the WH",
@@ -979,9 +509,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L126",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_rationale_126",
       "community": 3,
-      "norm_label": "decision #3: a valid letter alongside an unrecognized one invalidates     the wh",
-      "id": "tests_test_golden_v7_gemini_rationale_126"
+      "norm_label": "decision #3: a valid letter alongside an unrecognized one invalidates     the wh"
     },
     {
       "label": "letters=[] is how adjudicate signals an abstain/zero-candidate row;     parse_re",
@@ -989,9 +519,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L136",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_rationale_136",
       "community": 3,
-      "norm_label": "letters=[] is how adjudicate signals an abstain/zero-candidate row;     parse_re",
-      "id": "tests_test_golden_v7_gemini_rationale_136"
+      "norm_label": "letters=[] is how adjudicate signals an abstain/zero-candidate row;     parse_re"
     },
     {
       "label": "A garbled reply to an abstain-protocol (YES/NO) prompt is distinct     from a we",
@@ -999,9 +529,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L209",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_rationale_209",
       "community": 3,
-      "norm_label": "a garbled reply to an abstain-protocol (yes/no) prompt is distinct     from a we",
-      "id": "tests_test_golden_v7_gemini_rationale_209"
+      "norm_label": "a garbled reply to an abstain-protocol (yes/no) prompt is distinct     from a we"
     },
     {
       "label": "A Gemini reply that disputes an abstain row (says YES, it IS     answerable) wri",
@@ -1009,9 +539,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L226",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_rationale_226",
       "community": 3,
-      "norm_label": "a gemini reply that disputes an abstain row (says yes, it is     answerable) wri",
-      "id": "tests_test_golden_v7_gemini_rationale_226"
+      "norm_label": "a gemini reply that disputes an abstain row (says yes, it is     answerable) wri"
     },
     {
       "label": "Defensive: an id that was never adjudicated (no cache file at all)     is not re",
@@ -1019,9 +549,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L282",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gemini_rationale_282",
       "community": 3,
-      "norm_label": "defensive: an id that was never adjudicated (no cache file at all)     is not re",
-      "id": "tests_test_golden_v7_gemini_rationale_282"
+      "norm_label": "defensive: an id that was never adjudicated (no cache file at all)     is not re"
     },
     {
       "label": "app.py",
@@ -1505,7 +1035,7 @@
       "source_file": "scripts/analysis/sweep_pool.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 14,
       "norm_label": "sweep_pool.py",
       "id": "scripts_analysis_sweep_pool"
     },
@@ -1515,7 +1045,7 @@
       "source_file": "scripts/analysis/sweep_pool.py",
       "source_location": "L39",
       "_origin": "ast",
-      "community": 85,
+      "community": 14,
       "norm_label": "_load_items()",
       "id": "scripts_analysis_sweep_pool_load_items"
     },
@@ -1525,7 +1055,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 85,
+      "community": 14,
       "norm_label": "path",
       "id": "scripts_analysis_sweep_pool_py_path"
     },
@@ -1535,7 +1065,7 @@
       "source_file": "scripts/analysis/sweep_pool.py",
       "source_location": "L45",
       "_origin": "ast",
-      "community": 85,
+      "community": 14,
       "norm_label": "main()",
       "id": "scripts_analysis_sweep_pool_main"
     },
@@ -1545,7 +1075,7 @@
       "source_file": "scripts/analysis/sweep_pool.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 14,
       "norm_label": "pool-width sweep (intervention #3): answer-level rescue rate vs reranker latency",
       "id": "scripts_analysis_sweep_pool_rationale_1"
     },
@@ -1775,7 +1305,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 57,
+      "community": 64,
       "norm_label": "bench_rerankers.py",
       "id": "scripts_bench_rerankers"
     },
@@ -1785,7 +1315,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L42",
       "_origin": "ast",
-      "community": 57,
+      "community": 64,
       "norm_label": "auroc()",
       "id": "scripts_bench_rerankers_auroc"
     },
@@ -1795,7 +1325,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L51",
       "_origin": "ast",
-      "community": 57,
+      "community": 64,
       "norm_label": "best_threshold()",
       "id": "scripts_bench_rerankers_best_threshold"
     },
@@ -1805,7 +1335,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L65",
       "_origin": "ast",
-      "community": 57,
+      "community": 64,
       "norm_label": "evaluate()",
       "id": "scripts_bench_rerankers_evaluate"
     },
@@ -1815,7 +1345,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L97",
       "_origin": "ast",
-      "community": 59,
+      "community": 51,
       "norm_label": "main()",
       "id": "scripts_bench_rerankers_main"
     },
@@ -1825,7 +1355,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 57,
+      "community": 64,
       "norm_label": "f2 (adr-001): benchmark rerankers on golden_v5 with cluster-separation metrics.",
       "id": "scripts_bench_rerankers_rationale_1"
     },
@@ -1835,7 +1365,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L43",
       "_origin": "ast",
-      "community": 57,
+      "community": 64,
       "norm_label": "p(pos_score > neg_score); ties count half. pos = answerable top-scores,     neg",
       "id": "scripts_bench_rerankers_rationale_43"
     },
@@ -1845,7 +1375,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L52",
       "_origin": "ast",
-      "community": 57,
+      "community": 64,
       "norm_label": "threshold maximising abstention accuracy: answer if score >= thr.     returns (t",
       "id": "scripts_bench_rerankers_rationale_52"
     },
@@ -1875,7 +1405,7 @@
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L60",
       "_origin": "ast",
-      "community": 15,
+      "community": 51,
       "norm_label": "main()",
       "id": "scripts_bench_retrieval_main"
     },
@@ -1945,7 +1475,7 @@
       "source_file": "scripts/build_index.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 76,
+      "community": 29,
       "norm_label": "build_index.py",
       "id": "scripts_build_index"
     },
@@ -1955,7 +1485,7 @@
       "source_file": "scripts/build_index.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 76,
+      "community": 29,
       "norm_label": "build the dense+sparse index once and persist it (run after corpus changes).",
       "id": "scripts_build_index_rationale_1"
     },
@@ -2055,7 +1585,7 @@
       "source_file": "scripts/calibrate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 76,
+      "community": 29,
       "norm_label": "calibrate.py",
       "id": "scripts_calibrate"
     },
@@ -2075,7 +1605,7 @@
       "source_file": "scripts/calibrate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 76,
+      "community": 29,
       "norm_label": "calibrate top_k and the abstention threshold against the citation-precision sign",
       "id": "scripts_calibrate_rationale_1"
     },
@@ -3135,7 +2665,7 @@
       "source_file": "scripts/golden_v7/build_pool.py",
       "source_location": "L68",
       "_origin": "ast",
-      "community": 26,
+      "community": 51,
       "norm_label": "main()",
       "id": "scripts_golden_v7_build_pool_main"
     },
@@ -4491,7 +4021,7 @@
       "source_file": "src/sebi_rag/__init__.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 86,
+      "community": 66,
       "norm_label": "__init__.py",
       "id": "src_sebi_rag_init"
     },
@@ -4501,7 +4031,7 @@
       "source_file": "src/sebi_rag/__init__.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 86,
+      "community": 66,
       "norm_label": "sebi circular rag \u2014 local-first, apple silicon.  pipeline: ingest -> segment ->",
       "id": "src_sebi_rag_init_rationale_1"
     },
@@ -4581,7 +4111,7 @@
       "source_file": "src/sebi_rag/api.py",
       "source_location": "L86",
       "_origin": "ast",
-      "community": 15,
+      "community": 60,
       "norm_label": "_compute_kwargs()",
       "id": "src_sebi_rag_api_compute_kwargs"
     },
@@ -4591,7 +4121,7 @@
       "source_file": "src/sebi_rag/api.py",
       "source_location": "L95",
       "_origin": "ast",
-      "community": 48,
+      "community": 51,
       "norm_label": "build_default_pipeline()",
       "id": "src_sebi_rag_api_build_default_pipeline"
     },
@@ -4641,7 +4171,7 @@
       "source_file": "src/sebi_rag/api.py",
       "source_location": "L87",
       "_origin": "ast",
-      "community": 15,
+      "community": 60,
       "norm_label": "resolve device/fp16/batch for the torch embedder + reranker.",
       "id": "src_sebi_rag_api_rationale_87"
     },
@@ -4661,7 +4191,7 @@
       "source_file": "src/sebi_rag/api_spaces.py",
       "source_location": "L30",
       "_origin": "ast",
-      "community": 48,
+      "community": 15,
       "norm_label": "_cpu_env()",
       "id": "src_sebi_rag_api_spaces_cpu_env"
     },
@@ -4671,7 +4201,7 @@
       "source_file": "src/sebi_rag/api_spaces.py",
       "source_location": "L36",
       "_origin": "ast",
-      "community": 48,
+      "community": 15,
       "norm_label": "build_spaces_pipeline()",
       "id": "src_sebi_rag_api_spaces_build_spaces_pipeline"
     },
@@ -4711,7 +4241,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L46",
       "_origin": "ast",
-      "community": 66,
+      "community": 1,
       "norm_label": "sha256_file()",
       "id": "src_sebi_rag_benchmark_sha256_file"
     },
@@ -4721,7 +4251,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 66,
+      "community": 1,
       "norm_label": "path",
       "id": "src_sebi_rag_benchmark_py_path"
     },
@@ -4731,7 +4261,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L54",
       "_origin": "ast",
-      "community": 66,
+      "community": 1,
       "norm_label": "dir_fingerprint()",
       "id": "src_sebi_rag_benchmark_dir_fingerprint"
     },
@@ -4741,7 +4271,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L68",
       "_origin": "ast",
-      "community": 66,
+      "community": 1,
       "norm_label": "git_commit()",
       "id": "src_sebi_rag_benchmark_git_commit"
     },
@@ -4751,7 +4281,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L80",
       "_origin": "ast",
-      "community": 66,
+      "community": 1,
       "norm_label": "run_metadata()",
       "id": "src_sebi_rag_benchmark_run_metadata"
     },
@@ -4801,7 +4331,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L219",
       "_origin": "ast",
-      "community": 65,
+      "community": 73,
       "norm_label": "_norm_ws()",
       "id": "src_sebi_rag_benchmark_norm_ws"
     },
@@ -4831,7 +4361,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L285",
       "_origin": "ast",
-      "community": 1,
+      "community": 73,
       "norm_label": "resolve_chunk_spans()",
       "id": "src_sebi_rag_benchmark_resolve_chunk_spans"
     },
@@ -4871,7 +4401,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L348",
       "_origin": "ast",
-      "community": 1,
+      "community": 73,
       "norm_label": "qrels_rows()",
       "id": "src_sebi_rag_benchmark_qrels_rows"
     },
@@ -4891,7 +4421,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L375",
       "_origin": "ast",
-      "community": 66,
+      "community": 1,
       "norm_label": "write_qrels()",
       "id": "src_sebi_rag_benchmark_write_qrels"
     },
@@ -4901,7 +4431,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L383",
       "_origin": "ast",
-      "community": 93,
+      "community": 1,
       "norm_label": "write_trec_run()",
       "id": "src_sebi_rag_benchmark_write_trec_run"
     },
@@ -4921,7 +4451,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L422",
       "_origin": "ast",
-      "community": 1,
+      "community": 66,
       "norm_label": "per_query_recall()",
       "id": "src_sebi_rag_benchmark_per_query_recall"
     },
@@ -4941,7 +4471,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L464",
       "_origin": "ast",
-      "community": 1,
+      "community": 66,
       "norm_label": "run_retrieval_benchmark()",
       "id": "src_sebi_rag_benchmark_run_retrieval_benchmark"
     },
@@ -4951,7 +4481,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L494",
       "_origin": "ast",
-      "community": 96,
+      "community": 1,
       "norm_label": "write_judge_results()",
       "id": "src_sebi_rag_benchmark_write_judge_results"
     },
@@ -4971,7 +4501,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L55",
       "_origin": "ast",
-      "community": 66,
+      "community": 1,
       "norm_label": "stable digest over files in a directory tree.",
       "id": "src_sebi_rag_benchmark_rationale_55"
     },
@@ -5001,7 +4531,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L288",
       "_origin": "ast",
-      "community": 1,
+      "community": 73,
       "norm_label": "span {doc, quote} -> matching chunk ids (all overlap matches count).      legacy",
       "id": "src_sebi_rag_benchmark_rationale_288"
     },
@@ -5021,7 +4551,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L428",
       "_origin": "ast",
-      "community": 1,
+      "community": 66,
       "norm_label": "per-query recall@k at circular level, matching `run_retrieval_benchmark`.      a",
       "id": "src_sebi_rag_benchmark_rationale_428"
     },
@@ -5031,7 +4561,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L495",
       "_origin": "ast",
-      "community": 96,
+      "community": 1,
       "norm_label": "write optional research-only judge outputs beside, never into, gold labels.",
       "id": "src_sebi_rag_benchmark_rationale_495"
     },
@@ -5181,7 +4711,7 @@
       "source_file": "src/sebi_rag/corpus.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 76,
+      "community": 29,
       "norm_label": "corpus.py",
       "id": "src_sebi_rag_corpus"
     },
@@ -5191,7 +4721,7 @@
       "source_file": "src/sebi_rag/corpus.py",
       "source_location": "L10",
       "_origin": "ast",
-      "community": 47,
+      "community": 51,
       "norm_label": "load_circulars()",
       "id": "src_sebi_rag_corpus_load_circulars"
     },
@@ -5201,7 +4731,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 47,
+      "community": 51,
       "norm_label": "path",
       "id": "src_sebi_rag_corpus_py_path"
     },
@@ -5211,7 +4741,7 @@
       "source_file": "src/sebi_rag/corpus.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 76,
+      "community": 29,
       "norm_label": "load the real sebi circular corpus (data/corpus/circulars.jsonl) into chunks.",
       "id": "src_sebi_rag_corpus_rationale_1"
     },
@@ -5491,7 +5021,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L51",
       "_origin": "ast",
-      "community": 26,
+      "community": 51,
       "norm_label": "bgem3embedder",
       "id": "src_sebi_rag_embeddings_bgem3embedder"
     },
@@ -5501,7 +5031,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L54",
       "_origin": "ast",
-      "community": 26,
+      "community": 51,
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_embeddings_bgem3embedder_init"
     },
@@ -5541,7 +5071,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L52",
       "_origin": "ast",
-      "community": 26,
+      "community": 51,
       "norm_label": "production dense embedder: baai/bge-m3 on apple silicon mps (step 10).",
       "id": "src_sebi_rag_embeddings_rationale_52"
     },
@@ -5711,7 +5241,7 @@
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 86,
+      "community": 66,
       "norm_label": "eval_harness.py",
       "id": "src_sebi_rag_eval_harness"
     },
@@ -5721,7 +5251,7 @@
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L21",
       "_origin": "ast",
-      "community": 1,
+      "community": 66,
       "norm_label": "_doc()",
       "id": "src_sebi_rag_eval_harness_doc"
     },
@@ -5731,7 +5261,7 @@
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L25",
       "_origin": "ast",
-      "community": 1,
+      "community": 66,
       "norm_label": "_unique()",
       "id": "src_sebi_rag_eval_harness_unique"
     },
@@ -5741,7 +5271,7 @@
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 86,
+      "community": 66,
       "norm_label": "evalreport",
       "id": "src_sebi_rag_eval_harness_evalreport"
     },
@@ -5771,7 +5301,7 @@
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L63",
       "_origin": "ast",
-      "community": 86,
+      "community": 66,
       "norm_label": "_mean()",
       "id": "src_sebi_rag_eval_harness_mean"
     },
@@ -5781,7 +5311,7 @@
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L67",
       "_origin": "ast",
-      "community": 1,
+      "community": 66,
       "norm_label": "_eval_item()",
       "id": "src_sebi_rag_eval_harness_eval_item"
     },
@@ -5791,7 +5321,7 @@
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L110",
       "_origin": "ast",
-      "community": 86,
+      "community": 66,
       "norm_label": "_aggregate()",
       "id": "src_sebi_rag_eval_harness_aggregate"
     },
@@ -5811,7 +5341,7 @@
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L143",
       "_origin": "ast",
-      "community": 86,
+      "community": 66,
       "norm_label": "report_dict()",
       "id": "src_sebi_rag_eval_harness_report_dict"
     },
@@ -5821,7 +5351,7 @@
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 86,
+      "community": 66,
       "norm_label": "golden-set evaluation harness (p1).  runs the pipeline over a labelled golden se",
       "id": "src_sebi_rag_eval_harness_rationale_1"
     },
@@ -5871,7 +5401,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 30,
       "norm_label": "generate.py",
       "id": "src_sebi_rag_generate"
     },
@@ -5881,7 +5411,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L21",
       "_origin": "ast",
-      "community": 29,
+      "community": 30,
       "norm_label": "faithfulness()",
       "id": "src_sebi_rag_generate_faithfulness"
     },
@@ -5891,7 +5421,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L41",
       "_origin": "ast",
-      "community": 64,
+      "community": 19,
       "norm_label": "answer",
       "id": "src_sebi_rag_generate_answer"
     },
@@ -5931,7 +5461,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L63",
       "_origin": "ast",
-      "community": 70,
+      "community": 61,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_extractivestubgenerator_generate"
     },
@@ -6041,7 +5571,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L176",
       "_origin": "ast",
-      "community": 26,
+      "community": 70,
       "norm_label": "subjectsimjudge",
       "id": "src_sebi_rag_generate_subjectsimjudge"
     },
@@ -6051,7 +5581,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L186",
       "_origin": "ast",
-      "community": 26,
+      "community": 70,
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_generate_subjectsimjudge_init"
     },
@@ -6061,7 +5591,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L203",
       "_origin": "ast",
-      "community": 19,
+      "community": 70,
       "norm_label": "._vec()",
       "id": "src_sebi_rag_generate_subjectsimjudge_vec"
     },
@@ -6071,7 +5601,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L211",
       "_origin": "ast",
-      "community": 19,
+      "community": 70,
       "norm_label": "._section_heading()",
       "id": "src_sebi_rag_generate_subjectsimjudge_section_heading"
     },
@@ -6081,7 +5611,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L218",
       "_origin": "ast",
-      "community": 19,
+      "community": 70,
       "norm_label": ".score()",
       "id": "src_sebi_rag_generate_subjectsimjudge_score"
     },
@@ -6091,7 +5621,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L229",
       "_origin": "ast",
-      "community": 19,
+      "community": 70,
       "norm_label": ".section_score()",
       "id": "src_sebi_rag_generate_subjectsimjudge_section_score"
     },
@@ -6101,7 +5631,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L238",
       "_origin": "ast",
-      "community": 19,
+      "community": 70,
       "norm_label": ".grounded()",
       "id": "src_sebi_rag_generate_subjectsimjudge_grounded"
     },
@@ -6111,7 +5641,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L247",
       "_origin": "ast",
-      "community": 70,
+      "community": 21,
       "norm_label": "_grounded_prompt()",
       "id": "src_sebi_rag_generate_grounded_prompt"
     },
@@ -6141,7 +5671,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L283",
       "_origin": "ast",
-      "community": 70,
+      "community": 21,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_mlxgenerator_generate"
     },
@@ -6171,7 +5701,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L320",
       "_origin": "ast",
-      "community": 70,
+      "community": 21,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_ollamagenerator_generate"
     },
@@ -6191,7 +5721,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 30,
       "norm_label": "generation with a hard abstention gate (d5).  if the top reranked score is below",
       "id": "src_sebi_rag_generate_rationale_1"
     },
@@ -6201,7 +5731,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 29,
+      "community": 30,
       "norm_label": "check that every circular id the answer cites (in square brackets) was     actua",
       "id": "src_sebi_rag_generate_rationale_22"
     },
@@ -6261,7 +5791,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L177",
       "_origin": "ast",
-      "community": 26,
+      "community": 70,
       "norm_label": "adopted gate (eval_gate round 3): deterministic groundedness signal \u2014     max co",
       "id": "src_sebi_rag_generate_rationale_177"
     },
@@ -6271,7 +5801,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L219",
       "_origin": "ast",
-      "community": 19,
+      "community": 70,
       "norm_label": "max cosine(query, doc subject line) over contexts \u2014 the primary         gate sig",
       "id": "src_sebi_rag_generate_rationale_219"
     },
@@ -6281,7 +5811,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L230",
       "_origin": "ast",
-      "community": 19,
+      "community": 70,
       "norm_label": "max cosine(query, section heading) over contexts \u2014 the second tier.",
       "id": "src_sebi_rag_generate_rationale_230"
     },
@@ -6291,7 +5821,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L248",
       "_origin": "ast",
-      "community": 70,
+      "community": 21,
       "norm_label": "f4 (adr-001): retrieved text is explicitly delimited as quoted data and     the",
       "id": "src_sebi_rag_generate_rationale_248"
     },
@@ -6321,7 +5851,7 @@
       "source_file": "src/sebi_rag/generate_spaces.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 70,
+      "community": 21,
       "norm_label": "generate_spaces.py",
       "id": "src_sebi_rag_generate_spaces"
     },
@@ -6401,7 +5931,7 @@
       "source_file": "src/sebi_rag/generate_spaces.py",
       "source_location": "L109",
       "_origin": "ast",
-      "community": 70,
+      "community": 21,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_spaces_hfgenerator_generate"
     },
@@ -6431,7 +5961,7 @@
       "source_file": "src/sebi_rag/generate_spaces.py",
       "source_location": "L155",
       "_origin": "ast",
-      "community": 70,
+      "community": 21,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_spaces_hybridgenerator_generate"
     },
@@ -6441,7 +5971,7 @@
       "source_file": "src/sebi_rag/generate_spaces.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 70,
+      "community": 21,
       "norm_label": "cpu / remote generation for the hugging face spaces demo.  all classes implement",
       "id": "src_sebi_rag_generate_spaces_rationale_1"
     },
@@ -6551,7 +6081,7 @@
       "source_file": "src/sebi_rag/ingest_pdf.py",
       "source_location": "L31",
       "_origin": "ast",
-      "community": 91,
+      "community": 73,
       "norm_label": "normalize_circular_number()",
       "id": "src_sebi_rag_ingest_pdf_normalize_circular_number"
     },
@@ -6601,7 +6131,7 @@
       "source_file": "src/sebi_rag/ingest_pdf.py",
       "source_location": "L88",
       "_origin": "ast",
-      "community": 79,
+      "community": 55,
       "norm_label": "_iso_date()",
       "id": "src_sebi_rag_ingest_pdf_iso_date"
     },
@@ -6611,7 +6141,7 @@
       "source_file": "src/sebi_rag/ingest_pdf.py",
       "source_location": "L106",
       "_origin": "ast",
-      "community": 79,
+      "community": 55,
       "norm_label": "_subject()",
       "id": "src_sebi_rag_ingest_pdf_subject"
     },
@@ -6621,7 +6151,7 @@
       "source_file": "src/sebi_rag/ingest_pdf.py",
       "source_location": "L121",
       "_origin": "ast",
-      "community": 74,
+      "community": 80,
       "norm_label": "_rejoin_split()",
       "id": "src_sebi_rag_ingest_pdf_rejoin_split"
     },
@@ -6651,7 +6181,7 @@
       "source_file": "src/sebi_rag/ingest_pdf.py",
       "source_location": "L162",
       "_origin": "ast",
-      "community": 74,
+      "community": 80,
       "norm_label": "_s_anchor_merge()",
       "id": "src_sebi_rag_ingest_pdf_s_anchor_merge"
     },
@@ -6671,7 +6201,7 @@
       "source_file": "src/sebi_rag/ingest_pdf.py",
       "source_location": "L185",
       "_origin": "ast",
-      "community": 41,
+      "community": 85,
       "norm_label": "_s_mc_no()",
       "id": "src_sebi_rag_ingest_pdf_s_mc_no"
     },
@@ -6691,7 +6221,7 @@
       "source_file": "src/sebi_rag/ingest_pdf.py",
       "source_location": "L209",
       "_origin": "ast",
-      "community": 79,
+      "community": 55,
       "norm_label": "_labeled_date()",
       "id": "src_sebi_rag_ingest_pdf_labeled_date"
     },
@@ -6701,7 +6231,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 79,
+      "community": 55,
       "norm_label": "pattern",
       "id": "pattern"
     },
@@ -6711,7 +6241,7 @@
       "source_file": "src/sebi_rag/ingest_pdf.py",
       "source_location": "L214",
       "_origin": "ast",
-      "community": 79,
+      "community": 55,
       "norm_label": "parse_meta()",
       "id": "src_sebi_rag_ingest_pdf_parse_meta"
     },
@@ -6791,7 +6321,7 @@
       "source_file": "src/sebi_rag/ingest_pdf.py",
       "source_location": "L32",
       "_origin": "ast",
-      "community": 91,
+      "community": 73,
       "norm_label": "canonical comparison key for a circular number: strip whitespace and     trailin",
       "id": "src_sebi_rag_ingest_pdf_rationale_32"
     },
@@ -6821,7 +6351,7 @@
       "source_file": "src/sebi_rag/ingest_pdf.py",
       "source_location": "L122",
       "_origin": "ast",
-      "community": 74,
+      "community": 80,
       "norm_label": "rejoin numbers split by a space around a slash, e.g. \"cir/ 2025/104\",     \"ho/ (",
       "id": "src_sebi_rag_ingest_pdf_rationale_122"
     },
@@ -6851,7 +6381,7 @@
       "source_file": "src/sebi_rag/ingest_pdf.py",
       "source_location": "L163",
       "_origin": "ast",
-      "community": 74,
+      "community": 80,
       "norm_label": "references split across tokens: merge up to 4 tokens after the first     ho/cir/",
       "id": "src_sebi_rag_ingest_pdf_rationale_163"
     },
@@ -6871,7 +6401,7 @@
       "source_file": "src/sebi_rag/ingest_pdf.py",
       "source_location": "L186",
       "_origin": "ast",
-      "community": 41,
+      "community": 85,
       "norm_label": "2011-era master circulars: \"sebi/<dept>/mc no.<n>/<serial>/<year>\" \u2014     predate",
       "id": "src_sebi_rag_ingest_pdf_rationale_186"
     },
@@ -6901,7 +6431,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L31",
       "_origin": "ast",
-      "community": 64,
+      "community": 59,
       "norm_label": "_window()",
       "id": "src_sebi_rag_lineage_window"
     },
@@ -6911,7 +6441,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 64,
+      "community": 59,
       "norm_label": "detect_relations_ex()",
       "id": "src_sebi_rag_lineage_detect_relations_ex"
     },
@@ -6921,7 +6451,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L63",
       "_origin": "ast",
-      "community": 64,
+      "community": 59,
       "norm_label": "detect_relations()",
       "id": "src_sebi_rag_lineage_detect_relations"
     },
@@ -6951,7 +6481,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L84",
       "_origin": "ast",
-      "community": 80,
+      "community": 26,
       "norm_label": ".family()",
       "id": "src_sebi_rag_lineage_lineage_family"
     },
@@ -6961,7 +6491,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L96",
       "_origin": "ast",
-      "community": 80,
+      "community": 26,
       "norm_label": ".governing_on()",
       "id": "src_sebi_rag_lineage_lineage_governing_on"
     },
@@ -7021,7 +6551,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L150",
       "_origin": "ast",
-      "community": 59,
+      "community": 61,
       "norm_label": "_currency()",
       "id": "src_sebi_rag_lineage_currency"
     },
@@ -7031,7 +6561,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L154",
       "_origin": "ast",
-      "community": 59,
+      "community": 61,
       "norm_label": "build_lineage()",
       "id": "src_sebi_rag_lineage_build_lineage"
     },
@@ -7061,7 +6591,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L232",
       "_origin": "ast",
-      "community": 59,
+      "community": 51,
       "norm_label": "load_records()",
       "id": "src_sebi_rag_lineage_load_records"
     },
@@ -7091,7 +6621,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L36",
       "_origin": "ast",
-      "community": 64,
+      "community": 59,
       "norm_label": "like detect_relations, but returns dict records with evidence spans.",
       "id": "src_sebi_rag_lineage_rationale_36"
     },
@@ -7101,7 +6631,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L64",
       "_origin": "ast",
-      "community": 64,
+      "community": 59,
       "norm_label": "return (relation, referenced_circular) for each distinct reference.",
       "id": "src_sebi_rag_lineage_rationale_64"
     },
@@ -7111,7 +6641,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L85",
       "_origin": "ast",
-      "community": 80,
+      "community": 26,
       "norm_label": "connected component over supersedes/superseded_by (both tiers).",
       "id": "src_sebi_rag_lineage_rationale_85"
     },
@@ -7121,7 +6651,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L98",
       "_origin": "ast",
-      "community": 80,
+      "community": 26,
       "norm_label": "the circular in this family that governs on date as_of (iso), or         none wh",
       "id": "src_sebi_rag_lineage_rationale_98"
     },
@@ -7301,7 +6831,7 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 26,
+      "community": 61,
       "norm_label": "ragpipeline",
       "id": "src_sebi_rag_pipeline_ragpipeline"
     },
@@ -7321,7 +6851,7 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L44",
       "_origin": "ast",
-      "community": 64,
+      "community": 19,
       "norm_label": ".query()",
       "id": "src_sebi_rag_pipeline_ragpipeline_query"
     },
@@ -7801,7 +7331,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 65,
+      "community": 61,
       "norm_label": "lexicalreranker",
       "id": "src_sebi_rag_rerank_lexicalreranker"
     },
@@ -7811,7 +7341,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 70,
+      "community": 61,
       "norm_label": ".rerank()",
       "id": "src_sebi_rag_rerank_lexicalreranker_rerank"
     },
@@ -7871,7 +7401,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L115",
       "_origin": "ast",
-      "community": 26,
+      "community": 51,
       "norm_label": "crossencoderreranker",
       "id": "src_sebi_rag_rerank_crossencoderreranker"
     },
@@ -7881,7 +7411,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L121",
       "_origin": "ast",
-      "community": 26,
+      "community": 51,
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_rerank_crossencoderreranker_init"
     },
@@ -7891,7 +7421,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L131",
       "_origin": "ast",
-      "community": 70,
+      "community": 51,
       "norm_label": ".rerank()",
       "id": "src_sebi_rag_rerank_crossencoderreranker_rerank"
     },
@@ -7911,7 +7441,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 65,
+      "community": 61,
       "norm_label": "deterministic query-coverage reranker (test/fallback).      score = fraction of",
       "id": "src_sebi_rag_rerank_rationale_23"
     },
@@ -7931,7 +7461,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L116",
       "_origin": "ast",
-      "community": 26,
+      "community": 51,
       "norm_label": "production reranker: bge-reranker-v2-m3 via sentence-transformers     crossencod",
       "id": "src_sebi_rag_rerank_rationale_116"
     },
@@ -7941,7 +7471,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 52,
+      "community": 29,
       "norm_label": "retrieve.py",
       "id": "src_sebi_rag_retrieve"
     },
@@ -8011,7 +7541,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L47",
       "_origin": "ast",
-      "community": 48,
+      "community": 57,
       "norm_label": ".search()",
       "id": "src_sebi_rag_retrieve_denseindex_search"
     },
@@ -8021,7 +7551,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L54",
       "_origin": "ast",
-      "community": 48,
+      "community": 57,
       "norm_label": "sparseindex",
       "id": "src_sebi_rag_retrieve_sparseindex"
     },
@@ -8031,7 +7561,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L57",
       "_origin": "ast",
-      "community": 48,
+      "community": 57,
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_retrieve_sparseindex_init"
     },
@@ -8041,7 +7571,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L61",
       "_origin": "ast",
-      "community": 48,
+      "community": 57,
       "norm_label": ".build()",
       "id": "src_sebi_rag_retrieve_sparseindex_build"
     },
@@ -8051,7 +7581,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L66",
       "_origin": "ast",
-      "community": 48,
+      "community": 57,
       "norm_label": ".search()",
       "id": "src_sebi_rag_retrieve_sparseindex_search"
     },
@@ -8061,7 +7591,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L73",
       "_origin": "ast",
-      "community": 62,
+      "community": 57,
       "norm_label": "rrf_fuse()",
       "id": "src_sebi_rag_retrieve_rrf_fuse"
     },
@@ -8081,7 +7611,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L96",
       "_origin": "ast",
-      "community": 48,
+      "community": 83,
       "norm_label": ".build()",
       "id": "src_sebi_rag_retrieve_hybridretriever_build"
     },
@@ -8101,7 +7631,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 48,
+      "community": 51,
       "norm_label": "path",
       "id": "src_sebi_rag_retrieve_py_path"
     },
@@ -8111,7 +7641,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L167",
       "_origin": "ast",
-      "community": 48,
+      "community": 57,
       "norm_label": ".retrieve()",
       "id": "src_sebi_rag_retrieve_hybridretriever_retrieve"
     },
@@ -8121,7 +7651,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L197",
       "_origin": "ast",
-      "community": 48,
+      "community": 51,
       "norm_label": ".save()",
       "id": "src_sebi_rag_retrieve_hybridretriever_save"
     },
@@ -8131,7 +7661,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L229",
       "_origin": "ast",
-      "community": 48,
+      "community": 51,
       "norm_label": ".load()",
       "id": "src_sebi_rag_retrieve_hybridretriever_load"
     },
@@ -8141,7 +7671,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L244",
       "_origin": "ast",
-      "community": 48,
+      "community": 51,
       "norm_label": ".index_exists()",
       "id": "src_sebi_rag_retrieve_hybridretriever_index_exists"
     },
@@ -8151,7 +7681,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 52,
+      "community": 29,
       "norm_label": "stage-1 hybrid retrieval: dense (faiss) + sparse (bm25) fused by rrf.  mandatory",
       "id": "src_sebi_rag_retrieve_rationale_1"
     },
@@ -8181,7 +7711,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L55",
       "_origin": "ast",
-      "community": 48,
+      "community": 57,
       "norm_label": "bm25 lexical index (bm25s).",
       "id": "src_sebi_rag_retrieve_rationale_55"
     },
@@ -8191,7 +7721,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L78",
       "_origin": "ast",
-      "community": 62,
+      "community": 57,
       "norm_label": "reciprocal rank fusion. rank-only \u2014 sidesteps score-scale mismatch.",
       "id": "src_sebi_rag_retrieve_rationale_78"
     },
@@ -8221,7 +7751,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L18",
       "_origin": "ast",
-      "community": 61,
+      "community": 76,
       "norm_label": "circularmeta",
       "id": "src_sebi_rag_segment_circularmeta"
     },
@@ -8241,7 +7771,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L41",
       "_origin": "ast",
-      "community": 47,
+      "community": 29,
       "norm_label": "_paragraphs()",
       "id": "src_sebi_rag_segment_paragraphs"
     },
@@ -8271,7 +7801,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L42",
       "_origin": "ast",
-      "community": 47,
+      "community": 29,
       "norm_label": "split into units each <= max_chars.      pdf-extracted text often lacks blank-li",
       "id": "src_sebi_rag_segment_rationale_42"
     },
@@ -9041,7 +8571,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L19",
       "_origin": "ast",
-      "community": 10,
+      "community": 61,
       "norm_label": "_offline_pipeline()",
       "id": "tests_test_api_offline_pipeline"
     },
@@ -9161,7 +8691,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L121",
       "_origin": "ast",
-      "community": 10,
+      "community": 61,
       "norm_label": "test_query_exceeds_time_budget_returns_504()",
       "id": "tests_test_api_test_query_exceeds_time_budget_returns_504"
     },
@@ -9261,7 +8791,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L193",
       "_origin": "ast",
-      "community": 15,
+      "community": 60,
       "norm_label": "test_compute_kwargs_cpu_disables_fp16()",
       "id": "tests_test_api_test_compute_kwargs_cpu_disables_fp16"
     },
@@ -9271,7 +8801,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L201",
       "_origin": "ast",
-      "community": 15,
+      "community": 60,
       "norm_label": "test_compute_kwargs_mps_keeps_fp16()",
       "id": "tests_test_api_test_compute_kwargs_mps_keeps_fp16"
     },
@@ -9281,7 +8811,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L209",
       "_origin": "ast",
-      "community": 26,
+      "community": 51,
       "norm_label": "test_embedder_reranker_accept_compute_kwargs()",
       "id": "tests_test_api_test_embedder_reranker_accept_compute_kwargs"
     },
@@ -9821,7 +9351,7 @@
       "source_file": "tests/test_benchmark.py",
       "source_location": "L101",
       "_origin": "ast",
-      "community": 96,
+      "community": 1,
       "norm_label": "test_trec_run_and_research_judges_are_sidecar_only()",
       "id": "tests_test_benchmark_test_trec_run_and_research_judges_are_sidecar_only"
     },
@@ -10671,7 +10201,7 @@
       "source_file": "tests/test_eval_harness.py",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 47,
+      "community": 61,
       "norm_label": "_pipeline()",
       "id": "tests_test_eval_harness_pipeline"
     },
@@ -10681,7 +10211,7 @@
       "source_file": "tests/test_eval_harness.py",
       "source_location": "L41",
       "_origin": "ast",
-      "community": 47,
+      "community": 51,
       "norm_label": "test_real_corpus_loads_with_provenance_fields()",
       "id": "tests_test_eval_harness_test_real_corpus_loads_with_provenance_fields"
     },
@@ -10691,7 +10221,7 @@
       "source_file": "tests/test_eval_harness.py",
       "source_location": "L49",
       "_origin": "ast",
-      "community": 29,
+      "community": 90,
       "norm_label": "test_eval_harness_metric_suite()",
       "id": "tests_test_eval_harness_test_eval_harness_metric_suite"
     },
@@ -10901,7 +10431,7 @@
       "source_file": "tests/test_expand.py",
       "source_location": "L76",
       "_origin": "ast",
-      "community": 52,
+      "community": 83,
       "norm_label": "_chunk()",
       "id": "tests_test_expand_chunk"
     },
@@ -10911,7 +10441,7 @@
       "source_file": "tests/test_expand.py",
       "source_location": "L81",
       "_origin": "ast",
-      "community": 52,
+      "community": 57,
       "norm_label": "test_expanded_sparse_query_hits_statutory_chunk()",
       "id": "tests_test_expand_test_expanded_sparse_query_hits_statutory_chunk"
     },
@@ -10921,7 +10451,7 @@
       "source_file": "tests/test_expand.py",
       "source_location": "L92",
       "_origin": "ast",
-      "community": 52,
+      "community": 83,
       "norm_label": "test_retrieve_routes_expanded_query_to_sparse_leg()",
       "id": "tests_test_expand_test_retrieve_routes_expanded_query_to_sparse_leg"
     },
@@ -10931,7 +10461,7 @@
       "source_file": "tests/test_expand.py",
       "source_location": "L110",
       "_origin": "ast",
-      "community": 52,
+      "community": 83,
       "norm_label": "test_retrieve_dense_leg_keeps_raw_query()",
       "id": "tests_test_expand_test_retrieve_dense_leg_keeps_raw_query"
     },
@@ -11531,7 +11061,7 @@
       "source_file": "tests/test_faithfulness.py",
       "source_location": "L14",
       "_origin": "ast",
-      "community": 29,
+      "community": 30,
       "norm_label": "test_faithfulness_scoring()",
       "id": "tests_test_faithfulness_test_faithfulness_scoring"
     },
@@ -11541,7 +11071,7 @@
       "source_file": "tests/test_faithfulness.py",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 65,
+      "community": 61,
       "norm_label": "_hallucinatinggenerator",
       "id": "tests_test_faithfulness_hallucinatinggenerator"
     },
@@ -11551,7 +11081,7 @@
       "source_file": "tests/test_faithfulness.py",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 65,
+      "community": 61,
       "norm_label": ".generate()",
       "id": "tests_test_faithfulness_hallucinatinggenerator_generate"
     },
@@ -11561,7 +11091,7 @@
       "source_file": "tests/test_faithfulness.py",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 65,
+      "community": 61,
       "norm_label": "test_pipeline_flags_hallucinated_citation()",
       "id": "tests_test_faithfulness_test_pipeline_flags_hallucinated_citation"
     },
@@ -11621,7 +11151,7 @@
       "source_file": "tests/test_gate.py",
       "source_location": "L25",
       "_origin": "ast",
-      "community": 49,
+      "community": 70,
       "norm_label": ".grounded()",
       "id": "tests_test_gate_stubjudge_grounded"
     },
@@ -11691,7 +11221,7 @@
       "source_file": "tests/test_gate.py",
       "source_location": "L74",
       "_origin": "ast",
-      "community": 49,
+      "community": 70,
       "norm_label": "test_subject_sim_judge_separates_by_subject()",
       "id": "tests_test_gate_test_subject_sim_judge_separates_by_subject"
     },
@@ -11701,7 +11231,7 @@
       "source_file": "tests/test_gate.py",
       "source_location": "L91",
       "_origin": "ast",
-      "community": 49,
+      "community": 70,
       "norm_label": "test_subject_sim_judge_two_tier_section_gate()",
       "id": "tests_test_gate_test_subject_sim_judge_two_tier_section_gate"
     },
@@ -11881,7 +11411,7 @@
       "source_file": "tests/test_golden_v7_mine.py",
       "source_location": "L27",
       "_origin": "ast",
-      "community": 61,
+      "community": 76,
       "norm_label": "test_paraphrase_skips_preamble_and_short_chunks()",
       "id": "tests_test_golden_v7_mine_test_paraphrase_skips_preamble_and_short_chunks"
     },
@@ -11891,7 +11421,7 @@
       "source_file": "tests/test_golden_v7_mine.py",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 61,
+      "community": 76,
       "norm_label": "test_numeric_miner_requires_numeric_pattern()",
       "id": "tests_test_golden_v7_mine_test_numeric_miner_requires_numeric_pattern"
     },
@@ -12941,7 +12471,7 @@
       "source_file": "tests/test_ingest_refs.py",
       "source_location": "L75",
       "_origin": "ast",
-      "community": 91,
+      "community": 74,
       "norm_label": "test_dedup_uses_normalized_numbers()",
       "id": "tests_test_ingest_refs_test_dedup_uses_normalized_numbers"
     },
@@ -13051,7 +12581,7 @@
       "source_file": "tests/test_integration_e2e.py",
       "source_location": "L26",
       "_origin": "ast",
-      "community": 29,
+      "community": 51,
       "norm_label": "_ollama_up()",
       "id": "tests_test_integration_e2e_ollama_up"
     },
@@ -13061,7 +12591,7 @@
       "source_file": "tests/test_integration_e2e.py",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 26,
+      "community": 51,
       "norm_label": "pipeline()",
       "id": "tests_test_integration_e2e_pipeline"
     },
@@ -13161,7 +12691,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L91",
       "_origin": "ast",
-      "community": 64,
+      "community": 59,
       "norm_label": "test_plain_citation_is_not_supersession()",
       "id": "tests_test_lineage_test_plain_citation_is_not_supersession"
     },
@@ -13171,7 +12701,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L100",
       "_origin": "ast",
-      "community": 59,
+      "community": 51,
       "norm_label": "test_real_corpus_oiae_supersedes_listed_circulars()",
       "id": "tests_test_lineage_test_real_corpus_oiae_supersedes_listed_circulars"
     },
@@ -13251,7 +12781,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L187",
       "_origin": "ast",
-      "community": 64,
+      "community": 59,
       "norm_label": "test_detect_relations_ex_evidence_and_extractor()",
       "id": "tests_test_lineage_test_detect_relations_ex_evidence_and_extractor"
     },
@@ -13261,7 +12791,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L198",
       "_origin": "ast",
-      "community": 64,
+      "community": 59,
       "norm_label": "test_detect_relations_delegates_unchanged()",
       "id": "tests_test_lineage_test_detect_relations_delegates_unchanged"
     },
@@ -13321,7 +12851,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L298",
       "_origin": "ast",
-      "community": 64,
+      "community": 59,
       "norm_label": "test_detect_relations_ex_supersedes_when_ref_before_trigger()",
       "id": "tests_test_lineage_test_detect_relations_ex_supersedes_when_ref_before_trigger"
     },
@@ -13341,7 +12871,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L299",
       "_origin": "ast",
-      "community": 64,
+      "community": 59,
       "norm_label": "a circular that names another circular before the supersede trigger     word mus",
       "id": "tests_test_lineage_rationale_299"
     },
@@ -13741,7 +13271,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L9",
       "_origin": "ast",
-      "community": 61,
+      "community": 29,
       "norm_label": "_chunks()",
       "id": "tests_test_persistence_chunks"
     },
@@ -13751,7 +13281,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 48,
+      "community": 29,
       "norm_label": "test_index_save_load_roundtrip()",
       "id": "tests_test_persistence_test_index_save_load_roundtrip"
     },
@@ -13811,7 +13341,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L91",
       "_origin": "ast",
-      "community": 62,
+      "community": 57,
       "norm_label": "test_rrf_fusion_orders_by_reciprocal_rank()",
       "id": "tests_test_pipeline_test_rrf_fusion_orders_by_reciprocal_rank"
     },
@@ -13911,7 +13441,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L226",
       "_origin": "ast",
-      "community": 61,
+      "community": 76,
       "norm_label": "_fixedreranker",
       "id": "tests_test_pipeline_fixedreranker"
     },
@@ -13921,7 +13451,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L229",
       "_origin": "ast",
-      "community": 61,
+      "community": 76,
       "norm_label": ".__init__()",
       "id": "tests_test_pipeline_fixedreranker_init"
     },
@@ -13931,7 +13461,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L232",
       "_origin": "ast",
-      "community": 61,
+      "community": 76,
       "norm_label": ".rerank()",
       "id": "tests_test_pipeline_fixedreranker_rerank"
     },
@@ -13941,7 +13471,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L238",
       "_origin": "ast",
-      "community": 61,
+      "community": 76,
       "norm_label": "test_as_of_query_not_demoted_below_abstention_floor()",
       "id": "tests_test_pipeline_test_as_of_query_not_demoted_below_abstention_floor"
     },
@@ -13951,7 +13481,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L276",
       "_origin": "ast",
-      "community": 61,
+      "community": 76,
       "norm_label": "test_supersession_note_only_for_circulars_cited_in_answer_text()",
       "id": "tests_test_pipeline_test_supersession_note_only_for_circulars_cited_in_answer_text"
     },
@@ -13961,7 +13491,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L304",
       "_origin": "ast",
-      "community": 61,
+      "community": 76,
       "norm_label": "test_supersession_note_kept_when_answer_text_cites_superseded()",
       "id": "tests_test_pipeline_test_supersession_note_kept_when_answer_text_cites_superseded"
     },
@@ -13971,7 +13501,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L327",
       "_origin": "ast",
-      "community": 61,
+      "community": 76,
       "norm_label": "test_as_of_demotes_circular_already_superseded_on_that_date()",
       "id": "tests_test_pipeline_test_as_of_demotes_circular_already_superseded_on_that_date"
     },
@@ -14001,7 +13531,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L227",
       "_origin": "ast",
-      "community": 61,
+      "community": 76,
       "norm_label": "deterministic reranker: score by doc_id lookup (test-only).",
       "id": "tests_test_pipeline_rationale_227"
     },
@@ -14011,7 +13541,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L239",
       "_origin": "ast",
-      "community": 61,
+      "community": 76,
       "norm_label": "a circular that governed on the as-of date must keep its raw rerank     score. b",
       "id": "tests_test_pipeline_rationale_239"
     },
@@ -14021,7 +13551,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L277",
       "_origin": "ast",
-      "community": 61,
+      "community": 76,
       "norm_label": "citations = all top_k contexts, so a demoted superseded chunk deep in     the co",
       "id": "tests_test_pipeline_rationale_277"
     },
@@ -14031,7 +13561,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L328",
       "_origin": "ast",
-      "community": 61,
+      "community": 76,
       "norm_label": "giant-family regression (golden asof-p8): old is superseded by two     same-day",
       "id": "tests_test_pipeline_rationale_328"
     },
@@ -15161,7 +14691,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L20",
       "_origin": "ast",
-      "community": 93,
+      "community": 1,
       "norm_label": ".test_round_trips_a_simple_run()",
       "id": "tests_test_rescore_testreadtrecrun_test_round_trips_a_simple_run"
     },
@@ -15201,7 +14731,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L50",
       "_origin": "ast",
-      "community": 61,
+      "community": 93,
       "norm_label": "testperqueryrecall",
       "id": "tests_test_rescore_testperqueryrecall"
     },
@@ -15211,7 +14741,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L51",
       "_origin": "ast",
-      "community": 83,
+      "community": 93,
       "norm_label": "._golden()",
       "id": "tests_test_rescore_testperqueryrecall_golden"
     },
@@ -15221,7 +14751,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L58",
       "_origin": "ast",
-      "community": 83,
+      "community": 93,
       "norm_label": ".test_scores_each_query_and_skips_abstain_items()",
       "id": "tests_test_rescore_testperqueryrecall_test_scores_each_query_and_skips_abstain_items"
     },
@@ -15231,7 +14761,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L67",
       "_origin": "ast",
-      "community": 83,
+      "community": 93,
       "norm_label": ".test_deduplicates_chunks_to_circulars_before_cutoff()",
       "id": "tests_test_rescore_testperqueryrecall_test_deduplicates_chunks_to_circulars_before_cutoff"
     },
@@ -15241,7 +14771,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L74",
       "_origin": "ast",
-      "community": 61,
+      "community": 93,
       "norm_label": ".test_mean_reproduces_the_archived_aggregate()",
       "id": "tests_test_rescore_testperqueryrecall_test_mean_reproduces_the_archived_aggregate"
     },
@@ -15271,7 +14801,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L68",
       "_origin": "ast",
-      "community": 83,
+      "community": 93,
       "norm_label": "ten chunks of one circular must not crowd the cutoff: the k applies         to u",
       "id": "tests_test_rescore_rationale_68"
     },
@@ -15281,7 +14811,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L75",
       "_origin": "ast",
-      "community": 61,
+      "community": 93,
       "norm_label": "end-to-end guarantee behind the re-scoring script: replaying a         runfile y",
       "id": "tests_test_rescore_rationale_75"
     },
@@ -17028,1092 +16558,15 @@
   ],
   "links": [
     {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L116",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_apply",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L144",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_body",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L215",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_claude_accuracy_ci",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L38",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_cohen_kappa",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L66",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_decide",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L34",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_label",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L270",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_main",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L236",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_render_report",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L149",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_resolve_governing_spans",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L183",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_stratum_kappas",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L176",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_votes_by_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L20",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement",
-      "target": "src_sebi_rag_benchmark",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L21",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement",
-      "target": "src_sebi_rag_eval_harness",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L22",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement",
-      "target": "src_sebi_rag_stats",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement_rationale_1",
-      "target": "scripts_golden_v7_agreement",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L9",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L227",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement_claude_accuracy_ci",
-      "target": "scripts_golden_v7_agreement_label",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L52",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement_cohen_kappa",
-      "target": "scripts_golden_v7_agreement_label",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L97",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement_decide",
-      "target": "scripts_golden_v7_agreement_label",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L209",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement_stratum_kappas",
-      "target": "scripts_golden_v7_agreement_label",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L39",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement_rationale_39",
-      "target": "scripts_golden_v7_agreement_cohen_kappa",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L208",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement_stratum_kappas",
-      "target": "scripts_golden_v7_agreement_cohen_kappa",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L53",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_cohen_kappa_both_constant_and_identical_is_one",
-      "target": "scripts_golden_v7_agreement_cohen_kappa"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L57",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_cohen_kappa_empty_input_is_one",
-      "target": "scripts_golden_v7_agreement_cohen_kappa"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L41",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_cohen_kappa_identical_lists_is_one",
-      "target": "scripts_golden_v7_agreement_cohen_kappa"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L47",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_cohen_kappa_independent_looking_lists_is_low",
-      "target": "scripts_golden_v7_agreement_cohen_kappa"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L289",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement_main",
-      "target": "scripts_golden_v7_agreement_decide",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L68",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement_rationale_68",
-      "target": "scripts_golden_v7_agreement_decide",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L119",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_confirm_promotes",
-      "target": "scripts_golden_v7_agreement_decide"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L132",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_dispute_flips",
-      "target": "scripts_golden_v7_agreement_decide"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L105",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_decide_dated_id_queues_even_on_full_agreement",
-      "target": "scripts_golden_v7_agreement_decide"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L67",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_decide_gemini_only_agrees_with_claude_promotes",
-      "target": "scripts_golden_v7_agreement_decide"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L75",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_decide_gemini_only_disagrees_with_claude_queues",
-      "target": "scripts_golden_v7_agreement_decide"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L97",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_decide_human_and_gemini_agree_on_alternative_flips",
-      "target": "scripts_golden_v7_agreement_decide"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L139",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_decide_no_external_votes_queues",
-      "target": "scripts_golden_v7_agreement_decide"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L82",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_decide_three_way_all_agree_promotes",
-      "target": "scripts_golden_v7_agreement_decide"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L90",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_decide_three_way_split_queues",
-      "target": "scripts_golden_v7_agreement_decide"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L299",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement_main",
-      "target": "scripts_golden_v7_agreement_apply",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L118",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement_rationale_118",
-      "target": "scripts_golden_v7_agreement_apply",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L186",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_apply_does_not_mutate_input_rows",
-      "target": "scripts_golden_v7_agreement_apply"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L160",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_apply_flip_promote_rebuilds_spans_and_label_source",
-      "target": "scripts_golden_v7_agreement_apply"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L150",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_apply_promote_sets_adjudicated_only",
-      "target": "scripts_golden_v7_agreement_apply"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L169",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_apply_queue_decision_leaves_row_untouched",
-      "target": "scripts_golden_v7_agreement_apply"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L178",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_apply_row_without_a_decision_is_never_touched",
-      "target": "scripts_golden_v7_agreement_apply"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L171",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement_resolve_governing_spans",
-      "target": "scripts_golden_v7_agreement_body",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L292",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement_main",
-      "target": "scripts_golden_v7_agreement_resolve_governing_spans",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L150",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement_rationale_150",
-      "target": "scripts_golden_v7_agreement_resolve_governing_spans",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L227",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_resolve_governing_spans_multiple_ids_dedupes_and_preserves_order",
-      "target": "scripts_golden_v7_agreement_resolve_governing_spans"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L216",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_resolve_governing_spans_raises_on_chunk_not_in_pool",
-      "target": "scripts_golden_v7_agreement_resolve_governing_spans"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L207",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_resolve_governing_spans_short_body_uses_whole_body",
-      "target": "scripts_golden_v7_agreement_resolve_governing_spans"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L199",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_resolve_governing_spans_uses_first_60_body_chars",
-      "target": "scripts_golden_v7_agreement_resolve_governing_spans"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L275",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement_main",
-      "target": "scripts_golden_v7_agreement_votes_by_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L306",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement_main",
-      "target": "scripts_golden_v7_agreement_stratum_kappas",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L184",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement_rationale_184",
-      "target": "scripts_golden_v7_agreement_stratum_kappas",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L307",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement_main",
-      "target": "scripts_golden_v7_agreement_claude_accuracy_ci",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L216",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement_rationale_216",
-      "target": "scripts_golden_v7_agreement_claude_accuracy_ci",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/agreement.py",
-      "source_location": "L309",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_agreement_main",
-      "target": "scripts_golden_v7_agreement_render_report",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L31",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_pool",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L17",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L183",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_apply_does_not_mutate_input_rows",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L156",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_apply_flip_promote_rebuilds_spans_and_label_source",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L147",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_apply_promote_sets_adjudicated_only",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L166",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_apply_queue_decision_leaves_row_untouched",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L174",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_apply_row_without_a_decision_is_never_touched",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L50",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_cohen_kappa_both_constant_and_identical_is_one",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L56",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_cohen_kappa_empty_input_is_one",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L39",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_cohen_kappa_identical_lists_is_one",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L44",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_cohen_kappa_independent_looking_lists_is_low",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L109",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_confirm_promotes",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L124",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_dispute_flips",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L102",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_dated_id_queues_even_on_full_agreement",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L64",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_gemini_only_agrees_with_claude_promotes",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L72",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_gemini_only_disagrees_with_claude_queues",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L94",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_human_and_gemini_agree_on_alternative_flips",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L137",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_no_external_votes_queues",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L79",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_three_way_all_agree_promotes",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L87",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_three_way_split_queues",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L222",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_resolve_governing_spans_multiple_ids_dedupes_and_preserves_order",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L211",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_resolve_governing_spans_raises_on_chunk_not_in_pool",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L203",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_resolve_governing_spans_short_body_uses_whole_body",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L194",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_resolve_governing_spans_uses_first_60_body_chars",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_rationale_1",
-      "target": "tests_test_golden_v7_agreement",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L184",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_apply_does_not_mutate_input_rows",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L157",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_apply_flip_promote_rebuilds_spans_and_label_source",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L148",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_apply_promote_sets_adjudicated_only",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L167",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_apply_queue_decision_leaves_row_untouched",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L175",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_apply_row_without_a_decision_is_never_touched",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L115",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_confirm_promotes",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L128",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_dispute_flips",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L103",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_decide_dated_id_queues_even_on_full_agreement",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L65",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_decide_gemini_only_agrees_with_claude_promotes",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L73",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_decide_gemini_only_disagrees_with_claude_queues",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L95",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_decide_human_and_gemini_agree_on_alternative_flips",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L138",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_decide_no_external_votes_queues",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L80",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_decide_three_way_all_agree_promotes",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L88",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_decide_three_way_split_queues",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L223",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_resolve_governing_spans_multiple_ids_dedupes_and_preserves_order",
-      "target": "tests_test_golden_v7_agreement_pool",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L212",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_resolve_governing_spans_raises_on_chunk_not_in_pool",
-      "target": "tests_test_golden_v7_agreement_pool",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L204",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_resolve_governing_spans_short_body_uses_whole_body",
-      "target": "tests_test_golden_v7_agreement_pool",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L196",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_test_resolve_governing_spans_uses_first_60_body_chars",
-      "target": "tests_test_golden_v7_agreement_pool",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L110",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_rationale_110",
-      "target": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_confirm_promotes",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_agreement.py",
-      "source_location": "L125",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_agreement_rationale_125",
-      "target": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_dispute_flips",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L19",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate",
-      "target": "random"
+      "target": "random",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18121,9 +16574,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L154",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate",
-      "target": "scripts_golden_v7_gemini_adjudicate_adjudicate"
+      "target": "scripts_golden_v7_gemini_adjudicate_adjudicate",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18131,9 +16584,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L55",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate",
-      "target": "scripts_golden_v7_gemini_adjudicate_build_prompt"
+      "target": "scripts_golden_v7_gemini_adjudicate_build_prompt",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18141,9 +16594,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L253",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate",
-      "target": "scripts_golden_v7_gemini_adjudicate_main"
+      "target": "scripts_golden_v7_gemini_adjudicate_main",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18151,9 +16604,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L221",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate",
-      "target": "scripts_golden_v7_gemini_adjudicate_parse_error_ids"
+      "target": "scripts_golden_v7_gemini_adjudicate_parse_error_ids",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18161,9 +16614,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L78",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate",
-      "target": "scripts_golden_v7_gemini_adjudicate_parse_letter_choice"
+      "target": "scripts_golden_v7_gemini_adjudicate_parse_letter_choice",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18171,9 +16624,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L146",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate",
-      "target": "scripts_golden_v7_gemini_adjudicate_parse_reply"
+      "target": "scripts_golden_v7_gemini_adjudicate_parse_reply",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18181,9 +16634,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L114",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate",
-      "target": "scripts_golden_v7_gemini_adjudicate_parse_yes_no"
+      "target": "scripts_golden_v7_gemini_adjudicate_parse_yes_no",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18191,9 +16644,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L205",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate",
-      "target": "scripts_golden_v7_gemini_adjudicate_post_gemini"
+      "target": "scripts_golden_v7_gemini_adjudicate_post_gemini",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18201,9 +16654,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L241",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate",
-      "target": "scripts_golden_v7_gemini_adjudicate_replace_annotator_votes"
+      "target": "scripts_golden_v7_gemini_adjudicate_replace_annotator_votes",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18211,9 +16664,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L47",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate",
-      "target": "scripts_golden_v7_gemini_adjudicate_shuffled_candidates"
+      "target": "scripts_golden_v7_gemini_adjudicate_shuffled_candidates",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -18222,9 +16675,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L28",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate",
-      "target": "src_sebi_rag_eval_harness"
+      "target": "src_sebi_rag_eval_harness",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -18232,9 +16685,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_rationale_1",
-      "target": "scripts_golden_v7_gemini_adjudicate"
+      "target": "scripts_golden_v7_gemini_adjudicate",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -18243,9 +16696,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L11",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "scripts_golden_v7_gemini_adjudicate"
+      "target": "scripts_golden_v7_gemini_adjudicate",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -18254,9 +16707,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L187",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_adjudicate",
-      "target": "scripts_golden_v7_gemini_adjudicate_shuffled_candidates"
+      "target": "scripts_golden_v7_gemini_adjudicate_shuffled_candidates",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -18265,9 +16718,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L64",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_build_prompt",
-      "target": "scripts_golden_v7_gemini_adjudicate_shuffled_candidates"
+      "target": "scripts_golden_v7_gemini_adjudicate_shuffled_candidates",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -18275,9 +16728,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L48",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_rationale_48",
-      "target": "scripts_golden_v7_gemini_adjudicate_shuffled_candidates"
+      "target": "scripts_golden_v7_gemini_adjudicate_shuffled_candidates",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -18286,9 +16739,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L184",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_adjudicate",
-      "target": "scripts_golden_v7_gemini_adjudicate_build_prompt"
+      "target": "scripts_golden_v7_gemini_adjudicate_build_prompt",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -18296,9 +16749,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L56",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_rationale_56",
-      "target": "scripts_golden_v7_gemini_adjudicate_build_prompt"
+      "target": "scripts_golden_v7_gemini_adjudicate_build_prompt",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -18362,9 +16815,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L143",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_parse_reply",
-      "target": "scripts_golden_v7_gemini_adjudicate_parse_letter_choice"
+      "target": "scripts_golden_v7_gemini_adjudicate_parse_letter_choice",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -18372,9 +16825,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L79",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_rationale_79",
-      "target": "scripts_golden_v7_gemini_adjudicate_parse_letter_choice"
+      "target": "scripts_golden_v7_gemini_adjudicate_parse_letter_choice",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -18383,9 +16836,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L142",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_parse_reply",
-      "target": "scripts_golden_v7_gemini_adjudicate_parse_yes_no"
+      "target": "scripts_golden_v7_gemini_adjudicate_parse_yes_no",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -18393,9 +16846,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L115",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_rationale_115",
-      "target": "scripts_golden_v7_gemini_adjudicate_parse_yes_no"
+      "target": "scripts_golden_v7_gemini_adjudicate_parse_yes_no",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -18404,9 +16857,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L191",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_adjudicate",
-      "target": "scripts_golden_v7_gemini_adjudicate_parse_reply"
+      "target": "scripts_golden_v7_gemini_adjudicate_parse_reply",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -18414,9 +16867,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L138",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_rationale_138",
-      "target": "scripts_golden_v7_gemini_adjudicate_parse_reply"
+      "target": "scripts_golden_v7_gemini_adjudicate_parse_reply",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -18424,9 +16877,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L147",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_rationale_147",
-      "target": "scripts_golden_v7_gemini_adjudicate_parse_reply"
+      "target": "scripts_golden_v7_gemini_adjudicate_parse_reply",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -18435,9 +16888,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L154",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_adjudicate",
-      "target": "path"
+      "target": "path",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -18446,9 +16899,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L260",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_main",
-      "target": "scripts_golden_v7_gemini_adjudicate_adjudicate"
+      "target": "scripts_golden_v7_gemini_adjudicate_adjudicate",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -18456,9 +16909,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L156",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_rationale_156",
-      "target": "scripts_golden_v7_gemini_adjudicate_adjudicate"
+      "target": "scripts_golden_v7_gemini_adjudicate_adjudicate",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -18544,9 +16997,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L221",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_parse_error_ids",
-      "target": "path"
+      "target": "path",
+      "confidence_score": 1.0
     },
     {
       "relation": "indirect_call",
@@ -18555,9 +17008,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L260",
       "weight": 1.0,
-      "confidence_score": 0.5,
       "source": "scripts_golden_v7_gemini_adjudicate_main",
-      "target": "scripts_golden_v7_gemini_adjudicate_post_gemini"
+      "target": "scripts_golden_v7_gemini_adjudicate_post_gemini",
+      "confidence_score": 0.5
     },
     {
       "relation": "rationale_for",
@@ -18565,9 +17018,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L206",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_rationale_206",
-      "target": "scripts_golden_v7_gemini_adjudicate_post_gemini"
+      "target": "scripts_golden_v7_gemini_adjudicate_post_gemini",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -18576,9 +17029,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L262",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_main",
-      "target": "scripts_golden_v7_gemini_adjudicate_parse_error_ids"
+      "target": "scripts_golden_v7_gemini_adjudicate_parse_error_ids",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -18586,9 +17039,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L222",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_rationale_222",
-      "target": "scripts_golden_v7_gemini_adjudicate_parse_error_ids"
+      "target": "scripts_golden_v7_gemini_adjudicate_parse_error_ids",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -18630,9 +17083,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L273",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_main",
-      "target": "scripts_golden_v7_gemini_adjudicate_replace_annotator_votes"
+      "target": "scripts_golden_v7_gemini_adjudicate_replace_annotator_votes",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -18640,9 +17093,9 @@
       "source_file": "scripts/golden_v7/gemini_adjudicate.py",
       "source_location": "L243",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_rationale_243",
-      "target": "scripts_golden_v7_gemini_adjudicate_replace_annotator_votes"
+      "target": "scripts_golden_v7_gemini_adjudicate_replace_annotator_votes",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -18673,9 +17126,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "random"
+      "target": "random",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18683,9 +17136,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L29",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_pool"
+      "target": "tests_test_golden_v7_gemini_pool",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18693,9 +17146,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L22",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_row"
+      "target": "tests_test_golden_v7_gemini_row",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18703,9 +17156,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L69",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_test_abstain_prompt_tells_model_to_blank_expected_on_no"
+      "target": "tests_test_golden_v7_gemini_test_abstain_prompt_tells_model_to_blank_expected_on_no",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18713,9 +17166,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L225",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_test_adjudicate_abstain_row_dispute_keeps_governing_empty"
+      "target": "tests_test_golden_v7_gemini_test_adjudicate_abstain_row_dispute_keeps_governing_empty",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18723,9 +17176,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L242",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_test_adjudicate_creates_cache_dir_if_missing"
+      "target": "tests_test_golden_v7_gemini_test_adjudicate_creates_cache_dir_if_missing",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18733,9 +17186,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L208",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_test_adjudicate_marks_parse_error_for_garbled_abstain_protocol_reply"
+      "target": "tests_test_golden_v7_gemini_test_adjudicate_marks_parse_error_for_garbled_abstain_protocol_reply",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18743,9 +17196,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L194",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_test_adjudicate_marks_parse_error_in_cache_for_garbage_reply"
+      "target": "tests_test_golden_v7_gemini_test_adjudicate_marks_parse_error_in_cache_for_garbage_reply",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18753,9 +17206,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L149",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_test_adjudicate_writes_votes_and_caches_then_zero_post_calls_on_rerun"
+      "target": "tests_test_golden_v7_gemini_test_adjudicate_writes_votes_and_caches_then_zero_post_calls_on_rerun",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18763,9 +17216,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L57",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_test_build_prompt_abstain_row_has_no_excerpts_and_uses_yes_no_protocol"
+      "target": "tests_test_golden_v7_gemini_test_build_prompt_abstain_row_has_no_excerpts_and_uses_yes_no_protocol",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18773,9 +17226,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L40",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_test_build_prompt_contains_every_letter_and_excerpt_no_scores_or_ranks"
+      "target": "tests_test_golden_v7_gemini_test_build_prompt_contains_every_letter_and_excerpt_no_scores_or_ranks",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18783,9 +17236,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L102",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_test_build_prompt_shuffle_is_deterministic_per_row_id"
+      "target": "tests_test_golden_v7_gemini_test_build_prompt_shuffle_is_deterministic_per_row_id",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18793,9 +17246,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L91",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_test_build_prompt_zero_candidate_pool_also_uses_yes_no_protocol"
+      "target": "tests_test_golden_v7_gemini_test_build_prompt_zero_candidate_pool_also_uses_yes_no_protocol",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18803,9 +17256,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L271",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_test_parse_error_ids_empty_when_nothing_flagged"
+      "target": "tests_test_golden_v7_gemini_test_parse_error_ids_empty_when_nothing_flagged",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18813,9 +17266,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L256",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_test_parse_error_ids_finds_only_the_flagged_rows"
+      "target": "tests_test_golden_v7_gemini_test_parse_error_ids_finds_only_the_flagged_rows",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18823,9 +17276,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L281",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_test_parse_error_ids_skips_ids_with_no_cache_file"
+      "target": "tests_test_golden_v7_gemini_test_parse_error_ids_skips_ids_with_no_cache_file",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18833,9 +17286,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L135",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_test_parse_reply_empty_letters_dispatches_to_yes_no_protocol"
+      "target": "tests_test_golden_v7_gemini_test_parse_reply_empty_letters_dispatches_to_yes_no_protocol",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18843,9 +17296,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L121",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_test_parse_reply_garbage_is_unparseable"
+      "target": "tests_test_golden_v7_gemini_test_parse_reply_garbage_is_unparseable",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18853,9 +17306,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L112",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_test_parse_reply_letters_and_expected"
+      "target": "tests_test_golden_v7_gemini_test_parse_reply_letters_and_expected",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18863,9 +17316,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L117",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_test_parse_reply_none_means_no_governing_excerpt"
+      "target": "tests_test_golden_v7_gemini_test_parse_reply_none_means_no_governing_excerpt",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18873,9 +17326,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L131",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_test_parse_reply_single_letter_no_expected_line"
+      "target": "tests_test_golden_v7_gemini_test_parse_reply_single_letter_no_expected_line",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18883,9 +17336,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L125",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_test_parse_reply_unknown_letter_fails_the_whole_reply_closed"
+      "target": "tests_test_golden_v7_gemini_test_parse_reply_unknown_letter_fails_the_whole_reply_closed",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18893,9 +17346,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L294",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_test_replace_annotator_votes_drops_old_gemini_keeps_others_untouched"
+      "target": "tests_test_golden_v7_gemini_test_replace_annotator_votes_drops_old_gemini_keeps_others_untouched",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18903,9 +17356,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L310",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini",
-      "target": "tests_test_golden_v7_gemini_test_replace_annotator_votes_on_empty_existing_just_returns_fresh"
+      "target": "tests_test_golden_v7_gemini_test_replace_annotator_votes_on_empty_existing_just_returns_fresh",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -18913,9 +17366,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_rationale_1",
-      "target": "tests_test_golden_v7_gemini"
+      "target": "tests_test_golden_v7_gemini",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -18924,9 +17377,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L81",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_test_abstain_prompt_tells_model_to_blank_expected_on_no",
-      "target": "tests_test_golden_v7_gemini_row"
+      "target": "tests_test_golden_v7_gemini_row",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -18935,9 +17388,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L230",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_test_adjudicate_abstain_row_dispute_keeps_governing_empty",
-      "target": "tests_test_golden_v7_gemini_row"
+      "target": "tests_test_golden_v7_gemini_row",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -18946,9 +17399,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L244",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_test_adjudicate_creates_cache_dir_if_missing",
-      "target": "tests_test_golden_v7_gemini_row"
+      "target": "tests_test_golden_v7_gemini_row",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -18957,9 +17410,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L213",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_test_adjudicate_marks_parse_error_for_garbled_abstain_protocol_reply",
-      "target": "tests_test_golden_v7_gemini_row"
+      "target": "tests_test_golden_v7_gemini_row",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -18968,9 +17421,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L195",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_test_adjudicate_marks_parse_error_in_cache_for_garbage_reply",
-      "target": "tests_test_golden_v7_gemini_row"
+      "target": "tests_test_golden_v7_gemini_row",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -18979,9 +17432,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L150",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_test_adjudicate_writes_votes_and_caches_then_zero_post_calls_on_rerun",
-      "target": "tests_test_golden_v7_gemini_row"
+      "target": "tests_test_golden_v7_gemini_row",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -18990,9 +17443,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L58",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_test_build_prompt_abstain_row_has_no_excerpts_and_uses_yes_no_protocol",
-      "target": "tests_test_golden_v7_gemini_row"
+      "target": "tests_test_golden_v7_gemini_row",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -19001,9 +17454,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L41",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_test_build_prompt_contains_every_letter_and_excerpt_no_scores_or_ranks",
-      "target": "tests_test_golden_v7_gemini_row"
+      "target": "tests_test_golden_v7_gemini_row",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -19012,9 +17465,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L103",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_test_build_prompt_shuffle_is_deterministic_per_row_id",
-      "target": "tests_test_golden_v7_gemini_row"
+      "target": "tests_test_golden_v7_gemini_row",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -19023,9 +17476,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L95",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_test_build_prompt_zero_candidate_pool_also_uses_yes_no_protocol",
-      "target": "tests_test_golden_v7_gemini_row"
+      "target": "tests_test_golden_v7_gemini_row",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -19034,9 +17487,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L272",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_test_parse_error_ids_empty_when_nothing_flagged",
-      "target": "tests_test_golden_v7_gemini_row"
+      "target": "tests_test_golden_v7_gemini_row",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -19045,9 +17498,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L257",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_test_parse_error_ids_finds_only_the_flagged_rows",
-      "target": "tests_test_golden_v7_gemini_row"
+      "target": "tests_test_golden_v7_gemini_row",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -19056,9 +17509,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L196",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_test_adjudicate_marks_parse_error_in_cache_for_garbage_reply",
-      "target": "tests_test_golden_v7_gemini_pool"
+      "target": "tests_test_golden_v7_gemini_pool",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -19067,9 +17520,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L151",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_test_adjudicate_writes_votes_and_caches_then_zero_post_calls_on_rerun",
-      "target": "tests_test_golden_v7_gemini_pool"
+      "target": "tests_test_golden_v7_gemini_pool",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -19078,9 +17531,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L42",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_test_build_prompt_contains_every_letter_and_excerpt_no_scores_or_ranks",
-      "target": "tests_test_golden_v7_gemini_pool"
+      "target": "tests_test_golden_v7_gemini_pool",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -19089,9 +17542,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L104",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_test_build_prompt_shuffle_is_deterministic_per_row_id",
-      "target": "tests_test_golden_v7_gemini_pool"
+      "target": "tests_test_golden_v7_gemini_pool",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -19100,9 +17553,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L273",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_test_parse_error_ids_empty_when_nothing_flagged",
-      "target": "tests_test_golden_v7_gemini_pool"
+      "target": "tests_test_golden_v7_gemini_pool",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -19111,9 +17564,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L258",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_test_parse_error_ids_finds_only_the_flagged_rows",
-      "target": "tests_test_golden_v7_gemini_pool"
+      "target": "tests_test_golden_v7_gemini_pool",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -19121,9 +17574,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L70",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_rationale_70",
-      "target": "tests_test_golden_v7_gemini_test_abstain_prompt_tells_model_to_blank_expected_on_no"
+      "target": "tests_test_golden_v7_gemini_test_abstain_prompt_tells_model_to_blank_expected_on_no",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -19131,9 +17584,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L92",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_rationale_92",
-      "target": "tests_test_golden_v7_gemini_test_build_prompt_zero_candidate_pool_also_uses_yes_no_protocol"
+      "target": "tests_test_golden_v7_gemini_test_build_prompt_zero_candidate_pool_also_uses_yes_no_protocol",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -19141,9 +17594,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L126",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_rationale_126",
-      "target": "tests_test_golden_v7_gemini_test_parse_reply_unknown_letter_fails_the_whole_reply_closed"
+      "target": "tests_test_golden_v7_gemini_test_parse_reply_unknown_letter_fails_the_whole_reply_closed",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -19151,9 +17604,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L136",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_rationale_136",
-      "target": "tests_test_golden_v7_gemini_test_parse_reply_empty_letters_dispatches_to_yes_no_protocol"
+      "target": "tests_test_golden_v7_gemini_test_parse_reply_empty_letters_dispatches_to_yes_no_protocol",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -19161,9 +17614,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L209",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_rationale_209",
-      "target": "tests_test_golden_v7_gemini_test_adjudicate_marks_parse_error_for_garbled_abstain_protocol_reply"
+      "target": "tests_test_golden_v7_gemini_test_adjudicate_marks_parse_error_for_garbled_abstain_protocol_reply",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -19171,9 +17624,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L226",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_rationale_226",
-      "target": "tests_test_golden_v7_gemini_test_adjudicate_abstain_row_dispute_keeps_governing_empty"
+      "target": "tests_test_golden_v7_gemini_test_adjudicate_abstain_row_dispute_keeps_governing_empty",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -19181,9 +17634,9 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L282",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gemini_rationale_282",
-      "target": "tests_test_golden_v7_gemini_test_parse_error_ids_skips_ids_with_no_cache_file"
+      "target": "tests_test_golden_v7_gemini_test_parse_error_ids_skips_ids_with_no_cache_file",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -55472,5 +53925,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "309ef14b593e3e52a0bb6d4ece457961f35fc2cc"
+  "built_at_commit": "af47d7e4c5a4ae7bcaab73e6ea3a95552e7fd4d9"
 }
