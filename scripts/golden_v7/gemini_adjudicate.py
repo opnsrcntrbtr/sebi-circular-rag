@@ -39,7 +39,8 @@ GOVERNING_INSTRUCTIONS = (
 )
 ABSTAIN_INSTRUCTIONS = (
     "Is this answerable from SEBI circulars? reply YES or NO, then on a new "
-    "line EXPECTED: <short literal>."
+    "line EXPECTED: <short literal>. If your answer is NO, leave EXPECTED "
+    "blank (write nothing after EXPECTED:)."
 )
 
 
@@ -155,11 +156,16 @@ def adjudicate(rows: list[dict], pools: list[dict], ids: list[str], post,
     """Runs the blind protocol over every id in `ids`, calling `post(prompt)
     -> str` once per row not already cached. Returns one "gemini" vote
     record per id (parse-error rows included, using parse_reply's literal
-    ([], "") output directly rather than being omitted - safe, since every
-    answerable row's claude vote already has non-empty `governing`, so a
-    parse-error always reads as "disagreement" downstream, never a false
-    match). Per-row cache at `cache_dir/<id>.json` makes reruns free: a
-    cached row is reconstructed from disk with zero calls to `post`.
+    ([], "") output directly rather than being omitted). This is safe for
+    NON-ABSTAIN rows: every answerable row's claude vote already has
+    non-empty `governing`, so a parse-error there always reads as
+    "disagreement" downstream, never a false match. It is NOT safe for
+    abstain rows: claude never voted on those (no baseline to disagree
+    with), so a garbled reply's ([], "") is byte-identical to a well-formed
+    confirm-abstain vote there. `main()` mitigates this gap by scanning the
+    cache after a run and warning on any parse_error ids - see
+    `_parse_error_ids`. Per-row cache at `cache_dir/<id>.json` makes reruns
+    free: a cached row is reconstructed from disk with zero calls to `post`.
     """
     cache_dir = Path(cache_dir)
     cache_dir.mkdir(parents=True, exist_ok=True)
@@ -212,6 +218,26 @@ def _post_gemini(prompt: str) -> str:
     return data["candidates"][0]["content"]["parts"][0]["text"]
 
 
+def _parse_error_ids(ids: list[str], cache_dir: str | Path) -> list[str]:
+    """Scans the per-row cache for `ids` and returns the ones flagged
+    parse_error: true. The vote record itself doesn't carry this flag (its
+    shape is pinned to 4 keys), so without this, parse errors are only
+    visible by hand-grepping the cache directory - this is what lets
+    main() print a visible warning instead, which matters most for abstain
+    rows (see adjudicate()'s docstring: a parse-error there is byte-
+    identical to a legitimate confirm-abstain vote, so the count is the
+    only signal something needs a human look)."""
+    cache_dir = Path(cache_dir)
+    bad = []
+    for rid in ids:
+        cache_path = cache_dir / f"{rid}.json"
+        if cache_path.exists():
+            cached = json.loads(cache_path.read_text(encoding="utf-8"))
+            if cached.get("parse_error"):
+                bad.append(rid)
+    return bad
+
+
 def _replace_annotator_votes(existing: list[dict], new_votes: list[dict],
                               annotator: str) -> list[dict]:
     """Rerun-safety for votes.jsonl itself (plan Task 10 decision #7): drops
@@ -232,6 +258,12 @@ def main() -> None:
     ids = sample["external"]
 
     gemini_votes = adjudicate(rows, pools, ids, _post_gemini)
+
+    bad_ids = _parse_error_ids(ids, DEFAULT_CACHE_DIR)
+    if bad_ids:
+        print(f"WARNING: {len(bad_ids)} of {len(ids)} row(s) had an "
+              f"unparseable Gemini reply (parse_error=true in cache), "
+              f"needs a human look: {bad_ids}")
 
     existing = []
     if DEFAULT_VOTES_PATH.exists():

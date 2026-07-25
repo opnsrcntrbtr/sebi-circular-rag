@@ -9,6 +9,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from golden_v7.gemini_adjudicate import (  # noqa: E402
+    _parse_error_ids,
     _replace_annotator_votes,
     adjudicate,
     build_prompt,
@@ -63,6 +64,28 @@ def test_build_prompt_abstain_row_has_no_excerpts_and_uses_yes_no_protocol():
     assert "A." not in prompt
     assert "score" not in prompt.lower()
     assert "rank" not in prompt.lower()
+
+
+def test_abstain_prompt_tells_model_to_blank_expected_on_no():
+    """Reviewer Important #1: _parse_yes_no reads a blank EXPECTED as
+    "confirms abstain" and a non-blank one as "disputes it" (mirroring
+    Task 9's human protocol) - but nothing forced the MODEL to actually
+    leave it blank when answering NO. A NO reply with non-blank filler text
+    after EXPECTED (e.g. "N/A") would silently parse as a dispute of a
+    correct abstain answer. The prompt itself must instruct the model to
+    leave EXPECTED blank on NO; this asserts that instruction is present in
+    the rendered prompt text, and that the parser's behavior on a reply
+    that ignores it is exactly the failure mode the instruction exists to
+    prevent (documenting why the instruction is load-bearing, not
+    decorative)."""
+    row = _row(id="v7-hn-001", task_type="hard_negative", abstain=True)
+    prompt = build_prompt(row, None)
+    assert "if your answer is no, leave expected blank" in prompt.lower()
+
+    # the failure mode itself, if a model ignores the instruction above:
+    # NO + non-blank filler after EXPECTED still parses as a dispute, not
+    # a confirm - this is exactly why the instruction must be present.
+    assert parse_reply("NO\nEXPECTED: N/A", []) == ([], "N/A")
 
 
 def test_build_prompt_zero_candidate_pool_also_uses_yes_no_protocol():
@@ -224,7 +247,48 @@ def test_adjudicate_creates_cache_dir_if_missing(tmp_path):
 
 
 # ---------------------------------------------------------------------------
-# (d) _replace_annotator_votes (votes.jsonl rerun-idempotency helper)
+# (d) _parse_error_ids (reviewer Important #2: surfacing parse errors that
+# would otherwise be invisible outside the cache directory - this matters
+# most for abstain rows, where a parse-error vote is byte-identical to a
+# legitimate confirm-abstain vote and claude has no baseline to catch it).
+# ---------------------------------------------------------------------------
+
+def test_parse_error_ids_finds_only_the_flagged_rows(tmp_path):
+    rows = [_row(id="r1"), _row(id="r2", task_type="hard_negative", abstain=True)]
+    pools = [_pool("r1", n=2)]
+    cache_dir = tmp_path / "gemini"
+
+    def fake_post(prompt: str) -> str:
+        # r1 gets a well-formed reply, r2 gets garbage -> only r2 should
+        # be flagged.
+        return "A\nEXPECTED: fine" if "Excerpts" in prompt else "unintelligible"
+
+    adjudicate(rows, pools, ["r1", "r2"], fake_post, cache_dir=cache_dir)
+
+    assert _parse_error_ids(["r1", "r2"], cache_dir) == ["r2"]
+
+
+def test_parse_error_ids_empty_when_nothing_flagged(tmp_path):
+    rows = [_row(id="r1")]
+    pools = [_pool("r1", n=2)]
+    cache_dir = tmp_path / "gemini"
+    adjudicate(rows, pools, ["r1"], lambda p: "A\nEXPECTED: fine",
+               cache_dir=cache_dir)
+
+    assert _parse_error_ids(["r1"], cache_dir) == []
+
+
+def test_parse_error_ids_skips_ids_with_no_cache_file(tmp_path):
+    """Defensive: an id that was never adjudicated (no cache file at all)
+    is not reported as a parse error - it's a different situation entirely
+    and _parse_error_ids must not raise on it."""
+    cache_dir = tmp_path / "gemini"
+    cache_dir.mkdir(parents=True)
+    assert _parse_error_ids(["never-ran"], cache_dir) == []
+
+
+# ---------------------------------------------------------------------------
+# (e) _replace_annotator_votes (votes.jsonl rerun-idempotency helper)
 # ---------------------------------------------------------------------------
 
 def test_replace_annotator_votes_drops_old_gemini_keeps_others_untouched():
