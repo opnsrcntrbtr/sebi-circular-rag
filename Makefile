@@ -96,3 +96,6 @@ audit-regs:
 
 golden-v7-pool:
 	$(ENV) $(PY) scripts/golden_v7/build_pool.py
+
+validate-corpus:
+	$(ENV) $(PY) scripts/validate_corpus.py data/corpus/circulars.jsonl
