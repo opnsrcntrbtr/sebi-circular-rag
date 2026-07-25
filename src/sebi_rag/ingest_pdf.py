@@ -123,7 +123,16 @@ def _rejoin_split(header: str) -> str:
     "HO/ (79)2026-MRD", or "CIR/MRD/DP/ 11 /2012" (PDF layout inserts a space
     mid-number; the year-slash space can fall on either side of the digits).
     Also heals a kerning artifact where the number's own '/' renders as a
-    typographic en/em-dash with stray spacing (e.g. "IMD-I –PoD1")."""
+    typographic en/em-dash with stray spacing (e.g. "IMD-I –PoD1").
+
+    Spacing disambiguates the two dash cases: an en-dash spaced on BOTH sides
+    ("AFD – PoD – 2") is the document's own hyphen, so it becomes '-'; any
+    other en-dash is the kerning artifact standing in for '/'. Getting this
+    backwards yields a number that cannot normalize-match the document's own,
+    making every reference to it unresolvable (2026-07-25: corpus lines 397
+    and 616)."""
+    header = re.sub(r"(?<=[A-Za-z0-9)])\s+[–—]\s+(?=[A-Za-z0-9])",
+                    "-", header)
     header = re.sub(r"(?<=[A-Za-z0-9)])\s*[–—]\s*(?=[A-Za-z0-9])",
                     "/", header)
     header = re.sub(r"/\s+(?=[A-Za-z0-9(])", "/", header)
