@@ -1,0 +1,10 @@
+{
+  "id": "v7-ls-022",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "K\nEXPECTED: International Private Equity and Venture Capital Valuation (IPEV) Guidelines",
+  "governing": [
+    "HO/19/34/11(6)2025-AFD-POD1/I/12928/2026#18.1.2. Valuation of securities which are not covered in par#319"
+  ],
+  "expected_literal": "International Private Equity and Venture Capital Valuation (IPEV) Guidelines",
+  "parse_error": false
+}

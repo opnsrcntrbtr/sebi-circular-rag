@@ -561,6 +561,38 @@ handoff: fill `v7_annotations/packet_human/labels_template.csv`, then
 baseline of 1 — pre-existing, unrelated to this work, worth its own look.
 Suite 588 passing.
 
+## 2026-07-26 (later) — Task 12 pivot: local oMLX leg + provision-level promotion
+
+**External leg pivoted to a local model (user decision).** The primary
+annotator is now `Qwen3.6-35B-A3B-MLX-4bit` served by oMLX
+(Anthropic-compatible API, `127.0.0.1:8000` — ⚠️ collides with `make serve`).
+`local_adjudicate.py` reuses the gemini leg's blind protocol byte-for-byte
+(imported, not copied); votes carry `annotator: "qwen"`; `agreement.py`
+discovers the LLM leg generically and fails loud on two at once. Gemini leg
+ON HOLD with its 21 cached rows intact. `make golden-v7-local` runs it;
+`--pilot N` measures agreement without touching votes.jsonl.
+
+**Pilot (5 rows, distinct strata): 1/5 exact-set agreement.** Decisive
+context: the 21 cached gemini-2.5-flash rows measure 2/21 — both model
+families sit at ~10% exact-set while **~60% at provision level** (external's
+pick contains the row's span quote, is a superset, or matches exactly).
+Master circulars repeat clauses across body/annexure/FAQ chunks; exact-set
+equality mostly counted chunk-copy choice. The harness itself already grades
+every quote-containing chunk as gold (`resolve_chunk_spans`).
+
+**Spec §7 promotion unit amended (user-approved) to provision level.** κ
+stays exact-set — deliberately stricter than promotion, so reported
+agreement is never flattered. Two latent `decide()` bugs found and fixed in
+the same pass: abstain disputes were invisible (the abstain protocol's only
+dispute signal is a non-blank expected literal, which `_votes_by_row`
+dropped), and two externals replying NONE on an answerable row would have
+"flipped" it to empty spans (now queues). Suite 603 passing.
+
+**Next session (runbook in the plan's Task 12):** `make golden-v7-local`
+(~100 rows, ~2 min/row, resumable) → `make golden-v7-agree` → validate →
+commit. Expected ~60 promotions, so crossing the 100-adjudicated gate
+threshold still needs the human packet and/or arbitration.
+
 ## Last Updated
 
 2026-07-26

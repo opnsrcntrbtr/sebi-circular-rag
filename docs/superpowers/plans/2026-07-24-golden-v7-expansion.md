@@ -1367,29 +1367,54 @@ golden-v7-agree:
 
 ---
 
-### Task 12: Run the external pass (real Gemini; human packet handoff)
+### Task 12: Run the external pass (local oMLX leg; human packet handoff)
 
-No new code. Requires Tasks 8–11 complete and `GEMINI_API_KEY` in env.
+> **REVISED 2026-07-26 — primary external leg is now the LOCAL model
+> (`Qwen3.6-35B-A3B-MLX-4bit` via oMLX); the Gemini leg is ON HOLD.**
+> User decision after the Gemini free tier measured out at ~20 requests/day/
+> model (a ~5-day wall for 100 rows). The blind protocol is byte-identical —
+> `local_adjudicate.py` imports it from `gemini_adjudicate.py` — only
+> transport and identity changed: Anthropic-compatible calls to
+> `127.0.0.1:8000`, votes carry `annotator: "qwen"` (extending the Global
+> Constraints vote-record enum), cache under `v7_annotations/qwen/` with the
+> exact model id stamped per row. Qwen (Alibaba) satisfies spec §7's
+> second-family independence exactly as Gemini did. `agreement.py` discovers
+> the LLM leg generically (single non-claude/non-human annotator; two at
+> once fails loud), so the Gemini leg resumes with zero config if ever
+> unpaused — its 21/100 cached rows remain valid and committed.
+>
+> **Pilot 2026-07-26 (5 rows, distinct strata): 1/5 exact-set agreement —
+> and the cached gemini rows measure 2/21, so BOTH families sit at ~10%
+> exact while ~60% at provision level.** Spec §7's promotion unit was
+> amended (user-approved) to provision level: an external confirms claude's
+> label via exact match, containment, or picking any chunk whose text
+> contains the row's span quote; abstain disputes ride the expected-literal
+> signal; flips still need exact-set agreement on a non-empty alternative;
+> κ stays exact-set so reported agreement is never flattered. Expected from
+> the full run: ~60 promotions / ~40 queued, so the gate still needs
+> arbitration or the human packet to cross 100.
 
-> **PAUSED 2026-07-26 at 21/100 rows — external quota wall, not a code defect.**
-> The Gemini free tier allows ~20 requests/day/model
-> (`GenerateRequestsPerDayPerProjectPerModel-FreeTier`, measured on both
-> `gemini-3-flash-preview` and `gemini-2.5-flash`), so this step spans ~5 days.
-> Going faster by spreading rows across models is **not** an option: every row
-> in one annotator leg must come from the same model, or the agreement
-> statistics measure model differences instead of label uncertainty.
-> Two protocol fixes were required before the run and are already committed:
-> the prompt now carries spec §6's "topical relatedness is NOT enough" bar
-> (without it a 5-row probe measured 0/5 agreement — the two legs were
-> answering different questions), and auth moved to the `x-goog-api-key`
-> header (the key leaked into a 503 traceback via httpx's URL echo).
-> The leg is pinned to `gemini-2.5-flash`; the 16 rows cached under the earlier
-> model were discarded rather than mixed in. Tasks 13–14 did not block on this.
+**Runbook (next Claude Code session):**
 
-- [~] **Step 1:** `make golden-v7-gemini` — **21/100 cached** (`gemini-2.5-flash`, 0 parse errors). Rerun daily to resume at row 22; `votes.jsonl` is deliberately untouched until a complete loop.
+1. Ensure the oMLX server is running on `127.0.0.1:8000` with the model
+   loaded. ⚠️ `make serve` also binds 8000 — do not run both, or override
+   `PORT` for the FastAPI service.
+2. Launch the session (token from local config, never committed):
+   `ANTHROPIC_BASE_URL='http://127.0.0.1:8000' ANTHROPIC_AUTH_TOKEN=<omlx token> ANTHROPIC_DEFAULT_OPUS_MODEL='Qwen3.6-35B-A3B-MLX-4bit' ANTHROPIC_DEFAULT_SONNET_MODEL='Qwen3.6-35B-A3B-MLX-4bit' ANTHROPIC_DEFAULT_HAIKU_MODEL='Qwen3.6-35B-A3B-MLX-4bit' API_TIMEOUT_MS=3000000 CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1 claude`
+   (the script reads `ANTHROPIC_AUTH_TOKEN` as its token fallback, so no
+   extra env is needed inside that session; outside it, set
+   `GOLDEN_LOCAL_AUTH_TOKEN`).
+3. If the 5-row pilot has not already passed: `PYTHONPATH=src .venv/bin/python
+   scripts/golden_v7/local_adjudicate.py --pilot 5` and eyeball agreement.
+4. `make golden-v7-local` — all 100 external ids (pilot rows reuse cache);
+   resumable; watch the parse-error warning line.
+5. `make golden-v7-agree` → validate (Task 8 Step-2 command) → full suite.
+6. Commit artifacts (`data(golden-v7): external pass — qwen votes, promotions, agreement report` with trailer).
+
+- [~] **Step 1:** run the LLM leg over the 100 external ids — **local leg built and pilot-verified 2026-07-26**; full 100-row run pending (next session, steps 3–4 above). *(Gemini history: 21/100 cached on `gemini-2.5-flash` before the quota pause; two protocol fixes — the spec §6 judging bar after a 0/5 probe, and header auth after a key leak via httpx's URL echo — carried over to the local leg unchanged.)*
 - [ ] **Step 2:** `make golden-v7-agree` — blocked on Step 1 finishing.
-- [ ] **Step 3:** Validate + full suite. (Suite is green at 588 passing; the validation command reruns after Step 2.)
-- [~] **Step 4:** Partial cache committed (`data(golden-v7): partial gemini pass — 21/100 rows cached`); votes/promotions/report still pending Step 2.
+- [ ] **Step 3:** Validate + full suite after Step 2.
+- [~] **Step 4:** Partial gemini cache committed; qwen votes/promotions/report pending Step 2.
 - [x] **Step 5: HANDOFF (async):** standing manual handoff — open `eval/golden/v7_annotations/packet_human/packet.html`, fill `labels_template.csv` (~30 rows), then `make golden-v7-packet-ingest && make golden-v7-agree`. The ingest target exists (added in Task 13). The gate flip does not block on this.
 
 ---

@@ -78,11 +78,14 @@ only — see `master_meta.annotate_master_fields` and
   gates merges. `SEBI_RAG_GOLDEN` overrides the choice. Arm the gate with `make golden-v7-gate`
   (refuses below 100 and says why). `golden_v1..v6`, `probes_v1`, and `golden_asof_v1` are frozen.
 - `make golden-v7-*` drives the v7 pipeline: `-seed`, `-mine`, `-pool`, `-packet`,
-  `-packet-ingest`, `-gemini`, `-agree`, `-gate`. The external-annotation leg
-  (`-gemini`) is rate-limited to roughly 20 requests/day/model on the Gemini free tier, so
-  a 100-row pass spans several days; it caches per row and resumes, and every row in one
-  leg must come from the **same** model or the agreement statistics measure model
-  differences rather than label uncertainty.
+  `-packet-ingest`, `-local`, `-gemini`, `-agree`, `-gate`. The **primary** external-annotation
+  leg (`-local`) calls a local oMLX server (Anthropic-compatible API on `127.0.0.1:8000`,
+  `Qwen3.6-35B-A3B-MLX-4bit`, votes as `annotator: "qwen"`) — no quota, no network; ⚠️ port
+  8000 collides with `make serve`. The Gemini leg (`-gemini`) is ON HOLD: its free tier
+  allows ~20 requests/day/model, a multi-day wall for a 100-row pass. Both legs cache per
+  row and resume, and every row in one leg must come from the **same** model or the
+  agreement statistics measure model differences rather than label uncertainty
+  (`agreement.py` discovers the LLM leg generically and fails loud on two at once).
 - `make validate-corpus` checks corpus integrity: no two records share a body text, and each
   record's `circular_number` is derivable from its own text. Add `--deep` to also re-extract
   every PDF and compare. **Run it after any ingest, backfill, or repair** — both invariants

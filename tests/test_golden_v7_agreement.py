@@ -155,6 +155,75 @@ def test_decide_llm_leg_is_annotator_agnostic():
     assert decision == "flip_promote" and set(new) == {"c2"}
 
 
+def test_decide_same_provision_other_chunk_promotes_with_pool():
+    """Amendment 2026-07-26 (user-approved): the promotion unit is the
+    PROVISION, not the chunk-id set. Master circulars repeat the same clause
+    across body/annexure/FAQ chunks, and the harness itself already grades
+    every quote-containing chunk as gold (resolve_chunk_spans: all overlap
+    matches count) - measured on the pilot, exact-set agreement was ~10%
+    while provision-level was ~60% for BOTH model families. An external
+    picking a different chunk copy of claude's quoted provision confirms
+    the label."""
+    quote = "the upfront margin shall be collected at the rate of twenty per cent"
+    row = _row(id="v7-nt-020", task_type="numeric_table",
+               relevant_chunks=[{"doc": "C/1", "quote": quote}])
+    pool = _pool("v7-nt-020", [
+        {"chunk_id": "c1", "doc": "C/1", "text": f"C/1 | S | X\nIntro. {quote}."},
+        {"chunk_id": "c9", "doc": "C/1", "text": f"C/1 | S | Annexure\nAs stated, {quote} in all cases."},
+        {"chunk_id": "c5", "doc": "C/1", "text": "C/1 | S | Y\nUnrelated fee provisions apply."},
+    ])
+    votes = {"claude": ["c1"], "qwen": ["c9"]}
+    assert decide(row, votes, dated_ids=set(), pool=pool) == ("promote", None)
+
+
+def test_decide_different_provision_with_pool_still_queues():
+    row = _row(id="v7-nt-021", task_type="numeric_table",
+               relevant_chunks=[{"doc": "C/1", "quote": "x" * 50}])
+    pool = _pool("v7-nt-021", [
+        {"chunk_id": "c1", "doc": "C/1", "text": "C/1 | S | X\n" + "x" * 50},
+        {"chunk_id": "c5", "doc": "C/1", "text": "C/1 | S | Y\nsomething else entirely here"},
+    ])
+    decision, _ = decide(row, {"claude": ["c1"], "qwen": ["c5"]},
+                         dated_ids=set(), pool=pool)
+    assert decision == "queue"
+
+
+def test_decide_superset_confirms_without_pool():
+    """External marked claude's chunk governing plus extras: claude's label
+    is confirmed by containment alone - no pool lookup needed."""
+    row = _row(id="v7-nt-022", task_type="numeric_table")
+    assert decide(row, {"claude": ["c1"], "qwen": ["c1", "c2"]},
+                  dated_ids=set()) == ("promote", None)
+
+
+def test_decide_abstain_dispute_via_literal_queues():
+    """The abstain protocol can never emit non-empty governing (no letters
+    are offered) - its ONLY dispute signal is a non-blank expected_literal.
+    Without the literals param this dispute was invisible and a disputed
+    abstain auto-promoted."""
+    row = _row(id="v7-hn-020", task_type="hard_negative", abstain=True,
+               relevant_circulars=[], relevant_chunks=[], must_contain=[],
+               must_not_cite=[], expected_citation_level="none")
+    votes = {"qwen": [], "human": []}
+    literals = {"qwen": "SEBI LODR Reg 30 covers this", "human": ""}
+    decision, _ = decide(row, votes, dated_ids=set(), literals=literals)
+    assert decision == "queue"
+    # both blank -> genuine three-way confirm-abstain -> promote
+    assert decide(row, votes, dated_ids=set(),
+                  literals={"qwen": "", "human": ""}) == ("promote", None)
+
+
+def test_decide_never_flips_answerable_row_to_empty():
+    """Two externals both replying NONE on an answerable row must queue,
+    not flip: a flip writes their shared set into relevant_chunks, and an
+    empty relevant_chunks on a non-abstain row is not a valid label - it
+    is an arbitration case."""
+    row = _row(id="v7-nt-023", task_type="numeric_table")
+    decision, _ = decide(row, {"claude": ["c1"], "qwen": [], "human": []},
+                         dated_ids=set())
+    assert decision == "queue"
+
+
 def test_decide_two_llm_annotators_fails_loud():
     """One external-LLM leg at a time: two would make "the LLM vote"
     ambiguous, and silently preferring either would corrupt the agreement

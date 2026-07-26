@@ -1,0 +1,11 @@
+{
+  "id": "v7-mh-002",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "D, E\nEXPECTED: January 31, 2026; Yes",
+  "governing": [
+    "SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/136#3.1. Existing Angel Funds shall disclose a defined methodolo#3",
+    "SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/136#4. Based on representation from the AIF industry requesting #5"
+  ],
+  "expected_literal": "January 31, 2026; Yes",
+  "parse_error": false
+}

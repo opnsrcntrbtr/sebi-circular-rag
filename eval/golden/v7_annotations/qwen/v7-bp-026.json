@@ -1,0 +1,12 @@
+{
+  "id": "v7-bp-026",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "F, I, Q\nEXPECTED: Yes",
+  "governing": [
+    "SEBI/HO/MIRSD/DOP1/CIR/P/2018/87#3.1. The investment manager has due authority to deal on beh#928",
+    "SEBI/HO/MIRSD/DOP1/CIR/P/2018/87#45.10. Exchange shall specify from time to time the categori#902",
+    "SEBI/HO/MIRSD/DOP1/CIR/P/2018/87#45.9. The facility of DMA provided by the stock broker shall#901"
+  ],
+  "expected_literal": "Yes",
+  "parse_error": false
+}

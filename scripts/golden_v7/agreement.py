@@ -17,7 +17,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "src"))
 
-from sebi_rag.benchmark import write_jsonl  # noqa: E402
+from sebi_rag.benchmark import _norm_ws, write_jsonl  # noqa: E402
 from sebi_rag.eval_harness import load_golden  # noqa: E402
 from sebi_rag.stats import clopper_pearson_ci  # noqa: E402
 
@@ -57,6 +57,47 @@ def _llm_annotator(names) -> str | None:
     return llm[0] if llm else None
 
 
+def _confirms_claude(claude_label: frozenset, external_label: frozenset | None,
+                     row: dict | None = None, pool: dict | None = None,
+                     literal: str = "") -> bool | None:
+    """Does this external vote confirm claude's label, at PROVISION level?
+
+    Amendment 2026-07-26 (user-approved after the pilot): the promotion unit
+    is the provision, not the chunk-id set. Master circulars repeat the same
+    clause across body/annexure/FAQ chunks and the harness itself already
+    grades every quote-containing chunk as gold (`resolve_chunk_spans`: all
+    overlap matches count) - exact-set agreement measured ~10% for BOTH
+    external model families while provision-level measured ~60%, so exact-set
+    equality mostly counted chunk-copy choice, not label disagreement.
+
+    Confirmation, in order of strength: exact set equality; containment
+    (external marked claude's chunks governing plus extras); or - when the
+    row's pool is available - any external-picked chunk whose text contains
+    one of the row's span quotes (the span IS the provision, by design).
+
+    Abstain exception: for an abstain row (claude label empty), an empty
+    external set with a NON-BLANK expected literal is the protocol's dispute
+    signal (no letters were ever offered, so governing can never be
+    non-empty there) - that never confirms. Returns None when the external
+    did not vote at all.
+    """
+    if external_label is None:
+        return None
+    if not claude_label and not external_label:
+        return not literal.strip()
+    if external_label == claude_label:
+        return True
+    if claude_label and claude_label <= external_label:
+        return True
+    if row is not None and pool is not None and external_label:
+        quotes = [_norm_ws(s["quote"]) for s in row.get("relevant_chunks", [])
+                  if isinstance(s, dict) and s.get("quote")]
+        texts = {c["chunk_id"]: c["text"] for c in pool.get("candidates", [])}
+        return any(q in _norm_ws(texts.get(cid, ""))
+                   for cid in external_label for q in quotes)
+    return False
+
+
 def cohen_kappa(a: list[list[str]], b: list[list[str]]) -> float:
     """Categorical Cohen's kappa over paired labels (row-aligned). Each raw
     element is a `governing` list (chunk ids); the label compared is
@@ -86,7 +127,8 @@ def cohen_kappa(a: list[list[str]], b: list[list[str]]) -> float:
 
 
 def decide(row: dict, votes_by_annotator: dict[str, list[str]],
-          dated_ids: set[str]) -> tuple[str, list[str] | None]:
+          dated_ids: set[str], pool: dict | None = None,
+          literals: dict[str, str] | None = None) -> tuple[str, list[str] | None]:
     """Spec sec7 promotion rules for one row.
 
     `votes_by_annotator` is this row's votes only, keyed by annotator name
@@ -114,6 +156,7 @@ def decide(row: dict, votes_by_annotator: dict[str, list[str]],
     if row["id"] in dated_ids:
         return "queue", None
 
+    literals = literals or {}
     claude = votes_by_annotator.get("claude", [])
     llm = _llm_annotator(votes_by_annotator)
     llm_governing = votes_by_annotator.get(llm) if llm else None
@@ -122,16 +165,26 @@ def decide(row: dict, votes_by_annotator: dict[str, list[str]],
     claude_label = _label(claude)
     llm_label = _label(llm_governing) if llm_governing is not None else None
     human_label = _label(human_governing) if human_governing is not None else None
+    llm_ok = _confirms_claude(claude_label, llm_label, row, pool,
+                              literals.get(llm, "") if llm else "")
+    human_ok = _confirms_claude(claude_label, human_label, row, pool,
+                                literals.get("human", ""))
 
     if llm_label is not None and human_label is not None:
-        if claude_label == llm_label == human_label:
+        if llm_ok and human_ok:
             return "promote", None
-        if llm_label == human_label and llm_label != claude_label:
+        # Flip stays conservative: EXACT set agreement between the two
+        # externals on a non-empty alternative. Empty is never a flip - the
+        # abstain protocol cannot produce non-empty governing, and blanking
+        # an answerable row's relevant_chunks is not a label, it is an
+        # arbitration case.
+        if (llm_label == human_label and llm_label != claude_label
+                and llm_label):
             return "flip_promote", list(llm_label)
         return "queue", None
 
     if llm_label is not None:
-        if llm_label == claude_label:
+        if llm_ok:
             return "promote", None
         return "queue", None
 
@@ -202,6 +255,18 @@ def _votes_by_row(votes: list) -> dict:
     out: dict = defaultdict(dict)
     for v in votes:
         out[v["id"]][v["annotator"]] = v["governing"]
+    return out
+
+
+def _literals_by_row(votes: list) -> dict:
+    """rid -> annotator -> expected_literal. Kept separate from
+    `_votes_by_row` so decide()'s governing-set plumbing stays unchanged;
+    the literal matters only for the abstain protocol, where a non-blank
+    literal is the ONLY dispute signal an external can send (no letters are
+    ever offered, so its governing set is structurally empty)."""
+    out: dict = defaultdict(dict)
+    for v in votes:
+        out[v["id"]][v["annotator"]] = v.get("expected_literal", "")
     return out
 
 
@@ -290,6 +355,13 @@ def _render_report(kappa_rows: list, ci, counts: dict) -> str:
         "",
         "## Promotion outcomes",
         "",
+        "Promotion unit (spec sec7 as amended 2026-07-26): PROVISION-level - "
+        "an external confirms claude's label via exact set match, containment, "
+        "or picking any chunk whose text contains the row's span quote. The "
+        "kappa table above stays at exact-set level, deliberately stricter "
+        "than the promotion rule, so the reported agreement is never "
+        "flattered by the amendment.",
+        "",
         f"- promoted: {counts.get('promote', 0)}",
         f"- flipped: {counts.get('flip_promote', 0)}",
         f"- queued: {counts.get('queue', 0)}",
@@ -304,6 +376,7 @@ def main() -> None:
     votes = [json.loads(line) for line in
              DEFAULT_VOTES_PATH.read_text(encoding="utf-8").splitlines() if line.strip()]
     votes_by_row = _votes_by_row(votes)
+    literals_by_row = _literals_by_row(votes)
     pools = [json.loads(line) for line in
              DEFAULT_POOLS_PATH.read_text(encoding="utf-8").splitlines() if line.strip()]
     pools_by_id = {p["id"]: p for p in pools}
@@ -317,7 +390,9 @@ def main() -> None:
     for rid in external_ids:
         row = rows_by_id[rid]
         row_votes = votes_by_row.get(rid, {})
-        decision, new_governing = decide(row, row_votes, dated_ids)
+        decision, new_governing = decide(row, row_votes, dated_ids,
+                                         pool=pools_by_id.get(rid),
+                                         literals=literals_by_row.get(rid))
         counts[decision] += 1
         if decision == "flip_promote":
             spans = _resolve_governing_spans(new_governing, pools_by_id[rid])

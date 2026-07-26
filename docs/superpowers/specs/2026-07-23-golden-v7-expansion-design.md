@@ -142,6 +142,19 @@ non-relevant for metric purposes.
   - Agreement unit: per row, the *set* of excerpts marked governing (or "none")
     must match exactly; κ is computed on that row-level match, per annotator pair,
     per stratum.
+  - **Amended 2026-07-26 (user-approved): the PROMOTION unit is the provision,
+    not the chunk-id set.** Measured on the first external pass, exact-set
+    agreement was ~10% for both external model families (gemini-2.5-flash 2/21,
+    local Qwen 1/5) while provision-level agreement was ~60% — master circulars
+    repeat the same clause across body/annexure/FAQ chunks, so exact-set
+    equality mostly counted chunk-copy choice, not label disagreement. The
+    harness itself already grades every quote-containing chunk as gold
+    (`resolve_chunk_spans`). An external now confirms a label via exact match,
+    containment, or picking any chunk whose text contains the row's span quote;
+    an abstain row's dispute signal is a non-blank expected literal; flips
+    still require exact-set agreement between the two externals on a non-empty
+    alternative. **κ stays at exact-set level** — deliberately stricter than
+    promotion, so reported agreement is never flattered by this amendment.
   - `agreement.py` emits `reports/golden_v7_agreement.md`: Cohen's κ per annotator
     pair per stratum + Clopper-Pearson CI on Claude-label accuracy.
 - **No grandfathering.** The 56 carried v5-lineage rows go through the same
