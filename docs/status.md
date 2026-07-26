@@ -1,16 +1,18 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-07-09.
+> Last updated: 2026-07-26.
 
 ## Current Snapshot
 
 - Shipped baseline: local-first SEBI circular RAG with hybrid FAISS + BM25
   retrieval, cross-encoder reranking, grounded generation, abstention, and
   supersession-aware citations behind an authenticated FastAPI service.
-- Current evaluation baseline: `eval/golden/golden_v6.jsonl`, with the current
-  dense-corpus profile showing recall and abstention at 1.0 and citation
-  precision in the ~0.73-0.77 range.
+- Current evaluation baseline: `eval/golden/golden_v7.jsonl` (n=260) is the
+  reporting set, but **CI still gates on frozen `golden_v5`** until v7's
+  adjudicated subset reaches 100 rows (currently 0). Latest full-set numbers on
+  v5: recall@10 0.956, citation_precision 0.711, citation_recall 0.889,
+  abstention_accuracy 0.839. See the 2026-07-26 entry for the gate mechanics.
 - Active roadmap: corpus expansion, OCR hardening, evaluation maintenance, and
   legal-safety tightening for near-domain queries. See [docs/next_steps.md](next_steps.md).
 
@@ -500,7 +502,66 @@ The SPLADE sidecar (`data/index/splade.npz`) is pinned to the old 77,859
 chunk count; it is eval-only and off by default, so it needs a rebuild
 before any SPLADE run.
 
+## 2026-07-26 — Golden v7 external slice + CI gate machinery (Tasks 9-14)
+
+**Census.** `golden_v7.jsonl` holds 260 rows, 0 validator issues. Strata exactly
+on target: title_direct 40, body_paraphrase 60, numeric_table 30,
+lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40,
+far_negative 10. 53 abstain rows, 15 dated `as_of` rows. `review_status`:
+56 `seeded` + 204 `draft`, **`adjudicated_n` = 0**. `votes.jsonl` carries 207
+claude records (one per answerable row).
+
+**Gate: built, armed-but-off.** `scripts/eval_json.py` now scores through the
+real `RAGPipeline` and reports `golden_file` / `adjudicated_n` / `gate`. The
+flip is a two-key lock — v7 takes over only when `gate_v7.json` exists *and*
+`adjudicated_n >= 100`; missing, corrupt, or short all fall back to frozen
+`golden_v5`. `derive_thresholds.py` refuses to arm below 100 and explains why.
+Floors are the bootstrap 2.5th-percentile lower bound minus a 0.005 cushion,
+never the observed mean: gating on the mean fails roughly half of all reruns
+that changed nothing. `citation_precision` is reported but deliberately not
+floored, since it trades off against `citation_recall` and flooring both pins
+the retriever's operating point.
+
+Refactor parity was checked against the pre-refactor script on golden_v5 and
+is **exact on all five shared keys**, not merely inside the ±0.02 tolerance:
+recall_at_10 0.956 (archived 0.9556), citation_precision 0.711, citation_recall
+0.889, abstention_accuracy 0.839, injection_flagged 10.
+
+**External pass: PAUSED at 21/100.** Three findings, none of them code defects
+found by tests:
+
+- *Protocol asymmetry.* Task 8 judged claude under spec §6's bar — governing iff
+  the text contains the provision, "topical relatedness is NOT enough" — but the
+  gemini prompt said only "the governing provision". A 5-row probe measured
+  **0/5** exact-set agreement, gemini returning a strict superset of claude's
+  pick on 3 of 5. A full run would have published κ≈0, reading as "claude's
+  labels are unreliable" when it actually measured the prompt gap. Fixed by
+  porting the definition only; a test asserts the cardinality hint stays absent,
+  since feeding claude's single-chunk answer distribution back would tune the
+  leg toward agreement instead of measuring it.
+- *Free-tier quota wall.* ~20 requests/day/model
+  (`GenerateRequestsPerDayPerProjectPerModel-FreeTier`, measured on both
+  `gemini-3-flash-preview` and `gemini-2.5-flash`), so 100 rows needs ~5 days.
+  Splitting across models to go faster is **not** available: a mixed-model leg
+  makes the agreement statistics measure model differences. Leg pinned to
+  `gemini-2.5-flash` (non-preview, non-alias — `gemini-flash-latest` would
+  silently re-point and make the record irreproducible); each cache entry now
+  records its model so a mixed leg is auditable. The 16 rows cached under the
+  earlier model were discarded rather than mixed in.
+- *Key disclosure.* `httpx` echoes query-string params into the URL embedded in
+  `HTTPStatusError`, so the API key appeared verbatim in a 503 traceback. Auth
+  moved to the `x-goog-api-key` header. **The exposed key should be rotated.**
+
+Resume with `make golden-v7-gemini` daily (~20 rows/run, resumes at row 22),
+then `make golden-v7-agree`. The human packet (30 rows) is a standing manual
+handoff: fill `v7_annotations/packet_human/labels_template.csv`, then
+`make golden-v7-packet-ingest && make golden-v7-agree`.
+
+**Residual.** `injection_flagged` reports 10 against a documented known-benign
+baseline of 1 — pre-existing, unrelated to this work, worth its own look.
+Suite 588 passing.
+
 ## Last Updated
 
-2026-07-25
+2026-07-26
 

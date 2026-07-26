@@ -1295,10 +1295,10 @@ Expected: `0 issues`
   - `sample_external(rows: list[dict], n: int, human_n: int, rng) -> tuple[list[str], list[str]]` — (external_ids 100, human_ids 30 ⊂ external), stratified proportionally per `task_type` over ALL rows (carried included; abstain rows included — their "pool" is their nearest-topic distractors already in pools? No: abstain rows have no pool records, so their packet entry shows the query with excerpts from the top-scoring pool of the corpus-wide RRF — SIMPLIFICATION: abstain rows sampled into the external slice get their excerpts from a fresh pool record built in Task 7's real run? They were skipped there.) → **Rule:** `sample_external` draws only from rows that HAVE a pool record, plus abstain rows; for abstain rows the packet shows the query with the excerpts of the *most similar answerable row's pool omitted* — instead it shows NO excerpts and asks only "is this answerable from SEBI circulars? (yes = flag, no = confirm abstain)". Vote for abstain rows: `governing: []` + `expected_literal: ""` confirms abstain; any text in expected_literal flags a dispute.
   - `write_packet(rows, pools, ids, human_ids, out_dir) -> None` — `packet_human/packet.html` (self-contained, escaped, excerpts shuffled per-row by `random.Random(row_id)`, labeled A, B, C…; NO scores, ranks, or system answers), `packet_human/manifest.json` (`{row_id: {"A": chunk_id, ...}}`), `packet_human/labels_template.csv` (columns `id,choices,expected_literal`; `choices` = semicolon-joined letters or `none`).
   - `ingest_packet(csv_path, manifest_path) -> list[dict]` — vote records (`annotator: "human"`), letters mapped to chunk ids; unknown letters or ids → `ValueError`.
-- [ ] **Step 1: Failing tests** — three tests: (a) `sample_external` is deterministic for seed 20260723, returns 100/30 with human ⊂ external and every task_type represented; (b) `write_packet` output HTML contains no `"score"` substring and every sampled answerable row's letters appear in manifest; (c) `ingest_packet` round-trips a hand-written 2-row CSV to vote records. Use ~12 synthetic rows spanning all 8 task_types + 2-candidate pools. Complete test code follows the fixture pattern of Task 1 (`_row(**over)`); packet fixture pools: `[{"id": rid, "candidates": [{"chunk_id": f"{d}#s#0", "doc": d, "text": "t"*60}]}]`.
-- [ ] **Step 2:** Run: `.venv/bin/python -m pytest -q tests/test_golden_v7_packet.py` → FAIL (`ModuleNotFoundError`)
-- [ ] **Step 3:** Implement (pure functions + `main()` that reads golden_v7 + pools, calls `sample_external(rows, 100, 30, random.Random(20260723))`, writes `eval/golden/v7_annotations/packet_human/` and `external_sample.json` (`{"external": [...ids], "human": [...ids]}`). `html.escape` every excerpt; one `<details>` block per row.)
-- [ ] **Step 4:** Tests PASS; run `make golden-v7-packet` (offline, instant) → packet files exist; open `packet.html` once to sanity-check rendering.
+- [x] **Step 1: Failing tests** — three tests: (a) `sample_external` is deterministic for seed 20260723, returns 100/30 with human ⊂ external and every task_type represented; (b) `write_packet` output HTML contains no `"score"` substring and every sampled answerable row's letters appear in manifest; (c) `ingest_packet` round-trips a hand-written 2-row CSV to vote records. Use ~12 synthetic rows spanning all 8 task_types + 2-candidate pools. Complete test code follows the fixture pattern of Task 1 (`_row(**over)`); packet fixture pools: `[{"id": rid, "candidates": [{"chunk_id": f"{d}#s#0", "doc": d, "text": "t"*60}]}]`.
+- [x] **Step 2:** Run: `.venv/bin/python -m pytest -q tests/test_golden_v7_packet.py` → FAIL (`ModuleNotFoundError`)
+- [x] **Step 3:** Implement (pure functions + `main()` that reads golden_v7 + pools, calls `sample_external(rows, 100, 30, random.Random(20260723))`, writes `eval/golden/v7_annotations/packet_human/` and `external_sample.json` (`{"external": [...ids], "human": [...ids]}`). `html.escape` every excerpt; one `<details>` block per row.)
+- [x] **Step 4:** Tests PASS; run `make golden-v7-packet` (offline, instant) → packet files exist; open `packet.html` once to sanity-check rendering.
 
 Append to `Makefile`:
 
@@ -1307,7 +1307,7 @@ golden-v7-packet:
 	$(ENV) $(PY) scripts/golden_v7/make_packet.py
 ```
 
-- [ ] **Step 5: Commit** (`feat(golden-v7): external sampling + blind human packet + CSV ingest` with trailer; include generated `packet_human/` + `external_sample.json`)
+- [x] **Step 5: Commit** (`feat(golden-v7): external sampling + blind human packet + CSV ingest` with trailer; include generated `packet_human/` + `external_sample.json`)
 
 ---
 
@@ -1321,10 +1321,10 @@ golden-v7-packet:
 **Interfaces:**
 - Consumes: `external_sample.json` (external ids), golden rows, `pools.jsonl`.
 - Produces: `build_prompt(row, pool) -> str` (same blind protocol as the packet: shuffled lettered excerpts, "reply with the letter(s) that contain the governing provision, comma-separated, or NONE; then on a new line EXPECTED: <short literal>"); `parse_reply(text, letters) -> tuple[list[str], str]` (chosen letters, expected literal; unparseable → `([], "")` and the row is marked `"parse_error": true` in the cache); `adjudicate(rows, pools, ids, post) -> list[dict]` vote records (`annotator: "gemini"`), where `post(prompt) -> str` is injected (real impl = httpx POST to `https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={GEMINI_API_KEY}`, model from `GOLDEN_GEMINI_MODEL`, default `gemini-3-flash-preview`; extract `candidates[0].content.parts[0].text`). Per-row JSON cache in `eval/golden/v7_annotations/gemini/<row_id>.json` — reruns skip cached rows (resumable, spec §7).
-- [ ] **Step 1: Failing tests** — (a) `build_prompt` contains every excerpt letter and no chunk scores; (b) `parse_reply("B, C\nEXPECTED: twenty per cent", ["A","B","C"]) == (["B","C"], "twenty per cent")`, `parse_reply("NONE", ...) == ([], "")`, garbage → `([], "")`; (c) `adjudicate` with a fake `post` returning a canned reply writes vote records and cache files, and a second call performs zero `post` calls (assert via counter).
-- [ ] **Step 2:** Run → FAIL (`ModuleNotFoundError`)
-- [ ] **Step 3:** Implement; abstain-row prompts follow the Task 9 abstain protocol (no excerpts; "Is this answerable from SEBI circulars? reply YES or NO, then EXPECTED: ..."; NO → vote `governing: []`).
-- [ ] **Step 4:** Tests PASS.
+- [x] **Step 1: Failing tests** — (a) `build_prompt` contains every excerpt letter and no chunk scores; (b) `parse_reply("B, C\nEXPECTED: twenty per cent", ["A","B","C"]) == (["B","C"], "twenty per cent")`, `parse_reply("NONE", ...) == ([], "")`, garbage → `([], "")`; (c) `adjudicate` with a fake `post` returning a canned reply writes vote records and cache files, and a second call performs zero `post` calls (assert via counter).
+- [x] **Step 2:** Run → FAIL (`ModuleNotFoundError`)
+- [x] **Step 3:** Implement; abstain-row prompts follow the Task 9 abstain protocol (no excerpts; "Is this answerable from SEBI circulars? reply YES or NO, then EXPECTED: ..."; NO → vote `governing: []`).
+- [x] **Step 4:** Tests PASS.
 
 Append to `Makefile`:
 
@@ -1333,7 +1333,7 @@ golden-v7-gemini:
 	$(ENV) $(PY) scripts/golden_v7/gemini_adjudicate.py
 ```
 
-- [ ] **Step 5: Commit** (`feat(golden-v7): Gemini adjudication leg (blind protocol, per-row cache)` with trailer)
+- [x] **Step 5: Commit** (`feat(golden-v7): Gemini adjudication leg (blind protocol, per-row cache)` with trailer)
 
 ---
 
@@ -1351,10 +1351,10 @@ golden-v7-gemini:
   - `decide(row, votes_by_annotator, dated_ids: set[str]) -> tuple[str, list[str] | None]` — returns `(decision, new_governing)` with decision ∈ {`promote`, `flip_promote`, `queue`}: dated `as_of` rows always `queue` (spec §7 exception); Gemini-only row agrees with claude → `promote`; three-way all agree → `promote`; human+gemini agree on the same alternative ≠ claude → `flip_promote` with their set; anything else → `queue`. Agreement = exact `frozenset(governing)` match.
   - `apply(golden_rows, decisions) -> list[dict]` — promoted rows get `review_status: "adjudicated"`; flipped rows also get `relevant_chunks` rebuilt from the winning chunk ids' `{doc, quote}` (quote = first 60 body chars of that chunk, re-judged in arbitration if needed) and `label_source: "external-flip"`.
   - Outputs: updated `golden_v7.jsonl`, `v7_annotations/arbitration_queue.jsonl` (row + all votes), `reports/golden_v7_agreement.md` (κ per annotator-pair per stratum, raw agreement %, Clopper-Pearson 95% CI on claude-label accuracy vs externals, promoted/flipped/queued counts).
-- [ ] **Step 1: Failing tests** — (a) `cohen_kappa` on identical lists = 1.0, on independent-looking lists < 0.5; (b) `decide` truth table: gemini-agree → promote; three-way split → queue; human+gemini same alternative → flip_promote; dated id → queue even on full agreement; (c) `apply` sets `adjudicated` only on promote/flip decisions and never touches `seeded`/`draft` rows without a decision.
-- [ ] **Step 2:** Run → FAIL
-- [ ] **Step 3:** Implement (+ `main()` wiring files together; dated ids = rows where `as_of` is not None).
-- [ ] **Step 4:** Tests PASS.
+- [x] **Step 1: Failing tests** — (a) `cohen_kappa` on identical lists = 1.0, on independent-looking lists < 0.5; (b) `decide` truth table: gemini-agree → promote; three-way split → queue; human+gemini same alternative → flip_promote; dated id → queue even on full agreement; (c) `apply` sets `adjudicated` only on promote/flip decisions and never touches `seeded`/`draft` rows without a decision.
+- [x] **Step 2:** Run → FAIL
+- [x] **Step 3:** Implement (+ `main()` wiring files together; dated ids = rows where `as_of` is not None).
+- [x] **Step 4:** Tests PASS.
 
 Append to `Makefile`:
 
@@ -1363,7 +1363,7 @@ golden-v7-agree:
 	$(ENV) $(PY) scripts/golden_v7/agreement.py
 ```
 
-- [ ] **Step 5: Commit** (`feat(golden-v7): agreement kappa + promotion rules + arbitration queue` with trailer)
+- [x] **Step 5: Commit** (`feat(golden-v7): agreement kappa + promotion rules + arbitration queue` with trailer)
 
 ---
 
@@ -1371,11 +1371,26 @@ golden-v7-agree:
 
 No new code. Requires Tasks 8–11 complete and `GEMINI_API_KEY` in env.
 
-- [ ] **Step 1:** `make golden-v7-gemini` — real API run over the 100 external ids (cached; safe to rerun). Expected: 100 cache files, 100 gemini vote records appended.
-- [ ] **Step 2:** `make golden-v7-agree` — writes agreement report, applies promotions from the Gemini-only slice (70 rows), queues disagreements + all 30 human-slice rows (no human votes yet) + all dated rows.
-- [ ] **Step 3:** Validate + full suite: the Task 8 Step-2 validation command, then `.venv/bin/python -m pytest -q -m "not integration"`. Expected: 0 issues, no regressions.
-- [ ] **Step 4:** Commit all artifacts (`data(golden-v7): external pass — gemini votes, promotions, agreement report` with trailer).
-- [ ] **Step 5: HANDOFF (async):** tell the user: open `eval/golden/v7_annotations/packet_human/packet.html`, fill `labels_template.csv` (~30 rows), then run `make golden-v7-packet-ingest && make golden-v7-agree` (Task 13 adds the ingest target). The gate flip does not block on this — the Gemini-only leg feeds it.
+> **PAUSED 2026-07-26 at 21/100 rows — external quota wall, not a code defect.**
+> The Gemini free tier allows ~20 requests/day/model
+> (`GenerateRequestsPerDayPerProjectPerModel-FreeTier`, measured on both
+> `gemini-3-flash-preview` and `gemini-2.5-flash`), so this step spans ~5 days.
+> Going faster by spreading rows across models is **not** an option: every row
+> in one annotator leg must come from the same model, or the agreement
+> statistics measure model differences instead of label uncertainty.
+> Two protocol fixes were required before the run and are already committed:
+> the prompt now carries spec §6's "topical relatedness is NOT enough" bar
+> (without it a 5-row probe measured 0/5 agreement — the two legs were
+> answering different questions), and auth moved to the `x-goog-api-key`
+> header (the key leaked into a 503 traceback via httpx's URL echo).
+> The leg is pinned to `gemini-2.5-flash`; the 16 rows cached under the earlier
+> model were discarded rather than mixed in. Tasks 13–14 did not block on this.
+
+- [~] **Step 1:** `make golden-v7-gemini` — **21/100 cached** (`gemini-2.5-flash`, 0 parse errors). Rerun daily to resume at row 22; `votes.jsonl` is deliberately untouched until a complete loop.
+- [ ] **Step 2:** `make golden-v7-agree` — blocked on Step 1 finishing.
+- [ ] **Step 3:** Validate + full suite. (Suite is green at 588 passing; the validation command reruns after Step 2.)
+- [~] **Step 4:** Partial cache committed (`data(golden-v7): partial gemini pass — 21/100 rows cached`); votes/promotions/report still pending Step 2.
+- [x] **Step 5: HANDOFF (async):** standing manual handoff — open `eval/golden/v7_annotations/packet_human/packet.html`, fill `labels_template.csv` (~30 rows), then `make golden-v7-packet-ingest && make golden-v7-agree`. The ingest target exists (added in Task 13). The gate flip does not block on this.
 
 ---
 
@@ -1402,11 +1417,11 @@ golden-v7-gate:
 ```
 
   (Task 9's `main()` gains the `--ingest <csv>` flag here if not already present: it appends human vote records and exits.)
-- [ ] **Step 1: Failing tests** — pure parts only (the script's model boot stays untested): extract the golden-file resolution into `scripts/golden_v7/gate_select.py::select_golden(env: dict, gate_path: Path, v5: Path, v7: Path) -> Path` and test: env override wins; gate file with `adjudicated_n: 120` → v7; missing/`90` → v5. Also test `floors_ok(report_gate: dict, floors: dict) -> bool`.
-- [ ] **Step 2:** Run → FAIL
-- [ ] **Step 3:** Implement `gate_select.py`, `derive_thresholds.py`, rewrite `eval_json.py` importing `select_golden`/`floors_ok`.
-- [ ] **Step 4:** Tests PASS; full offline suite green. Real smoke: `SEBI_RAG_GOLDEN=eval/golden/golden_v5.jsonl .venv/bin/python scripts/eval_json.py` (with `$(ENV)` vars) — expected: one JSON line, `recall_at_10` within ±0.02 of the archived 0.955 (semantic-parity check for the pipeline refactor; investigate any larger delta before committing).
-- [ ] **Step 5:** If `adjudicated_n >= 100`: run `make golden-v7-gate` then `.venv/bin/python scripts/eval_json.py` and confirm `golden_file` endswith `golden_v7.jsonl` and `gate.floors_ok` is present. Otherwise note in the commit message that the flip stays armed-but-off. Commit (`feat(golden-v7): gate flip machinery — pipeline-based eval_json, derived floors, v5 fallback` with trailer).
+- [x] **Step 1: Failing tests** — pure parts only (the script's model boot stays untested): extract the golden-file resolution into `scripts/golden_v7/gate_select.py::select_golden(env: dict, gate_path: Path, v5: Path, v7: Path) -> Path` and test: env override wins; gate file with `adjudicated_n: 120` → v7; missing/`90` → v5. Also test `floors_ok(report_gate: dict, floors: dict) -> bool`.
+- [x] **Step 2:** Run → FAIL
+- [x] **Step 3:** Implement `gate_select.py`, `derive_thresholds.py`, rewrite `eval_json.py` importing `select_golden`/`floors_ok`.
+- [x] **Step 4:** Tests PASS; full offline suite green. Real smoke: `SEBI_RAG_GOLDEN=eval/golden/golden_v5.jsonl .venv/bin/python scripts/eval_json.py` (with `$(ENV)` vars) — expected: one JSON line, `recall_at_10` within ±0.02 of the archived 0.955 (semantic-parity check for the pipeline refactor; investigate any larger delta before committing).
+- [x] **Step 5:** If `adjudicated_n >= 100`: run `make golden-v7-gate` then `.venv/bin/python scripts/eval_json.py` and confirm `golden_file` endswith `golden_v7.jsonl` and `gate.floors_ok` is present. Otherwise note in the commit message that the flip stays armed-but-off. Commit (`feat(golden-v7): gate flip machinery — pipeline-based eval_json, derived floors, v5 fallback` with trailer).
 
 ---
 
@@ -1415,10 +1430,10 @@ golden-v7-gate:
 **Files:**
 - Modify: `CLAUDE.md` (Testing & Evaluation section), `docs/status.md` (append entry), `docs/superpowers/plans/2026-07-24-golden-v7-expansion.md` (tick boxes)
 
-- [ ] **Step 1:** CLAUDE.md: in "Testing & Evaluation", replace the golden-set sentence with: golden_v7 (n=260, span-anchored chunk labels, `review_status` lifecycle) is the reporting set; CI gates on its adjudicated subset once `eval/golden/gate_v7.json` arms (else golden_v5); v1–v6 + probes + asof are frozen; `make golden-v7-*` targets exist.
-- [ ] **Step 2:** status.md: dated entry — final strata census (from the validator), adjudicated_n, κ headline numbers from `reports/golden_v7_agreement.md`, arbitration-queue depth, gate state.
-- [ ] **Step 3:** Full suite one last time: `.venv/bin/python -m pytest -q -m "not integration"` → green; `git add -A && git commit` (`docs(golden-v7): wire v7 into CLAUDE.md + status; final census` with trailer).
-- [ ] **Step 4:** Report to user: census table, agreement stats, queue depth, whether the gate flipped, and the standing human-packet handoff from Task 12.
+- [x] **Step 1:** CLAUDE.md: in "Testing & Evaluation", replace the golden-set sentence with: golden_v7 (n=260, span-anchored chunk labels, `review_status` lifecycle) is the reporting set; CI gates on its adjudicated subset once `eval/golden/gate_v7.json` arms (else golden_v5); v1–v6 + probes + asof are frozen; `make golden-v7-*` targets exist.
+- [x] **Step 2:** status.md: dated entry — final strata census (from the validator), adjudicated_n, κ headline numbers from `reports/golden_v7_agreement.md`, arbitration-queue depth, gate state. *(κ / queue depth recorded as pending: `agreement.py` has not run, since Task 12's external pass is paused at 21/100.)*
+- [x] **Step 3:** Full suite one last time: `.venv/bin/python -m pytest -q -m "not integration"` → green; `git add -A && git commit` (`docs(golden-v7): wire v7 into CLAUDE.md + status; final census` with trailer).
+- [x] **Step 4:** Report to user: census table, agreement stats, queue depth, whether the gate flipped, and the standing human-packet handoff from Task 12.
 
 ---
 
