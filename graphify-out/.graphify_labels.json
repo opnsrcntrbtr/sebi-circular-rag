@@ -93,8 +93,15 @@
   "91": "test_repair_corpus_text.py",
   "92": "test_injection.py",
   "93": "TestReadTrecRun",
+  "94": "SpladeIndex",
   "95": "main",
   "96": "test_benchmark.py",
   "97": ".test_mean_reproduces_the_archived_aggregate",
-  "100": "__init__.py"
+  "98": "test_golden_v7_local.py",
+  "99": "test_splade_leg.py",
+  "100": "__init__.py",
+  "105": ".encode",
+  "106": "TestPerQueryRecall",
+  "107": "test_parse_reply_unknown_letter_fails_the_whole_reply_closed",
+  "110": "Path"
 }
