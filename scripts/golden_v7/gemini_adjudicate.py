@@ -178,10 +178,12 @@ def parse_reply(text: str, letters: list[str]) -> tuple[list[str], str]:
 
 
 def adjudicate(rows: list[dict], pools: list[dict], ids: list[str], post,
-               cache_dir: str | Path = DEFAULT_CACHE_DIR) -> list[dict]:
+               cache_dir: str | Path = DEFAULT_CACHE_DIR,
+               annotator: str = "gemini",
+               model: str | None = None) -> list[dict]:
     """Runs the blind protocol over every id in `ids`, calling `post(prompt)
-    -> str` once per row not already cached. Returns one "gemini" vote
-    record per id (parse-error rows included, using parse_reply's literal
+    -> str` once per row not already cached. Returns one vote record per id
+    for `annotator` (parse-error rows included, using parse_reply's literal
     ([], "") output directly rather than being omitted). This is safe for
     NON-ABSTAIN rows: every answerable row's claude vote already has
     non-empty `governing`, so a parse-error there always reads as
@@ -192,6 +194,11 @@ def adjudicate(rows: list[dict], pools: list[dict], ids: list[str], post,
     cache after a run and warning on any parse_error ids - see
     `_parse_error_ids`. Per-row cache at `cache_dir/<id>.json` makes reruns
     free: a cached row is reconstructed from disk with zero calls to `post`.
+
+    `annotator`/`model` exist because this protocol now serves two legs: the
+    gemini leg (this module's main(), ON HOLD on free-tier quota) and the
+    local oMLX leg (local_adjudicate.py, the primary). Defaults preserve
+    this module's original behavior; `model=None` stamps the gemini model.
     """
     cache_dir = Path(cache_dir)
     cache_dir.mkdir(parents=True, exist_ok=True)
@@ -221,13 +228,13 @@ def adjudicate(rows: list[dict], pools: list[dict], ids: list[str], post,
             # come from the SAME annotator or the agreement stats are
             # meaningless, and a cache dir is long-lived enough to outlast a
             # model swap silently. Recording it makes a mixed leg auditable.
-            cached = {"id": rid, "model": _current_model(), "reply": reply,
-                      "governing": governing, "expected_literal": expected,
-                      "parse_error": parse_error}
+            cached = {"id": rid, "model": model or _current_model(),
+                      "reply": reply, "governing": governing,
+                      "expected_literal": expected, "parse_error": parse_error}
             cache_path.write_text(
                 json.dumps(cached, ensure_ascii=False, indent=2), encoding="utf-8")
 
-        votes.append({"id": rid, "annotator": "gemini",
+        votes.append({"id": rid, "annotator": annotator,
                       "governing": cached["governing"],
                       "expected_literal": cached["expected_literal"]})
     return votes

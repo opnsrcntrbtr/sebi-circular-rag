@@ -103,6 +103,9 @@ golden-v7-packet:
 golden-v7-gemini:
 	$(ENV) $(PY) scripts/golden_v7/gemini_adjudicate.py
 
+golden-v7-local:
+	$(ENV) $(PY) scripts/golden_v7/local_adjudicate.py
+
 golden-v7-agree:
 	$(ENV) $(PY) scripts/golden_v7/agreement.py
 

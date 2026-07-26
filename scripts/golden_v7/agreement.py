@@ -35,6 +35,28 @@ def _label(governing) -> frozenset:
     return frozenset(governing)
 
 
+# Annotators with fixed roles in the promotion rules. Anything else is "the
+# external LLM leg" - gemini originally, qwen since the 2026-07-26 pivot to
+# the local oMLX annotator. Discovering the leg instead of hardcoding a name
+# keeps the on-hold gemini leg resumable with zero configuration.
+_FIXED_ANNOTATORS = frozenset({"claude", "human"})
+
+
+def _llm_annotator(names) -> str | None:
+    """The single non-claude/non-human annotator among `names`, or None.
+
+    Two at once is an error, never a guess: "the LLM vote" would be
+    ambiguous, and silently preferring either leg would corrupt the
+    agreement statistics the external pass exists to produce.
+    """
+    llm = sorted(set(names) - _FIXED_ANNOTATORS)
+    if len(llm) > 1:
+        raise ValueError(
+            f"more than one external LLM annotator voted: {llm} - one leg "
+            "at a time; drop one set of votes before running agreement")
+    return llm[0] if llm else None
+
+
 def cohen_kappa(a: list[list[str]], b: list[list[str]]) -> float:
     """Categorical Cohen's kappa over paired labels (row-aligned). Each raw
     element is a `governing` list (chunk ids); the label compared is
@@ -69,7 +91,9 @@ def decide(row: dict, votes_by_annotator: dict[str, list[str]],
 
     `votes_by_annotator` is this row's votes only, keyed by annotator name
     present iff that annotator voted on this row: {"claude": [...],
-    "gemini": [...], "human": [...]}.
+    <llm leg>: [...], "human": [...]}. The LLM leg is discovered via
+    `_llm_annotator` - "qwen" (local oMLX leg, primary) or "gemini" (on
+    hold) - the truth table is identical either way.
 
     Dated `as_of` rows always queue regardless of agreement (spec sec7
     exception - the gate cannot inherit a known-broken as_of behavior).
@@ -91,22 +115,23 @@ def decide(row: dict, votes_by_annotator: dict[str, list[str]],
         return "queue", None
 
     claude = votes_by_annotator.get("claude", [])
-    gemini_governing = votes_by_annotator.get("gemini")
+    llm = _llm_annotator(votes_by_annotator)
+    llm_governing = votes_by_annotator.get(llm) if llm else None
     human_governing = votes_by_annotator.get("human")
 
     claude_label = _label(claude)
-    gemini_label = _label(gemini_governing) if gemini_governing is not None else None
+    llm_label = _label(llm_governing) if llm_governing is not None else None
     human_label = _label(human_governing) if human_governing is not None else None
 
-    if gemini_label is not None and human_label is not None:
-        if claude_label == gemini_label == human_label:
+    if llm_label is not None and human_label is not None:
+        if claude_label == llm_label == human_label:
             return "promote", None
-        if gemini_label == human_label and gemini_label != claude_label:
-            return "flip_promote", list(gemini_label)
+        if llm_label == human_label and llm_label != claude_label:
+            return "flip_promote", list(llm_label)
         return "queue", None
 
-    if gemini_label is not None:
-        if gemini_label == claude_label:
+    if llm_label is not None:
+        if llm_label == claude_label:
             return "promote", None
         return "queue", None
 
@@ -182,8 +207,13 @@ def _votes_by_row(votes: list) -> dict:
 
 def _stratum_kappas(rows_by_id: dict, votes_by_row: dict, external_ids: list) -> list:
     """κ + raw agreement %, per annotator-pair per stratum, over rows in
-    `external_ids` that have votes from BOTH annotators in the pair."""
-    pairs = [("claude", "gemini"), ("claude", "human"), ("gemini", "human")]
+    `external_ids` that have votes from BOTH annotators in the pair. The
+    LLM leg's name is discovered from the votes themselves, so the report
+    labels its pairs honestly ("claude-qwen", not a hardcoded "gemini")."""
+    llm = _llm_annotator(
+        {a for rid in external_ids for a in votes_by_row.get(rid, {})})
+    pairs = ([("claude", llm), ("claude", "human"), (llm, "human")]
+             if llm else [("claude", "human")])
     by_stratum_pair: dict = defaultdict(lambda: defaultdict(list))
     for rid in external_ids:
         row = rows_by_id.get(rid)
@@ -225,11 +255,12 @@ def _claude_accuracy_ci(rows_by_id: dict, votes_by_row: dict, external_ids: list
             continue
         row_votes = votes_by_row.get(rid, {})
         claude_label = _label(row_votes.get("claude", []))
-        for annotator in ("gemini", "human"):
-            if annotator in row_votes:
-                n += 1
-                if _label(row_votes[annotator]) == claude_label:
-                    successes += 1
+        for annotator, governing in row_votes.items():
+            if annotator == "claude":
+                continue
+            n += 1
+            if _label(governing) == claude_label:
+                successes += 1
     return clopper_pearson_ci(successes, n)
 
 

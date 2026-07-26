@@ -140,6 +140,34 @@ def test_decide_no_external_votes_queues():
     assert decision == "queue"
 
 
+def test_decide_llm_leg_is_annotator_agnostic():
+    """The LLM leg is whichever single non-claude/non-human annotator voted -
+    "qwen" (the local oMLX leg) must drive the same truth table "gemini"
+    does, with no per-name configuration. The Task 12 pivot swaps the leg's
+    model family; the promotion rules must not care."""
+    row = _row(id="v7-nt-008", task_type="numeric_table")
+    assert decide(row, {"claude": ["c1"], "qwen": ["c1"]}, dated_ids=set()) \
+        == ("promote", None)
+    decision, _ = decide(row, {"claude": ["c1"], "qwen": ["c2"]}, dated_ids=set())
+    assert decision == "queue"
+    decision, new = decide(row, {"claude": ["c1"], "qwen": ["c2"], "human": ["c2"]},
+                           dated_ids=set())
+    assert decision == "flip_promote" and set(new) == {"c2"}
+
+
+def test_decide_two_llm_annotators_fails_loud():
+    """One external-LLM leg at a time: two would make "the LLM vote"
+    ambiguous, and silently preferring either would corrupt the agreement
+    stats. Mixed legs must be an error, never a guess."""
+    row = _row(id="v7-nt-009", task_type="numeric_table")
+    try:
+        decide(row, {"claude": ["c1"], "gemini": ["c1"], "qwen": ["c1"]},
+               dated_ids=set())
+        assert False, "expected ValueError"
+    except ValueError as e:
+        assert "gemini" in str(e) and "qwen" in str(e)
+
+
 # ---------------------------------------------------------------------------
 # (c) apply()
 # ---------------------------------------------------------------------------
