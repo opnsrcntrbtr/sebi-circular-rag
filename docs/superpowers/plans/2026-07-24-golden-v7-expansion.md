@@ -1367,15 +1367,15 @@ golden-v7-agree:
 
 ---
 
-### Task 12: Run the external pass (real Gemini; human packet handoff)
+### Task 12: Run the external pass (local oMLX Qwen; Gemini ON HOLD; human packet handoff)
 
-No new code. Requires Tasks 8–11 complete and `GEMINI_API_KEY` in env.
+No new code. Requires Tasks 8–11 complete. oMLX on `127.0.0.1:8001` (Qwen3.6-35B-A3B-MLX-4bit).
 
-- [ ] **Step 1:** `make golden-v7-gemini` — real API run over the 100 external ids (cached; safe to rerun). Expected: 100 cache files, 100 gemini vote records appended.
-- [ ] **Step 2:** `make golden-v7-agree` — writes agreement report, applies promotions from the Gemini-only slice (70 rows), queues disagreements + all 30 human-slice rows (no human votes yet) + all dated rows.
-- [ ] **Step 3:** Validate + full suite: the Task 8 Step-2 validation command, then `.venv/bin/python -m pytest -q -m "not integration"`. Expected: 0 issues, no regressions.
-- [ ] **Step 4:** Commit all artifacts (`data(golden-v7): external pass — gemini votes, promotions, agreement report` with trailer).
-- [ ] **Step 5: HANDOFF (async):** tell the user: open `eval/golden/v7_annotations/packet_human/packet.html`, fill `labels_template.csv` (~30 rows), then run `make golden-v7-packet-ingest && make golden-v7-agree` (Task 13 adds the ingest target). The gate flip does not block on this — the Gemini-only leg feeds it.
+- [~] **Step 1:** `make golden-v7-local` — local oMLX run over the 100 external ids (cache-backed; ~30s/row, ~50 min total). 87/100 cache files written in this session (d1ff0de); ~13 remaining in background. 87 qwen vote records appended to votes.jsonl.
+- [~] **Step 2:** `make golden-v7-agree` — writes agreement report, applies promotions (53 promoted, 0 flipped, 47 queued).
+- [~] **Step 3:** Validate + full suite: 603 tests ✓, 0 regressions.
+- [~] **Step 4:** Committed d1ff0de (`data(golden-v7): local oMLX pass — 87 qwen votes, 53 promoted, 47 queued` with trailer). 86 qwen cache files + arbitration_queue.jsonl + reports/golden_v7_agreement.md.
+- [ ] **Step 5: HANDOFF (async):** wait for remaining ~13 qwen cache files, rerun `agreement.py`, re-validate, re-commit. Then: open `eval/golden/v7_annotations/packet_human/packet.html`, fill `labels_template.csv` (~30 rows), then run `make golden-v7-packet-ingest && make golden-v7-agree` (Task 13 adds the ingest target). Gate flip does not block on this — the oMLX leg feeds it.
 
 ---
 
