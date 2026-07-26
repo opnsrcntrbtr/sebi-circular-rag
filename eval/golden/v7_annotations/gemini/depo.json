@@ -1,0 +1,17 @@
+{
+  "id": "depo",
+  "model": "gemini-2.5-flash",
+  "reply": "D,H,I,J,O,P,R,S\nEXPECTED: Master Circular for Depositories",
+  "governing": [
+    "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#3. Notwithstanding such rescission:#4",
+    "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#1. Securities and Exchange Board of India (SEBI), from time #1",
+    "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#2. This Master Circular shall come into force from the date #2",
+    "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#3. Notwithstanding such rescission:#3",
+    "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#preamble#0",
+    "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#5. Words and expressions used but not defined in this Circul#6",
+    "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#4. The Master Circular consists of four sections i.e. (1)Ben#5",
+    "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#6. This Master Circular is issued in exercise of powers conf#7"
+  ],
+  "expected_literal": "Master Circular for Depositories",
+  "parse_error": false
+}

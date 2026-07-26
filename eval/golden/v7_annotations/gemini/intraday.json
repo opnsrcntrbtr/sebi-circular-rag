@@ -1,0 +1,19 @@
+{
+  "id": "intraday",
+  "model": "gemini-2.5-flash",
+  "reply": "C,D,F,I,J,K,M,P,Q,R\nEXPECTED: Defines limits, scope, monitoring methods, additional exposures, penalties, examination procedures, and implementation steps for MIIs and Stock Exchanges/Clearing Corporations.",
+  "governing": [
+    "SEBI/HO/MRD/TPD/CIR/P/2025/122#4.1. Intraday Net position limit (FutEq basis) for each enti#5",
+    "SEBI/HO/MRD/TPD/CIR/P/2025/122#4.10. The aforesaid framework shall be restricted to index o#14",
+    "SEBI/HO/MRD/TPD/CIR/P/2025/122#4.2. Intraday Gross position limit (FutEq basis) for each en#6",
+    "SEBI/HO/MRD/TPD/CIR/P/2025/122#7. MIIs are required to take necessary steps to put in place#17",
+    "SEBI/HO/MRD/TPD/CIR/P/2025/122#4.4. Further, in order to monitor the intraday positions of #8",
+    "SEBI/HO/MRD/TPD/CIR/P/2025/122#4.5. Entities shall be allowed to take additional exposure a#9",
+    "SEBI/HO/MRD/TPD/CIR/P/2025/122#4.3. The aforesaid intraday limits shall continue to be moni#7",
+    "SEBI/HO/MRD/TPD/CIR/P/2025/122#4.7. On the day of expiry of options contracts, the breaches#11",
+    "SEBI/HO/MRD/TPD/CIR/P/2025/122#4.6. For the entities breaching the aforesaid limits, Stock #10",
+    "SEBI/HO/MRD/TPD/CIR/P/2025/122#5. Stock Exchanges and Clearing Corporations are advised to #15"
+  ],
+  "expected_literal": "Defines limits, scope, monitoring methods, additional exposures, penalties, examination procedures, and implementation steps for MIIs and Stock Exchanges/Clearing Corporations.",
+  "parse_error": false
+}

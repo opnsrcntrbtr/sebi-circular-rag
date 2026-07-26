@@ -1,0 +1,8 @@
+{
+  "id": "v7-bp-002",
+  "model": "gemini-2.5-flash",
+  "reply": "NONE\nEXPECTED: The provided excerpts mention the mandate for a yearly internal audit for ESG Rating Providers (ERPs) and list \"Chapter IV : Internal Audit for ERPs\" in the table of contents. However, none of the given excerpts contain the specific provisions detailing who is allowed to carry out this internal audit or whether they need to be independent of the company.",
+  "governing": [],
+  "expected_literal": "The provided excerpts mention the mandate for a yearly internal audit for ESG Rating Providers (ERPs) and list \"Chapter IV : Internal Audit for ERPs\" in the table of contents. However, none of the given excerpts contain the specific provisions detailing who is allowed to carry out this internal audit or whether they need to be independent of the company.",
+  "parse_error": false
+}

@@ -1,0 +1,13 @@
+{
+  "id": "pledge",
+  "model": "gemini-2.5-flash",
+  "reply": "C,D,K,P\nEXPECTED: Depositories shall maintain a standardized format of the Pledge Request Form; Pledge Request Forms shall make provision for pledger and pledgee to undertake compliance with Indian Contract Act, 1872, Depositories Act, SEBI Regulations, circulars, and bye-laws; At the time of invocation of pledge, Depositories shall send an intimation/notification to both pledger and pledgee; Sections 176 and 177 of the Indian Contract Act, 1872 require the pawnee to give a reasonable notice of sale to the pawnor.",
+  "governing": [
+    "HO/47/14/12(1)2026-MRD-POD2/I/4229/2026#4.13.4. The Depositories shall maintain a standardized forma#5",
+    "HO/47/14/12(1)2026-MRD-POD2/I/4229/2026#4. In this regard, in order to ensure compliance with the pr#4",
+    "HO/47/14/12(1)2026-MRD-POD2/I/4229/2026#4.13.5. At the time of invocation of pledge, the Depositorie#6",
+    "HO/47/14/12(1)2026-MRD-POD2/I/4229/2026#3. Further, Sections 176 and 177 of the Indian Contract Act,#3"
+  ],
+  "expected_literal": "Depositories shall maintain a standardized format of the Pledge Request Form; Pledge Request Forms shall make provision for pledger and pledgee to undertake compliance with Indian Contract Act, 1872, Depositories Act, SEBI Regulations, circulars, and bye-laws; At the time of invocation of pledge, Depositories shall send an intimation/notification to both pledger and pledgee; Sections 176 and 177 of the Indian Contract Act, 1872 require the pawnee to give a reasonable notice of sale to the pawnor.",
+  "parse_error": false
+}

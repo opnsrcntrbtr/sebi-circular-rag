@@ -1,0 +1,22 @@
+{
+  "id": "nomination",
+  "model": "gemini-2.5-flash",
+  "reply": "A,C,E,H,I,K,L,M,N,O,P,Q,R\nEXPECTED: Multiple nominees can continue in same/separate accounts; Nomination optional for joint accounts; Regulated entities to acknowledge nomination changes; Consent of all joint-holders required for nomination; Online/offline nomination with specific validation/signature rules; Mandatory nomination for new single accounts (opt-out exception); Regulated entities to provide Annexure-A form; Annexure A & B forms for changes/existing investors; Investors can opt-out via form or online; Max 3 nominees allowed; Nominations can be changed/cancelled multiple times; Periodic statements to show nominee details or status; Nomination form requires mandatory/optional info and apportionment rules.",
+  "governing": [
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#5.2. In case of multiple nominees, upon the demise of the in#11",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#4.2. Nomination will be optional for jointly held demat acco#8",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#9.3. Regulated entities shall provide acknowledgement to the#18",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#4.3. The consent of all the joint-holders shall be required #9",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#6.2. The investors shall have an option to submit the nomina#13",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#4.1. For all single accounts / folios opened on or after the#7",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#6.1. The regulated entities shall make the nomination form a#12",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#9.2. The forms in Annexure A and B would also be applicable #17",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#8. Opt-out of nomination:#15",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#5.1. Investors can provide up to 3 nominees.#10",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#9.1. Investors can provide, changes or cancel nominations an#16",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#10.1. In the periodic statement of account / holding stateme#19",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#7. Information to be captured in nomination form:#14"
+  ],
+  "expected_literal": "Multiple nominees can continue in same/separate accounts; Nomination optional for joint accounts; Regulated entities to acknowledge nomination changes; Consent of all joint-holders required for nomination; Online/offline nomination with specific validation/signature rules; Mandatory nomination for new single accounts (opt-out exception); Regulated entities to provide Annexure-A form; Annexure A & B forms for changes/existing investors; Investors can opt-out via form or online; Max 3 nominees allowed; Nominations can be changed/cancelled multiple times; Periodic statements to show nominee details or status; Nomination form requires mandatory/optional info and apportionment rules.",
+  "parse_error": false
+}

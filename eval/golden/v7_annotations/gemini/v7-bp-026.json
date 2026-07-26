@@ -1,0 +1,12 @@
+{
+  "id": "v7-bp-026",
+  "model": "gemini-2.5-flash",
+  "reply": "P,F,Q\nEXPECTED: Yes, an investment manager is permitted to act on behalf of institutional clients and has due authority to deal and execute transactions through the DMA facility.",
+  "governing": [
+    "SEBI/HO/MIRSD/DOP1/CIR/P/2018/87#3. Where the DMA facility provided by the Broker is used to #927",
+    "SEBI/HO/MIRSD/DOP1/CIR/P/2018/87#3.1. The investment manager has due authority to deal on beh#928",
+    "SEBI/HO/MIRSD/DOP1/CIR/P/2018/87#45.9. The facility of DMA provided by the stock broker shall#901"
+  ],
+  "expected_literal": "Yes, an investment manager is permitted to act on behalf of institutional clients and has due authority to deal and execute transactions through the DMA facility.",
+  "parse_error": false
+}

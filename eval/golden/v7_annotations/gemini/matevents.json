@@ -1,0 +1,12 @@
+{
+  "id": "matevents",
+  "model": "gemini-2.5-flash",
+  "reply": "B, H, P\nEXPECTED: Disclosure requirements for buyback of securities.",
+  "governing": [
+    "SEBI/HO/CFD/CFD-PoD-1/P/CIR/2023/123#2. Issuance or forfeiture of securities, split or consolidat#110",
+    "SEBI/HO/CFD/CFD-PoD-1/P/CIR/2023/123#2.3. Buy back of securities:#23",
+    "SEBI/HO/CFD/CFD-PoD-1/P/CIR/2023/123#4.3. the decision on buyback of securities;#30"
+  ],
+  "expected_literal": "Disclosure requirements for buyback of securities.",
+  "parse_error": false
+}

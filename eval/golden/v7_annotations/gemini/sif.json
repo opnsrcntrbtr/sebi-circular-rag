@@ -1,0 +1,21 @@
+{
+  "id": "sif",
+  "model": "gemini-2.5-flash",
+  "reply": "B,C,G,H,I,A,D,J,R,P,S,T\nEXPECTED: MF Master Circular formats, with modified CTR (Annexure A1) and HYTR (Annexure A2)",
+  "governing": [
+    "HO/24/13/12(4)2025-IMD-POD-1/I/2062/2026#2.1. In terms of Regulation 49V(2) of the SEBI (Mutual Funds#3",
+    "HO/24/13/12(4)2025-IMD-POD-1/I/2062/2026#2.2.2. All Asset Management Companies managing SIF shall add#5",
+    "HO/24/13/12(4)2025-IMD-POD-1/I/2062/2026#2.3.2. The Trustees/Trustee Companies of Mutual Funds managi#7",
+    "HO/24/13/12(4)2025-IMD-POD-1/I/2062/2026#2.3.1. The format for the HYTR, as prescribed under Format N#6",
+    "HO/24/13/12(4)2025-IMD-POD-1/I/2062/2026#2.2.1. The format for the CTR, as prescribed under Format No#4",
+    "HO/24/13/12(4)2025-IMD-POD-1/I/2062/2026#5. This circular is available at www.sebi.gov.in under the l#10",
+    "HO/24/13/12(4)2025-IMD-POD-1/I/2062/2026#5. This circular is available at www.sebi.gov.in under the l#11",
+    "HO/24/13/12(4)2025-IMD-POD-1/I/2062/2026#5. This circular is available at www.sebi.gov.in under the l#12",
+    "HO/24/13/12(4)2025-IMD-POD-1/I/2062/2026#5. This circular is available at www.sebi.gov.in under the l#13",
+    "HO/24/13/12(4)2025-IMD-POD-1/I/2062/2026#1. Whether AMC has the necessary expertise, internal control#14",
+    "HO/24/13/12(4)2025-IMD-POD-1/I/2062/2026#5. Compliance with investment restrictions as prescribed in #18",
+    "HO/24/13/12(4)2025-IMD-POD-1/I/2062/2026#3. Compliance with respect to fees and expenses in accordanc#16"
+  ],
+  "expected_literal": "MF Master Circular formats, with modified CTR (Annexure A1) and HYTR (Annexure A2)",
+  "parse_error": false
+}

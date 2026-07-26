@@ -1,0 +1,12 @@
+{
+  "id": "cra",
+  "model": "gemini-2.5-flash",
+  "reply": "D,F,O\nEXPECTED: Master Circular for Credit Rating Agencies",
+  "governing": [
+    "SEBI/HO/DDHS/DDHS-POD2/P/CIR/2025/101#preamble#0",
+    "SEBI/HO/DDHS/DDHS-POD2/P/CIR/2025/101#preamble#1",
+    "SEBI/HO/DDHS/DDHS-POD2/P/CIR/2025/101#preamble#2"
+  ],
+  "expected_literal": "Master Circular for Credit Rating Agencies",
+  "parse_error": false
+}
