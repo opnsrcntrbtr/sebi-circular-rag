@@ -4,14 +4,164 @@
   "graph": {},
   "nodes": [
     {
+      "label": "local_adjudicate.py",
+      "file_type": "code",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "scripts_golden_v7_local_adjudicate",
+      "community": 89,
+      "norm_label": "local_adjudicate.py"
+    },
+    {
+      "label": "_current_model()",
+      "file_type": "code",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L72",
+      "_origin": "ast",
+      "id": "scripts_golden_v7_local_adjudicate_current_model",
+      "community": 89,
+      "norm_label": "_current_model()"
+    },
+    {
+      "label": "_strip_thinking()",
+      "file_type": "code",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L76",
+      "_origin": "ast",
+      "id": "scripts_golden_v7_local_adjudicate_strip_thinking",
+      "community": 89,
+      "norm_label": "_strip_thinking()"
+    },
+    {
+      "label": "_extract_text()",
+      "file_type": "code",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L86",
+      "_origin": "ast",
+      "id": "scripts_golden_v7_local_adjudicate_extract_text",
+      "community": 98,
+      "norm_label": "_extract_text()"
+    },
+    {
+      "label": "_post_local()",
+      "file_type": "code",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L94",
+      "_origin": "ast",
+      "id": "scripts_golden_v7_local_adjudicate_post_local",
+      "community": 89,
+      "norm_label": "_post_local()"
+    },
+    {
+      "label": "_pilot_ids()",
+      "file_type": "code",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L135",
+      "_origin": "ast",
+      "id": "scripts_golden_v7_local_adjudicate_pilot_ids",
+      "community": 89,
+      "norm_label": "_pilot_ids()"
+    },
+    {
+      "label": "pilot()",
+      "file_type": "code",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L157",
+      "_origin": "ast",
+      "id": "scripts_golden_v7_local_adjudicate_pilot",
+      "community": 89,
+      "norm_label": "pilot()"
+    },
+    {
+      "label": "Path",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "path",
+      "community": 89,
+      "norm_label": "path"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L184",
+      "_origin": "ast",
+      "id": "scripts_golden_v7_local_adjudicate_main",
+      "community": 89,
+      "norm_label": "main()"
+    },
+    {
+      "label": "External annotation slice: local-model leg via oMLX - the PRIMARY leg since 2026",
+      "file_type": "rationale",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "scripts_golden_v7_local_adjudicate_rationale_1",
+      "community": 89,
+      "norm_label": "external annotation slice: local-model leg via omlx - the primary leg since 2026"
+    },
+    {
+      "label": "Qwen-family models may emit <think>...</think> reasoning as inline     text, dep",
+      "file_type": "rationale",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L77",
+      "_origin": "ast",
+      "id": "scripts_golden_v7_local_adjudicate_rationale_77",
+      "community": 89,
+      "norm_label": "qwen-family models may emit <think>...</think> reasoning as inline     text, dep"
+    },
+    {
+      "label": "Anthropic Messages response -> reply text: concatenates `text`     content block",
+      "file_type": "rationale",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L87",
+      "_origin": "ast",
+      "id": "scripts_golden_v7_local_adjudicate_rationale_87",
+      "community": 98,
+      "norm_label": "anthropic messages response -> reply text: concatenates `text`     content block"
+    },
+    {
+      "label": "One blind-protocol call to the oMLX server. Sends both auth header     styles (x",
+      "file_type": "rationale",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L95",
+      "_origin": "ast",
+      "id": "scripts_golden_v7_local_adjudicate_rationale_95",
+      "community": 89,
+      "norm_label": "one blind-protocol call to the omlx server. sends both auth header     styles (x"
+    },
+    {
+      "label": "First `n` non-abstain external ids, distinct strata first: five rows     from fi",
+      "file_type": "rationale",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L136",
+      "_origin": "ast",
+      "id": "scripts_golden_v7_local_adjudicate_rationale_136",
+      "community": 89,
+      "norm_label": "first `n` non-abstain external ids, distinct strata first: five rows     from fi"
+    },
+    {
+      "label": "Adjudicates `n` non-abstain rows and compares exact governing sets     against c",
+      "file_type": "rationale",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L160",
+      "_origin": "ast",
+      "id": "scripts_golden_v7_local_adjudicate_rationale_160",
+      "community": 89,
+      "norm_label": "adjudicates `n` non-abstain rows and compares exact governing sets     against c"
+    },
+    {
       "label": "agreement.py",
       "file_type": "code",
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement",
       "community": 51,
-      "norm_label": "agreement.py"
+      "norm_label": "agreement.py",
+      "id": "scripts_golden_v7_agreement"
     },
     {
       "label": "_label()",
@@ -19,9 +169,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L34",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_label",
       "community": 51,
-      "norm_label": "_label()"
+      "norm_label": "_label()",
+      "id": "scripts_golden_v7_agreement_label"
     },
     {
       "label": "_llm_annotator()",
@@ -29,9 +179,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L45",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_llm_annotator",
       "community": 51,
-      "norm_label": "_llm_annotator()"
+      "norm_label": "_llm_annotator()",
+      "id": "scripts_golden_v7_agreement_llm_annotator"
     },
     {
       "label": "_confirms_claude()",
@@ -39,9 +189,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L60",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_confirms_claude",
       "community": 51,
-      "norm_label": "_confirms_claude()"
+      "norm_label": "_confirms_claude()",
+      "id": "scripts_golden_v7_agreement_confirms_claude"
     },
     {
       "label": "cohen_kappa()",
@@ -49,9 +199,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L101",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_cohen_kappa",
       "community": 51,
-      "norm_label": "cohen_kappa()"
+      "norm_label": "cohen_kappa()",
+      "id": "scripts_golden_v7_agreement_cohen_kappa"
     },
     {
       "label": "decide()",
@@ -59,9 +209,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L129",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_decide",
       "community": 51,
-      "norm_label": "decide()"
+      "norm_label": "decide()",
+      "id": "scripts_golden_v7_agreement_decide"
     },
     {
       "label": "apply()",
@@ -69,9 +219,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L194",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_apply",
       "community": 51,
-      "norm_label": "apply()"
+      "norm_label": "apply()",
+      "id": "scripts_golden_v7_agreement_apply"
     },
     {
       "label": "_body()",
@@ -79,9 +229,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L222",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_body",
       "community": 51,
-      "norm_label": "_body()"
+      "norm_label": "_body()",
+      "id": "scripts_golden_v7_agreement_body"
     },
     {
       "label": "_resolve_governing_spans()",
@@ -89,9 +239,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L227",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_resolve_governing_spans",
       "community": 51,
-      "norm_label": "_resolve_governing_spans()"
+      "norm_label": "_resolve_governing_spans()",
+      "id": "scripts_golden_v7_agreement_resolve_governing_spans"
     },
     {
       "label": "_votes_by_row()",
@@ -99,9 +249,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L254",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_votes_by_row",
       "community": 51,
-      "norm_label": "_votes_by_row()"
+      "norm_label": "_votes_by_row()",
+      "id": "scripts_golden_v7_agreement_votes_by_row"
     },
     {
       "label": "_literals_by_row()",
@@ -109,9 +259,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L261",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_literals_by_row",
       "community": 51,
-      "norm_label": "_literals_by_row()"
+      "norm_label": "_literals_by_row()",
+      "id": "scripts_golden_v7_agreement_literals_by_row"
     },
     {
       "label": "_stratum_kappas()",
@@ -119,9 +269,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L273",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_stratum_kappas",
       "community": 51,
-      "norm_label": "_stratum_kappas()"
+      "norm_label": "_stratum_kappas()",
+      "id": "scripts_golden_v7_agreement_stratum_kappas"
     },
     {
       "label": "_claude_accuracy_ci()",
@@ -129,9 +279,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L310",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_claude_accuracy_ci",
       "community": 51,
-      "norm_label": "_claude_accuracy_ci()"
+      "norm_label": "_claude_accuracy_ci()",
+      "id": "scripts_golden_v7_agreement_claude_accuracy_ci"
     },
     {
       "label": "_render_report()",
@@ -139,9 +289,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L332",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_render_report",
       "community": 51,
-      "norm_label": "_render_report()"
+      "norm_label": "_render_report()",
+      "id": "scripts_golden_v7_agreement_render_report"
     },
     {
       "label": "main()",
@@ -149,9 +299,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L373",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_main",
       "community": 51,
-      "norm_label": "main()"
+      "norm_label": "main()",
+      "id": "scripts_golden_v7_agreement_main"
     },
     {
       "label": "Agreement, promotion, and arbitration for the golden-v7 external annotation slic",
@@ -159,9 +309,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_rationale_1",
       "community": 51,
-      "norm_label": "agreement, promotion, and arbitration for the golden-v7 external annotation slic"
+      "norm_label": "agreement, promotion, and arbitration for the golden-v7 external annotation slic",
+      "id": "scripts_golden_v7_agreement_rationale_1"
     },
     {
       "label": "The single non-claude/non-human annotator among `names`, or None.      Two at on",
@@ -169,9 +319,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L46",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_rationale_46",
       "community": 51,
-      "norm_label": "the single non-claude/non-human annotator among `names`, or none.      two at on"
+      "norm_label": "the single non-claude/non-human annotator among `names`, or none.      two at on",
+      "id": "scripts_golden_v7_agreement_rationale_46"
     },
     {
       "label": "Does this external vote confirm claude's label, at PROVISION level?      Amendme",
@@ -179,9 +329,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L63",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_rationale_63",
       "community": 51,
-      "norm_label": "does this external vote confirm claude's label, at provision level?      amendme"
+      "norm_label": "does this external vote confirm claude's label, at provision level?      amendme",
+      "id": "scripts_golden_v7_agreement_rationale_63"
     },
     {
       "label": "Categorical Cohen's kappa over paired labels (row-aligned). Each raw     element",
@@ -189,9 +339,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L102",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_rationale_102",
       "community": 51,
-      "norm_label": "categorical cohen's kappa over paired labels (row-aligned). each raw     element"
+      "norm_label": "categorical cohen's kappa over paired labels (row-aligned). each raw     element",
+      "id": "scripts_golden_v7_agreement_rationale_102"
     },
     {
       "label": "Spec sec7 promotion rules for one row.      `votes_by_annotator` is this row's v",
@@ -199,9 +349,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L132",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_rationale_132",
       "community": 51,
-      "norm_label": "spec sec7 promotion rules for one row.      `votes_by_annotator` is this row's v"
+      "norm_label": "spec sec7 promotion rules for one row.      `votes_by_annotator` is this row's v",
+      "id": "scripts_golden_v7_agreement_rationale_132"
     },
     {
       "label": "Applies each row's `(decision, new_governing_spans)` from `decisions`     (keyed",
@@ -209,9 +359,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L196",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_rationale_196",
       "community": 51,
-      "norm_label": "applies each row's `(decision, new_governing_spans)` from `decisions`     (keyed"
+      "norm_label": "applies each row's `(decision, new_governing_spans)` from `decisions`     (keyed",
+      "id": "scripts_golden_v7_agreement_rationale_196"
     },
     {
       "label": "Winning chunk ids (from a flip_promote decision) -> {doc, quote}     spans, look",
@@ -219,9 +369,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L228",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_rationale_228",
       "community": 51,
-      "norm_label": "winning chunk ids (from a flip_promote decision) -> {doc, quote}     spans, look"
+      "norm_label": "winning chunk ids (from a flip_promote decision) -> {doc, quote}     spans, look",
+      "id": "scripts_golden_v7_agreement_rationale_228"
     },
     {
       "label": "rid -> annotator -> expected_literal. Kept separate from     `_votes_by_row` so",
@@ -229,9 +379,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L262",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_rationale_262",
       "community": 51,
-      "norm_label": "rid -> annotator -> expected_literal. kept separate from     `_votes_by_row` so"
+      "norm_label": "rid -> annotator -> expected_literal. kept separate from     `_votes_by_row` so",
+      "id": "scripts_golden_v7_agreement_rationale_262"
     },
     {
       "label": "\u03ba + raw agreement %, per annotator-pair per stratum, over rows in     `external_",
@@ -239,9 +389,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L274",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_rationale_274",
       "community": 51,
-      "norm_label": "\u03ba + raw agreement %, per annotator-pair per stratum, over rows in     `external_"
+      "norm_label": "\u03ba + raw agreement %, per annotator-pair per stratum, over rows in     `external_",
+      "id": "scripts_golden_v7_agreement_rationale_274"
     },
     {
       "label": "Clopper-Pearson 95% CI on claude-label accuracy vs externals: every     (row, ex",
@@ -249,9 +399,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L311",
       "_origin": "ast",
-      "id": "scripts_golden_v7_agreement_rationale_311",
       "community": 51,
-      "norm_label": "clopper-pearson 95% ci on claude-label accuracy vs externals: every     (row, ex"
+      "norm_label": "clopper-pearson 95% ci on claude-label accuracy vs externals: every     (row, ex",
+      "id": "scripts_golden_v7_agreement_rationale_311"
     },
     {
       "label": "test_golden_v7_agreement.py",
@@ -259,9 +409,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement",
       "community": 51,
-      "norm_label": "test_golden_v7_agreement.py"
+      "norm_label": "test_golden_v7_agreement.py",
+      "id": "tests_test_golden_v7_agreement"
     },
     {
       "label": "_row()",
@@ -269,9 +419,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L17",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_row",
       "community": 51,
-      "norm_label": "_row()"
+      "norm_label": "_row()",
+      "id": "tests_test_golden_v7_agreement_row"
     },
     {
       "label": "_pool()",
@@ -279,9 +429,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L31",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_pool",
       "community": 51,
-      "norm_label": "_pool()"
+      "norm_label": "_pool()",
+      "id": "tests_test_golden_v7_agreement_pool"
     },
     {
       "label": "test_cohen_kappa_identical_lists_is_one()",
@@ -289,9 +439,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L39",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_cohen_kappa_identical_lists_is_one",
       "community": 51,
-      "norm_label": "test_cohen_kappa_identical_lists_is_one()"
+      "norm_label": "test_cohen_kappa_identical_lists_is_one()",
+      "id": "tests_test_golden_v7_agreement_test_cohen_kappa_identical_lists_is_one"
     },
     {
       "label": "test_cohen_kappa_independent_looking_lists_is_low()",
@@ -299,9 +449,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L44",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_cohen_kappa_independent_looking_lists_is_low",
       "community": 51,
-      "norm_label": "test_cohen_kappa_independent_looking_lists_is_low()"
+      "norm_label": "test_cohen_kappa_independent_looking_lists_is_low()",
+      "id": "tests_test_golden_v7_agreement_test_cohen_kappa_independent_looking_lists_is_low"
     },
     {
       "label": "test_cohen_kappa_both_constant_and_identical_is_one()",
@@ -309,9 +459,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L50",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_cohen_kappa_both_constant_and_identical_is_one",
       "community": 51,
-      "norm_label": "test_cohen_kappa_both_constant_and_identical_is_one()"
+      "norm_label": "test_cohen_kappa_both_constant_and_identical_is_one()",
+      "id": "tests_test_golden_v7_agreement_test_cohen_kappa_both_constant_and_identical_is_one"
     },
     {
       "label": "test_cohen_kappa_empty_input_is_one()",
@@ -319,9 +469,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L56",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_cohen_kappa_empty_input_is_one",
       "community": 51,
-      "norm_label": "test_cohen_kappa_empty_input_is_one()"
+      "norm_label": "test_cohen_kappa_empty_input_is_one()",
+      "id": "tests_test_golden_v7_agreement_test_cohen_kappa_empty_input_is_one"
     },
     {
       "label": "test_decide_gemini_only_agrees_with_claude_promotes()",
@@ -329,9 +479,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L64",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_gemini_only_agrees_with_claude_promotes",
       "community": 51,
-      "norm_label": "test_decide_gemini_only_agrees_with_claude_promotes()"
+      "norm_label": "test_decide_gemini_only_agrees_with_claude_promotes()",
+      "id": "tests_test_golden_v7_agreement_test_decide_gemini_only_agrees_with_claude_promotes"
     },
     {
       "label": "test_decide_gemini_only_disagrees_with_claude_queues()",
@@ -339,9 +489,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L72",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_gemini_only_disagrees_with_claude_queues",
       "community": 51,
-      "norm_label": "test_decide_gemini_only_disagrees_with_claude_queues()"
+      "norm_label": "test_decide_gemini_only_disagrees_with_claude_queues()",
+      "id": "tests_test_golden_v7_agreement_test_decide_gemini_only_disagrees_with_claude_queues"
     },
     {
       "label": "test_decide_three_way_all_agree_promotes()",
@@ -349,9 +499,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L79",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_three_way_all_agree_promotes",
       "community": 51,
-      "norm_label": "test_decide_three_way_all_agree_promotes()"
+      "norm_label": "test_decide_three_way_all_agree_promotes()",
+      "id": "tests_test_golden_v7_agreement_test_decide_three_way_all_agree_promotes"
     },
     {
       "label": "test_decide_three_way_split_queues()",
@@ -359,9 +509,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L87",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_three_way_split_queues",
       "community": 51,
-      "norm_label": "test_decide_three_way_split_queues()"
+      "norm_label": "test_decide_three_way_split_queues()",
+      "id": "tests_test_golden_v7_agreement_test_decide_three_way_split_queues"
     },
     {
       "label": "test_decide_human_and_gemini_agree_on_alternative_flips()",
@@ -369,9 +519,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L94",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_human_and_gemini_agree_on_alternative_flips",
       "community": 51,
-      "norm_label": "test_decide_human_and_gemini_agree_on_alternative_flips()"
+      "norm_label": "test_decide_human_and_gemini_agree_on_alternative_flips()",
+      "id": "tests_test_golden_v7_agreement_test_decide_human_and_gemini_agree_on_alternative_flips"
     },
     {
       "label": "test_decide_dated_id_queues_even_on_full_agreement()",
@@ -379,9 +529,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L102",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_dated_id_queues_even_on_full_agreement",
       "community": 51,
-      "norm_label": "test_decide_dated_id_queues_even_on_full_agreement()"
+      "norm_label": "test_decide_dated_id_queues_even_on_full_agreement()",
+      "id": "tests_test_golden_v7_agreement_test_decide_dated_id_queues_even_on_full_agreement"
     },
     {
       "label": "test_decide_abstain_row_no_claude_vote_externals_confirm_promotes()",
@@ -389,9 +539,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L109",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_confirm_promotes",
       "community": 51,
-      "norm_label": "test_decide_abstain_row_no_claude_vote_externals_confirm_promotes()"
+      "norm_label": "test_decide_abstain_row_no_claude_vote_externals_confirm_promotes()",
+      "id": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_confirm_promotes"
     },
     {
       "label": "test_decide_abstain_row_no_claude_vote_externals_dispute_flips()",
@@ -399,9 +549,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L124",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_dispute_flips",
       "community": 51,
-      "norm_label": "test_decide_abstain_row_no_claude_vote_externals_dispute_flips()"
+      "norm_label": "test_decide_abstain_row_no_claude_vote_externals_dispute_flips()",
+      "id": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_dispute_flips"
     },
     {
       "label": "test_decide_no_external_votes_queues()",
@@ -409,9 +559,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L137",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_no_external_votes_queues",
       "community": 51,
-      "norm_label": "test_decide_no_external_votes_queues()"
+      "norm_label": "test_decide_no_external_votes_queues()",
+      "id": "tests_test_golden_v7_agreement_test_decide_no_external_votes_queues"
     },
     {
       "label": "test_decide_llm_leg_is_annotator_agnostic()",
@@ -419,9 +569,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L143",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_llm_leg_is_annotator_agnostic",
       "community": 51,
-      "norm_label": "test_decide_llm_leg_is_annotator_agnostic()"
+      "norm_label": "test_decide_llm_leg_is_annotator_agnostic()",
+      "id": "tests_test_golden_v7_agreement_test_decide_llm_leg_is_annotator_agnostic"
     },
     {
       "label": "test_decide_same_provision_other_chunk_promotes_with_pool()",
@@ -429,9 +579,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L158",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_same_provision_other_chunk_promotes_with_pool",
       "community": 51,
-      "norm_label": "test_decide_same_provision_other_chunk_promotes_with_pool()"
+      "norm_label": "test_decide_same_provision_other_chunk_promotes_with_pool()",
+      "id": "tests_test_golden_v7_agreement_test_decide_same_provision_other_chunk_promotes_with_pool"
     },
     {
       "label": "test_decide_different_provision_with_pool_still_queues()",
@@ -439,9 +589,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L179",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_different_provision_with_pool_still_queues",
       "community": 51,
-      "norm_label": "test_decide_different_provision_with_pool_still_queues()"
+      "norm_label": "test_decide_different_provision_with_pool_still_queues()",
+      "id": "tests_test_golden_v7_agreement_test_decide_different_provision_with_pool_still_queues"
     },
     {
       "label": "test_decide_superset_confirms_without_pool()",
@@ -449,9 +599,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L191",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_superset_confirms_without_pool",
       "community": 51,
-      "norm_label": "test_decide_superset_confirms_without_pool()"
+      "norm_label": "test_decide_superset_confirms_without_pool()",
+      "id": "tests_test_golden_v7_agreement_test_decide_superset_confirms_without_pool"
     },
     {
       "label": "test_decide_abstain_dispute_via_literal_queues()",
@@ -459,9 +609,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L199",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_abstain_dispute_via_literal_queues",
       "community": 51,
-      "norm_label": "test_decide_abstain_dispute_via_literal_queues()"
+      "norm_label": "test_decide_abstain_dispute_via_literal_queues()",
+      "id": "tests_test_golden_v7_agreement_test_decide_abstain_dispute_via_literal_queues"
     },
     {
       "label": "test_decide_never_flips_answerable_row_to_empty()",
@@ -469,9 +619,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L216",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_never_flips_answerable_row_to_empty",
       "community": 51,
-      "norm_label": "test_decide_never_flips_answerable_row_to_empty()"
+      "norm_label": "test_decide_never_flips_answerable_row_to_empty()",
+      "id": "tests_test_golden_v7_agreement_test_decide_never_flips_answerable_row_to_empty"
     },
     {
       "label": "test_decide_two_llm_annotators_fails_loud()",
@@ -479,9 +629,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L227",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_decide_two_llm_annotators_fails_loud",
       "community": 51,
-      "norm_label": "test_decide_two_llm_annotators_fails_loud()"
+      "norm_label": "test_decide_two_llm_annotators_fails_loud()",
+      "id": "tests_test_golden_v7_agreement_test_decide_two_llm_annotators_fails_loud"
     },
     {
       "label": "test_apply_promote_sets_adjudicated_only()",
@@ -489,9 +639,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L244",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_apply_promote_sets_adjudicated_only",
       "community": 51,
-      "norm_label": "test_apply_promote_sets_adjudicated_only()"
+      "norm_label": "test_apply_promote_sets_adjudicated_only()",
+      "id": "tests_test_golden_v7_agreement_test_apply_promote_sets_adjudicated_only"
     },
     {
       "label": "test_apply_flip_promote_rebuilds_spans_and_label_source()",
@@ -499,9 +649,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L253",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_apply_flip_promote_rebuilds_spans_and_label_source",
       "community": 51,
-      "norm_label": "test_apply_flip_promote_rebuilds_spans_and_label_source()"
+      "norm_label": "test_apply_flip_promote_rebuilds_spans_and_label_source()",
+      "id": "tests_test_golden_v7_agreement_test_apply_flip_promote_rebuilds_spans_and_label_source"
     },
     {
       "label": "test_apply_queue_decision_leaves_row_untouched()",
@@ -509,9 +659,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L263",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_apply_queue_decision_leaves_row_untouched",
       "community": 51,
-      "norm_label": "test_apply_queue_decision_leaves_row_untouched()"
+      "norm_label": "test_apply_queue_decision_leaves_row_untouched()",
+      "id": "tests_test_golden_v7_agreement_test_apply_queue_decision_leaves_row_untouched"
     },
     {
       "label": "test_apply_row_without_a_decision_is_never_touched()",
@@ -519,9 +669,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L271",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_apply_row_without_a_decision_is_never_touched",
       "community": 51,
-      "norm_label": "test_apply_row_without_a_decision_is_never_touched()"
+      "norm_label": "test_apply_row_without_a_decision_is_never_touched()",
+      "id": "tests_test_golden_v7_agreement_test_apply_row_without_a_decision_is_never_touched"
     },
     {
       "label": "test_apply_does_not_mutate_input_rows()",
@@ -529,9 +679,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L280",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_apply_does_not_mutate_input_rows",
       "community": 51,
-      "norm_label": "test_apply_does_not_mutate_input_rows()"
+      "norm_label": "test_apply_does_not_mutate_input_rows()",
+      "id": "tests_test_golden_v7_agreement_test_apply_does_not_mutate_input_rows"
     },
     {
       "label": "test_resolve_governing_spans_uses_first_60_body_chars()",
@@ -539,9 +689,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L291",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_resolve_governing_spans_uses_first_60_body_chars",
       "community": 51,
-      "norm_label": "test_resolve_governing_spans_uses_first_60_body_chars()"
+      "norm_label": "test_resolve_governing_spans_uses_first_60_body_chars()",
+      "id": "tests_test_golden_v7_agreement_test_resolve_governing_spans_uses_first_60_body_chars"
     },
     {
       "label": "test_resolve_governing_spans_short_body_uses_whole_body()",
@@ -549,9 +699,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L300",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_resolve_governing_spans_short_body_uses_whole_body",
       "community": 51,
-      "norm_label": "test_resolve_governing_spans_short_body_uses_whole_body()"
+      "norm_label": "test_resolve_governing_spans_short_body_uses_whole_body()",
+      "id": "tests_test_golden_v7_agreement_test_resolve_governing_spans_short_body_uses_whole_body"
     },
     {
       "label": "test_resolve_governing_spans_raises_on_chunk_not_in_pool()",
@@ -559,9 +709,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L308",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_resolve_governing_spans_raises_on_chunk_not_in_pool",
       "community": 51,
-      "norm_label": "test_resolve_governing_spans_raises_on_chunk_not_in_pool()"
+      "norm_label": "test_resolve_governing_spans_raises_on_chunk_not_in_pool()",
+      "id": "tests_test_golden_v7_agreement_test_resolve_governing_spans_raises_on_chunk_not_in_pool"
     },
     {
       "label": "test_resolve_governing_spans_multiple_ids_dedupes_and_preserves_order()",
@@ -569,9 +719,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L319",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_test_resolve_governing_spans_multiple_ids_dedupes_and_preserves_order",
       "community": 51,
-      "norm_label": "test_resolve_governing_spans_multiple_ids_dedupes_and_preserves_order()"
+      "norm_label": "test_resolve_governing_spans_multiple_ids_dedupes_and_preserves_order()",
+      "id": "tests_test_golden_v7_agreement_test_resolve_governing_spans_multiple_ids_dedupes_and_preserves_order"
     },
     {
       "label": "Offline tests for golden-v7 agreement/promotion (spec 2026-07-23 sec 7): Cohen's",
@@ -579,9 +729,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_rationale_1",
       "community": 51,
-      "norm_label": "offline tests for golden-v7 agreement/promotion (spec 2026-07-23 sec 7): cohen's"
+      "norm_label": "offline tests for golden-v7 agreement/promotion (spec 2026-07-23 sec 7): cohen's",
+      "id": "tests_test_golden_v7_agreement_rationale_1"
     },
     {
       "label": "Abstain rows have no explicit claude vote at all (Task 8 never judged     them)",
@@ -589,9 +739,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L110",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_rationale_110",
       "community": 51,
-      "norm_label": "abstain rows have no explicit claude vote at all (task 8 never judged     them)"
+      "norm_label": "abstain rows have no explicit claude vote at all (task 8 never judged     them)",
+      "id": "tests_test_golden_v7_agreement_rationale_110"
     },
     {
       "label": "Both externals independently think something DOES govern (disputing     the auth",
@@ -599,9 +749,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L125",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_rationale_125",
       "community": 51,
-      "norm_label": "both externals independently think something does govern (disputing     the auth"
+      "norm_label": "both externals independently think something does govern (disputing     the auth",
+      "id": "tests_test_golden_v7_agreement_rationale_125"
     },
     {
       "label": "The LLM leg is whichever single non-claude/non-human annotator voted -     \"qwen",
@@ -609,9 +759,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L144",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_rationale_144",
       "community": 51,
-      "norm_label": "the llm leg is whichever single non-claude/non-human annotator voted -     \"qwen"
+      "norm_label": "the llm leg is whichever single non-claude/non-human annotator voted -     \"qwen",
+      "id": "tests_test_golden_v7_agreement_rationale_144"
     },
     {
       "label": "Amendment 2026-07-26 (user-approved): the promotion unit is the     PROVISION, n",
@@ -619,9 +769,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L159",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_rationale_159",
       "community": 51,
-      "norm_label": "amendment 2026-07-26 (user-approved): the promotion unit is the     provision, n"
+      "norm_label": "amendment 2026-07-26 (user-approved): the promotion unit is the     provision, n",
+      "id": "tests_test_golden_v7_agreement_rationale_159"
     },
     {
       "label": "External marked claude's chunk governing plus extras: claude's label     is conf",
@@ -629,9 +779,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L192",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_rationale_192",
       "community": 51,
-      "norm_label": "external marked claude's chunk governing plus extras: claude's label     is conf"
+      "norm_label": "external marked claude's chunk governing plus extras: claude's label     is conf",
+      "id": "tests_test_golden_v7_agreement_rationale_192"
     },
     {
       "label": "The abstain protocol can never emit non-empty governing (no letters     are offe",
@@ -639,9 +789,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L200",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_rationale_200",
       "community": 51,
-      "norm_label": "the abstain protocol can never emit non-empty governing (no letters     are offe"
+      "norm_label": "the abstain protocol can never emit non-empty governing (no letters     are offe",
+      "id": "tests_test_golden_v7_agreement_rationale_200"
     },
     {
       "label": "Two externals both replying NONE on an answerable row must queue,     not flip:",
@@ -649,9 +799,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L217",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_rationale_217",
       "community": 51,
-      "norm_label": "two externals both replying none on an answerable row must queue,     not flip:"
+      "norm_label": "two externals both replying none on an answerable row must queue,     not flip:",
+      "id": "tests_test_golden_v7_agreement_rationale_217"
     },
     {
       "label": "One external-LLM leg at a time: two would make \"the LLM vote\"     ambiguous, and",
@@ -659,9 +809,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L228",
       "_origin": "ast",
-      "id": "tests_test_golden_v7_agreement_rationale_228",
       "community": 51,
-      "norm_label": "one external-llm leg at a time: two would make \"the llm vote\"     ambiguous, and"
+      "norm_label": "one external-llm leg at a time: two would make \"the llm vote\"     ambiguous, and",
+      "id": "tests_test_golden_v7_agreement_rationale_228"
     },
     {
       "label": "gemini_adjudicate.py",
@@ -964,154 +1114,14 @@
       "id": "scripts_golden_v7_gemini_adjudicate_rationale_339"
     },
     {
-      "label": "local_adjudicate.py",
-      "file_type": "code",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 89,
-      "norm_label": "local_adjudicate.py",
-      "id": "scripts_golden_v7_local_adjudicate"
-    },
-    {
-      "label": "_current_model()",
-      "file_type": "code",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L72",
-      "_origin": "ast",
-      "community": 89,
-      "norm_label": "_current_model()",
-      "id": "scripts_golden_v7_local_adjudicate_current_model"
-    },
-    {
-      "label": "_strip_thinking()",
-      "file_type": "code",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L76",
-      "_origin": "ast",
-      "community": 89,
-      "norm_label": "_strip_thinking()",
-      "id": "scripts_golden_v7_local_adjudicate_strip_thinking"
-    },
-    {
-      "label": "_extract_text()",
-      "file_type": "code",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L86",
-      "_origin": "ast",
-      "community": 98,
-      "norm_label": "_extract_text()",
-      "id": "scripts_golden_v7_local_adjudicate_extract_text"
-    },
-    {
-      "label": "_post_local()",
-      "file_type": "code",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L94",
-      "_origin": "ast",
-      "community": 89,
-      "norm_label": "_post_local()",
-      "id": "scripts_golden_v7_local_adjudicate_post_local"
-    },
-    {
-      "label": "_pilot_ids()",
-      "file_type": "code",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L135",
-      "_origin": "ast",
-      "community": 89,
-      "norm_label": "_pilot_ids()",
-      "id": "scripts_golden_v7_local_adjudicate_pilot_ids"
-    },
-    {
-      "label": "pilot()",
-      "file_type": "code",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L157",
-      "_origin": "ast",
-      "community": 89,
-      "norm_label": "pilot()",
-      "id": "scripts_golden_v7_local_adjudicate_pilot"
-    },
-    {
       "label": "Path",
       "file_type": "code",
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 89,
+      "community": 111,
       "norm_label": "path",
       "id": "scripts_golden_v7_local_adjudicate_py_path"
-    },
-    {
-      "label": "main()",
-      "file_type": "code",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L184",
-      "_origin": "ast",
-      "community": 89,
-      "norm_label": "main()",
-      "id": "scripts_golden_v7_local_adjudicate_main"
-    },
-    {
-      "label": "External annotation slice: local-model leg via oMLX - the PRIMARY leg since 2026",
-      "file_type": "rationale",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 89,
-      "norm_label": "external annotation slice: local-model leg via omlx - the primary leg since 2026",
-      "id": "scripts_golden_v7_local_adjudicate_rationale_1"
-    },
-    {
-      "label": "Qwen-family models may emit <think>...</think> reasoning as inline     text, dep",
-      "file_type": "rationale",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L77",
-      "_origin": "ast",
-      "community": 89,
-      "norm_label": "qwen-family models may emit <think>...</think> reasoning as inline     text, dep",
-      "id": "scripts_golden_v7_local_adjudicate_rationale_77"
-    },
-    {
-      "label": "Anthropic Messages response -> reply text: concatenates `text`     content block",
-      "file_type": "rationale",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L87",
-      "_origin": "ast",
-      "community": 98,
-      "norm_label": "anthropic messages response -> reply text: concatenates `text`     content block",
-      "id": "scripts_golden_v7_local_adjudicate_rationale_87"
-    },
-    {
-      "label": "One blind-protocol call to the oMLX server. Sends both auth header     styles (x",
-      "file_type": "rationale",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L95",
-      "_origin": "ast",
-      "community": 89,
-      "norm_label": "one blind-protocol call to the omlx server. sends both auth header     styles (x",
-      "id": "scripts_golden_v7_local_adjudicate_rationale_95"
-    },
-    {
-      "label": "First `n` non-abstain external ids, distinct strata first: five rows     from fi",
-      "file_type": "rationale",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L136",
-      "_origin": "ast",
-      "community": 89,
-      "norm_label": "first `n` non-abstain external ids, distinct strata first: five rows     from fi",
-      "id": "scripts_golden_v7_local_adjudicate_rationale_136"
-    },
-    {
-      "label": "Adjudicates `n` non-abstain rows and compares exact governing sets     against c",
-      "file_type": "rationale",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L160",
-      "_origin": "ast",
-      "community": 89,
-      "norm_label": "adjudicates `n` non-abstain rows and compares exact governing sets     against c",
-      "id": "scripts_golden_v7_local_adjudicate_rationale_160"
     },
     {
       "label": "test_golden_v7_local.py",
@@ -1904,16 +1914,6 @@
       "id": "tests_test_golden_v7_gate_rationale_139"
     },
     {
-      "label": "Path",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "community": 110,
-      "norm_label": "path",
-      "id": "path"
-    },
-    {
       "label": "test_golden_v7_gemini.py",
       "file_type": "code",
       "source_file": "tests/test_golden_v7_gemini.py",
@@ -2079,7 +2079,7 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L187",
       "_origin": "ast",
-      "community": 107,
+      "community": 3,
       "norm_label": "test_parse_reply_unknown_letter_fails_the_whole_reply_closed()",
       "id": "tests_test_golden_v7_gemini_test_parse_reply_unknown_letter_fails_the_whole_reply_closed"
     },
@@ -2129,7 +2129,7 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L270",
       "_origin": "ast",
-      "community": 3,
+      "community": 97,
       "norm_label": "test_adjudicate_marks_parse_error_for_garbled_abstain_protocol_reply()",
       "id": "tests_test_golden_v7_gemini_test_adjudicate_marks_parse_error_for_garbled_abstain_protocol_reply"
     },
@@ -2269,7 +2269,7 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L188",
       "_origin": "ast",
-      "community": 107,
+      "community": 3,
       "norm_label": "decision #3: a valid letter alongside an unrecognized one invalidates     the wh",
       "id": "tests_test_golden_v7_gemini_rationale_188"
     },
@@ -2289,7 +2289,7 @@
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L271",
       "_origin": "ast",
-      "community": 3,
+      "community": 97,
       "norm_label": "a garbled reply to an abstain-protocol (yes/no) prompt is distinct     from a we",
       "id": "tests_test_golden_v7_gemini_rationale_271"
     },
@@ -2319,7 +2319,7 @@
       "source_file": "app.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 21,
+      "community": 103,
       "norm_label": "app.py",
       "id": "app"
     },
@@ -2329,7 +2329,7 @@
       "source_file": "app.py",
       "source_location": "L39",
       "_origin": "ast",
-      "community": 21,
+      "community": 103,
       "norm_label": "warm_up_gpu()",
       "id": "app_warm_up_gpu"
     },
@@ -2339,7 +2339,7 @@
       "source_file": "app.py",
       "source_location": "L42",
       "_origin": "ast",
-      "community": 21,
+      "community": 103,
       "norm_label": "get_pipeline()",
       "id": "app_get_pipeline"
     },
@@ -2349,7 +2349,7 @@
       "source_file": "app.py",
       "source_location": "L58",
       "_origin": "ast",
-      "community": 21,
+      "community": 103,
       "norm_label": "_parse_as_of()",
       "id": "app_parse_as_of"
     },
@@ -2359,7 +2359,7 @@
       "source_file": "app.py",
       "source_location": "L69",
       "_origin": "ast",
-      "community": 21,
+      "community": 103,
       "norm_label": "run_query_spaces()",
       "id": "app_run_query_spaces"
     },
@@ -2369,7 +2369,7 @@
       "source_file": "app.py",
       "source_location": "L127",
       "_origin": "ast",
-      "community": 21,
+      "community": 103,
       "norm_label": "build_ui()",
       "id": "app_build_ui"
     },
@@ -2379,7 +2379,7 @@
       "source_file": "app.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 21,
+      "community": 103,
       "norm_label": "hugging face spaces entrypoint \u2014 sebi circular rag demo (cpu-only).  gradio sdk",
       "id": "app_rationale_1"
     },
@@ -2389,7 +2389,7 @@
       "source_file": "app.py",
       "source_location": "L43",
       "_origin": "ast",
-      "community": 21,
+      "community": 103,
       "norm_label": "cache one pipeline per mode; both share retriever/reranker/lineage.",
       "id": "app_rationale_43"
     },
@@ -2399,7 +2399,7 @@
       "source_file": "app.py",
       "source_location": "L59",
       "_origin": "ast",
-      "community": 21,
+      "community": 103,
       "norm_label": "normalise the optional as-of date field: empty -> none, else strict     iso yyyy",
       "id": "app_rationale_59"
     },
@@ -3185,7 +3185,7 @@
       "source_file": "scripts/build_golden.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 73,
       "norm_label": "build_golden.py",
       "id": "scripts_build_golden"
     },
@@ -3195,7 +3195,7 @@
       "source_file": "scripts/build_golden.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 73,
       "norm_label": "build eval/golden/golden_v4.jsonl for the larger corpus. each query is mapped to",
       "id": "scripts_build_golden_rationale_1"
     },
@@ -3235,7 +3235,7 @@
       "source_file": "scripts/build_index.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 31,
       "norm_label": "build_index.py",
       "id": "scripts_build_index"
     },
@@ -3245,7 +3245,7 @@
       "source_file": "scripts/build_index.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 31,
       "norm_label": "build the dense+sparse index once and persist it (run after corpus changes).",
       "id": "scripts_build_index_rationale_1"
     },
@@ -3345,7 +3345,7 @@
       "source_file": "scripts/calibrate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 31,
       "norm_label": "calibrate.py",
       "id": "scripts_calibrate"
     },
@@ -3365,7 +3365,7 @@
       "source_file": "scripts/calibrate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 31,
       "norm_label": "calibrate top_k and the abstention threshold against the citation-precision sign",
       "id": "scripts_calibrate_rationale_1"
     },
@@ -3545,7 +3545,7 @@
       "source_file": "scripts/discover_new.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 21,
+      "community": 104,
       "norm_label": "discover_new.py",
       "id": "scripts_discover_new"
     },
@@ -3555,7 +3555,7 @@
       "source_file": "scripts/discover_new.py",
       "source_location": "L26",
       "_origin": "ast",
-      "community": 21,
+      "community": 104,
       "norm_label": "docid()",
       "id": "scripts_discover_new_docid"
     },
@@ -3565,7 +3565,7 @@
       "source_file": "scripts/discover_new.py",
       "source_location": "L31",
       "_origin": "ast",
-      "community": 21,
+      "community": 104,
       "norm_label": "title()",
       "id": "scripts_discover_new_title"
     },
@@ -3575,7 +3575,7 @@
       "source_file": "scripts/discover_new.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 21,
+      "community": 104,
       "norm_label": "emit one json line listing sebi circulars newer than previously seen. uses a sta",
       "id": "scripts_discover_new_rationale_1"
     },
@@ -3605,7 +3605,7 @@
       "source_file": "scripts/eval_gate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 73,
       "norm_label": "eval_gate.py",
       "id": "scripts_eval_gate"
     },
@@ -3615,7 +3615,7 @@
       "source_file": "scripts/eval_gate.py",
       "source_location": "L45",
       "_origin": "ast",
-      "community": 29,
+      "community": 73,
       "norm_label": "contexts_for()",
       "id": "scripts_eval_gate_contexts_for"
     },
@@ -3625,7 +3625,7 @@
       "source_file": "scripts/eval_gate.py",
       "source_location": "L60",
       "_origin": "ast",
-      "community": 29,
+      "community": 73,
       "norm_label": "auroc()",
       "id": "scripts_eval_gate_auroc"
     },
@@ -3635,7 +3635,7 @@
       "source_file": "scripts/eval_gate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 73,
       "norm_label": "adr-002 follow-up: compare the production subject-sim gate against the section-a",
       "id": "scripts_eval_gate_rationale_1"
     },
@@ -5391,7 +5391,7 @@
       "source_file": "scripts/select_targeted_headers.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 31,
+      "community": 17,
       "norm_label": "select_targeted_headers.py",
       "id": "scripts_select_targeted_headers"
     },
@@ -5411,7 +5411,7 @@
       "source_file": "scripts/select_targeted_headers.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 31,
+      "community": 17,
       "norm_label": "select + reuse iv9 headers for 3 failure-adjacent documents (iv10).  pulls the i",
       "id": "scripts_select_targeted_headers_rationale_1"
     },
@@ -5621,7 +5621,7 @@
       "source_file": "src/sebi_rag/api.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 26,
+      "community": 13,
       "norm_label": "api.py",
       "id": "src_sebi_rag_api"
     },
@@ -5631,7 +5631,7 @@
       "source_file": "src/sebi_rag/api.py",
       "source_location": "L37",
       "_origin": "ast",
-      "community": 26,
+      "community": 13,
       "norm_label": "queryrequest",
       "id": "src_sebi_rag_api_queryrequest"
     },
@@ -5641,7 +5641,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 26,
+      "community": 13,
       "norm_label": "basemodel",
       "id": "basemodel"
     },
@@ -5651,7 +5651,7 @@
       "source_file": "src/sebi_rag/api.py",
       "source_location": "L47",
       "_origin": "ast",
-      "community": 26,
+      "community": 13,
       "norm_label": "regulationsuccessor",
       "id": "src_sebi_rag_api_regulationsuccessor"
     },
@@ -5661,7 +5661,7 @@
       "source_file": "src/sebi_rag/api.py",
       "source_location": "L53",
       "_origin": "ast",
-      "community": 26,
+      "community": 13,
       "norm_label": "regulationref",
       "id": "src_sebi_rag_api_regulationref"
     },
@@ -5671,7 +5671,7 @@
       "source_file": "src/sebi_rag/api.py",
       "source_location": "L61",
       "_origin": "ast",
-      "community": 26,
+      "community": 13,
       "norm_label": "citationmeta",
       "id": "src_sebi_rag_api_citationmeta"
     },
@@ -5681,7 +5681,7 @@
       "source_file": "src/sebi_rag/api.py",
       "source_location": "L69",
       "_origin": "ast",
-      "community": 26,
+      "community": 13,
       "norm_label": "queryresponse",
       "id": "src_sebi_rag_api_queryresponse"
     },
@@ -5691,7 +5691,7 @@
       "source_file": "src/sebi_rag/api.py",
       "source_location": "L86",
       "_origin": "ast",
-      "community": 15,
+      "community": 13,
       "norm_label": "_compute_kwargs()",
       "id": "src_sebi_rag_api_compute_kwargs"
     },
@@ -5701,7 +5701,7 @@
       "source_file": "src/sebi_rag/api.py",
       "source_location": "L95",
       "_origin": "ast",
-      "community": 48,
+      "community": 26,
       "norm_label": "build_default_pipeline()",
       "id": "src_sebi_rag_api_build_default_pipeline"
     },
@@ -5711,7 +5711,7 @@
       "source_file": "src/sebi_rag/api.py",
       "source_location": "L155",
       "_origin": "ast",
-      "community": 26,
+      "community": 49,
       "norm_label": "_citation_meta()",
       "id": "src_sebi_rag_api_citation_meta"
     },
@@ -5741,7 +5741,7 @@
       "source_file": "src/sebi_rag/api.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 26,
+      "community": 13,
       "norm_label": "fastapi service over the sebi circular rag pipeline.  run (real stack; loads the",
       "id": "src_sebi_rag_api_rationale_1"
     },
@@ -5751,7 +5751,7 @@
       "source_file": "src/sebi_rag/api.py",
       "source_location": "L87",
       "_origin": "ast",
-      "community": 15,
+      "community": 13,
       "norm_label": "resolve device/fp16/batch for the torch embedder + reranker.",
       "id": "src_sebi_rag_api_rationale_87"
     },
@@ -6541,7 +6541,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 80,
+      "community": 29,
       "norm_label": "protocol",
       "id": "protocol"
     },
@@ -6781,7 +6781,7 @@
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L97",
       "_origin": "ast",
-      "community": 30,
+      "community": 88,
       "norm_label": "build_report()",
       "id": "src_sebi_rag_eval_asof_build_report"
     },
@@ -6811,7 +6811,7 @@
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L102",
       "_origin": "ast",
-      "community": 30,
+      "community": 88,
       "norm_label": "assemble the persisted as-of run artifact.      pipeline accuracy is the headlin",
       "id": "src_sebi_rag_eval_asof_rationale_102"
     },
@@ -6981,7 +6981,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 80,
+      "community": 29,
       "norm_label": "generate.py",
       "id": "src_sebi_rag_generate"
     },
@@ -6991,7 +6991,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L21",
       "_origin": "ast",
-      "community": 56,
+      "community": 109,
       "norm_label": "faithfulness()",
       "id": "src_sebi_rag_generate_faithfulness"
     },
@@ -7001,7 +7001,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L41",
       "_origin": "ast",
-      "community": 56,
+      "community": 29,
       "norm_label": "answer",
       "id": "src_sebi_rag_generate_answer"
     },
@@ -7011,7 +7011,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L55",
       "_origin": "ast",
-      "community": 80,
+      "community": 29,
       "norm_label": "generator",
       "id": "src_sebi_rag_generate_generator"
     },
@@ -7021,7 +7021,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L56",
       "_origin": "ast",
-      "community": 80,
+      "community": 101,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_generator_generate"
     },
@@ -7041,7 +7041,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L63",
       "_origin": "ast",
-      "community": 80,
+      "community": 101,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_extractivestubgenerator_generate"
     },
@@ -7051,7 +7051,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L76",
       "_origin": "ast",
-      "community": 80,
+      "community": 29,
       "norm_label": "judge",
       "id": "src_sebi_rag_generate_judge"
     },
@@ -7061,7 +7061,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L77",
       "_origin": "ast",
-      "community": 80,
+      "community": 101,
       "norm_label": ".grounded()",
       "id": "src_sebi_rag_generate_judge_grounded"
     },
@@ -7221,7 +7221,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L247",
       "_origin": "ast",
-      "community": 80,
+      "community": 101,
       "norm_label": "_grounded_prompt()",
       "id": "src_sebi_rag_generate_grounded_prompt"
     },
@@ -7231,7 +7231,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L265",
       "_origin": "ast",
-      "community": 26,
+      "community": 13,
       "norm_label": "mlxgenerator",
       "id": "src_sebi_rag_generate_mlxgenerator"
     },
@@ -7241,7 +7241,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L273",
       "_origin": "ast",
-      "community": 26,
+      "community": 13,
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_generate_mlxgenerator_init"
     },
@@ -7251,7 +7251,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L283",
       "_origin": "ast",
-      "community": 80,
+      "community": 101,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_mlxgenerator_generate"
     },
@@ -7261,7 +7261,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L301",
       "_origin": "ast",
-      "community": 26,
+      "community": 13,
       "norm_label": "ollamagenerator",
       "id": "src_sebi_rag_generate_ollamagenerator"
     },
@@ -7271,7 +7271,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L308",
       "_origin": "ast",
-      "community": 26,
+      "community": 13,
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_generate_ollamagenerator_init"
     },
@@ -7281,7 +7281,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L320",
       "_origin": "ast",
-      "community": 80,
+      "community": 101,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_ollamagenerator_generate"
     },
@@ -7301,7 +7301,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 80,
+      "community": 29,
       "norm_label": "generation with a hard abstention gate (d5).  if the top reranked score is below",
       "id": "src_sebi_rag_generate_rationale_1"
     },
@@ -7311,7 +7311,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 56,
+      "community": 109,
       "norm_label": "check that every circular id the answer cites (in square brackets) was     actua",
       "id": "src_sebi_rag_generate_rationale_22"
     },
@@ -7401,7 +7401,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L248",
       "_origin": "ast",
-      "community": 80,
+      "community": 101,
       "norm_label": "f4 (adr-001): retrieved text is explicitly delimited as quoted data and     the",
       "id": "src_sebi_rag_generate_rationale_248"
     },
@@ -7411,7 +7411,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L266",
       "_origin": "ast",
-      "community": 26,
+      "community": 13,
       "norm_label": "apple-silicon-native generation via mlx-lm (d6 preferred runtime).      loads a",
       "id": "src_sebi_rag_generate_rationale_266"
     },
@@ -7421,7 +7421,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L302",
       "_origin": "ast",
-      "community": 26,
+      "community": 13,
       "norm_label": "grounded generation via local ollama (d6 canonical runtime option).      determi",
       "id": "src_sebi_rag_generate_rationale_302"
     },
@@ -8001,7 +8001,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 73,
       "norm_label": "lineage.py",
       "id": "src_sebi_rag_lineage"
     },
@@ -8041,7 +8041,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L70",
       "_origin": "ast",
-      "community": 83,
+      "community": 76,
       "norm_label": "lineage",
       "id": "src_sebi_rag_lineage_lineage"
     },
@@ -8051,7 +8051,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L77",
       "_origin": "ast",
-      "community": 83,
+      "community": 76,
       "norm_label": ".status()",
       "id": "src_sebi_rag_lineage_lineage_status"
     },
@@ -8081,7 +8081,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L109",
       "_origin": "ast",
-      "community": 83,
+      "community": 76,
       "norm_label": ".explicit_superseded_by()",
       "id": "src_sebi_rag_lineage_lineage_explicit_superseded_by"
     },
@@ -8091,7 +8091,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L115",
       "_origin": "ast",
-      "community": 83,
+      "community": 76,
       "norm_label": ".save()",
       "id": "src_sebi_rag_lineage_lineage_save"
     },
@@ -8101,7 +8101,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 83,
+      "community": 76,
       "norm_label": "path",
       "id": "src_sebi_rag_lineage_py_path"
     },
@@ -8111,7 +8111,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L123",
       "_origin": "ast",
-      "community": 83,
+      "community": 76,
       "norm_label": ".load()",
       "id": "src_sebi_rag_lineage_lineage_load"
     },
@@ -8121,7 +8121,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L132",
       "_origin": "ast",
-      "community": 76,
+      "community": 73,
       "norm_label": "mc_topic()",
       "id": "src_sebi_rag_lineage_mc_topic"
     },
@@ -8151,7 +8151,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L206",
       "_origin": "ast",
-      "community": 29,
+      "community": 73,
       "norm_label": "demote_superseded()",
       "id": "src_sebi_rag_lineage_demote_superseded"
     },
@@ -8161,7 +8161,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L218",
       "_origin": "ast",
-      "community": 83,
+      "community": 73,
       "norm_label": "superseded_citations()",
       "id": "src_sebi_rag_lineage_superseded_citations"
     },
@@ -8181,7 +8181,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L241",
       "_origin": "ast",
-      "community": 83,
+      "community": 76,
       "norm_label": "annotate_corpus()",
       "id": "src_sebi_rag_lineage_annotate_corpus"
     },
@@ -8191,7 +8191,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 73,
       "norm_label": "p2 \u2014 cross-document supersession resolution.  classifies each circular's referen",
       "id": "src_sebi_rag_lineage_rationale_1"
     },
@@ -8241,7 +8241,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L133",
       "_origin": "ast",
-      "community": 76,
+      "community": 73,
       "norm_label": "normalised topic of a 'master circular for/on <topic>' title, else none.      us",
       "id": "src_sebi_rag_lineage_rationale_133"
     },
@@ -8251,7 +8251,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L207",
       "_origin": "ast",
-      "community": 29,
+      "community": 73,
       "norm_label": "down-weight reranked (chunk, score) pairs from superseded circulars and     re-s",
       "id": "src_sebi_rag_lineage_rationale_207"
     },
@@ -8261,7 +8261,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L219",
       "_origin": "ast",
-      "community": 83,
+      "community": 73,
       "norm_label": "map any cited circular that is superseded -> the circular(s) superseding it.",
       "id": "src_sebi_rag_lineage_rationale_219"
     },
@@ -8271,7 +8271,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L242",
       "_origin": "ast",
-      "community": 83,
+      "community": 76,
       "norm_label": "update each corpus record's supersession_status + superseded_by + supersedes",
       "id": "src_sebi_rag_lineage_rationale_242"
     },
@@ -8411,7 +8411,7 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 70,
+      "community": 49,
       "norm_label": "ragpipeline",
       "id": "src_sebi_rag_pipeline_ragpipeline"
     },
@@ -8431,7 +8431,7 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L44",
       "_origin": "ast",
-      "community": 56,
+      "community": 73,
       "norm_label": ".query()",
       "id": "src_sebi_rag_pipeline_ragpipeline_query"
     },
@@ -8891,7 +8891,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L15",
       "_origin": "ast",
-      "community": 80,
+      "community": 29,
       "norm_label": "reranker",
       "id": "src_sebi_rag_rerank_reranker"
     },
@@ -8901,7 +8901,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 80,
+      "community": 101,
       "norm_label": ".rerank()",
       "id": "src_sebi_rag_rerank_reranker_rerank"
     },
@@ -8911,7 +8911,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 70,
+      "community": 65,
       "norm_label": "lexicalreranker",
       "id": "src_sebi_rag_rerank_lexicalreranker"
     },
@@ -8921,7 +8921,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 80,
+      "community": 101,
       "norm_label": ".rerank()",
       "id": "src_sebi_rag_rerank_lexicalreranker_rerank"
     },
@@ -9001,7 +9001,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L131",
       "_origin": "ast",
-      "community": 80,
+      "community": 101,
       "norm_label": ".rerank()",
       "id": "src_sebi_rag_rerank_crossencoderreranker_rerank"
     },
@@ -9021,7 +9021,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 70,
+      "community": 65,
       "norm_label": "deterministic query-coverage reranker (test/fallback).      score = fraction of",
       "id": "src_sebi_rag_rerank_rationale_23"
     },
@@ -9121,7 +9121,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L47",
       "_origin": "ast",
-      "community": 48,
+      "community": 102,
       "norm_label": ".search()",
       "id": "src_sebi_rag_retrieve_denseindex_search"
     },
@@ -9131,7 +9131,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L54",
       "_origin": "ast",
-      "community": 48,
+      "community": 102,
       "norm_label": "sparseindex",
       "id": "src_sebi_rag_retrieve_sparseindex"
     },
@@ -9141,7 +9141,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L57",
       "_origin": "ast",
-      "community": 48,
+      "community": 102,
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_retrieve_sparseindex_init"
     },
@@ -9151,7 +9151,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L61",
       "_origin": "ast",
-      "community": 48,
+      "community": 102,
       "norm_label": ".build()",
       "id": "src_sebi_rag_retrieve_sparseindex_build"
     },
@@ -9161,7 +9161,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L66",
       "_origin": "ast",
-      "community": 48,
+      "community": 102,
       "norm_label": ".search()",
       "id": "src_sebi_rag_retrieve_sparseindex_search"
     },
@@ -9171,7 +9171,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L73",
       "_origin": "ast",
-      "community": 48,
+      "community": 102,
       "norm_label": "rrf_fuse()",
       "id": "src_sebi_rag_retrieve_rrf_fuse"
     },
@@ -9181,7 +9181,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L88",
       "_origin": "ast",
-      "community": 48,
+      "community": 13,
       "norm_label": "hybridretriever",
       "id": "src_sebi_rag_retrieve_hybridretriever"
     },
@@ -9191,7 +9191,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L96",
       "_origin": "ast",
-      "community": 48,
+      "community": 107,
       "norm_label": ".build()",
       "id": "src_sebi_rag_retrieve_hybridretriever_build"
     },
@@ -9211,7 +9211,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 48,
+      "community": 26,
       "norm_label": "path",
       "id": "src_sebi_rag_retrieve_py_path"
     },
@@ -9221,7 +9221,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L167",
       "_origin": "ast",
-      "community": 48,
+      "community": 102,
       "norm_label": ".retrieve()",
       "id": "src_sebi_rag_retrieve_hybridretriever_retrieve"
     },
@@ -9231,7 +9231,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L197",
       "_origin": "ast",
-      "community": 48,
+      "community": 26,
       "norm_label": ".save()",
       "id": "src_sebi_rag_retrieve_hybridretriever_save"
     },
@@ -9241,7 +9241,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L229",
       "_origin": "ast",
-      "community": 48,
+      "community": 26,
       "norm_label": ".load()",
       "id": "src_sebi_rag_retrieve_hybridretriever_load"
     },
@@ -9251,7 +9251,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L244",
       "_origin": "ast",
-      "community": 48,
+      "community": 26,
       "norm_label": ".index_exists()",
       "id": "src_sebi_rag_retrieve_hybridretriever_index_exists"
     },
@@ -9291,7 +9291,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L55",
       "_origin": "ast",
-      "community": 48,
+      "community": 102,
       "norm_label": "bm25 lexical index (bm25s).",
       "id": "src_sebi_rag_retrieve_rationale_55"
     },
@@ -9301,7 +9301,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L78",
       "_origin": "ast",
-      "community": 48,
+      "community": 102,
       "norm_label": "reciprocal rank fusion. rank-only \u2014 sidesteps score-scale mismatch.",
       "id": "src_sebi_rag_retrieve_rationale_78"
     },
@@ -9341,7 +9341,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L33",
       "_origin": "ast",
-      "community": 80,
+      "community": 101,
       "norm_label": "chunk",
       "id": "src_sebi_rag_segment_chunk"
     },
@@ -9351,7 +9351,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L41",
       "_origin": "ast",
-      "community": 47,
+      "community": 110,
       "norm_label": "_paragraphs()",
       "id": "src_sebi_rag_segment_paragraphs"
     },
@@ -9361,7 +9361,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L78",
       "_origin": "ast",
-      "community": 47,
+      "community": 70,
       "norm_label": "hierarchical_chunk()",
       "id": "src_sebi_rag_segment_hierarchical_chunk"
     },
@@ -9381,7 +9381,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L42",
       "_origin": "ast",
-      "community": 47,
+      "community": 110,
       "norm_label": "split into units each <= max_chars.      pdf-extracted text often lacks blank-li",
       "id": "src_sebi_rag_segment_rationale_42"
     },
@@ -9391,7 +9391,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L84",
       "_origin": "ast",
-      "community": 47,
+      "community": 70,
       "norm_label": "document -> section -> paragraph chunks with stable ids.      a \"section\" is det",
       "id": "src_sebi_rag_segment_rationale_84"
     },
@@ -9401,7 +9401,7 @@
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 21,
+      "community": 104,
       "norm_label": "settings.py",
       "id": "src_sebi_rag_settings"
     },
@@ -9411,7 +9411,7 @@
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L20",
       "_origin": "ast",
-      "community": 21,
+      "community": 30,
       "norm_label": "_get()",
       "id": "src_sebi_rag_settings_get"
     },
@@ -9421,7 +9421,7 @@
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L25",
       "_origin": "ast",
-      "community": 21,
+      "community": 30,
       "norm_label": "_as_bool()",
       "id": "src_sebi_rag_settings_as_bool"
     },
@@ -9441,7 +9441,7 @@
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L60",
       "_origin": "ast",
-      "community": 15,
+      "community": 13,
       "norm_label": "settings",
       "id": "src_sebi_rag_settings_settings"
     },
@@ -9451,7 +9451,7 @@
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L78",
       "_origin": "ast",
-      "community": 21,
+      "community": 30,
       "norm_label": ".load()",
       "id": "src_sebi_rag_settings_settings_load"
     },
@@ -9461,7 +9461,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 21,
+      "community": 30,
       "norm_label": "path",
       "id": "src_sebi_rag_settings_py_path"
     },
@@ -9471,7 +9471,7 @@
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L105",
       "_origin": "ast",
-      "community": 21,
+      "community": 30,
       "norm_label": ".load_spaces()",
       "id": "src_sebi_rag_settings_settings_load_spaces"
     },
@@ -9481,7 +9481,7 @@
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 21,
+      "community": 104,
       "norm_label": "central configuration: config.toml defaults, overridden by sebi_rag_* env vars.",
       "id": "src_sebi_rag_settings_rationale_1"
     },
@@ -9491,7 +9491,7 @@
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L21",
       "_origin": "ast",
-      "community": 21,
+      "community": 30,
       "norm_label": "resolve a setting: env var > config dict > default.",
       "id": "src_sebi_rag_settings_rationale_21"
     },
@@ -9501,7 +9501,7 @@
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L26",
       "_origin": "ast",
-      "community": 21,
+      "community": 30,
       "norm_label": "coerce a config/env value to bool. env vars arrive as strings; toml/default",
       "id": "src_sebi_rag_settings_rationale_26"
     },
@@ -9521,7 +9521,7 @@
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L106",
       "_origin": "ast",
-      "community": 21,
+      "community": 30,
       "norm_label": "settings.load() plus the [spaces] table as settings.spaces.*          load order",
       "id": "src_sebi_rag_settings_rationale_106"
     },
@@ -10151,7 +10151,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L19",
       "_origin": "ast",
-      "community": 70,
+      "community": 49,
       "norm_label": "_offline_pipeline()",
       "id": "tests_test_api_offline_pipeline"
     },
@@ -10171,7 +10171,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L44",
       "_origin": "ast",
-      "community": 70,
+      "community": 49,
       "norm_label": "_slowgenerator",
       "id": "tests_test_api_slowgenerator"
     },
@@ -10181,7 +10181,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L45",
       "_origin": "ast",
-      "community": 70,
+      "community": 49,
       "norm_label": ".generate()",
       "id": "tests_test_api_slowgenerator_generate"
     },
@@ -10191,7 +10191,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L50",
       "_origin": "ast",
-      "community": 70,
+      "community": 49,
       "norm_label": "_slow_pipeline()",
       "id": "tests_test_api_slow_pipeline"
     },
@@ -10301,7 +10301,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L146",
       "_origin": "ast",
-      "community": 70,
+      "community": 49,
       "norm_label": "_cannedgenerator",
       "id": "tests_test_api_cannedgenerator"
     },
@@ -10311,7 +10311,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L147",
       "_origin": "ast",
-      "community": 70,
+      "community": 49,
       "norm_label": ".generate()",
       "id": "tests_test_api_cannedgenerator_generate"
     },
@@ -10371,7 +10371,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L193",
       "_origin": "ast",
-      "community": 15,
+      "community": 13,
       "norm_label": "test_compute_kwargs_cpu_disables_fp16()",
       "id": "tests_test_api_test_compute_kwargs_cpu_disables_fp16"
     },
@@ -10381,7 +10381,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L201",
       "_origin": "ast",
-      "community": 15,
+      "community": 13,
       "norm_label": "test_compute_kwargs_mps_keeps_fp16()",
       "id": "tests_test_api_test_compute_kwargs_mps_keeps_fp16"
     },
@@ -10411,7 +10411,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L242",
       "_origin": "ast",
-      "community": 26,
+      "community": 49,
       "norm_label": "test_citation_meta_fills_regulatory_fields()",
       "id": "tests_test_api_test_citation_meta_fills_regulatory_fields"
     },
@@ -10421,7 +10421,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L252",
       "_origin": "ast",
-      "community": 26,
+      "community": 49,
       "norm_label": "test_citation_meta_defaults_when_index_none()",
       "id": "tests_test_api_test_citation_meta_defaults_when_index_none"
     },
@@ -10431,7 +10431,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L258",
       "_origin": "ast",
-      "community": 26,
+      "community": 49,
       "norm_label": "test_citation_meta_defaults_when_circular_absent_from_index()",
       "id": "tests_test_api_test_citation_meta_defaults_when_circular_absent_from_index"
     },
@@ -10661,7 +10661,7 @@
       "source_file": "tests/test_asof_persistence.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 30,
+      "community": 88,
       "norm_label": "test_asof_persistence.py",
       "id": "tests_test_asof_persistence"
     },
@@ -10671,7 +10671,7 @@
       "source_file": "tests/test_asof_persistence.py",
       "source_location": "L9",
       "_origin": "ast",
-      "community": 30,
+      "community": 88,
       "norm_label": "_results()",
       "id": "tests_test_asof_persistence_results"
     },
@@ -10681,7 +10681,7 @@
       "source_file": "tests/test_asof_persistence.py",
       "source_location": "L21",
       "_origin": "ast",
-      "community": 30,
+      "community": 88,
       "norm_label": "test_report_carries_per_mode_metrics_and_cases()",
       "id": "tests_test_asof_persistence_test_report_carries_per_mode_metrics_and_cases"
     },
@@ -10691,7 +10691,7 @@
       "source_file": "tests/test_asof_persistence.py",
       "source_location": "L33",
       "_origin": "ast",
-      "community": 30,
+      "community": 88,
       "norm_label": "test_pooled_overall_carries_no_interval()",
       "id": "tests_test_asof_persistence_test_pooled_overall_carries_no_interval"
     },
@@ -10701,7 +10701,7 @@
       "source_file": "tests/test_asof_persistence.py",
       "source_location": "L47",
       "_origin": "ast",
-      "community": 30,
+      "community": 88,
       "norm_label": "test_pipeline_metrics_are_not_polluted_by_selector_cases()",
       "id": "tests_test_asof_persistence_test_pipeline_metrics_are_not_polluted_by_selector_cases"
     },
@@ -10711,7 +10711,7 @@
       "source_file": "tests/test_asof_persistence.py",
       "source_location": "L59",
       "_origin": "ast",
-      "community": 30,
+      "community": 88,
       "norm_label": "test_report_is_json_serializable()",
       "id": "tests_test_asof_persistence_test_report_is_json_serializable"
     },
@@ -10721,7 +10721,7 @@
       "source_file": "tests/test_asof_persistence.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 30,
+      "community": 88,
       "norm_label": "shape of the persisted as-of run artifact.",
       "id": "tests_test_asof_persistence_rationale_1"
     },
@@ -10731,7 +10731,7 @@
       "source_file": "tests/test_asof_persistence.py",
       "source_location": "L34",
       "_origin": "ast",
-      "community": 30,
+      "community": 88,
       "norm_label": "pooling a unit regression with an end-to-end metric is not a valid     measureme",
       "id": "tests_test_asof_persistence_rationale_34"
     },
@@ -10741,7 +10741,7 @@
       "source_file": "tests/test_asof_persistence.py",
       "source_location": "L48",
       "_origin": "ast",
-      "community": 30,
+      "community": 88,
       "norm_label": "the headline number must be the 10 pipeline cases alone \u2014 the whole     point of",
       "id": "tests_test_asof_persistence_rationale_48"
     },
@@ -12011,7 +12011,7 @@
       "source_file": "tests/test_expand.py",
       "source_location": "L76",
       "_origin": "ast",
-      "community": 52,
+      "community": 107,
       "norm_label": "_chunk()",
       "id": "tests_test_expand_chunk"
     },
@@ -12021,7 +12021,7 @@
       "source_file": "tests/test_expand.py",
       "source_location": "L81",
       "_origin": "ast",
-      "community": 52,
+      "community": 102,
       "norm_label": "test_expanded_sparse_query_hits_statutory_chunk()",
       "id": "tests_test_expand_test_expanded_sparse_query_hits_statutory_chunk"
     },
@@ -12031,7 +12031,7 @@
       "source_file": "tests/test_expand.py",
       "source_location": "L92",
       "_origin": "ast",
-      "community": 52,
+      "community": 107,
       "norm_label": "test_retrieve_routes_expanded_query_to_sparse_leg()",
       "id": "tests_test_expand_test_retrieve_routes_expanded_query_to_sparse_leg"
     },
@@ -12041,7 +12041,7 @@
       "source_file": "tests/test_expand.py",
       "source_location": "L110",
       "_origin": "ast",
-      "community": 52,
+      "community": 107,
       "norm_label": "test_retrieve_dense_leg_keeps_raw_query()",
       "id": "tests_test_expand_test_retrieve_dense_leg_keeps_raw_query"
     },
@@ -12641,7 +12641,7 @@
       "source_file": "tests/test_faithfulness.py",
       "source_location": "L14",
       "_origin": "ast",
-      "community": 56,
+      "community": 109,
       "norm_label": "test_faithfulness_scoring()",
       "id": "tests_test_faithfulness_test_faithfulness_scoring"
     },
@@ -12991,7 +12991,7 @@
       "source_file": "tests/test_golden_v7_mine.py",
       "source_location": "L27",
       "_origin": "ast",
-      "community": 47,
+      "community": 70,
       "norm_label": "test_paraphrase_skips_preamble_and_short_chunks()",
       "id": "tests_test_golden_v7_mine_test_paraphrase_skips_preamble_and_short_chunks"
     },
@@ -13001,7 +13001,7 @@
       "source_file": "tests/test_golden_v7_mine.py",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 47,
+      "community": 70,
       "norm_label": "test_numeric_miner_requires_numeric_pattern()",
       "id": "tests_test_golden_v7_mine_test_numeric_miner_requires_numeric_pattern"
     },
@@ -13281,7 +13281,7 @@
       "source_file": "tests/test_golden_v7_pool.py",
       "source_location": "L42",
       "_origin": "ast",
-      "community": 65,
+      "community": 70,
       "norm_label": "_saturating_retriever()",
       "id": "tests_test_golden_v7_pool_saturating_retriever"
     },
@@ -13311,7 +13311,7 @@
       "source_file": "tests/test_golden_v7_pool.py",
       "source_location": "L43",
       "_origin": "ast",
-      "community": 65,
+      "community": 70,
       "norm_label": "one gold doc with `n` chunks that all contain the word \"broker\", so a     must_c",
       "id": "tests_test_golden_v7_pool_rationale_43"
     },
@@ -14261,7 +14261,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L81",
       "_origin": "ast",
-      "community": 83,
+      "community": 76,
       "norm_label": "test_demote_superseded_puts_in_force_on_top()",
       "id": "tests_test_lineage_test_demote_superseded_puts_in_force_on_top"
     },
@@ -14291,7 +14291,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L111",
       "_origin": "ast",
-      "community": 83,
+      "community": 76,
       "norm_label": "test_annotate_corpus_writes_new_metadata_fields()",
       "id": "tests_test_lineage_test_annotate_corpus_writes_new_metadata_fields"
     },
@@ -14341,7 +14341,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L172",
       "_origin": "ast",
-      "community": 83,
+      "community": 76,
       "norm_label": "test_governing_on_cycle_safe()",
       "id": "tests_test_lineage_test_governing_on_cycle_safe"
     },
@@ -14351,7 +14351,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L180",
       "_origin": "ast",
-      "community": 83,
+      "community": 76,
       "norm_label": "test_governing_on_parallel_branches_max_date_wins()",
       "id": "tests_test_lineage_test_governing_on_parallel_branches_max_date_wins"
     },
@@ -14401,7 +14401,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L239",
       "_origin": "ast",
-      "community": 83,
+      "community": 76,
       "norm_label": "test_lineage_save_load_roundtrips_edges()",
       "id": "tests_test_lineage_test_lineage_save_load_roundtrips_edges"
     },
@@ -14411,7 +14411,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L249",
       "_origin": "ast",
-      "community": 83,
+      "community": 76,
       "norm_label": "test_lineage_load_old_file_defaults_empty_edges()",
       "id": "tests_test_lineage_test_lineage_load_old_file_defaults_empty_edges"
     },
@@ -14421,7 +14421,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L257",
       "_origin": "ast",
-      "community": 83,
+      "community": 76,
       "norm_label": "test_annotate_corpus_adds_master_fields_and_consolidates_edges()",
       "id": "tests_test_lineage_test_annotate_corpus_adds_master_fields_and_consolidates_edges"
     },
@@ -14841,7 +14841,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 108,
       "norm_label": "test_persistence.py",
       "id": "tests_test_persistence"
     },
@@ -14851,7 +14851,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L9",
       "_origin": "ast",
-      "community": 29,
+      "community": 108,
       "norm_label": "_chunks()",
       "id": "tests_test_persistence_chunks"
     },
@@ -14861,7 +14861,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 29,
+      "community": 108,
       "norm_label": "test_index_save_load_roundtrip()",
       "id": "tests_test_persistence_test_index_save_load_roundtrip"
     },
@@ -14871,7 +14871,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 108,
       "norm_label": "index persistence round-trip (offline).",
       "id": "tests_test_persistence_rationale_1"
     },
@@ -14921,7 +14921,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L91",
       "_origin": "ast",
-      "community": 48,
+      "community": 102,
       "norm_label": "test_rrf_fusion_orders_by_reciprocal_rank()",
       "id": "tests_test_pipeline_test_rrf_fusion_orders_by_reciprocal_rank"
     },
@@ -15021,7 +15021,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L226",
       "_origin": "ast",
-      "community": 13,
+      "community": 70,
       "norm_label": "_fixedreranker",
       "id": "tests_test_pipeline_fixedreranker"
     },
@@ -15031,7 +15031,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L229",
       "_origin": "ast",
-      "community": 13,
+      "community": 70,
       "norm_label": ".__init__()",
       "id": "tests_test_pipeline_fixedreranker_init"
     },
@@ -15041,7 +15041,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L232",
       "_origin": "ast",
-      "community": 13,
+      "community": 70,
       "norm_label": ".rerank()",
       "id": "tests_test_pipeline_fixedreranker_rerank"
     },
@@ -15051,7 +15051,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L238",
       "_origin": "ast",
-      "community": 13,
+      "community": 70,
       "norm_label": "test_as_of_query_not_demoted_below_abstention_floor()",
       "id": "tests_test_pipeline_test_as_of_query_not_demoted_below_abstention_floor"
     },
@@ -15061,7 +15061,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L276",
       "_origin": "ast",
-      "community": 13,
+      "community": 70,
       "norm_label": "test_supersession_note_only_for_circulars_cited_in_answer_text()",
       "id": "tests_test_pipeline_test_supersession_note_only_for_circulars_cited_in_answer_text"
     },
@@ -15071,7 +15071,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L304",
       "_origin": "ast",
-      "community": 13,
+      "community": 70,
       "norm_label": "test_supersession_note_kept_when_answer_text_cites_superseded()",
       "id": "tests_test_pipeline_test_supersession_note_kept_when_answer_text_cites_superseded"
     },
@@ -15081,7 +15081,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L327",
       "_origin": "ast",
-      "community": 13,
+      "community": 70,
       "norm_label": "test_as_of_demotes_circular_already_superseded_on_that_date()",
       "id": "tests_test_pipeline_test_as_of_demotes_circular_already_superseded_on_that_date"
     },
@@ -15111,7 +15111,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L227",
       "_origin": "ast",
-      "community": 13,
+      "community": 70,
       "norm_label": "deterministic reranker: score by doc_id lookup (test-only).",
       "id": "tests_test_pipeline_rationale_227"
     },
@@ -15121,7 +15121,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L239",
       "_origin": "ast",
-      "community": 13,
+      "community": 70,
       "norm_label": "a circular that governed on the as-of date must keep its raw rerank     score. b",
       "id": "tests_test_pipeline_rationale_239"
     },
@@ -15131,7 +15131,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L277",
       "_origin": "ast",
-      "community": 13,
+      "community": 70,
       "norm_label": "citations = all top_k contexts, so a demoted superseded chunk deep in     the co",
       "id": "tests_test_pipeline_rationale_277"
     },
@@ -15141,7 +15141,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L328",
       "_origin": "ast",
-      "community": 13,
+      "community": 70,
       "norm_label": "giant-family regression (golden asof-p8): old is superseded by two     same-day",
       "id": "tests_test_pipeline_rationale_328"
     },
@@ -16931,7 +16931,7 @@
       "source_file": "tests/test_settings.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 21,
+      "community": 30,
       "norm_label": "test_settings.py",
       "id": "tests_test_settings"
     },
@@ -16941,7 +16941,7 @@
       "source_file": "tests/test_settings.py",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 21,
+      "community": 30,
       "norm_label": "_clear()",
       "id": "tests_test_settings_clear"
     },
@@ -16951,7 +16951,7 @@
       "source_file": "tests/test_settings.py",
       "source_location": "L17",
       "_origin": "ast",
-      "community": 21,
+      "community": 30,
       "norm_label": "test_defaults_when_no_file()",
       "id": "tests_test_settings_test_defaults_when_no_file"
     },
@@ -16961,7 +16961,7 @@
       "source_file": "tests/test_settings.py",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 21,
+      "community": 30,
       "norm_label": "test_env_overrides()",
       "id": "tests_test_settings_test_env_overrides"
     },
@@ -16971,7 +16971,7 @@
       "source_file": "tests/test_settings.py",
       "source_location": "L33",
       "_origin": "ast",
-      "community": 21,
+      "community": 30,
       "norm_label": "test_load_spaces_defaults_and_file()",
       "id": "tests_test_settings_test_load_spaces_defaults_and_file"
     },
@@ -16981,7 +16981,7 @@
       "source_file": "tests/test_settings.py",
       "source_location": "L54",
       "_origin": "ast",
-      "community": 21,
+      "community": 30,
       "norm_label": "test_toml_then_env_precedence()",
       "id": "tests_test_settings_test_toml_then_env_precedence"
     },
@@ -16991,7 +16991,7 @@
       "source_file": "tests/test_settings.py",
       "source_location": "L65",
       "_origin": "ast",
-      "community": 21,
+      "community": 30,
       "norm_label": "test_compute_defaults()",
       "id": "tests_test_settings_test_compute_defaults"
     },
@@ -17001,7 +17001,7 @@
       "source_file": "tests/test_settings.py",
       "source_location": "L75",
       "_origin": "ast",
-      "community": 21,
+      "community": 30,
       "norm_label": "test_compute_from_file()",
       "id": "tests_test_settings_test_compute_from_file"
     },
@@ -17011,7 +17011,7 @@
       "source_file": "tests/test_settings.py",
       "source_location": "L88",
       "_origin": "ast",
-      "community": 21,
+      "community": 30,
       "norm_label": "test_compute_env_overrides()",
       "id": "tests_test_settings_test_compute_env_overrides"
     },
@@ -17021,7 +17021,7 @@
       "source_file": "tests/test_settings.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 21,
+      "community": 30,
       "norm_label": "settings: defaults, config.toml, and env-override precedence.",
       "id": "tests_test_settings_rationale_1"
     },
@@ -17061,7 +17061,7 @@
       "source_file": "tests/test_spaces.py",
       "source_location": "L81",
       "_origin": "ast",
-      "community": 80,
+      "community": 21,
       "norm_label": "test_chunks_config_refuses_header_and_maps_fields()",
       "id": "tests_test_spaces_test_chunks_config_refuses_header_and_maps_fields"
     },
@@ -18138,14 +18138,342 @@
   ],
   "links": [
     {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate",
+      "target": "scripts_golden_v7_gemini_adjudicate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L72",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate",
+      "target": "scripts_golden_v7_local_adjudicate_current_model",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L86",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate",
+      "target": "scripts_golden_v7_local_adjudicate_extract_text",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L184",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate",
+      "target": "scripts_golden_v7_local_adjudicate_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L157",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate",
+      "target": "scripts_golden_v7_local_adjudicate_pilot",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L135",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate",
+      "target": "scripts_golden_v7_local_adjudicate_pilot_ids",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L94",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate",
+      "target": "scripts_golden_v7_local_adjudicate_post_local",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L76",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate",
+      "target": "scripts_golden_v7_local_adjudicate_strip_thinking",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate",
+      "target": "src_sebi_rag_eval_harness",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate_rationale_1",
+      "target": "scripts_golden_v7_local_adjudicate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_golden_v7_local.py",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tests_test_golden_v7_local",
+      "target": "scripts_golden_v7_local_adjudicate"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L215",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate_main",
+      "target": "scripts_golden_v7_local_adjudicate_current_model",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L167",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate_pilot",
+      "target": "scripts_golden_v7_local_adjudicate_current_model",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L119",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate_post_local",
+      "target": "scripts_golden_v7_local_adjudicate_current_model",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L126",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate_post_local",
+      "target": "scripts_golden_v7_local_adjudicate_strip_thinking",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L77",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate_rationale_77",
+      "target": "scripts_golden_v7_local_adjudicate_strip_thinking",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_golden_v7_local.py",
+      "source_location": "L95",
+      "weight": 1.0,
+      "source": "tests_test_golden_v7_local_test_strip_thinking_leaves_plain_replies_untouched",
+      "target": "scripts_golden_v7_local_adjudicate_strip_thinking"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_golden_v7_local.py",
+      "source_location": "L91",
+      "weight": 1.0,
+      "source": "tests_test_golden_v7_local_test_strip_thinking_removes_inline_think_tags",
+      "target": "scripts_golden_v7_local_adjudicate_strip_thinking"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L126",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate_post_local",
+      "target": "scripts_golden_v7_local_adjudicate_extract_text",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L87",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate_rationale_87",
+      "target": "scripts_golden_v7_local_adjudicate_extract_text",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_golden_v7_local.py",
+      "source_location": "L81",
+      "weight": 1.0,
+      "source": "tests_test_golden_v7_local_test_extract_text_empty_content_returns_empty_string",
+      "target": "scripts_golden_v7_local_adjudicate_extract_text"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_golden_v7_local.py",
+      "source_location": "L77",
+      "weight": 1.0,
+      "source": "tests_test_golden_v7_local_test_extract_text_joins_text_blocks_and_skips_thinking_blocks",
+      "target": "scripts_golden_v7_local_adjudicate_extract_text"
+    },
+    {
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L206",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate_main",
+      "target": "scripts_golden_v7_local_adjudicate_post_local",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L95",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate_rationale_95",
+      "target": "scripts_golden_v7_local_adjudicate_post_local",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L165",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate_pilot",
+      "target": "scripts_golden_v7_local_adjudicate_pilot_ids",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L136",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate_rationale_136",
+      "target": "scripts_golden_v7_local_adjudicate_pilot_ids",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L206",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate_main",
+      "target": "scripts_golden_v7_local_adjudicate_pilot",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L157",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate_pilot",
+      "target": "path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/local_adjudicate.py",
+      "source_location": "L160",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_local_adjudicate_rationale_160",
+      "target": "scripts_golden_v7_local_adjudicate_pilot",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_golden_v7_local.py",
+      "source_location": "L110",
+      "weight": 1.0,
+      "source": "tests_test_golden_v7_local_test_pilot_compares_against_claude_and_never_writes_votes",
+      "target": "scripts_golden_v7_local_adjudicate_pilot"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "tests/test_golden_v7_local.py",
+      "source_location": "L132",
+      "weight": 1.0,
+      "source": "tests_test_golden_v7_local_test_pilot_prefers_distinct_strata_first",
+      "target": "scripts_golden_v7_local_adjudicate_pilot"
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L194",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_apply",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_apply"
     },
     {
       "relation": "contains",
@@ -18153,9 +18481,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L222",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_body",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_body"
     },
     {
       "relation": "contains",
@@ -18163,9 +18491,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L310",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_claude_accuracy_ci",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_claude_accuracy_ci"
     },
     {
       "relation": "contains",
@@ -18173,9 +18501,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L101",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_cohen_kappa",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_cohen_kappa"
     },
     {
       "relation": "contains",
@@ -18183,9 +18511,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L60",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_confirms_claude",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_confirms_claude"
     },
     {
       "relation": "contains",
@@ -18193,9 +18521,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L129",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_decide",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_decide"
     },
     {
       "relation": "contains",
@@ -18203,9 +18531,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L34",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_label",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_label"
     },
     {
       "relation": "contains",
@@ -18213,9 +18541,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L261",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_literals_by_row",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_literals_by_row"
     },
     {
       "relation": "contains",
@@ -18223,9 +18551,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L45",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_llm_annotator",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_llm_annotator"
     },
     {
       "relation": "contains",
@@ -18233,9 +18561,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L373",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_main",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_main"
     },
     {
       "relation": "contains",
@@ -18243,9 +18571,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L332",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_render_report",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_render_report"
     },
     {
       "relation": "contains",
@@ -18253,9 +18581,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L227",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_resolve_governing_spans",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_resolve_governing_spans"
     },
     {
       "relation": "contains",
@@ -18263,9 +18591,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L273",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_stratum_kappas",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_stratum_kappas"
     },
     {
       "relation": "contains",
@@ -18273,9 +18601,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L254",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement_votes_by_row",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_votes_by_row"
     },
     {
       "relation": "imports_from",
@@ -18284,9 +18612,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement",
-      "target": "src_sebi_rag_benchmark",
-      "confidence_score": 1.0
+      "target": "src_sebi_rag_benchmark"
     },
     {
       "relation": "imports_from",
@@ -18295,9 +18623,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement",
-      "target": "src_sebi_rag_eval_harness",
-      "confidence_score": 1.0
+      "target": "src_sebi_rag_eval_harness"
     },
     {
       "relation": "imports_from",
@@ -18306,9 +18634,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L22",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement",
-      "target": "src_sebi_rag_stats",
-      "confidence_score": 1.0
+      "target": "src_sebi_rag_stats"
     },
     {
       "relation": "rationale_for",
@@ -18316,9 +18644,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_rationale_1",
-      "target": "scripts_golden_v7_agreement",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement"
     },
     {
       "relation": "imports_from",
@@ -18327,9 +18655,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "scripts_golden_v7_agreement",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement"
     },
     {
       "relation": "calls",
@@ -18338,9 +18666,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L322",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_claude_accuracy_ci",
-      "target": "scripts_golden_v7_agreement_label",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_label"
     },
     {
       "relation": "calls",
@@ -18349,9 +18677,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L115",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_cohen_kappa",
-      "target": "scripts_golden_v7_agreement_label",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_label"
     },
     {
       "relation": "calls",
@@ -18360,9 +18688,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L165",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_decide",
-      "target": "scripts_golden_v7_agreement_label",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_label"
     },
     {
       "relation": "calls",
@@ -18371,9 +18699,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L304",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_stratum_kappas",
-      "target": "scripts_golden_v7_agreement_label",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_label"
     },
     {
       "relation": "calls",
@@ -18382,9 +18710,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L161",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_decide",
-      "target": "scripts_golden_v7_agreement_llm_annotator",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_llm_annotator"
     },
     {
       "relation": "rationale_for",
@@ -18392,9 +18720,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L46",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_rationale_46",
-      "target": "scripts_golden_v7_agreement_llm_annotator",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_llm_annotator"
     },
     {
       "relation": "calls",
@@ -18403,9 +18731,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L278",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_stratum_kappas",
-      "target": "scripts_golden_v7_agreement_llm_annotator",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_llm_annotator"
     },
     {
       "relation": "calls",
@@ -18414,9 +18742,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L168",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_decide",
-      "target": "scripts_golden_v7_agreement_confirms_claude",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_confirms_claude"
     },
     {
       "relation": "rationale_for",
@@ -18424,9 +18752,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L63",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_rationale_63",
-      "target": "scripts_golden_v7_agreement_confirms_claude",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_confirms_claude"
     },
     {
       "relation": "rationale_for",
@@ -18434,9 +18762,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L102",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_rationale_102",
-      "target": "scripts_golden_v7_agreement_cohen_kappa",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_cohen_kappa"
     },
     {
       "relation": "calls",
@@ -18445,9 +18773,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L303",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_stratum_kappas",
-      "target": "scripts_golden_v7_agreement_cohen_kappa",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_cohen_kappa"
     },
     {
       "relation": "calls",
@@ -18500,9 +18828,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L393",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_main",
-      "target": "scripts_golden_v7_agreement_decide",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_decide"
     },
     {
       "relation": "rationale_for",
@@ -18510,9 +18838,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L132",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_rationale_132",
-      "target": "scripts_golden_v7_agreement_decide",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_decide"
     },
     {
       "relation": "calls",
@@ -18697,9 +19025,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L405",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_main",
-      "target": "scripts_golden_v7_agreement_apply",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_apply"
     },
     {
       "relation": "rationale_for",
@@ -18707,9 +19035,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L196",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_rationale_196",
-      "target": "scripts_golden_v7_agreement_apply",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_apply"
     },
     {
       "relation": "calls",
@@ -18773,9 +19101,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L249",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_resolve_governing_spans",
-      "target": "scripts_golden_v7_agreement_body",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_body"
     },
     {
       "relation": "calls",
@@ -18784,9 +19112,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L398",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_main",
-      "target": "scripts_golden_v7_agreement_resolve_governing_spans",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_resolve_governing_spans"
     },
     {
       "relation": "rationale_for",
@@ -18794,9 +19122,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L228",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_rationale_228",
-      "target": "scripts_golden_v7_agreement_resolve_governing_spans",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_resolve_governing_spans"
     },
     {
       "relation": "calls",
@@ -18849,9 +19177,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L378",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_main",
-      "target": "scripts_golden_v7_agreement_votes_by_row",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_votes_by_row"
     },
     {
       "relation": "calls",
@@ -18860,9 +19188,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L379",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_main",
-      "target": "scripts_golden_v7_agreement_literals_by_row",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_literals_by_row"
     },
     {
       "relation": "rationale_for",
@@ -18870,9 +19198,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L262",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_rationale_262",
-      "target": "scripts_golden_v7_agreement_literals_by_row",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_literals_by_row"
     },
     {
       "relation": "calls",
@@ -18881,9 +19209,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L412",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_main",
-      "target": "scripts_golden_v7_agreement_stratum_kappas",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_stratum_kappas"
     },
     {
       "relation": "rationale_for",
@@ -18891,9 +19219,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L274",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_rationale_274",
-      "target": "scripts_golden_v7_agreement_stratum_kappas",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_stratum_kappas"
     },
     {
       "relation": "calls",
@@ -18902,9 +19230,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L413",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_main",
-      "target": "scripts_golden_v7_agreement_claude_accuracy_ci",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_claude_accuracy_ci"
     },
     {
       "relation": "rationale_for",
@@ -18912,9 +19240,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L311",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_rationale_311",
-      "target": "scripts_golden_v7_agreement_claude_accuracy_ci",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_claude_accuracy_ci"
     },
     {
       "relation": "calls",
@@ -18923,9 +19251,9 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L415",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_golden_v7_agreement_main",
-      "target": "scripts_golden_v7_agreement_render_report",
-      "confidence_score": 1.0
+      "target": "scripts_golden_v7_agreement_render_report"
     },
     {
       "relation": "contains",
@@ -18933,9 +19261,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L31",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_pool",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_pool"
     },
     {
       "relation": "contains",
@@ -18943,9 +19271,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "contains",
@@ -18953,9 +19281,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L280",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_apply_does_not_mutate_input_rows",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_apply_does_not_mutate_input_rows"
     },
     {
       "relation": "contains",
@@ -18963,9 +19291,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L253",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_apply_flip_promote_rebuilds_spans_and_label_source",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_apply_flip_promote_rebuilds_spans_and_label_source"
     },
     {
       "relation": "contains",
@@ -18973,9 +19301,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L244",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_apply_promote_sets_adjudicated_only",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_apply_promote_sets_adjudicated_only"
     },
     {
       "relation": "contains",
@@ -18983,9 +19311,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L263",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_apply_queue_decision_leaves_row_untouched",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_apply_queue_decision_leaves_row_untouched"
     },
     {
       "relation": "contains",
@@ -18993,9 +19321,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L271",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_apply_row_without_a_decision_is_never_touched",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_apply_row_without_a_decision_is_never_touched"
     },
     {
       "relation": "contains",
@@ -19003,9 +19331,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L50",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_cohen_kappa_both_constant_and_identical_is_one",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_cohen_kappa_both_constant_and_identical_is_one"
     },
     {
       "relation": "contains",
@@ -19013,9 +19341,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L56",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_cohen_kappa_empty_input_is_one",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_cohen_kappa_empty_input_is_one"
     },
     {
       "relation": "contains",
@@ -19023,9 +19351,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L39",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_cohen_kappa_identical_lists_is_one",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_cohen_kappa_identical_lists_is_one"
     },
     {
       "relation": "contains",
@@ -19033,9 +19361,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L44",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_cohen_kappa_independent_looking_lists_is_low",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_cohen_kappa_independent_looking_lists_is_low"
     },
     {
       "relation": "contains",
@@ -19043,9 +19371,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L199",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_abstain_dispute_via_literal_queues",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_abstain_dispute_via_literal_queues"
     },
     {
       "relation": "contains",
@@ -19053,9 +19381,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L109",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_confirm_promotes",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_confirm_promotes"
     },
     {
       "relation": "contains",
@@ -19063,9 +19391,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L124",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_dispute_flips",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_dispute_flips"
     },
     {
       "relation": "contains",
@@ -19073,9 +19401,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L102",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_dated_id_queues_even_on_full_agreement",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_dated_id_queues_even_on_full_agreement"
     },
     {
       "relation": "contains",
@@ -19083,9 +19411,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L179",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_different_provision_with_pool_still_queues",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_different_provision_with_pool_still_queues"
     },
     {
       "relation": "contains",
@@ -19093,9 +19421,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L64",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_gemini_only_agrees_with_claude_promotes",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_gemini_only_agrees_with_claude_promotes"
     },
     {
       "relation": "contains",
@@ -19103,9 +19431,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L72",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_gemini_only_disagrees_with_claude_queues",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_gemini_only_disagrees_with_claude_queues"
     },
     {
       "relation": "contains",
@@ -19113,9 +19441,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L94",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_human_and_gemini_agree_on_alternative_flips",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_human_and_gemini_agree_on_alternative_flips"
     },
     {
       "relation": "contains",
@@ -19123,9 +19451,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L143",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_llm_leg_is_annotator_agnostic",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_llm_leg_is_annotator_agnostic"
     },
     {
       "relation": "contains",
@@ -19133,9 +19461,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L216",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_never_flips_answerable_row_to_empty",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_never_flips_answerable_row_to_empty"
     },
     {
       "relation": "contains",
@@ -19143,9 +19471,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L137",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_no_external_votes_queues",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_no_external_votes_queues"
     },
     {
       "relation": "contains",
@@ -19153,9 +19481,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L158",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_same_provision_other_chunk_promotes_with_pool",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_same_provision_other_chunk_promotes_with_pool"
     },
     {
       "relation": "contains",
@@ -19163,9 +19491,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L191",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_superset_confirms_without_pool",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_superset_confirms_without_pool"
     },
     {
       "relation": "contains",
@@ -19173,9 +19501,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L79",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_three_way_all_agree_promotes",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_three_way_all_agree_promotes"
     },
     {
       "relation": "contains",
@@ -19183,9 +19511,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L87",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_three_way_split_queues",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_three_way_split_queues"
     },
     {
       "relation": "contains",
@@ -19193,9 +19521,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L227",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_decide_two_llm_annotators_fails_loud",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_two_llm_annotators_fails_loud"
     },
     {
       "relation": "contains",
@@ -19203,9 +19531,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L319",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_resolve_governing_spans_multiple_ids_dedupes_and_preserves_order",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_resolve_governing_spans_multiple_ids_dedupes_and_preserves_order"
     },
     {
       "relation": "contains",
@@ -19213,9 +19541,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L308",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_resolve_governing_spans_raises_on_chunk_not_in_pool",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_resolve_governing_spans_raises_on_chunk_not_in_pool"
     },
     {
       "relation": "contains",
@@ -19223,9 +19551,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L300",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_resolve_governing_spans_short_body_uses_whole_body",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_resolve_governing_spans_short_body_uses_whole_body"
     },
     {
       "relation": "contains",
@@ -19233,9 +19561,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L291",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement",
-      "target": "tests_test_golden_v7_agreement_test_resolve_governing_spans_uses_first_60_body_chars",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_resolve_governing_spans_uses_first_60_body_chars"
     },
     {
       "relation": "rationale_for",
@@ -19243,9 +19571,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_rationale_1",
-      "target": "tests_test_golden_v7_agreement",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement"
     },
     {
       "relation": "calls",
@@ -19254,9 +19582,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L281",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_apply_does_not_mutate_input_rows",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "calls",
@@ -19265,9 +19593,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L254",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_apply_flip_promote_rebuilds_spans_and_label_source",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "calls",
@@ -19276,9 +19604,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L245",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_apply_promote_sets_adjudicated_only",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "calls",
@@ -19287,9 +19615,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L264",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_apply_queue_decision_leaves_row_untouched",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "calls",
@@ -19298,9 +19626,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L272",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_apply_row_without_a_decision_is_never_touched",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "calls",
@@ -19309,9 +19637,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L204",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_decide_abstain_dispute_via_literal_queues",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "calls",
@@ -19320,9 +19648,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L115",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_confirm_promotes",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "calls",
@@ -19331,9 +19659,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L128",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_dispute_flips",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "calls",
@@ -19342,9 +19670,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L103",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_decide_dated_id_queues_even_on_full_agreement",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "calls",
@@ -19353,9 +19681,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L180",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_decide_different_provision_with_pool_still_queues",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "calls",
@@ -19364,9 +19692,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L65",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_decide_gemini_only_agrees_with_claude_promotes",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "calls",
@@ -19375,9 +19703,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L73",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_decide_gemini_only_disagrees_with_claude_queues",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "calls",
@@ -19386,9 +19714,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L95",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_decide_human_and_gemini_agree_on_alternative_flips",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "calls",
@@ -19397,9 +19725,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L148",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_decide_llm_leg_is_annotator_agnostic",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "calls",
@@ -19408,9 +19736,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L221",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_decide_never_flips_answerable_row_to_empty",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "calls",
@@ -19419,9 +19747,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L138",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_decide_no_external_votes_queues",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "calls",
@@ -19430,9 +19758,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L168",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_decide_same_provision_other_chunk_promotes_with_pool",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "calls",
@@ -19441,9 +19769,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L194",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_decide_superset_confirms_without_pool",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "calls",
@@ -19452,9 +19780,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L80",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_decide_three_way_all_agree_promotes",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "calls",
@@ -19463,9 +19791,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L88",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_decide_three_way_split_queues",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "calls",
@@ -19474,9 +19802,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L231",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_decide_two_llm_annotators_fails_loud",
-      "target": "tests_test_golden_v7_agreement_row",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_row"
     },
     {
       "relation": "calls",
@@ -19485,9 +19813,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L182",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_decide_different_provision_with_pool_still_queues",
-      "target": "tests_test_golden_v7_agreement_pool",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_pool"
     },
     {
       "relation": "calls",
@@ -19496,9 +19824,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L170",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_decide_same_provision_other_chunk_promotes_with_pool",
-      "target": "tests_test_golden_v7_agreement_pool",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_pool"
     },
     {
       "relation": "calls",
@@ -19507,9 +19835,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L320",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_resolve_governing_spans_multiple_ids_dedupes_and_preserves_order",
-      "target": "tests_test_golden_v7_agreement_pool",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_pool"
     },
     {
       "relation": "calls",
@@ -19518,9 +19846,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L309",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_resolve_governing_spans_raises_on_chunk_not_in_pool",
-      "target": "tests_test_golden_v7_agreement_pool",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_pool"
     },
     {
       "relation": "calls",
@@ -19529,9 +19857,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L301",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_resolve_governing_spans_short_body_uses_whole_body",
-      "target": "tests_test_golden_v7_agreement_pool",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_pool"
     },
     {
       "relation": "calls",
@@ -19540,9 +19868,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L293",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_test_resolve_governing_spans_uses_first_60_body_chars",
-      "target": "tests_test_golden_v7_agreement_pool",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_pool"
     },
     {
       "relation": "rationale_for",
@@ -19550,9 +19878,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L110",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_rationale_110",
-      "target": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_confirm_promotes",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_confirm_promotes"
     },
     {
       "relation": "rationale_for",
@@ -19560,9 +19888,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L125",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_rationale_125",
-      "target": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_dispute_flips",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_abstain_row_no_claude_vote_externals_dispute_flips"
     },
     {
       "relation": "rationale_for",
@@ -19570,9 +19898,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L144",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_rationale_144",
-      "target": "tests_test_golden_v7_agreement_test_decide_llm_leg_is_annotator_agnostic",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_llm_leg_is_annotator_agnostic"
     },
     {
       "relation": "rationale_for",
@@ -19580,9 +19908,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L159",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_rationale_159",
-      "target": "tests_test_golden_v7_agreement_test_decide_same_provision_other_chunk_promotes_with_pool",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_same_provision_other_chunk_promotes_with_pool"
     },
     {
       "relation": "rationale_for",
@@ -19590,9 +19918,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L192",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_rationale_192",
-      "target": "tests_test_golden_v7_agreement_test_decide_superset_confirms_without_pool",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_superset_confirms_without_pool"
     },
     {
       "relation": "rationale_for",
@@ -19600,9 +19928,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L200",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_rationale_200",
-      "target": "tests_test_golden_v7_agreement_test_decide_abstain_dispute_via_literal_queues",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_abstain_dispute_via_literal_queues"
     },
     {
       "relation": "rationale_for",
@@ -19610,9 +19938,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L217",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_rationale_217",
-      "target": "tests_test_golden_v7_agreement_test_decide_never_flips_answerable_row_to_empty",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_never_flips_answerable_row_to_empty"
     },
     {
       "relation": "rationale_for",
@@ -19620,9 +19948,9 @@
       "source_file": "tests/test_golden_v7_agreement.py",
       "source_location": "L228",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_agreement_rationale_228",
-      "target": "tests_test_golden_v7_agreement_test_decide_two_llm_annotators_fails_loud",
-      "confidence_score": 1.0
+      "target": "tests_test_golden_v7_agreement_test_decide_two_llm_annotators_fails_loud"
     },
     {
       "relation": "imports",
@@ -19800,17 +20128,6 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L51",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate",
-      "target": "scripts_golden_v7_gemini_adjudicate"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L11",
       "weight": 1.0,
@@ -19881,17 +20198,6 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "scripts_golden_v7_gemini_adjudicate_rationale_74",
-      "target": "scripts_golden_v7_gemini_adjudicate_shuffled_candidates"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L173",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate_pilot",
       "target": "scripts_golden_v7_gemini_adjudicate_shuffled_candidates"
     },
     {
@@ -20102,28 +20408,6 @@
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L218",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate_main",
-      "target": "scripts_golden_v7_gemini_adjudicate_adjudicate"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L166",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate_pilot",
-      "target": "scripts_golden_v7_gemini_adjudicate_adjudicate"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L295",
       "weight": 1.0,
@@ -20255,17 +20539,6 @@
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L122",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate_post_local",
-      "target": "scripts_golden_v7_gemini_adjudicate_should_retry"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L72",
       "weight": 1.0,
@@ -20383,17 +20656,6 @@
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L222",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate_main",
-      "target": "scripts_golden_v7_gemini_adjudicate_parse_error_ids"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L340",
       "weight": 1.0,
@@ -20448,17 +20710,6 @@
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L233",
-      "weight": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate_main",
-      "target": "scripts_golden_v7_gemini_adjudicate_replace_annotator_votes"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
       "source_file": "tests/test_golden_v7_gemini.py",
       "source_location": "L367",
       "weight": 1.0,
@@ -20475,323 +20726,6 @@
       "weight": 1.0,
       "source": "tests_test_golden_v7_gemini_test_replace_annotator_votes_on_empty_existing_just_returns_fresh",
       "target": "scripts_golden_v7_gemini_adjudicate_replace_annotator_votes"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L72",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate",
-      "target": "scripts_golden_v7_local_adjudicate_current_model"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L86",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate",
-      "target": "scripts_golden_v7_local_adjudicate_extract_text"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L184",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate",
-      "target": "scripts_golden_v7_local_adjudicate_main"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L157",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate",
-      "target": "scripts_golden_v7_local_adjudicate_pilot"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L135",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate",
-      "target": "scripts_golden_v7_local_adjudicate_pilot_ids"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L94",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate",
-      "target": "scripts_golden_v7_local_adjudicate_post_local"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L76",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate",
-      "target": "scripts_golden_v7_local_adjudicate_strip_thinking"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L49",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate",
-      "target": "src_sebi_rag_eval_harness"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate_rationale_1",
-      "target": "scripts_golden_v7_local_adjudicate"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_golden_v7_local.py",
-      "source_location": "L15",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "tests_test_golden_v7_local",
-      "target": "scripts_golden_v7_local_adjudicate"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L215",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate_main",
-      "target": "scripts_golden_v7_local_adjudicate_current_model"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L167",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate_pilot",
-      "target": "scripts_golden_v7_local_adjudicate_current_model"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L119",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate_post_local",
-      "target": "scripts_golden_v7_local_adjudicate_current_model"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L126",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate_post_local",
-      "target": "scripts_golden_v7_local_adjudicate_strip_thinking"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L77",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate_rationale_77",
-      "target": "scripts_golden_v7_local_adjudicate_strip_thinking"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_local.py",
-      "source_location": "L95",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_local_test_strip_thinking_leaves_plain_replies_untouched",
-      "target": "scripts_golden_v7_local_adjudicate_strip_thinking"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_local.py",
-      "source_location": "L91",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_local_test_strip_thinking_removes_inline_think_tags",
-      "target": "scripts_golden_v7_local_adjudicate_strip_thinking"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L126",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate_post_local",
-      "target": "scripts_golden_v7_local_adjudicate_extract_text"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L87",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate_rationale_87",
-      "target": "scripts_golden_v7_local_adjudicate_extract_text"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_local.py",
-      "source_location": "L81",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_local_test_extract_text_empty_content_returns_empty_string",
-      "target": "scripts_golden_v7_local_adjudicate_extract_text"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_local.py",
-      "source_location": "L77",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_local_test_extract_text_joins_text_blocks_and_skips_thinking_blocks",
-      "target": "scripts_golden_v7_local_adjudicate_extract_text"
-    },
-    {
-      "relation": "indirect_call",
-      "context": "argument",
-      "confidence": "INFERRED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L206",
-      "weight": 1.0,
-      "confidence_score": 0.5,
-      "source": "scripts_golden_v7_local_adjudicate_main",
-      "target": "scripts_golden_v7_local_adjudicate_post_local"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L95",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate_rationale_95",
-      "target": "scripts_golden_v7_local_adjudicate_post_local"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L165",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate_pilot",
-      "target": "scripts_golden_v7_local_adjudicate_pilot_ids"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L136",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate_rationale_136",
-      "target": "scripts_golden_v7_local_adjudicate_pilot_ids"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L206",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate_main",
-      "target": "scripts_golden_v7_local_adjudicate_pilot"
-    },
-    {
-      "relation": "references",
-      "context": "parameter_type",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L157",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate_pilot",
-      "target": "scripts_golden_v7_local_adjudicate_py_path"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/local_adjudicate.py",
-      "source_location": "L160",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_local_adjudicate_rationale_160",
-      "target": "scripts_golden_v7_local_adjudicate_pilot"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_local.py",
-      "source_location": "L110",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_local_test_pilot_compares_against_claude_and_never_writes_votes",
-      "target": "scripts_golden_v7_local_adjudicate_pilot"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "tests/test_golden_v7_local.py",
-      "source_location": "L132",
-      "weight": 1.0,
-      "source": "tests_test_golden_v7_local_test_pilot_prefers_distinct_strata_first",
-      "target": "scripts_golden_v7_local_adjudicate_pilot"
     },
     {
       "relation": "contains",
@@ -58767,5 +58701,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "aab2b59dcdfefd36c1e764b394a61ffa6d5bd662"
+  "built_at_commit": "247f2d370a563f4170bc2ea8f113a8b0dc2f3d92"
 }

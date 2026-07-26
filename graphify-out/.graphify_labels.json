@@ -100,8 +100,15 @@
   "98": "test_golden_v7_local.py",
   "99": "test_splade_leg.py",
   "100": "__init__.py",
+  "101": "Chunk",
+  "102": "SparseIndex",
+  "103": "app.py",
+  "104": "settings.py",
   "105": ".encode",
   "106": "TestPerQueryRecall",
   "107": "test_parse_reply_unknown_letter_fails_the_whole_reply_closed",
-  "110": "Path"
+  "108": "test_persistence.py",
+  "109": "faithfulness",
+  "110": "Path",
+  "111": "Path"
 }

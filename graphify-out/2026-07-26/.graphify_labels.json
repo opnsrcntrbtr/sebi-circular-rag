@@ -100,14 +100,8 @@
   "98": "test_golden_v7_local.py",
   "99": "test_splade_leg.py",
   "100": "__init__.py",
-  "101": "SparseIndex",
-  "102": "test_build_reg_edges.py",
-  "103": "build_regulatory_index",
-  "104": "write_jsonl",
   "105": ".encode",
   "106": "TestPerQueryRecall",
   "107": "test_parse_reply_unknown_letter_fails_the_whole_reply_closed",
-  "108": "test_annotation_adds_no_circular_meta_field",
-  "109": "test_every_alias_target_is_in_force_or_has_a_succession_entry",
   "110": "Path"
 }
