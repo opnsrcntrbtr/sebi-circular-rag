@@ -1,0 +1,14 @@
+{
+  "id": "v7-bp-030",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "G, J, O, S, T\nEXPECTED: 75% to Institutional Investors and 25% to other investors",
+  "governing": [
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2023/115#2.3.1. In an issue made through the book building process or#30",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2024/44#2.3.1. In an issue made through the book building process or#31",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2025/102#2.3.1. In an issue made through the book building process or#31",
+    "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2022/53#2.3.1. In an issue made through the book building process or#24",
+    "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2021/673#2.3.1. In an issue made through the book building process or#23"
+  ],
+  "expected_literal": "75% to Institutional Investors and 25% to other investors",
+  "parse_error": false
+}

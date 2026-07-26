@@ -1,0 +1,12 @@
+{
+  "id": "pledge",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "C, D, K\nEXPECTED: C, D, K",
+  "governing": [
+    "HO/47/14/12(1)2026-MRD-POD2/I/4229/2026#4.13.4. The Depositories shall maintain a standardized forma#5",
+    "HO/47/14/12(1)2026-MRD-POD2/I/4229/2026#4. In this regard, in order to ensure compliance with the pr#4",
+    "HO/47/14/12(1)2026-MRD-POD2/I/4229/2026#4.13.5. At the time of invocation of pledge, the Depositorie#6"
+  ],
+  "expected_literal": "C, D, K",
+  "parse_error": false
+}

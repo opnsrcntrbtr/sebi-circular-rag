@@ -1,0 +1,23 @@
+{
+  "id": "v7-ls-007",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "A, C, D, F, G, I, K, L, M, N, O, P, Q, R\nEXPECTED: No, DPs are exempt from sending quarterly statements subject to specific conditions.",
+  "governing": [
+    "SEBI/HO/MRD2/DDAP/CIR/P/2021/18#4.3. Paragraph 1(i) and 1(ii) of the Guidelines stands modif#127",
+    "CIR/MRD/DP/6/2015#31. If the rights and obligations of the parties hereto are #71",
+    "SEBI/HO/MRD/MRD-PoD-2/P/CIR/2023/166#10. For cases where the value of securities is up to#116",
+    "CIR/MRD/DP/13#4.7. Exemption from sending quarterly statements of transact#10",
+    "CIR/MRD/DP/41#4.4. Exemption from sending quarterly statements of transact#6",
+    "CIR/MRD/DP/10#4.7. Exemption from sending quarterly statements of transact#9",
+    "SEBI/HO/MRD/DP/CIR/P/118#30. If the rights and obligations of the parties hereto are #109",
+    "SEBI/HO/MRD/MRD-PoD-2/P/CIR/2023/166#7. This Master Circular is available on the SEBI website at #10",
+    "CIR/MRD/DP/41#4.4. Exemption from sending quarterly statements of transact#78",
+    "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#3. Depositories are further advised to place before their re#91",
+    "SEBI/HO/MRD/DP/CIR/P/118#30. If the rights and obligations of the parties hereto are #110",
+    "CIR/MRD/DP/11/2014#31. If the rights and obligations of the parties hereto are #70",
+    "CIR/MRD/DP/13#4.7. Exemption from sending quarterly statements of transact#96",
+    "CIR/MRD/DP/10#4.7. Exemption from sending quarterly statements of transact#89"
+  ],
+  "expected_literal": "No, DPs are exempt from sending quarterly statements subject to specific conditions.",
+  "parse_error": false
+}

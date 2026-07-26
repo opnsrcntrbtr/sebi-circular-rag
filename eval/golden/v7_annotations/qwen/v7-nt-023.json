@@ -1,0 +1,11 @@
+{
+  "id": "v7-nt-023",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "D, E\nEXPECTED: 45 days",
+  "governing": [
+    "HO/49/14/14(6)2025-CFD-PoD1/I/2771/2026#1.8.1. Listed NPO shall submit statement of utilization of f#67",
+    "HO/49/14/14(6)2025-CFD-PoD1/I/2771/2026#1.2.3. The SSE shall provide its observation on the draft fu#28"
+  ],
+  "expected_literal": "45 days",
+  "parse_error": false
+}

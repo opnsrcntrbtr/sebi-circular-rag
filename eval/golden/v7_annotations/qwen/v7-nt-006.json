@@ -1,0 +1,19 @@
+{
+  "id": "v7-nt-006",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "A, B, D, E, F, I, L, O, R, T\nEXPECTED: 21 days, extendable by 10 days.",
+  "governing": [
+    "SEBI/HO/OIAE/OIAE_IAD-1/P/CIR/2023/145#18. Such conciliator shall conduct one or more meeting/s for#20",
+    "HO/38/13/(4)2026-MIRSD-POD/I/4298/2026#5. During the conciliation process, the conciliator#712",
+    "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#3. Steps to be followed in  Investor to approach Market Par#676",
+    "SEBI/HO/MIRSD/MIRSD-PoD1/P/CIR/2025/22#5. During the conciliation process, the conciliator#55",
+    "SEBI/HO/OIAE/OIAE_IAD-1/P/CIR/2023/131#18. Such conciliator shall conduct one or more meeting/s for#20",
+    "SEBI/HO/MRD/MRD-PoD-2/P/CIR/2024/63#2. Steps to be followed  Investor to approach Market Partic#15",
+    "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#5. During the conciliation process, the conciliator#2309",
+    "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/67#5. During the conciliation process, the conciliator#30",
+    "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/66#3. Steps to be followed  Investor to approach Market Partic#28",
+    "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/91#5. During the conciliation process, the conciliator#683"
+  ],
+  "expected_literal": "21 days, extendable by 10 days.",
+  "parse_error": false
+}

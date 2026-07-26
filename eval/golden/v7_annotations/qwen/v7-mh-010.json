@@ -1,0 +1,10 @@
+{
+  "id": "v7-mh-010",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "K\nEXPECTED: K",
+  "governing": [
+    "SEBI/HO/AFD/PoD1/P/CIR/2023/130#2.3.5. Schemes of AIFs, who had not declared their First Clo#35"
+  ],
+  "expected_literal": "K",
+  "parse_error": false
+}

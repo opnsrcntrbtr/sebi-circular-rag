@@ -1,0 +1,16 @@
+{
+  "id": "v7-nt-028",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "C, E, F, G, I, L, Q\nEXPECTED: 50%",
+  "governing": [
+    "SEBI/HO/CFD/PoD2/CIR/P/0155#2018. The holding of promoter(s) and promoter group must be #22",
+    "SEBI/HO/CFD/PoD2/CIR/P/2023/120#7. Holding of specified securities in dematerialized form:#26",
+    "SEBI/HO/CFD/PoD2/CIR/P/0155#7. Holding of specified securities in dematerialized form:#29",
+    "SEBI/HO/ISD/ISD/CIR/P/2021/22#1.1.1. The securities of all companies shall be traded in th#17",
+    "SEBI/HO/CFD/PoD2/CIR/P/2023/120#7. Holding of specified securities in dematerialized form:#27",
+    "SEBI/HO/CFD/PoD2/CIR/P/2023/120#2018. The holding of promoter(s) and promoter group must be #20",
+    "HO/49/14/14(7)2025-CFD-POD2/I/3762/2026#7. Holding of specified securities in dematerialized form:#30"
+  ],
+  "expected_literal": "50%",
+  "parse_error": false
+}

@@ -1,0 +1,10 @@
+{
+  "id": "reit",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "R\nEXPECTED: R",
+  "governing": [
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2025/99#preamble#0"
+  ],
+  "expected_literal": "R",
+  "parse_error": false
+}

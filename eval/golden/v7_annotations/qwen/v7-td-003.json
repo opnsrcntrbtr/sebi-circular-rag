@@ -1,0 +1,10 @@
+{
+  "id": "v7-td-003",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "S\nEXPECTED: Annual Systems Audit and Power of Attorney",
+  "governing": [
+    "CIR/MRD/DMS/40/2010#2. Generally, the PoA is taken from the clients who want to #7"
+  ],
+  "expected_literal": "Annual Systems Audit and Power of Attorney",
+  "parse_error": false
+}

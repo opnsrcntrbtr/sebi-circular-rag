@@ -1,0 +1,11 @@
+{
+  "id": "v7-ls-015",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "I, R\nEXPECTED: SMARTODR platform",
+  "governing": [
+    "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/91#2. Online Dispute If the Investor is not satisfied with the #678",
+    "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#2. Online Dispute If the Investor is not satisfied with the #2304"
+  ],
+  "expected_literal": "SMARTODR platform",
+  "parse_error": false
+}

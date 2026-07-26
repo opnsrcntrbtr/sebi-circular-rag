@@ -1,0 +1,8 @@
+{
+  "id": "v7-rb-004",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "F, V\nEXPECTED: Regulation 17(c) (specifically 17(c)(iv)) of the SEBI (Mutual Funds) Regulations; the provided excerpts do not indicate that it has been repealed.",
+  "governing": [],
+  "expected_literal": "",
+  "parse_error": true
+}

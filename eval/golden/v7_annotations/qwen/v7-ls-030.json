@@ -1,0 +1,10 @@
+{
+  "id": "v7-ls-030",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "T\nEXPECTED: 12 months",
+  "governing": [
+    "SEBI/HO/AFD-1/PoD/P/CIR/2022/155#2.1. The First Close of a scheme shall be declared not later#3"
+  ],
+  "expected_literal": "12 months",
+  "parse_error": false
+}

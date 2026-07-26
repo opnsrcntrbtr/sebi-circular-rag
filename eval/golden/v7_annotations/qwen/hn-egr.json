@@ -1,0 +1,8 @@
+{
+  "id": "hn-egr",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "YES\nEXPECTED: SEBI (Electronic Gold Receipt) Regulations, 2015",
+  "governing": [],
+  "expected_literal": "SEBI (Electronic Gold Receipt) Regulations, 2015",
+  "parse_error": false
+}

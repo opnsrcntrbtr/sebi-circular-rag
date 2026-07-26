@@ -1,0 +1,23 @@
+{
+  "id": "v7-nt-024",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "A, C, F, G, H, I, J, K, L, M, N, O, S, T\nEXPECTED: 10%",
+  "governing": [
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2025/102#3.32. If the InvIT or its sponsor, sponsor group, investment#205",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2024/44#3. The option to retain 10% distribution under Regulation 18#154",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2025/102#3.29. The follow-on offer document shall contain disclosures#201",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2025/102#3.21. In addition to the principles listed at paragraph 3.20#193",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2024/44#3.21. For the financial statements listed at Paragraph 3.3.3#170",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2025/102#3. The option to retain 10% distribution under Regulation 18#177",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2025/102#3.24. InvIT may voluntarily choose to provide proforma finan#196",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2024/44#3.20. In addition to the principles listed at paragraph 3.19#169",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2024/44#3.22. Headings, line items, sub-line items and sub-totals ma#178",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2024/44#3.19. For preparation of Combined Financial Statements, as h#162",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2025/102#3.23. The proforma financial statements shall be prepared in#195",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2025/102#3.25. InvIT may also voluntarily include financial statement#197",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2025/102#3.20. For preparation of Combined Financial Statements, as h#187",
+    "SEBI/HO/DDHS/DDHS-PoD/P/CIR/2023/184#3. The option to retain 10% distribution under Regulation 18#14"
+  ],
+  "expected_literal": "10%",
+  "parse_error": false
+}

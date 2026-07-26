@@ -1,0 +1,10 @@
+{
+  "id": "cas",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "I\nEXPECTED: I",
+  "governing": [
+    "HO/47/11/11(3)2025-MRD-POD2/I/2765/2026#3. Considering the above and taking into account public comm#7"
+  ],
+  "expected_literal": "I",
+  "parse_error": false
+}

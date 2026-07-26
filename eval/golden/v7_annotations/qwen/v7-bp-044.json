@@ -1,0 +1,10 @@
+{
+  "id": "v7-bp-044",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "J\nEXPECTED: No, due discharge from creditors is required prior to transmission.",
+  "governing": [
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/ON/2025/01650#2.7. In case of any subsisting credit facilities secured by #18"
+  ],
+  "expected_literal": "No, due discharge from creditors is required prior to transmission.",
+  "parse_error": false
+}

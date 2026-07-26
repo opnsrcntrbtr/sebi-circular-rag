@@ -1,0 +1,12 @@
+{
+  "id": "v7-ls-034",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "B, L, T\nEXPECTED: United Nations Security Council Sanctions List",
+  "governing": [
+    "HO/19/34/11(6)2025-AFD-POD1/I/12928/2026#3.1.1. In terms of Regulation 10(a) of AIF Regulations, AIFs#68",
+    "SEBI/HO/AFD/PoD1/CIR/2024/2#2. In view of the amendments to the Prevention of Money-Laun#2",
+    "SEBI/HO/AFD-1/AFD-1-PoD/P/CIR/2024/39#4.1.2. The investor, or its beneficial owner as determined i#58"
+  ],
+  "expected_literal": "United Nations Security Council Sanctions List",
+  "parse_error": false
+}

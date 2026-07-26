@@ -1,0 +1,11 @@
+{
+  "id": "v7-mh-016",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "B, K\nEXPECTED: October 01, 2023",
+  "governing": [
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2022/177#7. Stock exchanges and CCs shall put in place appropriate sy#23",
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/71#85. Introduction of Investor Risk Reduction Access (IRRA) pl#665"
+  ],
+  "expected_literal": "October 01, 2023",
+  "parse_error": false
+}

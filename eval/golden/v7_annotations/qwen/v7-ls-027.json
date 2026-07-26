@@ -1,0 +1,15 @@
+{
+  "id": "v7-ls-027",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "B, G, K, L, M, P\nEXPECTED: Multi-factor authentication (MFA)",
+  "governing": [
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/53#6. Password Policy/ Authentication Mechanisms:#1175",
+    "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#6. Password Policy/ Authentication Mechanisms:#2048",
+    "SEBI/HO/ITD/ITD_VAPT/P/CIR/2023/032#6. Password Policy/ Authentication Mechanisms:#14",
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/110#6. Password Policy/ Authentication Mechanisms:#1189",
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/71#6. Password Policy/ Authentication Mechanisms:#1166",
+    "SEBI/HO/MRD/MRD-PoD-2/P/CIR/2023/166#12. Details of actions taken for mitigation and any preventi#262"
+  ],
+  "expected_literal": "Multi-factor authentication (MFA)",
+  "parse_error": false
+}

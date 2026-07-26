@@ -1,0 +1,10 @@
+{
+  "id": "pms",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "D\nEXPECTED: D",
+  "governing": [
+    "SEBI/HO/IMD/IMD-POD-1/P/CIR/2025/104#preamble#0"
+  ],
+  "expected_literal": "D",
+  "parse_error": false
+}

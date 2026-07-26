@@ -1,0 +1,10 @@
+{
+  "id": "v7-bp-045",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "T\nEXPECTED: Yes, the Investor Risk Reduction Access (IRRA) platform allows investors to square off/close open positions in case of trading member disruption.",
+  "governing": [
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2022/177#3.1. A joint platform to provide Investor Risk Reduction Acc#4"
+  ],
+  "expected_literal": "Yes, the Investor Risk Reduction Access (IRRA) platform allows investors to square off/close open positions in case of trading member disruption.",
+  "parse_error": false
+}

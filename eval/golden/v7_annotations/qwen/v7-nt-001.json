@@ -1,0 +1,17 @@
+{
+  "id": "v7-nt-001",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "B, D, J, K, L, O, S, T\nEXPECTED: 15% per annum",
+  "governing": [
+    "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90#2) However, if Final Expiry Date (FED) of the goods falls be#521",
+    "CIR/IMD/DF/18/2014#3. The lower of (1) and (2) above shall be used for calculat#235",
+    "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2023/74#2) However, if Final Expiry Date (FED) of the goods falls be#480",
+    "SEBI/HO/IMD/DF2/CIR/P/2020/156#3. The lower of (1) and (2) above shall be used for calculat#362",
+    "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#15.4.1. In the event of failure to transfer redemption or re#855",
+    "SEBI/HO/IMD/DF5/CIR/P/2018/109#3. The lower of (1) and (2) above shall be used for calculat#293",
+    "SEBI/HO/IMD/DF3/CIR/P/2016/84#3. The lower of (1) and (2) above shall be used for calculat#249",
+    "CIR/4/51/2000#2010. However, those mutual funds which voluntarily propose #217"
+  ],
+  "expected_literal": "15% per annum",
+  "parse_error": false
+}

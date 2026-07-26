@@ -1,0 +1,10 @@
+{
+  "id": "v7-rb-015",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "C\nEXPECTED: C",
+  "governing": [
+    "CIR/MRD/DMS/40/2010#1. Regulation 35 of the SEBI (Depositories and Participant) #4"
+  ],
+  "expected_literal": "C",
+  "parse_error": false
+}

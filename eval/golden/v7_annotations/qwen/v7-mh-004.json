@@ -1,0 +1,10 @@
+{
+  "id": "v7-mh-004",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "H\nEXPECTED: Market Data Advisory Committee (MDAC)",
+  "governing": [
+    "SEBI/HO/DDHS/P/CIR/2021/031#2. The Market Data Advisory Committee (MDAC), a standing com#2"
+  ],
+  "expected_literal": "Market Data Advisory Committee (MDAC)",
+  "parse_error": false
+}

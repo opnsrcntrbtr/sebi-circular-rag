@@ -1,0 +1,11 @@
+{
+  "id": "para-pricedata",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "F, R\nEXPECTED: 30 days",
+  "governing": [
+    "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026#6.1. Paragraphs 2(iii) & (iv) of SEBI Circular No. SEBI/HO/M#7",
+    "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026#4. Based on feedback received from various stakeholders that#4"
+  ],
+  "expected_literal": "30 days",
+  "parse_error": false
+}

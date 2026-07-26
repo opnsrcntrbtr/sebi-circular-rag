@@ -1,0 +1,8 @@
+{
+  "id": "hn-fvci",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "YES\nEXPECTED: Registration with SEBI, submission of Form A, minimum USD 2 million corpus, FEMA compliance, and appointment of custodian/auditor.",
+  "governing": [],
+  "expected_literal": "Registration with SEBI, submission of Form A, minimum USD 2 million corpus, FEMA compliance, and appointment of custodian/auditor.",
+  "parse_error": false
+}

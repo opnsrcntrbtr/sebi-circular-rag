@@ -1,0 +1,14 @@
+{
+  "id": "v7-td-001",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "B, C, D, K, P\nEXPECTED: B, C, D, K, P",
+  "governing": [
+    "SEBI/HO/CFD/PoD-1/P/CIR/2024/009#2.4. Issuer shall make written intimation to its sectoral re#21",
+    "SEBI/HO/CFD/PoD-1/P/CIR/2024/009#1.2. The draft offer document requires:#14",
+    "SEBI/HO/CFD/PoD-1/P/CIR/2024/009#2.1. While there shall be no requirement for payment of any #18",
+    "SEBI/HO/CFD/PoD-1/P/CIR/2024/009#2.3. The issuer, within two days of resubmission of draft of#20",
+    "SEBI/HO/CFD/PoD-1/P/CIR/2024/009#3. In order to ensure completeness of the offer document for#3"
+  ],
+  "expected_literal": "B, C, D, K, P",
+  "parse_error": false
+}

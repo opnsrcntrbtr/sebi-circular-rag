@@ -1,0 +1,11 @@
+{
+  "id": "v7-rb-016",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "B, T\nEXPECTED: Exchange Traded Funds (ETFs) and Index Funds; Yes, it came into force on July 1, 2022 and applies to existing ETFs/Index Funds.",
+  "governing": [
+    "SEBI/HO/IMD/DOF2/P/CIR/2022/69#3. Applicability: The provisions of this Circular shall come#31",
+    "SEBI/HO/IMD/DOF2/P/CIR/2022/69#1. Considering the emergence of passive funds i.e. Exchange #1"
+  ],
+  "expected_literal": "Exchange Traded Funds (ETFs) and Index Funds; Yes, it came into force on July 1, 2022 and applies to existing ETFs/Index Funds.",
+  "parse_error": false
+}

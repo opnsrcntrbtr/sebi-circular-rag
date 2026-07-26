@@ -1,0 +1,10 @@
+{
+  "id": "v7-ls-026",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "E\nEXPECTED: The manpower deployed at DRS/NS shall have the same expertise as available at PDC in terms of knowledge/awareness of various technological and procedural systems and processes relating to all operations such that DRS/NS can function at short notice, independently. QRTAs shall have a sufficient number of trained staff at their DRS so as to have the capability of running live operations from DRS without involving staff of the PDC.",
+  "governing": [
+    "SEBI/HO/IMD/IMD-TPD-1/P/CIR/2023/173#3.2. The manpower deployed at DRS/ Near Site (NS) shall have#4"
+  ],
+  "expected_literal": "The manpower deployed at DRS/NS shall have the same expertise as available at PDC in terms of knowledge/awareness of various technological and procedural systems and processes relating to all operations such that DRS/NS can function at short notice, independently. QRTAs shall have a sufficient number of trained staff at their DRS so as to have the capability of running live operations from DRS without involving staff of the PDC.",
+  "parse_error": false
+}

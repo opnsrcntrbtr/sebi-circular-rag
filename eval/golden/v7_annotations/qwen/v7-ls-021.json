@@ -1,0 +1,10 @@
+{
+  "id": "v7-ls-021",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "D\nEXPECTED: Yes",
+  "governing": [
+    "SEBI/HO/DDHS/DDHS_Div1/P/CIR/2022/0000000006#4. Since the provisions of Regulation 23 of the LODR Regulat#4"
+  ],
+  "expected_literal": "Yes",
+  "parse_error": false
+}

@@ -1,0 +1,10 @@
+{
+  "id": "v7-bp-013",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "T\nEXPECTED: Successful penetration or Denial of Service attacks detected with significant impact on operations; ransomware attack; exfiltration of market sensitive data; widespread instances of data corruption causing impact on operations; significant risk of negative financial or public relations impact, etc.",
+  "governing": [
+    "SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2025/119#6.4. RS.CO.S2 guidelines (Page 124-125): “If the cyber-attac#36"
+  ],
+  "expected_literal": "Successful penetration or Denial of Service attacks detected with significant impact on operations; ransomware attack; exfiltration of market sensitive data; widespread instances of data corruption causing impact on operations; significant risk of negative financial or public relations impact, etc.",
+  "parse_error": false
+}

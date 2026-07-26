@@ -1,0 +1,10 @@
+{
+  "id": "v7-td-006",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "A\nEXPECTED: the circulars issued by Commodity Derivatives Market Regulation Department (CDMRD) pertaining to domestic commodity derivatives segment, which are issued till the date of this circular.",
+  "governing": [
+    "CDMRD/DMP/CIR/P/2018/126#2.5. Unique Client Code (UCC) and Mandatory Requirement of P#12"
+  ],
+  "expected_literal": "the circulars issued by Commodity Derivatives Market Regulation Department (CDMRD) pertaining to domestic commodity derivatives segment, which are issued till the date of this circular.",
+  "parse_error": false
+}

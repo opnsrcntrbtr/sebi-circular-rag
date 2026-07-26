@@ -1,0 +1,10 @@
+{
+  "id": "v7-bp-042",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "J\nEXPECTED: J",
+  "governing": [
+    "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#53.2.2. The stock exchange, before giving permission to brok#862"
+  ],
+  "expected_literal": "J",
+  "parse_error": false
+}
