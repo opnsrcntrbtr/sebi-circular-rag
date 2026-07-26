@@ -1375,7 +1375,7 @@ golden-v7-agree:
 > model (a ~5-day wall for 100 rows). The blind protocol is byte-identical —
 > `local_adjudicate.py` imports it from `gemini_adjudicate.py` — only
 > transport and identity changed: Anthropic-compatible calls to
-> `127.0.0.1:8000`, votes carry `annotator: "qwen"` (extending the Global
+> `127.0.0.1:8001`, votes carry `annotator: "qwen"` (extending the Global
 > Constraints vote-record enum), cache under `v7_annotations/qwen/` with the
 > exact model id stamped per row. Qwen (Alibaba) satisfies spec §7's
 > second-family independence exactly as Gemini did. `agreement.py` discovers
@@ -1396,11 +1396,11 @@ golden-v7-agree:
 
 **Runbook (next Claude Code session):**
 
-1. Ensure the oMLX server is running on `127.0.0.1:8000` with the model
-   loaded. ⚠️ `make serve` also binds 8000 — do not run both, or override
-   `PORT` for the FastAPI service.
+1. Ensure the oMLX server is running on `127.0.0.1:8001` with the model
+   loaded (port moved from 8000 on 2026-07-26, so it never collides with
+   `make serve`).
 2. Launch the session (token from local config, never committed):
-   `ANTHROPIC_BASE_URL='http://127.0.0.1:8000' ANTHROPIC_AUTH_TOKEN=<omlx token> ANTHROPIC_DEFAULT_OPUS_MODEL='Qwen3.6-35B-A3B-MLX-4bit' ANTHROPIC_DEFAULT_SONNET_MODEL='Qwen3.6-35B-A3B-MLX-4bit' ANTHROPIC_DEFAULT_HAIKU_MODEL='Qwen3.6-35B-A3B-MLX-4bit' API_TIMEOUT_MS=3000000 CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1 claude`
+   `ANTHROPIC_BASE_URL='http://127.0.0.1:8001' ANTHROPIC_AUTH_TOKEN=<omlx token> ANTHROPIC_DEFAULT_OPUS_MODEL='Qwen3.6-35B-A3B-MLX-4bit' ANTHROPIC_DEFAULT_SONNET_MODEL='Qwen3.6-35B-A3B-MLX-4bit' ANTHROPIC_DEFAULT_HAIKU_MODEL='Qwen3.6-35B-A3B-MLX-4bit' API_TIMEOUT_MS=3000000 CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1 claude`
    (the script reads `ANTHROPIC_AUTH_TOKEN` as its token fallback, so no
    extra env is needed inside that session; outside it, set
    `GOLDEN_LOCAL_AUTH_TOKEN`).

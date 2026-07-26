@@ -79,9 +79,9 @@ only — see `master_meta.annotate_master_fields` and
   (refuses below 100 and says why). `golden_v1..v6`, `probes_v1`, and `golden_asof_v1` are frozen.
 - `make golden-v7-*` drives the v7 pipeline: `-seed`, `-mine`, `-pool`, `-packet`,
   `-packet-ingest`, `-local`, `-gemini`, `-agree`, `-gate`. The **primary** external-annotation
-  leg (`-local`) calls a local oMLX server (Anthropic-compatible API on `127.0.0.1:8000`,
-  `Qwen3.6-35B-A3B-MLX-4bit`, votes as `annotator: "qwen"`) — no quota, no network; ⚠️ port
-  8000 collides with `make serve`. The Gemini leg (`-gemini`) is ON HOLD: its free tier
+  leg (`-local`) calls a local oMLX server (Anthropic-compatible API on `127.0.0.1:8001` —
+  deliberately not 8000, which `make serve` binds; `Qwen3.6-35B-A3B-MLX-4bit`, votes as
+  `annotator: "qwen"`) — no quota, no network. The Gemini leg (`-gemini`) is ON HOLD: its free tier
   allows ~20 requests/day/model, a multi-day wall for a 100-row pass. Both legs cache per
   row and resume, and every row in one leg must come from the **same** model or the
   agreement statistics measure model differences rather than label uncertainty

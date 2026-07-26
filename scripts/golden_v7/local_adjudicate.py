@@ -14,15 +14,15 @@ holds exactly as it would have with Gemini.
 Blindness is structural: the annotator model only ever sees the lettered
 prompt over HTTP - never the repo, never claude's votes.
 
-Env (all defaulted): GOLDEN_LOCAL_BASE_URL (http://127.0.0.1:8000),
+Env (all defaulted): GOLDEN_LOCAL_BASE_URL (http://127.0.0.1:8001),
 GOLDEN_LOCAL_MODEL (Qwen3.6-35B-A3B-MLX-4bit), GOLDEN_LOCAL_AUTH_TOKEN
 (falls back to ANTHROPIC_AUTH_TOKEN - the oMLX launch command sets it),
 GOLDEN_LOCAL_MAX_TOKENS (4096: Qwen thinking spends output tokens before
 the answer, so a tight cap truncates mid-think and every row parse-fails),
 GOLDEN_LOCAL_TIMEOUT_S (600: the first call may load ~20 GB of weights).
 
-NOTE: `make serve` also binds port 8000 - do not run the FastAPI service
-and oMLX together, or override PORT for one of them.
+NOTE: oMLX runs on port 8001 (moved from 8000 on 2026-07-26 precisely so it
+never collides with `make serve`, which binds 8000).
 
 Pilot (measure agreement vs claude BEFORE spending the full pass - the
 5-row gemini probe caught a prompt-protocol bug exactly this way):
@@ -61,7 +61,7 @@ from golden_v7.gemini_adjudicate import (  # noqa: E402
 )
 
 ANNOTATOR = "qwen"
-DEFAULT_BASE_URL = "http://127.0.0.1:8000"
+DEFAULT_BASE_URL = "http://127.0.0.1:8001"
 DEFAULT_MODEL = "Qwen3.6-35B-A3B-MLX-4bit"
 DEFAULT_CACHE_DIR = ROOT / "eval" / "golden" / "v7_annotations" / "qwen"
 

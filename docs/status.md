@@ -565,7 +565,8 @@ Suite 588 passing.
 
 **External leg pivoted to a local model (user decision).** The primary
 annotator is now `Qwen3.6-35B-A3B-MLX-4bit` served by oMLX
-(Anthropic-compatible API, `127.0.0.1:8000` — ⚠️ collides with `make serve`).
+(Anthropic-compatible API, `127.0.0.1:8001` — moved off 8000 the same day so
+it never collides with `make serve`).
 `local_adjudicate.py` reuses the gemini leg's blind protocol byte-for-byte
 (imported, not copied); votes carry `annotator: "qwen"`; `agreement.py`
 discovers the LLM leg generically and fails loud on two at once. Gemini leg
