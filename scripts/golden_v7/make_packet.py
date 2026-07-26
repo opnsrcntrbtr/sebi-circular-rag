@@ -220,6 +220,28 @@ def ingest_packet(csv_path: str | Path, manifest_path: str | Path) -> list[dict]
     return votes
 
 
+def _ingest_to_votes(csv_path: Path, out_root: Path) -> None:
+    """Merge a human-filled labels CSV into votes.jsonl.
+
+    Rewrites rather than appends, on the same rule the gemini leg uses: the
+    freshly ingested set is authoritative for annotator "human", so a
+    corrected CSV can be re-ingested without stacking duplicate votes.
+    Records from every other annotator keep their order untouched.
+    """
+    votes = ingest_packet(csv_path, out_root / "packet_human" / "manifest.json")
+    votes_path = out_root / "votes.jsonl"
+    existing = []
+    if votes_path.exists():
+        existing = [json.loads(line) for line
+                    in votes_path.read_text(encoding="utf-8").splitlines()
+                    if line.strip()]
+    kept = [v for v in existing if v.get("annotator") != "human"]
+    with votes_path.open("w", encoding="utf-8") as f:
+        for v in kept + votes:
+            f.write(json.dumps(v, ensure_ascii=False) + "\n")
+    print(f"ingested {len(votes)} human votes -> {votes_path}")
+
+
 def main() -> None:
     import argparse
 
@@ -228,7 +250,14 @@ def main() -> None:
     ap.add_argument("--pools", default=str(
         ROOT / "eval" / "golden" / "v7_annotations" / "pools.jsonl"))
     ap.add_argument("--out", default=str(ROOT / "eval" / "golden" / "v7_annotations"))
+    ap.add_argument("--ingest", default="",
+                    help="read a human-filled labels CSV into votes.jsonl and "
+                         "exit; does not regenerate the packet")
     args = ap.parse_args()
+
+    if args.ingest:
+        _ingest_to_votes(Path(args.ingest), Path(args.out))
+        return
 
     rows = load_golden(args.golden)
     pools_path = Path(args.pools)

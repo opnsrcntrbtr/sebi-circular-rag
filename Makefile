@@ -106,5 +106,11 @@ golden-v7-gemini:
 golden-v7-agree:
 	$(ENV) $(PY) scripts/golden_v7/agreement.py
 
+golden-v7-packet-ingest:
+	$(ENV) $(PY) scripts/golden_v7/make_packet.py --ingest eval/golden/v7_annotations/packet_human/labels_template.csv
+
+golden-v7-gate:
+	$(ENV) $(PY) scripts/golden_v7/derive_thresholds.py
+
 validate-corpus:
 	$(ENV) $(PY) scripts/validate_corpus.py data/corpus/circulars.jsonl
