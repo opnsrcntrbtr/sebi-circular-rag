@@ -110,8 +110,8 @@
   ],
   "metadata": {
     "run_name": "asof-baseline",
-    "ts": "2026-07-27T20:08:28+0530",
-    "git_commit": "6d59aa52a2bba08e721e4208295678f6e3c190ac",
+    "ts": "2026-07-27T20:38:45+0530",
+    "git_commit": "260ca8e9c0189e99980a628e548731544419b5a9",
     "python": "3.12.13",
     "platform": "macOS-26.5.2-arm64-arm-64bit",
     "models": {
