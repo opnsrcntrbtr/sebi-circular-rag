@@ -43,6 +43,15 @@ make benchmark-export # Golden v6 build + BEIR/TREC/RAG benchmark export
 make export-datasets  # Export publishable dataset configs to dist/datasets
 ```
 
+## Testing & Evaluation
+
+- `make test` runs `pytest -q -m "not integration"`. The `integration` marker exercises real bge-m3 / cross-encoder weights (slow) — run explicitly with `pytest -m integration`.
+- Golden sets and probe queries live in `eval/golden/` and `eval/probes/`; benchmark runs land in `eval/runs/`. Retrieval changes are gated by an A/B run against these before promotion.
+- `golden_v7.jsonl` (n=260, stratified, span-anchored `{doc, quote}` chunk labels, plus a `review_status` lifecycle of `seeded`/`draft` → `adjudicated`) is the reporting set. **CI does not gate on it yet.** `scripts/eval_json.py` reports on v7 only once `eval/golden/gate_v7.json` exists *and* records `adjudicated_n >= 100`; until then it falls back to frozen `golden_v5`, so a partially reviewed v7 cannot silently become the set that gates merges. `SEBI_RAG_GOLDEN` overrides the choice. Arm the gate with `make golden-v7-gate` (refuses below 100 and says why). `golden_v1..v6`, `probes_v1`, and `golden_asof_v1` are frozen.
+- `make golden-v7-*` drives the v7 pipeline: `-seed`, `-mine`, `-pool`, `-packet`, `-packet-ingest`, `-local`, `-gemini`, `-agree`, `-gate`. The **primary** external-annotation leg (`-local`) calls a local oMLX server (Anthropic-compatible API on `127.0.0.1:8001` — deliberately not 8000, which `make serve` binds; `Qwen3.6-35B-A3B-MLX-4bit`, votes as `annotator: "qwen"`) — no quota, no network. The Gemini leg (`-gemini`) is ON HOLD: its free tier allows ~20 requests/day/model, a multi-day wall for a 100-row pass. Both legs cache per row and resume, and every row in one leg must come from the **same** model or the agreement statistics measure model differences rather than label uncertainty (`agreement.py` discovers the LLM leg generically and fails loud on two at once).
+- `make validate-corpus` checks corpus integrity: no two records share a body text, and each record's `circular_number` is derivable from its own text. Add `--deep` to also re-extract every PDF and compare. **Run it after any ingest, backfill, or repair** — both invariants exist because those bug classes shipped undetected (see `docs/status.md` 2026-07-25).
+- Interventions are specced in `docs/superpowers/specs/`, planned in `plans/`, results in `reports/`.
+
 ## Recommended Usage
 
 For a full installation and operator walkthrough, see [docs/USAGE.md](docs/USAGE.md). The Gradio UI demo is captured in [docs/assets/demo.webp](docs/assets/demo.webp).
@@ -180,4 +189,5 @@ only — see `master_meta.annotate_master_fields` and
 ## Notes
 
 - `AGENTS.md` mirrors this workspace guidance for non-Claude agents
-- `CLAUDE.md` is the authoritative workspace brief for Claude-based agents
+- `CLAUDE.md` is the authoritative workspace brief for Claude-based agents (absorbed all content from the former `SEBI_RAG_Claude_Desktop_Engineering_Handbook.md`)
+- `SEBI_RAG_Claude_Desktop_Engineering_Handbook.md` is now redundant — its unique content (Principles, Context, Validation, Workflow, System Prompt) has been absorbed into `CLAUDE.md` and `AGENTS.md`

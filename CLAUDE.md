@@ -2,33 +2,25 @@
 
 Local-first, Apple Silicon RAG over Indian SEBI Circulars. FastAPI service + Gradio UI. Hybrid retrieval (FAISS + BM25) with cross-encoder reranking, citation generation, and supersession-aware lineage.
 
+## Principles
+
+- Local-first, reproducible engineering.
+- Apple Silicon first (MLX/MLX-LM preferred over generic runtimes where appropriate).
+- Treat official SEBI publications as authoritative.
+- If retrieved evidence is insufficient, reply "I don't know" rather than guessing.
+- Never change the agreed architecture unless explicitly requested.
+
 ## Quick Start
 
-```bash
-# Install deps (Python 3.12 only — pyproject pins >=3.12,<3.13; creates .venv/ which the Makefile uses)
-uv sync
+See README.md for the full make target list. Common targets: `make serve` (API), `make test` (tests), `make reindex` (rebuild index).
 
-# Run commands
-make serve   # FastAPI backend on port 8000 (set SEBI_RAG_API_KEY in env)
-make ui      # Gradio UI dashboard
-make ops     # Local ops HTTP server for n8n automations (port 8765)
-make test    # Run offline test suite
-make annotate # Recompute supersession status only
-make index   # Build/persist FAISS+BM25 index and lineage.json only
-make reindex # Annotate corpus + rebuild FAISS/BM25 index (chains annotate + index)
-make scrape   # Fetch SEBI circulars (MAX=N to limit count)
-make scrape-master   # Fetch SEBI master circulars (MAX_MASTER=N to limit count)
-make verify-master    # Coverage report vs live SEBI master-circular listing (OFFLINE=1 to skip fetch)
-make scrape-regs      # Fetch SEBI regulations (Updated List, sid=1&ssid=3)
-make reg-edges        # Build circular→regulation edges + annotate corpus (offline, idempotent)
-make audit-regs       # Precision audit of regulation edges (sample + Clopper-Pearson CI)
-make calibrate       # Retrieval calibration sweep
-make eval-asof # As-of-date golden eval; writes eval/runs/asof-$ASOF_OUT (default: baseline)
-make bench-retrieval # Retrieval-only benchmark + TREC runfile
-make bench-rerank    # Reranker benchmark (--models bge,qwen0.6b)
-make benchmark-export # Golden v6 build + BEIR/TREC/RAG benchmark export
-make export-datasets  # Export publishable dataset configs to dist/datasets
-```
+## Context
+
+Always consult before asking questions:
+1. `docs/project_context.md` (architecture)
+2. `docs/status.md` (completed work and blockers)
+
+Infer completed work from these files before requesting information.
 
 ## Architecture
 
@@ -64,39 +56,95 @@ persisted index. Additive per-circular metadata goes on the corpus JSONL record
 only — see `master_meta.annotate_master_fields` and
 `reg_lineage.annotate_regulation_fields`.
 
+## Validation
+
+### Validation Sequence
+
+1.  Hardware & macOS
+2.  Xcode CLT
+3.  Homebrew
+4.  Python + uv
+5.  Git
+6.  MLX
+7.  Ollama
+8.  PyTorch MPS (only if required)
+9.  FAISS
+10. Embeddings
+11. Repository tests
+12. End-to-end RAG
+
+Never validate later stages until the current stage passes.
+
+### Blockers
+
+- Any FAIL is a blocker.
+- Do not continue until resolved.
+- `docs/status.md` must reflect resolution before proceeding.
+
 ## Testing & Evaluation
 
-- `make test` runs `pytest -q -m "not integration"`. The `integration` marker exercises real
-  bge-m3 / cross-encoder weights (slow) — run explicitly with `pytest -m integration`.
-- Golden sets and probe queries live in `eval/golden/` and `eval/probes/`; benchmark runs land
-  in `eval/runs/`. Retrieval changes are gated by an A/B run against these before promotion.
-- `golden_v7.jsonl` (n=260, stratified, span-anchored `{doc, quote}` chunk labels, plus a
-  `review_status` lifecycle of `seeded`/`draft` → `adjudicated`) is the reporting set.
-  **CI does not gate on it yet.** `scripts/eval_json.py` reports on v7 only once
-  `eval/golden/gate_v7.json` exists *and* records `adjudicated_n >= 100`; until then it falls
-  back to frozen `golden_v5`, so a partially reviewed v7 cannot silently become the set that
-  gates merges. `SEBI_RAG_GOLDEN` overrides the choice. Arm the gate with `make golden-v7-gate`
-  (refuses below 100 and says why). `golden_v1..v6`, `probes_v1`, and `golden_asof_v1` are frozen.
-- `make golden-v7-*` drives the v7 pipeline: `-seed`, `-mine`, `-pool`, `-packet`,
-  `-packet-ingest`, `-local`, `-gemini`, `-agree`, `-gate`. The **primary** external-annotation
-  leg (`-local`) calls a local oMLX server (Anthropic-compatible API on `127.0.0.1:8001` —
-  deliberately not 8000, which `make serve` binds; `Qwen3.6-35B-A3B-MLX-4bit`, votes as
-  `annotator: "qwen"`) — no quota, no network. The Gemini leg (`-gemini`) is ON HOLD: its free tier
-  allows ~20 requests/day/model, a multi-day wall for a 100-row pass. Both legs cache per
-  row and resume, and every row in one leg must come from the **same** model or the
-  agreement statistics measure model differences rather than label uncertainty
-  (`agreement.py` discovers the LLM leg generically and fails loud on two at once).
-- `make validate-corpus` checks corpus integrity: no two records share a body text, and each
-  record's `circular_number` is derivable from its own text. Add `--deep` to also re-extract
-  every PDF and compare. **Run it after any ingest, backfill, or repair** — both invariants
-  exist because those bug classes shipped undetected (see `docs/status.md` 2026-07-25).
+- `make test` runs `pytest -q -m "not integration"` (use `pytest -m integration` for real model weights).
+- Golden sets live in `eval/golden/`; benchmark runs land in `eval/runs/`. Retrieval changes are gated by A/B runs before promotion.
+- `golden_v7.jsonl` (n=260) is the reporting set; CI gates on frozen `golden_v5` until v7's `adjudicated_n >= 100`.
+- Use `make validate-corpus` after any ingest or repair (see README.md for full golden-v7 pipeline and benchmark details).
 - Interventions are specced in `docs/superpowers/specs/`, planned in `plans/`, results in `reports/`.
+
+## Workflow
+
+### Code Review
+
+Review only supplied files. Never infer contents of unseen files. If changes elsewhere are
+needed, describe them abstractly and request those files.
+
+### Debugging
+
+Inputs: Goal, Command, Last 20–30 log lines.
+
+Return: PASS / FAIL, One most likely root cause, One best fix, Verification command.
+
+### Performance
+
+Optimize only validated stages. Recommend changes expected to produce measurable (>10%) benefit.
 
 ## Environment
 
 - `SEBI_RAG_API_KEY` — API auth token (FastAPI key-in-body guard)
 - `HF_HUB_DISABLE_XET=1`, `TOKENIZERS_PARALLELISM=false`, `OMP_NUM_THREADS=1`, `PYTORCH_ENABLE_MPS_FALLBACK=1`, `PYTHONPATH=src` — all set via the Makefile `ENV` var; running scripts outside `make` needs them set manually
 - `PORT` — default 8000; override with `PORT=9000 make serve`
+
+## System Prompt
+
+You are my engineering coworker for a production-grade local-first SEBI Circular RAG on Apple Silicon.
+
+Rules:
+- Be deterministic.
+- Prefer concise responses.
+- Validate one task only.
+- Respect `docs/project_context.md` and `docs/status.md` as authoritative project context.
+- Treat official SEBI documents as the primary legal authority.
+- Never fabricate citations or legal interpretations.
+- Never speculate if retrieval evidence is insufficient.
+- Default to MLX/MLX-LM and Apple-native tooling when appropriate.
+- Do not redesign the architecture unless explicitly requested.
+- Never review files that were not provided.
+- Never skip ahead in the validation sequence.
+- Treat failed validation as a blocker.
+- Return only the minimum information needed.
+
+Validation response: Status: PASS / FAIL
+
+Reason: Short explanation.
+
+If FAIL:
+- Root cause
+- Exact commands
+- Verification command
+
+Always finish successful validations with:
+
+PASS
+
+Next recommended step: `<single next validation task>`
 
 ## graphify
 
