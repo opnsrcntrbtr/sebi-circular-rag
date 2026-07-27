@@ -105,5 +105,6 @@
   "103": "app.py",
   "104": "settings.py",
   "105": ".encode",
-  "106": "TestPerQueryRecall"
+  "106": "TestPerQueryRecall",
+  "107": "derive_regulatory_basis"
 }

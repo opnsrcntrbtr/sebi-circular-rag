@@ -101,10 +101,9 @@
   "99": "test_splade_leg.py",
   "100": "__init__.py",
   "101": "Chunk",
+  "102": "__init__.py",
   "103": "app.py",
   "104": "settings.py",
   "105": ".encode",
-  "106": "TestPerQueryRecall",
-  "108": "test_persistence.py",
-  "109": "faithfulness"
+  "106": "TestPerQueryRecall"
 }
