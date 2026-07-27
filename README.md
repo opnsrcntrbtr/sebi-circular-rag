@@ -18,26 +18,30 @@ The implementation details and validation history are tracked in [docs/status.md
 ## Quick Start
 
 ```bash
-# Install dependencies
+# Install deps (Python 3.12 only — pyproject pins >=3.12,<3.13; creates .venv/ which the Makefile uses)
 uv sync
 
-# Start the API
-make serve
-
-# Start the UI
-make ui
-
-# Run the offline test suite
-make test
-
-# Rebuild the index after corpus updates
-make reindex
-
-# Fetch circulars
-make scrape
+# Run commands
+make serve   # FastAPI backend on port 8000 (set SEBI_RAG_API_KEY in env)
+make ui      # Gradio UI dashboard
+make ops     # Local ops HTTP server for n8n automations (port 8765)
+make test    # Run offline test suite
+make annotate # Recompute supersession status only
+make index   # Build/persist FAISS+BM25 index and lineage.json only
+make reindex # Annotate corpus + rebuild FAISS/BM25 index (chains annotate + index)
+make scrape   # Fetch SEBI circulars (MAX=N to limit count)
+make scrape-master   # Fetch SEBI master circulars (MAX_MASTER=N to limit count)
+make verify-master    # Coverage report vs live SEBI master-circular listing (OFFLINE=1 to skip fetch)
+make scrape-regs      # Fetch SEBI regulations (Updated List, sid=1&ssid=3)
+make reg-edges        # Build circular→regulation edges + annotate corpus (offline, idempotent)
+make audit-regs       # Precision audit of regulation edges (sample + Clopper-Pearson CI)
+make calibrate       # Retrieval calibration sweep
+make eval-asof # As-of-date golden eval; writes eval/runs/asof-$ASOF_OUT (default: baseline)
+make bench-retrieval # Retrieval-only benchmark + TREC runfile
+make bench-rerank    # Reranker benchmark (--models bge,qwen0.6b)
+make benchmark-export # Golden v6 build + BEIR/TREC/RAG benchmark export
+make export-datasets  # Export publishable dataset configs to dist/datasets
 ```
-
-`make serve` starts the FastAPI backend on port 8000. Set `SEBI_RAG_API_KEY` before launching.
 
 ## Recommended Usage
 
@@ -140,31 +144,38 @@ The roadmap below reflects the current planning status from [docs/next_steps.md]
 - Strengthen groundedness-based abstention for legal-safety use cases
 - Continue operational hardening so the service remains reproducible and easy to run locally
 
-## Source Map
+## Architecture
 
-The core implementation lives under [src/sebi_rag/](src/sebi_rag/):
+Pipeline: scrape → ingest_pdf → lineage.annotate → build_index → retrieve → rerank → generate.
 
-- [api.py](src/sebi_rag/api.py) - FastAPI app, auth, and endpoints
-- [pipeline.py](src/sebi_rag/pipeline.py) - retrieval, reranking, generation, and gating orchestration
-- [retrieve.py](src/sebi_rag/retrieve.py) - hybrid retrieval
-- [rerank.py](src/sebi_rag/rerank.py) - cross-encoder reranking
-- [lineage.py](src/sebi_rag/lineage.py) - supersession tracking
-- [corpus.py](src/sebi_rag/corpus.py) - corpus ingestion and persistence
-- [ui.py](src/sebi_rag/ui.py) - Gradio entry point
-- [settings.py](src/sebi_rag/settings.py) - configuration model
+| File (`src/sebi_rag/`) | Purpose |
+|------|---------|\n| `api.py` | FastAPI entry point, app factory, key-in-body auth |
+| `pipeline.py` | `RAGPipeline` orchestration; `regulatory_basis_status` is surfaced per-citation in the API (`CitationMeta.regulations`) and UI, with an in-text advisory note for `repealed_basis` circulars |
+| `retrieve.py` | `HybridRetriever` — FAISS + BM25 RRF fusion (optional SPLADE leg, eval-only) |
+| `rerank.py` / `embeddings.py` | Cross-encoder reranking / BGE-M3 embedding |
+| `segment.py` | Hierarchical chunking (`CircularMeta`, `Chunk`) |
+| `lineage.py` | Supersession tracking + corpus annotation |
+| `regulations.py` | Regulation identity, alias table, name resolution, `load_regulations`/`reg_display_name` |
+| `reg_citations.py` | Regulation citations extracted from circular text |
+| `reg_lineage.py` | Circular→regulation edges + `regulatory_basis_status` annotation; `build_regulatory_index` (query-layer lookup) |
+| `generate.py` | Local generation + abstention gate (MLX-LM/Ollama via `Generator` protocol) |
+| `eval.py` / `eval_harness.py` / `benchmark.py` | Metrics, golden-set runner, BEIR/TREC export |
+| `splade.py`, `hyde.py`, `context_headers.py` | Retrieval experiments (opt-in, off by default) |
 
-## Hugging Face Spaces Demo
+### ⚠️ Two parallel code paths
 
-A CPU-only public demo path lives on the `spaces` branch: [app.py](app.py)
-calls the pipeline in-process (no FastAPI/API key), loads the corpus from the
-published [`opnsrcntrbtrian/sebi-circulars`](https://huggingface.co/datasets/opnsrcntrbtrian/sebi-circulars)
-dataset, downloads a prebuilt FAISS/BM25 index from HF Hub, and generates via
-an external LLM Space with a small CPU fallback model. It adds
-[api_spaces.py](src/sebi_rag/api_spaces.py), [corpus_spaces.py](src/sebi_rag/corpus_spaces.py),
-[generate_spaces.py](src/sebi_rag/generate_spaces.py) and a `[spaces]` config
-section — the Apple-Silicon local workflow (MLX, `mps`, `make serve`/`ui`/`reindex`)
-is unchanged. See [README-spaces.md](README-spaces.md) for the demo/local
-differences, deployment steps, and licensing notes.
+`*_spaces.py` (`api_spaces`, `corpus_spaces`, `generate_spaces`) plus root `app.py` are the
+CPU-only Hugging Face Spaces demo — no MLX/MPS. **Do not edit the Spaces modules when fixing
+the local Apple-Silicon pipeline, or vice versa.** Config lives in `config.toml [spaces]`;
+runbook in `README-spaces.md`.
+
+### ⚠️ Never add fields to `CircularMeta`
+
+`hierarchical_chunk()` does `meta=asdict(meta)` (`segment.py:131`), so a new
+`CircularMeta` field lands in every chunk payload (77.8k chunks) and mutates the
+persisted index. Additive per-circular metadata goes on the corpus JSONL record
+only — see `master_meta.annotate_master_fields` and
+`reg_lineage.annotate_regulation_fields`.
 
 ## Notes
 
