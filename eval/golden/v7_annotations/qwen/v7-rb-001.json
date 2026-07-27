@@ -1,0 +1,10 @@
+{
+  "id": "v7-rb-001",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "A\nEXPECTED: Section 11(1) of the SEBI Act, 1992, read with Regulation 77 of SEBI (Mutual Funds) Regulation, 1996; Yes, it remains in force.",
+  "governing": [
+    "SEBI/HO/IMD/IMD-SEC-3/P/CIR/2025/15#14. This circular is issued in exercise of the powers confer#19"
+  ],
+  "expected_literal": "Section 11(1) of the SEBI Act, 1992, read with Regulation 77 of SEBI (Mutual Funds) Regulation, 1996; Yes, it remains in force.",
+  "parse_error": false
+}

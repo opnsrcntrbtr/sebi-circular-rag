@@ -1,0 +1,10 @@
+{
+  "id": "invit",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "B\nEXPECTED: B",
+  "governing": [
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2025/102#preamble#0"
+  ],
+  "expected_literal": "B",
+  "parse_error": false
+}

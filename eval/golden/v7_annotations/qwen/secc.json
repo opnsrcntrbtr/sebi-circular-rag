@@ -1,0 +1,10 @@
+{
+  "id": "secc",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "O\nEXPECTED: Master circular for stock exchanges and clearing corporations",
+  "governing": [
+    "SEBI/HO/MRD-PoD2/CIR/P/2024/00181#1. Securities and Exchange Board of India (SEBI), from time #1"
+  ],
+  "expected_literal": "Master circular for stock exchanges and clearing corporations",
+  "parse_error": false
+}

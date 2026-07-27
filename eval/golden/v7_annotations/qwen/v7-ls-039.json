@@ -1,8 +1,8 @@
 {
   "id": "v7-ls-039",
   "model": "Qwen3.6-35B-A3B-MLX-4bit",
-  "reply": "YES\nEXPECTED: Circular SEBI/HO/IMD/DF2/P/CIR/P/2022/48 (May 13, 2022)",
+  "reply": "YES\nEXPECTED: Mandatory CISO appointment, 6-hour incident reporting to SEBI, annual penetration testing, and bi-annual BCP/DR testing.",
   "governing": [],
-  "expected_literal": "Circular SEBI/HO/IMD/DF2/P/CIR/P/2022/48 (May 13, 2022)",
+  "expected_literal": "Mandatory CISO appointment, 6-hour incident reporting to SEBI, annual penetration testing, and bi-annual BCP/DR testing.",
   "parse_error": false
 }

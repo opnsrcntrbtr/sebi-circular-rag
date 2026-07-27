@@ -1,0 +1,9 @@
+{
+  "adjudicated_n": 103,
+  "derived_at": "2026-07-27T19:36:15",
+  "floors": {
+    "recall_at_k": 0.9126,
+    "citation_recall": 0.3126,
+    "abstention_accuracy": 0.83
+  }
+}

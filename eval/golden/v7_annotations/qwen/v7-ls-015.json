@@ -1,11 +1,12 @@
 {
   "id": "v7-ls-015",
   "model": "Qwen3.6-35B-A3B-MLX-4bit",
-  "reply": "I, R\nEXPECTED: SMARTODR platform",
+  "reply": "C, N, Q\nEXPECTED: Online Dispute Resolution Portal (ODR Portal)",
   "governing": [
-    "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/91#2. Online Dispute If the Investor is not satisfied with the #678",
-    "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#2. Online Dispute If the Investor is not satisfied with the #2304"
+    "SEBI/HO/OIAE/OIAE_IAD-1/P/CIR/2023/145#1. After extensive public consultations and in furtherance o#1",
+    "SEBI/HO/OIAE/OIAE_IAD-1/P/CIR/2023/131#1. After extensive public consultations and in furtherance o#1",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2023/195#1. After extensive public consultations and in furtherance o#1"
   ],
-  "expected_literal": "SMARTODR platform",
+  "expected_literal": "Online Dispute Resolution Portal (ODR Portal)",
   "parse_error": false
 }

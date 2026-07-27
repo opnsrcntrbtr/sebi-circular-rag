@@ -1,10 +1,10 @@
 {
   "id": "v7-bp-042",
   "model": "Qwen3.6-35B-A3B-MLX-4bit",
-  "reply": "J\nEXPECTED: J",
+  "reply": "J\nEXPECTED: pre-defined limits on the exposure and turnover of each client.",
   "governing": [
     "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#53.2.2. The stock exchange, before giving permission to brok#862"
   ],
-  "expected_literal": "J",
+  "expected_literal": "pre-defined limits on the exposure and turnover of each client.",
   "parse_error": false
 }

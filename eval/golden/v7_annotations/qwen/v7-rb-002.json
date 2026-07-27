@@ -1,0 +1,10 @@
+{
+  "id": "v7-rb-002",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "O\nEXPECTED: Section 11(1) of Chapter IV of the Securities and Exchange Board of India Act, 1992, read with Section 30 of the Securities and Exchange Board of India (Stock Brokers) Regulations, 1992.",
+  "governing": [
+    "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/132#10. This circular is issued in exercise of powers conferred #12"
+  ],
+  "expected_literal": "Section 11(1) of Chapter IV of the Securities and Exchange Board of India Act, 1992, read with Section 30 of the Securities and Exchange Board of India (Stock Brokers) Regulations, 1992.",
+  "parse_error": false
+}

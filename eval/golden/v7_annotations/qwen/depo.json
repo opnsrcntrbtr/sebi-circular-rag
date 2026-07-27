@@ -1,10 +1,10 @@
 {
   "id": "depo",
   "model": "Qwen3.6-35B-A3B-MLX-4bit",
-  "reply": "I\nEXPECTED: I",
+  "reply": "P\nEXPECTED: P",
   "governing": [
-    "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#2. This Master Circular shall come into force from the date #2"
+    "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#5. Words and expressions used but not defined in this Circul#6"
   ],
-  "expected_literal": "I",
+  "expected_literal": "P",
   "parse_error": false
 }

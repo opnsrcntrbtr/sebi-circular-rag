@@ -1,0 +1,12 @@
+{
+  "id": "para-window",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "A, I, Q\nEXPECTED: Yes, until February 04, 2027.",
+  "governing": [
+    "HO/38/13/11(2)2026-MIRSD-POD/I/3750/2026#4. The special window shall also be available for such trans#4",
+    "HO/38/13/11(2)2026-MIRSD-POD/I/3750/2026#3. This special window shall be open for a period of one yea#3",
+    "HO/38/13/11(2)2026-MIRSD-POD/I/3750/2026#6. For clarity with regard to applicability of this window, #6"
+  ],
+  "expected_literal": "Yes, until February 04, 2027.",
+  "parse_error": false
+}

@@ -1,0 +1,10 @@
+{
+  "id": "v7-mh-001",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "H\nEXPECTED: Yes",
+  "governing": [
+    "HO/42/36/12(4)2025-OIAE-IAD3#5. In view of the foregoing, it has been decided to defer th#9"
+  ],
+  "expected_literal": "Yes",
+  "parse_error": false
+}

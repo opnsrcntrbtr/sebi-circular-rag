@@ -1,0 +1,11 @@
+{
+  "id": "v7-mh-008",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "M, Q\nEXPECTED: They have been carved out for separate harmonization by March 31, 2025.",
+  "governing": [
+    "SEBI/HO/AFD/PoD-1/P/CIR/2024/123#4.1. Clause 22.1.1 of the Master Circular stands modified as#5",
+    "SEBI/HO/AFD/PoD-1/P/CIR/2024/123#4.3. With respect to thinly traded and non-traded securities#7"
+  ],
+  "expected_literal": "They have been carved out for separate harmonization by March 31, 2025.",
+  "parse_error": false
+}

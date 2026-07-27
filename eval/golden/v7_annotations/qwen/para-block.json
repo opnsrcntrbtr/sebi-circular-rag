@@ -1,0 +1,12 @@
+{
+  "id": "para-block",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "B, M, O\nEXPECTED: B, M, O",
+  "governing": [
+    "SEBI/HO/MRD/POD-III/CIR/P/2025/134#2.2.1.2. Afternoon Block Deal Window: This window shall oper#5",
+    "SEBI/HO/MRD/POD-III/CIR/P/2025/134#2.2.1.1. Morning Block Deal Window: This window shall operat#4",
+    "SEBI/HO/MRD/POD-III/CIR/P/2025/134#2.1. Block deal is execution of large trades through a singl#3"
+  ],
+  "expected_literal": "B, M, O",
+  "parse_error": false
+}

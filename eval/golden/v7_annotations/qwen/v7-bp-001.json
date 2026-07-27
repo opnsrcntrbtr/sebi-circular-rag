@@ -1,0 +1,12 @@
+{
+  "id": "v7-bp-001",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "O, S, N\nEXPECTED: Yes, a custodian may share manpower resources, infrastructure, and systems across other financial services activities, subject to maintaining adequate controls (including Chinese walls and 'need to know' principles) and adhering to SEBI's general conflict of interest guidelines.",
+  "governing": [
+    "HO/19/(1)2025-AFD-FPICELL/I/5928/2026#2.1.3. Custodian (except which is a Bank or a subsidiary/ as#5",
+    "HO/19/(1)2025-AFD-FPICELL/I/5928/2026#2.2.1. Custodian shall ensure that adequate controls and mec#7",
+    "HO/19/(1)2025-AFD-FPICELL/I/5928/2026#2.2.2. Custodian shall continue to adhere to general guideli#8"
+  ],
+  "expected_literal": "Yes, a custodian may share manpower resources, infrastructure, and systems across other financial services activities, subject to maintaining adequate controls (including Chinese walls and 'need to know' principles) and adhering to SEBI's general conflict of interest guidelines.",
+  "parse_error": false
+}

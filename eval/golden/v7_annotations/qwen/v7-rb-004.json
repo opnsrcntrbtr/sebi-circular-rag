@@ -1,8 +1,1 @@
-{
-  "id": "v7-rb-004",
-  "model": "Qwen3.6-35B-A3B-MLX-4bit",
-  "reply": "F, V\nEXPECTED: Regulation 17(c) (specifically 17(c)(iv)) of the SEBI (Mutual Funds) Regulations; the provided excerpts do not indicate that it has been repealed.",
-  "governing": [],
-  "expected_literal": "",
-  "parse_error": true
-}
+{"id": "v7-rb-004", "model": "Qwen3.6-35B-A3B-MLX-4bit", "reply": "The correct excerpt is **", "governing": ["HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#14. To avoid using third-party bank accounts for fund flows #2867"], "parse_error": false, "expected_literal": "repealed"}

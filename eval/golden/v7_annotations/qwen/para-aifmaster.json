@@ -1,0 +1,11 @@
+{
+  "id": "para-aifmaster",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "C, H\nEXPECTED: SEBI's Master Circular for AIFs on the SEBI website (www.sebi.gov.in) under \"Legal -> Master Circulars\" and \"Info for -> Alternative Investment Funds\"",
+  "governing": [
+    "HO/19/34/11(6)2025-AFD-POD1/I/12928/2026#1. For effective regulation of Alternative Investment Funds #1",
+    "HO/19/34/11(6)2025-AFD-POD1/I/12928/2026#1.1.1. All applicants desirous of seeking registration as an#18"
+  ],
+  "expected_literal": "SEBI's Master Circular for AIFs on the SEBI website (www.sebi.gov.in) under \"Legal -> Master Circulars\" and \"Info for -> Alternative Investment Funds\"",
+  "parse_error": false
+}

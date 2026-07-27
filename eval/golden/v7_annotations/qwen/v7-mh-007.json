@@ -1,0 +1,10 @@
+{
+  "id": "v7-mh-007",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "Q\nEXPECTED: Q",
+  "governing": [
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/ON/2025/0027#2.1. Clause 2.1.1: In case of joint accounts / holdings, upo#7"
+  ],
+  "expected_literal": "Q",
+  "parse_error": false
+}

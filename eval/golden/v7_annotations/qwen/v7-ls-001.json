@@ -1,0 +1,14 @@
+{
+  "id": "v7-ls-001",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "A, F, H, N, O\nEXPECTED: Tripartite Agreement",
+  "governing": [
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/79#2. As per regulation 7(4) of SEBI LODR Regulations, 2015, “i#2",
+    "HO/38/13/(4)2026-MIRSD-POD/I/4298/2026#5. In terms of regulation 7(4) of Securities and Exchange Bo#854",
+    "SEBI/HO/MIRSD/POD-1/P/CIR/2024/37#41. Model Tripartite Agreement between the Issuer Company, E#335",
+    "HO/38/13/(4)2026-MIRSD-POD/I/4298/2026#43.2. As per regulation 7(4) of SEBI LODR Regulations, 2015,#331",
+    "SEBI/HO/MIRSD/POD-1/P/CIR/2024/37#5. In terms of regulation 7(4) of Securities and Exchange Bo#895"
+  ],
+  "expected_literal": "Tripartite Agreement",
+  "parse_error": false
+}

@@ -1,0 +1,12 @@
+{
+  "id": "v7-nt-002",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "L, S, T\nEXPECTED: 15",
+  "governing": [
+    "SEBI/HO/CFD/PoD2/CIR/P/2023/120#1. In terms of sub-regulation (1) of regulation 69 of the LO#35",
+    "SEBI/HO/CFD/PoD2/CIR/P/0155#1. In terms of sub-regulation (1) of regulation 69 of the LO#37",
+    "HO/49/14/14(7)2025-CFD-POD2/I/3762/2026#1. In terms of sub-regulation (1) of regulation 69 of the LO#41"
+  ],
+  "expected_literal": "15",
+  "parse_error": false
+}

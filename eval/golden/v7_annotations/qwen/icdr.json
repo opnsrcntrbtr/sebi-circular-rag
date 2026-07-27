@@ -1,0 +1,10 @@
+{
+  "id": "icdr",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "T\nEXPECTED: Master Circular for SEBI (Issue of Capital and Disclosure Requirements Regulations) 2018",
+  "governing": [
+    "HO/49/14/14(2)2026-CFD-POD2/I/4518/2026#preamble#0"
+  ],
+  "expected_literal": "Master Circular for SEBI (Issue of Capital and Disclosure Requirements Regulations) 2018",
+  "parse_error": false
+}

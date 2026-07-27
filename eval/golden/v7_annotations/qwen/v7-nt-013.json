@@ -1,0 +1,12 @@
+{
+  "id": "v7-nt-013",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "A, I, M\nEXPECTED: 1%",
+  "governing": [
+    "CIR/MRD/DRMNP/11/2013#8. Trading Hours#136",
+    "CIR/DNPD/7/2010#8. Trading Hours#109",
+    "CIR/MRD/DRMNP/11/2013#8. Trading Hours#134"
+  ],
+  "expected_literal": "1%",
+  "parse_error": false
+}

@@ -1,0 +1,11 @@
+{
+  "id": "v7-mh-009",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "E, A\nEXPECTED: December 31, 2022; the mechanism has moved to a generic recurring annual formula (parameters as on December 31st of the relevant year).",
+  "governing": [
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/71#18. Enhanced obligations and responsibilities on Qualified S#237",
+    "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#19.4.3. The values shall be calculated on an annual basis an#350"
+  ],
+  "expected_literal": "December 31, 2022; the mechanism has moved to a generic recurring annual formula (parameters as on December 31st of the relevant year).",
+  "parse_error": false
+}

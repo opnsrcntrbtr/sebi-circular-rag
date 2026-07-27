@@ -1,0 +1,10 @@
+{
+  "id": "sse",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "E\nEXPECTED: E",
+  "governing": [
+    "HO/49/14/14(6)2025-CFD-PoD1/I/2771/2026#1. Pursuant to amendments in SEBI (Issue of Capital and Disc#17"
+  ],
+  "expected_literal": "E",
+  "parse_error": false
+}
