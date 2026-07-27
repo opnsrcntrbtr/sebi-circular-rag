@@ -1,7 +1,7 @@
 # Project Context — SEBI Circular RAG
 
 > Authoritative architecture record. Consult before requesting any information.
-> Governed by `SEBI_RAG_Claude_Desktop_Engineering_Handbook.md`. Last updated: 2026-06-29.
+> Governed by `SEBI_RAG_Claude_Desktop_Engineering_Handbook.md`. Last updated: 2026-07-27.
 
 ## 1. Purpose
 
@@ -183,20 +183,32 @@ SEBI circular RAG/
 │   ├── adr-002-*.md
 │   ├── adr-003-*.md
 │   ├── graphify-analysis/      # cross-module analysis reports
-│   └── superpowers/            # plans, reports, specs (interventions)
+│   │       └── eval-gate-lineage-bridge.md
+│   ├── assets/                 # Demo assets (demo.webp)
+│   └── superpowers/            # Intervention plans, reports, specs
+│           ├── plans/          # 25 intervention plan docs
+│           ├── reports/        # Intervention reports
+│           └── specs/          # 17 intervention spec docs
 ├── data/
 │   ├── raw/                    # fetched PDFs + .sha256 checksums (705 records)
 │   ├── corpus/                 # circulars.jsonl (processed corpus)
-│   ├── manifests/              # build manifests
-│   └── index/                  # persisted index
+│   │       ├── circulars.jsonl             # Processed corpus
+│   │       ├── context_headers_targeted.jsonl  # Targeted context headers
+│   │       └── regulations.jsonl           # Regulation data
+│   ├── manifests/              # Build manifests
+│   │       ├── master_circulars.jsonl  # Master circular records
+│   │       ├── master_exceptions.jsonl # Master exceptions
+│   │       └── regulation_edges.jsonl  # Circular→regulation edges
+│   └── index/                  # Persisted index
 │       ├── dense.faiss         # FAISS dense store
 │       ├── bm25/               # BM25 sparse index
-│       ├── chunks.jsonl        # enriched chunks (22k+ chunks)
-│       ├── lineage.json        # supersession graph (1,200+ edges)
-│       ├── embeddings.npy      # cached embeddings (incremental indexing)
-│       ├── manifest.json       # doc-level sha256 manifest
-│       ├── meta.json           # corpus metadata
-│       └── splade.npz          # SPLADE sidecar (eval-only, off by default)
+│       ├── chunks.jsonl        # Enriched chunks (22k+ chunks)
+│       ├── lineage.json        # Supersession graph (1,200+ edges)
+│       ├── embeddings.npy      # Cached embeddings (incremental indexing)
+│       ├── manifest.json       # Doc-level sha256 manifest
+│       ├── meta.json           # Corpus metadata
+│       ├── splade.npz          # SPLADE sidecar (eval-only, off by default)
+│       └── splade_meta.json    # SPLADE index metadata
 ├── src/
 │   └── sebi_rag/               # flat module (no subpackages)
 │       ├── api.py              # FastAPI /health, /ready, /query (auth, rate, timeout)
@@ -230,6 +242,7 @@ SEBI circular RAG/
 │       ├── regulations.py      # Regulation identity, alias table, name resolution
 │       ├── verify_master.py    # Master circular verification
 │       ├── ui.py               # Gradio UI
+│       ├── ingest_pdf.py       # PDF ingestion: text extraction, metadata parsing, injection scan, corpus write
 ├── scripts/                    # CLI scripts (build, scrape, eval, ops)
 │       ├── build_index.py      # Index builder (full + incremental)
 │       ├── calibrate.py        # Retrieval calibration (RRF, top-k, threshold)
@@ -262,22 +275,41 @@ SEBI circular RAG/
 │       ├── rescore_runs.py     # Eval run rescoring
 │       ├── ops_server.py       # n8n ops server
 │       ├── deploy_space.py     # HF Space deployment
-│       └── ...
+│       ├── acquire_missing_pdfs.py  # PDF acquisition
+│       ├── analysis/           # Analysis tools
+│       │       ├── extract_misses.py
+│       │       ├── renumber_audit.py
+│       │       ├── sweep_pool.py
+│       │       └── trace_failure.py
+│       ├── canary.sh           # Canary monitoring
+│       ├── discover.sh         # Discovery script
+│       ├── discover_new.py     # New content discovery
+│       ├── generate_context_headers.py  # Context header generation
+│       ├── notify.sh           # Notification script
+│       ├── push_datasets.py    # Dataset push
+│       ├── refresh.sh          # Refresh script
+│       ├── splade_pilot.py     # SPLADE pilot
+│       ├── upload_spaces_index.py  # HF Space index upload
+│       └── select_targeted_headers.py  # Targeted header selection
 ├── tests/                      # 50+ test files (offline + integration)
 │       ├── conftest.py         # Fixtures, env guards, mock models
-│       ├── test_*.py           # Unit + integration tests
+│       ├── fixtures/           # Test fixtures (master appendix text, HTML listings)
+│       └── test_*.py           # Unit + integration tests
 ├── eval/
 │   ├── golden/                 # Labelled SEBI query→answer+citation sets
 │   │       ├── golden_v1.jsonl … golden_v7.jsonl  # Evolving golden sets
 │   │       ├── gate_v7.json  # v7 gate floors (recall, citation_recall, abstention)
-│   │       └── v7_annotations/  # Human adjudication annotations
+│   │       └── v7_annotations/  # Human adjudication (arbitration_queue, candidates, pools, votes, adjudication)
 │   ├── probes/                 # Probe queries (probes_v1.jsonl)
-│   └── runs/                   # Eval run results (baseline, asof, fp16, SPLADE, …)
-├── reports/                    # Intervention reports (golden_v7 agreement, master coverage, …)
-├── graphify-out/               # Generated knowledge graph (graph.json, GRAPH_REPORT.md)
+│   └── runs/                   # Eval run results (baseline, asof, fp16, SPLADE, 28+ intervention runs)
+├── reports/                    # Intervention reports (golden_v7 agreement, master coverage, reg_edge_audit, …)
+├── graphify-out/               # Generated knowledge graph (graph.json, GRAPH_REPORT.md, cache, cost.json)
 ├── logs/                       # Automation logs (canary, discover, refresh)
 ├── automation/                 # n8n workflow exports
+│       └── n8n/                # n8n workflow JSON exports
 ├── dist/                       # Dataset exports (AIKO, Zenodo)
+│       ├── datasets/           # Dataset exports (chunks, corpus, lineage, eval, …)
+│       └── backups/            # HF Space backups (hf-sebi-circulars-pre-push)
 ├── deploy/
 │       ├── com.sebi-rag.plist        # Main launchd user agent
 │       └── com.sebi-rag-ops.plist    # Ops server launchd agent
