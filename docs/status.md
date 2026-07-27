@@ -1,7 +1,7 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-07-26.
+> Last updated: 2026-07-27.
 
 ## Current Snapshot
 
@@ -9,10 +9,12 @@
   retrieval, cross-encoder reranking, grounded generation, abstention, and
   supersession-aware citations behind an authenticated FastAPI service.
 - Current evaluation baseline: `eval/golden/golden_v7.jsonl` (n=260) is the
-  reporting set, but **CI still gates on frozen `golden_v5`** until v7's
-  adjudicated subset reaches 100 rows (currently 0). Latest full-set numbers on
-  v5: recall@10 0.956, citation_precision 0.711, citation_recall 0.889,
-  abstention_accuracy 0.839. See the 2026-07-26 entry for the gate mechanics.
+  reporting set. **Gate is now armed: `adjudicated_n = 103`** (>= 100 threshold met);
+  `gate_v7.json` exists with floors: recall_at_k 0.9126, citation_recall 0.3126,
+  abstention_accuracy 0.83. CI now gates on v7 when `adjudicated_n >= 100`.
+  Frozen `golden_v5` (n=56) and `golden_v6` (n=56) remain available.
+  Latest full-set numbers on v5: recall@10 0.956, citation_precision 0.711,
+  citation_recall 0.889, abstention_accuracy 0.839.
 - Active roadmap: corpus expansion, OCR hardening, evaluation maintenance, and
   legal-safety tightening for near-domain queries. See [docs/next_steps.md](next_steps.md).
 
@@ -594,7 +596,44 @@ dropped), and two externals replying NONE on an answerable row would have
 commit. Expected ~60 promotions, so crossing the 100-adjudicated gate
 threshold still needs the human packet and/or arbitration.
 
+## 2026-07-27 — Gate armed: adjudicated_n reaches 103; new evaluation infrastructure
+
+**Gate status: ARMED.** `gate_v7.json` now records `adjudicated_n = 103` (was 0).
+`golden_v7.jsonl` census: 260 total rows — 103 `adjudicated`, 34 `seeded`, 123 `draft`.
+Strata on target: title_direct 40, body_paraphrase 60, numeric_table 30,
+lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40,
+far_negative 10. 53 abstain rows, 15 dated `as_of` rows.
+
+**Floors derived from 103 adjudicated rows:** recall_at_k 0.9126,
+citation_recall 0.3126, abstention_accuracy 0.83. CI now gates on v7 when
+`adjudicated_n >= 100`; missing/corrupt/short falls back to frozen `golden_v5`.
+
+**New golden set:** `golden_v6.jsonl` (n=56) now exists alongside v5 and v7.
+
+**New scripts:** `scripts/golden_v7/` directory with full adjudication pipeline:
+`agreement.py`, `backfill_escalations.py`, `build_pool.py`, `derive_thresholds.py`,
+`gate_select.py`, `gemini_adjudicate.py`, `local_adjudicate.py`, `make_packet.py`,
+`mine_strata.py`, `relabel_repooled.py`, `remap_doc_ids.py`, `score.py`, `seed_v7.py`.
+
+**New evaluation infrastructure:**
+- `scripts/bench_retrieval.py` — retrieval-only benchmark + TREC runfile
+- `scripts/eval_asof.py` — as-of-date golden eval
+- `scripts/build_reg_edges.py` — circular→regulation edges
+- `scripts/build_splade_index.py` — SPLADE sidecar index
+- `scripts/scrape_regulations.py` — SEBI regulations scraper (ssid=7)
+- `scripts/export_benchmark.py` — BEIR/TREC/RAG benchmark export
+- `make bench-retrieval`, `make bench-rerank`, `make eval-asof`,
+  `make scrape-regs`, `make reg-edges`, `make audit-regs`,
+  `make benchmark-export`, `make export-datasets`
+
+**New eval runs:** `eval/runs/asof-baseline`, `eval/runs/asof-fp16`,
+`eval/runs/baseline_retrieval`, `eval/runs/fp16_retrieval`.
+
+**Corpus:** 705 records / 77,841 chunks (unchanged from 2026-07-25 repair).
+**Index:** persisted at `data/index/` (dense.faiss + bm25 + chunks.jsonl +
+lineage.json + embeddings.npy + manifest.json + meta.json; splade.npz eval-only).
+
 ## Last Updated
 
-2026-07-26
+2026-07-27
 
