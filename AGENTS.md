@@ -4,7 +4,7 @@ This file mirrors the workspace guidance in `CLAUDE.md` for non-Claude agents an
 
 ## Project
 
-Local-first, Apple Silicon RAG over Indian SEBI Circulars. FastAPI service + Gradio UI. Hybrid retrieval with FAISS + BM25, cross-encoder reranking, citation generation, and supersession-aware lineage.
+Local-first, Apple Silicon RAG over Indian SEBI Circulars. FastAPI service + Gradio UI. Hybrid retrieval (FAISS + BM25) with cross-encoder reranking, citation generation, and supersession-aware lineage.
 
 ## Quick Start
 
@@ -17,77 +17,97 @@ make serve   # FastAPI backend on port 8000 (set SEBI_RAG_API_KEY in env)
 make ui      # Gradio UI dashboard
 make ops     # Local ops HTTP server for n8n automations (port 8765)
 make test    # Run offline test suite
-make reindex # Annotate corpus + rebuild FAISS/BM25 index
-make scrape  # Fetch SEBI circulars (MAX=N to limit count)
+make annotate # Recompute supersession status only
+make index   # Build/persist FAISS+BM25 index and lineage.json only
+make reindex # Annotate corpus + rebuild FAISS/BM25 index (chains annotate + index)
+make scrape   # Fetch SEBI circulars (MAX=N to limit count)
+make scrape-master   # Fetch SEBI master circulars (MAX_MASTER=N to limit count)
+make verify-master    # Coverage report vs live SEBI master-circular listing (OFFLINE=1 to skip fetch)
+make scrape-regs      # Fetch SEBI regulations (Updated List, sid=1&ssid=3)
+make reg-edges        # Build circular→regulation edges + annotate corpus (offline, idempotent)
+make audit-regs       # Precision audit of regulation edges (sample + Clopper-Pearson CI)
 make calibrate       # Retrieval calibration sweep
+make eval-asof # As-of-date golden eval; writes eval/runs/asof-$ASOF_OUT (default: baseline)
 make bench-retrieval # Retrieval-only benchmark + TREC runfile
 make bench-rerank    # Reranker benchmark (--models bge,qwen0.6b)
 make benchmark-export # Golden v6 build + BEIR/TREC/RAG benchmark export
 make export-datasets  # Export publishable dataset configs to dist/datasets
 ```
 
+## Architecture
+
+Pipeline: scrape → ingest_pdf → lineage.annotate → build_index → retrieve → rerank → generate.
+
+| File (`src/sebi_rag/`) | Purpose |
+|------|---------|
+| `api.py` | FastAPI entry point, app factory, key-in-body auth |
+| `pipeline.py` | `RAGPipeline` orchestration; `regulatory_basis_status` is surfaced per-citation in the API (`CitationMeta.regulations`) and UI, with an in-text advisory note for `repealed_basis` circulars |
+| `retrieve.py` | `HybridRetriever` — FAISS + BM25 RRF fusion (optional SPLADE leg, eval-only) |
+| `rerank.py` / `embeddings.py` | Cross-encoder reranking / BGE-M3 embedding |
+| `segment.py` | Hierarchical chunking (`CircularMeta`, `Chunk`) |
+| `lineage.py` | Supersession tracking + corpus annotation |
+| `regulations.py` | Regulation identity, alias table, name resolution, `load_regulations`/`reg_display_name` |
+| `reg_citations.py` | Regulation citations extracted from circular text |
+| `reg_lineage.py` | Circular→regulation edges + `regulatory_basis_status` annotation; `build_regulatory_index` (query-layer lookup) |
+| `generate.py` | Local generation + abstention gate (MLX-LM/Ollama via `Generator` protocol) |
+| `eval.py` / `eval_harness.py` / `benchmark.py` | Metrics, golden-set runner, BEIR/TREC export |
+| `splade.py`, `hyde.py`, `context_headers.py` | Retrieval experiments (opt-in, off by default) |
+
+### ⚠️ Two parallel code paths
+
+`*_spaces.py` (`api_spaces`, `corpus_spaces`, `generate_spaces`) plus root `app.py` are the
+CPU-only Hugging Face Spaces demo — no MLX/MPS. **Do not edit the Spaces modules when fixing
+the local Apple-Silicon pipeline, or vice versa.** Config lives in `config.toml [spaces]`;
+runbook in `README-spaces.md`.
+
+### ⚠️ Never add fields to `CircularMeta`
+
+`hierarchical_chunk()` does `meta=asdict(meta)` (`segment.py:131`), so a new
+`CircularMeta` field lands in every chunk payload (77.8k chunks) and mutates the
+persisted index. Additive per-circular metadata goes on the corpus JSONL record
+only — see `master_meta.annotate_master_fields` and
+`reg_lineage.annotate_regulation_fields`.
+
+## Testing & Evaluation
+
+- `make test` runs `pytest -q -m "not integration"`. The `integration` marker exercises real
+  bge-m3 / cross-encoder weights (slow) — run explicitly with `pytest -m integration`.
+- Golden sets and probe queries live in `eval/golden/` and `eval/probes/`; benchmark runs land
+  in `eval/runs/`. Retrieval changes are gated by an A/B run against these before promotion.
+- `golden_v7.jsonl` (n=260, stratified, span-anchored `{doc, quote}` chunk labels, plus a
+  `review_status` lifecycle of `seeded`/`draft` → `adjudicated`) is the reporting set.
+  **CI does not gate on it yet.** `scripts/eval_json.py` reports on v7 only once
+  `eval/golden/gate_v7.json` exists *and* records `adjudicated_n >= 100`; until then it falls
+  back to frozen `golden_v5`, so a partially reviewed v7 cannot silently become the set that
+  gates merges. `SEBI_RAG_GOLDEN` overrides the choice. Arm the gate with `make golden-v7-gate`
+  (refuses below 100 and says why). `golden_v1..v6`, `probes_v1`, and `golden_asof_v1` are frozen.
+- `make golden-v7-*` drives the v7 pipeline: `-seed`, `-mine`, `-pool`, `-packet`,
+  `-packet-ingest`, `-local`, `-gemini`, `-agree`, `-gate`. The **primary** external-annotation
+  leg (`-local`) calls a local oMLX server (Anthropic-compatible API on `127.0.0.1:8001` —
+  deliberately not 8000, which `make serve` binds; `Qwen3.6-35B-A3B-MLX-4bit`, votes as
+  `annotator: "qwen"`) — no quota, no network. The Gemini leg (`-gemini`) is ON HOLD: its free tier
+  allows ~20 requests/day/model, a multi-day wall for a 100-row pass. Both legs cache per
+  row and resume, and every row in one leg must come from the **same** model or the
+  agreement statistics measure model differences rather than label uncertainty
+  (`agreement.py` discovers the LLM leg generically and fails loud on two at once).
+- `make validate-corpus` checks corpus integrity: no two records share a body text, and each
+  record's `circular_number` is derivable from its own text. Add `--deep` to also re-extract
+  every PDF and compare. **Run it after any ingest, backfill, or repair** — both invariants
+  exist because those bug classes shipped undetected (see `docs/status.md` 2026-07-25).
+- Interventions are specced in `docs/superpowers/specs/`, planned in `plans/`, results in `reports/`.
+
 ## Environment
 
-- `SEBI_RAG_API_KEY` - API auth token for the FastAPI key-in-body guard
-- `HF_HUB_DISABLE_XET=1`, `TOKENIZERS_PARALLELISM=false`, `PYTORCH_ENABLE_MPS_FALLBACK=1` - set via Makefile/Make variables for Apple Silicon MPS
-- `PORT` - default `8000`; override with `PORT=9000 make serve`
-
-## Source Structure (`src/sebi_rag/`)
-
-| File | Purpose |
-|------|---------|
-| `api.py` | FastAPI entry point, app factory, auth middleware |
-| `benchmark.py` | Golden v6 validation, BEIR/TREC export, run metadata helpers |
-| `pipeline.py` | Core RAG pipeline orchestration |
-| `retrieve.py` | Hybrid FAISS + BM25 retrieval |
-| `rerank.py` | Cross-encoder reranking |
-| `embeddings.py` | Embedding generation (BGE-M3, etc.) |
-| `lineage.py` | Circular supersession tracking |
-| `corpus.py` | Corpus JSONL ingestion and persistence |
-| `ui.py` | Gradio dashboard entry point |
-| `settings.py` | Config-driven settings |
-| `generate.py` | Local generation w/ abstention gate (MLX-LM/Ollama via `Generator` protocol) |
-| `ingest_pdf.py` | CLI to parse a dropped circular PDF into a corpus record |
-| `eval.py` | Retrieval metrics (Recall@k, MRR, nDCG) |
-| `eval_harness.py` | Golden-set end-to-end evaluation runner (retrieval + citation + abstention + latency) |
-
-### Hugging Face Spaces path (CPU-only demo)
-
-Mirrors the local modules above but with no MLX/Ollama/MPS. Don't edit these when fixing the local (Apple Silicon) pipeline, and vice versa.
-
-| File | Purpose |
-|------|---------|
-| `api_spaces.py` | Pipeline builder for the Spaces demo (parallel to `api.build_default_pipeline()`) |
-| `corpus_spaces.py` | Loads the published `opnsrcntrbtrian/sebi-circulars` HF dataset instead of local `data/corpus` |
-| `generate_spaces.py` | CPU/remote `Generator` implementations (external Space + local HF model fallback) |
-
-`app.py` (repo root) is the Gradio Spaces entrypoint; `config.toml [spaces]` holds the dataset/index repos, external Space, and CPU fallback model config. See `README-spaces.md` for the deployment runbook and the ZeroGPU CPU-fallback workaround.
-
-## Graphify (Optional)
-
-Knowledge graph lives at `graphify-out/`. When the graph exists:
-
-- Query: `graphify query "<question>"` - returns scoped subgraph (~50 tokens/result)
-- Relationships: `graphify path "<A>" "<B>"`
-- Concept: `graphify explain "<concept>"`
-- Wiki navigation: if `graphify-out/wiki/index.md` exists, use it instead of raw source browsing
-- For broad architecture review, check `graphify-out/GRAPH_REPORT.md`
-- Keep current with `graphify update .` (AST-only, no API cost)
-
-## Current Handoffs
-
-- Benchmark/evaluation continuation: `docs/superpowers/2026-07-09-benchmark-evaluation-handoff.md`
-- Retrieval/benchmark infrastructure inventory: `docs/superpowers/2026-07-11-retrieval-benchmark-inventory.md`
+- `SEBI_RAG_API_KEY` — API auth token (FastAPI key-in-body guard)
+- `HF_HUB_DISABLE_XET=1`, `TOKENIZERS_PARALLELISM=false`, `OMP_NUM_THREADS=1`, `PYTORCH_ENABLE_MPS_FALLBACK=1`, `PYTHONPATH=src` — all set via the Makefile `ENV` var; running scripts outside `make` needs them set manually
+- `PORT` — default 8000; override with `PORT=9000 make serve`
 
 ## graphify
 
 This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
 
-When the user types `/graphify`, use the installed graphify skill or instructions before doing anything else.
-
 Rules:
 - For codebase questions, first run `graphify query "<question>"` when graphify-out/graph.json exists. Use `graphify path "<A>" "<B>"` for relationships and `graphify explain "<concept>"` for focused concepts. These return a scoped subgraph, usually much smaller than GRAPH_REPORT.md or raw grep output.
-- Dirty graphify-out/ files are expected after hooks or incremental updates; dirty graph files are not a reason to skip graphify. Only skip graphify if the task is about stale or incorrect graph output, or the user explicitly says not to use it.
 - If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
 - Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.
 - After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).
