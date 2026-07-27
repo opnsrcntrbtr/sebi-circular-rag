@@ -1,7 +1,7 @@
 # Project Context — SEBI Circular RAG
 
 > Authoritative architecture record. Consult before requesting any information.
-> Governed by `SEBI_RAG_Claude_Desktop_Engineering_Handbook.md`. Last updated: 2026-07-27 (Target Architecture corrected).
+> Governed by `SEBI_RAG_Claude_Desktop_Engineering_Handbook.md`. Last updated: 2026-07-27 (Target Architecture + Design Decisions updated).
 
 ## 1. Purpose
 
@@ -198,6 +198,79 @@ top_k=5). Index persisted at data/index/ (reload 0.34s). Re-run after corpus gro
   version, quantization, runtime params, and seeds. Alternative runtimes allowed
   for experimentation but must be tagged and never mixed into official benchmarks
   without documentation.
+- **D8 Certainty architecture (ADR-002).** Every response carries a confidence
+  block (`{rerank_top, margin, subject_sim, section_sim}`) and a banded
+  `certainty` (high | medium | low), never a probability. **High** = passed
+  both gates ∧ subject_sim ≥ 0.65 ∧ faithfulness 1.0 (100% citation recall on
+  golden_v5). **Medium** = passed gates otherwise. **Low** = any gate failed
+  (always on abstention). `abstention_reason` enum: `no_context | score_floor |
+  subject_gate` — distinguishes client error, far-domain, and near-domain
+  ungrounded. Advisory mode (`advisory=True`): on `score_floor`/`subject_gate`
+  with non-empty context, response additionally carries `draft_answer` prefixed
+  "LOW CONFIDENCE — not regulatory guidance…" (never the default, never
+  produced for `no_context`). `as_of` date-scoped queries: score against law as
+  of a date (circular demoted only if superseding circular issued by that date).
+  Two-tier groundedness gate: SubjectSimJudge (max cosine(query, subject line),
+  threshold 0.42) OR section-heading tier (threshold 0.60). MLXJudge (deterministic
+  groundedness judge on MLX, modes: identify/provisions) available but not
+  default (scale-unstable). Faithfulness check: every cited circular id in
+  square brackets must appear in retrieved context; unsupported citations flagged.
+  *Amended 2026-07-02 (ADR-002):* two-tier subject/section gate adopted —
+  `grounded = subject_sim ≥ 0.42 OR section_sim ≥ 0.60`.
+- **D9 Apple Neural Engine (ANE) declined (ADR-003).** The pipeline stays on MLX
+  (generation) and MPS/MLX (embeddings/reranker). ANE is an energy-efficiency
+  engine (~93+ tok/s vs ~9 tok/s on 8B model); throughput-oriented server RAG
+  on plugged-in Apple Silicon does not benefit. Revisit only if battery life,
+  thermal envelope, or always-on background inference becomes an explicit goal.
+- **D10 F1–F5 findings (ADR-001).** F1 — contextual chunk enrichment: prepend
+  `<circular_no> | <subject> | <section>` to each chunk before embedding
+  (criterion met: +23% citation precision, recall@10 held at 1.0). F2 —
+  Qwen3-Reranker MLX benchmark rejected (AUROC 0.799 vs baseline 0.812;
+  baseline retained). F3 — incremental indexing: checksum-keyed encode
+  (`embeddings.npy` cache + per-doc manifest); delta-only encode, FAISS-Flat/
+  BM25 rebuilt from cached matrix (deletion-safe vs HNSW). F4 —
+  prompt-injection hardening: 8 injection-pattern classes scanned at ingest
+  (OWASP LLM01); `<<<SOURCE>>>` delimiters in prompts; timing-safe API key
+  compare (`secrets.compare_digest`); localhost binding. F5 — golden-set
+  circularity fix: held-out paraphrase queries + hard negatives (golden_v5/v6/v7
+  with human adjudication). All F1–F5 accepted and implemented.
+- **D11 Wrapped-clause folding (Intervention #1).** SEBI PDFs hard-wrap clause
+  text; a non-heading paragraph right after a heading is usually its continuation.
+  Absorb into the recorded head unless the head is already terminated or capped.
+  Additionally, numbered sub-clauses ("4.1.1.2. …") are meaningless without their
+  governing clause ("4.1.1 On and from the date… the CRA shall:"). Prepend the
+  nearest recorded ancestor heading to every chunk so both retrievers see the
+  context.
+- **D12 Query expansion via statutory-synonym glossary (Intervention #2).**
+  SEBI circulars use statutory vocabulary (freeze, dematerialised, rescinded)
+  where users ask in lay terms (block, electronic, replaced). Appending statutory
+  synonyms to the BM25 query closes the vocabulary gap without touching the
+  index; the dense leg keeps the raw query. Deterministic and additive: the
+  original query is always preserved as a prefix. Entries grounded in
+  `eval/runs/ft-traces/buckets.md` failure analysis.
+- **D13 Optional third RRF legs (Interventions #5, iv9, iv11).** HyDE (Part B):
+  hypothetical statutory passage as additive third dense leg (opt-in, off by
+  default, silent failure). SPLADE: learned-sparse third RRF leg (opt-in,
+  eval-only, off by default). Contextual headers: one lay+statutory sentence per
+  deep sub-clause/annex chunk (opt-in, off by default, silent failure). All
+  three are non-destructive — the mandatory dense + BM25 + RRF path is
+  unchanged; enabling any third leg requires explicit configuration.
+- **D14 Regulation-level annotation.** Regulations are consolidated living
+  documents (no circular_number, no issue_date, one current row each), keyed by
+  deterministic `reg_id` slug. Three-stage resolution: exact token match, then
+  hand-maintained `REGULATION_ALIASES` table (acronyms like "PIT" →
+  "prohibition-of-insider-trading"), then Jaccard fuzzy match (threshold 0.8).
+  `regulatory_basis_status` (current|repealed_basis|mixed|unknown) derived from
+  resolved regulation statuses; `CitationMeta.regulations` surfaced per-citation
+  in the API. In-text advisory note appended when a cited circular rests on a
+  repealed regulation.
+- **D15 API surface.** FastAPI service: key-in-body auth (`X-API-Key` header,
+  `secrets.compare_digest`), rate limiting (429, configurable `SEBI_RATE_PER_MIN`,
+  default 60 req/min), per-query timeout (504, configurable), `/health` (chunk/
+  circular counts, generator info), `/ready` (eager pipeline build), `/query`
+  (full response schema with `confidence`, `certainty`, `abstention_reason`,
+  `citations_meta` including `regulatory_basis_status` and `regulations`).
+  `retrieval_only` mode swaps in `ExtractiveStubGenerator` for testing.
 
 ## 9. Engineering Constraints
 
