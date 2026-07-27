@@ -1,7 +1,7 @@
 # Project Context — SEBI Circular RAG
 
 > Authoritative architecture record. Consult before requesting any information.
-> Governed by `SEBI_RAG_Claude_Desktop_Engineering_Handbook.md`. Last updated: 2026-07-27.
+> Governed by `SEBI_RAG_Claude_Desktop_Engineering_Handbook.md`. Last updated: 2026-07-27 (Target Architecture corrected).
 
 ## 1. Purpose
 
@@ -30,12 +30,22 @@ evidence."** rather than guessing.
 Pipeline stages:
 
 1. **Ingestion** — fetch official SEBI circulars; record provenance (source URL,
-   fetch date, checksum).
+   fetch date, checksum). `ingest_pdf.py`: PDF text extraction (with OCR fallback
+   for scanned PDFs), metadata parsing (circular number, dates, subject,
+   department, version_lineage), F4 injection scanning (OWASP LLM01 — flags
+   instruction-like content in extracted text for review, never silently drops).
 2. **Segmentation (mandatory)** — hierarchical chunking: document → section →
    paragraph, packed to ≈1200 chars with ≈150-char overlap. PDF-aware: when
    extracted text lacks blank-line breaks, falls back to single-newline, then
    sentence, then hard-window splitting (no mid-clause splits where a break
    exists). Each chunk carries a stable retrieval ID for precise citation.
+   Wrapped-clause folding: absorbs hard-wrapped continuation lines after headings.
+   Intervention #1: prepends governing clause for numbered sub-clauses.
+   F1: contextual enrichment — prepends document identity (circular number +
+   subject) to every chunk for disambiguation. `CircularMeta` fields:
+   circular_number, issue_date, effective_date, subject, issuing_department,
+   supersession_status (in_force|superseded|amended), amendment_history,
+   version_lineage, circular_type, validity_status (current|superseded|partially_superseded|unknown), superseded_by_id.
 3. **Metadata extraction (mandatory)** — per document/chunk: circular number,
    issue date, effective date, subject, issuing department, supersession status,
    amendment history, version lineage. Cross-document supersession is resolved by
@@ -43,27 +53,58 @@ Pipeline stages:
    circular text, AND master-circular re-issues are detected by normalised title
    (newest version supersedes older), producing a lineage graph and an
    in_force|superseded|amended status; superseded chunks are demoted in rerank and
-   flagged at retrieval time.
-4. **Indexing** — Dense: FAISS (HNSW/Flat, in-memory) over bge-m3 baseline
-   embeddings. Sparse: BM25 lexical index (bm25s or Tantivy). Indexes are
-   versioned.
-5. **Stage-1 retrieval (mandatory hybrid)** — dense (FAISS) + sparse (BM25) run in
-   parallel, fused by Reciprocal Rank Fusion (RRF) into a candidate pool of ~50–100.
-6. **Stage-2 reranking (mandatory)** — cross-encoder reranker
-   (bge-reranker-v2-m3 / Qwen3-Reranker via MLX) → top-k context.
-7. **Generation** — local LLM. Default MLX-LM Qwen2.5-1.5B-4bit (Apple-Silicon
-   native; sweep: faithfulness 1.0, groundedness 0.89, ~2.6s/query; 3B avail for
-   groundedness 0.95 @ 3.3s). Ollama optional via SEBI_RAG_GENERATOR. Abstention
-   gate:
-   if reranker confidence is below the configured threshold, return the abstention
-   answer; never generate unsupported legal conclusions.
+   flagged at retrieval time. Regulation-level annotation: `reg_lineage.py`
+   builds Circular→regulation edges; `regulations.py` resolves regulation identity
+   and alias table. `CitationMeta.regulations` and `regulatory_basis_status`
+   (current|repealed_basis|mixed|unknown) surfaced per-citation in the API; in-text
+   advisory note appended when a cited circular rests on a repealed regulation.
+4. **Indexing** — Dense: FAISS (IndexFlatIP, in-memory) over bge-m3 baseline
+   embeddings. Sparse: BM25 lexical index (bm25s). Indexes are versioned via
+   `manifest.json` with per-document checksums (supports incremental indexing —
+   F3: encode only new/changed documents, reuse cached embedding rows for
+   unchanged ones).
+5. **Stage-1 retrieval (mandatory hybrid)** — dense (FAISS) + sparse (BM25) run
+   sequentially, fused by Reciprocal Rank Fusion (RRF) into a candidate pool of
+   ~50–100. Optional SPLADE learned-sparse third leg (eval-only, off by default).
+   Optional HyDE hypothetical-passage third dense leg (intervention #5, off by
+   default). Query expansion (statutory-synonym expansion) applied to sparse leg
+   only — BM25 misses lay vocabulary; dense keeps the raw query.
+6. **Stage-2 reranking (mandatory)** — production: cross-encoder reranker
+   (bge-reranker-v2-m3 via sentence-transformers CrossEncoder on MPS). Benchmark
+   candidate: Qwen3-Reranker via MLX (causal-LM, P("yes") vs P("no")). Test
+   fallback: deterministic LexicalReranker (query-coverage score). → top-k context.
+7. **Generation** — local LLM. Default MLX-LM Qwen2.5-1.5B-Instruct-4bit
+   (Apple-Silicon native). Ollama optional via SEBI_RAG_GENERATOR (deterministic:
+   temperature 0, fixed seed). Abstention gate: if reranker confidence is below
+   the configured threshold (calibrated ≈ 0.4), return the abstention answer
+   ("I don't know based on the available evidence."); never generate unsupported
+   legal conclusions. ADR-002 certainty architecture: SubjectSimJudge (two-tier
+   groundedness — max cosine(query, subject line) with threshold 0.42, plus
+   section-heading tier at 0.60); MLXJudge (deterministic groundedness judge on
+   MLX, modes: identify/provisions). Confidence bands: high (subject_sim ≥ 0.65
+   + faithfulness 1.0), medium (passed all gates), low (abstained). Advisory mode:
+   `advisory=True` returns a clearly-labelled low-confidence draft answer on gate
+   failure (never authoritative). `as_of` date-scoped queries: score against law as
+   of a date (circular demoted only if superseding circular was issued by that
+   date). Faithfulness check: every cited circular id in square brackets must
+   appear in retrieved context; unsupported citations flagged.
 8. **Evaluation (mandatory component)** — see §7.
 
 ```
-                ┌─ Dense ANN  (FAISS, bge-m3 baseline) ─┐
-Query ──────────┤                                       ├─ RRF ─ pool(50–100) ─ cross-encoder reranker ─ top-k ─ LLM ─ answer + citations
-                └─ Sparse lexical (BM25 / Tantivy) ─────┘                                                              │
-                                                                                                   abstain if below threshold
+                ┌─ Dense ANN  (FAISS IndexFlatIP, bge-m3 baseline) ─┐
+Query ──────────┤                                               ├─ RRF ─ pool(50–100) ─ cross-encoder (bge-reranker-v2-m3) ─ top-k ─ LLM ─ answer + citations
+                └─ Sparse lexical (bm25s) ────────────────────────┘                              │
+                                                                                   ┌─ Judge (SubjectSim/MLX) ─ abstain if not grounded
+                                                                                   │
+                                                                                   └─ Faithfulness check (citation ids in context)
+                                                                                                   │
+                                                                                   ┌─ Abstain if below threshold (≈ 0.4)
+                                                                                   │
+                                                                                   └─ Advisory mode: low-confidence draft on gate failure (advisory=True)
+                                                                                                   │
+                                                                                   ┌─ as_of: date-scoped (demote only if superseded by as_of date)
+                                                                                   │
+                                                                                   └─ Optional SPLADE / HyDE third legs (eval-only, off by default)
 ```
 
 ## 5. Dependency Versions
