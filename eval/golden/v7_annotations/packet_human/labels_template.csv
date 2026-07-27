@@ -1,29 +1,29 @@
 id,choices,expected_literal
-swagat,,
-intraday,,
-sif,,
-cra,,
-reit,,
-v7-bp-026,,
-v7-bp-043,,
-v7-bp-045,,
-v7-bp-002,,
-v7-bp-014,,
-v7-bp-006,,
-v7-bp-019,,
-v7-nt-010,,
-v7-nt-009,,
-v7-nt-008,,
-v7-nt-028,,
-v7-ls-022,,
-v7-ls-035,,
-v7-ls-021,,
-v7-ls-030,,
-v7-ls-011,,
-v7-mh-002,,
-v7-mh-016,,
-v7-rb-003,,
-v7-rb-016,,
+swagat,P,Single Window Automatic and Generalised Access for Trusted Foreign Investors (SWAGAT-FI) framework for FPIs and FVCIs
+intraday,B,Sub: Framework for Intraday Position Limits Monitoring for Equity Index Derivatives
+sif,M,In order to ensure uniformity and clarity in compliance reporting for SIFs, the compliance reporting formats applicable to SIFs shall be as follows:
+cra,D,Subject: Master Circular for Credit Rating Agencies
+reit,R,Sub: Master Circular for Real Estate Investment Trusts (REITs)
+v7-bp-026,Q,A SEBI registered entity shall be permitted to act as an investment manager on behalf of institutional clients.
+v7-bp-043,F,The "association" for the purposes of these regulations shall mean the association in the nature of transaction involving money or money's worth or referral of a client or interaction of information technology systems
+v7-bp-045,T,A joint platform to provide Investor Risk Reduction Access (IRRA) service shall be developed by the exchanges to provide the investors an opportunity to square off/close the open positions and/or cancel pending orders
+v7-bp-002,none,
+v7-bp-014,none,
+v7-bp-006,H,The approval of Compliance Officer for carrying out a transaction of sale or purchase of a security by the access person shall not be valid for more than 7 trading days from the date of approval
+v7-bp-019,none,
+v7-nt-010,C,The average daily turnover of underlying futures contracts shall be at least INR 200 crore for agricultural and agri-processed commodities
+v7-nt-009,F,Trading Member level: gross open positions across all contracts should not exceed 15% of total open interest or Rs. 1000 crores whichever is higher
+v7-nt-008,G,Merchant Banker shall submit a report of compliance with all activities in T+4 to SEBI not later than 09:00 PM
+v7-nt-028,I,7.4 at least 50% of non-promoter holding shall be held in dematerialized form
+v7-ls-022,K,an eligible AIF industry association endorsed the IPEV Guidelines for valuation of investment portfolio of AIFs
+v7-ls-035,K,AMCs shall deploy the minimum net worth required in cash, money market instruments, Government Securities, Treasury bills, Repo on Government securities, or listed AAA rated debt securities
+v7-ls-021,E,Regulation 23 of the Listing Regulations prescribes the obligations of 'high value debt listed entities' pertaining to Related Party Transactions
+v7-ls-030,T,The First Close of a scheme shall be declared not later than 12 months from the date of SEBI communication for taking the PPM on record
+v7-ls-011,F,Regulation 4(2)(g) of REIT Regulations: unitholders holding not less than ten percent of total outstanding units may nominate one director on the board of the Manager
+v7-mh-002,G,Sub: Master Circular for Alternative Investment Funds (AIFs)
+v7-mh-016,B,Stock exchanges and CCs shall put in place appropriate systems to ensure compliance of the provisions of this circular on or before October 01, 2023
+v7-rb-003,M,This circular is issued in exercise of powers conferred under Section 11(1) of the SEBI Act, 1992 read with Regulation 58(1) and 77 of SEBI (Mutual Funds) Regulations, 1996
+v7-rb-016,T,Considering the emergence of passive funds i.e. ETFs and Index Funds, a need was felt to review the regulatory framework for passive funds in India
 hn-egr,none,
 v7-hn-022,none,
 v7-hn-004,none,
