@@ -1,0 +1,10 @@
+{
+  "id": "v7-ls-027",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "B\nEXPECTED: Multi-factor authentication (MFA)",
+  "governing": [
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/53#6. Password Policy/ Authentication Mechanisms:#1175"
+  ],
+  "expected_literal": "Multi-factor authentication (MFA)",
+  "parse_error": false
+}

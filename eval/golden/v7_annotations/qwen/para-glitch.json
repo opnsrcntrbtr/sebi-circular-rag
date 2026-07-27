@@ -1,0 +1,11 @@
+{
+  "id": "para-glitch",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "J, G\nEXPECTED: J, G",
+  "governing": [
+    "HO/38/44/12(1)2026-MIRSD-TPD1#7. Reporting Requirements:#10",
+    "HO/38/44/12(1)2026-MIRSD-TPD1#6. Applicability of framework:#9"
+  ],
+  "expected_literal": "J, G",
+  "parse_error": false
+}

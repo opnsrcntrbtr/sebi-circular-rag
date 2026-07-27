@@ -1,0 +1,11 @@
+{
+  "id": "v7-rb-008",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "D, Q\nEXPECTED: D, Q",
+  "governing": [
+    "SEBI/HO/MRD/POD-III/CIR/2023/165#5. The SEBI circulars specified at paragraph 3 above, stand #5",
+    "SEBI/HO/MRD/POD-III/CIR/2023/165#3. SEBI vide Circulars No. SMD/SED/RCG/270/96 dated January #3"
+  ],
+  "expected_literal": "D, Q",
+  "parse_error": false
+}

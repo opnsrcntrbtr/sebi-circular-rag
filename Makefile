@@ -58,6 +58,12 @@ benchmark-export:
 	$(ENV) $(PY) scripts/build_golden_v6.py
 	$(ENV) $(PY) scripts/export_benchmark.py
 
+golden-v7-seed:
+	$(ENV) $(PY) scripts/golden_v7/seed_v7.py
+
+golden-v7-mine:
+	$(ENV) $(PY) scripts/golden_v7/mine_strata.py
+
 export-datasets:
 	$(PY) scripts/export_datasets.py
 
@@ -87,3 +93,27 @@ reg-edges:
 
 audit-regs:
 	$(ENV) $(PY) scripts/audit_reg_edges.py
+
+golden-v7-pool:
+	$(ENV) $(PY) scripts/golden_v7/build_pool.py
+
+golden-v7-packet:
+	$(ENV) $(PY) scripts/golden_v7/make_packet.py
+
+golden-v7-gemini:
+	$(ENV) $(PY) scripts/golden_v7/gemini_adjudicate.py
+
+golden-v7-local:
+	$(ENV) $(PY) scripts/golden_v7/local_adjudicate.py
+
+golden-v7-agree:
+	$(ENV) $(PY) scripts/golden_v7/agreement.py
+
+golden-v7-packet-ingest:
+	$(ENV) $(PY) scripts/golden_v7/make_packet.py --ingest eval/golden/v7_annotations/packet_human/labels_template.csv
+
+golden-v7-gate:
+	$(ENV) $(PY) scripts/golden_v7/derive_thresholds.py
+
+validate-corpus:
+	$(ENV) $(PY) scripts/validate_corpus.py data/corpus/circulars.jsonl

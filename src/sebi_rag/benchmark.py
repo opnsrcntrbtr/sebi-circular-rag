@@ -29,6 +29,8 @@ TASK_TYPES = {
     "exact_circular",
     "hard_negative",
     "far_negative",
+    "multi_hop",
+    "repealed_basis",
 }
 DIFFICULTIES = {"easy", "medium", "hard"}
 CITATION_LEVELS = {"none", "circular", "chunk"}
@@ -202,6 +204,121 @@ def validate_golden(rows: list[dict[str, Any]]) -> list[BenchmarkIssue]:
     return issues
 
 
+import re as _re
+from datetime import date as _date
+
+STRATA_TARGETS_V7 = {
+    "title_direct": 40, "body_paraphrase": 60, "numeric_table": 30,
+    "lineage_supersession": 40, "multi_hop": 20, "repealed_basis": 20,
+    "hard_negative": 40, "far_negative": 10,
+}
+V7_ID_RE = _re.compile(r"^v7-(td|bp|nt|ls|mh|rb|hn|fn)-\d{3}$")
+_MIN_QUOTE_CHARS = 40
+
+
+def _norm_ws(text: str) -> str:
+    return " ".join(text.split()).lower()
+
+
+def validate_golden_v7(
+    rows: list[dict[str, Any]], chunks: list[Chunk] | None = None
+) -> list[BenchmarkIssue]:
+    """Spec 2026-07-23 §3/§4/§8 rails on top of validate_golden.
+
+    `chunks` is optional: when provided, every span quote must resolve to at
+    least one chunk of its doc (re-chunking drift is a loud error, never rot).
+    """
+    issues = list(validate_golden(rows))
+    for row in rows:
+        rid = str(row.get("id", "<no-id>"))
+        if rid.startswith("v7-") and not V7_ID_RE.match(rid):
+            issues.append(BenchmarkIssue(rid, "invalid v7 id format"))
+        as_of = row.get("as_of")
+        if as_of is not None:
+            if row.get("task_type") != "lineage_supersession":
+                issues.append(BenchmarkIssue(rid, "as_of only allowed on lineage_supersession"))
+            else:
+                try:
+                    _date.fromisoformat(as_of)
+                except (TypeError, ValueError):
+                    issues.append(BenchmarkIssue(rid, f"as_of not ISO: {as_of!r}"))
+        mnc = row.get("must_not_cite", [])
+        if mnc and row.get("task_type") != "lineage_supersession":
+            issues.append(BenchmarkIssue(rid, "must_not_cite only allowed on lineage_supersession"))
+        if mnc and row.get("abstain"):
+            issues.append(BenchmarkIssue(rid, "abstain row has must_not_cite"))
+        relevant = set(row.get("relevant_circulars", []))
+        for span in row.get("relevant_chunks", []):
+            if not isinstance(span, dict) or set(span) != {"doc", "quote"}:
+                issues.append(BenchmarkIssue(rid, f"span must be {{doc, quote}}: {span!r}"))
+                continue
+            if span["doc"] not in relevant:
+                issues.append(BenchmarkIssue(rid, f"span doc not in relevant_circulars: {span['doc']}"))
+            if len(_norm_ws(span["quote"])) < _MIN_QUOTE_CHARS:
+                issues.append(BenchmarkIssue(rid, f"quote under {_MIN_QUOTE_CHARS} chars"))
+    if len(rows) >= sum(STRATA_TARGETS_V7.values()):
+        from collections import Counter
+        census = Counter(r.get("task_type") for r in rows)
+        for tt, want in STRATA_TARGETS_V7.items():
+            if census.get(tt, 0) != want:
+                issues.append(BenchmarkIssue(
+                    "<census>", f"census: {tt} has {census.get(tt, 0)}, want {want}"))
+        for tt in STRATA_TARGETS_V7:
+            if tt == "far_negative":
+                continue  # by design: obviously-off-domain, uniformly easy
+            strat = [r for r in rows if r.get("task_type") == tt]
+            hard = sum(1 for r in strat if r.get("difficulty") == "hard")
+            if strat and hard / len(strat) < 0.2:
+                issues.append(BenchmarkIssue("<census>", f"census: {tt} under 20% hard"))
+    if chunks is not None:
+        issues.extend(_span_resolution_issues(rows, chunks))
+    return issues
+
+
+def chunks_by_doc(chunks: list[Chunk]) -> dict[str, list[Chunk]]:
+    out: dict[str, list[Chunk]] = {}
+    for c in chunks:
+        out.setdefault(normalize_circular_number(c.doc_id), []).append(c)
+    return out
+
+
+def resolve_chunk_spans(
+    row: dict[str, Any], by_doc: dict[str, list[Chunk]]
+) -> list[str]:
+    """Span {doc, quote} -> matching chunk ids (all overlap matches count).
+
+    Legacy plain-string entries pass through untouched (v6 compat)."""
+    ids: list[str] = []
+    for span in row.get("relevant_chunks", []):
+        if isinstance(span, str):
+            ids.append(span)
+            continue
+        q = _norm_ws(span.get("quote", ""))
+        if not q:
+            continue
+        doc = span.get("doc", "")
+        if doc:
+            doc = normalize_circular_number(doc)
+        ids.extend(c.id for c in by_doc.get(doc, [])
+                   if q in _norm_ws(c.text))
+    return _unique(ids)
+
+
+def _span_resolution_issues(
+    rows: list[dict[str, Any]], chunks: list[Chunk]
+) -> list[BenchmarkIssue]:
+    by_doc = chunks_by_doc(chunks)
+    issues = []
+    for row in rows:
+        rid = str(row.get("id", "<no-id>"))
+        for span in row.get("relevant_chunks", []):
+            if isinstance(span, dict) and not resolve_chunk_spans(
+                    {"relevant_chunks": [span]}, by_doc):
+                issues.append(BenchmarkIssue(
+                    rid, f"quote does not resolve to any chunk of {span.get('doc')}"))
+    return issues
+
+
 def beir_corpus_rows(chunks: list[Chunk]) -> list[dict[str, Any]]:
     rows = []
     for c in chunks:
@@ -229,15 +346,14 @@ def beir_query_rows(golden: list[dict[str, Any]]) -> list[dict[str, str]]:
 
 
 def qrels_rows(golden: list[dict[str, Any]], chunks: list[Chunk]) -> list[tuple[str, str, int]]:
-    by_doc: dict[str, list[Chunk]] = {}
     by_id = {c.id: c for c in chunks}
-    for c in chunks:
-        by_doc.setdefault(normalize_circular_number(c.doc_id), []).append(c)
+    by_doc = chunks_by_doc(chunks)
     rows: list[tuple[str, str, int]] = []
     for item in golden:
         if item.get("abstain"):
             continue
-        explicit = [cid for cid in item.get("relevant_chunks", []) if cid in by_id]
+        explicit = [cid for cid in resolve_chunk_spans(item, by_doc)
+                    if cid in by_id]
         if explicit:
             rows.extend((item["id"], cid, 2) for cid in explicit)
             continue

@@ -1,0 +1,13 @@
+{
+  "id": "v7-ls-004",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "A, G, H, I\nEXPECTED: the ‘debit’ file",
+  "governing": [
+    "HO/38/13/(4)2026-MIRSD-POD/I/4298/2026#49.3. Upon approval of the basis of allotment, the RTA shall#359",
+    "SEBI/HO/DDHS/P/CIR/2021/613#10.4. Upon approval of the basis of allotment, the RTA shall#54",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2023/116#3.4. Upon approval of the basis of allotment, the RTA shall #537",
+    "SEBI/HO/MIRSD/POD-1/P/CIR/2023/70#42. Issue and listing of Non-Convertible Securities (NCS), S#319"
+  ],
+  "expected_literal": "the ‘debit’ file",
+  "parse_error": false
+}

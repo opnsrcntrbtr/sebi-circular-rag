@@ -1,0 +1,11 @@
+{
+  "id": "para-mfborrow",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "D, G\nEXPECTED: Yes, mutual funds can enter into formal intraday borrowing arrangements with banks to bridge intraday timing mismatches for redemptions.",
+  "governing": [
+    "HO/(92)2026-IMD-POD-2/I/6961/2026#1. As per prevalent industry practice, primarily for liquid #1",
+    "HO/(92)2026-IMD-POD-2/I/6961/2026#4.2. Intraday borrowings shall be used only for the purpose #7"
+  ],
+  "expected_literal": "Yes, mutual funds can enter into formal intraday borrowing arrangements with banks to bridge intraday timing mismatches for redemptions.",
+  "parse_error": false
+}

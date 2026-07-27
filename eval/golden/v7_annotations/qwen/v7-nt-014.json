@@ -1,0 +1,25 @@
+{
+  "id": "v7-nt-014",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "A, D, E, F, H, I, J, K, L, M, N, P, Q, R, S, T\nEXPECTED: 100%",
+  "governing": [
+    "CIR/IMD/DF/5/2013#3. The lower of (1) and (2) above shall be used for calculat#215",
+    "SEBI/HO/CDMRD/DNPMP/CIR/P/2020/118#4.4.2. Investment limits: Participation of mutual funds in E#275",
+    "SEBI/HO/IMD/DF2/CIR/P/2020/156#3. The lower of (1) and (2) above shall be used for calculat#335",
+    "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2023/74#2019) of such instruments.#432",
+    "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#13.18.1. The cumulative gross exposure through equity, debt,#812",
+    "CIR/IMD/DF/18/2014#3. The lower of (1) and (2) above shall be used for calculat#221",
+    "SEBI/HO/IMD/DF3/CIR/P/2016/84#3. The lower of (1) and (2) above shall be used for calculat#241",
+    "SEBI/HO/CDMRD/DMP/P/CIR/2022/64#4.4.2. Investment limits: Participation of mutual funds in E#299",
+    "SEBI/HO/CDMRD/DMP/P/CIR/2021/589#4.4.2. Investment limits: Participation of mutual funds in E#288",
+    "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#13.8.2. Exposure Limits: The gross exposure of any mutual fu#747",
+    "CIR/4/51/2000#2010. However, those mutual funds which voluntarily propose #206",
+    "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#21.6.1. Investment by SIF in eligible derivative products sh#1132",
+    "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2025/26#6.1.5. In accordance with the clause 12.24.1 of the Master C#54",
+    "CIR/IMD/DF/5/2013#3. The lower of (1) and (2) above shall be used for calculat#202",
+    "SEBI/HO/IMD/DF5/CIR/P/2018/109#3. The lower of (1) and (2) above shall be used for calculat#257",
+    "CIR/IMD/DF/5/2013#3. The lower of (1) and (2) above shall be used for calculat#220"
+  ],
+  "expected_literal": "100%",
+  "parse_error": false
+}

@@ -1,0 +1,10 @@
+{
+  "id": "v7-ls-002",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "D\nEXPECTED: Category I AIF",
+  "governing": [
+    "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#18.1.2. CDMDF shall comply with the Guarantee Scheme for Cor#1009"
+  ],
+  "expected_literal": "Category I AIF",
+  "parse_error": false
+}

@@ -1,0 +1,11 @@
+{
+  "id": "v7-ls-010",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "G, L\nEXPECTED: Will",
+  "governing": [
+    "SEBI/HO/MRD/MRD-PoD-2/P/CIR/2023/166#3. Depositories are further advised to place before their re#93",
+    "SEBI/HO/MIRSD/MIRSD_RTAMB/P/CIR/2022/65#3. The LODR Amendment Regulations has inter alia enhanced th#3"
+  ],
+  "expected_literal": "Will",
+  "parse_error": false
+}

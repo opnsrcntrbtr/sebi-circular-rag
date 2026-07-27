@@ -1,0 +1,10 @@
+{
+  "id": "dt",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "C\nEXPECTED: C",
+  "governing": [
+    "SEBI/HO/DDHS-PoD-1/P/CIR/2025/117#preamble#0"
+  ],
+  "expected_literal": "C",
+  "parse_error": false
+}

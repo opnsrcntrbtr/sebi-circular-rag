@@ -1,0 +1,10 @@
+{
+  "id": "v7-mh-013",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "I\nEXPECTED: February 01, 2025; No",
+  "governing": [
+    "SEBI/HO/MRD-PoD2/CIR/P/2024/153#6. The provisions of this circular will come into effect fro#13"
+  ],
+  "expected_literal": "February 01, 2025; No",
+  "parse_error": false
+}

@@ -1,0 +1,10 @@
+{
+  "id": "v7-rb-005",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "I\nEXPECTED: Regulation 77 of SEBI (Mutual Funds) Regulations, 1996; Yes, it is still in force as cited as the authorizing provision in the current 2023 circular.",
+  "governing": [
+    "SEBI/HO/IMD/IMD-PoD-2/P/CIR/2023/118#5. This circular is issued in exercise of powers conferred u#15"
+  ],
+  "expected_literal": "Regulation 77 of SEBI (Mutual Funds) Regulations, 1996; Yes, it is still in force as cited as the authorizing provision in the current 2023 circular.",
+  "parse_error": false
+}

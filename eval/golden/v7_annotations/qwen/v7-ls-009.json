@@ -1,0 +1,10 @@
+{
+  "id": "v7-ls-009",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "R\nEXPECTED: Qualified Stock Brokers (QSBs)",
+  "governing": [
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/24#3. Certain stock brokers, due to various factors like their #3"
+  ],
+  "expected_literal": "Qualified Stock Brokers (QSBs)",
+  "parse_error": false
+}

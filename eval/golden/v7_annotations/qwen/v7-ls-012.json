@@ -1,0 +1,10 @@
+{
+  "id": "v7-ls-012",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "G\nEXPECTED: 15% (or 25% if the project manager condition is not satisfied)",
+  "governing": [
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2025/102#9.11.7. the InvIT, parties to the InvIT or their respective #384"
+  ],
+  "expected_literal": "15% (or 25% if the project manager condition is not satisfied)",
+  "parse_error": false
+}

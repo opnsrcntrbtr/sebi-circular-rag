@@ -1,0 +1,11 @@
+{
+  "id": "v7-ls-019",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "H, L\nEXPECTED: 40%",
+  "governing": [
+    "SEBI/HO/MRD/POD-III/CIR/P/2024/127#3. Based on the deliberations at the ISF of MIIs and subsequ#3",
+    "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#6. Investment a. The Committee may include the MD, NIDs (oth#488"
+  ],
+  "expected_literal": "40%",
+  "parse_error": false
+}

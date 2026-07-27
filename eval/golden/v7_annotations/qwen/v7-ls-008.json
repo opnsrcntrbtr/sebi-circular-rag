@@ -1,0 +1,18 @@
+{
+  "id": "v7-ls-008",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "H, D, E, G, I, L, M, R, T\nEXPECTED: through a functional website link that contains detailed description.",
+  "governing": [
+    "SEBI/HO/IMD/DF5/CIR/P/2018/109#5.1.4. The format for disclosure for monthly and half yearly#82",
+    "SEBI/HO/IMD/DF3/CIR/P/2016/84#8. Any other disclosure as directed by the Board.#75",
+    "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#11. Any other#2623",
+    "SEBI/HO/IMD/IMD-RAC-2/P/CIR/2023/000175#2. Clause 5.8.1.2 Scheme’s portfolio holdings (top 10 holdin#7",
+    "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90#5.1.6. Mutual funds/AMCs may disclose additional information#195",
+    "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90#7. Any other instrument#1741",
+    "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90#5.1.6. Mutual funds/AMCs may disclose additional information#196",
+    "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#7. Any other instrument#2534",
+    "SEBI/HO/IMD/DF2/CIR/P/2020/156#5.1.4. The format for disclosure for monthly and half yearly#112"
+  ],
+  "expected_literal": "through a functional website link that contains detailed description.",
+  "parse_error": false
+}

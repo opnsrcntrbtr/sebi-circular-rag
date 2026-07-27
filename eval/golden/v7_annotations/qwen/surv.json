@@ -1,0 +1,10 @@
+{
+  "id": "surv",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "A\nEXPECTED: A",
+  "governing": [
+    "HO/43/15/12(3)2025-ISD-POD2/I/11734/2026#preamble#0"
+  ],
+  "expected_literal": "A",
+  "parse_error": false
+}

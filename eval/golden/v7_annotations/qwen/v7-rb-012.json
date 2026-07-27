@@ -1,0 +1,11 @@
+{
+  "id": "v7-rb-012",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "D, H\nEXPECTED: CIR/MRD/DP/6/2015 dated May 07, 2015; Yes, SEBI (Depositories and Participants) Regulations, 1996 remains the governing regulation as it is referenced to apply \"as may be in force from time to time.\"",
+  "governing": [
+    "SEBI/HO/MRD/DP/CIR/P/2016/134#preamble#0",
+    "SEBI/HO/MRD/DP/CIR/P/2016/134#1. The Beneficial Owner and the Depository participant (DP) #44"
+  ],
+  "expected_literal": "CIR/MRD/DP/6/2015 dated May 07, 2015; Yes, SEBI (Depositories and Participants) Regulations, 1996 remains the governing regulation as it is referenced to apply \"as may be in force from time to time.\"",
+  "parse_error": false
+}

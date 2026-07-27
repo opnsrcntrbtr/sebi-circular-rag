@@ -1,16 +1,18 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-07-09.
+> Last updated: 2026-07-26.
 
 ## Current Snapshot
 
 - Shipped baseline: local-first SEBI circular RAG with hybrid FAISS + BM25
   retrieval, cross-encoder reranking, grounded generation, abstention, and
   supersession-aware citations behind an authenticated FastAPI service.
-- Current evaluation baseline: `eval/golden/golden_v6.jsonl`, with the current
-  dense-corpus profile showing recall and abstention at 1.0 and citation
-  precision in the ~0.73-0.77 range.
+- Current evaluation baseline: `eval/golden/golden_v7.jsonl` (n=260) is the
+  reporting set, but **CI still gates on frozen `golden_v5`** until v7's
+  adjudicated subset reaches 100 rows (currently 0). Latest full-set numbers on
+  v5: recall@10 0.956, citation_precision 0.711, citation_recall 0.889,
+  abstention_accuracy 0.839. See the 2026-07-26 entry for the gate mechanics.
 - Active roadmap: corpus expansion, OCR hardening, evaluation maintenance, and
   legal-safety tightening for near-domain queries. See [docs/next_steps.md](next_steps.md).
 
@@ -442,6 +444,157 @@ tests). System is end-to-end complete. Next: grow the corpus / API hardening.
 - **B1 (resolved)** — Step 6 mlx-lm: fixed by pinning Python 3.12.13 venv.
 - P1 / P2 — implementation prerequisites (not blockers).
 
+## 2026-07-25 — Corpus integrity + pooling remediation (golden v7)
+
+Two defects found while reviewing the completed golden-v7 chunk-labelling
+phase. Both were root-caused, not patched around.
+
+**Corpus: 6 text-corrupted + 12 stale-numbered records (of 705).**
+- 5 records had their body text overwritten with one shared circular's text
+  (byte-identical). `ingest()` cannot produce that shape, so a batch write
+  assigned `text`/`provenance` from stale variables while metadata came
+  per-record from elsewhere. Their correct PDFs were still on disk as
+  orphans, so repair was fully offline (`scripts/repair_corpus_text.py`).
+- 12 records carried a stale `circular_number` — either truncated
+  (`CIR/MRD/DP/41`) or taken from a circular they merely CITED. The current
+  parser already derives all 12 correctly; `scripts/renumber.py` had simply
+  never been re-run after the parser improved. Every derived value was
+  verified present in its own document's header before accepting.
+- Root cause of one sub-class fixed in the parser: `_rejoin_split` converted
+  every en-dash to `/`, so `AFD - PoD - 2` became `AFD/PoD/2` and could not
+  normalize-match the document's own number. Spacing disambiguates (spaced
+  both sides = the document's own hyphen). Measured to change exactly the 2
+  affected records and nothing else.
+- **Why it mattered beyond one eval row:** the mislabelling was silently
+  corrupting the supersession graph, which is what `as_of` lineage-gating
+  rests on. A record misnamed after a circular it cited was inheriting that
+  circular's supersession claims. Fixing it removed 90 false-positive
+  supersession pairs (2850 -> 2760); the entire delta is attributable to
+  those 12 records, with 0 change on every other record.
+- Guardrail added (`make validate-corpus`, `scripts/validate_corpus.py`):
+  no duplicate body text, `circular_number` derivable from own text, plus a
+  `--deep` PDF re-extraction match. The pre-existing validator reported
+  "705 records, 0 violations" throughout because it had no invariant tying
+  `text` to its record. It now reports 22 -> 0 across the repair.
+
+**Pooling: `assemble_pool` cap saturation.**
+Step 1 walked chunks in DOCUMENT order and consumed the entire `cap=20`
+whenever a `must_contain` literal was a common word ("broker", "capital"),
+so the reranked/dense/BM25 legs never ran. Measured: 92 of 207 pools fully
+saturated, and 24 of the 25 labelling escalations sat in that group
+(e.g. `v7-bp-008`'s pool was chunks #0-#19; its true chunk is #326 of 1565).
+Now bounded (`gold_literal_cap=6`) and reranked rather than document-ordered.
+
+**Golden v7 final census.** 260 rows, 0 validator issues (incl. span
+resolution against the live corpus). 207/207 answerable rows labelled,
+**escalations 25 -> 0**. 18 were recovered deterministically from the
+Task-5 drafting candidate that each query was written from (no
+re-judgment); the remaining 7 were recovered by re-pooling after the fix —
+including 4 multi_hop rows whose base circular had been absent from its
+pool entirely, and `v7-rb-010`, which was unblocked by the text repair.
+multi_hop both-sides coverage 11 -> 15 of 20. `votes.jsonl` reconciled to
+207 records, one per answerable row, none with empty `governing`.
+Corpus 705 records / 77,841 chunks (was 77,859). Suite 514 passing.
+
+**Residual, out of scope:** 22 further orphan PDFs in `data/raw/` belong to
+no corpus record — a possible ingestion coverage gap worth its own audit.
+The SPLADE sidecar (`data/index/splade.npz`) is pinned to the old 77,859
+chunk count; it is eval-only and off by default, so it needs a rebuild
+before any SPLADE run.
+
+## 2026-07-26 — Golden v7 external slice + CI gate machinery (Tasks 9-14)
+
+**Census.** `golden_v7.jsonl` holds 260 rows, 0 validator issues. Strata exactly
+on target: title_direct 40, body_paraphrase 60, numeric_table 30,
+lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40,
+far_negative 10. 53 abstain rows, 15 dated `as_of` rows. `review_status`:
+56 `seeded` + 204 `draft`, **`adjudicated_n` = 0**. `votes.jsonl` carries 207
+claude records (one per answerable row).
+
+**Gate: built, armed-but-off.** `scripts/eval_json.py` now scores through the
+real `RAGPipeline` and reports `golden_file` / `adjudicated_n` / `gate`. The
+flip is a two-key lock — v7 takes over only when `gate_v7.json` exists *and*
+`adjudicated_n >= 100`; missing, corrupt, or short all fall back to frozen
+`golden_v5`. `derive_thresholds.py` refuses to arm below 100 and explains why.
+Floors are the bootstrap 2.5th-percentile lower bound minus a 0.005 cushion,
+never the observed mean: gating on the mean fails roughly half of all reruns
+that changed nothing. `citation_precision` is reported but deliberately not
+floored, since it trades off against `citation_recall` and flooring both pins
+the retriever's operating point.
+
+Refactor parity was checked against the pre-refactor script on golden_v5 and
+is **exact on all five shared keys**, not merely inside the ±0.02 tolerance:
+recall_at_10 0.956 (archived 0.9556), citation_precision 0.711, citation_recall
+0.889, abstention_accuracy 0.839, injection_flagged 10.
+
+**External pass: PAUSED at 21/100.** Three findings, none of them code defects
+found by tests:
+
+- *Protocol asymmetry.* Task 8 judged claude under spec §6's bar — governing iff
+  the text contains the provision, "topical relatedness is NOT enough" — but the
+  gemini prompt said only "the governing provision". A 5-row probe measured
+  **0/5** exact-set agreement, gemini returning a strict superset of claude's
+  pick on 3 of 5. A full run would have published κ≈0, reading as "claude's
+  labels are unreliable" when it actually measured the prompt gap. Fixed by
+  porting the definition only; a test asserts the cardinality hint stays absent,
+  since feeding claude's single-chunk answer distribution back would tune the
+  leg toward agreement instead of measuring it.
+- *Free-tier quota wall.* ~20 requests/day/model
+  (`GenerateRequestsPerDayPerProjectPerModel-FreeTier`, measured on both
+  `gemini-3-flash-preview` and `gemini-2.5-flash`), so 100 rows needs ~5 days.
+  Splitting across models to go faster is **not** available: a mixed-model leg
+  makes the agreement statistics measure model differences. Leg pinned to
+  `gemini-2.5-flash` (non-preview, non-alias — `gemini-flash-latest` would
+  silently re-point and make the record irreproducible); each cache entry now
+  records its model so a mixed leg is auditable. The 16 rows cached under the
+  earlier model were discarded rather than mixed in.
+- *Key disclosure.* `httpx` echoes query-string params into the URL embedded in
+  `HTTPStatusError`, so the API key appeared verbatim in a 503 traceback. Auth
+  moved to the `x-goog-api-key` header. **The exposed key should be rotated.**
+
+Resume with `make golden-v7-gemini` daily (~20 rows/run, resumes at row 22),
+then `make golden-v7-agree`. The human packet (30 rows) is a standing manual
+handoff: fill `v7_annotations/packet_human/labels_template.csv`, then
+`make golden-v7-packet-ingest && make golden-v7-agree`.
+
+**Residual.** `injection_flagged` reports 10 against a documented known-benign
+baseline of 1 — pre-existing, unrelated to this work, worth its own look.
+Suite 588 passing.
+
+## 2026-07-26 (later) — Task 12 pivot: local oMLX leg + provision-level promotion
+
+**External leg pivoted to a local model (user decision).** The primary
+annotator is now `Qwen3.6-35B-A3B-MLX-4bit` served by oMLX
+(Anthropic-compatible API, `127.0.0.1:8001` — moved off 8000 the same day so
+it never collides with `make serve`).
+`local_adjudicate.py` reuses the gemini leg's blind protocol byte-for-byte
+(imported, not copied); votes carry `annotator: "qwen"`; `agreement.py`
+discovers the LLM leg generically and fails loud on two at once. Gemini leg
+ON HOLD with its 21 cached rows intact. `make golden-v7-local` runs it;
+`--pilot N` measures agreement without touching votes.jsonl.
+
+**Pilot (5 rows, distinct strata): 1/5 exact-set agreement.** Decisive
+context: the 21 cached gemini-2.5-flash rows measure 2/21 — both model
+families sit at ~10% exact-set while **~60% at provision level** (external's
+pick contains the row's span quote, is a superset, or matches exactly).
+Master circulars repeat clauses across body/annexure/FAQ chunks; exact-set
+equality mostly counted chunk-copy choice. The harness itself already grades
+every quote-containing chunk as gold (`resolve_chunk_spans`).
+
+**Spec §7 promotion unit amended (user-approved) to provision level.** κ
+stays exact-set — deliberately stricter than promotion, so reported
+agreement is never flattered. Two latent `decide()` bugs found and fixed in
+the same pass: abstain disputes were invisible (the abstain protocol's only
+dispute signal is a non-blank expected literal, which `_votes_by_row`
+dropped), and two externals replying NONE on an answerable row would have
+"flipped" it to empty spans (now queues). Suite 603 passing.
+
+**Next session (runbook in the plan's Task 12):** `make golden-v7-local`
+(~100 rows, ~2 min/row, resumable) → `make golden-v7-agree` → validate →
+commit. Expected ~60 promotions, so crossing the 100-adjudicated gate
+threshold still needs the human packet and/or arbitration.
+
 ## Last Updated
 
-2026-06-29
+2026-07-26
+

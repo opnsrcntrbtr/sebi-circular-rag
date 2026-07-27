@@ -1,0 +1,22 @@
+{
+  "id": "v7-td-006",
+  "model": "gemini-2.5-flash",
+  "reply": "A,C,F,H,I,L,M,O,P,Q,R,S,T\nEXPECTED: a compilation of the circulars issued by Commodity Derivatives Market Regulation Department (CDMRD) pertaining to domestic commodity derivatives segment, which are issued till the date of this circular.",
+  "governing": [
+    "CDMRD/DMP/CIR/P/2018/126#2.5. Unique Client Code (UCC) and Mandatory Requirement of P#12",
+    "CDMRD/DMP/CIR/P/2018/126#2.12. Disclosure of Proprietary Trading by Commodity Derivat#19",
+    "CDMRD/DMP/CIR/P/2018/126#2.3. Spot Price Polling Mechanism ..........................#10",
+    "CDMRD/DMP/CIR/P/2018/126#2.1. Trading Hours/Trading Holidays on Commodity Derivatives#8",
+    "CDMRD/DMP/CIR/P/2018/126#2.11. Requirements for Commodity Derivative Exchanges on the#18",
+    "CDMRD/DMP/CIR/P/2018/126#2.2. Transaction Charges by Commodity Derivatives Exchanges #9",
+    "CDMRD/DMP/CIR/P/2018/126#2.7. Daily Price Limit for Agricultural and Non-Agricultural#14",
+    "CDMRD/DMP/CIR/P/2018/126#2.8. Suspension of Forward Segment .........................#15",
+    "CDMRD/DMP/CIR/P/2018/126#2.9. Options on Commodity Futures- Product Design ..........#16",
+    "CDMRD/DMP/CIR/P/2018/126#2.4. Criteria for Eligibility, Retention and re-introduction#11",
+    "CDMRD/DMP/CIR/P/2018/126#2. This Master Circular is a compilation of the circulars is#2",
+    "CDMRD/DMP/CIR/P/2018/126#2.10. Position Limits for Agricultural and Non- Agricultural#17",
+    "CDMRD/DMP/CIR/P/2018/126#2.6. Modification of Client Codes Post Execution of Trades o#13"
+  ],
+  "expected_literal": "a compilation of the circulars issued by Commodity Derivatives Market Regulation Department (CDMRD) pertaining to domestic commodity derivatives segment, which are issued till the date of this circular.",
+  "parse_error": false
+}

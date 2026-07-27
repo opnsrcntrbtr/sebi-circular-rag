@@ -1,0 +1,11 @@
+{
+  "id": "v7-ls-020",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "A, H\nEXPECTED: Beneficial Owner (BO) Account (or demat account)",
+  "governing": [
+    "SEBI/HO/MRD/DP/CIR/P/2016/134#preamble#0",
+    "SEBI/HO/MRD/DP/CIR/P/2016/134#2. The DP shall open/activate demat account of a beneficial #45"
+  ],
+  "expected_literal": "Beneficial Owner (BO) Account (or demat account)",
+  "parse_error": false
+}

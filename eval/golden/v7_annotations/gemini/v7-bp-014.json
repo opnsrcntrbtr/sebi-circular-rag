@@ -1,0 +1,8 @@
+{
+  "id": "v7-bp-014",
+  "model": "gemini-2.5-flash",
+  "reply": "NONE\nEXPECTED: No governing provision in the excerpts.",
+  "governing": [],
+  "expected_literal": "No governing provision in the excerpts.",
+  "parse_error": false
+}

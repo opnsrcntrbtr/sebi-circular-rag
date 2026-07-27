@@ -1,0 +1,12 @@
+{
+  "id": "para-mfmaster",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "H, N, M\nEXPECTED: Master Circular for Mutual Funds",
+  "governing": [
+    "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#9. This Master Circular is issued in exercise of powers conf#11",
+    "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#8. This Master Circular shall come into force with effect fr#10",
+    "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#2. For effective regulation of Mutual Fund Industry, the Sec#2"
+  ],
+  "expected_literal": "Master Circular for Mutual Funds",
+  "parse_error": false
+}

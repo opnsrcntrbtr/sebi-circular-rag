@@ -1,0 +1,11 @@
+{
+  "id": "v7-nt-011",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "G, J\nEXPECTED: 7th of succeeding month",
+  "governing": [
+    "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2023/136#14.5.1. In order to bring about transparency in the Investor#598",
+    "SEBI/HO/CDMRD/DMP/P/CIR/2022/64#14.2.1. In order to bring about transparency in the Investor#631"
+  ],
+  "expected_literal": "7th of succeeding month",
+  "parse_error": false
+}

@@ -1,0 +1,16 @@
+{
+  "id": "v7-nt-009",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "E, F, H, K, M, N, P\nEXPECTED: 15% of the total open interest or Rs. 1000 crores whichever is higher.",
+  "governing": [
+    "CIR/MRD/DRMNP/11/2013#5. generate trading pattern by a broker over a period of tim#223",
+    "CIR/DNPD/1/2012#5. generate trading pattern by a broker over a period of tim#223",
+    "CIR/MRD/DRMNP/11/2013#5. generate trading pattern by a broker over a period of tim#241",
+    "CIR/DNPD/1/2012#5. generate trading pattern by a broker over a period of tim#249",
+    "CIR/DNPD/1/2012#5. generate trading pattern by a broker over a period of tim#241",
+    "CIR/DNPD/1/2012#5. generate trading pattern by a broker over a period of tim#259",
+    "CIR/DNPD/1/2012#5. generate trading pattern by a broker over a period of tim#248"
+  ],
+  "expected_literal": "15% of the total open interest or Rs. 1000 crores whichever is higher.",
+  "parse_error": false
+}

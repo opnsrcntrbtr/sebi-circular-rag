@@ -1,0 +1,11 @@
+{
+  "id": "para-otr",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "H, S\nEXPECTED: No, orders placed by designated market makers for market making activity are exempted from the OTR framework and not considered towards computation of OTR.",
+  "governing": [
+    "HO/47/11/16(2)2025-MRD-POD2/I/4113/2026#11.2.14.2. OTR framework shall be applicable to the orders p#6",
+    "HO/47/11/16(2)2025-MRD-POD2/I/4113/2026#2.2. The Algorithmic orders placed by Designated Market Make#4"
+  ],
+  "expected_literal": "No, orders placed by designated market makers for market making activity are exempted from the OTR framework and not considered towards computation of OTR.",
+  "parse_error": false
+}

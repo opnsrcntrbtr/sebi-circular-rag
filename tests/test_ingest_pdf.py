@@ -65,6 +65,21 @@ def test_parse_meta_handles_en_dash_in_place_of_slash():
     assert meta["issue_date"] == "2023-07-20"
 
 
+def test_parse_meta_keeps_spaced_en_dash_as_the_documents_own_hyphen():
+    """The mirror of the kerning case above. When the en-dash has spaces on
+    BOTH sides ("AFD – PoD – 2"), it stands for the number's own hyphen, not
+    a slash: the real number is "AFD-PoD-2". Converting it to a slash yields
+    a spelling that does not normalize-match the document's own number, so
+    every reference to that circular becomes unresolvable
+    (2026-07-25: this mis-numbered corpus lines 397 and 616)."""
+    text = ("CIRCULAR\nSEBI/ HO/ AFD/ AFD – PoD – 2/ CIR/ P/ 2023/ 148 "
+            "August 24, 2023\nTo,\nAll Foreign Portfolio Investors\n"
+            "Sub: Mandating additional disclosures.")
+    meta = parse_meta(text)
+    assert meta["circular_number"] == "SEBI/HO/AFD/AFD-PoD-2/CIR/P/2023/148"
+    assert meta["issue_date"] == "2023-08-24"
+
+
 def test_parse_meta_handles_2011_mc_number_format():
     """2011-era master circulars use "SEBI/<DEPT>/MC No.<n>/<serial>/<year>",
     matching neither the new SEBI/HO/... nor old CIR/... reference formats."""

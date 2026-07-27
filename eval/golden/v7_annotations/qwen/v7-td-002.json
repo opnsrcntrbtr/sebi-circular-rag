@@ -1,0 +1,13 @@
+{
+  "id": "v7-td-002",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "E, G, L, N\nEXPECTED: Disclosure of regulator names and SEBI protection unavailability, segregation/labelling in common reports, written intimation to existing clients, and half-yearly internal audit report undertaking.",
+  "governing": [
+    "SEBI/HO/DDHS/DDHS-PoD-2/I/4685/2026#2.4.1.1. The rating reports and press releases/rating ration#12",
+    "SEBI/HO/DDHS/DDHS-PoD-2/I/4685/2026#2.4.1.2. CRA may issue common rating report and press releas#13",
+    "SEBI/HO/DDHS/DDHS-PoD-2/I/4685/2026#2.5.2. For all the existing clients for ongoing activities a#17",
+    "SEBI/HO/DDHS/DDHS-PoD-2/I/4685/2026#2.6. Internal Audit Report#18"
+  ],
+  "expected_literal": "Disclosure of regulator names and SEBI protection unavailability, segregation/labelling in common reports, written intimation to existing clients, and half-yearly internal audit report undertaking.",
+  "parse_error": false
+}

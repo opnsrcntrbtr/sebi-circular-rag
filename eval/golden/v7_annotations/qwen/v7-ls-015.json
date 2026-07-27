@@ -1,0 +1,12 @@
+{
+  "id": "v7-ls-015",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "C, N, Q\nEXPECTED: Online Dispute Resolution Portal (ODR Portal)",
+  "governing": [
+    "SEBI/HO/OIAE/OIAE_IAD-1/P/CIR/2023/145#1. After extensive public consultations and in furtherance o#1",
+    "SEBI/HO/OIAE/OIAE_IAD-1/P/CIR/2023/131#1. After extensive public consultations and in furtherance o#1",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2023/195#1. After extensive public consultations and in furtherance o#1"
+  ],
+  "expected_literal": "Online Dispute Resolution Portal (ODR Portal)",
+  "parse_error": false
+}

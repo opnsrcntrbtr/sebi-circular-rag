@@ -1,0 +1,15 @@
+{
+  "id": "v7-nt-008",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "B, E, G, K, L, S\nEXPECTED: T+4",
+  "governing": [
+    "SEBI/HO/MRD2/DDAP/CIR/P/2021/18#10. Registrar to receive confirmation for pre-issue capital #578",
+    "SEBI/HO/MIRSD/POD-1/P/CIR/2023/70#10. I understand and agree that I can revoke my consent duri#869",
+    "SEBI/HO/MIRSD/POD-1/P/CIR/2023/70#10. Registrar to receive confirmation for pre-issue capital #886",
+    "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/91#10. Registrar to receive confirmation for pre-issue capital #929",
+    "HO/38/13/(4)2026-MIRSD-POD/I/4298/2026#10. Registrar to receive confirmation for pre-issue capital #959",
+    "SEBI/HO/MIRSD/POD-1/P/CIR/2024/37#10. Registrar to receive confirmation for pre-issue capital #1000"
+  ],
+  "expected_literal": "T+4",
+  "parse_error": false
+}

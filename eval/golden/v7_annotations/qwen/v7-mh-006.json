@@ -1,0 +1,11 @@
+{
+  "id": "v7-mh-006",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "C, D\nEXPECTED: November 01, 2022; Yes",
+  "governing": [
+    "SEBI/HO/IMD/DF2/CIR/P/2022/102#1. This has reference to SEBI circular No. SEBI/HO/IMD/DOF2/#1",
+    "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#4.5.2. Direct transaction in ETFs through AMCs#169"
+  ],
+  "expected_literal": "November 01, 2022; Yes",
+  "parse_error": false
+}

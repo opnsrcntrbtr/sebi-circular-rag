@@ -1,0 +1,15 @@
+{
+  "id": "v7-nt-007",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "A, C, D, H, K, L\nEXPECTED: 90%",
+  "governing": [
+    "SEBI/HO/CFD/PoD2/CIR/P/0155#9. In addition to the disclosures sought under the format, t#759",
+    "SEBI/HO/CFD/PoD2/CIR/P/2023/120#14. Details of business activities (accounting for 90% of th#592",
+    "SEBI/HO/CFD/PoD2/CIR/P/2023/120#9. In addition to the disclosures sought under the format, t#741",
+    "SEBI/HO/CFD/PoD2/CIR/P/0155#16. Details of business activities (accounting for 90% of th#605",
+    "SEBI/HO/CFD/PoD2/CIR/P/2023/120#15. Products/Services sold by the entity (accounting for 90%#593",
+    "HO/49/14/14(7)2025-CFD-POD2/I/3762/2026#16. Details of business activities (accounting for 90% of th#619"
+  ],
+  "expected_literal": "90%",
+  "parse_error": false
+}

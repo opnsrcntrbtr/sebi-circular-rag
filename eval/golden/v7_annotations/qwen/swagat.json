@@ -1,0 +1,14 @@
+{
+  "id": "swagat",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "F, G, I, N, T\nEXPECTED: F, G, I, N, T",
+  "governing": [
+    "HO/19/34/14(5)2025-AFD-POD2/I/2703/2026#3.4. Following sub-para shall be added after sub-para (ii) o#11",
+    "HO/19/34/14(5)2025-AFD-POD2/I/2703/2026#3.2. Under Para 2 of Part A, after sub-para (v), the followi#9",
+    "HO/19/34/14(5)2025-AFD-POD2/I/2703/2026#3.3. Sub-para (i) of Para 4 of Part A (earlier modified vide#10",
+    "HO/19/34/14(5)2025-AFD-POD2/I/2703/2026#3.1. Under Para 1 of Part A, after sub-para (ii)(da) (added #7",
+    "HO/19/34/14(5)2025-AFD-POD2/I/2703/2026#3.2. Under Para 2 of Part A, after sub-para (v), the followi#8"
+  ],
+  "expected_literal": "F, G, I, N, T",
+  "parse_error": false
+}

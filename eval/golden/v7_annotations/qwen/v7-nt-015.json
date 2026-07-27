@@ -1,0 +1,11 @@
+{
+  "id": "v7-nt-015",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "B, S\nEXPECTED: 3",
+  "governing": [
+    "SEBI/HO/CFD/PoD-1/P/CIR/2024/072#6.1. The BTIs are required to submit half-yearly reports to #51",
+    "SEBI/HO/CFD/PoD-1/P/CIR/2024/072#6.3. The compliance officer of BTI shall send the report in #53"
+  ],
+  "expected_literal": "3",
+  "parse_error": false
+}

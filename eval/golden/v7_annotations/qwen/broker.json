@@ -1,0 +1,10 @@
+{
+  "id": "broker",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "F\nEXPECTED: F",
+  "governing": [
+    "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#preamble#0"
+  ],
+  "expected_literal": "F",
+  "parse_error": false
+}

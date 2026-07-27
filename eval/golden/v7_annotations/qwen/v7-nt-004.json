@@ -1,0 +1,18 @@
+{
+  "id": "v7-nt-004",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "B, H, J, K, M, N, P, Q, S\nEXPECTED: 20% and 25%",
+  "governing": [
+    "CIR/IMD/DF/5/2013#2. In respect of closed ended funds, for the purposes of val#150",
+    "CIR/4/51/2000#2. In respect of closed ended funds, for the purposes of val#146",
+    "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90#2. The Valuation Agencies shall not take into account the#377",
+    "CIR/IMD/DF/5/2013#3. Where a scheme has illiquid securities as at September 30#151",
+    "SEBI/HO/IMD/DF2/CIR/P/2020/156#2. In respect of closed ended funds, for the purposes of val#234",
+    "SEBI/HO/IMD/DF5/CIR/P/2018/109#2. In respect of closed ended funds, for the purposes of val#184",
+    "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2023/74#2. The Valuation Agencies shall not take into account the#337",
+    "SEBI/HO/IMD/DF3/CIR/P/2016/84#2. In respect of closed ended funds, for the purposes of val#168",
+    "CIR/IMD/DF/18/2014#2. In respect of closed ended funds, for the purposes of val#156"
+  ],
+  "expected_literal": "20% and 25%",
+  "parse_error": false
+}

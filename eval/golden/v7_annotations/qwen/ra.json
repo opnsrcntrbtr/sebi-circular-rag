@@ -1,0 +1,10 @@
+{
+  "id": "ra",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "G\nEXPECTED: G",
+  "governing": [
+    "HO/38/12/11(1)2026-MIRSD-POD/I/4360/2026#2. In order to enable Research Analysts and other market sta#2"
+  ],
+  "expected_literal": "G",
+  "parse_error": false
+}

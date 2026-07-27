@@ -1,0 +1,12 @@
+{
+  "id": "cas",
+  "model": "gemini-2.5-flash",
+  "reply": "I,D,N\nEXPECTED: it is decided to introduce CAS in the equity cash segment; CAS shall be implemented as a separate session; CAS shall be made applicable in a phased manner",
+  "governing": [
+    "HO/47/11/11(3)2025-MRD-POD2/I/2765/2026#3. Considering the above and taking into account public comm#7",
+    "HO/47/11/11(3)2025-MRD-POD2/I/2765/2026#4.2.1. CAS shall be implemented as a separate session of 20 #10",
+    "HO/47/11/11(3)2025-MRD-POD2/I/2765/2026#4.1.1. CAS shall be made applicable in a phased manner. Init#8"
+  ],
+  "expected_literal": "it is decided to introduce CAS in the equity cash segment; CAS shall be implemented as a separate session; CAS shall be made applicable in a phased manner",
+  "parse_error": false
+}

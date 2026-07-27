@@ -1,0 +1,13 @@
+{
+  "id": "sif",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "B, C, H, I\nEXPECTED: Compliance reporting formats for SIFs include a modified Compliance Test Report (CTR) with additional Part IV and a modified Half-Yearly Trustee Report (HYTR) with Clause 72A.",
+  "governing": [
+    "HO/24/13/12(4)2025-IMD-POD-1/I/2062/2026#2.1. In terms of Regulation 49V(2) of the SEBI (Mutual Funds#3",
+    "HO/24/13/12(4)2025-IMD-POD-1/I/2062/2026#2.2.2. All Asset Management Companies managing SIF shall add#5",
+    "HO/24/13/12(4)2025-IMD-POD-1/I/2062/2026#2.3.1. The format for the HYTR, as prescribed under Format N#6",
+    "HO/24/13/12(4)2025-IMD-POD-1/I/2062/2026#2.2.1. The format for the CTR, as prescribed under Format No#4"
+  ],
+  "expected_literal": "Compliance reporting formats for SIFs include a modified Compliance Test Report (CTR) with additional Part IV and a modified Half-Yearly Trustee Report (HYTR) with Clause 72A.",
+  "parse_error": false
+}

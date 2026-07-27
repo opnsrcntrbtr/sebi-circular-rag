@@ -1,0 +1,12 @@
+{
+  "id": "reit",
+  "model": "gemini-2.5-flash",
+  "reply": "D,L,T\nEXPECTED: D. This Master Circular is issued in exercise of powers conferred under Section 11(1) of the Securities and Exchange Board of India Act, 1992 and Regulation 33 of the SEBI (Real Estate Investment Trusts) Regulations, 2014 to protect the interests of investors in securities and to promote the development of, and to regulate the securities market. This Master Circular is issued with the approval of the Competent Authority. L. For effective regulation of Real Estate Investment Trusts, Securities and Exchange Board of India (SEBI) has been issuing various circulars from time to time. In order to enable the stakeholders to have an access to all the applicable circulars at one place, the provisions of the circulars issued till July 11, 2025 are incorporated in this Master Circular for Real Estate Investment Trusts. T. This Master Circular shall come into force from the date of its issuance. The circulars mentioned in Appendix to this Master Circular shall stand superseded with the issuance of this Master Circular.",
+  "governing": [
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2025/99#5. This Master Circular is issued in exercise of powers conf#7",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2025/99#1. For effective regulation of Real Estate Investment Trusts#1",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2025/99#2. This Master Circular shall come into force from the date #2"
+  ],
+  "expected_literal": "D. This Master Circular is issued in exercise of powers conferred under Section 11(1) of the Securities and Exchange Board of India Act, 1992 and Regulation 33 of the SEBI (Real Estate Investment Trusts) Regulations, 2014 to protect the interests of investors in securities and to promote the development of, and to regulate the securities market. This Master Circular is issued with the approval of the Competent Authority. L. For effective regulation of Real Estate Investment Trusts, Securities and Exchange Board of India (SEBI) has been issuing various circulars from time to time. In order to enable the stakeholders to have an access to all the applicable circulars at one place, the provisions of the circulars issued till July 11, 2025 are incorporated in this Master Circular for Real Estate Investment Trusts. T. This Master Circular shall come into force from the date of its issuance. The circulars mentioned in Appendix to this Master Circular shall stand superseded with the issuance of this Master Circular.",
+  "parse_error": false
+}

@@ -1,0 +1,11 @@
+{
+  "id": "v7-bp-045",
+  "model": "gemini-2.5-flash",
+  "reply": "S,T\nEXPECTED: Investor Risk Reduction Access (IRRA) platform",
+  "governing": [
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2022/177#3.8.1. square off/close the open positions across segments a#11",
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2022/177#3.1. A joint platform to provide Investor Risk Reduction Acc#4"
+  ],
+  "expected_literal": "Investor Risk Reduction Access (IRRA) platform",
+  "parse_error": false
+}

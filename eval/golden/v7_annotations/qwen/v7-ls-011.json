@@ -1,0 +1,16 @@
+{
+  "id": "v7-ls-011",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "B, F, P, J, A, G, R\nEXPECTED: 10% (or ten percent)",
+  "governing": [
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2023/154#1. Regulation 4(2)(g) of SEBI (Real Estate Investment Trusts#1",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2025/99#18.1. Regulation 4(2)(g) of SEBI (Real Estate Investment Tru#452",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2024/43#18.1. Regulation 4(2)(g) of SEBI (Real Estate Investment Tru#399",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2025/99#18.2.1. Definitions#454",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2023/154#9.1. If at any time, the individual or collective unitholdin#32",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2023/154#9.2. If the individual or collective unitholding of the Elig#33",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2025/99#18.2.8. Vacating of office of a Unitholder Nominee Director#466"
+  ],
+  "expected_literal": "10% (or ten percent)",
+  "parse_error": false
+}

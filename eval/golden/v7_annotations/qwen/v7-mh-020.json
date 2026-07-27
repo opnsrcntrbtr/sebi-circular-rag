@@ -1,0 +1,11 @@
+{
+  "id": "v7-mh-020",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "R, G\nEXPECTED: Chapter 4; Yes, it is reflected as consolidated.",
+  "governing": [
+    "SEBI/HO/AFD/PoD1/CIR/2024/2#2. In view of the amendments to the Prevention of Money-Laun#2",
+    "SEBI/HO/AFD-1/AFD-1-PoD/P/CIR/2024/39#4.1.2. The investor, or its beneficial owner as determined i#58"
+  ],
+  "expected_literal": "Chapter 4; Yes, it is reflected as consolidated.",
+  "parse_error": false
+}

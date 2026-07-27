@@ -1,0 +1,12 @@
+{
+  "id": "v7-bp-031",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "B, M, R\nEXPECTED: Effectiveness of leadership and ability to steer meetings, Impartiality, Commitment, Ability to keep shareholders' interests in mind",
+  "governing": [
+    "HO/49/14/14(7)2025-CFD-POD2/I/3762/2026#7. Whether the Board ‘steps back’ to assist executive manage#1170",
+    "SEBI/HO/CFD/PoD2/CIR/P/0155#7. Whether the Board ‘steps back’ to assist executive manage#1150",
+    "SEBI/HO/CFD/PoD2/CIR/P/2023/120#7. Whether the Board ‘steps back’ to assist executive manage#1025"
+  ],
+  "expected_literal": "Effectiveness of leadership and ability to steer meetings, Impartiality, Commitment, Ability to keep shareholders' interests in mind",
+  "parse_error": false
+}

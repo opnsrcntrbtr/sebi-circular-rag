@@ -1,0 +1,13 @@
+{
+  "id": "pms",
+  "model": "gemini-2.5-flash",
+  "reply": "D,E,H,J\nEXPECTED: Master Circular for Portfolio Managers",
+  "governing": [
+    "SEBI/HO/IMD/IMD-POD-1/P/CIR/2025/104#preamble#0",
+    "SEBI/HO/IMD/IMD-POD-1/P/CIR/2025/104#preamble#1",
+    "SEBI/HO/IMD/IMD-POD-1/P/CIR/2025/104#preamble#2",
+    "SEBI/HO/IMD/IMD-POD-1/P/CIR/2025/104#preamble#3"
+  ],
+  "expected_literal": "Master Circular for Portfolio Managers",
+  "parse_error": false
+}

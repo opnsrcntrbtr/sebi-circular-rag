@@ -1,0 +1,10 @@
+{
+  "id": "ia",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "H\nEXPECTED: H",
+  "governing": [
+    "HO/38/12/11(2)2026-MIRSD-POD/I/4300/2026#2. In order to enable Investment Advisers and other market s#2"
+  ],
+  "expected_literal": "H",
+  "parse_error": false
+}

@@ -1,0 +1,10 @@
+{
+  "id": "para-nom",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "A\nEXPECTED: A",
+  "governing": [
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#4.1. For all single accounts / folios opened on or after the#7"
+  ],
+  "expected_literal": "A",
+  "parse_error": false
+}

@@ -1,0 +1,10 @@
+{
+  "id": "para-parrva",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "B\nEXPECTED: Care Ratings Limited (CRL), National Stock Exchange India Limited (NSE)",
+  "governing": [
+    "HO/38/14/(4)2026-MIRSD-POD/I/10557/2026#2. In pursuance of the above circular, Care Ratings Limited #2"
+  ],
+  "expected_literal": "Care Ratings Limited (CRL), National Stock Exchange India Limited (NSE)",
+  "parse_error": false
+}

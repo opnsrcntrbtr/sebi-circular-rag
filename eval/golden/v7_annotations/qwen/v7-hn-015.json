@@ -1,0 +1,8 @@
+{
+  "id": "v7-hn-015",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "NO\nEXPECTED:",
+  "governing": [],
+  "expected_literal": "",
+  "parse_error": false
+}

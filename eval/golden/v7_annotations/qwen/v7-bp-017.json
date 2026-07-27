@@ -1,0 +1,10 @@
+{
+  "id": "v7-bp-017",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "A\nEXPECTED: Yes",
+  "governing": [
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/110#85. Digital Mode of Payment105#630"
+  ],
+  "expected_literal": "Yes",
+  "parse_error": false
+}

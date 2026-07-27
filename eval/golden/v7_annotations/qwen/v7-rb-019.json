@@ -1,0 +1,12 @@
+{
+  "id": "v7-rb-019",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "D, I, S\nEXPECTED: minor, parent, or legal guardian (or joint account); yes, the regulation is still in force.",
+  "governing": [
+    "SEBI/HO/IMD/POD-II/CIR/P/2023/0069#1. In partial modification to the above SEBI circular, it ha#1",
+    "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90#3. Class C: CRV <10625#662",
+    "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#15.13.1. Payment for investment by any mode shall be accepte#894"
+  ],
+  "expected_literal": "minor, parent, or legal guardian (or joint account); yes, the regulation is still in force.",
+  "parse_error": false
+}

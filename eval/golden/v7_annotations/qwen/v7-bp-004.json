@@ -1,0 +1,10 @@
+{
+  "id": "v7-bp-004",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "K\nEXPECTED: No, the fund cannot force them to obtain a No Objection Certificate.",
+  "governing": [
+    "SEBI/HO/IMD/DF3/CIR/P/2016/84#3. The lower of (1) and (2) above shall be used for calculat#264"
+  ],
+  "expected_literal": "No, the fund cannot force them to obtain a No Objection Certificate.",
+  "parse_error": false
+}

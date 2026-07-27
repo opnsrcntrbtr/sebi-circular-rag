@@ -1,0 +1,14 @@
+{
+  "id": "v7-td-002",
+  "model": "gemini-2.5-flash",
+  "reply": "A, E, G, L, N\nEXPECTED: Disclosure of activities, mention other regulators in reports and disclaim SEBI protection, segregate instruments in common reports, inform existing clients of risks and non-availability of SEBI mechanisms, and confirm compliance in internal audit reports.",
+  "governing": [
+    "SEBI/HO/DDHS/DDHS-PoD-2/I/4685/2026#2.3. Disclosure of activities related information on CRA’s w#7",
+    "SEBI/HO/DDHS/DDHS-PoD-2/I/4685/2026#2.4.1.1. The rating reports and press releases/rating ration#12",
+    "SEBI/HO/DDHS/DDHS-PoD-2/I/4685/2026#2.4.1.2. CRA may issue common rating report and press releas#13",
+    "SEBI/HO/DDHS/DDHS-PoD-2/I/4685/2026#2.5.2. For all the existing clients for ongoing activities a#17",
+    "SEBI/HO/DDHS/DDHS-PoD-2/I/4685/2026#2.6. Internal Audit Report#18"
+  ],
+  "expected_literal": "Disclosure of activities, mention other regulators in reports and disclaim SEBI protection, segregate instruments in common reports, inform existing clients of risks and non-availability of SEBI mechanisms, and confirm compliance in internal audit reports.",
+  "parse_error": false
+}

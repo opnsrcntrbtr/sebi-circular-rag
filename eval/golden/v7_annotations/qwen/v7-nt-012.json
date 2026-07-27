@@ -1,0 +1,15 @@
+{
+  "id": "v7-nt-012",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "C, G, H, K, M, O\nEXPECTED: 90%",
+  "governing": [
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/71#42. Segregation and Monitoring of Collateral at Client Level#402",
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/53#42. Segregation and Monitoring of Collateral at Client Level#367",
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/53#42. Segregation and Monitoring of Collateral at Client Level#368",
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/71#42. Segregation and Monitoring of Collateral at Client Level#401",
+    "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#1. The entities who will get benefit would be identified thr#1987",
+    "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#43.24. For monitoring of the risk reduction mode (90% utiliz#732"
+  ],
+  "expected_literal": "90%",
+  "parse_error": false
+}

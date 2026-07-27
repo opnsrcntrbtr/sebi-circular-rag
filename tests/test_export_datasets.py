@@ -34,6 +34,10 @@ def _record(**over) -> dict:
         "supersession_edges": [],
     }
     base.update(over)
+    # Two records may not share one body text (validate_corpus invariant), so
+    # unless a test pins `text` explicitly, keep it distinct per circular.
+    if "text" not in over:
+        base["text"] = f"CIRCULAR body text of {base['circular_number']}"
     return base
 
 

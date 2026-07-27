@@ -1,0 +1,11 @@
+{
+  "id": "v7-rb-018",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "S, K\nEXPECTED: CIR/MRD/DP/10/2012 dated April 13, 2012; No",
+  "governing": [
+    "CIR/MRD/DP/13#preamble#0",
+    "SEBI/HO/MRD/MRD-PoD-2/P/CIR/2023/166#16. Whether similar issue was observed in any of the previou#922"
+  ],
+  "expected_literal": "CIR/MRD/DP/10/2012 dated April 13, 2012; No",
+  "parse_error": false
+}

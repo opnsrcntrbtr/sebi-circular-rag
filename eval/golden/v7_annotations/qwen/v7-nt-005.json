@@ -1,0 +1,14 @@
+{
+  "id": "v7-nt-005",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "I, C, H, A, Q\nEXPECTED: INR 10 lakh",
+  "governing": [
+    "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2025/26#4.1. In terms of Regulation 49X(1) of the MF Regulations, th#34",
+    "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2025/26#4.1.1. The AMC shall ensure that an aggregate investment by #35",
+    "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#21.4.1. The AMC shall ensure that an aggregate investment by#1115",
+    "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2025/26#4.1.2. The Minimum Investment Threshold of INR 10 lakh shall#36",
+    "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#21.4.2. The Minimum Investment Threshold of INR 10 lakh shal#1116"
+  ],
+  "expected_literal": "INR 10 lakh",
+  "parse_error": false
+}

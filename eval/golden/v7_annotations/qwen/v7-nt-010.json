@@ -1,0 +1,12 @@
+{
+  "id": "v7-nt-010",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "F, I, M\nEXPECTED: INR 100 crore",
+  "governing": [
+    "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/61#3. The Circular shall be applicable for all Options on Futur#4",
+    "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/61#6.1.2. Eligibility criteria for launching Options with Commo#3",
+    "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/61#2. Based on representations received from market participant#2"
+  ],
+  "expected_literal": "INR 100 crore",
+  "parse_error": false
+}

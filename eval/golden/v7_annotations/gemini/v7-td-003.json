@@ -1,0 +1,11 @@
+{
+  "id": "v7-td-003",
+  "model": "gemini-2.5-flash",
+  "reply": "R,L\nEXPECTED: Annual Systems Audit (for Stock Exchanges and Depositories) and Power of Attorney (PoA) execution by clients in favour of Stock Brokers/Depository Participants.",
+  "governing": [
+    "CIR/MRD/DMS/40/2010#preamble#0",
+    "CIR/MRD/DMS/40/2010#preamble#1"
+  ],
+  "expected_literal": "Annual Systems Audit (for Stock Exchanges and Depositories) and Power of Attorney (PoA) execution by clients in favour of Stock Brokers/Depository Participants.",
+  "parse_error": false
+}

@@ -1,0 +1,10 @@
+{
+  "id": "para-freeze",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "F\nEXPECTED: Yes",
+  "governing": [
+    "HO/24/12/12(5)2026-IMD-SEC-1/I/6373/2026#3. The circular will come into effect from April 30, 2026.#8"
+  ],
+  "expected_literal": "Yes",
+  "parse_error": false
+}

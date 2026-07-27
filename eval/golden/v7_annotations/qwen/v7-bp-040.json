@@ -1,0 +1,10 @@
+{
+  "id": "v7-bp-040",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "T\nEXPECTED: T",
+  "governing": [
+    "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#5.11.1. In order to deal with various technology related iss#252"
+  ],
+  "expected_literal": "T",
+  "parse_error": false
+}

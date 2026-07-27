@@ -1,0 +1,22 @@
+{
+  "id": "nomination",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "A, C, E, H, I, K, L, M, N, O, P, Q, R\nEXPECTED: A, C, E, H, I, K, L, M, N, O, P, Q, R",
+  "governing": [
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#5.2. In case of multiple nominees, upon the demise of the in#11",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#4.2. Nomination will be optional for jointly held demat acco#8",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#9.3. Regulated entities shall provide acknowledgement to the#18",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#4.3. The consent of all the joint-holders shall be required #9",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#6.2. The investors shall have an option to submit the nomina#13",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#4.1. For all single accounts / folios opened on or after the#7",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#6.1. The regulated entities shall make the nomination form a#12",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#9.2. The forms in Annexure A and B would also be applicable #17",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#8. Opt-out of nomination:#15",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#5.1. Investors can provide up to 3 nominees.#10",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#9.1. Investors can provide, changes or cancel nominations an#16",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#10.1. In the periodic statement of account / holding stateme#19",
+    "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#7. Information to be captured in nomination form:#14"
+  ],
+  "expected_literal": "A, C, E, H, I, K, L, M, N, O, P, Q, R",
+  "parse_error": false
+}

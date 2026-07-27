@@ -1,0 +1,10 @@
+{
+  "id": "esg",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "I\nEXPECTED: I",
+  "governing": [
+    "SEBI/HO/DDHS/DDHS-POD-2/P/CIR/2025/100#2.2.1. An ERP shall make an application to SEBI for prior ap#15"
+  ],
+  "expected_literal": "I",
+  "parse_error": false
+}

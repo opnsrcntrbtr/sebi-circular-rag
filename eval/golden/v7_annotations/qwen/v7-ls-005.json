@@ -1,0 +1,13 @@
+{
+  "id": "v7-ls-005",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "D, K, M, P\nEXPECTED: free of charge",
+  "governing": [
+    "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/91#37. Approach to securities market data access and terms of u#300",
+    "SEBI/HO/MIRSD/POD-1/P/CIR/2023/70#35. Approach to securities market data access and terms of u#301",
+    "SEBI/HO/MIRSD/POD-1/P/CIR/2024/37#37. Approach to securities market data access and terms of u#325",
+    "HO/38/13/(4)2026-MIRSD-POD/I/4298/2026#39. Approach to securities market data access and terms of u#321"
+  ],
+  "expected_literal": "free of charge",
+  "parse_error": false
+}

@@ -1,0 +1,10 @@
+{
+  "id": "matevents",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "H\nEXPECTED: H",
+  "governing": [
+    "SEBI/HO/CFD/CFD-PoD-1/P/CIR/2023/123#2.3. Buy back of securities:#23"
+  ],
+  "expected_literal": "H",
+  "parse_error": false
+}

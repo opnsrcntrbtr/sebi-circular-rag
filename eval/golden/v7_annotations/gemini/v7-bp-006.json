@@ -1,0 +1,11 @@
+{
+  "id": "v7-bp-006",
+  "model": "gemini-2.5-flash",
+  "reply": "H, T\nEXPECTED: 7 trading days",
+  "governing": [
+    "SEBI/HO/IMD/DF2/CIR/P/2020/156#3. Investments in government securities, money market#145",
+    "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#7.6.3. General#385"
+  ],
+  "expected_literal": "7 trading days",
+  "parse_error": false
+}

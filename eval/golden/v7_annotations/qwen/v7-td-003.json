@@ -1,0 +1,10 @@
+{
+  "id": "v7-td-003",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "R\nEXPECTED: Annual Systems Audit and Power of Attorney",
+  "governing": [
+    "CIR/MRD/DMS/40/2010#preamble#0"
+  ],
+  "expected_literal": "Annual Systems Audit and Power of Attorney",
+  "parse_error": false
+}

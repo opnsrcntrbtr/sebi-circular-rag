@@ -1,0 +1,11 @@
+{
+  "id": "v7-mh-005",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "A, F\nEXPECTED: No, the unitholder is not barred (the proviso makes the restriction inapplicable); Yes, the provision is retained in the July 2025 Master Circular.",
+  "governing": [
+    "SEBI/HO/DDHS/DDHS-PoD-2/P/CIR/2024/108#3. In order to promote ease of doing business and based on t#3",
+    "SEBI/HO/DDHS-PoD-2/P/CIR/2025/99#18.2.2. Conditions for Nomination of a Unitholder Nominee Di#455"
+  ],
+  "expected_literal": "No, the unitholder is not barred (the proviso makes the restriction inapplicable); Yes, the provision is retained in the July 2025 Master Circular.",
+  "parse_error": false
+}

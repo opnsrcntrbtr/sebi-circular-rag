@@ -1,0 +1,10 @@
+{
+  "id": "v7-ls-035",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "I\nEXPECTED: Cash, money market instruments, Government Securities, Treasury bills, Repo on Government securities, listed AAA rated debt securities without bespoke structures/structured obligations, credit enhancements or embedded options, liquid schemes, overnight schemes, or other mutual fund schemes predominantly investing in the aforementioned instruments.",
+  "governing": [
+    "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#2.6.2. Deployment of liquid net worth by AMC#69"
+  ],
+  "expected_literal": "Cash, money market instruments, Government Securities, Treasury bills, Repo on Government securities, listed AAA rated debt securities without bespoke structures/structured obligations, credit enhancements or embedded options, liquid schemes, overnight schemes, or other mutual fund schemes predominantly investing in the aforementioned instruments.",
+  "parse_error": false
+}

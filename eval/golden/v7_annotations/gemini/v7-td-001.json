@@ -1,0 +1,17 @@
+{
+  "id": "v7-td-001",
+  "model": "gemini-2.5-flash",
+  "reply": "B,C,D,F,H,K,O,T\nEXPECTED: SEBI's February 2024 circular (SEBI/HO/CFD/PoD-1/P/CIR/2024/009) outlines the process for returning and resubmitting a draft offer document as follows:\n\n**For Returning a Draft Offer Document:**\n*   Draft offer documents are scrutinized based on broad guidelines (F).\n*   Documents that are not compliant with instructions under Schedule VI of ICDR Regulations and other provided guidelines shall be returned to the issuer (H).\n*   A draft offer document may be returned if it requires substantial revision or addenda on key disclosures, or corrective measures due to regulatory interpretation (C).\n*   It may also be returned if there are pending litigation matters impacting the issue's eligibility criteria under ICDR Regulations (T).\n\n**For Resubmitting a Draft Offer Document:**\n*   The issuer and Lead Manager(s) must ensure the resubmitted document addresses the insufficiencies for which it was returned and complies with ICDR Regulations and other applicable laws (B).\n*   The issuer must make a written intimation to its sectoral regulator, if any, informing about the return and resubmission (B).\n*   Within two days of resubmission, the issuer must make a public announcement, including a disclosure that it is a resubmitted document (K).\n*   There is no requirement to pay fees for the resubmission itself, but applicable fees for changes specified in Schedule XVI of the ICDR Regulations for an updated offer document will still apply (D).\n*   There will be no refund of the initial filing fees if the issuer does not resubmit the draft offer document after it has been returned (O).",
+  "governing": [
+    "SEBI/HO/CFD/PoD-1/P/CIR/2024/009#2.4. Issuer shall make written intimation to its sectoral re#21",
+    "SEBI/HO/CFD/PoD-1/P/CIR/2024/009#1.2. The draft offer document requires:#14",
+    "SEBI/HO/CFD/PoD-1/P/CIR/2024/009#2.1. While there shall be no requirement for payment of any #18",
+    "SEBI/HO/CFD/PoD-1/P/CIR/2024/009#1. Return of Draft Offer Document:#11",
+    "SEBI/HO/CFD/PoD-1/P/CIR/2024/009#4. Accordingly, the draft offer document shall be scrutinize#4",
+    "SEBI/HO/CFD/PoD-1/P/CIR/2024/009#2.3. The issuer, within two days of resubmission of draft of#20",
+    "SEBI/HO/CFD/PoD-1/P/CIR/2024/009#2.2. There shall be no refund of the filing fees on account #19",
+    "SEBI/HO/CFD/PoD-1/P/CIR/2024/009#1.5. Where there are any pending litigation matters in any c#17"
+  ],
+  "expected_literal": "SEBI's February 2024 circular (SEBI/HO/CFD/PoD-1/P/CIR/2024/009) outlines the process for returning and resubmitting a draft offer document as follows:",
+  "parse_error": false
+}

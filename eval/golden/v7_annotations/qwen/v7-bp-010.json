@@ -1,0 +1,17 @@
+{
+  "id": "v7-bp-010",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "A, C, E, G, K, L, N, P\nEXPECTED: Private cloud deployments are governed by other SEBI circulars (e.g., cybersecurity, outsourcing, BCP-DR) and are not covered by this specific cloud framework.",
+  "governing": [
+    "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#67.5. Scope:#1228",
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/71#20. Any other provision(s) required to ensure compliance wit#1323",
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/71#5. The RE shall ensure that appropriate clauses/ terms (incl#1303",
+    "SEBI/HO/ITD/ITD_VAPT/P/CIR/2023/033#5. दायिा : 5. Scope:#11",
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/53#65.5. Scope:#542",
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/71#8. Business Continuity Planning (BCP), Disaster Recovery & C#1331",
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/110#66.5. Scope:#546",
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/71#4. Seek the audit reports of the audits conducted by CSP.#1351"
+  ],
+  "expected_literal": "Private cloud deployments are governed by other SEBI circulars (e.g., cybersecurity, outsourcing, BCP-DR) and are not covered by this specific cloud framework.",
+  "parse_error": false
+}

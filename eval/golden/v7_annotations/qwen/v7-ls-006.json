@@ -1,0 +1,10 @@
+{
+  "id": "v7-ls-006",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "D\nEXPECTED: SCORES (or SEBI Complaints Redressal System)",
+  "governing": [
+    "SEBI/HO/OIAE/IGRD/P/CIR/2022/0150#2. SEBI had been receiving inputs from listed companies, reg#2"
+  ],
+  "expected_literal": "SCORES (or SEBI Complaints Redressal System)",
+  "parse_error": false
+}

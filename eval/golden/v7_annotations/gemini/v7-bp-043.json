@@ -1,0 +1,10 @@
+{
+  "id": "v7-bp-043",
+  "model": "gemini-2.5-flash",
+  "reply": "F\nEXPECTED: The “association” for the purposes of these regulations shall mean the association in the nature of transaction involving money or money’s worth or referral of a client or interaction of information technology systems or any other association of similar nature or character, by any name called.",
+  "governing": [
+    "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/91#5. What constitutes an association between persons regulated#647"
+  ],
+  "expected_literal": "The “association” for the purposes of these regulations shall mean the association in the nature of transaction involving money or money’s worth or referral of a client or interaction of information technology systems or any other association of similar nature or character, by any name called.",
+  "parse_error": false
+}

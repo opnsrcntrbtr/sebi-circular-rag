@@ -1,0 +1,10 @@
+{
+  "id": "v7-bp-012",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "R\nEXPECTED: Yes, idle cash and investments in liquid funds must be included in the performance calculation.",
+  "governing": [
+    "SEBI/HO/IMD/IMD-POD-1/P/CIR/2023/38#4.5.3.1. Consider all cash holdings and investments in liqui#184"
+  ],
+  "expected_literal": "Yes, idle cash and investments in liquid funds must be included in the performance calculation.",
+  "parse_error": false
+}

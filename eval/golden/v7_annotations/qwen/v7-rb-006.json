@@ -1,0 +1,10 @@
+{
+  "id": "v7-rb-006",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "H\nEXPECTED: SEBI Master Circular No. SEBI/HO/IMD/IMD-PoD-1/P/CIR/2023/74 dated May 19, 2023; No, it has been partially modified.",
+  "governing": [
+    "SEBI/HO/IMD/IMD-I/PoD1/P/CIR/2023/125#4.1.1. As Mutual Funds can presently launch only one ESG sch#5"
+  ],
+  "expected_literal": "SEBI Master Circular No. SEBI/HO/IMD/IMD-PoD-1/P/CIR/2023/74 dated May 19, 2023; No, it has been partially modified.",
+  "parse_error": false
+}

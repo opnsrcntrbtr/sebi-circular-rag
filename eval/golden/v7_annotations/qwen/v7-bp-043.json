@@ -1,0 +1,10 @@
+{
+  "id": "v7-bp-043",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "F\nEXPECTED: F",
+  "governing": [
+    "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/91#5. What constitutes an association between persons regulated#647"
+  ],
+  "expected_literal": "F",
+  "parse_error": false
+}

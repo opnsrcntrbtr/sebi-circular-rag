@@ -1,0 +1,10 @@
+{
+  "id": "v7-ls-016",
+  "model": "Qwen3.6-35B-A3B-MLX-4bit",
+  "reply": "M\nEXPECTED: Transfer of securities towards Stock Exchange related deliveries / settlement obligations and pledging / re-pledging of securities in favour of TM/CM for meeting margin requirements.",
+  "governing": [
+    "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/53#36. Execution of ‘Demat Debit and Pledge Instruction’ (DDPI)#317"
+  ],
+  "expected_literal": "Transfer of securities towards Stock Exchange related deliveries / settlement obligations and pledging / re-pledging of securities in favour of TM/CM for meeting margin requirements.",
+  "parse_error": false
+}
