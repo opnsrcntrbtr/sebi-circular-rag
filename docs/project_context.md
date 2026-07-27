@@ -74,11 +74,11 @@ are confirmed against the installed toolchain before use — not assumed here.
 - Xcode Command Line Tools — *(pin @ validation)*
 - Homebrew — *(pin @ validation)*
 - Python — 3.12.13 (project `.venv`; system default 3.14.6 unused — no mlx-lm wheel)
-- uv — 0.11.25
-- Git — 2.54.0 (Homebrew; Apple Git 2.50.1 also present)
-- MLX 0.31.2 / MLX-LM 0.31.3 (validated in `.venv`)
+- uv — 0.11.28
+- Git — 2.55.0 (Homebrew; Apple Git 2.50.1 also present)
+- MLX 0.32.0 / MLX-LM 0.31.3 (validated in `.venv`)
 - Ollama — 0.19+ (MLX backend on Apple Silicon) *(pin @ validation)*
-- PyTorch (MPS) — 2.12.1 (**required**: baseline runtime for bge-m3 embeddings +
+- PyTorch (MPS) — 2.13.0 (**required**: baseline runtime for bge-m3 embeddings +
   cross-encoder reranker via sentence-transformers / FlagEmbedding)
 - sentence-transformers — 5.6.0
 - FlagEmbedding — 1.4.0
@@ -92,7 +92,7 @@ are confirmed against the installed toolchain before use — not assumed here.
   (validated). NOTE: FlagEmbedding 1.4.0 FlagReranker is incompatible with
   transformers 5.12.1 (`prepare_for_model` removed) — use CrossEncoder, not
   FlagReranker.
-- Lexical index — bm25s or Tantivy *(select @ retrieval stage)*
+- Lexical index — bm25s 0.3.9 *(select @ retrieval stage)*
 
 ## 6. Validation Sequence
 
@@ -174,29 +174,125 @@ top_k=5). Index persisted at data/index/ (reload 0.34s). Re-run after corpus gro
 SEBI circular RAG/
 ├── docs/
 │   ├── project_context.md      # this file (authoritative architecture)
-│   └── status.md               # completed work, pending, blockers
+│   ├── status.md               # completed work, pending, blockers
+│   ├── next_steps.md           # active roadmap
+│   ├── validation_roadmap.md   # handbook validation sequence
+│   ├── scraping_plan.md        # SEBI scraping strategy
+│   ├── n8n_automation_plan.md  # ops automation plan
+│   ├── adr-001-*.md            # architecture decision records
+│   ├── adr-002-*.md
+│   ├── adr-003-*.md
+│   ├── graphify-analysis/      # cross-module analysis reports
+│   └── superpowers/            # plans, reports, specs (interventions)
 ├── data/
-│   ├── raw/                    # fetched circulars + provenance
-│   └── processed/              # chunks + metadata
-├── data/index/                # persisted index (dense.faiss + bm25/ + chunks.jsonl)
-│                               # built by scripts/build_index.py, loaded by api.py
+│   ├── raw/                    # fetched PDFs + .sha256 checksums (705 records)
+│   ├── corpus/                 # circulars.jsonl (processed corpus)
+│   ├── manifests/              # build manifests
+│   └── index/                  # persisted index
+│       ├── dense.faiss         # FAISS dense store
+│       ├── bm25/               # BM25 sparse index
+│       ├── chunks.jsonl        # enriched chunks (22k+ chunks)
+│       ├── lineage.json        # supersession graph (1,200+ edges)
+│       ├── embeddings.npy      # cached embeddings (incremental indexing)
+│       ├── manifest.json       # doc-level sha256 manifest
+│       ├── meta.json           # corpus metadata
+│       └── splade.npz          # SPLADE sidecar (eval-only, off by default)
 ├── src/
-│   ├── ingest/                 # fetch + provenance
-│   ├── segment/                # hierarchical chunking + metadata
-│   ├── retrieve/               # dense, sparse, RRF fusion
-│   ├── rerank/                 # cross-encoder
-│   ├── generate/               # LLM + abstention gate
-│   ├── lineage.py              # P2 cross-document supersession
-│   ├── ingest_pdf.py           # PDF -> corpus
-│   ├── api.py                  # FastAPI /health, /ready, /query (auth, rate, timeout)
-│   ├── settings.py             # config.toml + env overrides
-│   └── eval/                   # metrics harness + eval_harness.py
-├── config.toml                 # service config (env-overridable)
-├── Makefile / run.sh           # operations (test, reindex, serve, scrape)
-├── deploy/com.sebi-rag.plist   # launchd user agent
+│   └── sebi_rag/               # flat module (no subpackages)
+│       ├── api.py              # FastAPI /health, /ready, /query (auth, rate, timeout)
+│       ├── api_spaces.py       # CPU HF Space variant (do not edit for local pipeline)
+│       ├── pipeline.py         # RAGPipeline orchestration; regulatory_basis_status
+│       ├── retrieve.py         # HybridRetriever — FAISS + BM25 RRF fusion
+│       ├── splade.py           # SPLADE retrieval (opt-in, eval-only)
+│       ├── splade_encoder.py   # SPLADE encoder
+│       ├── context_headers.py  # Context header generation (opt-in)
+│       ├── hyde.py             # HyDE retrieval (opt-in)
+│       ├── rerank.py           # Cross-encoder reranker (bge-reranker-v2-m3 / Qwen3)
+│       ├── embeddings.py       # bge-m3 embeddings (Dense + Sparse + ColBERT)
+│       ├── segment.py          # Hierarchical chunking (~1200 chars, ~150 overlap)
+│       ├── lineage.py          # P2: cross-document supersession / amendment / version
+│       ├── master_meta.py      # Master circular metadata enrichment
+│       ├── metadata.py         # CircularMeta / Chunk dataclasses
+│       ├── generate.py         # Local LLM generation + abstention gate (MLX/Ollama)
+│       ├── generate_spaces.py  # CPU HF Space variant
+│       ├── corpus.py           # Corpus management (load, save, annotate)
+│       ├── corpus_spaces.py    # CPU HF Space variant
+│       ├── eval.py             # Metrics (Recall@k, MRR, nDCG, citation precision/recall)
+│       ├── eval_asof.py        # As-of-date golden evaluation
+│       ├── eval_harness.py     # Evaluation harness + metrics computation
+│       ├── benchmark.py        # Retrieval benchmark + BEIR/TREC export
+│       ├── settings.py         # config.toml + env overrides
+│       ├── device.py           # Device detection (MPS / CPU)
+│       ├── stats.py            # Corpus / index statistics
+│       ├── expand.py           # Query expansion utilities
+│       ├── reg_citations.py    # Regulation citations from circular text
+│       ├── reg_lineage.py      # Circular→regulation edges + regulatory_basis_status
+│       ├── regulations.py      # Regulation identity, alias table, name resolution
+│       ├── verify_master.py    # Master circular verification
+│       ├── ui.py               # Gradio UI
+├── scripts/                    # CLI scripts (build, scrape, eval, ops)
+│       ├── build_index.py      # Index builder (full + incremental)
+│       ├── calibrate.py        # Retrieval calibration (RRF, top-k, threshold)
+│       ├── scrape_sebi.py      # SEBI scraper (master-circulars + regular)
+│       ├── scrape_regulations.py  # SEBI regulations scraper
+│       ├── build_golden.py     # Golden set builder
+│       ├── build_golden_v6.py  # Golden v6 builder
+│       ├── build_reg_edges.py  # Circular→regulation edge builder
+│       ├── build_splade_index.py  # SPLADE index builder
+│       ├── eval_json.py        # Eval result scoring
+│       ├── eval_gate.py        # Groundedness / subject-sim judge evaluation
+│       ├── eval_asof.py        # As-of-date eval runner
+│       ├── bench_generators.py # Generator benchmark (faithfulness/groundedness)
+│       ├── bench_rerankers.py  # Reranker benchmark (AUROC, cluster separation)
+│       ├── bench_retrieval.py  # Retrieval benchmark + TREC runfile
+│       ├── export_benchmark.py # BEIR/TREC/RAG benchmark export
+│       ├── export_datasets.py  # Dataset export (chunks, corpus, lineage)
+│       ├── golden_v7/          # Full golden-v7 adjudication pipeline
+│       │       ├── agreement.py
+│       │       ├── build_pool.py
+│       │       ├── derive_thresholds.py
+│       │       ├── gate_select.py
+│       │       ├── local_adjudicate.py
+│       │       ├── gemini_adjudicate.py
+│       │       └── ...
+│       ├── validate_corpus.py  # Corpus integrity validator
+│       ├── repair_corpus_text.py  # Corpus text repair
+│       ├── renumber.py         # Circular number re-derivation
+│       ├── audit_reg_edges.py  # Regulation edge audit
+│       ├── rescore_runs.py     # Eval run rescoring
+│       ├── ops_server.py       # n8n ops server
+│       ├── deploy_space.py     # HF Space deployment
+│       └── ...
+├── tests/                      # 50+ test files (offline + integration)
+│       ├── conftest.py         # Fixtures, env guards, mock models
+│       ├── test_*.py           # Unit + integration tests
 ├── eval/
-│   └── golden/                 # labelled SEBI query→answer+citation set (PENDING)
-└── SEBI_RAG_Claude_Desktop_Engineering_Handbook.md
+│   ├── golden/                 # Labelled SEBI query→answer+citation sets
+│   │       ├── golden_v1.jsonl … golden_v7.jsonl  # Evolving golden sets
+│   │       ├── gate_v7.json  # v7 gate floors (recall, citation_recall, abstention)
+│   │       └── v7_annotations/  # Human adjudication annotations
+│   ├── probes/                 # Probe queries (probes_v1.jsonl)
+│   └── runs/                   # Eval run results (baseline, asof, fp16, SPLADE, …)
+├── reports/                    # Intervention reports (golden_v7 agreement, master coverage, …)
+├── graphify-out/               # Generated knowledge graph (graph.json, GRAPH_REPORT.md)
+├── logs/                       # Automation logs (canary, discover, refresh)
+├── automation/                 # n8n workflow exports
+├── dist/                       # Dataset exports (AIKO, Zenodo)
+├── deploy/
+│       ├── com.sebi-rag.plist        # Main launchd user agent
+│       └── com.sebi-rag-ops.plist    # Ops server launchd agent
+├── app.py                      # Root-level HF Space entry point (CPU-only)
+├── run.sh                      # Local service launcher
+├── run_ops.sh                  # Ops server launcher
+├── Makefile                    # Operations (test, reindex, serve, scrape, calibrate, …)
+├── config.toml                 # Service config (env-overridable)
+├── pyproject.toml              # Project metadata + dependencies
+├── uv.lock                     # Pinned dependency lockfile
+├── requirements-spaces.txt     # HF Space dependencies (separate from local)
+├── README.md                   # Project readme
+├── README-spaces.md            # HF Space runbook
+├── AGENTS.md                   # Non-Claude agent guidance
+└── CLAUDE.md                   # Claude agent guidance
 ```
 
 ## 11. Reproducibility Requirements
@@ -214,8 +310,8 @@ SEBI circular RAG/
 
 ## 12. Known Architectural Prerequisites (tracked in status.md)
 
-- **P1** — Labelled SEBI evaluation set (query → answer + citation). Gates metric
-  computation and calibration of RRF constant, candidate-pool size, rerank top-k,
-  and abstention threshold.
-- **P2** — Metadata lineage extraction (supersession / amendment / version),
-  which requires cross-document linking, not single-document parsing.
+- **P1** — Labelled SEBI evaluation set: **COMPLETED** (`golden_v7`, n=260,
+  `adjudicated_n`=103, gate armed). Calibrated: `top_k`=3, `score_floor`=0.05,
+  SubjectSimJudge two-tier gate.
+- **P2** — Metadata lineage extraction: **COMPLETED** (`lineage.py`, 1,222 edges,
+  74 superseded-in-corpus, answer-layer warnings wired).
