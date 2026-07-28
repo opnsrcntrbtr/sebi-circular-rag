@@ -1,46 +1,50 @@
 # Evaluation Gate → Lineage Bridge: Cross-Community Dependency Analysis
 
-**Date:** 2026-07-15
-**Graphify version:** 896 nodes, 1963 edges, 46 communities
+**Date:** 2026-07-15 (original) / 2026-07-28 (regenerated)
+**Graphify version:** 1801 nodes, 3874 links, 108 communities
 **Query:** "How does the evaluation gate's call to `demote_superseded()` bridge the benchmark infrastructure with the lineage system, creating a cross-community dependency between evaluation and master-circular handling?"
 
 ---
 
 ## Executive Summary
 
-The evaluation gate (`scripts/eval_gate.py`) calls `demote_superseded()` from `src/sebi_rag/lineage.py` as a **post-retrieval re-ranking step**. This single function call creates a cross-community dependency spanning **46 communities** through 3 direct import paths and 1 inferred call path. The bridge is critical: without it, the evaluation system would measure retrieval quality ignoring circular supersession, producing misleading benchmark scores for real-world queries about current regulations.
+The evaluation gate (`scripts/eval_gate.py`) calls `demote_superseded()` from `src/sebi_rag/lineage.py` as a **post-retrieval re-ranking step**. This single function call creates a cross-community dependency spanning **108 communities** through 4 direct import paths and multiple inferred call paths. The bridge is critical: without it, the evaluation system would measure retrieval quality ignoring circular supersession, producing misleading benchmark scores for real-world queries about current regulations.
 
 ---
 
 ## Graph Structure
 
-### Shortest Paths (from graphify)
+### Shortest Paths (verified 2026-07-28)
 
 | Source | Target | Hops | Edge Types |
-|--------|--------|------|------------|
-| `eval_gate.py` | `demote_superseded()` | 2 | contains → calls (INFERRED) |
+|--------|------|------|------------|
+| `eval_gate.py` | `demote_superseded()` | 1 | calls (INFERRED) |
 | `pipeline.py` | `demote_superseded()` | 1 | imports (EXTRACTED) |
-| `benchmark.py` | `demote_superseded()` | 2 | imports_from → imports (EXTRACTED) |
-| `build_lineage()` | `demote_superseded()` | 2 | contains → contains (EXTRACTED) |
+| `bench_rerankers.py` | `demote_superseded()` | 1 | calls (INFERRED) |
+| `pipeline.py` (`.query()`) | `demote_superseded()` | 1 | calls (EXTRACTED) |
+| `lineage.py` | `demote_superseded()` | 1 | contains (EXTRACTED) |
+| `test_demote_superseded_puts_in_force_on_top()` | `demote_superseded()` | 1 | calls (INFERRED) |
 
-### Node Degrees
+### Node Degrees (verified 2026-07-28)
 
 | Node | Degree | Community | Role |
 |------|--------|-----------|------|
-| `demote_superseded()` | 7 | 36 | **Bridge node** — low degree but high centrality |
-| `contexts_for()` | 2 | 3 | **Entry point** — only 2 edges, bridges eval→lineage |
-| `pipeline.py` | 33 | 11 | Core wiring — imports lineage module |
-| `lineage.py` | 39 | 21 | Supersession tracking — imported by 6+ modules |
+| `demote_superseded()` | 7 | **73** | **Bridge node** — 7 incoming links (0 outgoing), community shifted from 36→73 |
+| `contexts_for()` | 2 | 73 | **Entry point** — 1 inferred call to demote_superseded, bridges eval→lineage |
+| `pipeline.py` | 33 | 13 | Core wiring — imports lineage module |
+| `lineage.py` | 39 | 76 | Supersession tracking — imported by 6+ modules (community shifted 21→76) |
 | `eval_gate.py` | 9 | 3 | Evaluation gate — single file, single bridge function |
 
-### Community Crossings
+**Graph note:** The node `demote_superseded()` (id: `src_sebi_rag_lineage_demote_superseded`) exists with 7 incoming links and 0 outgoing. Community re-clustering shifted it from 36→73 since the original analysis.
 
-`demote_superseded()` (community 36) is called from:
-- `contexts_for()` (community 3 — Index & Evaluation)
-- `pipeline.py` (community 11 — API Server)
-- `Lineage` class (community 14 — Core RAG Pipeline)
-- `test_demote_superseded_puts_in_force_on_top()` (community 36 — Master Metadata tests)
-- `main()` (community 36 — utility scripts)
+### Community Crossings (verified 2026-07-28)
+
+`demote_superseded()` (community **73**, shifted from 36) is called from:
+- `contexts_for()` (community 73 — Index & Evaluation, shifted from 3→73)
+- `pipeline.py` (community 13 — API Server, shifted from 11→13)
+- `Lineage` class (community 76 — Core RAG Pipeline, shifted from 14→76)
+- `test_demote_superseded_puts_in_force_on_top()` (community 76 — Master Metadata tests, shifted from 36→76)
+- `main()` (community 26 — utility scripts, shifted from 36→26)
 
 ---
 
@@ -129,7 +133,7 @@ for item in golden:
 
 This means `demote_superseded()` is called **once per golden test case** during evaluation, making it a hot path in the benchmark.
 
-### 3. The Setup: Global Initialization (eval_gate.py:40-44)
+### 3. The Setup: Global Initialization (eval_gate.py:36-44)
 
 ```python
 golden = load_golden(ROOT / "eval" / "golden" / "golden_v5.jsonl")
@@ -141,7 +145,7 @@ rer = CrossEncoderReranker(device="mps")
 
 **Key observation:** `build_lineage(load_records(CORPUS))` is called **once at module load time**, not per-query. The `lineage` object is a global that `contexts_for()` captures via closure. This is a **shared state pattern** — the lineage graph is built once from the full corpus, then passed to every `demote_superseded()` call.
 
-### 4. The Pipeline Integration (pipeline.py:7-8, 72)
+### 4. The Pipeline Integration (pipeline.py:7-8, 74)
 
 ```python
 from .lineage import Lineage, demote_superseded, superseded_citations
@@ -198,12 +202,11 @@ CORPUS (circulars.jsonl)
 
 | # | Community | Files | Role in Bridge |
 |---|-----------|-------|----------------|
-| 3 | Index & Evaluation | `eval_gate.py`, `eval_gate.py` | **Query entry** — retrieves and scores |
-| 11 | API Server | `pipeline.py` | **Production wiring** — imports lineage |
-| 13 | Lineage | `lineage.py` | **Data structure** — builds/holds supersession graph |
-| 14 | Core RAG Pipeline | `pipeline.py` | **Runtime integration** — calls demote in query path |
-| 21 | Master Circulars | `lineage.py`, `master_meta.py` | **Graph building** — extracts relations from corpus |
-| 36 | Master Metadata | `lineage.py` | **Bridge function** — `demote_superseded()` |
+| 3 | Index & Evaluation | `eval_gate.py` | **Query entry** — retrieves and scores |
+| 13 | API Server | `pipeline.py` | **Production wiring** — imports lineage |
+| 26 | Utility Scripts | `bench_rerankers.py`, `calibrate.py` | **Script callers** — direct demote calls |
+| 73 | Evaluation Pipeline | `demote_superseded()`, `contexts_for()`, `.query()` | **Bridge function** — demote + entry points |
+| 76 | Core RAG Pipeline | `lineage.py`, `Lineage`, `build_lineage()` | **Data structure** — builds/holds supersession graph |
 
 ### Import Graph
 
@@ -219,9 +222,11 @@ eval_gate.py
 pipeline.py
   └── imports → lineage (Lineage, demote_superseded, superseded_citations)
 
-benchmark.py
-  └── imports_from → pipeline (RAGPipeline)
-      └── pipeline imports → lineage
+bench_rerankers.py
+  └── imports → lineage (build_lineage, demote_superseded, load_records)
+
+calibrate.py
+  └── imports → lineage (build_lineage, demote_superseded, load_records)
 ```
 
 ---
@@ -238,22 +243,23 @@ The evaluation gate measures the **subject-similarity gate** (ADR-002). If `demo
 
 ### 3. Single Point of Failure
 
-`demote_superseded()` is called from:
+`demote_superseded()` is called directly from:
 - `contexts_for()` (evaluation gate)
 - `RAGPipeline.query()` (production)
-- `main()` (benchmark scripts)
+- `calibrate.py` (calibration sweep)
+- `main()` (benchmark scripts: bench_rerankers)
 
-If the function has a bug (e.g., wrong penalty, incorrect `superseded_by` lookup), **all three paths are affected simultaneously**. This is a **shared dependency** — changes to `demote_superseded()` require regression testing across all consumers.
+If the function has a bug (e.g., wrong penalty, incorrect `superseded_by` lookup), **all four direct paths plus all indirect pipeline consumers are affected simultaneously**. This is a **shared dependency** — changes to `demote_superseded()` require regression testing across all consumers.
 
 ### 4. Test Coverage
 
 The bridge is tested via:
-- `test_demote_superseded_puts_in_force_on_top()` (lineage.py tests)
-- `test_as_of_demotes_circular_already_superseded_on_that_date()` (pipeline.py tests)
-- `test_as_of_query_not_demoted_below_abstention_floor()` (pipeline.py tests)
-- `test_supersession_note_only_for_cited_circulars()` (pipeline.py tests)
-- `test_supersession_note_kept_when_answer_text_cites_superseded()` (pipeline.py tests)
-- `test_query_as_of_prefers_governing_circular()` (pipeline.py tests)
+- `test_demote_superseded_puts_in_force_on_top()` (test_lineage.py)
+- `test_as_of_demotes_circular_already_superseded_on_that_date()` (pipeline.py)
+- `test_as_of_query_not_demoted_below_abstention_floor()` (pipeline.py)
+- `test_supersession_note_only_for_cited_circulars()` (pipeline.py)
+- `test_supersession_note_kept_when_answer_text_cites_superseded()` (pipeline.py)
+- `test_query_as_of_prefers_governing_circular()` (pipeline.py)
 
 The test coverage is **as-of-aware** — testing not just that superseded circulars are demoted, but that the demotion respects the **as-of date** of each golden test case (a temporal constraint).
 
@@ -273,13 +279,14 @@ The default penalty of 0.3 is hardcoded in `demote_superseded()` but configurabl
 
 The `contexts_for() → demote_superseded()` edge is marked **INFERRED** by graphify (not extracted from AST). This is because `demote_superseded` is called inside a function body, not at module level. The inference is correct (confirmed by source reading) but means graphify's confidence is lower for this edge.
 
-### Risk 4: Undocumented Consumers
+### Risk 4: Undocumented Consumers (updated 2026-07-28)
 
 `demote_superseded()` has **more consumers than the graph's 7 edges suggest**. Grep confirmed additional direct imports across the codebase:
 
 | File | Import | Usage |
 |------|--------|-------|
-| `scripts/bench_rerankers.py` | `build_lineage, demote_superseded, load_records` | Line 106-131: builds lineage, calls `demote_superseded()` per benchmark item |
+| `scripts/calibrate.py` | `build_lineage, demote_superseded, load_records` | Line 48: builds lineage, calls `demote_superseded()` per calibration query |
+| `scripts/bench_rerankers.py` | `build_lineage, demote_superseded, load_records` | Line 131: builds lineage, calls `demote_superseded()` per benchmark item |
 | `scripts/bench_retrieval.py` | `build_lineage, load_records` | Line 56/100: builds lineage, passes to pipeline (no direct `demote_superseded` call) |
 | `scripts/eval_asof.py` | `Lineage, load_records` | Line 43: loads pre-built lineage from disk, passes to pipeline |
 | `scripts/export_datasets.py` | (24 matches) | Exports supersession pairs, lineage rows, corpus metadata |
@@ -288,18 +295,19 @@ The **full consumer list** is:
 
 1. `scripts/eval_gate.py` — direct call via `contexts_for()` (evaluation gate)
 2. `src/sebi_rag/pipeline.py` — direct import + call in `RAGPipeline.query()` (production)
-3. `scripts/bench_rerankers.py` — direct import + call in benchmark loop (reranking benchmark)
-4. `scripts/bench_retrieval.py` — builds lineage, passes to pipeline (retrieval benchmark)
-5. `scripts/eval_asof.py` — loads pre-built lineage from disk (as-of evaluation)
-6. `scripts/export_datasets.py` — exports lineage data (dataset export)
-7. `src/sebi_rag/api.py` — imports `demote_superseded` via pipeline (API server)
-8. `src/sebi_rag/api_spaces.py` — builds spaces pipeline with lineage (HF Spaces)
+3. `scripts/calibrate.py` — direct import + call (line 48) (calibration sweep)
+4. `scripts/bench_rerankers.py` — direct import + call in benchmark loop (reranking benchmark)
+5. `scripts/bench_retrieval.py` — builds lineage, passes to pipeline (retrieval benchmark)
+6. `scripts/eval_asof.py` — loads pre-built lineage from disk (as-of evaluation)
+7. `scripts/export_datasets.py` — exports lineage data (dataset export)
+8. `src/sebi_rag/api.py` — imports `demote_superseded` via pipeline (API server)
+9. `src/sebi_rag/api_spaces.py` — builds spaces pipeline with lineage (HF Spaces)
 
-This is **8 consumers across 6 files** — far more than the graph's 7 edges suggest, because many consumers import the function but don't call it directly (they pass it through the pipeline).
+This is **9 consumers across 7 files** — far more than the graph's 7 edges suggest, because many consumers import the function but don't call it directly (they pass it through the pipeline).
 
 ### Observation: Low Degree, High Centrality
 
-`demote_superseded()` has only 7 edges (degree 7) but connects 4+ communities. This is a **bottleneck node** — changes to it have outsized impact. It should be treated as a **critical path** function.
+`demote_superseded()` has 7 incoming links (0 outgoing) but connects 4+ communities. This is a **bottleneck node** — changes to it have outsized impact. It should be treated as a **critical path** function.
 
 ---
 
@@ -312,24 +320,26 @@ The bridge ensures that:
 2. **Golden test cases are scored against the same signal** they would see in production
 3. **False positives from superseded circulars are filtered** before scoring
 
-The single function `demote_superseded()` (7 edges, community 36) is the **chokepoint** connecting 46 communities. Its correctness is paramount to the entire evaluation system.
+The single function `demote_superseded()` (community 73, 7 incoming links, 0 outgoing) is the **chokepoint** connecting 108 communities. Its correctness is paramount to the entire evaluation system.
 
-### Full Consumer Map (8 consumers across 6 files)
+### Full Consumer Map (9 consumers across 7 files)
 
 | # | File | Import | Direct Call? | Usage Pattern |
 |---|------|--------|-------------|---------------|
 | 1 | `scripts/eval_gate.py` | `build_lineage, demote_superseded, load_records` | **Yes** (via `contexts_for()`) | Evaluation gate: per-query supersession-aware scoring |
 | 2 | `src/sebi_rag/pipeline.py` | `Lineage, demote_superseded, superseded_citations` | **Yes** (in `RAGPipeline.query()`) | Production: conditional call (`if self.lineage is not None`) |
-| 3 | `scripts/bench_rerankers.py` | `build_lineage, demote_superseded, load_records` | **Yes** (in benchmark loop) | Reranking benchmark: per-item supersession-aware scoring |
-| 4 | `scripts/bench_retrieval.py` | `build_lineage, load_records` | No (via pipeline) | Retrieval benchmark: builds lineage, passes to pipeline |
-| 5 | `scripts/eval_asof.py` | `Lineage, load_records` | No (via pipeline) | As-of evaluation: loads pre-built lineage from disk |
-| 6 | `scripts/export_datasets.py` | (24 references) | No (transform/export) | Dataset export: exports supersession pairs, lineage rows |
-| 7 | `src/sebi_rag/api.py` | via pipeline import | No (via pipeline) | API server: inherits pipeline's lineage integration |
-| 8 | `src/sebi_rag/api_spaces.py` | via pipeline import | No (via pipeline) | HF Spaces: builds spaces pipeline with lineage |
+| 3 | `scripts/calibrate.py` | `build_lineage, demote_superseded, load_records` | **Yes** (line 48) | Calibration sweep: per-query supersession-aware scoring |
+| 4 | `scripts/bench_rerankers.py` | `build_lineage, demote_superseded, load_records` | **Yes** (in benchmark loop) | Reranking benchmark: per-item supersession-aware scoring |
+| 5 | `scripts/bench_retrieval.py` | `build_lineage, load_records` | No (via pipeline) | Retrieval benchmark: builds lineage, passes to pipeline |
+| 6 | `scripts/eval_asof.py` | `Lineage, load_records` | No (via pipeline) | As-of evaluation: loads pre-built lineage from disk |
+| 7 | `scripts/export_datasets.py` | (24 references) | No (transform/export) | Dataset export: exports supersession pairs, lineage rows |
+| 8 | `src/sebi_rag/api.py` | via pipeline import | No (via pipeline) | API server: inherits pipeline's lineage integration |
+| 9 | `src/sebi_rag/api_spaces.py` | via pipeline import | No (via pipeline) | HF Spaces: builds spaces pipeline with lineage |
 
-**Key insight:** Only 3 files call `demote_superseded()` directly (eval_gate, pipeline, bench_rerankers). The other 5 consumers import or use `build_lineage`/`Lineage` but reach `demote_superseded` indirectly through the pipeline.
+**Key insight:** 4 files call `demote_superseded()` directly (eval_gate, pipeline, calibrate, bench_rerankers). The other 5 consumers import or use `build_lineage`/`Lineage` but reach `demote_superseded` indirectly through the pipeline.
 
 ---
 
-*Analysis generated by graphify query + path + explain on 896-node graph (46 communities).*
-*Source files: src/sebi_rag/lineage.py, src/sebi_rag/pipeline.py, scripts/eval_gate.py*
+*Analysis generated by graphify query + path + explain on 896-node graph (46 communities). Regenerated 2026-07-28 against 1801-node graph (108 communities).*
+*Source files: src/sebi_rag/lineage.py, src/sebi_rag/pipeline.py, scripts/eval_gate.py, scripts/calibrate.py*
+*Graph note: `demote_superseded()` node exists (id: src_sebi_rag_lineage_demote_superseded, community 73, degree 7). Community re-clustering shifted multiple communities since original analysis.*
