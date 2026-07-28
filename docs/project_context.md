@@ -351,7 +351,6 @@ SEBI circular RAG/
 ├── docs/
 │   ├── project_context.md      # this file (authoritative architecture)
 │   ├── status.md               # completed work, pending, blockers
-│   ├── next_steps.md           # active roadmap
 │   ├── scraping_plan.md        # SEBI scraping strategy
 │   ├── n8n_automation_plan.md  # ops automation plan
 │   ├── adr-001-*.md            # architecture decision records

@@ -8,9 +8,8 @@ faithfulness check behind a config-driven, authenticated FastAPI service.
 
 This guide covers setup, the data pipeline, running and querying the service,
 configuration, operations, evaluation, extension, and troubleshooting. For the
-current shipped state see [docs/status.md](status.md); for roadmap details see
-[docs/next_steps.md](next_steps.md); for the user-facing overview see the project
-[README.md](../README.md).
+current shipped state see [docs/status.md](status.md); for the user-facing overview
+see the project [README.md](../README.md).
 
 ---
 
@@ -91,7 +90,7 @@ SEBI circular RAG/
 ├── scripts/                    # scrape, ingest, build_index, calibrate, bench, ...
 ├── src/sebi_rag/               # the package (see §9)
 ├── tests/                      # offline test suite
-└── docs/                       # project_context, status, next_steps, this guide, ...
+└── docs/                       # project_context, status, this guide, ...
 ```
 
 ---

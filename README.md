@@ -130,23 +130,6 @@ Please cite this dataset if you use it:
 - Persisted index and lineage data for faster restarts
 - FastAPI service and Gradio UI
 
-## Road Map
-
-The roadmap below reflects the current planning status from [docs/next_steps.md](docs/next_steps.md).
-
-### Completed
-
-- Packaging and deployment wiring is in place: config, persisted lineage, process scripts, and health/readiness support
-- Larger MLX generation model sweep is complete and the current default is tuned for the existing corpus
-- Corpus growth via the scraper has been implemented, including pagination and OCR fallback support
-
-### In Progress / Remaining
-
-- Expand corpus coverage with more regular circulars and continued ingestion validation
-- Improve OCR handling for scanned PDFs that do not yield reliable text extraction
-- Continue evaluation work as the corpus grows, especially calibration and benchmark maintenance
-- Keep tightening safety for near-domain, non-governing queries
-
 ### Longer-Term Direction
 
 - Improve retrieval precision as the corpus gets denser

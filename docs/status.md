@@ -15,8 +15,6 @@
   Frozen `golden_v5` (n=56) and `golden_v6` (n=56) remain available.
   Latest full-set numbers on v5: recall@10 0.956, citation_precision 0.711,
   citation_recall 0.889, abstention_accuracy 0.839.
-- Active roadmap: corpus expansion, OCR hardening, evaluation maintenance, and
-  legal-safety tightening for near-domain queries. See [docs/next_steps.md](next_steps.md).
 
 ## Completed
 
@@ -397,35 +395,6 @@
   eval_json mirrors production; eval_gate reports subj-only/max/section-only +
   two-tier. Note: live probe passes at default top_k=3 even under subject-only
   (subj 0.457) — the reported failure was top_k=1-specific. 48 offline tests.
-
-## Pending
-
-Structured plans for the next tracks: **docs/next_steps.md** —
-(a) quality bump — **DONE**. Model sweep (scripts/bench_generators.py, golden_v3):
-    faithfulness 1.00 at all sizes (0.5B/1.5B/3B); groundedness 0.84/0.89/0.95;
-    abstention 1.0, cit-prec 0.97 (model-independent); latency 2.32/2.64/3.30s.
-    **Default set to Qwen2.5-1.5B-4bit** (balanced); 3B via SEBI_RAG_MLX_MODEL for
-    max groundedness.
-(b) packaging/deployment — **DONE**. config.toml + settings.py (env overrides file,
-    precedence tested); Lineage.save/load -> data/index/lineage.json (built by
-    build_index.py, loaded by api.py — no rebuild); /ready + config-reporting /health;
-    Makefile (test/reindex/index/annotate/calibrate/serve/scrape), run.sh, launchd
-    plist (deploy/). Smoke-tested: /health reports config, /ready toggles, /query uses
-    persisted lineage (ICDR -> in-force citations). 33 offline tests pass.
-(c) grow corpus via scraper — **IMPLEMENTED**. --section circulars(ssid=7,~2.8k)|
-    master-circulars; --from/--to date filter; --ocr fallback. Offline-tested.
-    **Live finding:** page-0 GET works; pagination POST returns HTTP 530 BLOCKED
-    (SEBI WAF). Fixes applied: graceful degradation (no crash, keep page-0 results)
-    + browser-like POST (cookie session from GET + Content-Type/Referer/Origin/
-    X-Requested-With) as best-effort unblock. RETRY needed to confirm; if 530
-    persists, programmatic pagination is WAF-blocked -> use browser automation or
-    accept newest-page ingestion. reindex/calibrate confirmed working (cit-prec 0.97
-    @ top_k=3). 35 offline tests pass.
-- Remaining ~2s warm /query is bge-m3 query-encode + cross-encoder rerank.
-- Prerequisite **P1** — build labelled SEBI evaluation set (query → answer +
-  citation). Gates all eval metrics and threshold calibration.
-- Prerequisite **P2** — metadata lineage extraction approach (supersession /
-  amendment / version lineage via cross-document linking).
 
 ## Current Validation Step
 
