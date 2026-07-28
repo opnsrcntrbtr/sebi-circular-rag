@@ -253,8 +253,13 @@ SEBI_RAG_RATE_PER_MIN=120 SEBI_RAG_TIMEOUT_S=15 make serve
 
 ## 7. Operations
 
-- **Makefile targets:** `make help | test | scrape | annotate | index | reindex |
-  calibrate | serve`. Variables: `PORT` (serve), `MAX` (scrape).
+- **Makefile targets:** `make help | test | scrape | scrape-master | verify-master |
+  scrape-regs | reg-edges | audit-regs | annotate | index | reindex | calibrate |
+  serve | ui | ops | eval-asof | bench-retrieval | bench-rerank | benchmark-export |
+  export-datasets | golden-v7-seed | golden-v7-mine | golden-v7-pool |
+  golden-v7-packet | golden-v7-packet-ingest | golden-v7-local | golden-v7-gemini |
+  golden-v7-agree | golden-v7-gate | validate-corpus | rescore`. Variables:
+  `PORT` (serve), `MAX` (scrape), `MAX_MASTER` (scrape-master).
 - **Run as a background service (macOS launchd):**
   ```
   # edit deploy/com.sebi-rag.plist: set the paths and SEBI_RAG_API_KEY
@@ -271,9 +276,11 @@ SEBI_RAG_RATE_PER_MIN=120 SEBI_RAG_TIMEOUT_S=15 make serve
 
 ## 8. Evaluation
 
-The eval set `eval/golden/golden_v6.jsonl` maps queries to the relevant in-force
-circular(s). The harness computes retrieval Recall@k, MRR, nDCG, citation precision /
-recall, abstention accuracy, faithfulness, and latency.
+The eval set `eval/golden/golden_v7.jsonl` (n=260, stratified, span-anchored
+`{doc, quote}` chunk labels with a `review_status` lifecycle of `seeded`/`draft`
+→ `adjudicated`) maps queries to the relevant in-force circular(s). The harness
+computes retrieval Recall@k, MRR, nDCG, citation precision / recall, abstention
+accuracy, faithfulness, and latency.
 
 ```
 make calibrate      # sweeps top_k × abstain_threshold over the golden set
@@ -293,6 +300,39 @@ PYTORCH_ENABLE_MPS_FALLBACK=1 PYTHONPATH=src .venv/bin/python scripts/bench_gene
 
 Regenerate the golden set from the current corpus: `python scripts/build_golden.py`.
 
+### Golden v7 pipeline
+
+```
+make golden-v7-seed    # seed initial queries
+make golden-v7-mine    # mine candidates from corpus
+make golden-v7-pool    # assemble pool
+make golden-v7-packet  # batch for annotation
+make golden-v7-packet-ingest  # ingest annotations
+make golden-v7-local   # local oMLX annotation (Qwen3.6-35B-A3B-MLX-4bit on 127.0.0.1:8001)
+make golden-v7-gemini  # Gemini annotation (ON HOLD — rate-limited)
+make golden-v7-agree   # compute inter-annotator agreement
+make golden-v7-gate    # arm the CI gate (refuses <100 adjudicated)
+```
+
+`scripts/eval_json.py` reports on v7 only once `eval/golden/gate_v7.json` exists
+*and* records `adjudicated_n >= 100`; until then it falls back to frozen `golden_v5`.
+`SEBI_RAG_GOLDEN` overrides the choice.
+
+### As-of-date eval
+
+```
+make eval-asof         # as-of-date golden eval; writes eval/runs/asof-$ASOF_OUT
+```
+
+### Retrieval / reranker benchmarks
+
+```
+make bench-retrieval   # retrieval-only benchmark + TREC runfile
+make bench-rerank      # reranker benchmark (--models bge,qwen0.6b)
+make benchmark-export  # golden v6 build + BEIR/TREC/RAG benchmark export
+make export-datasets   # export publishable dataset configs to dist/datasets
+```
+
 ---
 
 ## 9. Package modules (`src/sebi_rag/`)
@@ -309,8 +349,16 @@ Regenerate the golden set from the current corpus: `python scripts/build_golden.
 | `ingest_pdf.py` | PDF → corpus record (number/date/subject/lineage), dedupe, OCR hook |
 | `corpus.py` | load circulars → chunks |
 | `eval.py` / `eval_harness.py` | metrics + golden-set runner |
+| `eval_asof.py` | As-of-date golden eval runner |
+| `benchmark.py` | BEIR/TREC/RAG benchmark export |
 | `api.py` | FastAPI app (auth, rate limit, timeout, endpoints) |
 | `settings.py` | config.toml + env loading |
+| `regulations.py` | Regulation identity, alias table, name resolution, `load_regulations`/`reg_display_name` |
+| `reg_citations.py` | Regulation citations extracted from circular text |
+| `reg_lineage.py` | Circular→regulation edges + `regulatory_basis_status` annotation; `build_regulatory_index` |
+| `splade.py`, `splade_encoder.py` | SPLADE retrieval experiment (eval-only, off by default) |
+| `hyde.py` | HyDE retrieval experiment (off by default) |
+| `context_headers.py` | Context headers experiment (off by default) |
 
 The pipeline depends on `Embedder`/`Reranker`/`Generator` protocols, so tests run
 offline with lightweight stand-ins and production injects the real models.
@@ -326,6 +374,12 @@ offline with lightweight stand-ins and production injects the real models.
 - **Swap the embedder/reranker:** implement the `Embedder` / `Reranker` protocol and
   wire it in `api.build_default_pipeline`; rebuild the index.
 - **Add circulars:** scrape or `ingest_pdf`, then `make reindex`.
+- **Regulation tracking:** scrape regulations (`make scrape-regs`), build
+circular→regulation edges (`make reg-edges`), audit precision (`make audit-regs`).
+- **Published datasets:** the corpus and derived task datasets are published on
+  HuggingFace at [opnsrcntrbtrian/sebi-circulars](https://huggingface.co/datasets/opnsrcntrbtrian/sebi-circulars)
+  with 6 config options (corpus, chunks, lineage, eval,
+  citation-normalization, supersession-pairs). See README.md for schema details.
 
 ---
 
@@ -353,6 +407,13 @@ make test        # offline suite (no model downloads); should be all green
 Integration tests that exercise the real bge-m3 + cross-encoder + generator are
 marked `integration` and skipped by default; run them with
 `.venv/bin/python -m pytest -m integration`.
+
+```
+make validate-corpus   # corpus integrity: no duplicate body text, circular_number derivable from text
+```
+Add `--deep` to also re-extract every PDF and compare. **Run it after any ingest,
+backfill, or repair** — both invariants exist because those bug classes shipped
+undetected (see `docs/status.md` 2026-07-25).
 
 ---
 
