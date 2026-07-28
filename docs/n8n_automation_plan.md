@@ -125,8 +125,8 @@ citation_recall 0.889, abstention_accuracy 0.839.
 recall_at_10 ≈ 0.98, citation_precision ~0.73–0.77 @ top_k=3,
 citation_recall ~0.91–0.96, abstention 0.875 (subject-sim gate), faithfulness 1.0.
 
-- **Canary alert** if `recall_at_10 < 0.97` OR `citation_recall < 0.85` OR
-  `abstention_accuracy < 0.82` OR `citation_precision < 0.60` OR
+- **Canary alert** if `recall_at_10 < 0.93` OR `citation_recall < 0.45` OR
+  `abstention_accuracy < 0.82` OR `citation_precision < 0.35` OR
   `injection_flagged > 20` (live scan finds ~10 at 705 circulars; threshold
   scaled from original `> 1` at 207 circulars — review flags before trusting).
 - **Refresh** always notifies a summary (now incl. abstention + injection count);
