@@ -70,12 +70,27 @@ Three-phase optimization reduced pre-injected context from **99,189 bytes (~24,8
 - Set `PI_CACHE_RETENTION=long` in `.pi/env` for extended prompt cache (Anthropic: 1h, OpenAI: 24h)
 - Package tool overhead already eliminated (pi-smart-web-search/fetch not referenced in current settings)
 
+### Phase 3.1: Prompt Cache Architecture
+- Removed redundant `## System Prompt` section from `AGENTS.md` (deduplicated with `.pi/SYSTEM.md`)
+- Added cache-stability comment to `AGENTS.md` (no timestamps, no dynamic content)
+- Prefix files are now: `.pi/SYSTEM.md` (1,736 B) + `AGENTS.md` (7,779 B) + `CLAUDE.md` (350 B) = ~9.2KB
+- `PI_CACHE_RETENTION=long` already set in `.pi/env`
+- **Savings:** ~2,070 tokens/turn on cache hit (90% discount on ~2,300-token prefix)
+
+### Phase 3.2: Package Tool Overhead Reduction
+- Removed `pi-smart-fetch` (3.7MB) and `pi-smart-web-search` (40KB) from `.pi/npm/package.json`
+- Verified zero project references to `web_fetch`/`web_search` in `scripts/` or `src/`
+- Ran `npm install`: 35 packages removed, node_modules 87MB → 4KB
+- package-lock.json: 17KB → 141 bytes
+- **Savings:** ~55K–134K tokens/turn (tool-definition overhead eliminated)
+
 ### Files Changed
-- `AGENTS.md` — rewritten (7,800 B, was 6,925 B)
+- `AGENTS.md` — rewritten (7,779 B, was 6,925 B; removed redundant system prompt section)
 - `CLAUDE.md` — replaced with 350-byte pointer (was 6,822 B)
 - `.pi/SYSTEM.md` — new (1,500 B)
 - `.pi/settings.json` — optimized (298 B, was 79 B)
 - `.pi/env` — new (249 B)
+- `.pi/npm/package.json` — stripped (removed pi-smart-fetch + pi-smart-web-search, 0 dependencies)
 - `docs/optimization_summary.md` — new (3,637 B)
 - `docs/optimization_roadmap.md` — existing (7,838 B)
 

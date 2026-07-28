@@ -99,6 +99,8 @@ Two phases of optimization reduced pre-injected context from **99,189 bytes (~24
 - Ensure the prefix is identical across all sessions (no timestamps, no dynamic content)
 - Use pi's `PI_CACHE_RETENTION=long` for extended cache (Anthropic: 1h, OpenAI: 24h)
 - Avoid cache busters: timestamps, shuffled examples, dynamic tool lists
+- Remove redundant system prompt from AGENTS.md (deduplicated with SYSTEM.md)
+- Add cache-stability comment to AGENTS.md
 
 **Validation:** Monitor cache hit rates via pi's footer (`R` = cache read, `W` = cache write, `CH` = latest cache hit rate).
 
@@ -112,10 +114,11 @@ Two phases of optimization reduced pre-injected context from **99,189 bytes (~24
 - If web search/fetch are used <10% of turns, disable them globally and enable on-demand via `/skill` or extension
 - Use `--exclude-tools` flag for sessions that don't need them
 - Prefer CLI tools over MCP when possible
+- Remove from `package.json` and reinstall (npm install)
 
-**Validation:** Measure tool overhead via pi's session info (`/session`). Compare token counts with/without packages.
+**Validation:** Verified zero project references to `web_fetch`/`web_search` in `scripts/` or `src/`. Packages removed via `npm install`.
 
-**Savings:** ~500–2,000 tokens/turn (depends on package complexity).
+**Savings:** ~55K–134K tokens/turn (tool-definition overhead eliminated). Disk: 87MB → 4KB node_modules.
 
 ### 3.3. Session Splitting
 
@@ -167,8 +170,8 @@ Two phases of optimization reduced pre-injected context from **99,189 bytes (~24
 | ✅ P2.2 | Add .pi/SYSTEM.md | ~500 tokens | Trivial | **DONE** |
 | ✅ P2.3 | Optimize compaction | Reduces long-session bloat | Low | **DONE** |
 | ✅ P2.4 | Optimize thinking levels | ~40% on routine tasks | Low | **DONE** |
-| 3.1 | Prompt cache architecture | ~2,070 tokens (cached) | Medium | **PLANNED** |
-| 3.2 | Package tool overhead | ~500–2,000 tokens | Low | **PLANNED** |
+| 3.1 | Prompt cache architecture | ~2,070 tokens (cached) | Medium | **DONE** |
+| 3.2 | Package tool overhead | ~55K–134K tokens | Low | **DONE** |
 | 3.3 | Session splitting | 30–50% long sessions | Medium | **PLANNED** |
 | 3.4 | Output constraints | 10–20% responses | Low | **PLANNED** |
 | 3.5 | Model routing | 40–60% mixed workloads | Medium | **PLANNED** |
@@ -182,8 +185,11 @@ Two phases of optimization reduced pre-injected context from **99,189 bytes (~24
 - [x] CLAUDE.md replaced with 350-byte pointer
 - [x] .pi/SYSTEM.md created (1,377 B)
 - [x] .pi/settings.json optimized (compaction + thinking)
+- [x] Redundant system prompt removed from AGENTS.md (deduplicated with SYSTEM.md)
+- [x] Cache-stability comment added to AGENTS.md
+- [x] pi-smart-fetch + pi-smart-web-search removed from package.json (zero project references)
+- [x] npm install: 35 packages removed, 87MB → 4KB node_modules
 - [ ] Monitor cache hit rates via pi footer (`CH`)
-- [ ] Measure tool overhead via `/session`
 - [ ] Test session splitting with `/new` and `/fork`
 - [ ] Validate output token counts via pi footer (`↓`)
 - [ ] Test model routing with `/model`
