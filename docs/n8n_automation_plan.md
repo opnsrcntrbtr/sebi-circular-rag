@@ -48,8 +48,8 @@ Wrapper scripts (each prints a single JSON line to stdout; noise → `logs/*.log
 
 - `scripts/refresh.sh` — scrape (last 45 days, ≤100) → `make reindex` → restart the
   launchd API → `eval_json.py`. Emits corpus + metric JSON.
-- `scripts/canary.sh` — `eval_json.py` only (retrieval/citation/abstention metrics
-  over `golden_v4`, no LLM). ~40 s.
+- `scripts/canary.sh` — `eval_json.py` only (retrieval/citation/abstention metrics,
+  no LLM). ~40 s.
 - `scripts/discover.sh` — `discover_new.py`: circulars newer than a seen-ids state
   file (`data/seen_circular_ids.txt`), seeded on first run. No downloads.
 - `scripts/notify.sh "<title>" "<message>"` — append log + macOS notification.
@@ -58,10 +58,14 @@ Wrapper scripts (each prints a single JSON line to stdout; noise → `logs/*.log
   `deploy/com.sebi-rag-ops.plist`) — localhost:8765; n8n calls it over HTTP.
 
 Verified outputs on this machine:
-`canary.sh` → `{"circulars":124,"chunks":22273,"recall_at_10":1.0,"citation_precision":0.728,"citation_recall":1.0,"abstention_accuracy":1.0}`;
-`discover.sh` (first run) → `{"seeded":true,"new_count":0}`.
+`canary.sh` (v5, 56 items) → `{"circulars":705,"chunks":77841,"recall_at_10":0.956,"citation_precision":0.711,"citation_recall":0.889,"abstention_accuracy":0.839,"injection_flagged":10}`;
+`discover.sh` (seeded, 133 IDs) → `{"seeded":false,"checked":55,"new_count":0}`.
 
-Importable workflows: `automation/n8n/1_corpus_refresh.json` … `4_new_circular_digest.json`.
+> **Note:** `eval_json.py` now resolves the golden set through the **golden_v7 gate**
+> (armed at `adjudicated_n=103`); falls back to frozen `golden_v5` (n=56) when the
+> gate is not armed. See §6 for threshold updates.
+
+Importable workflows: `automation/n8n/1_corpus_refresh.json` … `5_query_smoketest.json` (5 workflows).
 
 ## 4. Prerequisites
 
@@ -87,32 +91,44 @@ Importable workflows: `automation/n8n/1_corpus_refresh.json` … `4_new_circular
 2. Start the ops server: `make ops` (or install `deploy/com.sebi-rag-ops.plist`).
    Confirm `curl http://127.0.0.1:8765/ping` returns `{"ok":true}`.
 3. For each file in `automation/n8n/`: **Workflows → Import from File** → select the
-   JSON. Four workflows appear. They reference `localhost:8765` (ops) and
-   `localhost:8000` (health) — no path edits needed.
+   JSON. Five workflows appear (1–5). They reference `127.0.0.1:8765` (ops) and
+   `127.0.0.1:8000` (health) — no path edits needed.
 4. **Seed the digest state** once so it doesn't alert on the existing backlog:
    `curl http://127.0.0.1:8765/discover` (or execute workflow 4 manually once) —
-   first run writes `data/seen_circular_ids.txt` and reports 0 new.
+   first run writes `data/seen_circular_ids.txt` (currently 126 IDs) and reports 0 new.
 5. **Test each** with n8n's *Execute Workflow* button; check `logs/automation.log`
    and the macOS notification. (For the refresh test, expect ~10 min.)
 6. **Activate** each workflow (toggle top-right) to enable the schedule.
 
 Schedules (cron): refresh `0 2 * * 0` (Sun 02:00), health `*/5 * * * *`,
-canary `0 6 * * *`, digest `0 7 * * *`.
+canary `0 6 * * *`, digest `0 7 * * *`, smoketest `0 */6 * * *`.
 
-## 6. Alert thresholds (Code nodes) — updated 2026-07-02 for golden_v5 + gate
+## 6. Alert thresholds (Code nodes) — updated 2026-07-02 for golden_v5 + gate;
+synced 2026-07-28 for golden_v7 gate
 
-`eval_json.py` now evaluates **golden_v5** (held-out paraphrases + hard
-negatives; env `SEBI_RAG_GOLDEN` to override) and models the **production
-abstention** (score floor 0.05 + subject-sim gate 0.42, mirroring api.py). It
-also emits `injection_flagged` (F4 live scan; known-benign baseline = 1, the
-broker master's password-policy text).
+`eval_json.py` resolves the golden set through the **golden_v7 gate** (armed at
+`adjudicated_n=103`); falls back to frozen `golden_v5` (n=56) when the gate is
+not armed. Env `SEBI_RAG_GOLDEN` overrides. It models the **production
+abstention** (score floor 0.05 + subject-sim gate 0.42, two-tier: subject_sim ≥ 0.42
+OR section_sim ≥ 0.60, mirroring api.py). It also emits `injection_flagged` (F4
+live scan; known-benign baseline grew from 1 at 207 circulars to ~10 at 705
+circulars — various MIRSD/MRD/CDMRD circulars contain instruction-like regulatory
+text that triggers the 8 pattern classes).
 
-Baselines @ 207 circulars: recall_at_10 0.98, citation_precision ~0.73,
-citation_recall ~0.91, abstention_accuracy ~0.875 (gate-modeled).
+**Golden v7 gate** (armed, `adjudicated_n=103`):
+- Floors: `recall_at_k` 0.9126, `citation_recall` 0.3126, `abstention_accuracy` 0.83.
+- CI gates on v7 only when `adjudicated_n >= 100`.
+- Full-set baselines on v5 (n=56, fallback): recall@10 0.956, citation_precision 0.711,
+citation_recall 0.889, abstention_accuracy 0.839.
+
+**Real-stack baselines @ 705 circulars / 77,841 chunks:**
+recall_at_10 ≈ 0.98, citation_precision ~0.73–0.77 @ top_k=3,
+citation_recall ~0.91–0.96, abstention 0.875 (subject-sim gate), faithfulness 1.0.
 
 - **Canary alert** if `recall_at_10 < 0.97` OR `citation_recall < 0.85` OR
   `abstention_accuracy < 0.82` OR `citation_precision < 0.60` OR
-  `injection_flagged > 1` (possible injected PDF — review flags before trusting).
+  `injection_flagged > 20` (live scan finds ~10 at 705 circulars; threshold
+  scaled from original `> 1` at 207 circulars — review flags before trusting).
 - **Refresh** always notifies a summary (now incl. abstention + injection count);
   marks `ALERT` on the same rules.
 - **Health alert** if `/health` is unreachable or `status != "ok"`.
@@ -122,7 +138,7 @@ citation_recall ~0.91, abstention_accuracy ~0.875 (gate-modeled).
 Tune the numbers in each workflow's Code node. Re-tighten after each corpus
 growth + recalibration. NOTE: refresh is much faster since F3 — `make reindex`
 is incremental (encodes only new/changed docs; ~82s for an 83-doc delta vs
-8+ min full).
+8+ min full). Index reload: 0.34s.
 
 ## 7. Security & safety
 
@@ -159,6 +175,10 @@ is incremental (encodes only new/changed docs; ~82s for an 83-doc delta vs
   about a node version, open the node and re-save; logic is unchanged.
 - **Pagination drift:** if SEBI changes the AJAX pager, `refresh.sh`/`discover.sh`
   degrade gracefully (page-0 results) — see `docs/scraping_plan.md`.
+- **Golden v7 gate:** `eval_json.py` now scores through the real `RAGPipeline`
+  (stub generator) and reports `adjudicated_n` + `gate` report. When the gate is
+  armed (103 adjudicated), canary runtime rises ~2x (260 v7 items vs 56 v5) —
+  still well under the 300s ops-server timeout.
 
 ## 9. Extending
 
@@ -171,3 +191,7 @@ is incremental (encodes only new/changed docs; ~82s for an 83-doc delta vs
   `SEBI_RAG_SMOKE_Q`. Restart the ops server after updating it to load `/smoketest`.
 - Add **backup**: a `/backup` endpoint to `ops_server.py` that `tar`s `data/corpus`
   + `data/index` to a dated archive; call it via HTTP after a successful refresh.
+- **Regulation cross-reference:** `src/sebi_rag/regulations.py`, `reg_citations.py`,
+  `reg_lineage.py` + `scripts/scrape_regulations.py`, `build_reg_edges.py`,
+  `audit_reg_edges.py` — regulation identity, alias table, circular→regulation edges,
+  `regulatory_basis_status` per-citation. Not yet wired into n8n workflows.
