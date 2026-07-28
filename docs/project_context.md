@@ -137,8 +137,11 @@ are confirmed against the installed toolchain before use — not assumed here.
 
 ## 6. Validation Sequence
 
-Exactly the handbook sequence; no additions. One step at a time; never validate a
-later stage until the current one passes.
+Canonical source: `docs/project_context.md` §6. Mirrored in `CLAUDE.md` and
+`AGENTS.md` for agent self-containment. One step at a time; never validate a
+later stage until the current one passes. Any FAIL is a blocker — stop,
+record root cause + exact commands + verification command in `docs/status.md`,
+resolve before proceeding.
 
 1. Hardware & macOS
 2. Xcode CLT
@@ -349,7 +352,6 @@ SEBI circular RAG/
 │   ├── project_context.md      # this file (authoritative architecture)
 │   ├── status.md               # completed work, pending, blockers
 │   ├── next_steps.md           # active roadmap
-│   ├── validation_roadmap.md   # handbook validation sequence
 │   ├── scraping_plan.md        # SEBI scraping strategy
 │   ├── n8n_automation_plan.md  # ops automation plan
 │   ├── adr-001-*.md            # architecture decision records

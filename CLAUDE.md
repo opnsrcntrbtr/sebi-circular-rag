@@ -58,6 +58,9 @@ only — see `master_meta.annotate_master_fields` and
 
 ## Validation
 
+Canonical source: `docs/project_context.md` §6. Mirrored here for agent
+self-containment — update the canonical source and keep in sync.
+
 ### Validation Sequence
 
 1.  Hardware & macOS
