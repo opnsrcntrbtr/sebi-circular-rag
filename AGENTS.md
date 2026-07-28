@@ -14,17 +14,36 @@ Local-first, Apple Silicon RAG over Indian SEBI Circulars. FastAPI service + Gra
 - If retrieved evidence is insufficient, reply "I don't know" rather than guessing.
 - Never change the agreed architecture unless explicitly requested.
 
-## Quick Start
+## Quick Reference (inline — no file read needed)
 
-See README.md for the full make target list. Common targets: `make serve` (API), `make test` (tests), `make reindex` (rebuild index).
+| Command | Purpose |
+|---------|---------|
+| `make serve` | FastAPI backend on port 8000 |
+| `make ui` | Gradio UI dashboard |
+| `make test` | Offline test suite (546 functions) |
+| `make reindex` | Annotate corpus + rebuild index |
+| `make index` | Build/persist FAISS+BM25 only |
+| `make scrape` | Fetch SEBI circulars (MAX=N) |
+| `make scrape-master` | Fetch master circulars (MAX_MASTER=N) |
+| `make calibrate` | Retrieval calibration sweep |
+| `make eval-asof` | As-of-date golden eval |
+| `make bench-retrieval` | Retrieval-only benchmark |
+| `make bench-rerank` | Reranker benchmark |
+| `make benchmark-export` | BEIR/TREC/RAG export |
+| `make export-datasets` | Export dataset configs |
+| `make validate-corpus` | Corpus integrity check (run after ingest/repair) |
+| `make golden-v7-gate` | Arm v7 CI gate (refuses <100 adjudicated) |
 
-## Context
+For the full target list, read `README.md`.
 
-Always consult before asking questions:
-1. `docs/project_context.md` (architecture)
-2. `docs/status.md` (completed work and blockers)
+## Context Files (read on demand — NOT pre-injected)
 
-Infer completed work from these files before requesting information.
+The agent reads these files only when the task requires their content. They are **not** pre-loaded into the system prompt.
+
+1. **`docs/project_context.md`** — Architecture, validation sequence, evaluation metrics, design decisions. Read when you need: architecture details, validation steps, calibration parameters, golden-set info, or directory structure.
+2. **`docs/status.md`** — Completed work, blockers, historical decisions. Read when you need to understand what work has been completed, what blockers exist, or the history of a specific feature.
+
+Infer completed work from `docs/status.md` before requesting information. Read `docs/project_context.md` when you need architecture details.
 
 ## Architecture
 
@@ -33,15 +52,15 @@ Pipeline: scrape → ingest_pdf → lineage.annotate → build_index → retriev
 | File (`src/sebi_rag/`) | Purpose |
 |------|---------|
 | `api.py` | FastAPI entry point, app factory, key-in-body auth |
-| `pipeline.py` | `RAGPipeline` orchestration; `regulatory_basis_status` is surfaced per-citation in the API (`CitationMeta.regulations`) and UI, with an in-text advisory note for `repealed_basis` circulars |
-| `retrieve.py` | `HybridRetriever` — FAISS + BM25 RRF fusion (optional SPLADE leg, eval-only) |
-| `rerank.py` / `embeddings.py` | Cross-encoder reranking / BGE-M3 embedding |
+| `pipeline.py` | `RAGPipeline` orchestration; `regulatory_basis_status` surfaced per-citation |
+| `retrieve.py` | `HybridRetriever` — FAISS + BM25 RRF fusion (SPLADE eval-only) |
+| `rerank.py` / `embeddings.py` | Cross-encoder / BGE-M3 embedding |
 | `segment.py` | Hierarchical chunking (`CircularMeta`, `Chunk`) |
 | `lineage.py` | Supersession tracking + corpus annotation |
-| `regulations.py` | Regulation identity, alias table, name resolution, `load_regulations`/`reg_display_name` |
-| `reg_citations.py` | Regulation citations extracted from circular text |
-| `reg_lineage.py` | Circular→regulation edges + `regulatory_basis_status` annotation; `build_regulatory_index` (query-layer lookup) |
-| `generate.py` | Local generation + abstention gate (MLX-LM/Ollama via `Generator` protocol) |
+| `regulations.py` | Regulation identity, alias table, name resolution |
+| `reg_citations.py` | Regulation citations from circular text |
+| `reg_lineage.py` | Circular→regulation edges + `regulatory_basis_status` |
+| `generate.py` | Local generation + abstention gate (MLX-LM/Ollama) |
 | `eval.py` / `eval_harness.py` / `benchmark.py` | Metrics, golden-set runner, BEIR/TREC export |
 | `splade.py`, `hyde.py`, `context_headers.py` | Retrieval experiments (opt-in, off by default) |
 
@@ -62,25 +81,7 @@ only — see `master_meta.annotate_master_fields` and
 
 ## Validation
 
-Canonical source: `docs/project_context.md` §6. Mirrored here for agent
-self-containment — update the canonical source and keep in sync.
-
-### Validation Sequence
-
-1.  Hardware & macOS
-2.  Xcode CLT
-3.  Homebrew
-4.  Python + uv
-5.  Git
-6.  MLX
-7.  Ollama
-8.  PyTorch MPS (only if required)
-9.  FAISS
-10. Embeddings
-11. Repository tests
-12. End-to-end RAG
-
-Never validate later stages until the current stage passes.
+See `docs/project_context.md` §6 for the full validation sequence (12 steps).
 
 ### Blockers
 
@@ -90,10 +91,10 @@ Never validate later stages until the current stage passes.
 
 ## Testing & Evaluation
 
-- `make test` runs `pytest -q -m "not integration"` (use `pytest -m integration` for real model weights).
-- Golden sets live in `eval/golden/`; benchmark runs land in `eval/runs/`. Retrieval changes are gated by A/B runs before promotion.
-- `golden_v7.jsonl` (n=260) is the reporting set; CI gates on frozen `golden_v5` until v7's `adjudicated_n >= 100`.
-- Use `make validate-corpus` after any ingest or repair (see README.md for full golden-v7 pipeline and benchmark details).
+- `make test` runs `pytest -q -m "not integration"`.
+- Golden sets live in `eval/golden/`; benchmark runs land in `eval/runs/`.
+- `golden_v7.jsonl` (n=260) is the reporting set; CI gates on `adjudicated_n >= 100`.
+- Use `make validate-corpus` after any ingest or repair.
 - Interventions are specced in `docs/superpowers/specs/`, planned in `plans/`, results in `reports/`.
 
 ## Workflow
@@ -116,7 +117,7 @@ Optimize only validated stages. Recommend changes expected to produce measurable
 ## Environment
 
 - `SEBI_RAG_API_KEY` — API auth token (FastAPI key-in-body guard)
-- `HF_HUB_DISABLE_XET=1`, `TOKENIZERS_PARALLELISM=false`, `OMP_NUM_THREADS=1`, `PYTORCH_ENABLE_MPS_FALLBACK=1`, `PYTHONPATH=src` — all set via the Makefile `ENV` var; running scripts outside `make` needs them set manually
+- `HF_HUB_DISABLE_XET=1`, `TOKENIZERS_PARALLELISM=false`, `OMP_NUM_THREADS=1`, `PYTORCH_ENABLE_MPS_FALLBACK=1`, `PYTHONPATH=src` — all set via the Makefile `ENV` var
 - `PORT` — default 8000; override with `PORT=9000 make serve`
 
 ## System Prompt
@@ -127,7 +128,8 @@ Rules:
 - Be deterministic.
 - Prefer concise responses.
 - Validate one task only.
-- Respect `docs/project_context.md` and `docs/status.md` as authoritative project context.
+- Read `docs/project_context.md` when you need architecture details or validation sequence.
+- Read `docs/status.md` when you need to understand completed work or blockers.
 - Treat official SEBI documents as the primary legal authority.
 - Never fabricate citations or legal interpretations.
 - Never speculate if retrieval evidence is insufficient.
@@ -162,3 +164,22 @@ Rules:
 - If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
 - Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.
 - After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).
+
+## Output Constraints
+- Use explicit output schemas (JSON, markdown tables, bullet lists).
+- Ask for diffs instead of full rewrites.
+- Keep responses concise — prefer bullet points over prose.
+- When validation fails, return: Status, Reason, Root cause, Exact commands, Verification command.
+- When validation passes, return: PASS + Next recommended step.
+
+## Session Workflow
+- Split work into phases: discovery → implementation → verification. Start fresh sessions (`/new`) for each phase.
+- Carry forward a spec/summary between sessions (write to file, read in next session).
+- Use `--fork` to branch from a decision point without carrying stale history.
+- Stale context from failed attempts charges you on every subsequent turn — reset when switching phases.
+
+## Model Routing
+- Simple tasks (extraction, classification, formatting, short code edits) → use `low` thinking level.
+- Standard tasks (debugging, multi-file changes, testing) → use `medium` thinking level.
+- Complex tasks (architecture decisions, validation sequences, complex refactoring) → use `high` thinking level via `/model`.
+- Route tasks to match model strength to task risk. Keep stronger models for ambiguous planning and final synthesis.

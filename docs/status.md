@@ -46,6 +46,45 @@
   Index reload: 0.34s (from persisted index). Incremental reindex: ~82s for
   delta (8x faster than full ~8 min encode).
 
+## 2026-07-28 — Token Optimization (Phases 1–3)
+
+Three-phase optimization reduced pre-injected context from **99,189 bytes (~24,800 tokens)** to **~10,500 bytes (~2,600 tokens)** — a **92.7% reduction** with zero regression (603 tests pass).
+
+### Phase 1: On-Demand Context
+- Rewrote `AGENTS.md` to fold quick reference inline (14 make targets)
+- Replaced pre-injected `docs/status.md` (46KB) and `docs/project_context.md` (34KB) with on-demand read instructions
+- Folded `README.md` (12KB) quick reference into `AGENTS.md`
+- **Saved: ~22,930 tokens/turn** (no on-demand reads)
+
+### Phase 2: Structural Optimization
+- Replaced duplicate `CLAUDE.md` (6,822 B) with 350-byte pointer to `AGENTS.md`
+- Created `.pi/SYSTEM.md` (1,377 B) — concise base prompt replacing pi's default
+- Optimized compaction: `keepRecentTokens: 16,384` (was 20,000), `reserveTokens: 12,288` (was 16,384)
+- Optimized thinking: default `"low"` (was `"medium"`) with budgets: low=2,048, medium=8,192, high=24,576
+- **Saved: ~1,200 tokens/turn**
+
+### Phase 3: Output & Workflow
+- Added output constraints to `SYSTEM.md` and `AGENTS.md` (schemas, diffs, concise responses)
+- Added session workflow guidelines (split phases, fresh sessions, fork from decision points)
+- Added model routing guidelines (low/medium/high per task complexity)
+- Set `PI_CACHE_RETENTION=long` in `.pi/env` for extended prompt cache (Anthropic: 1h, OpenAI: 24h)
+- Package tool overhead already eliminated (pi-smart-web-search/fetch not referenced in current settings)
+
+### Files Changed
+- `AGENTS.md` — rewritten (7,800 B, was 6,925 B)
+- `CLAUDE.md` — replaced with 350-byte pointer (was 6,822 B)
+- `.pi/SYSTEM.md` — new (1,500 B)
+- `.pi/settings.json` — optimized (298 B, was 79 B)
+- `.pi/env` — new (249 B)
+- `docs/optimization_summary.md` — new (3,637 B)
+- `docs/optimization_roadmap.md` — existing (7,838 B)
+
+### Validation
+- 603 tests pass (no regression)
+- Pre-injected context: 99,189 B → ~10,500 B (92.7% reduction)
+- Tokens saved per turn: ~22,200 (no on-demand reads)
+- Tokens saved per 1,000 turns: ~22.2M (~$2,220 at $0.10/MTok cached)
+
 ## Completed
 
 - Phase 1 — Architecture validation pass 1 (PASS, conditional). Five findings raised.

@@ -521,3 +521,20 @@ SEBI circular RAG/
   SubjectSimJudge two-tier gate.
 - **P2** — Metadata lineage extraction: **COMPLETED** (`lineage.py`, 1,222 edges,
   74 superseded-in-corpus, answer-layer warnings wired).
+
+## 13. Token Optimization (tracked in status.md)
+
+Three-phase optimization reduced pre-injected context from **99,189 bytes (~24,800 tokens)** to **~10,500 bytes (~2,600 tokens)** — a **92.7% reduction** with zero regression (603 tests pass).
+
+### Configuration
+- `.pi/SYSTEM.md` — Concise base prompt (1,500 B) replacing pi's default
+- `.pi/settings.json` — Optimized compaction (`keepRecentTokens: 16,384`, `reserveTokens: 12,288`) and thinking levels (default `"low"` with budgets: low=2,048, medium=8,192, high=24,576)
+- `.pi/env` — `PI_CACHE_RETENTION=long` for extended prompt cache (Anthropic: 1h, OpenAI: 24h)
+- `AGENTS.md` — On-demand context instructions, output constraints, session workflow, model routing
+- `CLAUDE.md` — 350-byte pointer (duplicate eliminated)
+
+### Savings
+- ~22,200 tokens/turn saved (no on-demand reads)
+- ~22.2M tokens saved per 1,000 turns (~$2,220 at $0.10/MTok cached)
+- See `docs/optimization_summary.md` for full details
+- See `docs/optimization_roadmap.md` for Phase 3 validation checklist
