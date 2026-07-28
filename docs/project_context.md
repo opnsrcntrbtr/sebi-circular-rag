@@ -155,22 +155,81 @@ later stage until the current one passes.
 
 ## 7. Performance Goals & Evaluation
 
-Mandatory evaluation metrics:
+### 7.1 Mandatory Evaluation Metrics
 
-- Retrieval: Recall@k, MRR, nDCG
-- Legal grounding: citation precision, citation recall, groundedness / faithfulness
-- Behaviour: abstention rate
-- System: latency, index build time, Apple Silicon memory usage
+| Category | Metric | Where Measured |
+|----------|--------|----------------|
+| **Retrieval** | Recall@k, MRR, nDCG@k | `src/sebi_rag/eval.py` (recall_at_k, mrr, ndcg_at_k); `eval_harness.py` (chunk-level recall@k, chunk MRR) |
+| **Citation** | Citation precision, citation recall | `eval_harness.py`, `golden_v7/score.py` |
+| **Groundedness** | Faithfulness (every bracketed citation id in answer appears in retrieved context), groundedness proxy (answer_contains hit rate on answered items) | `eval_harness.py` |
+| **Behaviour** | Abstention accuracy, must_not_cite violation rate | `eval_harness.py`, `golden_v7/score.py` |
+| **System** | Latency (ms per query), index build time, Apple Silicon memory usage | `eval_harness.py` (avg_latency_s), `benchmark.py` (run metadata) |
+| **Safety** | Injection flag count (8 pattern classes at ingest) | `eval_json.py` (live corpus scan) |
+| **Certainty** | Confidence bands (high | medium | low), abstention_reason enum (no_context | score_floor | subject_gate) | `generate.py` (SubjectSimJudge), `pipeline.py` |
 
-Performance rule: optimise only validated stages; recommend changes expected to
-yield ≥10% measurable benefit. Quantization baseline: 4-bit group-size 64, with
+### 7.2 Performance Rule
+
+Optimise only validated stages; recommend changes expected to yield ≥10%
+measurable benefit. Quantization baseline: 4-bit group-size 64, with
 embedding/projection layers at 6–8 bit.
 
-Calibrated retrieval params (scripts/calibrate.py, real stack over 29 circulars /
-20,349 chunks, golden_v3, supersession demotion on): **top_k = 3**,
-**abstain_threshold ≈ 0.4** (cross-encoder). Recall@10 = 1.0, abstention = 1.0;
-citation precision 0.96 / recall 1.0 at top_k=3 (0.97/1.0 at top_k=2; 0.76 at
-top_k=5). Index persisted at data/index/ (reload 0.34s). Re-run after corpus growth.
+### 7.3 Calibrated Retrieval Parameters
+
+Real stack calibration over 705 circulars / 77,841 chunks (golden_v7):
+
+- **top_k = 3** (default, configurable via `SEBI_RAG_TOP_K`)
+- **score_floor = 0.05** (cross-encoder; configurable via `SEBI_RAG_ABSTAIN_THRESHOLD`)
+- **SubjectSimJudge threshold = 0.42** (two-tier: subject_sim ≥ 0.42 OR section_sim ≥ 0.60)
+- **Section threshold = 0.60** (configurable via `SEBI_RAG_SECT_THRESHOLD`)
+- Index persisted at `data/index/` (reload 0.34s). Re-run after corpus growth.
+
+### 7.4 Golden-Set Architecture
+
+- **Reporting set**: `eval/golden/golden_v7.jsonl` (n=260, `adjudicated_n`=103).
+  Strata: title_direct 40, body_paraphrase 60, numeric_table 30,
+  lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40,
+  far_negative 10. 53 abstain rows, 15 dated `as_of` rows.
+- **Frozen fallback**: `golden_v5.jsonl` (n=56) — used when v7 gate is not armed.
+- **Golden v6**: `golden_v6.jsonl` (n=56) — intermediate set.
+- **Gate**: `eval/golden/gate_v7.json` — armed at `adjudicated_n = 103`.
+  Floors (2.5th-percentile lower bound minus 0.005 cushion):
+  recall_at_k = 0.9126, citation_recall = 0.3126, abstention_accuracy = 0.83.
+  CI gates on v7 only when `adjudicated_n >= 100`.
+- **Adjudication pipeline** (`scripts/golden_v7/`): seed, mine_strata, build_pool,
+  gate_select, local_adjudicate (Qwen3.6-35B-MLX), gemini_adjudicate (on hold),
+  agreement, relabel_repooled, backfill_escalations, derive_thresholds, score.
+
+### 7.5 Evaluation Infrastructure
+
+| Script | Purpose |
+|--------|---------|
+| `scripts/eval_json.py` | Production-mirrored eval via `RAGPipeline` (stub generator — no LLM); golden-set resolution (v7 gate → v5 fallback); prints JSON for n8n |
+| `scripts/eval_harness.py` | `run_eval()` → `EvalReport` (recall, MRR, nDCG, citation prec/rec, abstention acc, groundedness proxy, faithfulness, latency, chunk-level metrics) |
+| `scripts/golden_v7/score.py` | Per-row scoring shared by `eval_json.py` and `derive_thresholds.py`; `vectors()` aggregates to metric vectors |
+| `scripts/bench_retrieval.py` | Retrieval-only benchmark + TREC runfile export |
+| `scripts/bench_rerankers.py` | Reranker benchmark (AUROC, cluster separation) |
+| `scripts/bench_generators.py` | Generator benchmark (faithfulness, groundedness, latency) |
+| `scripts/eval_gate.py` | Groundedness / subject-sim judge evaluation |
+| `scripts/eval_asof.py` | As-of-date golden evaluation |
+| `scripts/rescore_runs.py` | Re-score archived runs with bootstrap CIs + paired significance |
+| `scripts/export_benchmark.py` | BEIR/TREC/RAG benchmark export |
+| `scripts/export_datasets.py` | Dataset export (chunks, corpus, lineage, eval) |
+| `scripts/calibrate.py` | Retrieval calibration sweep (RRF, top-k, threshold) |
+
+### 7.6 Current Baseline Numbers (golden_v7, adjudicated subset, n=103)
+
+- recall_at_k: **0.9126** (gate floor)
+- citation_recall: **0.3126** (gate floor)
+- abstention_accuracy: **0.83** (gate floor)
+- Full-set numbers on v5 (n=56, for reference): recall@10 0.956, citation_precision 0.711,
+  citation_recall 0.889, abstention_accuracy 0.839.
+
+### 7.7 Index Performance
+
+- Full seed build: ~507s (22,273 chunks at 207 circulars).
+- Incremental reindex: ~5s (no-op, all docs reused).
+- Index reload: 0.34s.
+- Disk: `embeddings.npy` ≈ 91 MB (22k chunks); scales to ~2 GB at 500k chunks.
 
 ## 8. Design Decisions
 
