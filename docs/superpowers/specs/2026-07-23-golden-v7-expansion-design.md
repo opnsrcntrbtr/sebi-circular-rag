@@ -25,7 +25,7 @@ for all further retrieval work. Three defects to fix at once:
 | Decision | Choice |
 |---|---|
 | External slice | Hybrid: user blind-labels 30 rows via a packet; Gemini (key present in env) independently adjudicates 100 rows; the 30 are a subset of the 100 for three-way agreement |
-| Strata mix | "Proposed mix" (§4), n=260 total, ~19% abstain |
+| Strata mix | "Proposed mix" (§4), n=260 total, ~20.4% abstain (53/260), 150 external |
 | Gate policy | Self-expanding: CI reports full v7 but hard pass/fail is computed only over `review_status == "adjudicated"` rows; **no grandfathering** — all 260 rows (the 56 carried included) promote only through review; CI keeps gating on frozen golden_v5 until the v7 adjudicated subset reaches ≥100 rows, then flips; v5/v6 frozen read-only |
 | Build approach | Approach A: deterministic scripted machinery for sampling/mining/pooling/packets/agreement; Claude judgment only for query drafting and pooled-chunk relevance, in resumable batches |
 
@@ -46,7 +46,7 @@ v6 schema plus three additions, one change:
   "as_of": null,
   "task_type": "temporal_supersession",
   "difficulty": "hard",
-  "expected_citation_level": "chunk",
+  "expected_citation_level": "chunk" | "circular" | "none",
   "rationale": "…",
   "label_source": "v7-miner-lineage | golden_v5 | …",
   "review_status": "draft | seeded | adjudicated"
@@ -71,7 +71,7 @@ v6 schema plus three additions, one change:
   `eval/golden/v7_annotations/`, never in golden rows. Golden carries only the
   final label + `review_status` + `label_source`.
 
-## 4. Strata (n=260: 56 carried + 204 new; ~207 answerable / ~53 abstain)
+## 4. Strata (n=260: 56 carried + 204 new; ~207 answerable / ~53 abstain; 150 external)
 
 | task_type | carried | new | total | Source & generation rule |
 |---|---|---|---|---|
@@ -120,20 +120,28 @@ non-relevant for metric purposes.
 
 ## 7. External slice
 
-- **Sampling:** 100 rows (default; configurable) stratified proportionally across
+- **Sampling:** 150 rows (default; configurable) stratified proportionally across
   all 8 strata (negatives included), drawn from **all 260 rows — carried and new
-  alike**; 30 of the 100 additionally form the human packet.
+  alike**; 30 of the 150 additionally form the human packet.
 - **Human packet:** self-contained HTML in `v7_annotations/packet_human/` — per row:
   the query + shuffled pooled excerpts (no scores, no ranks, no system answers) +
   "which excerpt(s) contain the governing provision, or none?" + a free-text
   expected-answer literal. Returns as CSV; `ingest_packet.py` merges it.
+- **Local oMLX leg:** `scripts/golden_v7/local_adjudicate.py` — same blind protocol,
+  Anthropic-compatible HTTP to `127.0.0.1:8001/v1/messages`, annotator `"qwen"`,
+  cache at `v7_annotations/qwen/`. Environment variables:
+  `GOLDEN_LOCAL_BASE_URL` (default `http://127.0.0.1:8001`),
+  `GOLDEN_LOCAL_MODEL` (default `Qwen3.6-35B-A3B-MLX-4bit`),
+  `GOLDEN_LOCAL_AUTH_TOKEN` (falls back to `ANTHROPIC_AUTH_TOKEN`),
+  `GOLDEN_LOCAL_MAX_TOKENS` (default 4096),
+  `GOLDEN_LOCAL_TIMEOUT_S` (default 600).
 - **Gemini leg:** same protocol via API (`GEMINI_API_KEY`, model configurable via
   `GOLDEN_GEMINI_MODEL`, default `gemini-3-flash-preview`), responses cached to
-  `v7_annotations/gemini/` so reruns are free; resumable.
+  `v7_annotations/gemini/` so reruns are free; resumable. (ON HOLD on free-tier quota.)
 - **Agreement & promotion:**
-  - Gemini-only rows (70): Gemini agrees with Claude labels → `adjudicated`;
+  - Qwen-only rows (120): qwen agrees with Claude labels → `adjudicated`;
     disagrees → user-arbitration queue.
-  - Three-way rows (30): human + Gemini + Claude all agree → `adjudicated`; any
+  - Three-way rows (30): human + qwen + Claude all agree → `adjudicated`; any
     disagreement → user-arbitration queue (user's decision is final and promotes).
   - Both externals agreeing on the same alternative label overrides Claude's label.
   - **Exception:** dated `as_of` temporal rows never auto-promote — they enter the
@@ -162,7 +170,7 @@ non-relevant for metric purposes.
   their `seeded` status behaves as `draft` for promotion purposes, and they reach
   `adjudicated` only via agreement, arbitration, or user spot-review. Having
   gated CI historically earns them nothing. Expected gate size immediately after
-  the external pass: ~100 rows, growing later via user arbitration/spot-review
+  the external pass: ~150 rows, growing later via user arbitration/spot-review
   batches.
 
 ## 8. Harness & gate changes
@@ -194,14 +202,16 @@ scripts/golden_v7/
   mine_strata.py        # samplers + lineage/regulation miners → per-stratum candidate files
   build_pool.py         # candidate pools for labeling (runs the real index once)
   make_packet.py        # human HTML packet + CSV ingest
-  gemini_adjudicate.py  # Gemini leg, cached, resumable
+  gemini_adjudicate.py  # Gemini leg, cached, resumable (ON HOLD)
+  local_adjudicate.py   # Local oMLX leg, PRIMARY (since 2026-07-26)
   agreement.py          # κ, promotion, agreement report
 eval/golden/golden_v7.jsonl
 eval/golden/v7_annotations/   # pools, packets, votes, queues (sidecar; committed)
 ```
 
 Makefile: `make golden-v7-mine`, `golden-v7-pool`, `golden-v7-packet`,
-`golden-v7-agree`, and `make eval` repointed at v7 after the gate flip.
+`golden-v7-local`, `golden-v7-gemini`, `golden-v7-agree`, and `make eval`
+repointed at v7 after the gate flip.
 
 ## 10. Execution phases
 
@@ -213,7 +223,7 @@ Makefile: `make golden-v7-mine`, `golden-v7-pool`, `golden-v7-packet`,
    frozen at the end of this phase; `review_status: draft`).
 4. **Pooling + labeling:** `build_pool.py`, then Claude judges pools in batches;
    `relevant_chunks` filled for all 210 answerable rows.
-5. **External pass:** packet + Gemini leg + agreement + promotion.
+5. **External pass:** packet + local oMLX leg (PRIMARY) + Gemini leg (ON HOLD) + agreement + promotion.
 6. **Gate flip (conditional on adjudicated n ≥ 100):** threshold re-derivation on
    the adjudicated subset; CI emitter repointed; v5/v6 marked frozen in docs.
 7. **Reporting:** agreement report, strata census, CLAUDE.md/status.md updates.
@@ -235,6 +245,29 @@ Makefile: `make golden-v7-mine`, `golden-v7-pool`, `golden-v7-packet`,
   visible rather than averaged away.
 - **Gemini availability/quality** — cached + resumable; model swappable by env;
   worst case the human packet alone still yields an external slice (30 rows).
+
+## 8. Implementation Notes
+
+- **oMLX server:** Runs on port 8001 (moved from 8000 on 2026-07-26 to avoid
+  collision with `make serve` on port 8000).
+- **Model:** Qwen3.6-35B-A3B-MLX-4bit (~20 GB weights on first load).
+- **Pilot:** `--pilot 5` runs 5 rows from distinct strata, prints agreement vs
+  Claude, exits WITHOUT writing `votes.jsonl` (informs go/no-go). Fills remaining
+  pilot slots ignoring stratum novelty.
+- **Thinking stripping:** Qwen-family models may emit inline `<thinking>...</thinking>`
+  tags; `_strip_thinking()` removes these before the strict parser reads the first
+  non-blank line as the letter choice. Without stripping, the parser fails-closed
+  on every row.
+- **Anthropic compatibility:** Sends both `x-api-key` and `Bearer` auth headers;
+  uses `anthropic-version: 2023-06-01`.
+- **Retries:** Local leg: 4 attempts with linear backoff (5s, 10s, 15s) for
+  transport errors and 5xx. Gemini leg: 5 attempts with linear backoff (2s, 4s,
+  6s, 8s, 10s) plus respects Google's `retryDelay` from 429 bodies.
+- **Cache structure:** Per-row cache at `v7_annotations/<leg>/<id>.json`:
+  `{"id", "model", "reply", "governing", "expected_literal", "parse_error"}`.
+  `parse_error: true/false` flag is visible only via cache, not `votes.jsonl`.
+  The agreement runner scans cache for parse errors and warns on `abstain` rows
+  (where a parse-error is byte-identical to a legitimate confirm-abstain vote).
 - **User turnaround on the packet** — gate still grows via the Gemini-only leg;
   the packet blocks only the three-way slice.
 - **Dated temporal rows fail by design pre-fix** — explicitly handled in §11 so

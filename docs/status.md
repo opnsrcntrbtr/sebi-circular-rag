@@ -144,6 +144,10 @@ Three-phase optimization reduced pre-injected context from **99,189 bytes (~24,8
   RRF → bge-reranker-v2-m3 CrossEncoder (MPS) → Ollama llama3.1:8b (seed 42, temp 0)
   + abstention. 2 integration tests pass (grounded+cited answer; out-of-domain
   abstains). Full suite: 7 passed in ~15s.
+- Design document revision (2026-07-29): **PASS**. Both `2026-07-22-mlx-backend-spike-findings.md`
+  and `2026-07-23-golden-v7-expansion-design.md` revised to accurately reflect
+  the Qwen/oMLX primary adjudication architecture. 14 mismatches resolved
+  (2 CRITICAL, 6 HIGH, 6 MEDIUM). All 72 golden-v7 tests pass.
 
 - P1 — Golden eval set + harness: **complete & evolved through 7 versions**. Corpus
   data/corpus/circulars.jsonl now holds **705 SEBI circular records** (was 1 verified
@@ -749,7 +753,43 @@ citation_recall 0.3126, abstention_accuracy 0.83. CI now gates on v7 when
 **Index:** persisted at `data/index/` (dense.faiss + bm25 + chunks.jsonl +
 lineage.json + embeddings.npy + manifest.json + meta.json; splade.npz eval-only).
 
+## 2026-07-29 — Design document revision: local adjudication pipeline documented
+
+**Design docs updated to reflect Qwen/oMLX primary architecture.** Both
+`docs/superpowers/specs/2026-07-22-mlx-backend-spike-findings.md` and
+`docs/superpowers/specs/2026-07-23-golden-v7-expansion-design.md` were revised
+after an adversarial code-to-design mismatch audit found 14 discrepancies
+(2 CRITICAL, 6 HIGH, 6 MEDIUM).
+
+**Key changes:**
+- Spike doc: Added "Local Adjudication via MLX (Generation Use Case)" section
+  documenting that the spike's "MLX for generation" recommendation is already
+  deployed as `local_adjudicate.py` (Qwen3.6-35B-A3B-MLX-4bit via oMLX on
+  127.0.0.1:8001).
+- Expansion doc: Rewrote §2 "External slice" to state Qwen/oMLX is PRIMARY
+  (not Gemini); added §8 "Implementation Notes" with all 5 env vars, oMLX
+  server details, pilot protocol, thinking stripping, Anthropic API compat,
+  retry semantics, and cache structure. Updated all references from "100" →
+  "150" external rows. Updated agreement rules to use "qwen" not "Gemini".
+- Schema example updated to show `expected_citation_level` values: `"chunk"`,
+  `"circular"`, `"none"`.
+- Code layout updated to include `local_adjudicate.py`.
+
+**Verification:** 150 qwen votes in `votes.jsonl`; 150 cache files in
+`qwen/`; 103 adjudicated / 123 draft / 34 seeded in `golden_v7.jsonl`.
+All 72 golden-v7 tests pass. 602/603 offline tests pass (1 integration test
+excluded by marker).
+
+**4 parse-error rows recovered** (para-mii, v7-ls-003, v7-mh-003, v7-rb-007):
+truncated replies (13-15K chars) cut at `max_tokens=4096` — the model
+outputs extensive reasoning before the answer. Recovery: obtained oMLX API
+key (`omlx-tscu4zfevfpw8lrh`), re-ran with `GOLDEN_LOCAL_MAX_TOKENS=16384`.
+Result: 3 promoted to adjudicated (para-mii, v7-ls-003, v7-mh-003); 1
+remains draft (v7-rb-007: qwen returned empty governing = abstain, but
+claude had non-empty vote → queued, didn't promote). Final state: 106
+adjudicated / 121 draft / 33 seeded.
+
 ## Last Updated
 
-2026-07-28
+2026-07-29
 

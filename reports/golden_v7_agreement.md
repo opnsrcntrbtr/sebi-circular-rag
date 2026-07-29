@@ -9,7 +9,7 @@ Cohen's kappa and raw agreement per annotator pair per stratum, over rows in the
 | body_paraphrase | qwen-human | 3 | 0.250 | 33.3% |
 | far_negative | claude-qwen | 4 | 1.000 | 100.0% |
 | hard_negative | claude-qwen | 15 | 1.000 | 100.0% |
-| lineage_supersession | claude-qwen | 24 | 0.200 | 20.8% |
+| lineage_supersession | claude-qwen | 24 | 0.201 | 20.8% |
 | lineage_supersession | claude-human | 5 | 0.762 | 80.0% |
 | lineage_supersession | qwen-human | 5 | 0.348 | 40.0% |
 | multi_hop | claude-qwen | 13 | 0.071 | 7.7% |
@@ -31,6 +31,6 @@ Cohen's kappa and raw agreement per annotator pair per stratum, over rows in the
 
 Promotion unit (spec sec7 as amended 2026-07-26): PROVISION-level - an external confirms claude's label via exact set match, containment, or picking any chunk whose text contains the row's span quote. The kappa table above stays at exact-set level, deliberately stricter than the promotion rule, so the reported agreement is never flattered by the amendment.
 
-- promoted: 100
+- promoted: 103
 - flipped: 0
-- queued: 50
+- queued: 47

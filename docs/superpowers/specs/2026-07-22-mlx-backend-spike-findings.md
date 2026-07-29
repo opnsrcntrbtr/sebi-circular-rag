@@ -67,12 +67,23 @@ embeddings = np.array(output)  # shape (1, 1024), L2-normalized expected
 3. **Timing:** Wait 6 months (late 2026) when MLX ecosystem matures and more models are natively supported
 4. **Status quo:** Torch + MPS is production-ready and handles current workload well
 
+### Local Adjudication via MLX (Generation Use Case)
+
+The spike's recommendation to "use MLX for generation" is already deployed:
+- `scripts/golden_v7/local_adjudicate.py` runs Qwen3.6-35B-A3B-MLX-4bit via oMLX
+  on 127.0.0.1:8001 as the PRIMARY external adjudication leg (since 2026-07-26)
+- This is a generation use case (LLM inference), not embeddings/reranking
+- The spike's "NO-GO" applies only to MLX embeddings; MLX generation is production
+
+**Status:** Deployed. The spike's generation recommendation is being followed.
+
 ### Future Revisit Triggers
 
 Reconsider MLX backend if ANY of:
 - Apple Silicon MLX foundation models (embeddings-specific) are released
 - Official BGE-M3 MLX conversion is published by BAAI or community
-- MLX latency on generation improves such that seamless torch↔MLX swapping becomes viable
+- MLX generation is already deployed as the primary golden-v7 adjudication leg
+  (Qwen3.6-35B-A3B-MLX-4bit via oMLX on 127.0.0.1:8001)
 - Operational cost (memory/latency) of current pipeline becomes a blocker (current: acceptable)
 
 ## Detailed Findings
@@ -167,7 +178,7 @@ Current torch + MPS performance with fp16 evaluation:
 
 - **Hand-convert BGE-M3 to MLX:** Engineering cost (weeks) vastly exceeds benefit (unknown perf)
 - **Use older MLX-compatible models:** Recall regression vs BGE-M3 (0.956 → ~0.90 on golden set)
-- **Hybrid (torch embeddings + MLX generation):** Added complexity without latency win
+- **Hybrid (torch embeddings + MLX generation):** Added complexity without latency win. Note: hybrid (torch embeddings + MLX generation) is the current production architecture and is working.
 
 ## Conclusion
 
