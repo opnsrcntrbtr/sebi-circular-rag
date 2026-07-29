@@ -95,13 +95,16 @@
   "93": "TestReadTrecRun",
   "94": "SpladeIndex",
   "95": "main",
+  "96": "test_benchmark.py",
   "97": ".test_mean_reproduces_the_archived_aggregate",
   "98": "test_golden_v7_local.py",
   "99": "test_splade_leg.py",
   "100": "__init__.py",
   "101": "Chunk",
+  "102": "__init__.py",
   "103": "app.py",
   "104": "settings.py",
   "105": ".encode",
-  "106": "TestPerQueryRecall"
+  "106": "TestPerQueryRecall",
+  "107": "derive_regulatory_basis"
 }
