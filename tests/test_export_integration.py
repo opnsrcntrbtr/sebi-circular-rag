@@ -287,12 +287,15 @@ def test_row_count_accuracy_in_live_export():
     #       attributable to those 12 records (every other record: 0 change);
     #       records with a wrong cited number went 4->0, 9->0, 8->0, while
     #       truncated numbers now resolve correctly (0->1).
+    #
+    # Updated 2026-07-29: corpus grew by +5 circulars (+132 chunks, +2 lineage,
+    # +2 citation-normalization). supersession-pairs unchanged at 2760.
     expected = {
-        "corpus": 705,
-        "chunks": 77841,
-        "lineage": 4574,
+        "corpus": 710,
+        "chunks": 77973,
+        "lineage": 4576,
         "eval": 56,
-        "citation-normalization": 8812,
+        "citation-normalization": 8814,
         "supersession-pairs": 2760,
     }
 
