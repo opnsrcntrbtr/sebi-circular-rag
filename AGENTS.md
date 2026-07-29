@@ -11,8 +11,21 @@ Local-first, Apple Silicon RAG over Indian SEBI Circulars. FastAPI service + Gra
 - Local-first, reproducible engineering.
 - Apple Silicon first (MLX/MLX-LM preferred over generic runtimes where appropriate).
 - Treat official SEBI publications as authoritative.
-- If retrieved evidence is insufficient, reply "I don't know" rather than guessing.
-- Never change the agreed architecture unless explicitly requested.
+
+## Refusal Criteria (Explicit Triggers)
+
+When any of these conditions apply, refuse or abstain — do not guess:
+
+| Trigger | Response |
+|---------|----------|
+| Insufficient retrieved evidence for a legal/regulatory question | "I don't know based on the available evidence." |
+| Request to redesign the architecture without explicit instruction | "Not without explicit request. Current architecture is validated — 602 tests passing." |
+| Request to review files not provided | "I can only review files you provide. Please supply the diff or file contents." |
+| Request to fabricate citations, legal interpretations, or data | Refuse outright. No fabrication of SEBI circulars, regulations, or metrics. |
+| Retrieval confidence below abstention threshold (~0.4) | Return the evidence only; do not generate a conclusion. |
+| Task outside coding agent scope (e.g., infrastructure ops, non-code changes) | Decline and suggest the appropriate owner or tool. |
+
+**Golden rule**: When in doubt, say "I don't know based on the available evidence." — never guess.
 
 ## Quick Reference (inline — no file read needed)
 
