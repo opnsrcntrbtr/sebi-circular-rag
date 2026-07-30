@@ -288,15 +288,15 @@ def test_row_count_accuracy_in_live_export():
     #       records with a wrong cited number went 4->0, 9->0, 8->0, while
     #       truncated numbers now resolve correctly (0->1).
     #
-    # Updated 2026-07-29: corpus grew by +5 circulars (+132 chunks, +2 lineage,
-    # +2 citation-normalization). supersession-pairs unchanged at 2760.
+    # Updated 2026-07-31: corpus grew by +12 circulars (+406 chunks, +1 lineage,
+    # +84 citation-normalization, +9 supersession-pairs) from orphan PDF ingest.
     expected = {
-        "corpus": 710,
-        "chunks": 77973,
-        "lineage": 4576,
+        "corpus": 722,
+        "chunks": 78379,
+        "lineage": 4577,
         "eval": 56,
-        "citation-normalization": 8814,
-        "supersession-pairs": 2760,
+        "citation-normalization": 8898,
+        "supersession-pairs": 2769,
     }
 
     # Report every drift in one run: a re-annotation usually moves several

@@ -1,13 +1,13 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-07-30.
+> Last updated: 2026-07-31.
 
 ## Current Snapshot
 
 | Metric | Value |
 |---|---|
-| **Corpus** | 705 SEBI circular records, 77,841 chunks (75 MB JSONL) |
+| **Corpus** | 722 SEBI circular records, 78,379 chunks (75 MB JSONL) |
 | **Index** | 1.0 GB at `data/index/` — dense.faiss, bm25, chunks.jsonl, lineage.json, embeddings.npy, manifest.json, meta.json, splade.npz (eval-only) |
 | **Reporting set** | `eval/golden/golden_v7.jsonl` (n=260); **adjudicated_n = 260** |
 | **Gate** | `gate_v7.json` armed: recall_at_k 0.9322, citation_recall 0.4612, abstention_accuracy 0.9731 |
@@ -207,8 +207,23 @@ abstention_accuracy: observed=0.892, floor=0.849 (margin +0.043)
 ### Pooling fix
 `assemble_pool` cap saturation (cap=20 consumed by common-word must_contain literals like "broker", "capital"). Bounded via gold_literal_cap=6, reranked instead of document-ordered.
 
+### Orphan PDF Ingest (2026-07-31)
+- **Discovery:** 22 orphan PDFs in `data/raw/` with no corpus provenance match
+- **Result:** 11 ingested, 6 duplicates (already in corpus), 5 unparseable
+- **Unparseable (low-value, superseded):**
+  - `1288263327681.pdf` — Master circular `SEBI/MIRSD/Master Cir-04/2010` (non-standard format, superseded by `SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90`)
+  - `1288589718708.pdf` — Scanned, no text extractable
+  - `1295933281760.pdf` — Scanned, no text extractable
+  - `anncir1_p.pdf` — Annexure with Devanagari text, non-standard format (superseded)
+  - `isdcir0108_p.pdf` — AML circular `ISD/AML/CIR-1/2008` (non-standard format, superseded)
+- **New circulars added:** DOF5/P/CIR/2022/41, DOF1/P/CIR/2022/132-133, POD1/P/CIR/2023/47, 3/CIR/P/2023/58, PoD-2/P/CIR/2023/87, SEBI/HO/MRD/MRD-PoD-2/P/CIR/2023/99, SEBI/HO/IMD/IMD-I/PoD1/P/CIR/2023/126, SEBI/HO/AFD/AFD/PoD/2/CIR/P/2023/0127, POD1/P/CIR/2023/160, 3/P/CIR/2025/69
+- **Validation:** `make validate-corpus` — 722 records, 0 violations
+- **Index:** incremental rebuild (406 chunks encoded, 23s)
+- **Tests:** 603 pass (updated `test_export_integration.py` expected counts)
+- **Eval:** as-of 13/13 pass, retrieval recall@10 = 0.956
+
 ### Residual
-⚠️ 22 orphan PDFs in `data/raw/` (no corpus record — possible ingestion coverage gap)
+⚠️ 5 orphan PDFs unparseable (all from 2008-2010, superseded by master circulars in corpus — low risk)
 ⚠️ SPLADE sidecar (`data/index/splade.npz`) pinned to old 77,859 chunk count — needs rebuild before SPLADE runs (eval-only, off by default)
 
 ### Build/repair flow
