@@ -288,14 +288,15 @@ def test_row_count_accuracy_in_live_export():
     #       records with a wrong cited number went 4->0, 9->0, 8->0, while
     #       truncated numbers now resolve correctly (0->1).
     #
-    # Updated 2026-07-31: corpus grew by +12 circulars (+406 chunks, +1 lineage,
-    # +84 citation-normalization, +9 supersession-pairs) from orphan PDF ingest.
+    # Updated 2026-07-31: corpus grew by +14 circulars (+582 chunks, +0 lineage,
+    # +87 citation-normalization, +9 supersession-pairs) from orphan PDF ingest
+    # (11 normal + 2 OCR + 1 unparseable master). supersession-pairs unchanged.
     expected = {
-        "corpus": 722,
-        "chunks": 78379,
+        "corpus": 724,
+        "chunks": 78523,
         "lineage": 4577,
         "eval": 56,
-        "citation-normalization": 8898,
+        "citation-normalization": 8901,
         "supersession-pairs": 2769,
     }
 
