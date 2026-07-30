@@ -17,7 +17,7 @@
       "label": "get_hardware_state()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L61",
+      "source_location": "L68",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_get_hardware_state",
       "community": 30,
@@ -27,7 +27,7 @@
       "label": "check_safety_limit()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L74",
+      "source_location": "L81",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_check_safety_limit",
       "community": 30,
@@ -37,7 +37,7 @@
       "label": "load_history()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L95",
+      "source_location": "L102",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_load_history",
       "community": 30,
@@ -50,14 +50,14 @@
       "source_location": "",
       "_origin": "ast",
       "id": "any",
-      "community": 1,
+      "community": 30,
       "norm_label": "any"
     },
     {
       "label": "save_history()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L107",
+      "source_location": "L114",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_save_history",
       "community": 30,
@@ -67,7 +67,7 @@
       "label": "record_run()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L114",
+      "source_location": "L121",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_record_run",
       "community": 30,
@@ -77,7 +77,7 @@
       "label": "fetch_omlx_metrics()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L156",
+      "source_location": "L163",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_fetch_omlx_metrics",
       "community": 30,
@@ -87,7 +87,7 @@
       "label": "capture_live_performance()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L179",
+      "source_location": "L186",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_capture_live_performance",
       "community": 30,
@@ -97,7 +97,7 @@
       "label": "suggest_parameters()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L198",
+      "source_location": "L205",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_suggest_parameters",
       "community": 30,
@@ -107,7 +107,7 @@
       "label": "show_status()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L266",
+      "source_location": "L273",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_show_status",
       "community": 30,
@@ -117,7 +117,7 @@
       "label": "show_history()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L303",
+      "source_location": "L310",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_show_history",
       "community": 30,
@@ -127,7 +127,7 @@
       "label": "analyze_state()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L336",
+      "source_location": "L343",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_analyze_state",
       "community": 30,
@@ -137,7 +137,7 @@
       "label": "self_critique()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L361",
+      "source_location": "L368",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_self_critique",
       "community": 30,
@@ -147,17 +147,47 @@
       "label": "correction_pass()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L415",
+      "source_location": "L422",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_correction_pass",
       "community": 30,
       "norm_label": "correction_pass()"
     },
     {
+      "label": "load_baseline()",
+      "file_type": "code",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L463",
+      "_origin": "ast",
+      "id": "scripts_telemetry_engine_load_baseline",
+      "community": 30,
+      "norm_label": "load_baseline()"
+    },
+    {
+      "label": "update_baseline()",
+      "file_type": "code",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L500",
+      "_origin": "ast",
+      "id": "scripts_telemetry_engine_update_baseline",
+      "community": 30,
+      "norm_label": "update_baseline()"
+    },
+    {
+      "label": "check_degradation()",
+      "file_type": "code",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L520",
+      "_origin": "ast",
+      "id": "scripts_telemetry_engine_check_degradation",
+      "community": 30,
+      "norm_label": "check_degradation()"
+    },
+    {
       "label": "optimize_turn()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L450",
+      "source_location": "L549",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_optimize_turn",
       "community": 30,
@@ -167,7 +197,7 @@
       "label": "build_parser()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L480",
+      "source_location": "L615",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_build_parser",
       "community": 30,
@@ -187,7 +217,7 @@
       "label": "main()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L523",
+      "source_location": "L658",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_main",
       "community": 30,
@@ -207,9 +237,9 @@
       "label": "Return current RAM free (GB) and swap usage percentage.",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L62",
+      "source_location": "L69",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_62",
+      "id": "scripts_telemetry_engine_rationale_69",
       "community": 30,
       "norm_label": "return current ram free (gb) and swap usage percentage."
     },
@@ -217,9 +247,9 @@
       "label": "Check if RAM headroom meets the 3.3 GB soft limit.      Returns (is_safe, messag",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L75",
+      "source_location": "L82",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_75",
+      "id": "scripts_telemetry_engine_rationale_82",
       "community": 30,
       "norm_label": "check if ram headroom meets the 3.3 gb soft limit.      returns (is_safe, messag"
     },
@@ -227,9 +257,9 @@
       "label": "Load telemetry history from JSON file.",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L96",
+      "source_location": "L103",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_96",
+      "id": "scripts_telemetry_engine_rationale_103",
       "community": 30,
       "norm_label": "load telemetry history from json file."
     },
@@ -237,9 +267,9 @@
       "label": "Save telemetry history to JSON file.",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L108",
+      "source_location": "L115",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_108",
+      "id": "scripts_telemetry_engine_rationale_115",
       "community": 30,
       "norm_label": "save telemetry history to json file."
     },
@@ -247,9 +277,9 @@
       "label": "Record a new telemetry run entry.      Args:         outcome_quality: 1-5 intege",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L119",
+      "source_location": "L126",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_119",
+      "id": "scripts_telemetry_engine_rationale_126",
       "community": 30,
       "norm_label": "record a new telemetry run entry.      args:         outcome_quality: 1-5 intege"
     },
@@ -257,9 +287,9 @@
       "label": "Attempt to fetch live metrics from oMLX server.      Returns inference config an",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L157",
+      "source_location": "L164",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_157",
+      "id": "scripts_telemetry_engine_rationale_164",
       "community": 30,
       "norm_label": "attempt to fetch live metrics from omlx server.      returns inference config an"
     },
@@ -267,9 +297,9 @@
       "label": "Capture live inference metrics from oMLX if available.      Returns {ttft_ms, to",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L180",
+      "source_location": "L187",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_180",
+      "id": "scripts_telemetry_engine_rationale_187",
       "community": 30,
       "norm_label": "capture live inference metrics from omlx if available.      returns {ttft_ms, to"
     },
@@ -277,9 +307,9 @@
       "label": "Suggest optimal parameters based on historical telemetry data.      Queries tele",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L199",
+      "source_location": "L206",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_199",
+      "id": "scripts_telemetry_engine_rationale_206",
       "community": 30,
       "norm_label": "suggest optimal parameters based on historical telemetry data.      queries tele"
     },
@@ -287,9 +317,9 @@
       "label": "Print current hardware state and safety status.",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L267",
+      "source_location": "L274",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_267",
+      "id": "scripts_telemetry_engine_rationale_274",
       "community": 30,
       "norm_label": "print current hardware state and safety status."
     },
@@ -297,9 +327,9 @@
       "label": "Print recent telemetry history entries.",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L304",
+      "source_location": "L311",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_304",
+      "id": "scripts_telemetry_engine_rationale_311",
       "community": 30,
       "norm_label": "print recent telemetry history entries."
     },
@@ -307,9 +337,9 @@
       "label": "State Analysis: inspect prompt complexity and session context.      Returns a li",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L337",
+      "source_location": "L344",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_337",
+      "id": "scripts_telemetry_engine_rationale_344",
       "community": 30,
       "norm_label": "state analysis: inspect prompt complexity and session context.      returns a li"
     },
@@ -317,9 +347,9 @@
       "label": "Self-Critique Matrix: measure draft against three excellence criteria.      Retu",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L362",
+      "source_location": "L369",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_362",
+      "id": "scripts_telemetry_engine_rationale_369",
       "community": 30,
       "norm_label": "self-critique matrix: measure draft against three excellence criteria.      retu"
     },
@@ -327,21 +357,51 @@
       "label": "Correction Pass: rewrite flagged portions and return refined draft.      Returns",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L416",
+      "source_location": "L423",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_416",
+      "id": "scripts_telemetry_engine_rationale_423",
       "community": 30,
       "norm_label": "correction pass: rewrite flagged portions and return refined draft.      returns"
     },
     {
-      "label": "Orchestrator: run full turn-based optimization workflow.      Steps: State Analy",
+      "label": "Load rolling baseline from last N optimize scores in telemetry history.      Ret",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L451",
+      "source_location": "L464",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_451",
+      "id": "scripts_telemetry_engine_rationale_464",
       "community": 30,
-      "norm_label": "orchestrator: run full turn-based optimization workflow.      steps: state analy"
+      "norm_label": "load rolling baseline from last n optimize scores in telemetry history.      ret"
+    },
+    {
+      "label": "Append current optimize score to telemetry history for baseline tracking.",
+      "file_type": "rationale",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L501",
+      "_origin": "ast",
+      "id": "scripts_telemetry_engine_rationale_501",
+      "community": 30,
+      "norm_label": "append current optimize score to telemetry history for baseline tracking."
+    },
+    {
+      "label": "Check if current scores have degraded below baseline by DRIFT_MARGIN.      Hiera",
+      "file_type": "rationale",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L521",
+      "_origin": "ast",
+      "id": "scripts_telemetry_engine_rationale_521",
+      "community": 30,
+      "norm_label": "check if current scores have degraded below baseline by drift_margin.      hiera"
+    },
+    {
+      "label": "Orchestrator: run threshold-gated turn-based optimization workflow.      Steps:",
+      "file_type": "rationale",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L550",
+      "_origin": "ast",
+      "id": "scripts_telemetry_engine_rationale_550",
+      "community": 30,
+      "norm_label": "orchestrator: run threshold-gated turn-based optimization workflow.      steps:"
     },
     {
       "label": "app.py",
@@ -839,7 +899,7 @@
       "file_type": "code",
       "source_file": "scripts/analysis/sweep_pool.py",
       "source_location": "L1",
-      "community": 14,
+      "community": 109,
       "norm_label": "sweep_pool.py",
       "_origin": "ast",
       "id": "scripts_analysis_sweep_pool"
@@ -849,7 +909,7 @@
       "file_type": "code",
       "source_file": "scripts/analysis/sweep_pool.py",
       "source_location": "L39",
-      "community": 14,
+      "community": 109,
       "norm_label": "_load_items()",
       "_origin": "ast",
       "id": "scripts_analysis_sweep_pool_load_items"
@@ -859,7 +919,7 @@
       "file_type": "code",
       "source_file": "scripts/analysis/sweep_pool.py",
       "source_location": "L39",
-      "community": 14,
+      "community": 109,
       "norm_label": "path",
       "id": "scripts_analysis_sweep_pool_py_path"
     },
@@ -868,7 +928,7 @@
       "file_type": "code",
       "source_file": "scripts/analysis/sweep_pool.py",
       "source_location": "L45",
-      "community": 14,
+      "community": 109,
       "norm_label": "main()",
       "_origin": "ast",
       "id": "scripts_analysis_sweep_pool_main"
@@ -878,7 +938,7 @@
       "file_type": "rationale",
       "source_file": "scripts/analysis/sweep_pool.py",
       "source_location": "L1",
-      "community": 14,
+      "community": 109,
       "norm_label": "pool-width sweep (intervention #3): answer-level rescue rate vs reranker latency",
       "_origin": "ast",
       "id": "scripts_analysis_sweep_pool_rationale_1"
@@ -1159,7 +1219,7 @@
       "file_type": "code",
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L1",
-      "community": 14,
+      "community": 56,
       "norm_label": "bench_rerankers.py",
       "id": "scripts_bench_rerankers"
     },
@@ -1168,7 +1228,7 @@
       "file_type": "code",
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L42",
-      "community": 14,
+      "community": 56,
       "norm_label": "auroc()",
       "id": "scripts_bench_rerankers_auroc"
     },
@@ -1177,7 +1237,7 @@
       "file_type": "code",
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L42",
-      "community": 14,
+      "community": 56,
       "norm_label": "float",
       "id": "scripts_bench_rerankers_py_float"
     },
@@ -1186,7 +1246,7 @@
       "file_type": "code",
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L51",
-      "community": 14,
+      "community": 56,
       "norm_label": "best_threshold()",
       "id": "scripts_bench_rerankers_best_threshold"
     },
@@ -1195,7 +1255,7 @@
       "file_type": "code",
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L65",
-      "community": 14,
+      "community": 56,
       "norm_label": "evaluate()",
       "id": "scripts_bench_rerankers_evaluate"
     },
@@ -1222,7 +1282,7 @@
       "file_type": "rationale",
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L1",
-      "community": 14,
+      "community": 56,
       "norm_label": "f2 (adr-001): benchmark rerankers on golden_v5 with cluster-separation metrics.",
       "id": "scripts_bench_rerankers_rationale_1"
     },
@@ -1231,7 +1291,7 @@
       "file_type": "rationale",
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L43",
-      "community": 14,
+      "community": 56,
       "norm_label": "p(pos_score > neg_score); ties count half. pos = answerable top-scores,     neg",
       "id": "scripts_bench_rerankers_rationale_43"
     },
@@ -1240,7 +1300,7 @@
       "file_type": "rationale",
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L52",
-      "community": 14,
+      "community": 56,
       "norm_label": "threshold maximising abstention accuracy: answer if score >= thr.     returns (t",
       "id": "scripts_bench_rerankers_rationale_52"
     },
@@ -1276,7 +1336,7 @@
       "file_type": "code",
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L60",
-      "community": 90,
+      "community": 1,
       "norm_label": "main()",
       "id": "scripts_bench_retrieval_main"
     },
@@ -1294,7 +1354,7 @@
       "file_type": "code",
       "source_file": "scripts/build_golden.py",
       "source_location": "L1",
-      "community": 29,
+      "community": 76,
       "norm_label": "build_golden.py",
       "id": "scripts_build_golden"
     },
@@ -1303,7 +1363,7 @@
       "file_type": "rationale",
       "source_file": "scripts/build_golden.py",
       "source_location": "L1",
-      "community": 29,
+      "community": 76,
       "norm_label": "build eval/golden/golden_v4.jsonl for the larger corpus. each query is mapped to",
       "id": "scripts_build_golden_rationale_1"
     },
@@ -1357,7 +1417,7 @@
       "file_type": "code",
       "source_file": "scripts/build_reg_edges.py",
       "source_location": "L1",
-      "community": 73,
+      "community": 2,
       "norm_label": "build_reg_edges.py",
       "id": "scripts_build_reg_edges"
     },
@@ -1366,7 +1426,7 @@
       "file_type": "code",
       "source_file": "scripts/build_reg_edges.py",
       "source_location": "L24",
-      "community": 73,
+      "community": 2,
       "norm_label": "load_jsonl()",
       "id": "scripts_build_reg_edges_load_jsonl"
     },
@@ -1375,7 +1435,7 @@
       "file_type": "code",
       "source_file": "scripts/build_reg_edges.py",
       "source_location": "L24",
-      "community": 73,
+      "community": 2,
       "norm_label": "str",
       "id": "scripts_build_reg_edges_py_str"
     },
@@ -1384,7 +1444,7 @@
       "file_type": "code",
       "source_file": "scripts/build_reg_edges.py",
       "source_location": "L24",
-      "community": 73,
+      "community": 2,
       "norm_label": "path",
       "id": "scripts_build_reg_edges_py_path"
     },
@@ -1393,7 +1453,7 @@
       "file_type": "code",
       "source_file": "scripts/build_reg_edges.py",
       "source_location": "L33",
-      "community": 73,
+      "community": 2,
       "norm_label": "write_jsonl()",
       "id": "scripts_build_reg_edges_write_jsonl"
     },
@@ -1402,7 +1462,7 @@
       "file_type": "code",
       "source_file": "scripts/build_reg_edges.py",
       "source_location": "L41",
-      "community": 73,
+      "community": 2,
       "norm_label": "main()",
       "id": "scripts_build_reg_edges_main"
     },
@@ -1411,7 +1471,7 @@
       "file_type": "code",
       "source_file": "scripts/build_reg_edges.py",
       "source_location": "L41",
-      "community": 73,
+      "community": 2,
       "norm_label": "int",
       "id": "scripts_build_reg_edges_py_int"
     },
@@ -1420,7 +1480,7 @@
       "file_type": "rationale",
       "source_file": "scripts/build_reg_edges.py",
       "source_location": "L1",
-      "community": 73,
+      "community": 2,
       "norm_label": "build circular -> regulation edges and annotate the corpus (offline).  no networ",
       "id": "scripts_build_reg_edges_rationale_1"
     },
@@ -1429,7 +1489,7 @@
       "file_type": "code",
       "source_file": "scripts/build_splade_index.py",
       "source_location": "L1",
-      "community": 36,
+      "community": 99,
       "norm_label": "build_splade_index.py",
       "id": "scripts_build_splade_index"
     },
@@ -1438,7 +1498,7 @@
       "file_type": "code",
       "source_file": "scripts/build_splade_index.py",
       "source_location": "L32",
-      "community": 36,
+      "community": 99,
       "norm_label": "main()",
       "id": "scripts_build_splade_index_main"
     },
@@ -1447,7 +1507,7 @@
       "file_type": "rationale",
       "source_file": "scripts/build_splade_index.py",
       "source_location": "L1",
-      "community": 36,
+      "community": 99,
       "norm_label": "build the splade learned-sparse doc matrix once and persist it (iv11).  standalo",
       "id": "scripts_build_splade_index_rationale_1"
     },
@@ -1677,7 +1737,7 @@
       "file_type": "rationale",
       "source_file": "scripts/eval_asof.py",
       "source_location": "L1",
-      "community": 29,
+      "community": 55,
       "norm_label": "run eval/golden/golden_asof_v1.jsonl (selector + pipeline modes) against the per",
       "id": "scripts_eval_asof_rationale_1"
     },
@@ -1695,7 +1755,7 @@
       "file_type": "code",
       "source_file": "scripts/eval_gate.py",
       "source_location": "L45",
-      "community": 56,
+      "community": 29,
       "norm_label": "contexts_for()",
       "id": "scripts_eval_gate_contexts_for"
     },
@@ -2307,7 +2367,7 @@
       "file_type": "code",
       "source_file": "scripts/generate_context_headers.py",
       "source_location": "L1",
-      "community": 17,
+      "community": 85,
       "norm_label": "generate_context_headers.py",
       "id": "scripts_generate_context_headers"
     },
@@ -2316,7 +2376,7 @@
       "file_type": "code",
       "source_file": "scripts/generate_context_headers.py",
       "source_location": "L30",
-      "community": 17,
+      "community": 85,
       "norm_label": "main()",
       "id": "scripts_generate_context_headers_main"
     },
@@ -2325,7 +2385,7 @@
       "file_type": "rationale",
       "source_file": "scripts/generate_context_headers.py",
       "source_location": "L1",
-      "community": 17,
+      "community": 85,
       "norm_label": "generate contextual headers for deep sub-clause + annex chunks (iv9).  resumable",
       "id": "scripts_generate_context_headers_rationale_1"
     },
@@ -2759,7 +2819,7 @@
       "file_type": "code",
       "source_file": "scripts/golden_v7/build_pool.py",
       "source_location": "L1",
-      "community": 47,
+      "community": 80,
       "norm_label": "build_pool.py",
       "_origin": "ast",
       "id": "scripts_golden_v7_build_pool"
@@ -2769,7 +2829,7 @@
       "file_type": "code",
       "source_file": "scripts/golden_v7/build_pool.py",
       "source_location": "L24",
-      "community": 47,
+      "community": 80,
       "norm_label": "assemble_pool()",
       "_origin": "ast",
       "id": "scripts_golden_v7_build_pool_assemble_pool"
@@ -2798,7 +2858,7 @@
       "file_type": "rationale",
       "source_file": "scripts/golden_v7/build_pool.py",
       "source_location": "L1",
-      "community": 47,
+      "community": 80,
       "norm_label": "candidate pools for chunk-label judging (spec \u00a76). trec-style pooling: union of",
       "_origin": "ast",
       "id": "scripts_golden_v7_build_pool_rationale_1"
@@ -2808,7 +2868,7 @@
       "file_type": "rationale",
       "source_file": "scripts/golden_v7/build_pool.py",
       "source_location": "L26",
-      "community": 47,
+      "community": 80,
       "norm_label": "trec-style pool: gold-doc literal matches lead, then round-robin over     [reran",
       "_origin": "ast",
       "id": "scripts_golden_v7_build_pool_rationale_26"
@@ -3652,7 +3712,7 @@
       "file_type": "code",
       "source_file": "scripts/golden_v7/mine_strata.py",
       "source_location": "L1",
-      "community": 47,
+      "community": 0,
       "norm_label": "mine_strata.py",
       "_origin": "ast",
       "id": "scripts_golden_v7_mine_strata"
@@ -3662,7 +3722,7 @@
       "file_type": "code",
       "source_file": "scripts/golden_v7/mine_strata.py",
       "source_location": "L50",
-      "community": 47,
+      "community": 0,
       "norm_label": "_body()",
       "_origin": "ast",
       "id": "scripts_golden_v7_mine_strata_body"
@@ -3672,7 +3732,7 @@
       "file_type": "code",
       "source_file": "scripts/golden_v7/mine_strata.py",
       "source_location": "L50",
-      "community": 47,
+      "community": 0,
       "norm_label": "str",
       "id": "scripts_golden_v7_mine_strata_py_str"
     },
@@ -3681,7 +3741,7 @@
       "file_type": "code",
       "source_file": "scripts/golden_v7/mine_strata.py",
       "source_location": "L55",
-      "community": 47,
+      "community": 0,
       "norm_label": "sample_title_direct()",
       "_origin": "ast",
       "id": "scripts_golden_v7_mine_strata_sample_title_direct"
@@ -3691,7 +3751,7 @@
       "file_type": "code",
       "source_file": "scripts/golden_v7/mine_strata.py",
       "source_location": "L75",
-      "community": 47,
+      "community": 0,
       "norm_label": "sample_paraphrase_chunks()",
       "_origin": "ast",
       "id": "scripts_golden_v7_mine_strata_sample_paraphrase_chunks"
@@ -3701,7 +3761,7 @@
       "file_type": "code",
       "source_file": "scripts/golden_v7/mine_strata.py",
       "source_location": "L84",
-      "community": 47,
+      "community": 0,
       "norm_label": "mine_numeric()",
       "_origin": "ast",
       "id": "scripts_golden_v7_mine_strata_mine_numeric"
@@ -3711,7 +3771,7 @@
       "file_type": "code",
       "source_file": "scripts/golden_v7/mine_strata.py",
       "source_location": "L93",
-      "community": 47,
+      "community": 0,
       "norm_label": "_mid()",
       "_origin": "ast",
       "id": "scripts_golden_v7_mine_strata_mid"
@@ -3721,7 +3781,7 @@
       "file_type": "code",
       "source_file": "scripts/golden_v7/mine_strata.py",
       "source_location": "L98",
-      "community": 47,
+      "community": 0,
       "norm_label": "mine_lineage_pairs()",
       "_origin": "ast",
       "id": "scripts_golden_v7_mine_strata_mine_lineage_pairs"
@@ -3731,7 +3791,7 @@
       "file_type": "code",
       "source_file": "scripts/golden_v7/mine_strata.py",
       "source_location": "L118",
-      "community": 47,
+      "community": 0,
       "norm_label": "mine_multi_hop()",
       "_origin": "ast",
       "id": "scripts_golden_v7_mine_strata_mine_multi_hop"
@@ -3741,7 +3801,7 @@
       "file_type": "code",
       "source_file": "scripts/golden_v7/mine_strata.py",
       "source_location": "L137",
-      "community": 47,
+      "community": 0,
       "norm_label": "mine_repealed_basis()",
       "_origin": "ast",
       "id": "scripts_golden_v7_mine_strata_mine_repealed_basis"
@@ -3751,7 +3811,7 @@
       "file_type": "code",
       "source_file": "scripts/golden_v7/mine_strata.py",
       "source_location": "L146",
-      "community": 47,
+      "community": 0,
       "norm_label": "verify_negative_absence()",
       "_origin": "ast",
       "id": "scripts_golden_v7_mine_strata_verify_negative_absence"
@@ -3761,7 +3821,7 @@
       "file_type": "code",
       "source_file": "scripts/golden_v7/mine_strata.py",
       "source_location": "L162",
-      "community": 47,
+      "community": 0,
       "norm_label": "main()",
       "_origin": "ast",
       "id": "scripts_golden_v7_mine_strata_main"
@@ -3771,7 +3831,7 @@
       "file_type": "rationale",
       "source_file": "scripts/golden_v7/mine_strata.py",
       "source_location": "L1",
-      "community": 47,
+      "community": 0,
       "norm_label": "deterministic candidate mining for golden_v7 drafting (spec sec 4, sec 5).  pure",
       "_origin": "ast",
       "id": "scripts_golden_v7_mine_strata_rationale_1"
@@ -3781,7 +3841,7 @@
       "file_type": "rationale",
       "source_file": "scripts/golden_v7/mine_strata.py",
       "source_location": "L119",
-      "community": 47,
+      "community": 0,
       "norm_label": "pairs joined by a lineage reference edge (supersedes/amends), both ends     in-c",
       "_origin": "ast",
       "id": "scripts_golden_v7_mine_strata_rationale_119"
@@ -3937,7 +3997,7 @@
       "file_type": "code",
       "source_file": "scripts/golden_v7/score.py",
       "source_location": "L1",
-      "community": 20,
+      "community": 14,
       "norm_label": "score.py",
       "_origin": "ast",
       "id": "scripts_golden_v7_score"
@@ -3947,7 +4007,7 @@
       "file_type": "code",
       "source_file": "scripts/golden_v7/score.py",
       "source_location": "L16",
-      "community": 20,
+      "community": 14,
       "norm_label": "score_row()",
       "_origin": "ast",
       "id": "scripts_golden_v7_score_score_row"
@@ -3957,7 +4017,7 @@
       "file_type": "code",
       "source_file": "scripts/golden_v7/score.py",
       "source_location": "L16",
-      "community": 20,
+      "community": 14,
       "norm_label": "int",
       "id": "scripts_golden_v7_score_py_int"
     },
@@ -3966,7 +4026,7 @@
       "file_type": "code",
       "source_file": "scripts/golden_v7/score.py",
       "source_location": "L48",
-      "community": 20,
+      "community": 14,
       "norm_label": "vectors()",
       "_origin": "ast",
       "id": "scripts_golden_v7_score_vectors"
@@ -3976,7 +4036,7 @@
       "file_type": "code",
       "source_file": "scripts/golden_v7/score.py",
       "source_location": "L48",
-      "community": 20,
+      "community": 14,
       "norm_label": "bool",
       "id": "scripts_golden_v7_score_py_bool"
     },
@@ -3985,7 +4045,7 @@
       "file_type": "code",
       "source_file": "scripts/golden_v7/score.py",
       "source_location": "L48",
-      "community": 20,
+      "community": 14,
       "norm_label": "str",
       "id": "scripts_golden_v7_score_py_str"
     },
@@ -3994,7 +4054,7 @@
       "file_type": "code",
       "source_file": "scripts/golden_v7/score.py",
       "source_location": "L48",
-      "community": 20,
+      "community": 14,
       "norm_label": "float",
       "id": "scripts_golden_v7_score_py_float"
     },
@@ -4003,7 +4063,7 @@
       "file_type": "rationale",
       "source_file": "scripts/golden_v7/score.py",
       "source_location": "L1",
-      "community": 20,
+      "community": 14,
       "norm_label": "one scoring path shared by `eval_json.py` (which measures) and `derive_threshold",
       "_origin": "ast",
       "id": "scripts_golden_v7_score_rationale_1"
@@ -4013,7 +4073,7 @@
       "file_type": "rationale",
       "source_file": "scripts/golden_v7/score.py",
       "source_location": "L17",
-      "community": 20,
+      "community": 14,
       "norm_label": "score one golden row through the production-shaped pipeline.      returns per-ro",
       "_origin": "ast",
       "id": "scripts_golden_v7_score_rationale_17"
@@ -4023,7 +4083,7 @@
       "file_type": "rationale",
       "source_file": "scripts/golden_v7/score.py",
       "source_location": "L49",
-      "community": 20,
+      "community": 14,
       "norm_label": "per-row records -> metric -> score vector, skipping rows where the     metric wa",
       "_origin": "ast",
       "id": "scripts_golden_v7_score_rationale_49"
@@ -4785,7 +4845,7 @@
       "file_type": "code",
       "source_file": "scripts/select_targeted_headers.py",
       "source_location": "L1",
-      "community": 17,
+      "community": 99,
       "norm_label": "select_targeted_headers.py",
       "id": "scripts_select_targeted_headers"
     },
@@ -4794,7 +4854,7 @@
       "file_type": "code",
       "source_file": "scripts/select_targeted_headers.py",
       "source_location": "L34",
-      "community": 17,
+      "community": 99,
       "norm_label": "main()",
       "id": "scripts_select_targeted_headers_main"
     },
@@ -4803,7 +4863,7 @@
       "file_type": "rationale",
       "source_file": "scripts/select_targeted_headers.py",
       "source_location": "L1",
-      "community": 17,
+      "community": 99,
       "norm_label": "select + reuse iv9 headers for 3 failure-adjacent documents (iv10).  pulls the i",
       "id": "scripts_select_targeted_headers_rationale_1"
     },
@@ -4812,7 +4872,7 @@
       "file_type": "code",
       "source_file": "scripts/splade_pilot.py",
       "source_location": "L1",
-      "community": 36,
+      "community": 102,
       "norm_label": "splade_pilot.py",
       "id": "scripts_splade_pilot"
     },
@@ -4821,7 +4881,7 @@
       "file_type": "code",
       "source_file": "scripts/splade_pilot.py",
       "source_location": "L40",
-      "community": 36,
+      "community": 102,
       "norm_label": "main()",
       "id": "scripts_splade_pilot_main"
     },
@@ -4830,7 +4890,7 @@
       "file_type": "rationale",
       "source_file": "scripts/splade_pilot.py",
       "source_location": "L1",
-      "community": 36,
+      "community": 102,
       "norm_label": "pilot gate (iv11): confirm splade_pp assigns bridging terms across the residual",
       "id": "scripts_splade_pilot_rationale_1"
     },
@@ -5108,7 +5168,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/api.py",
       "source_location": "L86",
-      "community": 10,
+      "community": 15,
       "norm_label": "_compute_kwargs()",
       "_origin": "ast",
       "id": "src_sebi_rag_api_compute_kwargs"
@@ -5146,7 +5206,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/api.py",
       "source_location": "L155",
-      "community": 10,
+      "community": 49,
       "norm_label": "_citation_meta()",
       "_origin": "ast",
       "id": "src_sebi_rag_api_citation_meta"
@@ -5174,7 +5234,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/api.py",
       "source_location": "L179",
-      "community": 10,
+      "community": 49,
       "norm_label": "create_app()",
       "_origin": "ast",
       "id": "src_sebi_rag_api_create_app"
@@ -5203,7 +5263,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/api.py",
       "source_location": "L87",
-      "community": 10,
+      "community": 15,
       "norm_label": "resolve device/fp16/batch for the torch embedder + reranker.",
       "_origin": "ast",
       "id": "src_sebi_rag_api_rationale_87"
@@ -5213,7 +5273,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/api_spaces.py",
       "source_location": "L1",
-      "community": 10,
+      "community": 15,
       "norm_label": "api_spaces.py",
       "_origin": "ast",
       "id": "src_sebi_rag_api_spaces"
@@ -5223,7 +5283,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/api_spaces.py",
       "source_location": "L30",
-      "community": 10,
+      "community": 15,
       "norm_label": "_cpu_env()",
       "_origin": "ast",
       "id": "src_sebi_rag_api_spaces_cpu_env"
@@ -5233,7 +5293,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/api_spaces.py",
       "source_location": "L36",
-      "community": 10,
+      "community": 15,
       "norm_label": "build_spaces_pipeline()",
       "_origin": "ast",
       "id": "src_sebi_rag_api_spaces_build_spaces_pipeline"
@@ -5261,7 +5321,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/api_spaces.py",
       "source_location": "L1",
-      "community": 10,
+      "community": 15,
       "norm_label": "pipeline builder for the hugging face spaces demo (cpu-only, linux).  parallel t",
       "_origin": "ast",
       "id": "src_sebi_rag_api_spaces_rationale_1"
@@ -5349,7 +5409,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L80",
-      "community": 93,
+      "community": 1,
       "norm_label": "float",
       "id": "src_sebi_rag_benchmark_py_float"
     },
@@ -5506,7 +5566,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L383",
-      "community": 93,
+      "community": 1,
       "norm_label": "write_trec_run()",
       "_origin": "ast",
       "id": "src_sebi_rag_benchmark_write_trec_run"
@@ -5526,7 +5586,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L422",
-      "community": 93,
+      "community": 1,
       "norm_label": "per_query_recall()",
       "_origin": "ast",
       "id": "src_sebi_rag_benchmark_per_query_recall"
@@ -5556,7 +5616,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L464",
-      "community": 101,
+      "community": 1,
       "norm_label": "ragpipeline",
       "id": "src_sebi_rag_benchmark_py_ragpipeline"
     },
@@ -5635,7 +5695,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L428",
-      "community": 93,
+      "community": 1,
       "norm_label": "per-query recall@k at circular level, matching `run_retrieval_benchmark`.      a",
       "_origin": "ast",
       "id": "src_sebi_rag_benchmark_rationale_428"
@@ -5655,7 +5715,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L1",
-      "community": 17,
+      "community": 85,
       "norm_label": "context_headers.py",
       "_origin": "ast",
       "id": "src_sebi_rag_context_headers"
@@ -5665,7 +5725,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L34",
-      "community": 17,
+      "community": 85,
       "norm_label": "in_scope()",
       "_origin": "ast",
       "id": "src_sebi_rag_context_headers_in_scope"
@@ -5675,7 +5735,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L34",
-      "community": 17,
+      "community": 110,
       "norm_label": "str",
       "id": "src_sebi_rag_context_headers_py_str"
     },
@@ -5684,7 +5744,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L34",
-      "community": 17,
+      "community": 85,
       "norm_label": "bool",
       "id": "src_sebi_rag_context_headers_py_bool"
     },
@@ -5693,7 +5753,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L39",
-      "community": 17,
+      "community": 107,
       "norm_label": "filter_targeted_rows()",
       "_origin": "ast",
       "id": "src_sebi_rag_context_headers_filter_targeted_rows"
@@ -5713,7 +5773,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L47",
-      "community": 17,
+      "community": 110,
       "norm_label": ".__init__()",
       "_origin": "ast",
       "id": "src_sebi_rag_context_headers_headergenerator_init"
@@ -5723,7 +5783,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L47",
-      "community": 17,
+      "community": 110,
       "norm_label": "int",
       "id": "src_sebi_rag_context_headers_py_int"
     },
@@ -5732,7 +5792,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L53",
-      "community": 17,
+      "community": 110,
       "norm_label": ".describe()",
       "_origin": "ast",
       "id": "src_sebi_rag_context_headers_headergenerator_describe"
@@ -5742,7 +5802,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L64",
-      "community": 17,
+      "community": 110,
       "norm_label": ".load()",
       "_origin": "ast",
       "id": "src_sebi_rag_context_headers_headergenerator_load"
@@ -5771,7 +5831,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L111",
-      "community": 17,
+      "community": 85,
       "norm_label": "load_headers()",
       "_origin": "ast",
       "id": "src_sebi_rag_context_headers_load_headers"
@@ -5781,7 +5841,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L111",
-      "community": 17,
+      "community": 85,
       "norm_label": "path",
       "id": "src_sebi_rag_context_headers_py_path"
     },
@@ -5790,7 +5850,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L1",
-      "community": 17,
+      "community": 85,
       "norm_label": "contextual chunk headers (iv9): one lay+statutory sentence per chunk.  index-sid",
       "_origin": "ast",
       "id": "src_sebi_rag_context_headers_rationale_1"
@@ -5800,7 +5860,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L35",
-      "community": 17,
+      "community": 85,
       "norm_label": "spec scope: depth>=3 numbered sub-clauses plus annex-family headings.",
       "_origin": "ast",
       "id": "src_sebi_rag_context_headers_rationale_35"
@@ -5810,7 +5870,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L42",
-      "community": 17,
+      "community": 107,
       "norm_label": "keep only sidecar rows whose chunk belongs to a target document.",
       "_origin": "ast",
       "id": "src_sebi_rag_context_headers_rationale_42"
@@ -5830,7 +5890,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/corpus.py",
       "source_location": "L1",
-      "community": 29,
+      "community": 99,
       "norm_label": "corpus.py",
       "_origin": "ast",
       "id": "src_sebi_rag_corpus"
@@ -5840,7 +5900,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/corpus.py",
       "source_location": "L10",
-      "community": 70,
+      "community": 88,
       "norm_label": "load_circulars()",
       "_origin": "ast",
       "id": "src_sebi_rag_corpus_load_circulars"
@@ -5850,7 +5910,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/corpus.py",
       "source_location": "L10",
-      "community": 70,
+      "community": 88,
       "norm_label": "str",
       "id": "src_sebi_rag_corpus_py_str"
     },
@@ -5859,7 +5919,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/corpus.py",
       "source_location": "L10",
-      "community": 70,
+      "community": 88,
       "norm_label": "path",
       "id": "src_sebi_rag_corpus_py_path"
     },
@@ -5868,7 +5928,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/corpus.py",
       "source_location": "L10",
-      "community": 70,
+      "community": 88,
       "norm_label": "chunk",
       "id": "src_sebi_rag_corpus_py_chunk"
     },
@@ -5877,7 +5937,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/corpus.py",
       "source_location": "L1",
-      "community": 29,
+      "community": 99,
       "norm_label": "load the real sebi circular corpus (data/corpus/circulars.jsonl) into chunks.",
       "_origin": "ast",
       "id": "src_sebi_rag_corpus_rationale_1"
@@ -6177,7 +6237,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L22",
-      "community": 59,
+      "community": 48,
       "norm_label": "embedder",
       "_origin": "ast",
       "id": "src_sebi_rag_embeddings_embedder"
@@ -6400,7 +6460,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L1",
-      "community": 29,
+      "community": 55,
       "norm_label": "eval_asof.py",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_asof"
@@ -6410,7 +6470,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L24",
-      "community": 29,
+      "community": 55,
       "norm_label": "load_golden_asof()",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_asof_load_golden_asof"
@@ -6420,7 +6480,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L24",
-      "community": 10,
+      "community": 55,
       "norm_label": "str",
       "id": "src_sebi_rag_eval_asof_py_str"
     },
@@ -6429,7 +6489,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L24",
-      "community": 29,
+      "community": 55,
       "norm_label": "path",
       "id": "src_sebi_rag_eval_asof_py_path"
     },
@@ -6438,7 +6498,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L34",
-      "community": 26,
+      "community": 55,
       "norm_label": "asofcaseresult",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_asof_asofcaseresult"
@@ -6448,7 +6508,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L41",
-      "community": 10,
+      "community": 55,
       "norm_label": "run_selector_cases()",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_asof_run_selector_cases"
@@ -6458,7 +6518,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L41",
-      "community": 10,
+      "community": 55,
       "norm_label": "lineage",
       "id": "src_sebi_rag_eval_asof_py_lineage"
     },
@@ -6467,7 +6527,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L56",
-      "community": 10,
+      "community": 55,
       "norm_label": "run_pipeline_cases()",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_asof_run_pipeline_cases"
@@ -6477,7 +6537,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L56",
-      "community": 10,
+      "community": 55,
       "norm_label": "ragpipeline",
       "id": "src_sebi_rag_eval_asof_py_ragpipeline"
     },
@@ -6486,7 +6546,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L75",
-      "community": 26,
+      "community": 55,
       "norm_label": "summarize()",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_asof_summarize"
@@ -6506,7 +6566,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L1",
-      "community": 29,
+      "community": 55,
       "norm_label": "as-of-date golden evaluation runner (p4b).  two case modes drawn from eval/golde",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_asof_rationale_1"
@@ -6516,7 +6576,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/eval_asof.py",
       "source_location": "L76",
-      "community": 26,
+      "community": 55,
       "norm_label": "aggregate case results with an exact confidence interval.      pure function of",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_asof_rationale_76"
@@ -6546,7 +6606,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L21",
-      "community": 86,
+      "community": 1,
       "norm_label": "_doc()",
       "_origin": "ast",
       "id": "src_sebi_rag_eval_harness_doc"
@@ -6556,7 +6616,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L21",
-      "community": 86,
+      "community": 90,
       "norm_label": "str",
       "id": "src_sebi_rag_eval_harness_py_str"
     },
@@ -6741,7 +6801,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L21",
-      "community": 101,
+      "community": 82,
       "norm_label": "faithfulness()",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_faithfulness"
@@ -7086,7 +7146,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L354",
-      "community": 101,
+      "community": 82,
       "norm_label": "answer_with_abstention()",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_answer_with_abstention"
@@ -7106,7 +7166,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L22",
-      "community": 101,
+      "community": 82,
       "norm_label": "check that every circular id the answer cites (in square brackets) was     actua",
       "_origin": "ast",
       "id": "src_sebi_rag_generate_rationale_22"
@@ -7875,7 +7935,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L1",
-      "community": 29,
+      "community": 76,
       "norm_label": "lineage.py",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage"
@@ -7933,7 +7993,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L70",
-      "community": 10,
+      "community": 55,
       "norm_label": "lineage",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_lineage"
@@ -7953,7 +8013,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L84",
-      "community": 76,
+      "community": 55,
       "norm_label": ".family()",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_lineage_family"
@@ -7963,7 +8023,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L96",
-      "community": 76,
+      "community": 55,
       "norm_label": ".governing_on()",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_lineage_governing_on"
@@ -8032,7 +8092,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L154",
-      "community": 76,
+      "community": 70,
       "norm_label": "build_lineage()",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_build_lineage"
@@ -8061,7 +8121,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L218",
-      "community": 29,
+      "community": 76,
       "norm_label": "superseded_citations()",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_superseded_citations"
@@ -8091,7 +8151,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L1",
-      "community": 29,
+      "community": 76,
       "norm_label": "p2 \u2014 cross-document supersession resolution.  classifies each circular's referen",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_rationale_1"
@@ -8121,7 +8181,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L85",
-      "community": 76,
+      "community": 55,
       "norm_label": "connected component over supersedes/superseded_by (both tiers).",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_rationale_85"
@@ -8131,7 +8191,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L98",
-      "community": 76,
+      "community": 55,
       "norm_label": "the circular in this family that governs on date as_of (iso), or         none wh",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_rationale_98"
@@ -8161,7 +8221,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L219",
-      "community": 29,
+      "community": 76,
       "norm_label": "map any cited circular that is superseded -> the circular(s) superseding it.",
       "_origin": "ast",
       "id": "src_sebi_rag_lineage_rationale_219"
@@ -8181,7 +8241,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/master_meta.py",
       "source_location": "L1",
-      "community": 76,
+      "community": 62,
       "norm_label": "master_meta.py",
       "_origin": "ast",
       "id": "src_sebi_rag_master_meta"
@@ -8191,7 +8251,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/master_meta.py",
       "source_location": "L44",
-      "community": 76,
+      "community": 62,
       "norm_label": "master_series()",
       "_origin": "ast",
       "id": "src_sebi_rag_master_meta_master_series"
@@ -8201,7 +8261,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/master_meta.py",
       "source_location": "L44",
-      "community": 76,
+      "community": 62,
       "norm_label": "str",
       "id": "src_sebi_rag_master_meta_py_str"
     },
@@ -8210,7 +8270,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/master_meta.py",
       "source_location": "L52",
-      "community": 76,
+      "community": 62,
       "norm_label": "annotate_master_fields()",
       "_origin": "ast",
       "id": "src_sebi_rag_master_meta_annotate_master_fields"
@@ -8220,7 +8280,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/master_meta.py",
       "source_location": "L52",
-      "community": 76,
+      "community": 62,
       "norm_label": "int",
       "id": "src_sebi_rag_master_meta_py_int"
     },
@@ -8229,7 +8289,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/master_meta.py",
       "source_location": "L97",
-      "community": 76,
+      "community": 62,
       "norm_label": "consolidation_edges()",
       "_origin": "ast",
       "id": "src_sebi_rag_master_meta_consolidation_edges"
@@ -8239,7 +8299,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/master_meta.py",
       "source_location": "L1",
-      "community": 76,
+      "community": 62,
       "norm_label": "master-circular identity metadata (spec 2026-07-13 \u00a73).  additive fields only (l",
       "_origin": "ast",
       "id": "src_sebi_rag_master_meta_rationale_1"
@@ -8249,7 +8309,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/master_meta.py",
       "source_location": "L53",
-      "community": 76,
+      "community": 62,
       "norm_label": "set is_master/master_series/master_edition/previous_edition in place.      retur",
       "_origin": "ast",
       "id": "src_sebi_rag_master_meta_rationale_53"
@@ -8259,7 +8319,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/master_meta.py",
       "source_location": "L98",
-      "community": 76,
+      "community": 62,
       "norm_label": "edges for circulars listed in a master circular's rescission appendix.      scan",
       "_origin": "ast",
       "id": "src_sebi_rag_master_meta_rationale_98"
@@ -8596,7 +8656,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/reg_lineage.py",
       "source_location": "L1",
-      "community": 74,
+      "community": 2,
       "norm_label": "reg_lineage.py",
       "_origin": "ast",
       "id": "src_sebi_rag_reg_lineage"
@@ -8606,7 +8666,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/reg_lineage.py",
       "source_location": "L55",
-      "community": 74,
+      "community": 2,
       "norm_label": "_cited()",
       "_origin": "ast",
       "id": "src_sebi_rag_reg_lineage_cited"
@@ -8636,7 +8696,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/reg_lineage.py",
       "source_location": "L109",
-      "community": 57,
+      "community": 2,
       "norm_label": "str",
       "id": "src_sebi_rag_reg_lineage_py_str"
     },
@@ -8664,7 +8724,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/reg_lineage.py",
       "source_location": "L180",
-      "community": 57,
+      "community": 2,
       "norm_label": "build_regulatory_index()",
       "_origin": "ast",
       "id": "src_sebi_rag_reg_lineage_build_regulatory_index"
@@ -8674,7 +8734,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/reg_lineage.py",
       "source_location": "L1",
-      "community": 74,
+      "community": 2,
       "norm_label": "circular -> regulation edges and corpus annotation (spec 2026-07-23 \u00a73.3-\u00a73.7).",
       "_origin": "ast",
       "id": "src_sebi_rag_reg_lineage_rationale_1"
@@ -8684,7 +8744,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/reg_lineage.py",
       "source_location": "L56",
-      "community": 74,
+      "community": 2,
       "norm_label": "yield (circular, citation) for every citation occurrence in the corpus.",
       "_origin": "ast",
       "id": "src_sebi_rag_reg_lineage_rationale_56"
@@ -8724,7 +8784,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/reg_lineage.py",
       "source_location": "L182",
-      "community": 57,
+      "community": 2,
       "norm_label": "per-circular regulatory-basis lookup for the query/citation layer.      read-onl",
       "_origin": "ast",
       "id": "src_sebi_rag_reg_lineage_rationale_182"
@@ -8734,7 +8794,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L1",
-      "community": 74,
+      "community": 73,
       "norm_label": "regulations.py",
       "_origin": "ast",
       "id": "src_sebi_rag_regulations"
@@ -8754,7 +8814,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L53",
-      "community": 74,
+      "community": 73,
       "norm_label": "_slug()",
       "_origin": "ast",
       "id": "src_sebi_rag_regulations_slug"
@@ -8764,7 +8824,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L53",
-      "community": 74,
+      "community": 73,
       "norm_label": "str",
       "id": "src_sebi_rag_regulations_py_str"
     },
@@ -8792,7 +8852,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L64",
-      "community": 65,
+      "community": 73,
       "norm_label": "name_tokens()",
       "_origin": "ast",
       "id": "src_sebi_rag_regulations_name_tokens"
@@ -8802,7 +8862,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L76",
-      "community": 74,
+      "community": 73,
       "norm_label": "_jaccard()",
       "_origin": "ast",
       "id": "src_sebi_rag_regulations_jaccard"
@@ -8812,7 +8872,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L76",
-      "community": 74,
+      "community": 73,
       "norm_label": "float",
       "id": "src_sebi_rag_regulations_py_float"
     },
@@ -8821,7 +8881,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L120",
-      "community": 65,
+      "community": 104,
       "norm_label": "_alias_keys()",
       "_origin": "ast",
       "id": "src_sebi_rag_regulations_alias_keys"
@@ -8841,7 +8901,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L167",
-      "community": 74,
+      "community": 73,
       "norm_label": "derive_regulatory_basis()",
       "_origin": "ast",
       "id": "src_sebi_rag_regulations_derive_regulatory_basis"
@@ -8851,7 +8911,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L184",
-      "community": 65,
+      "community": 73,
       "norm_label": "load_regulations()",
       "_origin": "ast",
       "id": "src_sebi_rag_regulations_load_regulations"
@@ -8861,7 +8921,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L184",
-      "community": 65,
+      "community": 73,
       "norm_label": "path",
       "id": "src_sebi_rag_regulations_py_path"
     },
@@ -8880,7 +8940,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L1",
-      "community": 74,
+      "community": 73,
       "norm_label": "regulation identity + name resolution (spec 2026-07-23 \u00a73.2, \u00a73.6).  regulations",
       "_origin": "ast",
       "id": "src_sebi_rag_regulations_rationale_1"
@@ -8900,7 +8960,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L65",
-      "community": 65,
+      "community": 73,
       "norm_label": "comparison tokens: lowercased, punctuation-split, stopwords dropped,     naively",
       "_origin": "ast",
       "id": "src_sebi_rag_regulations_rationale_65"
@@ -8910,7 +8970,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L121",
-      "community": 65,
+      "community": 104,
       "norm_label": "candidate alias lookup keys, most literal first.      both the raw normalised fo",
       "_origin": "ast",
       "id": "src_sebi_rag_regulations_rationale_121"
@@ -8930,7 +8990,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L168",
-      "community": 74,
+      "community": 73,
       "norm_label": "regulatory-basis status of one circular from its resolved regulations.      `unk",
       "_origin": "ast",
       "id": "src_sebi_rag_regulations_rationale_168"
@@ -8940,7 +9000,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L185",
-      "community": 65,
+      "community": 73,
       "norm_label": "load data/corpus/regulations.jsonl into a list of regulation records.      thin",
       "_origin": "ast",
       "id": "src_sebi_rag_regulations_rationale_185"
@@ -9047,7 +9107,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L73",
-      "community": 56,
+      "community": 54,
       "norm_label": "qwen3mlxreranker",
       "_origin": "ast",
       "id": "src_sebi_rag_rerank_qwen3mlxreranker"
@@ -9155,7 +9215,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L74",
-      "community": 56,
+      "community": 54,
       "norm_label": "qwen3-reranker via mlx (apple-silicon native). benchmark candidate only     (d2",
       "_origin": "ast",
       "id": "src_sebi_rag_rerank_rationale_74"
@@ -9262,7 +9322,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L47",
-      "community": 48,
+      "community": 106,
       "norm_label": ".search()",
       "_origin": "ast",
       "id": "src_sebi_rag_retrieve_denseindex_search"
@@ -9272,7 +9332,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L47",
-      "community": 48,
+      "community": 106,
       "norm_label": "int",
       "id": "src_sebi_rag_retrieve_py_int"
     },
@@ -9281,7 +9341,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L47",
-      "community": 48,
+      "community": 106,
       "norm_label": "float",
       "id": "src_sebi_rag_retrieve_py_float"
     },
@@ -9320,7 +9380,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L66",
-      "community": 48,
+      "community": 106,
       "norm_label": ".search()",
       "_origin": "ast",
       "id": "src_sebi_rag_retrieve_sparseindex_search"
@@ -9330,7 +9390,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L73",
-      "community": 48,
+      "community": 106,
       "norm_label": "rrf_fuse()",
       "_origin": "ast",
       "id": "src_sebi_rag_retrieve_rrf_fuse"
@@ -9388,7 +9448,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L167",
-      "community": 48,
+      "community": 106,
       "norm_label": ".retrieve()",
       "_origin": "ast",
       "id": "src_sebi_rag_retrieve_hybridretriever_retrieve"
@@ -9477,7 +9537,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L78",
-      "community": 48,
+      "community": 106,
       "norm_label": "reciprocal rank fusion. rank-only \u2014 sidesteps score-scale mismatch.",
       "_origin": "ast",
       "id": "src_sebi_rag_retrieve_rationale_78"
@@ -9507,7 +9567,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L18",
-      "community": 70,
+      "community": 88,
       "norm_label": "circularmeta",
       "_origin": "ast",
       "id": "src_sebi_rag_segment_circularmeta"
@@ -9595,7 +9655,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L1",
-      "community": 10,
+      "community": 15,
       "norm_label": "settings.py",
       "_origin": "ast",
       "id": "src_sebi_rag_settings"
@@ -9662,7 +9722,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L60",
-      "community": 10,
+      "community": 15,
       "norm_label": "settings",
       "_origin": "ast",
       "id": "src_sebi_rag_settings_settings"
@@ -9701,7 +9761,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L1",
-      "community": 10,
+      "community": 15,
       "norm_label": "central configuration: config.toml defaults, overridden by sebi_rag_* env vars.",
       "_origin": "ast",
       "id": "src_sebi_rag_settings_rationale_1"
@@ -9876,7 +9936,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/splade_encoder.py",
       "source_location": "L1",
-      "community": 36,
+      "community": 96,
       "norm_label": "splade_encoder.py",
       "_origin": "ast",
       "id": "src_sebi_rag_splade_encoder"
@@ -9886,7 +9946,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/splade_encoder.py",
       "source_location": "L17",
-      "community": 36,
+      "community": 96,
       "norm_label": "splade_pool()",
       "_origin": "ast",
       "id": "src_sebi_rag_splade_encoder_splade_pool"
@@ -9896,7 +9956,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/splade_encoder.py",
       "source_location": "L17",
-      "community": 36,
+      "community": 96,
       "norm_label": "ndarray",
       "id": "src_sebi_rag_splade_encoder_py_ndarray"
     },
@@ -9905,7 +9965,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/splade_encoder.py",
       "source_location": "L24",
-      "community": 36,
+      "community": 96,
       "norm_label": "spladeencoder",
       "_origin": "ast",
       "id": "src_sebi_rag_splade_encoder_spladeencoder"
@@ -9915,7 +9975,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/splade_encoder.py",
       "source_location": "L26",
-      "community": 36,
+      "community": 102,
       "norm_label": ".load()",
       "_origin": "ast",
       "id": "src_sebi_rag_splade_encoder_spladeencoder_load"
@@ -9925,7 +9985,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/splade_encoder.py",
       "source_location": "L26",
-      "community": 36,
+      "community": 102,
       "norm_label": "str",
       "id": "src_sebi_rag_splade_encoder_py_str"
     },
@@ -9934,7 +9994,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/splade_encoder.py",
       "source_location": "L26",
-      "community": 36,
+      "community": 102,
       "norm_label": "int",
       "id": "src_sebi_rag_splade_encoder_py_int"
     },
@@ -9943,7 +10003,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/splade_encoder.py",
       "source_location": "L26",
-      "community": 36,
+      "community": 102,
       "norm_label": "float",
       "id": "src_sebi_rag_splade_encoder_py_float"
     },
@@ -9952,7 +10012,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/splade_encoder.py",
       "source_location": "L26",
-      "community": 36,
+      "community": 102,
       "norm_label": "csr_matrix",
       "id": "src_sebi_rag_splade_encoder_py_csr_matrix"
     },
@@ -9961,7 +10021,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/splade_encoder.py",
       "source_location": "L1",
-      "community": 36,
+      "community": 96,
       "norm_label": "real splade_pp encoder: max-pooled mlm logits -> sparse csr term weights.  splad",
       "_origin": "ast",
       "id": "src_sebi_rag_splade_encoder_rationale_1"
@@ -9971,7 +10031,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/splade_encoder.py",
       "source_location": "L18",
-      "community": 36,
+      "community": 96,
       "norm_label": "(batch, seq, vocab) logits + (batch, seq) mask -> (batch, vocab) weights.",
       "_origin": "ast",
       "id": "src_sebi_rag_splade_encoder_rationale_18"
@@ -10284,7 +10344,7 @@
       "file_type": "code",
       "source_file": "src/sebi_rag/verify_master.py",
       "source_location": "L63",
-      "community": 55,
+      "community": 53,
       "norm_label": "diff_manifest()",
       "_origin": "ast",
       "id": "src_sebi_rag_verify_master_diff_manifest"
@@ -10353,7 +10413,7 @@
       "file_type": "rationale",
       "source_file": "src/sebi_rag/verify_master.py",
       "source_location": "L67",
-      "community": 55,
+      "community": 53,
       "norm_label": "assign exactly one status to every listed row + extra_in_corpus rows.",
       "_origin": "ast",
       "id": "src_sebi_rag_verify_master_rationale_67"
@@ -10669,7 +10729,7 @@
       "file_type": "code",
       "source_file": "tests/test_api.py",
       "source_location": "L193",
-      "community": 10,
+      "community": 15,
       "norm_label": "test_compute_kwargs_cpu_disables_fp16()",
       "id": "tests_test_api_test_compute_kwargs_cpu_disables_fp16"
     },
@@ -10678,7 +10738,7 @@
       "file_type": "code",
       "source_file": "tests/test_api.py",
       "source_location": "L201",
-      "community": 10,
+      "community": 15,
       "norm_label": "test_compute_kwargs_mps_keeps_fp16()",
       "id": "tests_test_api_test_compute_kwargs_mps_keeps_fp16"
     },
@@ -11173,7 +11233,7 @@
       "file_type": "code",
       "source_file": "tests/test_benchmark.py",
       "source_location": "L101",
-      "community": 78,
+      "community": 1,
       "norm_label": "test_trec_run_and_research_judges_are_sidecar_only()",
       "id": "tests_test_benchmark_test_trec_run_and_research_judges_are_sidecar_only"
     },
@@ -11200,7 +11260,7 @@
       "file_type": "code",
       "source_file": "tests/test_build_reg_edges.py",
       "source_location": "L1",
-      "community": 62,
+      "community": 2,
       "norm_label": "test_build_reg_edges.py",
       "id": "tests_test_build_reg_edges"
     },
@@ -11209,7 +11269,7 @@
       "file_type": "code",
       "source_file": "tests/test_build_reg_edges.py",
       "source_location": "L26",
-      "community": 62,
+      "community": 2,
       "norm_label": "_setup()",
       "id": "tests_test_build_reg_edges_setup"
     },
@@ -11218,7 +11278,7 @@
       "file_type": "code",
       "source_file": "tests/test_build_reg_edges.py",
       "source_location": "L34",
-      "community": 62,
+      "community": 2,
       "norm_label": "test_driver_writes_edges_and_annotates()",
       "id": "tests_test_build_reg_edges_test_driver_writes_edges_and_annotates"
     },
@@ -11227,7 +11287,7 @@
       "file_type": "code",
       "source_file": "tests/test_build_reg_edges.py",
       "source_location": "L53",
-      "community": 62,
+      "community": 2,
       "norm_label": "test_driver_appends_repealed_stub_to_the_regulations_file()",
       "id": "tests_test_build_reg_edges_test_driver_appends_repealed_stub_to_the_regulations_file"
     },
@@ -11236,7 +11296,7 @@
       "file_type": "code",
       "source_file": "tests/test_build_reg_edges.py",
       "source_location": "L65",
-      "community": 62,
+      "community": 2,
       "norm_label": "test_driver_is_idempotent()",
       "id": "tests_test_build_reg_edges_test_driver_is_idempotent"
     },
@@ -11245,7 +11305,7 @@
       "file_type": "code",
       "source_file": "tests/test_build_reg_edges.py",
       "source_location": "L78",
-      "community": 62,
+      "community": 2,
       "norm_label": "test_driver_preserves_unrelated_circular_fields()",
       "id": "tests_test_build_reg_edges_test_driver_preserves_unrelated_circular_fields"
     },
@@ -11254,7 +11314,7 @@
       "file_type": "code",
       "source_file": "tests/test_build_reg_edges.py",
       "source_location": "L88",
-      "community": 62,
+      "community": 2,
       "norm_label": "test_driver_writes_the_unresolved_report()",
       "id": "tests_test_build_reg_edges_test_driver_writes_the_unresolved_report"
     },
@@ -11263,7 +11323,7 @@
       "file_type": "code",
       "source_file": "tests/test_build_reg_edges.py",
       "source_location": "L102",
-      "community": 62,
+      "community": 2,
       "norm_label": "test_missing_regulations_file_exits_nonzero_without_writing()",
       "id": "tests_test_build_reg_edges_test_missing_regulations_file_exits_nonzero_without_writing"
     },
@@ -11272,7 +11332,7 @@
       "file_type": "code",
       "source_file": "tests/test_build_reg_edges.py",
       "source_location": "L114",
-      "community": 62,
+      "community": 2,
       "norm_label": "test_load_jsonl_skips_blank_lines()",
       "id": "tests_test_build_reg_edges_test_load_jsonl_skips_blank_lines"
     },
@@ -11281,7 +11341,7 @@
       "file_type": "rationale",
       "source_file": "tests/test_build_reg_edges.py",
       "source_location": "L1",
-      "community": 62,
+      "community": 2,
       "norm_label": "end-to-end driver test on a temporary corpus (no network).",
       "id": "tests_test_build_reg_edges_rationale_1"
     },
@@ -11290,7 +11350,7 @@
       "file_type": "code",
       "source_file": "tests/test_certainty.py",
       "source_location": "L1",
-      "community": 29,
+      "community": 82,
       "norm_label": "test_certainty.py",
       "id": "tests_test_certainty"
     },
@@ -11299,7 +11359,7 @@
       "file_type": "code",
       "source_file": "tests/test_certainty.py",
       "source_location": "L16",
-      "community": 29,
+      "community": 82,
       "norm_label": "_chunk()",
       "id": "tests_test_certainty_chunk"
     },
@@ -11317,7 +11377,7 @@
       "file_type": "code",
       "source_file": "tests/test_certainty.py",
       "source_location": "L24",
-      "community": 29,
+      "community": 82,
       "norm_label": "test_no_context_reason_when_top_k_zero()",
       "id": "tests_test_certainty_test_no_context_reason_when_top_k_zero"
     },
@@ -11326,7 +11386,7 @@
       "file_type": "code",
       "source_file": "tests/test_certainty.py",
       "source_location": "L32",
-      "community": 29,
+      "community": 82,
       "norm_label": "test_score_floor_reason()",
       "id": "tests_test_certainty_test_score_floor_reason"
     },
@@ -11335,7 +11395,7 @@
       "file_type": "code",
       "source_file": "tests/test_certainty.py",
       "source_location": "L37",
-      "community": 29,
+      "community": 82,
       "norm_label": "test_subject_gate_reason_and_subject_sim_recorded()",
       "id": "tests_test_certainty_test_subject_gate_reason_and_subject_sim_recorded"
     },
@@ -11344,7 +11404,7 @@
       "file_type": "code",
       "source_file": "tests/test_certainty.py",
       "source_location": "L46",
-      "community": 29,
+      "community": 82,
       "norm_label": "test_certainty_high_when_subject_sim_strong_and_faithful()",
       "id": "tests_test_certainty_test_certainty_high_when_subject_sim_strong_and_faithful"
     },
@@ -11353,7 +11413,7 @@
       "file_type": "code",
       "source_file": "tests/test_certainty.py",
       "source_location": "L56",
-      "community": 29,
+      "community": 82,
       "norm_label": "test_certainty_capped_medium_without_gate()",
       "id": "tests_test_certainty_test_certainty_capped_medium_without_gate"
     },
@@ -11362,7 +11422,7 @@
       "file_type": "code",
       "source_file": "tests/test_certainty.py",
       "source_location": "L61",
-      "community": 29,
+      "community": 82,
       "norm_label": "test_advisory_draft_on_gate_failure_only_when_requested()",
       "id": "tests_test_certainty_test_advisory_draft_on_gate_failure_only_when_requested"
     },
@@ -11371,7 +11431,7 @@
       "file_type": "rationale",
       "source_file": "tests/test_certainty.py",
       "source_location": "L1",
-      "community": 29,
+      "community": 82,
       "norm_label": "offline tests for the adr-002 certainty architecture: abstention reasons, confid",
       "id": "tests_test_certainty_rationale_1"
     },
@@ -11461,7 +11521,7 @@
       "file_type": "code",
       "source_file": "tests/test_context_headers.py",
       "source_location": "L78",
-      "community": 17,
+      "community": 85,
       "norm_label": "test_scope_predicate()",
       "id": "tests_test_context_headers_test_scope_predicate"
     },
@@ -11470,7 +11530,7 @@
       "file_type": "code",
       "source_file": "tests/test_context_headers.py",
       "source_location": "L87",
-      "community": 17,
+      "community": 85,
       "norm_label": "test_load_headers_missing_file_returns_empty()",
       "id": "tests_test_context_headers_test_load_headers_missing_file_returns_empty"
     },
@@ -11857,7 +11917,7 @@
       "file_type": "code",
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L1",
-      "community": 29,
+      "community": 55,
       "norm_label": "test_eval_asof.py",
       "id": "tests_test_eval_asof"
     },
@@ -11866,7 +11926,7 @@
       "file_type": "code",
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L20",
-      "community": 29,
+      "community": 55,
       "norm_label": "test_load_golden_asof_has_both_modes()",
       "id": "tests_test_eval_asof_test_load_golden_asof_has_both_modes"
     },
@@ -11875,7 +11935,7 @@
       "file_type": "code",
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L27",
-      "community": 29,
+      "community": 55,
       "norm_label": "_lin_chain()",
       "id": "tests_test_eval_asof_lin_chain"
     },
@@ -11884,7 +11944,7 @@
       "file_type": "code",
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L34",
-      "community": 29,
+      "community": 55,
       "norm_label": "test_run_selector_cases_pass_and_fail()",
       "id": "tests_test_eval_asof_test_run_selector_cases_pass_and_fail"
     },
@@ -11902,7 +11962,7 @@
       "file_type": "code",
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L79",
-      "community": 26,
+      "community": 55,
       "norm_label": "test_summarize_reports_accuracy_and_failures()",
       "id": "tests_test_eval_asof_test_summarize_reports_accuracy_and_failures"
     },
@@ -11911,7 +11971,7 @@
       "file_type": "code",
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L92",
-      "community": 26,
+      "community": 55,
       "norm_label": "test_summarize_reports_a_clopper_pearson_interval()",
       "id": "tests_test_eval_asof_test_summarize_reports_a_clopper_pearson_interval"
     },
@@ -11920,7 +11980,7 @@
       "file_type": "code",
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L105",
-      "community": 26,
+      "community": 55,
       "norm_label": "test_summarize_all_pass_pins_upper_bound()",
       "id": "tests_test_eval_asof_test_summarize_all_pass_pins_upper_bound"
     },
@@ -11929,7 +11989,7 @@
       "file_type": "code",
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L116",
-      "community": 29,
+      "community": 55,
       "norm_label": "test_summarize_handles_an_empty_mode()",
       "id": "tests_test_eval_asof_test_summarize_handles_an_empty_mode"
     },
@@ -11938,7 +11998,7 @@
       "file_type": "rationale",
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L1",
-      "community": 29,
+      "community": 55,
       "norm_label": "p4b: as-of golden evaluation runner tests (offline).",
       "id": "tests_test_eval_asof_rationale_1"
     },
@@ -11965,7 +12025,7 @@
       "file_type": "code",
       "source_file": "tests/test_eval_harness.py",
       "source_location": "L41",
-      "community": 70,
+      "community": 88,
       "norm_label": "test_real_corpus_loads_with_provenance_fields()",
       "id": "tests_test_eval_harness_test_real_corpus_loads_with_provenance_fields"
     },
@@ -11974,7 +12034,7 @@
       "file_type": "code",
       "source_file": "tests/test_eval_harness.py",
       "source_location": "L49",
-      "community": 70,
+      "community": 90,
       "norm_label": "test_eval_harness_metric_suite()",
       "id": "tests_test_eval_harness_test_eval_harness_metric_suite"
     },
@@ -12163,7 +12223,7 @@
       "file_type": "code",
       "source_file": "tests/test_expand.py",
       "source_location": "L76",
-      "community": 48,
+      "community": 52,
       "norm_label": "_chunk()",
       "id": "tests_test_expand_chunk"
     },
@@ -12172,7 +12232,7 @@
       "file_type": "code",
       "source_file": "tests/test_expand.py",
       "source_location": "L76",
-      "community": 48,
+      "community": 52,
       "norm_label": "int",
       "id": "tests_test_expand_py_int"
     },
@@ -12181,7 +12241,7 @@
       "file_type": "code",
       "source_file": "tests/test_expand.py",
       "source_location": "L76",
-      "community": 48,
+      "community": 52,
       "norm_label": "str",
       "id": "tests_test_expand_py_str"
     },
@@ -12199,7 +12259,7 @@
       "file_type": "code",
       "source_file": "tests/test_expand.py",
       "source_location": "L92",
-      "community": 48,
+      "community": 52,
       "norm_label": "test_retrieve_routes_expanded_query_to_sparse_leg()",
       "id": "tests_test_expand_test_retrieve_routes_expanded_query_to_sparse_leg"
     },
@@ -12208,7 +12268,7 @@
       "file_type": "code",
       "source_file": "tests/test_expand.py",
       "source_location": "L110",
-      "community": 48,
+      "community": 52,
       "norm_label": "test_retrieve_dense_leg_keeps_raw_query()",
       "id": "tests_test_expand_test_retrieve_dense_leg_keeps_raw_query"
     },
@@ -12757,7 +12817,7 @@
       "file_type": "code",
       "source_file": "tests/test_faithfulness.py",
       "source_location": "L14",
-      "community": 101,
+      "community": 82,
       "norm_label": "test_faithfulness_scoring()",
       "id": "tests_test_faithfulness_test_faithfulness_scoring"
     },
@@ -12766,7 +12826,7 @@
       "file_type": "code",
       "source_file": "tests/test_faithfulness.py",
       "source_location": "L23",
-      "community": 70,
+      "community": 88,
       "norm_label": "_hallucinatinggenerator",
       "id": "tests_test_faithfulness_hallucinatinggenerator"
     },
@@ -12775,7 +12835,7 @@
       "file_type": "code",
       "source_file": "tests/test_faithfulness.py",
       "source_location": "L24",
-      "community": 70,
+      "community": 88,
       "norm_label": ".generate()",
       "id": "tests_test_faithfulness_hallucinatinggenerator_generate"
     },
@@ -12784,7 +12844,7 @@
       "file_type": "code",
       "source_file": "tests/test_faithfulness.py",
       "source_location": "L28",
-      "community": 70,
+      "community": 88,
       "norm_label": "test_pipeline_flags_hallucinated_citation()",
       "id": "tests_test_faithfulness_test_pipeline_flags_hallucinated_citation"
     },
@@ -12802,7 +12862,7 @@
       "file_type": "code",
       "source_file": "tests/test_gate.py",
       "source_location": "L1",
-      "community": 101,
+      "community": 83,
       "norm_label": "test_gate.py",
       "id": "tests_test_gate"
     },
@@ -12811,7 +12871,7 @@
       "file_type": "code",
       "source_file": "tests/test_gate.py",
       "source_location": "L15",
-      "community": 101,
+      "community": 83,
       "norm_label": "_chunk()",
       "id": "tests_test_gate_chunk"
     },
@@ -12829,7 +12889,7 @@
       "file_type": "code",
       "source_file": "tests/test_gate.py",
       "source_location": "L20",
-      "community": 101,
+      "community": 83,
       "norm_label": "_stubjudge",
       "id": "tests_test_gate_stubjudge"
     },
@@ -12838,7 +12898,7 @@
       "file_type": "code",
       "source_file": "tests/test_gate.py",
       "source_location": "L21",
-      "community": 101,
+      "community": 83,
       "norm_label": ".__init__()",
       "id": "tests_test_gate_stubjudge_init"
     },
@@ -12847,7 +12907,7 @@
       "file_type": "code",
       "source_file": "tests/test_gate.py",
       "source_location": "L21",
-      "community": 101,
+      "community": 70,
       "norm_label": "bool",
       "id": "tests_test_gate_py_bool"
     },
@@ -12856,7 +12916,7 @@
       "file_type": "code",
       "source_file": "tests/test_gate.py",
       "source_location": "L25",
-      "community": 101,
+      "community": 83,
       "norm_label": ".grounded()",
       "id": "tests_test_gate_stubjudge_grounded"
     },
@@ -12883,7 +12943,7 @@
       "file_type": "code",
       "source_file": "tests/test_gate.py",
       "source_location": "L45",
-      "community": 101,
+      "community": 83,
       "norm_label": "test_identify_prompt_numbers_excerpts()",
       "id": "tests_test_gate_test_identify_prompt_numbers_excerpts"
     },
@@ -12892,7 +12952,7 @@
       "file_type": "code",
       "source_file": "tests/test_gate.py",
       "source_location": "L51",
-      "community": 101,
+      "community": 83,
       "norm_label": "test_judge_no_forces_abstention()",
       "id": "tests_test_gate_test_judge_no_forces_abstention"
     },
@@ -12901,7 +12961,7 @@
       "file_type": "code",
       "source_file": "tests/test_gate.py",
       "source_location": "L58",
-      "community": 101,
+      "community": 83,
       "norm_label": "test_judge_yes_answers_normally()",
       "id": "tests_test_gate_test_judge_yes_answers_normally"
     },
@@ -12910,7 +12970,7 @@
       "file_type": "code",
       "source_file": "tests/test_gate.py",
       "source_location": "L66",
-      "community": 101,
+      "community": 83,
       "norm_label": "test_score_gate_short_circuits_judge()",
       "id": "tests_test_gate_test_score_gate_short_circuits_judge"
     },
@@ -12919,7 +12979,7 @@
       "file_type": "code",
       "source_file": "tests/test_gate.py",
       "source_location": "L74",
-      "community": 101,
+      "community": 83,
       "norm_label": "test_subject_sim_judge_separates_by_subject()",
       "id": "tests_test_gate_test_subject_sim_judge_separates_by_subject"
     },
@@ -12928,7 +12988,7 @@
       "file_type": "code",
       "source_file": "tests/test_gate.py",
       "source_location": "L91",
-      "community": 101,
+      "community": 83,
       "norm_label": "test_subject_sim_judge_two_tier_section_gate()",
       "id": "tests_test_gate_test_subject_sim_judge_two_tier_section_gate"
     },
@@ -12937,7 +12997,7 @@
       "file_type": "code",
       "source_file": "tests/test_gate.py",
       "source_location": "L113",
-      "community": 101,
+      "community": 83,
       "norm_label": "test_no_judge_preserves_legacy_behaviour()",
       "id": "tests_test_gate_test_no_judge_preserves_legacy_behaviour"
     },
@@ -12946,7 +13006,7 @@
       "file_type": "rationale",
       "source_file": "tests/test_gate.py",
       "source_location": "L1",
-      "community": 101,
+      "community": 83,
       "norm_label": "offline tests for the groundedness abstention gate (adr-001 item 7).",
       "id": "tests_test_gate_rationale_1"
     },
@@ -14206,7 +14266,7 @@
       "file_type": "code",
       "source_file": "tests/test_golden_v7_mine.py",
       "source_location": "L1",
-      "community": 47,
+      "community": 0,
       "norm_label": "test_golden_v7_mine.py",
       "id": "tests_test_golden_v7_mine"
     },
@@ -14215,7 +14275,7 @@
       "file_type": "code",
       "source_file": "tests/test_golden_v7_mine.py",
       "source_location": "L13",
-      "community": 47,
+      "community": 0,
       "norm_label": "_rec()",
       "id": "tests_test_golden_v7_mine_rec"
     },
@@ -14224,7 +14284,7 @@
       "file_type": "code",
       "source_file": "tests/test_golden_v7_mine.py",
       "source_location": "L20",
-      "community": 47,
+      "community": 0,
       "norm_label": "test_title_direct_stratifies_across_years()",
       "id": "tests_test_golden_v7_mine_test_title_direct_stratifies_across_years"
     },
@@ -14233,7 +14293,7 @@
       "file_type": "code",
       "source_file": "tests/test_golden_v7_mine.py",
       "source_location": "L27",
-      "community": 47,
+      "community": 0,
       "norm_label": "test_paraphrase_skips_preamble_and_short_chunks()",
       "id": "tests_test_golden_v7_mine_test_paraphrase_skips_preamble_and_short_chunks"
     },
@@ -14242,7 +14302,7 @@
       "file_type": "code",
       "source_file": "tests/test_golden_v7_mine.py",
       "source_location": "L35",
-      "community": 47,
+      "community": 0,
       "norm_label": "test_numeric_miner_requires_numeric_pattern()",
       "id": "tests_test_golden_v7_mine_test_numeric_miner_requires_numeric_pattern"
     },
@@ -14251,7 +14311,7 @@
       "file_type": "code",
       "source_file": "tests/test_golden_v7_mine.py",
       "source_location": "L43",
-      "community": 47,
+      "community": 0,
       "norm_label": "test_lineage_pairs_need_both_dates_and_membership()",
       "id": "tests_test_golden_v7_mine_test_lineage_pairs_need_both_dates_and_membership"
     },
@@ -14260,7 +14320,7 @@
       "file_type": "code",
       "source_file": "tests/test_golden_v7_mine.py",
       "source_location": "L53",
-      "community": 47,
+      "community": 0,
       "norm_label": "test_repealed_basis_filters_on_status()",
       "id": "tests_test_golden_v7_mine_test_repealed_basis_filters_on_status"
     },
@@ -14458,7 +14518,7 @@
       "file_type": "code",
       "source_file": "tests/test_golden_v7_pool.py",
       "source_location": "L1",
-      "community": 47,
+      "community": 80,
       "norm_label": "test_golden_v7_pool.py",
       "id": "tests_test_golden_v7_pool"
     },
@@ -14467,7 +14527,7 @@
       "file_type": "code",
       "source_file": "tests/test_golden_v7_pool.py",
       "source_location": "L12",
-      "community": 47,
+      "community": 80,
       "norm_label": "_retriever()",
       "id": "tests_test_golden_v7_pool_retriever"
     },
@@ -14476,7 +14536,7 @@
       "file_type": "code",
       "source_file": "tests/test_golden_v7_pool.py",
       "source_location": "L24",
-      "community": 47,
+      "community": 80,
       "norm_label": "test_gold_literal_chunks_lead_the_pool()",
       "id": "tests_test_golden_v7_pool_test_gold_literal_chunks_lead_the_pool"
     },
@@ -14485,7 +14545,7 @@
       "file_type": "code",
       "source_file": "tests/test_golden_v7_pool.py",
       "source_location": "L33",
-      "community": 47,
+      "community": 80,
       "norm_label": "test_bm25_leg_uses_raw_query_not_expansion()",
       "id": "tests_test_golden_v7_pool_test_bm25_leg_uses_raw_query_not_expansion"
     },
@@ -14494,7 +14554,7 @@
       "file_type": "code",
       "source_file": "tests/test_golden_v7_pool.py",
       "source_location": "L42",
-      "community": 47,
+      "community": 80,
       "norm_label": "_saturating_retriever()",
       "id": "tests_test_golden_v7_pool_saturating_retriever"
     },
@@ -14503,7 +14563,7 @@
       "file_type": "code",
       "source_file": "tests/test_golden_v7_pool.py",
       "source_location": "L42",
-      "community": 70,
+      "community": 80,
       "norm_label": "int",
       "id": "tests_test_golden_v7_pool_py_int"
     },
@@ -14512,7 +14572,7 @@
       "file_type": "code",
       "source_file": "tests/test_golden_v7_pool.py",
       "source_location": "L55",
-      "community": 47,
+      "community": 80,
       "norm_label": "test_deep_relevant_chunk_is_reachable_despite_a_common_literal()",
       "id": "tests_test_golden_v7_pool_test_deep_relevant_chunk_is_reachable_despite_a_common_literal"
     },
@@ -14521,7 +14581,7 @@
       "file_type": "code",
       "source_file": "tests/test_golden_v7_pool.py",
       "source_location": "L78",
-      "community": 47,
+      "community": 80,
       "norm_label": "test_gold_literal_chunks_still_lead_the_pool_when_bounded()",
       "id": "tests_test_golden_v7_pool_test_gold_literal_chunks_still_lead_the_pool_when_bounded"
     },
@@ -14530,7 +14590,7 @@
       "file_type": "rationale",
       "source_file": "tests/test_golden_v7_pool.py",
       "source_location": "L43",
-      "community": 47,
+      "community": 80,
       "norm_label": "one gold doc with `n` chunks that all contain the word \"broker\", so a     must_c",
       "id": "tests_test_golden_v7_pool_rationale_43"
     },
@@ -14539,7 +14599,7 @@
       "file_type": "rationale",
       "source_file": "tests/test_golden_v7_pool.py",
       "source_location": "L56",
-      "community": 47,
+      "community": 80,
       "norm_label": "regression (2026-07-25): a must_contain literal matching many gold-doc     chunk",
       "id": "tests_test_golden_v7_pool_rationale_56"
     },
@@ -14899,7 +14959,7 @@
       "file_type": "code",
       "source_file": "tests/test_hyde.py",
       "source_location": "L48",
-      "community": 80,
+      "community": 46,
       "norm_label": "_chunk()",
       "id": "tests_test_hyde_chunk"
     },
@@ -14908,7 +14968,7 @@
       "file_type": "code",
       "source_file": "tests/test_hyde.py",
       "source_location": "L48",
-      "community": 80,
+      "community": 46,
       "norm_label": "int",
       "id": "tests_test_hyde_py_int"
     },
@@ -14917,7 +14977,7 @@
       "file_type": "code",
       "source_file": "tests/test_hyde.py",
       "source_location": "L48",
-      "community": 80,
+      "community": 46,
       "norm_label": "str",
       "id": "tests_test_hyde_py_str"
     },
@@ -14926,7 +14986,7 @@
       "file_type": "code",
       "source_file": "tests/test_hyde.py",
       "source_location": "L62",
-      "community": 80,
+      "community": 46,
       "norm_label": "_rank()",
       "id": "tests_test_hyde_rank"
     },
@@ -14935,7 +14995,7 @@
       "file_type": "code",
       "source_file": "tests/test_hyde.py",
       "source_location": "L67",
-      "community": 80,
+      "community": 46,
       "norm_label": "test_hyde_leg_improves_paraphrase_gap_rank()",
       "id": "tests_test_hyde_test_hyde_leg_improves_paraphrase_gap_rank"
     },
@@ -14944,7 +15004,7 @@
       "file_type": "code",
       "source_file": "tests/test_hyde.py",
       "source_location": "L80",
-      "community": 48,
+      "community": 46,
       "norm_label": "test_none_and_empty_hyde_are_identical_to_baseline()",
       "id": "tests_test_hyde_test_none_and_empty_hyde_are_identical_to_baseline"
     },
@@ -14962,7 +15022,7 @@
       "file_type": "code",
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L1",
-      "community": 36,
+      "community": 98,
       "norm_label": "test_incremental_index.py",
       "id": "tests_test_incremental_index"
     },
@@ -14971,7 +15031,7 @@
       "file_type": "code",
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L12",
-      "community": 36,
+      "community": 98,
       "norm_label": "countingembedder",
       "id": "tests_test_incremental_index_countingembedder"
     },
@@ -14980,7 +15040,7 @@
       "file_type": "code",
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L13",
-      "community": 36,
+      "community": 98,
       "norm_label": ".__init__()",
       "id": "tests_test_incremental_index_countingembedder_init"
     },
@@ -14989,7 +15049,7 @@
       "file_type": "code",
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L17",
-      "community": 36,
+      "community": 98,
       "norm_label": ".encode()",
       "id": "tests_test_incremental_index_countingembedder_encode"
     },
@@ -14998,7 +15058,7 @@
       "file_type": "code",
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L22",
-      "community": 36,
+      "community": 98,
       "norm_label": "_doc()",
       "id": "tests_test_incremental_index_doc"
     },
@@ -15007,7 +15067,7 @@
       "file_type": "code",
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L22",
-      "community": 36,
+      "community": 88,
       "norm_label": "str",
       "id": "tests_test_incremental_index_py_str"
     },
@@ -15016,7 +15076,7 @@
       "file_type": "code",
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L27",
-      "community": 36,
+      "community": 98,
       "norm_label": "_corpus_v1()",
       "id": "tests_test_incremental_index_corpus_v1"
     },
@@ -15025,7 +15085,7 @@
       "file_type": "code",
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L33",
-      "community": 36,
+      "community": 98,
       "norm_label": "test_incremental_encodes_only_delta()",
       "id": "tests_test_incremental_index_test_incremental_encodes_only_delta"
     },
@@ -15034,7 +15094,7 @@
       "file_type": "code",
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L69",
-      "community": 36,
+      "community": 98,
       "norm_label": "test_incremental_falls_back_to_full_without_cache()",
       "id": "tests_test_incremental_index_test_incremental_falls_back_to_full_without_cache"
     },
@@ -15043,7 +15103,7 @@
       "file_type": "rationale",
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L1",
-      "community": 36,
+      "community": 98,
       "norm_label": "offline tests for f3 incremental indexing (adr-001): only new/changed docs are e",
       "id": "tests_test_incremental_index_rationale_1"
     },
@@ -15610,7 +15670,7 @@
       "file_type": "code",
       "source_file": "tests/test_master_meta.py",
       "source_location": "L1",
-      "community": 76,
+      "community": 62,
       "norm_label": "test_master_meta.py",
       "id": "tests_test_master_meta"
     },
@@ -15619,7 +15679,7 @@
       "file_type": "code",
       "source_file": "tests/test_master_meta.py",
       "source_location": "L9",
-      "community": 76,
+      "community": 62,
       "norm_label": "_master()",
       "id": "tests_test_master_meta_master"
     },
@@ -15628,7 +15688,7 @@
       "file_type": "code",
       "source_file": "tests/test_master_meta.py",
       "source_location": "L14",
-      "community": 76,
+      "community": 62,
       "norm_label": "test_master_series_rule_table()",
       "id": "tests_test_master_meta_test_master_series_rule_table"
     },
@@ -15637,7 +15697,7 @@
       "file_type": "code",
       "source_file": "tests/test_master_meta.py",
       "source_location": "L24",
-      "community": 76,
+      "community": 62,
       "norm_label": "test_annotate_sets_identity_and_chains_editions()",
       "id": "tests_test_master_meta_test_annotate_sets_identity_and_chains_editions"
     },
@@ -15646,7 +15706,7 @@
       "file_type": "code",
       "source_file": "tests/test_master_meta.py",
       "source_location": "L42",
-      "community": 76,
+      "community": 62,
       "norm_label": "test_annotate_idempotent()",
       "id": "tests_test_master_meta_test_annotate_idempotent"
     },
@@ -15655,7 +15715,7 @@
       "file_type": "code",
       "source_file": "tests/test_master_meta.py",
       "source_location": "L48",
-      "community": 76,
+      "community": 62,
       "norm_label": "test_consolidation_edges_from_real_mf_appendix()",
       "id": "tests_test_master_meta_test_consolidation_edges_from_real_mf_appendix"
     },
@@ -15664,7 +15724,7 @@
       "file_type": "code",
       "source_file": "tests/test_master_meta.py",
       "source_location": "L64",
-      "community": 76,
+      "community": 62,
       "norm_label": "test_consolidation_edges_from_real_dep_appendix()",
       "id": "tests_test_master_meta_test_consolidation_edges_from_real_dep_appendix"
     },
@@ -15673,7 +15733,7 @@
       "file_type": "code",
       "source_file": "tests/test_master_meta.py",
       "source_location": "L75",
-      "community": 76,
+      "community": 62,
       "norm_label": "test_consolidation_edges_from_real_pre2015_appendix()",
       "id": "tests_test_master_meta_test_consolidation_edges_from_real_pre2015_appendix"
     },
@@ -15682,7 +15742,7 @@
       "file_type": "code",
       "source_file": "tests/test_master_meta.py",
       "source_location": "L86",
-      "community": 76,
+      "community": 62,
       "norm_label": "test_no_edges_without_rescission_heading()",
       "id": "tests_test_master_meta_test_no_edges_without_rescission_heading"
     },
@@ -15691,7 +15751,7 @@
       "file_type": "code",
       "source_file": "tests/test_master_meta.py",
       "source_location": "L92",
-      "community": 76,
+      "community": 62,
       "norm_label": "test_no_edges_for_empty_text()",
       "id": "tests_test_master_meta_test_no_edges_for_empty_text"
     },
@@ -15943,7 +16003,7 @@
       "file_type": "code",
       "source_file": "tests/test_persistence.py",
       "source_location": "L1",
-      "community": 48,
+      "community": 29,
       "norm_label": "test_persistence.py",
       "id": "tests_test_persistence"
     },
@@ -15952,7 +16012,7 @@
       "file_type": "code",
       "source_file": "tests/test_persistence.py",
       "source_location": "L9",
-      "community": 48,
+      "community": 88,
       "norm_label": "_chunks()",
       "id": "tests_test_persistence_chunks"
     },
@@ -15970,7 +16030,7 @@
       "file_type": "rationale",
       "source_file": "tests/test_persistence.py",
       "source_location": "L1",
-      "community": 48,
+      "community": 29,
       "norm_label": "index persistence round-trip (offline).",
       "id": "tests_test_persistence_rationale_1"
     },
@@ -15979,7 +16039,7 @@
       "file_type": "code",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L1",
-      "community": 70,
+      "community": 57,
       "norm_label": "test_pipeline.py",
       "id": "tests_test_pipeline"
     },
@@ -15988,7 +16048,7 @@
       "file_type": "code",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L64",
-      "community": 70,
+      "community": 57,
       "norm_label": "_build_chunks()",
       "id": "tests_test_pipeline_build_chunks"
     },
@@ -15997,7 +16057,7 @@
       "file_type": "code",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L71",
-      "community": 70,
+      "community": 57,
       "norm_label": "_build_pipeline()",
       "id": "tests_test_pipeline_build_pipeline"
     },
@@ -16006,7 +16066,7 @@
       "file_type": "code",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L81",
-      "community": 70,
+      "community": 57,
       "norm_label": "test_segmentation_has_stable_ids_and_metadata()",
       "id": "tests_test_pipeline_test_segmentation_has_stable_ids_and_metadata"
     },
@@ -16015,7 +16075,7 @@
       "file_type": "code",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L91",
-      "community": 48,
+      "community": 106,
       "norm_label": "test_rrf_fusion_orders_by_reciprocal_rank()",
       "id": "tests_test_pipeline_test_rrf_fusion_orders_by_reciprocal_rank"
     },
@@ -16024,7 +16084,7 @@
       "file_type": "code",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L100",
-      "community": 70,
+      "community": 57,
       "norm_label": "test_hybrid_retrieval_finds_relevant_circular()",
       "id": "tests_test_pipeline_test_hybrid_retrieval_finds_relevant_circular"
     },
@@ -16033,7 +16093,7 @@
       "file_type": "code",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L111",
-      "community": 70,
+      "community": 57,
       "norm_label": "test_abstention_on_out_of_domain_query()",
       "id": "tests_test_pipeline_test_abstention_on_out_of_domain_query"
     },
@@ -16051,7 +16111,7 @@
       "file_type": "code",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L141",
-      "community": 70,
+      "community": 57,
       "norm_label": "_repealed_basis_pipeline()",
       "id": "tests_test_pipeline_repealed_basis_pipeline"
     },
@@ -16060,7 +16120,7 @@
       "file_type": "code",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L162",
-      "community": 70,
+      "community": 57,
       "norm_label": "test_note_fires_and_disambiguates_year()",
       "id": "tests_test_pipeline_test_note_fires_and_disambiguates_year"
     },
@@ -16069,7 +16129,7 @@
       "file_type": "code",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L172",
-      "community": 70,
+      "community": 57,
       "norm_label": "test_note_absent_when_status_not_repealed_basis()",
       "id": "tests_test_pipeline_test_note_absent_when_status_not_repealed_basis"
     },
@@ -16078,7 +16138,7 @@
       "file_type": "code",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L179",
-      "community": 70,
+      "community": 57,
       "norm_label": "test_note_absent_when_index_is_none()",
       "id": "tests_test_pipeline_test_note_absent_when_index_is_none"
     },
@@ -16105,7 +16165,7 @@
       "file_type": "code",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L226",
-      "community": 70,
+      "community": 57,
       "norm_label": "_fixedreranker",
       "id": "tests_test_pipeline_fixedreranker"
     },
@@ -16114,7 +16174,7 @@
       "file_type": "code",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L229",
-      "community": 70,
+      "community": 57,
       "norm_label": ".__init__()",
       "id": "tests_test_pipeline_fixedreranker_init"
     },
@@ -16123,7 +16183,7 @@
       "file_type": "code",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L232",
-      "community": 70,
+      "community": 57,
       "norm_label": ".rerank()",
       "id": "tests_test_pipeline_fixedreranker_rerank"
     },
@@ -16141,7 +16201,7 @@
       "file_type": "code",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L276",
-      "community": 70,
+      "community": 57,
       "norm_label": "test_supersession_note_only_for_circulars_cited_in_answer_text()",
       "id": "tests_test_pipeline_test_supersession_note_only_for_circulars_cited_in_answer_text"
     },
@@ -16150,7 +16210,7 @@
       "file_type": "code",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L304",
-      "community": 70,
+      "community": 57,
       "norm_label": "test_supersession_note_kept_when_answer_text_cites_superseded()",
       "id": "tests_test_pipeline_test_supersession_note_kept_when_answer_text_cites_superseded"
     },
@@ -16159,7 +16219,7 @@
       "file_type": "code",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L327",
-      "community": 70,
+      "community": 57,
       "norm_label": "test_as_of_demotes_circular_already_superseded_on_that_date()",
       "id": "tests_test_pipeline_test_as_of_demotes_circular_already_superseded_on_that_date"
     },
@@ -16168,7 +16228,7 @@
       "file_type": "rationale",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L1",
-      "community": 70,
+      "community": 57,
       "norm_label": "minimal end-to-end test of the sebi rag pipeline.  runs fully offline (hashembed",
       "id": "tests_test_pipeline_rationale_1"
     },
@@ -16177,7 +16237,7 @@
       "file_type": "rationale",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L142",
-      "community": 70,
+      "community": 57,
       "norm_label": "offline pipeline whose single circular rests on a repealed regulation.",
       "id": "tests_test_pipeline_rationale_142"
     },
@@ -16186,7 +16246,7 @@
       "file_type": "rationale",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L227",
-      "community": 70,
+      "community": 57,
       "norm_label": "deterministic reranker: score by doc_id lookup (test-only).",
       "id": "tests_test_pipeline_rationale_227"
     },
@@ -16204,7 +16264,7 @@
       "file_type": "rationale",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L277",
-      "community": 70,
+      "community": 57,
       "norm_label": "citations = all top_k contexts, so a demoted superseded chunk deep in     the co",
       "id": "tests_test_pipeline_rationale_277"
     },
@@ -16213,7 +16273,7 @@
       "file_type": "rationale",
       "source_file": "tests/test_pipeline.py",
       "source_location": "L328",
-      "community": 70,
+      "community": 57,
       "norm_label": "giant-family regression (golden asof-p8): old is superseded by two     same-day",
       "id": "tests_test_pipeline_rationale_328"
     },
@@ -16735,7 +16795,7 @@
       "file_type": "code",
       "source_file": "tests/test_reg_lineage.py",
       "source_location": "L267",
-      "community": 57,
+      "community": 2,
       "norm_label": "_icirc()",
       "id": "tests_test_reg_lineage_icirc"
     },
@@ -16744,7 +16804,7 @@
       "file_type": "code",
       "source_file": "tests/test_reg_lineage.py",
       "source_location": "L272",
-      "community": 57,
+      "community": 2,
       "norm_label": "test_index_happy_path_resolves_successor_object()",
       "id": "tests_test_reg_lineage_test_index_happy_path_resolves_successor_object"
     },
@@ -16753,7 +16813,7 @@
       "file_type": "code",
       "source_file": "tests/test_reg_lineage.py",
       "source_location": "L286",
-      "community": 57,
+      "community": 2,
       "norm_label": "test_index_uncited_circular_is_unknown_empty()",
       "id": "tests_test_reg_lineage_test_index_uncited_circular_is_unknown_empty"
     },
@@ -16762,7 +16822,7 @@
       "file_type": "code",
       "source_file": "tests/test_reg_lineage.py",
       "source_location": "L294",
-      "community": 57,
+      "community": 2,
       "norm_label": "test_index_missing_basis_fields_default()",
       "id": "tests_test_reg_lineage_test_index_missing_basis_fields_default"
     },
@@ -16771,7 +16831,7 @@
       "file_type": "code",
       "source_file": "tests/test_reg_lineage.py",
       "source_location": "L301",
-      "community": 57,
+      "community": 2,
       "norm_label": "test_index_dangling_reg_id_falls_back()",
       "id": "tests_test_reg_lineage_test_index_dangling_reg_id_falls_back"
     },
@@ -16780,7 +16840,7 @@
       "file_type": "code",
       "source_file": "tests/test_reg_lineage.py",
       "source_location": "L308",
-      "community": 57,
+      "community": 2,
       "norm_label": "test_index_primary_is_unknown_but_a_repealed_reg_is_present()",
       "id": "tests_test_reg_lineage_test_index_primary_is_unknown_but_a_repealed_reg_is_present"
     },
@@ -16789,7 +16849,7 @@
       "file_type": "code",
       "source_file": "tests/test_reg_lineage.py",
       "source_location": "L319",
-      "community": 57,
+      "community": 2,
       "norm_label": "test_index_repealed_with_missing_successor_record()",
       "id": "tests_test_reg_lineage_test_index_repealed_with_missing_successor_record"
     },
@@ -16852,7 +16912,7 @@
       "file_type": "code",
       "source_file": "tests/test_regulations.py",
       "source_location": "L44",
-      "community": 65,
+      "community": 73,
       "norm_label": "test_name_tokens_singularises_and_drops_stopwords()",
       "id": "tests_test_regulations_test_name_tokens_singularises_and_drops_stopwords"
     },
@@ -16933,7 +16993,7 @@
       "file_type": "code",
       "source_file": "tests/test_regulations.py",
       "source_location": "L112",
-      "community": 74,
+      "community": 73,
       "norm_label": "test_derive_regulatory_basis_truth_table()",
       "id": "tests_test_regulations_test_derive_regulatory_basis_truth_table"
     },
@@ -16951,7 +17011,7 @@
       "file_type": "code",
       "source_file": "tests/test_regulations.py",
       "source_location": "L131",
-      "community": 65,
+      "community": 104,
       "norm_label": "test_acronyms_ending_in_s_reach_their_own_entry()",
       "id": "tests_test_regulations_test_acronyms_ending_in_s_reach_their_own_entry"
     },
@@ -16960,7 +17020,7 @@
       "file_type": "code",
       "source_file": "tests/test_regulations.py",
       "source_location": "L142",
-      "community": 65,
+      "community": 104,
       "norm_label": "_resolved()",
       "id": "tests_test_regulations_resolved"
     },
@@ -16969,7 +17029,7 @@
       "file_type": "code",
       "source_file": "tests/test_regulations.py",
       "source_location": "L149",
-      "community": 65,
+      "community": 104,
       "norm_label": "test_every_alias_entry_is_reachable_from_some_spelling()",
       "id": "tests_test_regulations_test_every_alias_entry_is_reachable_from_some_spelling"
     },
@@ -16996,7 +17056,7 @@
       "file_type": "code",
       "source_file": "tests/test_regulations.py",
       "source_location": "L175",
-      "community": 65,
+      "community": 73,
       "norm_label": "test_load_regulations_round_trips()",
       "id": "tests_test_regulations_test_load_regulations_round_trips"
     },
@@ -17005,7 +17065,7 @@
       "file_type": "code",
       "source_file": "tests/test_regulations.py",
       "source_location": "L186",
-      "community": 65,
+      "community": 73,
       "norm_label": "test_load_regulations_skips_blank_lines()",
       "id": "tests_test_regulations_test_load_regulations_skips_blank_lines"
     },
@@ -17059,7 +17119,7 @@
       "file_type": "rationale",
       "source_file": "tests/test_regulations.py",
       "source_location": "L132",
-      "community": 65,
+      "community": 104,
       "norm_label": "pms/ncs/ilds end in a literal s. unconditional plural-stripping mapped     them",
       "id": "tests_test_regulations_rationale_132"
     },
@@ -17068,7 +17128,7 @@
       "file_type": "rationale",
       "source_file": "tests/test_regulations.py",
       "source_location": "L143",
-      "community": 65,
+      "community": 104,
       "norm_label": "reg_id resolved purely through the alias table, ignoring the corpus.",
       "id": "tests_test_regulations_rationale_143"
     },
@@ -17077,7 +17137,7 @@
       "file_type": "rationale",
       "source_file": "tests/test_regulations.py",
       "source_location": "L150",
-      "community": 65,
+      "community": 104,
       "norm_label": "a table key that no _alias_keys() output can produce is dead config.",
       "id": "tests_test_regulations_rationale_150"
     },
@@ -17185,7 +17245,7 @@
       "file_type": "code",
       "source_file": "tests/test_rerank_qwen3.py",
       "source_location": "L23",
-      "community": 56,
+      "community": 54,
       "norm_label": "._score()",
       "id": "tests_test_rerank_qwen3_stubqwen_score"
     },
@@ -17194,7 +17254,7 @@
       "file_type": "code",
       "source_file": "tests/test_rerank_qwen3.py",
       "source_location": "L23",
-      "community": 56,
+      "community": 54,
       "norm_label": "str",
       "id": "tests_test_rerank_qwen3_py_str"
     },
@@ -17203,7 +17263,7 @@
       "file_type": "code",
       "source_file": "tests/test_rerank_qwen3.py",
       "source_location": "L23",
-      "community": 56,
+      "community": 54,
       "norm_label": "float",
       "id": "tests_test_rerank_qwen3_py_float"
     },
@@ -17293,7 +17353,7 @@
       "file_type": "code",
       "source_file": "tests/test_rescore.py",
       "source_location": "L50",
-      "community": 93,
+      "community": 108,
       "norm_label": "testperqueryrecall",
       "id": "tests_test_rescore_testperqueryrecall"
     },
@@ -17302,7 +17362,7 @@
       "file_type": "code",
       "source_file": "tests/test_rescore.py",
       "source_location": "L51",
-      "community": 93,
+      "community": 108,
       "norm_label": "._golden()",
       "id": "tests_test_rescore_testperqueryrecall_golden"
     },
@@ -17311,7 +17371,7 @@
       "file_type": "code",
       "source_file": "tests/test_rescore.py",
       "source_location": "L58",
-      "community": 93,
+      "community": 108,
       "norm_label": ".test_scores_each_query_and_skips_abstain_items()",
       "id": "tests_test_rescore_testperqueryrecall_test_scores_each_query_and_skips_abstain_items"
     },
@@ -17320,7 +17380,7 @@
       "file_type": "code",
       "source_file": "tests/test_rescore.py",
       "source_location": "L67",
-      "community": 93,
+      "community": 108,
       "norm_label": ".test_deduplicates_chunks_to_circulars_before_cutoff()",
       "id": "tests_test_rescore_testperqueryrecall_test_deduplicates_chunks_to_circulars_before_cutoff"
     },
@@ -17329,7 +17389,7 @@
       "file_type": "code",
       "source_file": "tests/test_rescore.py",
       "source_location": "L74",
-      "community": 93,
+      "community": 108,
       "norm_label": ".test_mean_reproduces_the_archived_aggregate()",
       "id": "tests_test_rescore_testperqueryrecall_test_mean_reproduces_the_archived_aggregate"
     },
@@ -17356,7 +17416,7 @@
       "file_type": "rationale",
       "source_file": "tests/test_rescore.py",
       "source_location": "L68",
-      "community": 93,
+      "community": 108,
       "norm_label": "ten chunks of one circular must not crowd the cutoff: the k applies         to u",
       "id": "tests_test_rescore_rationale_68"
     },
@@ -17365,7 +17425,7 @@
       "file_type": "rationale",
       "source_file": "tests/test_rescore.py",
       "source_location": "L75",
-      "community": 93,
+      "community": 108,
       "norm_label": "end-to-end guarantee behind the re-scoring script: replaying a         runfile y",
       "id": "tests_test_rescore_rationale_75"
     },
@@ -17815,7 +17875,7 @@
       "file_type": "code",
       "source_file": "tests/test_select_targeted_headers.py",
       "source_location": "L1",
-      "community": 17,
+      "community": 107,
       "norm_label": "test_select_targeted_headers.py",
       "id": "tests_test_select_targeted_headers"
     },
@@ -17824,7 +17884,7 @@
       "file_type": "code",
       "source_file": "tests/test_select_targeted_headers.py",
       "source_location": "L10",
-      "community": 17,
+      "community": 107,
       "norm_label": "test_filter_keeps_only_target_doc_rows()",
       "id": "tests_test_select_targeted_headers_test_filter_keeps_only_target_doc_rows"
     },
@@ -17833,7 +17893,7 @@
       "file_type": "code",
       "source_file": "tests/test_select_targeted_headers.py",
       "source_location": "L22",
-      "community": 17,
+      "community": 107,
       "norm_label": "test_filter_with_no_matches_returns_empty()",
       "id": "tests_test_select_targeted_headers_test_filter_with_no_matches_returns_empty"
     },
@@ -17842,7 +17902,7 @@
       "file_type": "code",
       "source_file": "tests/test_select_targeted_headers.py",
       "source_location": "L27",
-      "community": 17,
+      "community": 107,
       "norm_label": "test_sup04_override_generated_via_injected_callable()",
       "id": "tests_test_select_targeted_headers_test_sup04_override_generated_via_injected_callable"
     },
@@ -17851,7 +17911,7 @@
       "file_type": "rationale",
       "source_file": "tests/test_select_targeted_headers.py",
       "source_location": "L1",
-      "community": 17,
+      "community": 107,
       "norm_label": "selection of targeted headers (iv10): filter iv9's reused headers down to 3 fail",
       "id": "tests_test_select_targeted_headers_rationale_1"
     },
@@ -18193,7 +18253,7 @@
       "file_type": "code",
       "source_file": "tests/test_splade_encoder.py",
       "source_location": "L1",
-      "community": 36,
+      "community": 96,
       "norm_label": "test_splade_encoder.py",
       "id": "tests_test_splade_encoder"
     },
@@ -18202,7 +18262,7 @@
       "file_type": "code",
       "source_file": "tests/test_splade_encoder.py",
       "source_location": "L8",
-      "community": 36,
+      "community": 96,
       "norm_label": "test_splade_pool_max_over_sequence_with_log_relu_and_mask()",
       "id": "tests_test_splade_encoder_test_splade_pool_max_over_sequence_with_log_relu_and_mask"
     },
@@ -18211,7 +18271,7 @@
       "file_type": "code",
       "source_file": "tests/test_splade_encoder.py",
       "source_location": "L21",
-      "community": 36,
+      "community": 96,
       "norm_label": "test_splade_pool_masked_positions_excluded()",
       "id": "tests_test_splade_encoder_test_splade_pool_masked_positions_excluded"
     },
@@ -18220,7 +18280,7 @@
       "file_type": "code",
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L1",
-      "community": 36,
+      "community": 94,
       "norm_label": "test_splade_leg.py",
       "id": "tests_test_splade_leg"
     },
@@ -18229,7 +18289,7 @@
       "file_type": "code",
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L12",
-      "community": 36,
+      "community": 94,
       "norm_label": "_stubdense",
       "id": "tests_test_splade_leg_stubdense"
     },
@@ -18238,7 +18298,7 @@
       "file_type": "code",
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L14",
-      "community": 36,
+      "community": 94,
       "norm_label": ".__init__()",
       "id": "tests_test_splade_leg_stubdense_init"
     },
@@ -18247,7 +18307,7 @@
       "file_type": "code",
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L18",
-      "community": 36,
+      "community": 94,
       "norm_label": "_stubsparse",
       "id": "tests_test_splade_leg_stubsparse"
     },
@@ -18256,7 +18316,7 @@
       "file_type": "code",
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L20",
-      "community": 36,
+      "community": 94,
       "norm_label": ".search()",
       "id": "tests_test_splade_leg_stubsparse_search"
     },
@@ -18265,7 +18325,7 @@
       "file_type": "code",
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L23",
-      "community": 36,
+      "community": 94,
       "norm_label": "_chunks()",
       "id": "tests_test_splade_leg_chunks"
     },
@@ -18274,7 +18334,7 @@
       "file_type": "code",
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L28",
-      "community": 36,
+      "community": 94,
       "norm_label": "_fake_encode()",
       "id": "tests_test_splade_leg_fake_encode"
     },
@@ -18283,7 +18343,7 @@
       "file_type": "code",
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L34",
-      "community": 36,
+      "community": 94,
       "norm_label": "test_splade_leg_changes_fused_order_when_on()",
       "id": "tests_test_splade_leg_test_splade_leg_changes_fused_order_when_on"
     },
@@ -18292,7 +18352,7 @@
       "file_type": "code",
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L54",
-      "community": 36,
+      "community": 94,
       "norm_label": "test_flag_off_is_unchanged_and_ignores_splade()",
       "id": "tests_test_splade_leg_test_flag_off_is_unchanged_and_ignores_splade"
     },
@@ -18301,7 +18361,7 @@
       "file_type": "code",
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L63",
-      "community": 36,
+      "community": 94,
       "norm_label": "test_use_splade_without_index_raises()",
       "id": "tests_test_splade_leg_test_use_splade_without_index_raises"
     },
@@ -18310,7 +18370,7 @@
       "file_type": "rationale",
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L13",
-      "community": 36,
+      "community": 94,
       "norm_label": "returns a fixed dense ranking regardless of query.",
       "id": "tests_test_splade_leg_rationale_13"
     },
@@ -18841,7 +18901,7 @@
       "file_type": "code",
       "source_file": "tests/test_verify_master.py",
       "source_location": "L1",
-      "community": 55,
+      "community": 53,
       "norm_label": "test_verify_master.py",
       "id": "tests_test_verify_master"
     },
@@ -18850,7 +18910,7 @@
       "file_type": "code",
       "source_file": "tests/test_verify_master.py",
       "source_location": "L9",
-      "community": 55,
+      "community": 53,
       "norm_label": "test_parse_listing_extracts_rows_from_real_page()",
       "id": "tests_test_verify_master_test_parse_listing_extracts_rows_from_real_page"
     },
@@ -18859,7 +18919,7 @@
       "file_type": "code",
       "source_file": "tests/test_verify_master.py",
       "source_location": "L20",
-      "community": 55,
+      "community": 53,
       "norm_label": "test_parse_listing_dedupes_and_ignores_non_master_links()",
       "id": "tests_test_verify_master_test_parse_listing_dedupes_and_ignores_non_master_links"
     },
@@ -18868,7 +18928,7 @@
       "file_type": "code",
       "source_file": "tests/test_verify_master.py",
       "source_location": "L39",
-      "community": 55,
+      "community": 53,
       "norm_label": "test_parse_listing_empty_html()",
       "id": "tests_test_verify_master_test_parse_listing_empty_html"
     },
@@ -18877,7 +18937,7 @@
       "file_type": "code",
       "source_file": "tests/test_verify_master.py",
       "source_location": "L43",
-      "community": 55,
+      "community": 53,
       "norm_label": "_row()",
       "id": "tests_test_verify_master_row"
     },
@@ -18886,7 +18946,7 @@
       "file_type": "code",
       "source_file": "tests/test_verify_master.py",
       "source_location": "L48",
-      "community": 55,
+      "community": 53,
       "norm_label": "_rec()",
       "id": "tests_test_verify_master_rec"
     },
@@ -18895,7 +18955,7 @@
       "file_type": "code",
       "source_file": "tests/test_verify_master.py",
       "source_location": "L54",
-      "community": 55,
+      "community": 53,
       "norm_label": "test_diff_statuses()",
       "id": "tests_test_verify_master_test_diff_statuses"
     },
@@ -18904,7 +18964,7 @@
       "file_type": "code",
       "source_file": "tests/test_verify_master.py",
       "source_location": "L85",
-      "community": 55,
+      "community": 53,
       "norm_label": "test_summarize_and_markdown()",
       "id": "tests_test_verify_master_test_summarize_and_markdown"
     },
@@ -18913,7 +18973,7 @@
       "file_type": "code",
       "source_file": "tests/test_verify_master.py",
       "source_location": "L100",
-      "community": 55,
+      "community": 53,
       "norm_label": "test_coverage_pct_excludes_unfetchable()",
       "id": "tests_test_verify_master_test_coverage_pct_excludes_unfetchable"
     },
@@ -18922,7 +18982,7 @@
       "file_type": "code",
       "source_file": "tests/test_verify_master.py",
       "source_location": "L107",
-      "community": 55,
+      "community": 53,
       "norm_label": "test_write_reports()",
       "id": "tests_test_verify_master_test_write_reports"
     },
@@ -19026,7 +19086,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L336",
+      "source_location": "L343",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_analyze_state",
@@ -19036,7 +19096,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L480",
+      "source_location": "L615",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_build_parser",
@@ -19046,7 +19106,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L179",
+      "source_location": "L186",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_capture_live_performance",
@@ -19056,7 +19116,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L74",
+      "source_location": "L520",
+      "weight": 1.0,
+      "source": "scripts_telemetry_engine",
+      "target": "scripts_telemetry_engine_check_degradation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L81",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_check_safety_limit",
@@ -19066,7 +19136,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L415",
+      "source_location": "L422",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_correction_pass",
@@ -19076,7 +19146,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L156",
+      "source_location": "L163",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_fetch_omlx_metrics",
@@ -19086,7 +19156,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L61",
+      "source_location": "L68",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_get_hardware_state",
@@ -19096,7 +19166,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L95",
+      "source_location": "L463",
+      "weight": 1.0,
+      "source": "scripts_telemetry_engine",
+      "target": "scripts_telemetry_engine_load_baseline",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L102",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_load_history",
@@ -19106,7 +19186,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L523",
+      "source_location": "L658",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_main",
@@ -19116,7 +19196,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L450",
+      "source_location": "L549",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_optimize_turn",
@@ -19126,7 +19206,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L114",
+      "source_location": "L121",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_record_run",
@@ -19136,7 +19216,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L107",
+      "source_location": "L114",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_save_history",
@@ -19146,7 +19226,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L361",
+      "source_location": "L368",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_self_critique",
@@ -19156,7 +19236,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L303",
+      "source_location": "L310",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_show_history",
@@ -19166,7 +19246,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L266",
+      "source_location": "L273",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_show_status",
@@ -19176,10 +19256,20 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L198",
+      "source_location": "L205",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_suggest_parameters",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L500",
+      "weight": 1.0,
+      "source": "scripts_telemetry_engine",
+      "target": "scripts_telemetry_engine_update_baseline",
       "confidence_score": 1.0
     },
     {
@@ -19196,9 +19286,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L62",
+      "source_location": "L69",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_62",
+      "source": "scripts_telemetry_engine_rationale_69",
       "target": "scripts_telemetry_engine_get_hardware_state",
       "confidence_score": 1.0
     },
@@ -19207,7 +19297,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L128",
+      "source_location": "L135",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_record_run",
       "target": "scripts_telemetry_engine_get_hardware_state",
@@ -19218,7 +19308,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L268",
+      "source_location": "L275",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_show_status",
       "target": "scripts_telemetry_engine_get_hardware_state",
@@ -19228,9 +19318,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L75",
+      "source_location": "L82",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_75",
+      "source": "scripts_telemetry_engine_rationale_82",
       "target": "scripts_telemetry_engine_check_safety_limit",
       "confidence_score": 1.0
     },
@@ -19239,7 +19329,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L129",
+      "source_location": "L136",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_record_run",
       "target": "scripts_telemetry_engine_check_safety_limit",
@@ -19250,10 +19340,21 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L269",
+      "source_location": "L276",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_show_status",
       "target": "scripts_telemetry_engine_check_safety_limit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L469",
+      "weight": 1.0,
+      "source": "scripts_telemetry_engine_load_baseline",
+      "target": "scripts_telemetry_engine_load_history",
       "confidence_score": 1.0
     },
     {
@@ -19261,7 +19362,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L95",
+      "source_location": "L102",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_load_history",
       "target": "any",
@@ -19271,9 +19372,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L96",
+      "source_location": "L103",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_96",
+      "source": "scripts_telemetry_engine_rationale_103",
       "target": "scripts_telemetry_engine_load_history",
       "confidence_score": 1.0
     },
@@ -19282,7 +19383,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L145",
+      "source_location": "L152",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_record_run",
       "target": "scripts_telemetry_engine_load_history",
@@ -19293,7 +19394,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L305",
+      "source_location": "L312",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_show_history",
       "target": "scripts_telemetry_engine_load_history",
@@ -19304,7 +19405,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L290",
+      "source_location": "L297",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_show_status",
       "target": "scripts_telemetry_engine_load_history",
@@ -19315,9 +19416,20 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L215",
+      "source_location": "L222",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_suggest_parameters",
+      "target": "scripts_telemetry_engine_load_history",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L503",
+      "weight": 1.0,
+      "source": "scripts_telemetry_engine_update_baseline",
       "target": "scripts_telemetry_engine_load_history",
       "confidence_score": 1.0
     },
@@ -19346,7 +19458,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L336",
+      "source_location": "L343",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_analyze_state",
       "target": "any",
@@ -19357,7 +19469,18 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L415",
+      "source_location": "L520",
+      "weight": 1.0,
+      "source": "scripts_telemetry_engine_check_degradation",
+      "target": "any",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L422",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_correction_pass",
       "target": "any",
@@ -19368,7 +19491,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L156",
+      "source_location": "L163",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_fetch_omlx_metrics",
       "target": "any",
@@ -19379,7 +19502,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L450",
+      "source_location": "L549",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_optimize_turn",
       "target": "any",
@@ -19390,7 +19513,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L114",
+      "source_location": "L121",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_record_run",
       "target": "any",
@@ -19401,7 +19524,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L107",
+      "source_location": "L114",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_save_history",
       "target": "any",
@@ -19412,7 +19535,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L361",
+      "source_location": "L368",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_self_critique",
       "target": "any",
@@ -19423,9 +19546,20 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L198",
+      "source_location": "L205",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_suggest_parameters",
+      "target": "any",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L500",
+      "weight": 1.0,
+      "source": "scripts_telemetry_engine_update_baseline",
       "target": "any",
       "confidence_score": 1.0
     },
@@ -19598,9 +19732,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L108",
+      "source_location": "L115",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_108",
+      "source": "scripts_telemetry_engine_rationale_115",
       "target": "scripts_telemetry_engine_save_history",
       "confidence_score": 1.0
     },
@@ -19609,7 +19743,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L147",
+      "source_location": "L154",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_record_run",
       "target": "scripts_telemetry_engine_save_history",
@@ -19620,7 +19754,18 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L577",
+      "source_location": "L517",
+      "weight": 1.0,
+      "source": "scripts_telemetry_engine_update_baseline",
+      "target": "scripts_telemetry_engine_save_history",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L712",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_main",
       "target": "scripts_telemetry_engine_record_run",
@@ -19630,9 +19775,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L119",
+      "source_location": "L126",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_119",
+      "source": "scripts_telemetry_engine_rationale_126",
       "target": "scripts_telemetry_engine_record_run",
       "confidence_score": 1.0
     },
@@ -19641,7 +19786,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L184",
+      "source_location": "L191",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_capture_live_performance",
       "target": "scripts_telemetry_engine_fetch_omlx_metrics",
@@ -19651,9 +19796,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L157",
+      "source_location": "L164",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_157",
+      "source": "scripts_telemetry_engine_rationale_164",
       "target": "scripts_telemetry_engine_fetch_omlx_metrics",
       "confidence_score": 1.0
     },
@@ -19662,7 +19807,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L281",
+      "source_location": "L288",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_show_status",
       "target": "scripts_telemetry_engine_fetch_omlx_metrics",
@@ -19672,9 +19817,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L180",
+      "source_location": "L187",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_180",
+      "source": "scripts_telemetry_engine_rationale_187",
       "target": "scripts_telemetry_engine_capture_live_performance",
       "confidence_score": 1.0
     },
@@ -19683,7 +19828,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L538",
+      "source_location": "L673",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_main",
       "target": "scripts_telemetry_engine_suggest_parameters",
@@ -19693,9 +19838,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L199",
+      "source_location": "L206",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_199",
+      "source": "scripts_telemetry_engine_rationale_206",
       "target": "scripts_telemetry_engine_suggest_parameters",
       "confidence_score": 1.0
     },
@@ -19704,7 +19849,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L532",
+      "source_location": "L667",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_main",
       "target": "scripts_telemetry_engine_show_status",
@@ -19714,9 +19859,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L267",
+      "source_location": "L274",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_267",
+      "source": "scripts_telemetry_engine_rationale_274",
       "target": "scripts_telemetry_engine_show_status",
       "confidence_score": 1.0
     },
@@ -19725,7 +19870,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L535",
+      "source_location": "L670",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_main",
       "target": "scripts_telemetry_engine_show_history",
@@ -19735,9 +19880,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L304",
+      "source_location": "L311",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_304",
+      "source": "scripts_telemetry_engine_rationale_311",
       "target": "scripts_telemetry_engine_show_history",
       "confidence_score": 1.0
     },
@@ -19746,7 +19891,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L456",
+      "source_location": "L565",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_optimize_turn",
       "target": "scripts_telemetry_engine_analyze_state",
@@ -19756,9 +19901,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L337",
+      "source_location": "L344",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_337",
+      "source": "scripts_telemetry_engine_rationale_344",
       "target": "scripts_telemetry_engine_analyze_state",
       "confidence_score": 1.0
     },
@@ -19767,7 +19912,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L457",
+      "source_location": "L566",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_optimize_turn",
       "target": "scripts_telemetry_engine_self_critique",
@@ -19777,9 +19922,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L362",
+      "source_location": "L369",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_362",
+      "source": "scripts_telemetry_engine_rationale_369",
       "target": "scripts_telemetry_engine_self_critique",
       "confidence_score": 1.0
     },
@@ -19788,7 +19933,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L458",
+      "source_location": "L581",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_optimize_turn",
       "target": "scripts_telemetry_engine_correction_pass",
@@ -19798,9 +19943,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L416",
+      "source_location": "L423",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_416",
+      "source": "scripts_telemetry_engine_rationale_423",
       "target": "scripts_telemetry_engine_correction_pass",
       "confidence_score": 1.0
     },
@@ -19809,7 +19954,70 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L585",
+      "source_location": "L562",
+      "weight": 1.0,
+      "source": "scripts_telemetry_engine_optimize_turn",
+      "target": "scripts_telemetry_engine_load_baseline",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L464",
+      "weight": 1.0,
+      "source": "scripts_telemetry_engine_rationale_464",
+      "target": "scripts_telemetry_engine_load_baseline",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L584",
+      "weight": 1.0,
+      "source": "scripts_telemetry_engine_optimize_turn",
+      "target": "scripts_telemetry_engine_update_baseline",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L501",
+      "weight": 1.0,
+      "source": "scripts_telemetry_engine_rationale_501",
+      "target": "scripts_telemetry_engine_update_baseline",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L575",
+      "weight": 1.0,
+      "source": "scripts_telemetry_engine_optimize_turn",
+      "target": "scripts_telemetry_engine_check_degradation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L521",
+      "weight": 1.0,
+      "source": "scripts_telemetry_engine_rationale_521",
+      "target": "scripts_telemetry_engine_check_degradation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L720",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_main",
       "target": "scripts_telemetry_engine_optimize_turn",
@@ -19819,9 +20027,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L451",
+      "source_location": "L550",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_451",
+      "source": "scripts_telemetry_engine_rationale_550",
       "target": "scripts_telemetry_engine_optimize_turn",
       "confidence_score": 1.0
     },
@@ -19830,7 +20038,7 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L480",
+      "source_location": "L615",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_build_parser",
       "target": "argumentparser",
@@ -19841,7 +20049,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L524",
+      "source_location": "L659",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_main",
       "target": "scripts_telemetry_engine_build_parser",
@@ -70397,5 +70605,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "05146bc616a5ab00eb4e18a0fb992526d4def82a"
+  "built_at_commit": "644f384aa6c7c4317e40955de195218a2291aad9"
 }
