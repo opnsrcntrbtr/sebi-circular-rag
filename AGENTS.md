@@ -177,3 +177,14 @@ Rules:
 3.  **Zero Fluff**: Strip all meta-commentary ("Here is the status...", "I have updated..."). The file must contain **only** facts.
 4.  **Anchor Preservation**: You are FORBIDDEN from abbreviating file paths, error constants, API routes, or variable names. These are **Retrieval Anchors** and must match the codebase character-for-character.
 5.  **TDD/BDD Parity**: Ensure the status reflects *current* passing tests. Do not document planned features as "active" unless verified by a passing test.
+
+## 📉 Documentation Token Optimization Protocol
+*Trigger: Apply these rules whenever creating, updating, or reading files inside `@docs/`.*
+
+**Goal:** Maintain documentation as high-density, low-token Context Anchors optimized for LLM Hot Cache processing rather than fluid human reading.
+
+**Strict Formatting Rules:**
+1. **System-to-Schema Conversion**: Convert all descriptive system states, folder directories, module purposes, configurations, and data flows into **YAML** or single-line JSON structures. Never use narrative paragraphs.
+2. **Zero-Fluff State Matrices**: Use compact tables and explicit emoji status flags to track features. Eliminate historical logs, alternative options that were skipped, or prose justifications.
+3. **Anchor Preservation**: You are strictly FORBIDDEN from abbreviating or modifying file paths, exact technological stack tags, domain structures, error constants, or variable names. They must match the source files character-for-character to maintain exact semantic retrieval hooks.
+4. **TDD/BDD Alignment**: Documentation metrics must map directly to active BDD feature files or unit test baselines. Do not document unverified or loose conceptual ideas as active states.

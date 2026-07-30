@@ -84,27 +84,29 @@ env: SEBI_RAG_GATE | SEBI_RAG_SUBJ_THRESHOLD | SEBI_RAG_SECT_THRESHOLD
 | 12 | End-to-end RAG: bge-m3 (MPS) + bm25s + RRF → bge-reranker-v2-m3 CrossEncoder (MPS) → Ollama llama3.1:8b (seed 42, temp 0) + abstention; 7 passed in ~15s | ✅ PASS |
 
 
-| Phase | Item | Status |
+| Phase | Item | Key Facts |
 |---|---|---|
-| P1 | Golden eval set + harness (v1→v7); corpus 705/77,841; `eval_harness.py` (recall@10, MRR, nDCG, citation prec/recall, abstention acc, faithfulness, injection_flagged); `corpus.py`; `eval.py`; `calibrate.py` | ✅ Complete |
-| P2 | Cross-document supersession; `lineage.py` (12,849 B, class `Lineage`, 17 functions: status, explicit_superseded_by, build_lineage, add_supersede, demote_superseded, superseded_citations); 705 records, 5 edges (90 false-positives removed) | ✅ Complete |
-| P3 | FastAPI; `api.py` (10,475 B): GET /health, POST /query; auth: SEBI_RAG_API_KEY → X-API-Key (401); rate limit: SEBI_RAG_RATE_PER_MIN (429); latency_ms; citations_meta | ✅ Complete |
-| — | Scraping: `scraping_plan.md` (8,278 B), `scripts/scrape_sebi.py` (11,487 B); robots.txt verified; polite stdlib scraper → ingest_pdf → corpus; Legal>Master (ssid=6, 135 recs); Circulars (ssid=7, ~2.8k) | ✅ Complete |
-| — | PDF ingestion: `ingest_pdf.py` (13,918 B): pdfplumber extraction (circular number, date, subject, dept, version lineage); provenance, dedupe, --replace | ✅ Complete |
-| — | Index persistence: `HybridRetriever.save/load/index_exists` (FAISS + bm25s + chunks + meta); `scripts/build_index.py` (2,367 B) → `data/index/` (1.0 GB); load <1s | ✅ Complete |
-| — | Supersession warning: `pipeline.py` (6,207 B) imports demote_superseded/superseded_citations; superseded_penalty=0.3; `Answer.superseded` | ✅ Complete |
-| — | Generation latency: MLXGenerator (MLX-LM, Apple-Silicon native); `generate.py` (15,898 B) class MLXGenerator (line 265); Qwen2.5-1.5B-4bit ~0.2s; /query: ~18.8s → ~2.1s warm (~9x); env SEBI_RAG_GENERATOR=mlx|ollama, SEBI_RAG_MLX_MODEL; SEBI_RAG_TIMEOUT_S default 30s | ✅ Complete |
-| — | Faithfulness: `generate.py` faithfulness(text, allowed_ids) (line 21): flags bracketed citations absent from context; returns (score, unsupported_citations); pipeline appends caution | ✅ Complete |
-| — | Supersession-aware retrieval: demote_superseded penalises superseded chunks (superseded_penalty=0.3); verified at 705 records | ✅ Complete |
-| — | Golden set sharpening: v3 (20 queries), v4 (30 grounded, multi-label), v5 (56 held-out: 31 v4 + 15 paraphrase + 10 hard negatives), v6 (56), v7 (260) | ✅ Complete |
-| — | Chunk enrichment (F1): `segment.py` (6,843 B) prepends circular_no + subject(≤120) + section at flush; cit-prec 0.60→0.74 (+23%), recall@10 0.98→1.00, cit-rec 0.87→0.89 | ✅ Complete |
-| — | Reranker benchmark (F2): `rerank.py` (4,941 B) Qwen3MLXReranker + `bench_rerankers.py` (6,532 B); bge-reranker-v2-m3 AUROC 0.812 vs Qwen3-Reranker-0.6B AUROC 0.799 (saturation, worse precision, 2x latency) — baseline retained | ✅ Complete |
-| — | Groundedness gate (ADR-001 item 7): SubjectSimJudge (`generate.py` line 176, deterministic, bge-m3, ~30ms); two-tier gate: subject_sim ≥ 0.42 OR section_sim ≥ 0.60; env SEBI_RAG_GATE, SEBI_RAG_SUBJ_THRESHOLD, SEBI_RAG_SECT_THRESHOLD; abstention 0.875, ZERO false abstentions | ✅ Complete |
-| — | Incremental indexing (F3): `retrieve.py` build_incremental (line 105); reuses cached rows, encodes only new/changed; `build_index.py` incremental by default, --full forces re-encode; seed: 507s → 5s incremental (docs_reused=705, chunks_encoded=0) | ✅ Complete |
-| — | Prompt-injection hardening (F4): delimited data-not-instructions prompt; `ingest_pdf.py` injection_scan (8 pattern classes incl. delimiter spoofing) → injection_flags; timing-safe API-key compare | ✅ Complete |
-| — | ADR-002 certainty: top_k Field(ge=1,le=10) → 422; confidence{rerank_top,margin,subject_sim}; banded certainty (high|medium|low); abstention_reason; opt-in advisory: true → draft_answer | ✅ Complete |
-| — | n8n automation drift: `eval_json.py` (4,818 B) → golden_v5 + production-mirrored abstention; canary thresholds re-based | ✅ Complete |
-| — | Regulatory cross-reference: `scripts/build_reg_edges.py` | ✅ Complete |
+| P1 | Golden eval set + harness (v1→v7) | corpus 705/77,841; `eval_harness.py` (recall@10, MRR, nDCG, citation prec/recall, abstention acc, faithfulness); `corpus.py`; `eval.py`; `calibrate.py` |
+| P2 | Cross-document supersession | `lineage.py`: class `Lineage`, 17 functions; 705 records, 5 edges (90 false-positives removed) |
+| P3 | FastAPI | `api.py`: GET /health, POST /query; auth: SEBI_RAG_API_KEY → X-API-Key (401); rate limit: SEBI_RAG_RATE_PER_MIN (429) |
+| — | Scraping | `scripts/scrape_sebi.py`; robots.txt verified; scraper → ingest_pdf → corpus; Legal>Master (ssid=6, 135 recs); Circulars (ssid=7, ~2.8k) |
+| — | PDF ingestion | `ingest_pdf.py`: pdfplumber extraction (circular number, date, subject, dept, version lineage); provenance, dedupe, --replace |
+| — | Index persistence | `HybridRetriever.save/load/index_exists` (FAISS + bm25s + chunks + meta); `scripts/build_index.py` → `data/index/` (1.0 GB); load <1s |
+| — | Supersession warning | `pipeline.py` imports demote_superseded/superseded_citations; superseded_penalty=0.3; `Answer.superseded` |
+| — | Generation latency | MLXGenerator (MLX-LM, Apple-Silicon native); `generate.py` class MLXGenerator; Qwen2.5-1.5B-4bit ~0.2s; /query: ~18.8s → ~2.1s warm (~9x); env SEBI_RAG_GENERATOR=mlx|ollama, SEBI_RAG_MLX_MODEL; SEBI_RAG_TIMEOUT_S default 30s |
+| — | Faithfulness | `generate.py` faithfulness(text, allowed_ids): flags bracketed citations absent from context; returns (score, unsupported_citations); pipeline appends caution |
+| — | Supersession-aware retrieval | demote_superseded penalises superseded chunks (superseded_penalty=0.3); verified at 705 records |
+| — | Golden set sharpening | v3 (20 queries), v4 (30 grounded, multi-label), v5 (56 held-out: 31 v4 + 15 paraphrase + 10 hard negatives), v6 (56), v7 (260) |
+| — | Chunk enrichment (F1) | `segment.py` prepends circular_no + subject(≤120) + section at flush; cit-prec 0.60→0.74 (+23%), recall@10 0.98→1.00, cit-rec 0.87→0.89 |
+| — | Reranker benchmark (F2) | `rerank.py` Qwen3MLXReranker + `bench_rerankers.py`; bge-reranker-v2-m3 AUROC 0.812 vs Qwen3-Reranker-0.6B AUROC 0.799 (saturation, worse precision, 2x latency) — baseline retained |
+| — | Groundedness gate (ADR-001 item 7) | SubjectSimJudge (`generate.py` line 176, deterministic, bge-m3, ~30ms); two-tier gate: subject_sim ≥ 0.42 OR section_sim ≥ 0.60; env SEBI_RAG_GATE, SEBI_RAG_SUBJ_THRESHOLD, SEBI_RAG_SECT_THRESHOLD; abstention 0.875, ZERO false abstentions |
+| — | Incremental indexing (F3) | `retrieve.py` build_incremental (line 105); reuses cached rows, encodes only new/changed; `build_index.py` incremental by default, --full forces re-encode; seed: 507s → 5s incremental (docs_reused=705, chunks_encoded=0) |
+| — | Prompt-injection hardening (F4) | delimited data-not-instructions prompt; `ingest_pdf.py` injection_scan (8 pattern classes incl. delimiter spoofing) → injection_flags; timing-safe API-key compare |
+| — | ADR-002 certainty | top_k Field(ge=1,le=10) → 422; confidence{rerank_top,margin,subject_sim}; banded certainty (high|medium|low); abstention_reason; opt-in advisory: true → draft_answer |
+| — | n8n automation drift | `eval_json.py` → golden_v5 + production-mirrored abstention; canary thresholds re-based |
+| — | Regulatory cross-reference | `scripts/build_reg_edges.py` |
+
+## ADR-001 Findings Status
 ### ADR-001 Findings Status
 
 | Finding | Item | Result |
@@ -190,21 +192,7 @@ abstention_accuracy: 0.8346 (was 0.83)
 ### Build/repair flow
 `scrape → ingest_pdf → repair_corpus_text.py → renumber.py → validate-corpus → build_index.py`
 
-## Token Optimization (2026-07-28)
 
-Pre-injected context: 99,189 B (~24,800 tokens) → ~10,500 B (~2,600 tokens) — **92.7% reduction**, zero regression (603 tests pass).
-
-### Optimization phases
-| Phase | Changes | Savings |
-|---|---|---|
-| 1: On-demand context | AGENTS.md inline refs; replaced pre-injected status.md (46KB) + project_context.md (34KB); folded README.md quick ref | ~22,930 tokens/turn ✅ |
-| 2: Structural | CLAUDE.md → 350B pointer; .pi/SYSTEM.md (1,377 B); compaction/thinking budgets optimized | ~1,200 tokens/turn ✅ |
-| 3: Output & workflow | Output constraints (schemas, diffs); session workflow; model routing guidelines; PI_CACHE_RETENTION=long | — ✅ |
-| 3.1: Prompt cache | Removed redundant ## System Prompt from AGENTS.md; prefix files: .pi/SYSTEM.md (1,736 B) + AGENTS.md (7,779 B) + CLAUDE.md (350 B) = ~9.2KB | ~2,070 tokens/turn (cache hit) ✅ |
-| 3.2: Package tools | Removed pi-smart-fetch (3.7MB) + pi-smart-web-search (40KB); npm install: 87MB→4KB | ~55K–134K tokens/turn ✅ |
-
-### Files changed
-AGENTS.md, CLAUDE.md, .pi/SYSTEM.md, .pi/settings.json, .pi/env, .pi/npm/package.json, docs/optimization_summary.md, docs/optimization_roadmap.md.
 ## Last Updated
 
 2026-07-30
