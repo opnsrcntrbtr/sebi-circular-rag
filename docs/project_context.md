@@ -188,15 +188,15 @@ Real stack calibration over 705 circulars / 77,841 chunks (golden_v7):
 
 ### 7.4 Golden-Set Architecture
 
-- **Reporting set**: `eval/golden/golden_v7.jsonl` (n=260, `adjudicated_n`=103).
+- **Reporting set**: `eval/golden/golden_v7.jsonl` (n=260, `adjudicated_n`=106).
   Strata: title_direct 40, body_paraphrase 60, numeric_table 30,
   lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40,
   far_negative 10. 53 abstain rows, 15 dated `as_of` rows.
 - **Frozen fallback**: `golden_v5.jsonl` (n=56) — used when v7 gate is not armed.
 - **Golden v6**: `golden_v6.jsonl` (n=56) — intermediate set.
-- **Gate**: `eval/golden/gate_v7.json` — armed at `adjudicated_n = 103`.
+- **Gate**: `eval/golden/gate_v7.json` — armed at `adjudicated_n = 106`.
   Floors (2.5th-percentile lower bound minus 0.005 cushion):
-  recall_at_k = 0.9126, citation_recall = 0.3126, abstention_accuracy = 0.83.
+  recall_at_k = 0.9155, citation_recall = 0.3245, abstention_accuracy = 0.8346.
   CI gates on v7 only when `adjudicated_n >= 100`.
 - **Adjudication pipeline** (`scripts/golden_v7/`): seed, mine_strata, build_pool,
   gate_select, local_adjudicate (Qwen3.6-35B-MLX), gemini_adjudicate (on hold),
@@ -219,11 +219,11 @@ Real stack calibration over 705 circulars / 77,841 chunks (golden_v7):
 | `scripts/export_datasets.py` | Dataset export (chunks, corpus, lineage, eval) |
 | `scripts/calibrate.py` | Retrieval calibration sweep (RRF, top-k, threshold) |
 
-### 7.6 Current Baseline Numbers (golden_v7, adjudicated subset, n=103)
+### 7.6 Current Baseline Numbers (golden_v7, adjudicated subset, n=106)
 
-- recall_at_k: **0.9126** (gate floor)
-- citation_recall: **0.3126** (gate floor)
-- abstention_accuracy: **0.83** (gate floor)
+- recall_at_k: **0.9155** (gate floor)
+- citation_recall: **0.3245** (gate floor)
+- abstention_accuracy: **0.8346** (gate floor)
 - Full-set numbers on v5 (n=56, for reference): recall@10 0.956, citation_precision 0.711,
   citation_recall 0.889, abstention_accuracy 0.839.
 
@@ -517,8 +517,7 @@ SEBI circular RAG/
 ## 12. Known Architectural Prerequisites (tracked in status.md)
 
 - **P1** — Labelled SEBI evaluation set: **COMPLETED** (`golden_v7`, n=260,
-  `adjudicated_n`=103, gate armed). Calibrated: `top_k`=3, `score_floor`=0.05,
-  SubjectSimJudge two-tier gate.
+  `adjudicated_n`=106, gate armed). Calibrated: `top_k`=3, `score_floor`=0.05,
 - **P2** — Metadata lineage extraction: **COMPLETED** (`lineage.py`, 1,222 edges,
   74 superseded-in-corpus, answer-layer warnings wired).
 
