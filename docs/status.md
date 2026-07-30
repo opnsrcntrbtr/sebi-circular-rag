@@ -144,9 +144,9 @@ Low κ on title_direct/multi_hop/numeric_table: spec §7 promotion amendment (20
 ### Gate floors (260 adjudicated)
 ```yaml
 adjudicated_n: 260 (>= 100 threshold met)
-recall_at_k: 0.9155 (was 0.9126)
-citation_recall: 0.3245 (was 0.3126)
-abstention_accuracy: 0.8346 (was 0.83)
+recall_at_k: 0.964 (was 0.9155, +0.0485)
+citation_recall: 0.531 (was 0.3245, +0.2065)
+abstention_accuracy: 0.892 (was 0.8346, +0.0574)
 ```
 
 ### Key decisions
