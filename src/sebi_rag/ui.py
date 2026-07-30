@@ -1,5 +1,7 @@
 import json
+import socket
 from datetime import date
+from urllib.parse import urlparse
 
 import gradio as gr
 import httpx
@@ -29,6 +31,80 @@ def _parse_as_of(raw: str) -> str | None:
     return date.fromisoformat(raw).isoformat()
 
 
+def _validate_api_url(url: str) -> None:
+    """SSRF guard: reject URLs pointing to private/internal/reserved addresses.
+
+    Blocks cloud-metadata IPs, RFC-1918/private ranges, link-local,
+    loopback (except 127.0.0.1), and non-http schemes.
+    """
+    parsed = urlparse(url)
+
+    # Only allow http / https schemes
+    if parsed.scheme not in ("http", "https"):
+        raise ValueError(f"SSRF blocked: scheme '{parsed.scheme}' not allowed")
+
+    host = parsed.hostname
+    if not host:
+        raise ValueError(f"SSRF blocked: could not resolve hostname from '{url}'")
+    # Resolve to IP and check against private/reserved ranges
+    try:
+        addr_info = socket.getaddrinfo(host, None, socket.AF_INET)  # IPv4 only
+    except socket.gaierror:
+        return  # unresolvable hostname — let httpx handle the DNS error naturally
+
+    ip = addr_info[0][4][0]  # first resolved IP address
+
+    octets = list(map(int, ip.split(".")))
+    first_octet = octets[0]
+    second_octet = octets[1]
+
+    # Block cloud metadata (AWS 169.254.169.254, GCP metadata, etc.)
+    if first_octet == 169 and second_octet == 254:
+        raise ValueError(f"SSRF blocked: metadata endpoint {ip}")
+
+    # Block loopback (allow 127.0.0.1 explicitly — common for local dev)
+    if first_octet == 127:
+        return  # allow loopback
+
+    # Block private ranges (RFC 1918)
+    if first_octet == 10:
+        raise ValueError(f"SSRF blocked: private network {ip}")
+    if first_octet == 172 and 16 <= second_octet <= 31:
+        raise ValueError(f"SSRF blocked: private network {ip}")
+    if first_octet == 192 and second_octet == 168:
+        raise ValueError(f"SSRF blocked: private network {ip}")
+
+    # Block link-local (169.254.x.x already caught above, plus 0.0.0.0)
+    if first_octet == 0:
+        raise ValueError(f"SSRF blocked: zero address {ip}")
+
+    # Block multicast (224.0.0.0/4) and reserved (240.0.0.0/4)
+    if first_octet >= 224:
+        raise ValueError(f"SSRF blocked: reserved/multicast address {ip}")
+
+    # Block documentation/test ranges (198.18.0.0/15, 192.0.2.x)
+    if first_octet == 198 and second_octet == 18:
+        raise ValueError(f"SSRF blocked: benchmark range {ip}")
+    if first_octet == 192 and second_octet == 0 and octets[2] == 2:
+        raise ValueError(f"SSRF blocked: TEST-NET-1 {ip}")
+
+    # Block documentation ranges (198.51.100.0/24, 203.0.113.0/24)
+    if first_octet == 198 and second_octet == 51 and octets[2] == 100:
+        raise ValueError(f"SSRF blocked: TEST-NET-2 {ip}")
+    if first_octet == 203 and second_octet == 0 and octets[2] == 113:
+        raise ValueError(f"SSRF blocked: TEST-NET-3 {ip}")
+
+    # Block documentation range 100.64.0.0/10 (CGNAT)
+    if first_octet == 100 and 64 <= second_octet <= 127:
+        raise ValueError(f"SSRF blocked: CGNAT range {ip}")
+
+    # Block IANA reserved / special-purpose
+    if first_octet == 192 and second_octet == 88 and octets[2] == 99:
+        raise ValueError(f"SSRF blocked: IANA reserved {ip}")
+
+    # If we get here, the IP is public — allow it
+
+
 def submit_query(question: str, api_url: str, api_key: str, top_k: float,
                  mode: str, as_of_raw: str, advisory: bool) -> tuple:
     if not question.strip():
@@ -46,6 +122,9 @@ def submit_query(question: str, api_url: str, api_key: str, top_k: float,
 
     payload = {"question": question, "top_k": int(top_k),
                "mode": mode, "advisory": bool(advisory), "as_of": as_of}
+
+    # --- SSRF guard: validate api_url before making the request ---
+    _validate_api_url(api_url)
 
     try:
         resp = httpx.post(api_url, json=payload, headers=headers, timeout=120.0)
