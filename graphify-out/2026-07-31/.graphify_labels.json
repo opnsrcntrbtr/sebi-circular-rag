@@ -101,7 +101,7 @@
   "102": "float",
   "104": "test_build_reg_edges.py",
   "107": "write_jsonl",
-  "108": "TestPerQueryRecall",
+  "108": ".test_mean_reproduces_the_archived_aggregate",
   "110": "int",
   "112": "test_annotation_adds_no_circular_meta_field",
   "115": "float",
