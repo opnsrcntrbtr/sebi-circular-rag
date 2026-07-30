@@ -327,6 +327,151 @@ def show_history(top_n: int = 10) -> None:
     print(f"{'='*80}\n")
 
 
+
+# ---------------------------------------------------------------------------
+# Turn-Based Optimization (Self-Critique & Correction Pass)
+# ---------------------------------------------------------------------------
+
+
+def analyze_state(prompt: str, intent: str = "") -> dict[str, Any]:
+    """State Analysis: inspect prompt complexity and session context.
+
+    Returns a lightweight state vector used by the critique matrix.
+    """
+    word_count = len(prompt.split())
+    has_code = any(c in prompt for c in ["```", "def ", "class ", "import ", "func "])
+    has_schema = any(c in prompt for c in ["JSON", "schema", "YAML", "config"])
+    has_multi_file = prompt.lower().count("file") + prompt.lower().count("path") > 2
+
+    complexity = "simple"
+    if word_count > 100 or has_multi_file:
+        complexity = "moderate"
+    if word_count > 250 or (has_code and has_schema):
+        complexity = "complex"
+
+    return {
+        "prompt_length": word_count,
+        "has_code": has_code,
+        "has_schema": has_schema,
+        "multi_file": has_multi_file,
+        "complexity": complexity,
+    }
+
+
+def self_critique(draft: str, state: dict[str, Any]) -> dict[str, Any]:
+    """Self-Critique Matrix: measure draft against three excellence criteria.
+
+    Returns a critique dict with scores and flagged issues per criterion.
+    """
+    # --- Conciseness ---
+    sentences = [s.strip() for s in draft.replace("\n", " ").split(".") if s.strip()]
+    filler_phrases = [
+        "i think", "i believe", "basically", "essentially", "in order to",
+        "it is important to note", "as mentioned earlier", "furthermore",
+        "additionally", "however, it should be noted",
+    ]
+    filler_count = sum(1 for s in sentences if any(f in s.lower() for f in filler_phrases))
+    avg_sentence_len = len(draft.split()) / max(len(sentences), 1)
+    conciseness_score = max(0, 10 - filler_count - (avg_sentence_len - 15) / 3)
+    conciseness_flags = []
+    if filler_count > 2:
+        conciseness_flags.append(f"High filler phrase count ({filler_count})")
+    if avg_sentence_len > 25:
+        conciseness_flags.append(f"Long average sentence length ({avg_sentence_len:.0f} words)")
+
+    # --- Technical Fidelity ---
+    tech_flags = []
+    if state.get("has_code"):
+        # Check for common outdated patterns (expand as needed)
+        if "from __future__ import" in draft and "python 2" not in prompt.lower():
+            tech_flags.append("Outdated __future__ import (Python 2 compat)")
+        if "print >>" in draft:
+            tech_flags.append("Python 2 print syntax detected")
+
+    # --- Instruction Adherence ---
+    instruction_flags = []
+    prompt_lower = draft.lower()
+    if state.get("complexity") == "complex" and len(sentences) < 5:
+        instruction_flags.append("Response may be too brief for complex prompt")
+    if state.get("has_schema") and "json" not in prompt_lower and "yaml" not in prompt_lower:
+        instruction_flags.append("Schema request may lack structured output")
+
+    return {
+        "conciseness": {
+            "score": round(conciseness_score, 2),
+            "flags": conciseness_flags,
+        },
+        "technical_fidelity": {
+            "score": 10.0 if not tech_flags else max(5.0, 10.0 - len(tech_flags) * 2),
+            "flags": tech_flags,
+        },
+        "instruction_adherence": {
+            "score": 10.0 if not instruction_flags else max(5.0, 10.0 - len(instruction_flags) * 2),
+            "flags": instruction_flags,
+        },
+    }
+
+
+def correction_pass(critique: dict[str, Any], draft: str) -> tuple[str, list[str]]:
+    """Correction Pass: rewrite flagged portions and return refined draft.
+
+    Returns (refined_draft, list_of_changes_made).
+    """
+    changes: list[str] = []
+    refined = draft
+
+    # Apply concise fixes
+    if critique["conciseness"]["score"] < 7:
+        filler_replacements = {
+            "in order to": "to",
+            "it is important to note that": "",
+            "as mentioned earlier": "",
+            "furthermore": "",
+            "additionally": "",
+        }
+        for old, new in filler_replacements.items():
+            if old in refined.lower():
+                refined = refined.replace(old, new)
+                changes.append(f"Removed filler: '{old}'")
+
+    # Apply technical fixes (placeholder — real fixes would be more sophisticated)
+    if critique["technical_fidelity"]["score"] < 8:
+        for flag in critique["technical_fidelity"]["flags"]:
+            changes.append(f"Flagged: {flag}")
+
+    # Apply instruction adherence fixes (placeholder)
+    if critique["instruction_adherence"]["score"] < 8:
+        for flag in critique["instruction_adherence"]["flags"]:
+            changes.append(f"Flagged: {flag}")
+
+    return refined, changes
+
+
+def optimize_turn(prompt: str, draft: str) -> dict[str, Any]:
+    """Orchestrator: run full turn-based optimization workflow.
+
+    Steps: State Analysis → Self-Critique Matrix → Correction Pass.
+    Returns dict with state, critique scores, changes made, and final draft.
+    """
+    state = analyze_state(prompt)
+    critique = self_critique(draft, state)
+    refined_draft, changes = correction_pass(critique, draft)
+
+    overall_score = (
+        critique["conciseness"]["score"]
+        + critique["technical_fidelity"]["score"]
+        + critique["instruction_adherence"]["score"]
+    ) / 3.0
+
+    return {
+        "state": state,
+        "critique": critique,
+        "overall_score": round(overall_score, 2),
+        "changes_made": changes if changes else ["Fully Optimized"],
+        "refined_draft": refined_draft,
+    }
+
+
 # ---------------------------------------------------------------------------
 # CLI Entry Point
 # ---------------------------------------------------------------------------
@@ -364,6 +509,13 @@ def build_parser() -> argparse.ArgumentParser:
     # history
     hist = sub.add_parser("history", help="Show recent telemetry history")
     hist.add_argument("--top", "-n", type=int, default=10, help="Number of recent entries to show")
+
+
+    # optimize — turn-based self-critique and correction pass
+    opt = sub.add_parser("optimize", help="Run turn-based self-critique optimization on a draft")
+    opt.add_argument("--prompt", "-p", required=True, help="Original user prompt (for state analysis)")
+    opt.add_argument("--draft", "-d", required=True, help="Draft response text to optimize")
+    opt.add_argument("--json", action="store_true", help="Output as JSON instead of formatted text")
 
     return parser
 
@@ -427,6 +579,26 @@ def main() -> None:
               f"free_ram={entry['hardware_state']['free_ram_gb']}GB, "
               f"safety={'SAFE' if entry['safety']['is_safe'] else 'UNSTABLE'}")
         print(f"Saved to {TELEMETRY_FILE}")
+
+
+    elif args.command == "optimize":
+        result = optimize_turn(args.prompt, args.draft)
+        if args.json:
+            import json as _json
+            # Remove refined_draft from JSON output to avoid huge payloads
+            out = {k: v for k, v in result.items() if k != "refined_draft"}
+            print(_json.dumps(out, indent=2))
+        else:
+            print(f"\n{'='*60}")
+            print(f"  Turn-Based Optimization — Results")
+            print(f"{'='*60}")
+            print(f"  State Complexity:   {result['state']['complexity']}")
+            print(f"  Overall Score:      {result['overall_score']}/10.0")
+            print(f"  Conciseness:        {result['critique']['conciseness']['score']}/10.0")
+            print(f"  Technical Fidelity: {result['critique']['technical_fidelity']['score']}/10.0")
+            print(f"  Instruction Adhere: {result['critique']['instruction_adherence']['score']}/10.0")
+            print(f"  Changes Made:       {', '.join(result['changes_made'])}")
+            print(f"{'='*60}\n")
 
     else:
         parser.print_help()

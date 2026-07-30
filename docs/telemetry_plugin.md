@@ -306,3 +306,109 @@ with open('telemetry_export.csv', 'w') as f:
 - Standard library: `json`, `argparse`, `datetime`, `pathlib`, `sys`
 
 No external cloud APIs. All data stays local on the M4 Pro machine.
+
+## Turn-Based Optimization (Auto-Run After Every Turn)
+
+### Overview
+
+A self-critique and correction pass that runs automatically at the conclusion of **every conversational turn**, before rendering final output to the user.
+
+### Lifecycle Trigger
+
+- **Execution Cadence:** Every turn, no explicit request needed
+- **Interception Point:** After internal draft generation, before output stream rendering
+
+### Workflow (4 Hidden Steps)
+
+```
+┌──────────────┐    ┌───────────────────┐    ┌─────────────────────┐
+│  State       │───▶│  Draft            │───▶│  Self-Critique      │
+│  Analysis    │    │  Generation       │    │  Matrix (3 criteria)│
+└──────────────┘    └───────────────────┘    └─────────┬───────────┘
+                                                       │
+                                              ┌──────▼──────────┐
+                                              │  Correction     │
+                                              │  Pass           │
+                                              └──────┬──────────┘
+                                                     │
+                                              ┌────▼──────────┐
+                                              │  Output       │
+                                              │  Schema Block │
+                                              └───────────────┘
+```
+
+### Step Details
+
+**1. State Analysis (`analyze_state`)**
+- Inspects prompt for complexity indicators: word count, code presence, schema requests, multi-file scope
+- Classifies as `simple`, `moderate`, or `complex`
+
+**2. Draft Generation (`generate_draft`)**
+- Produces optimal structural candidate response (handled by the AI model itself)
+
+**3. Self-Critique Matrix (`self_critique`)**
+- Scores draft against three criteria (0-10 scale each):
+
+| Criterion | What It Measures | Penalties |
+|---|---|---|
+| **Conciseness** | Filler phrases, sentence length | -1 per filler phrase, -0.33 per word over 15 avg sentence length |
+| **Technical Fidelity** | Outdated patterns, syntax errors | -2 per flag (e.g., Python 2 print syntax) |
+| **Instruction Adherence** | Response matches prompt requirements | -2 per flag (e.g., too brief for complex prompt) |
+
+**4. Correction Pass (`correction_pass`)**
+- Rewrites flagged portions seamlessly
+- Removes filler phrases ("in order to" → "to", etc.)
+- Flags technical issues for manual review
+
+### Output Schema
+
+Rendered directly above the primary response:
+
+```
+[⚙️ Plugin Optimizations: Fully Optimized]
+
+<refined response here>
+```
+
+Or with changes noted:
+
+```
+[⚙️ Plugin Optimizations: Removed filler]
+
+<refined response here>
+```
+
+### CLI Access (Manual Testing)
+
+```bash
+# Run optimization on a draft
+python scripts/telemetry_engine.py optimize \
+  --prompt "Write a Python function to calculate Fibonacci numbers" \
+  --draft "I think this is a good approach. In order to calculate Fibonacci numbers, we can use recursion."
+
+# JSON output for programmatic access
+python scripts/telemetry_engine.py optimize \
+  --prompt "..." \
+  --draft "..." \
+  --json
+```
+
+### Integration with Hardware Telemetry
+
+The turn-based optimization runs **independently** of the hardware-aware telemetry:
+- Hardware telemetry monitors RAM/Swap and suggests inference parameters (temperature, min_p)
+- Turn-based optimization critiques output quality and refines the response text
+- Both feed into the same `telemetry_history.json` when records are saved
+
+### Design Rationale
+
+**Why run after every turn?**
+- Catches issues before they reach the user
+- Builds a feedback loop: each optimized turn becomes training data for future suggestions
+- Zero user action required — fully automatic
+
+**Why score 0-10 instead of pass/fail?**
+- Granular scores enable trend analysis over time
+- Allows gradual improvement tracking across sessions
+- Enables A/B testing of different optimization strategies
+

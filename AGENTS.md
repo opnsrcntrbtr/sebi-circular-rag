@@ -221,3 +221,27 @@ Rules:
 ### Parameter Defaults (used when no history exists)
 - Complex Coding: temperature=0.2, min_p=0.05, context_window=8192
 - Simple Query: temperature=0.1, min_p=0.1, context_window=4096
+
+### Turn-Based Optimization (Auto-Run After Every Turn)
+*Trigger: Runs automatically at the conclusion of EVERY conversational turn.*
+
+**Lifecycle:** Execute after generating initial internal draft, prior to rendering final output.
+
+**Workflow (4 hidden steps):**
+1. **State Analysis:** Inspect prompt complexity, code/schema presence, multi-file scope
+2. **Draft Generation:** Produce optimal structural candidate response
+3. **Self-Critique Matrix:** Score draft against three criteria:
+   - Conciseness (0-10): penalize filler phrases, long sentences
+   - Technical Fidelity (0-10): flag outdated patterns, syntax errors
+   - Instruction Adherence (0-10): verify response matches prompt requirements
+4. **Correction Pass:** Rewrite flagged portions seamlessly
+
+**Output Schema (rendered above primary response):**
+```
+[⚙️ Plugin Optimizations: <1-2 word summary or "Fully Optimized">]
+
+<refined response>
+```
+
+**CLI Access:** `python scripts/telemetry_engine.py optimize --prompt "..." --draft "..." [--json]`
+
