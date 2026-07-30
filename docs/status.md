@@ -23,13 +23,25 @@
 | **Automation** | n8n workflows in `automation/n8n/` |
 
 ### Production metrics (real stack, 705 circulars)
-- recall@10 ≈ 0.98; citation_precision ~0.73–0.77 @ top_k=3; citation_recall ~0.91–0.96
-- abstention 0.875 (subject-sim gate); faithfulness 1.0
-- Generation: MLXGenerator (Qwen2.5-0.5B-4bit) ~2.1s warm; Ollama fallback (env SEBI_RAG_GENERATOR=mlx|ollama, SEBI_RAG_MLX_MODEL)
-- Index reload: 0.34s; incremental reindex: ~82s for delta (8x faster than full ~8 min)
+```yaml
+metrics:
+  recall_at_10: ~0.98
+  citation_precision_top3: 0.73-0.77
+  citation_recall_top3: 0.91-0.96
+  abstention_accuracy: 0.875 (subject-sim gate)
+  faithfulness: 1.0
+latency:
+  generation_warm: ~2.1s (MLXGenerator Qwen2.5-0.5B-4bit)
+  index_reload: 0.34s
+  incremental_reindex_delta: ~82s (8x vs full ~8min)
+fallback:
+  generator: Ollama (env SEBI_RAG_GENERATOR=mlx|ollama)
+  mlx_model: (env SEBI_RAG_MLX_MODEL)
+```
+### Operating point constraints
+top_k: 3 | score_floor: 0.05 | two-tier gate (subject ≥ 0.42 OR section ≥ 0.60)
+env: SEBI_RAG_GATE | SEBI_RAG_SUBJ_THRESHOLD | SEBI_RAG_SECT_THRESHOLD
 
-### Operating point
-`top_k=3`, score floor 0.05, two-tier subject+section gate (subject ≥ 0.42 OR section ≥ 0.60); env SEBI_RAG_GATE, SEBI_RAG_SUBJ_THRESHOLD, SEBI_RAG_SECT_THRESHOLD.
 
 ## Source Architecture
 
@@ -54,133 +66,145 @@
 
 ## Completed Phases & Validation
 
-### Prerequisite Validations (Steps 1–12) — All PASS
+### Prerequisite Validations (Steps 1–12)
 
 | Step | Item | Result |
 |---|---|---|
-| 1 | Hardware & macOS: Apple M4 Pro, 14 cores (10P+4E), 48 GiB, arm64, ~1 TB SSD; macOS 25F80 | PASS |
-| 2 | Xcode CLT: pkg 26.6.0.0; Apple clang 21.0.0, git 2.50.1, GNU Make 3.81 | PASS |
-| 3 | Homebrew: 6.0.5, ARM prefix /opt/homebrew, on PATH | PASS |
-| 4 | Python + uv: Python 3.14.6 (arm64), uv 0.11.25; project venv pins 3.12.x | PASS |
-| 5 | Git: 2.54.0 (Homebrew); identity configured, init.defaultBranch=main | PASS |
-| 6 | MLX: .venv (Python 3.12.13); mlx 0.31.2 + mlx-lm 0.31.3; Metal GPU verified (516 tok/s, 0.34 GB) | PASS |
-| 7 | Ollama: 0.30.6 (≥0.19, MLX backend); server on :11434; inference OK | PASS |
-| 8 | PyTorch MPS: torch 2.12.1 MPS available+built; sentence-transformers 5.6.0; FlagEmbedding 1.4.0 | PASS |
-| 9 | FAISS: faiss-cpu 1.14.3; IndexFlatIP + IndexHNSWFlat build+search OK | PASS |
-| 10 | Embeddings + Reranker: bge-m3 on MPS (dense 1024 + sparse + ColBERT); bge-reranker-v2-m3 CrossEncoder (scores [0.9914,0,0]); FlagReranker unusable on transformers 5.x | PASS |
-| 11 | Repo scaffold: src/sebi_rag (segment, embeddings, retrieve, rerank, generate, eval, pipeline), tests/, pyproject.toml; bm25s 0.3.9, pytest 9.1.1 | PASS |
-| 12 | End-to-end RAG: bge-m3 (MPS) + bm25s + RRF → bge-reranker-v2-m3 CrossEncoder (MPS) → Ollama llama3.1:8b (seed 42, temp 0) + abstention; 7 passed in ~15s | PASS |
+| 1 | Hardware & macOS: Apple M4 Pro, 14 cores (10P+4E), 48 GiB, arm64, ~1 TB SSD; macOS 25F80 | ✅ PASS |
+| 2 | Xcode CLT: pkg 26.6.0.0; Apple clang 21.0.0, git 2.50.1, GNU Make 3.81 | ✅ PASS |
+| 3 | Homebrew: 6.0.5, ARM prefix /opt/homebrew, on PATH | ✅ PASS |
+| 4 | Python + uv: Python 3.14.6 (arm64), uv 0.11.25; project venv pins 3.12.x | ✅ PASS |
+| 5 | Git: 2.54.0 (Homebrew); identity configured, init.defaultBranch=main | ✅ PASS |
+| 6 | MLX: .venv (Python 3.12.13); mlx 0.31.2 + mlx-lm 0.31.3; Metal GPU verified (516 tok/s, 0.34 GB) | ✅ PASS |
+| 7 | Ollama: 0.30.6 (≥0.19, MLX backend); server on :11434; inference OK | ✅ PASS |
+| 8 | PyTorch MPS: torch 2.12.1 MPS available+built; sentence-transformers 5.6.0; FlagEmbedding 1.4.0 | ✅ PASS |
+| 9 | FAISS: faiss-cpu 1.14.3; IndexFlatIP + IndexHNSWFlat build+search OK | ✅ PASS |
+| 10 | Embeddings + Reranker: bge-m3 on MPS (dense 1024 + sparse + ColBERT); bge-reranker-v2-m3 CrossEncoder (scores [0.9914,0,0]); FlagReranker unusable on transformers 5.x | ✅ PASS |
+| 11 | Repo scaffold: src/sebi_rag (segment, embeddings, retrieve, rerank, generate, eval, pipeline), tests/, pyproject.toml; bm25s 0.3.9, pytest 9.1.1 | ✅ PASS |
+| 12 | End-to-end RAG: bge-m3 (MPS) + bm25s + RRF → bge-reranker-v2-m3 CrossEncoder (MPS) → Ollama llama3.1:8b (seed 42, temp 0) + abstention; 7 passed in ~15s | ✅ PASS |
 
-### Phase Deliverables
 
 | Phase | Item | Status |
 |---|---|---|
-| P1 | Golden eval set + harness (7 versions: v1→v7); corpus 705 records, 77,841 chunks; harness: `eval_harness.py` (recall@10, MRR, nDCG, citation prec/recall, abstention acc, faithfulness, injection_flagged); corpus: `corpus.py`; eval: `eval.py`; calibration: `calibrate.py` | Complete |
-| P2 | Cross-document supersession resolution; `lineage.py` (12,849 B, class `Lineage`, 17 functions: status, explicit_superseded_by, build_lineage, add_supersede, demote_superseded, superseded_citations); 705 records annotated, 5 lineage edges (90 false-positives removed via corpus text repair) | Complete |
-| P3 | FastAPI service; `api.py` (10,475 B): GET /health, POST /query (answer + citations + abstained + superseded + retrieved); auth: SEBI_RAG_API_KEY → X-API-Key (401); rate limit: SEBI_RAG_RATE_PER_MIN (429); latency_ms per response; citations_meta with status + superseded_by | Complete |
-| — | Scraping plan + scraper; `scraping_plan.md` (8,278 B), `scripts/scrape_sebi.py` (11,487 B); robots.txt verified; polite stdlib scraper (UA, rate-limit, backoff, checksum dedupe) → ingest_pdf → corpus; Legal>Master (ssid=6, 135 recs); Circulars (ssid=7, ~2.8k) | Complete |
-| — | PDF ingestion; `ingest_pdf.py` (13,918 B): pdfplumber extraction (header circular number, date, subject, dept, version lineage); provenance, dedupe, --replace | Complete |
-| — | Index persistence; `HybridRetriever.save/load/index_exists` (FAISS + bm25s + chunks + meta); `scripts/build_index.py` (2,367 B) → `data/index/` (1.0 GB); load <1s | Complete |
-| — | Answer-layer supersession warning; `pipeline.py` (6,207 B) imports demote_superseded/superseded_citations; superseded_penalty=0.3; `Answer.superseded` set | Complete |
-| — | Generation latency reduction; MLXGenerator (MLX-LM, Apple-Silicon native); `generate.py` (15,898 B) class MLXGenerator (line 265); Qwen2.5-1.5B-4bit ~0.2s; end-to-end /query: ~18.8s → ~2.1s warm (~9x); env SEBI_RAG_GENERATOR=mlx|ollama, SEBI_RAG_MLX_MODEL; SEBI_RAG_TIMEOUT_S default 30s | Complete |
-| — | Faithfulness verification; `generate.py` faithfulness(text, allowed_ids) (line 21): flags bracketed citations absent from retrieved context; returns (score, unsupported_citations); pipeline appends caution when unsupported_citations | Complete |
-| — | Supersession-aware retrieval; demote_superseded penalises superseded chunks in rerank (superseded_penalty=0.3); verified at 705 records | Complete |
-| — | Golden set sharpening: v3 (20 discriminating queries), v4 (30 grounded queries, multi-label), v5 (56 held-out: 31 v4 + 15 paraphrase with title-vocab non-overlap + 10 hard negatives), v6 (56), v7 (260) | Complete |
-| — | Contextual chunk enrichment (F1); `segment.py` (6,843 B) prepends circular_no + subject(≤120) + section to every chunk at flush; cit-prec 0.60→0.74 (+23%), recall@10 0.98→1.00, cit-rec 0.87→0.89 | Complete |
-| — | Reranker benchmark (F2); `rerank.py` (4,941 B) Qwen3MLXReranker + `bench_rerankers.py` (6,532 B); bge-reranker-v2-m3 AUROC 0.812 vs Qwen3-Reranker-0.6B AUROC 0.799 (saturation, worse precision, 2x latency) — **baseline retained** | Complete |
-| — | Groundedness gate (ADR-001 item 7); SubjectSimJudge adopted: `generate.py` class SubjectSimJudge (line 176, deterministic, reuses bge-m3, ~30ms); two-tier gate: subject_sim ≥ 0.42 OR section_sim ≥ 0.60; env SEBI_RAG_GATE, SEBI_RAG_SUBJ_THRESHOLD, SEBI_RAG_SECT_THRESHOLD; abstention 0.875, ZERO gate false abstentions | Complete |
-| — | Incremental indexing (F3); `retrieve.py` build_incremental (line 105): reuses cached rows for unchanged docs, encodes only new/changed; `build_index.py` incremental by default, --full forces re-encode; seed: 507s full → 5s incremental (docs_reused=705, chunks_encoded=0) | Complete |
-| — | Prompt-injection hardening (F4); delimited data-not-instructions grounded prompt; `ingest_pdf.py` injection_scan (8 pattern classes incl. delimiter spoofing) → injection_flags; timing-safe API-key compare | Complete |
-| — | ADR-002 certainty architecture; top_k Field(ge=1,le=10) → 422; confidence{rerank_top,margin,subject_sim}; banded certainty (high|medium|low); abstention_reason; opt-in advisory: true → draft_answer | Complete |
-| — | n8n automation drift review; `eval_json.py` (4,818 B) → golden_v5 + production-mirrored abstention; canary thresholds re-based | Complete |
-| — | Regulatory cross-reference infrastructure; `scripts/build_reg_edges.py` | Complete |
-
+| P1 | Golden eval set + harness (v1→v7); corpus 705/77,841; `eval_harness.py` (recall@10, MRR, nDCG, citation prec/recall, abstention acc, faithfulness, injection_flagged); `corpus.py`; `eval.py`; `calibrate.py` | ✅ Complete |
+| P2 | Cross-document supersession; `lineage.py` (12,849 B, class `Lineage`, 17 functions: status, explicit_superseded_by, build_lineage, add_supersede, demote_superseded, superseded_citations); 705 records, 5 edges (90 false-positives removed) | ✅ Complete |
+| P3 | FastAPI; `api.py` (10,475 B): GET /health, POST /query; auth: SEBI_RAG_API_KEY → X-API-Key (401); rate limit: SEBI_RAG_RATE_PER_MIN (429); latency_ms; citations_meta | ✅ Complete |
+| — | Scraping: `scraping_plan.md` (8,278 B), `scripts/scrape_sebi.py` (11,487 B); robots.txt verified; polite stdlib scraper → ingest_pdf → corpus; Legal>Master (ssid=6, 135 recs); Circulars (ssid=7, ~2.8k) | ✅ Complete |
+| — | PDF ingestion: `ingest_pdf.py` (13,918 B): pdfplumber extraction (circular number, date, subject, dept, version lineage); provenance, dedupe, --replace | ✅ Complete |
+| — | Index persistence: `HybridRetriever.save/load/index_exists` (FAISS + bm25s + chunks + meta); `scripts/build_index.py` (2,367 B) → `data/index/` (1.0 GB); load <1s | ✅ Complete |
+| — | Supersession warning: `pipeline.py` (6,207 B) imports demote_superseded/superseded_citations; superseded_penalty=0.3; `Answer.superseded` | ✅ Complete |
+| — | Generation latency: MLXGenerator (MLX-LM, Apple-Silicon native); `generate.py` (15,898 B) class MLXGenerator (line 265); Qwen2.5-1.5B-4bit ~0.2s; /query: ~18.8s → ~2.1s warm (~9x); env SEBI_RAG_GENERATOR=mlx|ollama, SEBI_RAG_MLX_MODEL; SEBI_RAG_TIMEOUT_S default 30s | ✅ Complete |
+| — | Faithfulness: `generate.py` faithfulness(text, allowed_ids) (line 21): flags bracketed citations absent from context; returns (score, unsupported_citations); pipeline appends caution | ✅ Complete |
+| — | Supersession-aware retrieval: demote_superseded penalises superseded chunks (superseded_penalty=0.3); verified at 705 records | ✅ Complete |
+| — | Golden set sharpening: v3 (20 queries), v4 (30 grounded, multi-label), v5 (56 held-out: 31 v4 + 15 paraphrase + 10 hard negatives), v6 (56), v7 (260) | ✅ Complete |
+| — | Chunk enrichment (F1): `segment.py` (6,843 B) prepends circular_no + subject(≤120) + section at flush; cit-prec 0.60→0.74 (+23%), recall@10 0.98→1.00, cit-rec 0.87→0.89 | ✅ Complete |
+| — | Reranker benchmark (F2): `rerank.py` (4,941 B) Qwen3MLXReranker + `bench_rerankers.py` (6,532 B); bge-reranker-v2-m3 AUROC 0.812 vs Qwen3-Reranker-0.6B AUROC 0.799 (saturation, worse precision, 2x latency) — baseline retained | ✅ Complete |
+| — | Groundedness gate (ADR-001 item 7): SubjectSimJudge (`generate.py` line 176, deterministic, bge-m3, ~30ms); two-tier gate: subject_sim ≥ 0.42 OR section_sim ≥ 0.60; env SEBI_RAG_GATE, SEBI_RAG_SUBJ_THRESHOLD, SEBI_RAG_SECT_THRESHOLD; abstention 0.875, ZERO false abstentions | ✅ Complete |
+| — | Incremental indexing (F3): `retrieve.py` build_incremental (line 105); reuses cached rows, encodes only new/changed; `build_index.py` incremental by default, --full forces re-encode; seed: 507s → 5s incremental (docs_reused=705, chunks_encoded=0) | ✅ Complete |
+| — | Prompt-injection hardening (F4): delimited data-not-instructions prompt; `ingest_pdf.py` injection_scan (8 pattern classes incl. delimiter spoofing) → injection_flags; timing-safe API-key compare | ✅ Complete |
+| — | ADR-002 certainty: top_k Field(ge=1,le=10) → 422; confidence{rerank_top,margin,subject_sim}; banded certainty (high|medium|low); abstention_reason; opt-in advisory: true → draft_answer | ✅ Complete |
+| — | n8n automation drift: `eval_json.py` (4,818 B) → golden_v5 + production-mirrored abstention; canary thresholds re-based | ✅ Complete |
+| — | Regulatory cross-reference: `scripts/build_reg_edges.py` | ✅ Complete |
 ### ADR-001 Findings Status
 
 | Finding | Item | Result |
 |---|---|---|
-| F1 | Contextual chunk enrichment | Complete — cit-prec +23%, recall@10 → 1.00 |
-| F2 | Reranker benchmark (Qwen3-Reranker-0.6B) | Rejected — saturation, worse precision, 2x latency; baseline retained |
-| F3 | Incremental indexing | Complete — seed 507s → incremental 5s (100x reduction) |
-| F4 | Prompt-injection hardening | Complete — 8 pattern classes, timing-safe auth |
-| F5 | Golden v5 held-out eval | Complete — 56 items, honest baseline confirmed |
-| Gate | Groundedness gate (item 7) | Adopted — SubjectSimJudge two-tier (partial: target 0.93 abst_acc not met; residual near-domain risk) |
+| ✅ F1 | Contextual chunk enrichment | Complete — cit-prec +23%, recall@10 → 1.00 |
+| ❌ F2 | Reranker benchmark (Qwen3-Reranker-0.6B) | Rejected — saturation, worse precision, 2x latency; baseline retained |
+| ✅ F3 | Incremental indexing | Complete — seed 507s → incremental 5s (100x reduction) |
+| ✅ F4 | Prompt-injection hardening | Complete — 8 pattern classes, timing-safe auth |
+| ✅ F5 | Golden v5 held-out eval | Complete — 56 items, honest baseline confirmed |
+| ⚠️  Gate | Groundedness gate (item 7) | Adopted — SubjectSimJudge two-tier (partial: target 0.93 abst_acc not met; residual near-domain risk) |
 
-## Golden v7 Pipeline Status (2026-07-30)
 
-### Census
-- **Total**: 260 rows | **Adjudicated**: 106 | **Draft**: 121 | **Seeded**: 33
-- Strata on target: title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10
-- 53 abstain rows, 15 dated `as_of` rows
+### Census (260 total)
+✅ adjudicated: 106 | ⚠️ draft: 121 | 📋 seeded: 33
+Strata: title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10
+Abstain: 53 | as_of dated: 15
 
 ### Agreement (claude vs qwen, 150 external rows)
-- **Promoted**: 103 (exact-set agreement → adjudicated)
-- **Flipped**: 0
-- **Arbitration queue**: 47 (28 external draft + 19 seeded non-external)
+✅ Promoted: 103 (exact-set → adjudicated) | ❌ Flipped: 0 | ⚠️ Arbitration queue: 47 (28 external + 19 seeded)
 
-### Agreement κ by stratum (exact-set; deliberately stricter than provision-level promotion)
-
-| Stratum | n | κ | Raw agreement |
+### Agreement κ by stratum (exact-set; stricter than provision-level promotion)
+| Stratum | n | κ | Raw |
 |---|---|---|---|
-| far_negative | 4 | 1.000 | 100% |
-| hard_negative | 15 | 1.000 | 100% |
-| title_direct | 25 | 0.077 | 8% |
-| multi_hop | 13 | 0.071 | 7.7% |
-| numeric_table | 19 | 0.000 | 0% |
-| lineage_supersession | 24 | 0.201 | 20.8% |
-| repealed_basis | 13 | 0.291 | 30.8% |
-| body_paraphrase | 37 | 0.265 | 27% |
+| far_negative | 4 | 1.000 | 100% ✅ |
+| hard_negative | 15 | 1.000 | 100% ✅ |
+| title_direct | 25 | 0.077 | 8% ⚠️ |
+| multi_hop | 13 | 0.071 | 7.7% ⚠️ |
+| numeric_table | 19 | 0.000 | 0% ❌ |
+| lineage_supersession | 24 | 0.201 | 20.8% ⚠️ |
+| repealed_basis | 13 | 0.291 | 30.8% ⚠️ |
+| body_paraphrase | 37 | 0.265 | 27% ⚠️ |
 
-Low κ on title_direct/multi_hop/numeric_table reflects spec §7 promotion amendment (2026-07-26): κ stays exact-set while promotion accepts containment or quote-match.
+Low κ on title_direct/multi_hop/numeric_table: spec §7 promotion amendment (2026-07-26) — κ stays exact-set while promotion accepts containment/quote-match.
 
-### Gate floors (106 adjudicated rows)
-- `adjudicated_n`: **106** (≥ 100 threshold met)
-- `recall_at_k`: **0.9155** (was 0.9126)
-- `citation_recall`: **0.3245** (was 0.3126)
-- `abstention_accuracy`: **0.8346** (was 0.83)
+### Gate floors (106 adjudicated)
+```yaml
+adjudicated_n: 106 (>= 100 threshold met)
+recall_at_k: 0.9155 (was 0.9126)
+citation_recall: 0.3245 (was 0.3126)
+abstention_accuracy: 0.8346 (was 0.83)
+```
 
 ### Key decisions
-- **Local adjudication**: Qwen3.6-35B-A3B-MLX-4bit via oMLX (127.0.0.1:8001) is PRIMARY annotator, not Gemini
-- **Provision-level promotion**: spec §7 amended to accept containment/quote-match; κ stays exact-set
-- **Parse-error recovery**: 4 rows recovered (truncated at max_tokens=4096); re-ran with GOLDEN_LOCAL_MAX_TOKENS=16384; 3 promoted, 1 draft (v7-rb-007: genuine disagreement → needs human arbitration)
-- **Claude-label accuracy vs externals**: 48/166 matched (28.9%), 95% CI 22.2–36.4%
+| Decision | Status | Detail |
+|---|---|---|
+| Local adjudication | ✅ PRIMARY | Qwen3.6-35B-A3B-MLX-4bit via oMLX (127.0.0.1:8001), not Gemini |
+| Provision-level promotion | ✅ Amended | spec §7: containment/quote-match accepted; κ stays exact-set |
+| Parse-error recovery | ✅ 4 recovered | Truncated at max_tokens=4096; GOLDEN_LOCAL_MAX_TOKENS=16384; 3 promoted, 1 draft (v7-rb-007: genuine disagreement → human arbitration) |
+| Claude-label accuracy | ⚠️ 28.9% | 48/166 matched vs externals; 95% CI 22.2–36.4% |
+
 
 ## Known Blockers
 
-**No active blockers.** All validation steps pass, all phases complete, 603 tests pass.
+✅ **No active blockers.** All validation steps pass, all phases complete, 603 tests pass.
 
 ### Historical (resolved)
-- **B3** — Step 12: dual-model-on-MPS segfault (FlagEmbedding pool vs Metal). Fixed via env guards in tests/conftest.py.
-- **B2** — Step 10: bge-m3 weights download stalled (Xet-backed bin under HF throttle). Fixed via `HF_HUB_DISABLE_XET=1`.
-- **B1** — Step 6: mlx-lm pinning. Fixed by Python 3.12.13 venv.
+| Bug | Step | Issue | Fix |
+|---|---|---|---|
+| B3 | 12 | dual-model-on-MPS segfault (FlagEmbedding pool vs Metal) | env guards in tests/conftest.py |
+| B2 | 10 | bge-m3 weights download stalled (Xet-backed bin under HF throttle) | `HF_HUB_DISABLE_XET=1` |
+| B1 | 6 | mlx-lm pinning | Python 3.12.13 venv |
 
 ## Corpus Integrity (2026-07-25 repair)
 
-**Defects found**: 6 text-corrupted + 12 stale-numbered records (of 705).
-- 5 records: body text overwritten with shared circular's text (batch write from stale variables); PDFs still on disk as orphans; repaired via `scripts/repair_corpus_text.py`
-- 12 records: stale circular_number (truncated or from cited circular); fixed via `scripts/renumber.py`
-- Parser fix: `_rejoin_split` converted en-dash to `/`; spacing disambiguation changes exactly 2 records
-- **Impact**: removed 90 false-positive supersession pairs (2850→2760); entire delta attributable to 12 records
-- **Guardrail**: `make validate-corpus` / `scripts/validate_corpus.py`: no duplicate body text, circular_number derivable from own text, --deep PDF re-extraction match
+### Defects found: 18 of 705 records
+| Type | Count | Issue | Fix |
+|---|---|---|---|
+| Text-corrupted | 5 | Body text overwritten with shared circular's text (batch write from stale variables); PDFs on disk as orphans | `scripts/repair_corpus_text.py` |
+| Stale-numbered | 12 | Truncated (`CIR/MRD/DP/41`) or from cited circular; parser already derives correctly | `scripts/renumber.py` |
+| Parser bug | 2 | `_rejoin_split` converted en-dash to `/`; `AFD - PoD - 2` → `AFD/PoD/2` | Spacing disambiguation (spaced both sides) |
 
-**Pooling fix**: `assemble_pool` cap saturation (cap=20 consumed by common-word must_contain literals). Bounded via gold_literal_cap=6, reranked instead of document-ordered.
+**Impact**: 90 false-positive supersession pairs removed (2850→2760); entire delta from 12 records.
 
-**Residual**: 22 orphan PDFs in `data/raw/`; SPLADE sidecar (splade.npz) pinned to old 77,859 chunk count — needs rebuild before SPLADE runs.
+**Guardrail**: `make validate-corpus` / `scripts/validate_corpus.py`: no duplicate body text, circular_number derivable from own text, --deep PDF re-extraction match.
+
+### Pooling fix
+`assemble_pool` cap saturation (cap=20 consumed by common-word must_contain literals like "broker", "capital"). Bounded via gold_literal_cap=6, reranked instead of document-ordered.
+
+### Residual
+⚠️ 22 orphan PDFs in `data/raw/` (no corpus record — possible ingestion coverage gap)
+⚠️ SPLADE sidecar (`data/index/splade.npz`) pinned to old 77,859 chunk count — needs rebuild before SPLADE runs (eval-only, off by default)
+
+### Build/repair flow
+`scrape → ingest_pdf → repair_corpus_text.py → renumber.py → validate-corpus → build_index.py`
 
 ## Token Optimization (2026-07-28)
 
-Three-phase optimization reduced pre-injected context from **99,189 bytes (~24,800 tokens)** to **~10,500 bytes (~2,600 tokens)** — **92.7% reduction**, zero regression (603 tests pass).
+Pre-injected context: 99,189 B (~24,800 tokens) → ~10,500 B (~2,600 tokens) — **92.7% reduction**, zero regression (603 tests pass).
 
+### Optimization phases
 | Phase | Changes | Savings |
 |---|---|---|
-| 1: On-demand context | AGENTS.md inline refs; replaced pre-injected status.md (46KB) + project_context.md (34KB); folded README.md quick ref | ~22,930 tokens/turn |
-| 2: Structural | CLAUDE.md → 350B pointer; .pi/SYSTEM.md (1,377 B); compaction/thinking budgets optimized | ~1,200 tokens/turn |
-| 3: Output & workflow | Output constraints (schemas, diffs); session workflow; model routing guidelines; PI_CACHE_RETENTION=long | — |
-| 3.1: Prompt cache | Removed redundant ## System Prompt from AGENTS.md; prefix files: .pi/SYSTEM.md (1,736 B) + AGENTS.md (7,779 B) + CLAUDE.md (350 B) = ~9.2KB | ~2,070 tokens/turn (cache hit) |
-| 3.2: Package tools | Removed pi-smart-fetch (3.7MB) + pi-smart-web-search (40KB); npm install: 87MB→4KB | ~55K–134K tokens/turn |
+| 1: On-demand context | AGENTS.md inline refs; replaced pre-injected status.md (46KB) + project_context.md (34KB); folded README.md quick ref | ~22,930 tokens/turn ✅ |
+| 2: Structural | CLAUDE.md → 350B pointer; .pi/SYSTEM.md (1,377 B); compaction/thinking budgets optimized | ~1,200 tokens/turn ✅ |
+| 3: Output & workflow | Output constraints (schemas, diffs); session workflow; model routing guidelines; PI_CACHE_RETENTION=long | — ✅ |
+| 3.1: Prompt cache | Removed redundant ## System Prompt from AGENTS.md; prefix files: .pi/SYSTEM.md (1,736 B) + AGENTS.md (7,779 B) + CLAUDE.md (350 B) = ~9.2KB | ~2,070 tokens/turn (cache hit) ✅ |
+| 3.2: Package tools | Removed pi-smart-fetch (3.7MB) + pi-smart-web-search (40KB); npm install: 87MB→4KB | ~55K–134K tokens/turn ✅ |
 
-**Files changed**: AGENTS.md, CLAUDE.md, .pi/SYSTEM.md, .pi/settings.json, .pi/env, .pi/npm/package.json, docs/optimization_summary.md, docs/optimization_roadmap.md.
-
+### Files changed
+AGENTS.md, CLAUDE.md, .pi/SYSTEM.md, .pi/settings.json, .pi/env, .pi/npm/package.json, docs/optimization_summary.md, docs/optimization_roadmap.md.
 ## Last Updated
 
 2026-07-30
