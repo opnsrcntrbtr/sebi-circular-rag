@@ -163,3 +163,17 @@ Rules:
 - Standard tasks (debugging, multi-file changes, testing) → use `medium` thinking level.
 - Complex tasks (architecture decisions, validation sequences, complex refactoring) → use `high` thinking level via `/model`.
 - Route tasks to match model strength to task risk. Keep stronger models for ambiguous planning and final synthesis.
+
+## 📉 Status Optimization Protocol
+*Trigger: Apply these rules whenever creating, updating, or reading `@docs/status.md`.*
+
+**Goal:** Maintain `@docs/status.md` as a **High-Density Context Anchor** optimized for LLM token limits (Hot Cache), not human reading.
+
+**Strict Formatting Rules:**
+1.  **Prose-to-Data Conversion**: Never write descriptive paragraphs. Convert all system states, configurations, and environment details into **YAML** or **JSON-like Key-Value** blocks.
+    *   *Bad:* "The server runs on port 8001 and uses the v1 api."
+    *   *Good:* `server: { port: 8001, api: v1, status: active }`
+2.  **Visual State Matrix**: Use emoji flags (✅, ⚠️, ❌, ⏳) and single-line tables to track feature progress.
+3.  **Zero Fluff**: Strip all meta-commentary ("Here is the status...", "I have updated..."). The file must contain **only** facts.
+4.  **Anchor Preservation**: You are FORBIDDEN from abbreviating file paths, error constants, API routes, or variable names. These are **Retrieval Anchors** and must match the codebase character-for-character.
+5.  **TDD/BDD Parity**: Ensure the status reflects *current* passing tests. Do not document planned features as "active" unless verified by a passing test.
