@@ -1,9 +1,9 @@
 {
-  "adjudicated_n": 106,
-  "derived_at": "2026-07-30T16:04:28",
+  "adjudicated_n": 260,
+  "derived_at": "2026-07-30T20:40:18",
   "floors": {
-    "recall_at_k": 0.9155,
-    "citation_recall": 0.3245,
-    "abstention_accuracy": 0.8346
+    "recall_at_k": 0.9322,
+    "citation_recall": 0.4612,
+    "abstention_accuracy": 0.8488
   }
 }
