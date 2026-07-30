@@ -196,6 +196,7 @@ Rules:
 
 **Location:** `scripts/telemetry_engine.py`
 **Storage:** `~/.omp/telemetry_history.json`
+**Full reference:** `docs/telemetry_plugin.md` (on-demand read, not injected per turn)
 
 ### Commands
 | Command | Description |
