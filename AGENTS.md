@@ -188,3 +188,35 @@ Rules:
 2. **Zero-Fluff State Matrices**: Use compact tables and explicit emoji status flags to track features. Eliminate historical logs, alternative options that were skipped, or prose justifications.
 3. **Anchor Preservation**: You are strictly FORBIDDEN from abbreviating or modifying file paths, exact technological stack tags, domain structures, error constants, or variable names. They must match the source files character-for-character to maintain exact semantic retrieval hooks.
 4. **TDD/BDD Alignment**: Documentation metrics must map directly to active BDD feature files or unit test baselines. Do not document unverified or loose conceptual ideas as active states.
+
+## 🧠 Self-Optimization Plugin (Telemetry Engine)
+*Trigger: Use when running complex coding sessions that benefit from hardware-aware parameter optimization.*
+
+**Purpose:** Sustainable meta-optimization loop between hardware (Mac M4 48GB), oMLX inference server (Qwen3.6-35B on 127.0.0.1:8001), and coding output quality.
+
+**Location:** `scripts/telemetry_engine.py`
+**Storage:** `~/.omp/telemetry_history.json`
+
+### Commands
+| Command | Description |
+|---|---|
+| `python scripts/telemetry_engine.py status` | Show hardware state, safety margin, oMLX connectivity |
+| `python scripts/telemetry_engine.py record --quality 5` | Record run outcome (1-5 scale) |
+| `python scripts/telemetry_engine.py record --success` | Shortcut for quality=5 |
+| `python scripts/telemetry_engine.py record --fail` | Shortcut for quality=1 |
+| `python scripts/telemetry_engine.py suggest "Complex Coding"` | Get optimized parameters from historical data |
+| `python scripts/telemetry_engine.py history --top 10` | Show recent telemetry entries |
+
+### Safety Logic
+- **Soft limit:** 3.3 GB RAM headroom (free_ram >= 3.3 GB)
+- If violated: flags run as "Unstable", recommends reducing oMLX Hot Cache or Context Window
+- Only safe runs (is_safe=true) are used for parameter optimization
+
+### Integration Workflow
+1. Before complex coding session: run `suggest "Complex Coding"` to get optimal params
+2. After session: run `record --quality N` (or `--success`/`--fail`)
+3. Review: run `history --top 20` to see trends over time
+
+### Parameter Defaults (used when no history exists)
+- Complex Coding: temperature=0.2, min_p=0.05, context_window=8192
+- Simple Query: temperature=0.1, min_p=0.1, context_window=4096

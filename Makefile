@@ -117,3 +117,7 @@ golden-v7-gate:
 
 validate-corpus:
 	$(ENV) $(PY) scripts/validate_corpus.py data/corpus/circulars.jsonl
+
+## telemetry: Run the self-optimization telemetry engine
+telemetry:
+	@python scripts/telemetry_engine.py $(filter-out $@,$(MAKECMDGOALS))

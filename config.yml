@@ -1,0 +1,45 @@
+# Self-Optimization Plugin — Slash Command Aliases
+# Usage: Add to your Claude Code / OMP config for slash-command access.
+# Example: /optimize record --success
+#          /optimize suggest "Complex Coding"
+#          /optimize status
+
+slash_commands:
+  optimize:
+    description: "Run the telemetry engine for hardware-aware parameter optimization"
+    script: scripts/telemetry_engine.py
+
+  # Record a successful coding session
+  optimize_success:
+    description: "Record a successful coding session (quality=5)"
+    command: "python scripts/telemetry_engine.py record --success"
+
+  # Record a failed coding session
+  optimize_fail:
+    description: "Record a failed coding session (quality=1)"
+    command: "python scripts/telemetry_engine.py record --fail"
+
+  # Record with custom quality rating
+  optimize_quality:
+    description: "Record a coding session with custom quality (1-5)"
+    command: "python scripts/telemetry_engine.py record --quality {quality}"
+
+  # Get optimized parameters for complex coding
+  optimize_suggest:
+    description: "Get optimized inference parameters from historical telemetry"
+    command: "python scripts/telemetry_engine.py suggest {complexity}"
+
+  # Show hardware status and safety margin
+  optimize_status:
+    description: "Show current RAM/Swap state, oMLX connectivity, and safety margin"
+    command: "python scripts/telemetry_engine.py status"
+
+  # Show recent telemetry history
+  optimize_history:
+    description: "Show recent telemetry entries"
+    command: "python scripts/telemetry_engine.py history --top {n}"
+
+# Default parameters for slash commands
+defaults:
+  complexity: "Complex Coding"
+  n: 10
