@@ -313,10 +313,28 @@ No external cloud APIs. All data stays local on the M4 Pro machine.
 
 A self-critique and correction pass that runs automatically at the conclusion of **every conversational turn**, before rendering final output to the user.
 
+**Threshold-gated:** Only applies corrections when degradation is detected (score drops below baseline by DRIFT_MARGIN).
+
 ### Lifecycle Trigger
 
 - **Execution Cadence:** Every turn, no explicit request needed
 - **Interception Point:** After internal draft generation, before output stream rendering
+
+### Threshold Configuration (configurable in telemetry_engine.py)
+
+| Constant | Default | Description |
+|---|---|---|
+| `OPTIMIZE_THRESHOLD` | 8.0/10.0 | Minimum acceptable score when no baseline exists |
+| `DRIFT_MARGIN` | 1.0 | Score must drop below baseline by this amount to trigger optimization |
+| `BASELINE_WINDOW` | 10 | Number of recent turns for rolling baseline average |
+
+**Trigger Logic:**
+```python
+if current_score < (baseline_avg - DRIFT_MARGIN):
+    trigger_optimization()
+```
+
+Example: baseline_avg = 8.5, DRIFT_MARGIN = 1.0 → optimization triggers when score < 7.5
 
 ### Workflow (4 Hidden Steps)
 
@@ -327,9 +345,22 @@ A self-critique and correction pass that runs automatically at the conclusion of
 └──────────────┘    └───────────────────┘    └─────────┬───────────┘
                                                        │
                                               ┌──────▼──────────┐
-                                              │  Correction     │
-                                              │  Pass           │
+                                              │  Degradation    │
+                                              │  Check          │
                                               └──────┬──────────┘
+                                                     │
+                                    ┌────────────────┼────────────────┐
+                          degraded?  Yes             │            No
+                                    │                │               │
+                              ┌─────▼──────┐         │        ┌────▼─────────┐
+                              │ Correction │         │        │ Skip (return │
+                              │  Pass      │         │        │ "Fully       │
+                              └─────┬──────┘         │        │ Optimized")  │
+                                    │                │        └──────────────┘
+                              ┌─────▼──────┐         │
+                              │ Record to  │         │
+                              │ Telemetry  │         │
+                              └────────────┘         │
                                                      │
                                               ┌────▼──────────┐
                                               │  Output       │
@@ -355,42 +386,57 @@ A self-critique and correction pass that runs automatically at the conclusion of
 | **Technical Fidelity** | Outdated patterns, syntax errors | -2 per flag (e.g., Python 2 print syntax) |
 | **Instruction Adherence** | Response matches prompt requirements | -2 per flag (e.g., too brief for complex prompt) |
 
-**4. Correction Pass (`correction_pass`)**
+**4. Degradation Check (`check_degradation`)**
+- Hierarchical check:
+  1. Criterion-level: any criterion dropped below (baseline_avg - DRIFT_MARGIN)
+  2. Overall: overall_score dropped below (baseline_avg - DRIFT_MARGIN)
+
+**5. Correction Pass (`correction_pass`)**
+- Only runs if degradation detected
 - Rewrites flagged portions seamlessly
 - Removes filler phrases ("in order to" → "to", etc.)
 - Flags technical issues for manual review
+
+**6. Baseline Update (`update_baseline`)**
+- Appends current score to telemetry_history.json for future baseline calculations
 
 ### Output Schema
 
 Rendered directly above the primary response:
 
+**No degradation (skip optimization):**
 ```
 [⚙️ Plugin Optimizations: Fully Optimized]
 
-<refined response here>
+<original response>
 ```
 
-Or with changes noted:
-
+**Degradation detected (apply correction):**
 ```
-[⚙️ Plugin Optimizations: Removed filler]
+[⚙️ Plugin Optimizations: Degraded conciseness 5.9→7.2, corrected]
 
-<refined response here>
+<corrected response>
 ```
 
 ### CLI Access (Manual Testing)
 
 ```bash
 # Run optimization on a draft
-python scripts/telemetry_engine.py optimize \
-  --prompt "Write a Python function to calculate Fibonacci numbers" \
-  --draft "I think this is a good approach. In order to calculate Fibonacci numbers, we can use recursion."
+python scripts/telemetry_engine.py optimize   --prompt "Write a Python function to calculate Fibonacci numbers"   --draft "I think this is a good approach. In order to calculate Fibonacci numbers, we can use recursion."
 
 # JSON output for programmatic access
-python scripts/telemetry_engine.py optimize \
-  --prompt "..." \
-  --draft "..." \
-  --json
+python scripts/telemetry_engine.py optimize   --prompt "..."   --draft "..."   --json
+
+# JSON output shows degradation status and baseline info:
+{
+  "state": { "complexity": "simple" },
+  "critique": { ... },
+  "overall_score": 8.7,
+  "baseline_avg": 9.2,
+  "degraded": true,
+  "degradation_flags": ["conciseness: 5.9 < 7.0"],
+  "changes_made": ["Removed filler: 'in order to'"]
+}
 ```
 
 ### Integration with Hardware Telemetry
@@ -402,11 +448,29 @@ The turn-based optimization runs **independently** of the hardware-aware telemet
 
 ### Design Rationale
 
-**Why run after every turn?**
-- Catches issues before they reach the user
-- Builds a feedback loop: each optimized turn becomes training data for future suggestions
-- Zero user action required — fully automatic
+**Why threshold-gated instead of always optimizing?**
+- Avoids unnecessary rewrites when output quality is already good
+- Reduces context window pollution from redundant corrections
+- Focuses optimization effort where it's needed most
 
+**Why historical baseline drift instead of fixed threshold?**
+- Adapts to your quality level over time (no manual tuning needed)
+- Detects relative degradation, not absolute scores
+- A baseline of 9.0 with DRIFT_MARGIN=1.0 means optimize when < 8.0
+- A baseline of 7.0 with DRIFT_MARGIN=1.0 means optimize when < 6.0
+
+**Why hierarchical degradation detection?**
+- Catches specific failure modes (e.g., conciseness drops while technical fidelity stays high)
+- Provides actionable feedback ("conciseness dropped" vs just "overall score dropped")
+
+**Why 10-turn lookback window?**
+- Balances stability (not too noisy) with responsiveness (detects real degradation quickly)
+- Configurable via BASELINE_WINDOW constant
+
+**Why score 0-10 instead of pass/fail?**
+- Granular scores enable trend analysis over time
+- Allows gradual improvement tracking across sessions
+- Enables A/B testing of different optimization strategies
 **Why score 0-10 instead of pass/fail?**
 - Granular scores enable trend analysis over time
 - Allows gradual improvement tracking across sessions

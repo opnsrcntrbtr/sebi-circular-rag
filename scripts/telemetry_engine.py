@@ -53,6 +53,13 @@ DEFAULT_PARAMS = {
     },
 }
 
+
+# Turn-Based Optimization Thresholds (configurable)
+OPTIMIZE_THRESHOLD = 8.0       # Minimum acceptable overall score before optimization triggers
+DRIFT_MARGIN = 1.0             # Score must drop below baseline by this margin to trigger
+BASELINE_WINDOW = 10           # Number of recent turns to use for rolling baseline
+OPTIMIZE_SCORE_KEY = "optimize_score"  # Key in telemetry history for optimize scores
+
 # ---------------------------------------------------------------------------
 # Hardware Safety Monitor
 # ---------------------------------------------------------------------------
@@ -447,15 +454,116 @@ def correction_pass(critique: dict[str, Any], draft: str) -> tuple[str, list[str
     return refined, changes
 
 
-def optimize_turn(prompt: str, draft: str) -> dict[str, Any]:
-    """Orchestrator: run full turn-based optimization workflow.
 
-    Steps: State Analysis → Self-Critique Matrix → Correction Pass.
+# ---------------------------------------------------------------------------
+# Turn-Based Optimization — Baseline Management
+# ---------------------------------------------------------------------------
+
+
+def load_baseline() -> dict[str, float]:
+    """Load rolling baseline from last N optimize scores in telemetry history.
+
+    Returns dict with avg_overall, avg_conciseness, avg_technical, avg_instruction.
+    Falls back to threshold values if no history exists.
+    """
+    history = load_history()
+    # Filter for optimize-related entries (look for optimize_score key)
+    optimize_entries = [r for r in history if OPTIMIZE_SCORE_KEY in r]
+
+    if not optimize_entries:
+        # No baseline yet — return threshold defaults (no optimization will trigger)
+        return {
+            "avg_overall": OPTIMIZE_THRESHOLD,
+            "avg_conciseness": OPTIMIZE_THRESHOLD,
+            "avg_technical": OPTIMIZE_THRESHOLD,
+            "avg_instruction": OPTIMIZE_THRESHOLD,
+            "count": 0,
+        }
+
+    # Take last BASELINE_WINDOW entries
+    recent = optimize_entries[-BASELINE_WINDOW:]
+
+    overall_scores = [r[OPTIMIZE_SCORE_KEY] for r in recent if OPTIMIZE_SCORE_KEY in r]
+    conc_scores = [r.get("critique", {}).get("conciseness", {}).get("score", OPTIMIZE_THRESHOLD) for r in recent]
+    tech_scores = [r.get("critique", {}).get("technical_fidelity", {}).get("score", OPTIMIZE_THRESHOLD) for r in recent]
+    instr_scores = [r.get("critique", {}).get("instruction_adherence", {}).get("score", OPTIMIZE_THRESHOLD) for r in recent]
+
+    return {
+        "avg_overall": round(sum(overall_scores) / len(overall_scores), 2) if overall_scores else OPTIMIZE_THRESHOLD,
+        "avg_conciseness": round(sum(conc_scores) / len(conc_scores), 2) if conc_scores else OPTIMIZE_THRESHOLD,
+        "avg_technical": round(sum(tech_scores) / len(tech_scores), 2) if tech_scores else OPTIMIZE_THRESHOLD,
+        "avg_instruction": round(sum(instr_scores) / len(instr_scores), 2) if instr_scores else OPTIMIZE_THRESHOLD,
+        "count": len(recent),
+    }
+
+
+def update_baseline(score: float, critique: dict[str, Any]) -> None:
+    """Append current optimize score to telemetry history for baseline tracking."""
+    # Load existing history
+    history = load_history()
+
+    # Create baseline entry (lightweight — no hardware/perf data needed)
+    baseline_entry = {
+        "timestamp": __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat(),
+        OPTIMIZE_SCORE_KEY: score,
+        "critique": {
+            "conciseness": {"score": critique["conciseness"]["score"]},
+            "technical_fidelity": {"score": critique["technical_fidelity"]["score"]},
+            "instruction_adherence": {"score": critique["instruction_adherence"]["score"]},
+        },
+    }
+
+    history.append(baseline_entry)
+    save_history(history)
+
+
+def check_degradation(current: dict[str, Any], baseline: dict[str, float]) -> tuple[bool, list[str]]:
+    """Check if current scores have degraded below baseline by DRIFT_MARGIN.
+
+    Hierarchical check:
+      1. Criterion-level: any criterion dropped below (baseline - DRIFT_MARGIN)
+      2. Overall: overall_score dropped below (baseline_avg - DRIFT_MARGIN)
+
+    Returns (degraded: bool, flags: list[str]).
+    """
+    flags = []
+
+    # Criterion-level checks
+    if current["conciseness"]["score"] < (baseline["avg_conciseness"] - DRIFT_MARGIN):
+        flags.append(f"conciseness: {current['conciseness']['score']:.1f} < {baseline['avg_conciseness'] - DRIFT_MARGIN:.1f}")
+    if current["technical_fidelity"]["score"] < (baseline["avg_technical"] - DRIFT_MARGIN):
+        flags.append(f"technical_fidelity: {current['technical_fidelity']['score']:.1f} < {baseline['avg_technical'] - DRIFT_MARGIN:.1f}")
+    if current["instruction_adherence"]["score"] < (baseline["avg_instruction"] - DRIFT_MARGIN):
+        flags.append(f"instruction_adherence: {current['instruction_adherence']['score']:.1f} < {baseline['avg_instruction'] - DRIFT_MARGIN:.1f}")
+
+    # Overall check (only if no criterion-level degradation)
+    if not flags:
+        overall = current["overall_score"]
+        threshold = baseline["avg_overall"] - DRIFT_MARGIN
+        if overall < threshold:
+            flags.append(f"overall: {overall:.1f} < {threshold:.1f}")
+
+    return len(flags) > 0, flags
+
+
+def optimize_turn(prompt: str, draft: str) -> dict[str, Any]:
+    """Orchestrator: run threshold-gated turn-based optimization workflow.
+
+    Steps:
+      1. Load historical baseline (last BASELINE_WINDOW turns)
+      2. State Analysis → Self-Critique Matrix on current draft
+      3. Check degradation: does score drop below (baseline - DRIFT_MARGIN)?
+      4. If degraded: Correction Pass + record to telemetry
+         If not degraded: skip optimization (return "Fully Optimized")
+
     Returns dict with state, critique scores, changes made, and final draft.
     """
+    # Load baseline from recent history
+    baseline = load_baseline()
+
+    # State Analysis + Self-Critique Matrix
     state = analyze_state(prompt)
     critique = self_critique(draft, state)
-    refined_draft, changes = correction_pass(critique, draft)
 
     overall_score = (
         critique["conciseness"]["score"]
@@ -463,13 +571,40 @@ def optimize_turn(prompt: str, draft: str) -> dict[str, Any]:
         + critique["instruction_adherence"]["score"]
     ) / 3.0
 
-    return {
-        "state": state,
-        "critique": critique,
-        "overall_score": round(overall_score, 2),
-        "changes_made": changes if changes else ["Fully Optimized"],
-        "refined_draft": refined_draft,
-    }
+    # Check degradation against baseline
+    degraded, degradation_flags = check_degradation(
+        {"overall_score": overall_score, **critique}, baseline
+    )
+
+    if degraded:
+        # Apply correction pass
+        refined_draft, changes = correction_pass(critique, draft)
+
+        # Update baseline with current score
+        update_baseline(overall_score, critique)
+
+        return {
+            "state": state,
+            "critique": critique,
+            "overall_score": round(overall_score, 2),
+            "baseline_avg": baseline["avg_overall"],
+            "degraded": True,
+            "degradation_flags": degradation_flags,
+            "changes_made": changes if changes else ["Correction applied"],
+            "refined_draft": refined_draft,
+        }
+    else:
+        # No degradation — skip optimization
+        return {
+            "state": state,
+            "critique": critique,
+            "overall_score": round(overall_score, 2),
+            "baseline_avg": baseline["avg_overall"],
+            "degraded": False,
+            "degradation_flags": [],
+            "changes_made": ["Fully Optimized"],
+            "refined_draft": draft,  # Return original draft unchanged
+        }
 
 
 # ---------------------------------------------------------------------------
@@ -589,14 +724,23 @@ def main() -> None:
             out = {k: v for k, v in result.items() if k != "refined_draft"}
             print(_json.dumps(out, indent=2))
         else:
+            status_icon = "⚠️  DEGRADED" if result["degraded"] else "✅ OPTIMIZED"
             print(f"\n{'='*60}")
-            print(f"  Turn-Based Optimization — Results")
+            print(f"  Turn-Based Optimization — {status_icon}")
             print(f"{'='*60}")
             print(f"  State Complexity:   {result['state']['complexity']}")
-            print(f"  Overall Score:      {result['overall_score']}/10.0")
-            print(f"  Conciseness:        {result['critique']['conciseness']['score']}/10.0")
-            print(f"  Technical Fidelity: {result['critique']['technical_fidelity']['score']}/10.0")
-            print(f"  Instruction Adhere: {result['critique']['instruction_adherence']['score']}/10.0")
+            if result["degraded"]:
+                print(f"  Baseline Avg:       {result['baseline_avg']:.1f}/10.0 (last {BASELINE_WINDOW} turns)")
+                print(f"  Current Score:      {result['overall_score']:.1f}/10.0")
+                print(f"  Degradation:        {' → '.join(result['degradation_flags'])}")
+                print(f"  Action:             Correction applied")
+            else:
+                print(f"  Baseline Avg:       {result['baseline_avg']:.1f}/10.0 (last {BASELINE_WINDOW} turns)")
+                print(f"  Current Score:      {result['overall_score']:.1f}/10.0")
+                print(f"  Status:             Within baseline tolerance (±{DRIFT_MARGIN})")
+            print(f"  Conciseness:        {result['critique']['conciseness']['score']:.1f}/10.0")
+            print(f"  Technical Fidelity: {result['critique']['technical_fidelity']['score']:.1f}/10.0")
+            print(f"  Instruction Adhere: {result['critique']['instruction_adherence']['score']:.1f}/10.0")
             print(f"  Changes Made:       {', '.join(result['changes_made'])}")
             print(f"{'='*60}\n")
 

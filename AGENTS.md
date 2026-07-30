@@ -222,10 +222,16 @@ Rules:
 - Complex Coding: temperature=0.2, min_p=0.05, context_window=8192
 - Simple Query: temperature=0.1, min_p=0.1, context_window=4096
 
+
 ### Turn-Based Optimization (Auto-Run After Every Turn)
 *Trigger: Runs automatically at the conclusion of EVERY conversational turn.*
 
 **Lifecycle:** Execute after generating initial internal draft, prior to rendering final output.
+
+**Threshold-Gated Optimization (NEW):**
+- Only triggers when current score drops below rolling baseline by DRIFT_MARGIN (default: 1.0)
+- Baseline computed from last BASELINE_WINDOW (default: 10) turns
+- Prevents unnecessary optimization when output quality is stable
 
 **Workflow (4 hidden steps):**
 1. **State Analysis:** Inspect prompt complexity, code/schema presence, multi-file scope
@@ -234,14 +240,18 @@ Rules:
    - Conciseness (0-10): penalize filler phrases, long sentences
    - Technical Fidelity (0-10): flag outdated patterns, syntax errors
    - Instruction Adherence (0-10): verify response matches prompt requirements
-4. **Correction Pass:** Rewrite flagged portions seamlessly
+4. **Degradation Check:** Compare scores against baseline (avg - DRIFT_MARGIN)
+   - If degraded: apply Correction Pass + record to telemetry
+   - If not degraded: skip optimization (return "Fully Optimized")
 
 **Output Schema (rendered above primary response):**
 ```
-[⚙️ Plugin Optimizations: <1-2 word summary or "Fully Optimized">]
-
-<refined response>
+[⚙️ Plugin Optimizations: Fully Optimized]          ← no degradation detected
+[⚙️ Plugin Optimizations: Degraded X→Y, corrected]  ← degradation detected + fixed
 ```
 
 **CLI Access:** `python scripts/telemetry_engine.py optimize --prompt "..." --draft "..." [--json]`
+
+
+
 
