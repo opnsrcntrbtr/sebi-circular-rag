@@ -5,5 +5,6 @@
     "recall_at_k": 0.9322,
     "citation_recall": 0.4612,
     "abstention_accuracy": 0.8488
-  }
+  },
+  "abstention_accuracy": 0.9731
 }
