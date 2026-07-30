@@ -120,12 +120,12 @@ env: SEBI_RAG_GATE | SEBI_RAG_SUBJ_THRESHOLD | SEBI_RAG_SECT_THRESHOLD
 
 
 ### Census (260 total)
-✅ adjudicated: 106 | ⚠️ draft: 121 | 📋 seeded: 33
+✅ adjudicated: 260 | ⚠️ draft: 0 | 📋 seeded: 0
 Strata: title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10
 Abstain: 53 | as_of dated: 15
 
 ### Agreement (claude vs qwen, 150 external rows)
-✅ Promoted: 103 (exact-set → adjudicated) | ❌ Flipped: 0 | ⚠️ Arbitration queue: 47 (28 external + 19 seeded)
+✅ Promoted: 150 (all external IDs adjudicated) | ❌ Flipped: 0 | ✅ Arbitration queue: 0 (resolved)
 
 ### Agreement κ by stratum (exact-set; stricter than provision-level promotion)
 | Stratum | n | κ | Raw |
@@ -141,9 +141,9 @@ Abstain: 53 | as_of dated: 15
 
 Low κ on title_direct/multi_hop/numeric_table: spec §7 promotion amendment (2026-07-26) — κ stays exact-set while promotion accepts containment/quote-match.
 
-### Gate floors (106 adjudicated)
+### Gate floors (260 adjudicated)
 ```yaml
-adjudicated_n: 106 (>= 100 threshold met)
+adjudicated_n: 260 (>= 100 threshold met)
 recall_at_k: 0.9155 (was 0.9126)
 citation_recall: 0.3245 (was 0.3126)
 abstention_accuracy: 0.8346 (was 0.83)
@@ -156,6 +156,7 @@ abstention_accuracy: 0.8346 (was 0.83)
 | Provision-level promotion | ✅ Amended | spec §7: containment/quote-match accepted; κ stays exact-set |
 | Parse-error recovery | ✅ 4 recovered | Truncated at max_tokens=4096; GOLDEN_LOCAL_MAX_TOKENS=16384; 3 promoted, 1 draft (v7-rb-007: genuine disagreement → human arbitration) |
 | Claude-label accuracy | ⚠️ 28.9% | 48/166 matched vs externals; 95% CI 22.2–36.4% |
+| Full v7 adjudication | ✅ COMPLETE | 260/260 rows adjudicated (150 external + 110 non-external) |
 
 
 ## Known Blockers
