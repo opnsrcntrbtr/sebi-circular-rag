@@ -17,6 +17,39 @@ ABSTAIN = "I don't know based on the available evidence."
 
 _BRACKET = re.compile(r"\[([^\]]+)\]")
 
+# Non-SEBI domain exclusion keywords (case-insensitive).
+# Catches cross-domain queries that share vocabulary with SEBI circulars
+# (e.g. "file" appears in both RBI ODI and SEBI FPI contexts;
+#  "stamp duty" appears in bank lockers AND mutual fund regulations).
+_NON_SEBI_KEYWORDS = frozenset((
+    # RBI / FEMA — standalone mentions (not "SEBI under RBI")
+    "rbi", "reserve bank of india", "fema", "foreign exchange management act",
+    # GST / indirect tax — specific mechanisms, not general turnover
+    "gst council", "cbic", "central board of indirect taxes", "e-invoicing",
+    # State-level (not SEBI)
+    "state stamp act", "stamp duty registration",
+    # Other regulators
+    "pfrda", "national pension system", "nps",
+    "ibbi", "insolvency and bankruptcy code",
+    "irda", "insurance regulatory development authority",
+    # MCA / Companies Act — board meeting frequency, private company norms
+    "private company", "board meeting",
+))
+
+
+def _is_non_sebi_domain(query: str) -> bool:
+    """Return True if the query clearly targets a non-SEBI regulator's domain.
+
+    Uses case-insensitive substring matching on a curated keyword set, with
+    an early-exit guard: if "sebi" appears in the query we assume SEBI-domain
+    intent (the SubjectSimJudge handles those). This prevents false positives
+    on queries like "SEBI's online resolution mechanism under RBI's framework".
+    """
+    if "sebi" in query.lower():
+        return False
+    q = query.lower()
+    return any(kw in q for kw in _NON_SEBI_KEYWORDS)
+
 
 def faithfulness(text: str, allowed_ids: set[str]) -> tuple[float, list[str]]:
     """Check that every circular id the answer cites (in square brackets) was
@@ -379,6 +412,9 @@ def answer_with_abstention(
         return _abstain("no_context")
     if rerank_top < threshold:
         return _abstain("score_floor")
+    # Fast path: reject clearly non-SEBI domain queries before embedding judge.
+    if _is_non_sebi_domain(query):
+        return _abstain("non_sebi_domain")
     subject_sim: float | None = None
     if judge is not None:
         scorer = getattr(judge, "score", None)
