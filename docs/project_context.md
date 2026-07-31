@@ -132,7 +132,7 @@ Optimise only validated stages; recommend changes expected to yield ≥10% measu
 
 ### 7.3 Calibrated Retrieval Parameters
 
-Real stack calibration over 705 circulars / 77,841 chunks (golden_v7):
+Real stack calibration over 724 circulars / 78,523 chunks (golden_v7):
 
 ```yaml
 params:
@@ -146,12 +146,12 @@ index_path: data/index/ (reload 0.34s). Re-run after corpus growth.
 ### 7.4 Golden-Set Architecture
 
 ```yaml
-reporting_set: eval/golden/golden_v7.jsonl (n=260, adjudicated_n=106)
+reporting_set: eval/golden/golden_v7.jsonl (n=260, adjudicated_n=260)
 strata: [title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10]
 abstain_rows: 53 | as_of_dated_rows: 15
 frozen_fallback: golden_v5.jsonl (n=56) — used when v7 gate not armed
 golden_v6: golden_v6.jsonl (n=56) — intermediate set
-gate: eval/golden/gate_v7.json (armed at adjudicated_n=106)
+gate: eval/golden/gate_v7.json (armed at adjudicated_n=260)
   floors: recall_at_k=0.9155, citation_recall=0.3245, abstention_accuracy=0.8346
   ci_gates: v7 only when adjudicated_n >= 100
 adjudication_pipeline: scripts/golden_v7/ (seed, mine_strata, build_pool, gate_select, local_adjudicate [Qwen3.6-35B-MLX], gemini_adjudicate [on hold], agreement, relabel_repooled, backfill_escalations, derive_thresholds, score)
@@ -174,7 +174,7 @@ adjudication_pipeline: scripts/golden_v7/ (seed, mine_strata, build_pool, gate_s
 | `scripts/export_datasets.py` | Dataset export (chunks, corpus, lineage, eval) |
 | `scripts/calibrate.py` | Retrieval calibration sweep (RRF, top-k, threshold) |
 
-### 7.6 Current Baseline Numbers (golden_v7, adjudicated subset, n=106)
+### 7.6 Current Baseline Numbers (golden_v7, full set, n=260)
 
 ```yaml
 recall_at_k: 0.9155 (gate floor)
@@ -189,7 +189,7 @@ full_set_v5_reference: recall@10=0.956, citation_precision=0.711, citation_recal
 full_seed_build: ~507s (22,273 chunks at 209 circulars)
 incremental_reindex: ~5s (no-op, all docs reused)
 index_reload: 0.34s
-disk_embeddings_npy: ~91 MB (22k chunks); scales to ~2 GB at 500k chunks
+disk_embeddings_npy: 307 MB (78,523 chunks); scales to ~2 GB at 500k chunks
 ```
 
 
@@ -294,8 +294,8 @@ reproducibility:
 
 ```yaml
 prerequisites:
-  P1: "Labelled SEBI evaluation set — COMPLETED (golden_v7, n=260, adjudicated_n=106, gate armed). Calibrated: top_k=3, score_floor=0.05"
-  P2: "Metadata lineage extraction — COMPLETED (lineage.py, 1,222 edges, 74 superseded-in-corpus, answer-layer warnings wired)"
+  P1: "Labelled SEBI evaluation set — COMPLETED (golden_v7, n=260, adjudicated_n=260, gate armed). Calibrated: top_k=3, score_floor=0.05"
+  P2: "Metadata lineage extraction — COMPLETED (lineage.py, 5 edges, answer-layer warnings wired)"
 ```
 
 ## 13. Token Optimization (tracked in status.md)
