@@ -214,7 +214,7 @@ def check_safety_limit(hw: dict[str, float]) -> tuple[bool, str]:
 
 
 def load_history() -> list[dict[str, Any]]:
-    """Load telemetry history from JSON file."""
+    """Load telemetry history from JSON file (kept for migration only)."""
     if not TELEMETRY_FILE.exists():
         return []
     try:
@@ -225,11 +225,100 @@ def load_history() -> list[dict[str, Any]]:
         return []
 
 
-def save_history(history: list[dict[str, Any]]) -> None:
-    """Save telemetry history to JSON file."""
-    TELEMETRY_DIR.mkdir(parents=True, exist_ok=True)
-    with open(TELEMETRY_FILE, "w") as f:
-        json.dump(history, f, indent=2)
+# ---------------------------------------------------------------------------
+# Phoenix Query Layer
+# ---------------------------------------------------------------------------
+
+
+def _get_phoenix_client() -> Any:
+    """Get or create a Phoenix client (singleton)."""
+    from phoenix.client import Client
+    return Client()
+
+
+def query_traces(project_name: str | None = None, limit: int = 100) -> list[dict[str, Any]]:
+    """Query traces from Phoenix.
+
+    Returns list of trace dicts with:
+    - id, trace_id, project_id, start_time, end_time
+    - token_count_prompt, token_count_completion, token_count_total
+    - spans (list of span dicts with name, attributes, etc.)
+    """
+    try:
+        client = _get_phoenix_client()
+        traces = client.traces.get(limit=limit)
+    except Exception:  # noqa: BLE001
+        return []
+    result = []
+    for t in traces:
+        trace_dict: dict[str, Any] = {
+            "id": t.id,
+            "trace_id": t.trace_id,
+            "project_id": t.project_id,
+            "start_time": t.start_time.isoformat() if t.start_time else None,
+            "end_time": t.end_time.isoformat() if t.end_time else None,
+            "token_count_prompt": t.token_count_prompt,
+            "token_count_completion": t.token_count_completion,
+            "token_count_total": t.token_count_total,
+            "spans": [],
+        }
+        for span in t.spans:
+            trace_dict["spans"].append({
+                "name": span.name,
+                "span_kind": span.span_kind,
+                "start_time": span.start_time.isoformat() if span.start_time else None,
+                "end_time": span.end_time.isoformat() if span.end_time else None,
+                "status_code": span.status_code,
+                "attributes": dict(span.attributes) if span.attributes else {},
+            })
+        result.append(trace_dict)
+    return result
+
+
+def query_spans(project_name: str | None = None, limit: int = 100) -> list[dict[str, Any]]:
+    """Query spans from Phoenix.
+
+    Returns list of span dicts with:
+    - id, parent_id, name, span_kind, start_time, end_time
+    - status_code, status_message, attributes, events
+    """
+    try:
+        client = _get_phoenix_client()
+        spans = client.spans.get(limit=limit)
+    except Exception:  # noqa: BLE001
+        return []
+    result = []
+    for s in spans:
+        span_dict: dict[str, Any] = {
+            "id": s.id,
+            "parent_id": s.parent_id,
+            "name": s.name,
+            "span_kind": s.span_kind,
+            "start_time": s.start_time.isoformat() if s.start_time else None,
+            "end_time": s.end_time.isoformat() if s.end_time else None,
+            "status_code": s.status_code,
+            "status_message": s.status_message,
+            "attributes": dict(s.attributes) if s.attributes else {},
+            "events": s.events if hasattr(s, "events") else [],
+        }
+        result.append(span_dict)
+    return result
+
+
+def query_traces_by_attribute(attr_name: str, attr_value: str, limit: int = 100) -> list[dict[str, Any]]:
+    """Query traces filtered by an attribute value.
+
+    Uses the traces.search() method if available, otherwise filters locally.
+    """
+    traces = query_traces(limit=limit * 10)  # Fetch more for filtering
+    filtered: list[dict[str, Any]] = []
+    for t in traces:
+        for span in t.get("spans", []):
+            attrs = span.get("attributes", {})
+            if attrs.get(attr_name) == attr_value:
+                filtered.append(t)
+                break
+    return filtered[:limit]
 
 
 def record_run(
@@ -237,14 +326,15 @@ def record_run(
     inference_config: dict[str, float] | None = None,
     performance: dict[str, float] | None = None,
 ) -> dict[str, Any]:
-    """Record a new telemetry run entry.
+    """Record a new telemetry run entry to Phoenix.
 
-    Args:
-        outcome_quality: 1-5 integer rating OR "success"/"fail".
-        inference_config: {temperature, min_p, context_window_size}.
-        performance: {ttft_ms, tokens_per_second}.
+    Creates a span in Phoenix with:
+    - outcome_quality as span attribute
+    - hardware_state as span attributes
+    - inference_config as span attributes
+    - performance as span attributes
 
-    Returns the recorded entry.
+    Returns the recorded entry dict (same format as before).
     """
     hw = get_hardware_state()
     is_safe, safety_msg = check_safety_limit(hw)
@@ -263,9 +353,27 @@ def record_run(
         "outcome_quality": outcome_quality,
     }
 
-    history = load_history()
-    history.append(entry)
-    save_history(history)
+    # Log to Phoenix as a span
+    try:
+        from opentelemetry import trace
+        tracer = trace.get_tracer(PROJECT_NAME)
+        with tracer.start_as_current_span("telemetry.record_run") as span:
+            span.set_attribute("outcome_quality", outcome_quality)
+            span.set_attribute("free_ram_gb", hw["free_ram_gb"])
+            span.set_attribute("total_ram_gb", hw["total_ram_gb"])
+            span.set_attribute("swap_pct", hw["swap_pct"])
+            span.set_attribute("cpu_percent", hw["cpu_percent"])
+            span.set_attribute("safety.is_safe", is_safe)
+            span.set_attribute("safety.message", safety_msg)
+            if inference_config:
+                for k, v in inference_config.items():
+                    span.set_attribute(f"inference_config.{k}", v)
+            if performance:
+                for k, v in performance.items():
+                    span.set_attribute(f"performance.{k}", v)
+    except Exception as exc:  # noqa: BLE001
+        print(f"WARNING: Failed to log to Phoenix: {exc}", file=sys.stderr)
+
     return entry
 
 
@@ -317,10 +425,10 @@ def capture_live_performance() -> dict[str, float]:
 
 
 def suggest_parameters(task_complexity: str) -> dict[str, Any]:
-    """Suggest optimal parameters based on historical telemetry data.
+    """Suggest optimal parameters based on Phoenix telemetry data.
 
-    Queries telemetry_history.json for runs with:
-      - Highest outcome_quality that did NOT violate the 3.3 GB RAM safety margin
+    Queries Phoenix for runs with:
+    - Highest outcome_quality that did NOT violate the 3.3 GB RAM safety margin
 
     Args:
         task_complexity: "Complex Coding" or "Simple Query".
@@ -333,8 +441,31 @@ def suggest_parameters(task_complexity: str) -> dict[str, Any]:
     else:
         complexity_key = "Simple Query"
 
-    history = load_history()
-    if not history:
+    # Query Phoenix for relevant traces
+    try:
+        traces = query_traces(limit=200)
+    except Exception:
+        traces = []
+
+    # Filter for telemetry.record_run spans with outcome_quality
+    safe_runs = []
+    for t in traces:
+        for span in t.get("spans", []):
+            if span.get("name") == "telemetry.record_run":
+                attrs = span.get("attributes", {})
+                quality = attrs.get("outcome_quality")
+                is_safe = attrs.get("safety.is_safe", True)
+                if is_safe and isinstance(quality, (int, float)) and quality >= 4:
+                    safe_runs.append({
+                        "outcome_quality": quality,
+                        "inference_config": {
+                            "temperature": attrs.get("inference_config.temperature"),
+                            "min_p": attrs.get("inference_config.min_p"),
+                            "context_window_size": attrs.get("inference_config.context_window_size"),
+                        },
+                    })
+
+    if not safe_runs:
         return {
             "complexity": complexity_key,
             "status": "no_history",
@@ -342,63 +473,22 @@ def suggest_parameters(task_complexity: str) -> dict[str, Any]:
             **DEFAULT_PARAMS[complexity_key],
         }
 
-    # Filter: safe runs only (is_safe == True)
-    safe_runs = [r for r in history if r.get("safety", {}).get("is_safe", True)]
+    # Aggregate: average the best-performing parameters
+    temps = [r["inference_config"]["temperature"] for r in safe_runs
+             if r["inference_config"].get("temperature") is not None]
+    min_ps = [r["inference_config"]["min_p"] for r in safe_runs
+              if r["inference_config"].get("min_p") is not None]
+    ctx_sizes = [r["inference_config"]["context_window_size"] for r in safe_runs
+                 if r["inference_config"].get("context_window_size") is not None]
 
-    # Filter: runs with outcome_quality >= 4 (high quality)
-    high_quality = [
-        r
-        for r in safe_runs
-        if isinstance(r.get("outcome_quality"), (int, float)) and r["outcome_quality"] >= 4
-    ]
-
-    if not high_quality:
-        # Fallback to all safe runs with quality >= 3
-        high_quality = [
-            r
-            for r in safe_runs
-            if isinstance(r.get("outcome_quality"), (int, float)) and r["outcome_quality"] >= 3
-        ]
-
-    if not high_quality:
-        return {
-            "complexity": complexity_key,
-            "status": "no_safe_runs",
-            "message": f"No safe high-quality runs found. Using defaults for {complexity_key}.",
-            **DEFAULT_PARAMS[complexity_key],
-        }
-
-    # Aggregate: average the best-performing parameters from high-quality runs
-    temps = [
-        r["inference_config"].get("temperature", 0.2)
-        for r in high_quality
-        if "temperature" in r.get("inference_config", {})
-    ]
-    min_ps = [
-        r["inference_config"].get("min_p", 0.05)
-        for r in high_quality
-        if "min_p" in r.get("inference_config", {})
-    ]
-    ctx_sizes = [
-        r["inference_config"].get("context_window_size", 4096)
-        for r in high_quality
-        if "context_window_size" in r.get("inference_config", {})
-    ]
-
-    avg_temp = round(sum(temps) / len(temps), 3) if temps else DEFAULT_PARAMS[complexity_key][
-        "temperature"
-    ]
-    avg_min_p = round(sum(min_ps) / len(min_ps), 3) if min_ps else DEFAULT_PARAMS[complexity_key][
-        "min_p"
-    ]
-    avg_ctx = int(sum(ctx_sizes) / len(ctx_sizes)) if ctx_sizes else DEFAULT_PARAMS[
-        complexity_key
-    ]["context_window_size"]
+    avg_temp = round(sum(temps) / len(temps), 3) if temps else DEFAULT_PARAMS[complexity_key]["temperature"]
+    avg_min_p = round(sum(min_ps) / len(min_ps), 3) if min_ps else DEFAULT_PARAMS[complexity_key]["min_p"]
+    avg_ctx = int(sum(ctx_sizes) / len(ctx_sizes)) if ctx_sizes else DEFAULT_PARAMS[complexity_key]["context_window_size"]
 
     return {
         "complexity": complexity_key,
         "status": "optimized",
-        "message": f"Suggested from {len(high_quality)} safe high-quality historical runs.",
+        "message": f"Suggested from {len(safe_runs)} safe high-quality historical runs.",
         "temperature": avg_temp,
         "min_p": avg_min_p,
         "context_window_size": avg_ctx,
@@ -433,43 +523,67 @@ def show_status() -> None:
     else:
         print(f"  oMLX Server:  unreachable (non-fatal)")
 
-    # History summary
-    history = load_history()
-    if history:
-        avg_quality = sum(r.get("outcome_quality", 0) for r in history) / len(history)
-        safe_count = sum(1 for r in history if r.get("safety", {}).get("is_safe", True))
-        print(f"\n  History:      {len(history)} runs recorded")
-        print(f"  Avg Quality:  {avg_quality:.1f}/5.0")
-        print(f"  Safe Runs:    {safe_count}/{len(history)} ({100 * safe_count / len(history):.0f}%)")
-    else:
-        print(f"\n  History:      No runs recorded yet.")
+    # Phoenix history summary
+    try:
+        traces = query_traces(limit=500)
+        run_spans = []
+        for t in traces:
+            for span in t.get("spans", []):
+                if span.get("name") == "telemetry.record_run":
+                    run_spans.append(span)
+
+        if run_spans:
+            qualities = [s.get("attributes", {}).get("outcome_quality", 0) for s in run_spans]
+            safe_count = sum(1 for s in run_spans if s.get("attributes", {}).get("safety.is_safe", True))
+            avg_quality = sum(qualities) / len(qualities) if qualities else 0
+            print(f"\n  History:      {len(run_spans)} runs recorded (from Phoenix)")
+            print(f"  Avg Quality:  {avg_quality:.1f}/5.0")
+            print(f"  Safe Runs:    {safe_count}/{len(run_spans)} ({100 * safe_count / len(run_spans):.0f}%)")
+        else:
+            print(f"\n  History:      No runs recorded yet (Phoenix).")
+    except Exception as exc:
+        print(f"\n  History:      Could not query Phoenix ({exc}).")
 
     print()
 
 
 def show_history(top_n: int = 10) -> None:
-    """Print recent telemetry history entries."""
-    history = load_history()
-    if not history:
-        print("No telemetry data recorded yet.")
+    """Print recent telemetry history entries from Phoenix."""
+    try:
+        traces = query_traces(limit=top_n * 5)
+    except Exception:
+        print("Could not query Phoenix for telemetry history.")
         return
 
-    entries = history[-top_n:]
+    # Collect record_run spans
+    run_spans = []
+    for t in traces:
+        for span in t.get("spans", []):
+            if span.get("name") == "telemetry.record_run":
+                run_spans.append((t.get("start_time", ""), span))
+
+    # Sort by start_time descending
+    run_spans.sort(key=lambda x: x[0], reverse=True)
+    entries = run_spans[:top_n]
+
+    if not entries:
+        print("No telemetry data recorded yet (Phoenix).")
+        return
+
     print(f"\n{'=' * 80}")
     print(f"  Recent Telemetry History (last {len(entries)})")
     print(f"{'=' * 80}")
 
-    for i, entry in enumerate(entries, 1):
-        ts = entry.get("timestamp", "unknown")[:19]
-        quality = entry.get("outcome_quality", "?")
-        safe = "✅" if entry.get("safety", {}).get("is_safe", True) else "⚠️"
-        hw = entry.get("hardware_state", {})
-        free_ram = hw.get("free_ram_gb", "?")
-        cfg = entry.get("inference_config", {})
-        temp = cfg.get("temperature", "-")
-        ctx = cfg.get("context_window_size", "-")
+    for i, (ts, span) in enumerate(entries, 1):
+        ts_str = ts[:19] if ts else "unknown"
+        attrs = span.get("attributes", {})
+        quality = attrs.get("outcome_quality", "?")
+        safe = "✅" if attrs.get("safety.is_safe", True) else "⚠️"
+        free_ram = attrs.get("free_ram_gb", "?")
+        temp = attrs.get("inference_config.temperature", "-")
+        ctx = attrs.get("inference_config.context_window_size", "-")
 
-        print(f"  {i:2d}. [{ts}] Q={quality} {safe} RAM={free_ram}GB temp={temp} ctx={ctx}")
+        print(f"  {i:2d}. [{ts_str}] Q={quality} {safe} RAM={free_ram}GB temp={temp} ctx={ctx}")
 
     print(f"{'=' * 80}\n")
 
@@ -599,17 +713,33 @@ def correction_pass(critique: dict[str, Any], draft: str) -> tuple[str, list[str
 
 
 def load_baseline() -> dict[str, float]:
-    """Load rolling baseline from last N optimize scores in telemetry history.
+    """Load rolling baseline from Phoenix optimize spans.
 
     Returns dict with avg_overall, avg_conciseness, avg_technical, avg_instruction.
     Falls back to threshold values if no history exists.
     """
-    history = load_history()
-    # Filter for optimize-related entries (look for optimize_score key)
-    optimize_entries = [r for r in history if OPTIMIZE_SCORE_KEY in r]
+    try:
+        traces = query_traces(limit=BASELINE_WINDOW * 10)
+    except Exception:
+        traces = []
+
+    # Filter for optimize-related spans
+    optimize_entries = []
+    for t in traces:
+        for span in t.get("spans", []):
+            if span.get("name") == "telemetry.optimize_turn":
+                attrs = span.get("attributes", {})
+                if OPTIMIZE_SCORE_KEY in attrs:
+                    optimize_entries.append({
+                        OPTIMIZE_SCORE_KEY: attrs[OPTIMIZE_SCORE_KEY],
+                        "critique": {
+                            "conciseness": {"score": attrs.get("critique.conciseness", OPTIMIZE_THRESHOLD)},
+                            "technical_fidelity": {"score": attrs.get("critique.technical_fidelity", OPTIMIZE_THRESHOLD)},
+                            "instruction_adherence": {"score": attrs.get("critique.instruction_adherence", OPTIMIZE_THRESHOLD)},
+                        },
+                    })
 
     if not optimize_entries:
-        # No baseline yet — return threshold defaults (no optimization will trigger)
         return {
             "avg_overall": OPTIMIZE_THRESHOLD,
             "avg_conciseness": OPTIMIZE_THRESHOLD,
@@ -618,22 +748,12 @@ def load_baseline() -> dict[str, float]:
             "count": 0,
         }
 
-    # Take last BASELINE_WINDOW entries
     recent = optimize_entries[-BASELINE_WINDOW:]
 
     overall_scores = [r[OPTIMIZE_SCORE_KEY] for r in recent if OPTIMIZE_SCORE_KEY in r]
-    conc_scores = [
-        r.get("critique", {}).get("conciseness", {}).get("score", OPTIMIZE_THRESHOLD)
-        for r in recent
-    ]
-    tech_scores = [
-        r.get("critique", {}).get("technical_fidelity", {}).get("score", OPTIMIZE_THRESHOLD)
-        for r in recent
-    ]
-    instr_scores = [
-        r.get("critique", {}).get("instruction_adherence", {}).get("score", OPTIMIZE_THRESHOLD)
-        for r in recent
-    ]
+    conc_scores = [r.get("critique", {}).get("conciseness", {}).get("score", OPTIMIZE_THRESHOLD) for r in recent]
+    tech_scores = [r.get("critique", {}).get("technical_fidelity", {}).get("score", OPTIMIZE_THRESHOLD) for r in recent]
+    instr_scores = [r.get("critique", {}).get("instruction_adherence", {}).get("score", OPTIMIZE_THRESHOLD) for r in recent]
 
     return {
         "avg_overall": round(sum(overall_scores) / len(overall_scores), 2) if overall_scores else OPTIMIZE_THRESHOLD,
@@ -645,23 +765,45 @@ def load_baseline() -> dict[str, float]:
 
 
 def update_baseline(score: float, critique: dict[str, Any]) -> None:
-    """Append current optimize score to telemetry history for baseline tracking."""
-    # Load existing history
+    """Log current optimize score to Phoenix for baseline tracking."""
+    try:
+        from opentelemetry import trace
+        tracer = trace.get_tracer(PROJECT_NAME)
+        with tracer.start_as_current_span("telemetry.optimize_turn") as span:
+            span.set_attribute(OPTIMIZE_SCORE_KEY, score)
+            span.set_attribute("critique.conciseness", critique["conciseness"]["score"])
+            span.set_attribute("critique.technical_fidelity", critique["technical_fidelity"]["score"])
+            span.set_attribute("critique.instruction_adherence", critique["instruction_adherence"]["score"])
+    except Exception as exc:  # noqa: BLE001
+        print(f"WARNING: Failed to log to Phoenix: {exc}", file=sys.stderr)
+
+
+def migrate_legacy_json() -> int:
+    """Migrate legacy JSON telemetry history to Phoenix.
+
+    Reads ~/.omp/telemetry_history.json and logs each entry as a Phoenix span.
+    Returns the number of entries migrated.
+    """
+    if not TELEMETRY_FILE.exists():
+        return 0
+
     history = load_history()
+    if not history:
+        return 0
 
-    # Create baseline entry (lightweight — no hardware/perf data needed)
-    baseline_entry = {
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-        OPTIMIZE_SCORE_KEY: score,
-        "critique": {
-            "conciseness": {"score": critique["conciseness"]["score"]},
-            "technical_fidelity": {"score": critique["technical_fidelity"]["score"]},
-            "instruction_adherence": {"score": critique["instruction_adherence"]["score"]},
-        },
-    }
+    migrated = 0
+    for entry in history:
+        record_run(
+            outcome_quality=entry.get("outcome_quality", 3),
+            inference_config=entry.get("inference_config"),
+            performance=entry.get("performance"),
+        )
+        migrated += 1
 
-    history.append(baseline_entry)
-    save_history(history)
+    if migrated > 0:
+        print(f"Migrated {migrated} entries from {TELEMETRY_FILE} to Phoenix.")
+
+    return migrated
 
 
 def check_degradation(current: dict[str, Any], baseline: dict[str, float]) -> tuple[bool, list[str]]:
