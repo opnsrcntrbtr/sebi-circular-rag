@@ -7,7 +7,7 @@
 
 | Metric | Value |
 |---|---|
-| **Corpus** | 724 SEBI circular records, 78,523 chunks (75 MB JSONL) |
+| **Corpus** | 724 SEBI circular records, 78,523 chunks (corpus JSONL 38 MB; index chunks.jsonl ~320 MB) |
 | **Index** | 1.0 GB at `data/index/` — dense.faiss, bm25, chunks.jsonl, lineage.json, embeddings.npy, manifest.json, meta.json, splade.npz (eval-only) |
 | **Reporting set** | `eval/golden/golden_v7.jsonl` (n=260); **adjudicated_n = 260** |
 | **Gate** | `gate_v7.json` armed: recall_at_k 0.9322, citation_recall 0.4612, abstention_accuracy 0.9731 |
@@ -16,8 +16,8 @@
 | **Abstain/as_of rows** | 53 abstain, 15 dated `as_of` |
 | **Draft rows** | 121 draft, 33 seeded |
 | **Test suite** | 603 tests pass (546 test functions, 3 deselected integration) |
-| **Source tree** | 37 Python modules in `src/sebi_rag/` (api, pipeline, retrieve, rerank, embeddings, segment, lineage, generate, eval, eval_harness, benchmark, splade, hyde, context_headers, reg_citations, reg_lineage, regulations, master_meta, settings, stats, ui, expand, verify_master, eval_asof, device, corpus, metadata); 40+ scripts in `scripts/` |
-| **Golden-v7 pipeline** | 14 scripts in `scripts/golden_v7/` (agreement, backfill_escalations, build_pool, derive_thresholds, gate_select, gemini_adjudicate, local_adjudicate, make_packet, mine_strata, relabel_repooled, remap_doc_ids, score, seed_v7) |
+| **Source tree** | 33 Python modules in `src/sebi_rag/` (api, api_spaces, pipeline, retrieve, rerank, embeddings, segment, lineage, generate, generate_spaces, corpus, corpus_spaces, eval, eval_harness, benchmark, splade, splade_encoder, hyde, context_headers, reg_citations, reg_lineage, regulations, master_meta, settings, stats, ui, expand, verify_master, eval_asof, device, ingest_pdf, metadata); 36 scripts in `scripts/` |
+| **Golden-v7 pipeline** | 15 scripts in `scripts/golden_v7/` (agreement, backfill_escalations, build_pool, derive_thresholds, gate_select, gemini_adjudicate, local_adjudicate, make_packet, mine_strata, relabel_repooled, remap_doc_ids, score, seed_v7) |
 | **V7 annotations** | `eval/golden/v7_annotations/` — votes.jsonl (207 claude records), pools.jsonl (4.2 MB), arbitration_queue.jsonl (65 KB), external_sample.json, gemini/ (21 dirs), qwen/ (150 files), candidates/, packet_human/ |
 | **Documentation** | 3 ADRs (adr-001 architecture review, adr-002 certainty architecture, adr-003 ANE declined), project_context.md, scraping_plan.md, n8n_automation_plan.md, USAGE.md |
 | **Automation** | n8n workflows in `automation/n8n/` |
@@ -43,7 +43,7 @@
   - Re-labeled `v7-ls-038`, `v7-ls-039`, `v7-ls-040` as `abstain: False` (as_of rows — pipeline fallback returns answerable content)
 - **Impact:** abstention_accuracy improved from 0.8488 → 0.9731 (+12.43pp); abstain rows: 41/41 = 1.0000
 
-### Production metrics (real stack, 705 circulars)
+### Production metrics (real stack, 724 circulars)
 ```yaml
 metrics:
   recall_at_10: ~0.98
