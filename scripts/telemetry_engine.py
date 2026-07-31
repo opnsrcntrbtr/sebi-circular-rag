@@ -1,17 +1,11 @@
-"""Self-Optimization Plugin: telemetry engine for sustainable meta-optimization loop.
+"""Self-Optimization Plugin: Phoenix/OTel-based telemetry engine.
 
-Monitors hardware (RAM/Swap via psutil), records inference performance,
-and suggests optimal parameters based on historical quality outcomes.
+Monitors hardware state via OTel System Metrics, instruments OpenAI clients
+via OpenInference, and stores telemetry in Arize Phoenix.
 
-Storage: ~/.omp/telemetry_history.json
-oMLX endpoint: 127.0.0.1:8001 (Qwen3.6-35B-A3B-MLX-4bit)
-Safety limit: 3.3 GB RAM headroom (soft limit — flags "Unstable" if violated)
-
-Usage:
-    python scripts/telemetry_engine.py record --quality 5 --success
-    python scripts/telemetry_engine.py suggest Complex Coding
-    python scripts/telemetry_engine.py status
-    python scripts/telemetry_engine.py history --top 10
+Storage: Arize Phoenix (http://localhost:6006)
+oMLX endpoint: 127.0.0.1:8001 (OpenAI-compatible)
+Safety limit: 3.3 GB RAM headroom (soft limit)
 """
 from __future__ import annotations
 
@@ -20,26 +14,20 @@ import json
 import os
 import sys
 import time
+from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, ContextManager
 
-try:
-    import psutil  # noqa: F401
-except ImportError:
-    print("ERROR: psutil is required. Install with: pip install psutil", file=sys.stderr)
-    sys.exit(1)
-
-# ---------------------------------------------------------------------------
-# Constants
-# ---------------------------------------------------------------------------
-TELEMETRY_DIR = Path.home() / ".omp"
-TELEMETRY_FILE = TELEMETRY_DIR / "telemetry_history.json"
-SOFT_LIMIT_GB = 3.3  # RAM headroom safety margin in GB
+# --- Constants ---
+PHOENIX_ENDPOINT = "http://localhost:6006"
 OMLX_HOST = "127.0.0.1"
 OMLX_PORT = 8001
+SOFT_LIMIT_GB = 3.3
+PROJECT_NAME = "sebi-rag-telemetry"
+TELEMETRY_DIR = Path.home() / ".omp"
+TELEMETRY_FILE = TELEMETRY_DIR / "telemetry_history.json"
 
-# Default parameter presets (will be overridden by optimization suggestions)
 DEFAULT_PARAMS = {
     "Complex Coding": {
         "temperature": 0.2,
@@ -53,29 +41,155 @@ DEFAULT_PARAMS = {
     },
 }
 
+# Turn-Based Optimization Thresholds
+OPTIMIZE_THRESHOLD = 8.0
+DRIFT_MARGIN = 1.0
+BASELINE_WINDOW = 10
+OPTIMIZE_SCORE_KEY = "optimize_score"
 
-# Turn-Based Optimization Thresholds (configurable)
-OPTIMIZE_THRESHOLD = 8.0       # Minimum acceptable overall score before optimization triggers
-DRIFT_MARGIN = 1.0             # Score must drop below baseline by this margin to trigger
-BASELINE_WINDOW = 10           # Number of recent turns to use for rolling baseline
-OPTIMIZE_SCORE_KEY = "optimize_score"  # Key in telemetry history for optimize scores
+# --- TracerProvider (singleton cache) ---
 
-# ---------------------------------------------------------------------------
-# Hardware Safety Monitor
-# ---------------------------------------------------------------------------
+_tracer_provider: Any = None
+
+
+def get_tracer_provider() -> Any:
+    """Create and return a configured Phoenix TracerProvider (singleton).
+
+    Uses phoenix.otel.TracerProvider with OTLP HTTP/protobuf exporter.
+    Connection errors are non-fatal — the provider is still returned.
+    """
+    global _tracer_provider
+    if _tracer_provider is not None:
+        return _tracer_provider
+
+    from phoenix.otel import TracerProvider as PhoenixTracerProvider
+    from opentelemetry.sdk.resources import Resource
+    from opentelemetry.trace import set_tracer_provider
+
+    resource = Resource.create({
+        "service.name": PROJECT_NAME,
+        "service.version": "1.0.0",
+    })
+
+    try:
+        _tracer_provider = PhoenixTracerProvider(
+            resource=resource,
+            endpoint=PHOENIX_ENDPOINT,
+            protocol="http/protobuf",
+        )
+        # Register as the global tracer provider so get_tracer() works
+        set_tracer_provider(_tracer_provider)
+    except Exception as exc:  # noqa: BLE001
+        # Phoenix not running or unreachable — log warning but don't fail import
+        print(
+            f"WARNING: Could not connect to Phoenix at {PHOENIX_ENDPOINT}: {exc}",
+            file=sys.stderr,
+        )
+        # Create a no-op provider so imports still work
+        from opentelemetry.sdk.trace import TracerProvider as StdTracerProvider
+        _tracer_provider = StdTracerProvider(resource=resource)
+        set_tracer_provider(_tracer_provider)
+
+    return _tracer_provider
+
+
+# --- OpenAI Instrumentation ---
+
+
+def instrument_openai_client(tracer_provider: Any) -> Any:
+    """Instrument the OpenAI client for telemetry via OpenInference.
+
+    Wraps openai.OpenAI.request and openai.AsyncOpenAI.request.
+    Returns the instrumentor instance, or None if the package is not available.
+    """
+    try:
+        from openinference.instrumentation.openai import OpenAIInstrumentor
+    except ImportError:
+        print(
+            "WARNING: openinference-instrumentation-openai not available. "
+            "OpenAI client will not be instrumented.",
+            file=sys.stderr,
+        )
+        return None
+
+    instrumentor = OpenAIInstrumentor()
+    instrumentor.instrument(tracer_provider=tracer_provider)
+    return instrumentor
+
+
+def uninstrument_openai_client(instrumentor: Any) -> None:
+    """Uninstrument the OpenAI client."""
+    if instrumentor is None:
+        return
+    try:
+        from openinference.instrumentation.openai import OpenAIInstrumentor
+        if isinstance(instrumentor, OpenAIInstrumentor):
+            instrumentor.uninstrument()
+    except ImportError:
+        pass
+
+
+# --- Span Context Manager ---
+
+
+@contextmanager
+def telemetry_span(name: str, attributes: dict[str, Any] | None = None) -> ContextManager[Any]:
+    """Context manager for creating and managing a telemetry span.
+
+    Starts a span, yields it, and ends it on exit.
+    On exception, sets error status and records the exception.
+    """
+    from opentelemetry import trace
+
+    # Ensure the global tracer provider is initialized (singleton).
+    get_tracer_provider()
+    tracer = trace.get_tracer(PROJECT_NAME)
+    span = tracer.start_span(name, attributes=attributes or {})
+    try:
+        yield span
+    except Exception as e:
+        span.set_status(trace.Status(trace.StatusCode.ERROR, str(e)))
+        span.record_exception(e)
+        raise
+    finally:
+        span.end()
+
+
+# --- Hardware Metrics ---
 
 
 def get_hardware_state() -> dict[str, float]:
-    """Return current RAM free (GB) and swap usage percentage."""
-    vm = psutil.virtual_memory()
-    swap = psutil.swap_memory()
-    return {
-        "free_ram_gb": round(vm.available / (1024**3), 2),
-        "total_ram_gb": round(vm.total / (1024**3), 2),
-        "swap_used_gb": round(swap.used / (1024**3), 2),
-        "swap_total_gb": round(swap.total / (1024**3), 2) if swap.total > 0 else 0.0,
-        "swap_pct": round(swap.percent, 1),
-    }
+    """Return current RAM free (GB) and swap usage percentage.
+
+    Uses psutil as the primary implementation (already installed).
+    Falls back to zeroed values if psutil is unavailable.
+    """
+    try:
+        import psutil
+
+        vm = psutil.virtual_memory()
+        swap = psutil.swap_memory()
+        cpu_percent = psutil.cpu_percent(interval=0.1)
+        return {
+            "free_ram_gb": round(vm.available / (1024 ** 3), 2),
+            "total_ram_gb": round(vm.total / (1024 ** 3), 2),
+            "swap_used_gb": round(swap.used / (1024 ** 3), 2),
+            "swap_total_gb": round(swap.total / (1024 ** 3), 2) if swap.total > 0 else 0.0,
+            "swap_pct": round(swap.percent, 1),
+            "cpu_percent": round(cpu_percent, 1),
+        }
+    except ImportError:
+        return {
+            "free_ram_gb": 0.0,
+            "total_ram_gb": 0.0,
+            "swap_used_gb": 0.0,
+            "swap_total_gb": 0.0,
+            "swap_pct": 0.0,
+            "cpu_percent": 0.0,
+        }
+
+
+# --- Safety Check ---
 
 
 def check_safety_limit(hw: dict[str, float]) -> tuple[bool, str]:
@@ -85,17 +199,17 @@ def check_safety_limit(hw: dict[str, float]) -> tuple[bool, str]:
     """
     headroom = hw["free_ram_gb"]
     if headroom >= SOFT_LIMIT_GB:
-        return True, f"OK — {headroom:.1f} GB headroom (>= {SOFT_LIMIT_GB} GB limit)"
+        return True, f"OK - {headroom:.1f} GB headroom (>= {SOFT_LIMIT_GB} GB limit)"
     deficit = SOFT_LIMIT_GB - headroom
     return (
         False,
-        f"UNSTABLE — {headroom:.1f} GB headroom (< {SOFT_LIMIT_GB} GB limit, "
+        f"UNSTABLE - {headroom:.1f} GB headroom (< {SOFT_LIMIT_GB} GB limit, "
         f"deficit: {deficit:.1f} GB). Reduce oMLX Hot Cache or Context Window.",
     )
 
 
 # ---------------------------------------------------------------------------
-# Telemetry Database (JSON)
+# Telemetry Database (JSON — legacy, kept for backward compatibility)
 # ---------------------------------------------------------------------------
 
 
@@ -179,7 +293,7 @@ def fetch_omlx_metrics() -> dict[str, Any] | None:
                     "model": data.get("model", "unknown"),
                 }
             return {"omlx_status": f"http_{resp.status_code}"}
-    except Exception:
+    except Exception:  # noqa: BLE001
         return None
 
 
@@ -232,11 +346,19 @@ def suggest_parameters(task_complexity: str) -> dict[str, Any]:
     safe_runs = [r for r in history if r.get("safety", {}).get("is_safe", True)]
 
     # Filter: runs with outcome_quality >= 4 (high quality)
-    high_quality = [r for r in safe_runs if isinstance(r.get("outcome_quality"), (int, float)) and r["outcome_quality"] >= 4]
+    high_quality = [
+        r
+        for r in safe_runs
+        if isinstance(r.get("outcome_quality"), (int, float)) and r["outcome_quality"] >= 4
+    ]
 
     if not high_quality:
         # Fallback to all safe runs with quality >= 3
-        high_quality = [r for r in safe_runs if isinstance(r.get("outcome_quality"), (int, float)) and r["outcome_quality"] >= 3]
+        high_quality = [
+            r
+            for r in safe_runs
+            if isinstance(r.get("outcome_quality"), (int, float)) and r["outcome_quality"] >= 3
+        ]
 
     if not high_quality:
         return {
@@ -247,13 +369,31 @@ def suggest_parameters(task_complexity: str) -> dict[str, Any]:
         }
 
     # Aggregate: average the best-performing parameters from high-quality runs
-    temps = [r["inference_config"].get("temperature", 0.2) for r in high_quality if "temperature" in r.get("inference_config", {})]
-    min_ps = [r["inference_config"].get("min_p", 0.05) for r in high_quality if "min_p" in r.get("inference_config", {})]
-    ctx_sizes = [r["inference_config"].get("context_window_size", 4096) for r in high_quality if "context_window_size" in r.get("inference_config", {})]
+    temps = [
+        r["inference_config"].get("temperature", 0.2)
+        for r in high_quality
+        if "temperature" in r.get("inference_config", {})
+    ]
+    min_ps = [
+        r["inference_config"].get("min_p", 0.05)
+        for r in high_quality
+        if "min_p" in r.get("inference_config", {})
+    ]
+    ctx_sizes = [
+        r["inference_config"].get("context_window_size", 4096)
+        for r in high_quality
+        if "context_window_size" in r.get("inference_config", {})
+    ]
 
-    avg_temp = round(sum(temps) / len(temps), 3) if temps else DEFAULT_PARAMS[complexity_key]["temperature"]
-    avg_min_p = round(sum(min_ps) / len(min_ps), 3) if min_ps else DEFAULT_PARAMS[complexity_key]["min_p"]
-    avg_ctx = int(sum(ctx_sizes) / len(ctx_sizes)) if ctx_sizes else DEFAULT_PARAMS[complexity_key]["context_window_size"]
+    avg_temp = round(sum(temps) / len(temps), 3) if temps else DEFAULT_PARAMS[complexity_key][
+        "temperature"
+    ]
+    avg_min_p = round(sum(min_ps) / len(min_ps), 3) if min_ps else DEFAULT_PARAMS[complexity_key][
+        "min_p"
+    ]
+    avg_ctx = int(sum(ctx_sizes) / len(ctx_sizes)) if ctx_sizes else DEFAULT_PARAMS[
+        complexity_key
+    ]["context_window_size"]
 
     return {
         "complexity": complexity_key,
@@ -275,14 +415,14 @@ def show_status() -> None:
     hw = get_hardware_state()
     is_safe, msg = check_safety_limit(hw)
 
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print(f"  Telemetry Engine — Hardware Status")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
     print(f"  Free RAM:     {hw['free_ram_gb']:.1f} GB / {hw['total_ram_gb']:.1f} GB")
     print(f"  Swap Used:    {hw['swap_used_gb']:.1f} GB / {hw['swap_total_gb']:.1f} GB ({hw['swap_pct']}%)")
     print(f"  Headroom:     {hw['free_ram_gb']:.1f} GB (limit: {SOFT_LIMIT_GB} GB)")
     print(f"  Safety:       {'✅ SAFE' if is_safe else '⚠️  UNSTABLE'}")
-    print(f"{'='*60}\n")
+    print(f"{'=' * 60}\n")
 
     # oMLX status
     omlx = fetch_omlx_metrics()
@@ -300,7 +440,7 @@ def show_status() -> None:
         safe_count = sum(1 for r in history if r.get("safety", {}).get("is_safe", True))
         print(f"\n  History:      {len(history)} runs recorded")
         print(f"  Avg Quality:  {avg_quality:.1f}/5.0")
-        print(f"  Safe Runs:    {safe_count}/{len(history)} ({100*safe_count/len(history):.0f}%)")
+        print(f"  Safe Runs:    {safe_count}/{len(history)} ({100 * safe_count / len(history):.0f}%)")
     else:
         print(f"\n  History:      No runs recorded yet.")
 
@@ -315,9 +455,9 @@ def show_history(top_n: int = 10) -> None:
         return
 
     entries = history[-top_n:]
-    print(f"\n{'='*80}")
+    print(f"\n{'=' * 80}")
     print(f"  Recent Telemetry History (last {len(entries)})")
-    print(f"{'='*80}")
+    print(f"{'=' * 80}")
 
     for i, entry in enumerate(entries, 1):
         ts = entry.get("timestamp", "unknown")[:19]
@@ -331,8 +471,7 @@ def show_history(top_n: int = 10) -> None:
 
         print(f"  {i:2d}. [{ts}] Q={quality} {safe} RAM={free_ram}GB temp={temp} ctx={ctx}")
 
-    print(f"{'='*80}\n")
-
+    print(f"{'=' * 80}\n")
 
 
 # ---------------------------------------------------------------------------
@@ -454,7 +593,6 @@ def correction_pass(critique: dict[str, Any], draft: str) -> tuple[str, list[str
     return refined, changes
 
 
-
 # ---------------------------------------------------------------------------
 # Turn-Based Optimization — Baseline Management
 # ---------------------------------------------------------------------------
@@ -484,9 +622,18 @@ def load_baseline() -> dict[str, float]:
     recent = optimize_entries[-BASELINE_WINDOW:]
 
     overall_scores = [r[OPTIMIZE_SCORE_KEY] for r in recent if OPTIMIZE_SCORE_KEY in r]
-    conc_scores = [r.get("critique", {}).get("conciseness", {}).get("score", OPTIMIZE_THRESHOLD) for r in recent]
-    tech_scores = [r.get("critique", {}).get("technical_fidelity", {}).get("score", OPTIMIZE_THRESHOLD) for r in recent]
-    instr_scores = [r.get("critique", {}).get("instruction_adherence", {}).get("score", OPTIMIZE_THRESHOLD) for r in recent]
+    conc_scores = [
+        r.get("critique", {}).get("conciseness", {}).get("score", OPTIMIZE_THRESHOLD)
+        for r in recent
+    ]
+    tech_scores = [
+        r.get("critique", {}).get("technical_fidelity", {}).get("score", OPTIMIZE_THRESHOLD)
+        for r in recent
+    ]
+    instr_scores = [
+        r.get("critique", {}).get("instruction_adherence", {}).get("score", OPTIMIZE_THRESHOLD)
+        for r in recent
+    ]
 
     return {
         "avg_overall": round(sum(overall_scores) / len(overall_scores), 2) if overall_scores else OPTIMIZE_THRESHOLD,
@@ -504,7 +651,7 @@ def update_baseline(score: float, critique: dict[str, Any]) -> None:
 
     # Create baseline entry (lightweight — no hardware/perf data needed)
     baseline_entry = {
-        "timestamp": __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
         OPTIMIZE_SCORE_KEY: score,
         "critique": {
             "conciseness": {"score": critique["conciseness"]["score"]},
@@ -530,11 +677,17 @@ def check_degradation(current: dict[str, Any], baseline: dict[str, float]) -> tu
 
     # Criterion-level checks
     if current["conciseness"]["score"] < (baseline["avg_conciseness"] - DRIFT_MARGIN):
-        flags.append(f"conciseness: {current['conciseness']['score']:.1f} < {baseline['avg_conciseness'] - DRIFT_MARGIN:.1f}")
+        flags.append(
+            f"conciseness: {current['conciseness']['score']:.1f} < {baseline['avg_conciseness'] - DRIFT_MARGIN:.1f}"
+        )
     if current["technical_fidelity"]["score"] < (baseline["avg_technical"] - DRIFT_MARGIN):
-        flags.append(f"technical_fidelity: {current['technical_fidelity']['score']:.1f} < {baseline['avg_technical'] - DRIFT_MARGIN:.1f}")
+        flags.append(
+            f"technical_fidelity: {current['technical_fidelity']['score']:.1f} < {baseline['avg_technical'] - DRIFT_MARGIN:.1f}"
+        )
     if current["instruction_adherence"]["score"] < (baseline["avg_instruction"] - DRIFT_MARGIN):
-        flags.append(f"instruction_adherence: {current['instruction_adherence']['score']:.1f} < {baseline['avg_instruction'] - DRIFT_MARGIN:.1f}")
+        flags.append(
+            f"instruction_adherence: {current['instruction_adherence']['score']:.1f} < {baseline['avg_instruction'] - DRIFT_MARGIN:.1f}"
+        )
 
     # Overall check (only if no criterion-level degradation)
     if not flags:
@@ -645,7 +798,6 @@ def build_parser() -> argparse.ArgumentParser:
     hist = sub.add_parser("history", help="Show recent telemetry history")
     hist.add_argument("--top", "-n", type=int, default=10, help="Number of recent entries to show")
 
-
     # optimize — turn-based self-critique and correction pass
     opt = sub.add_parser("optimize", help="Run turn-based self-critique optimization on a draft")
     opt.add_argument("--prompt", "-p", required=True, help="Original user prompt (for state analysis)")
@@ -671,15 +823,15 @@ def main() -> None:
 
     elif args.command == "suggest":
         result = suggest_parameters(args.complexity)
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print(f"  Parameter Suggestion — {result['complexity']}")
-        print(f"{'='*60}")
+        print(f"{'=' * 60}")
         print(f"  Status:   {result['status']}")
         print(f"  Message:  {result['message']}")
         print(f"  Temperature:   {result['temperature']}")
         print(f"  Min_P:         {result['min_p']}")
         print(f"  Context Window:{result['context_window_size']}")
-        print(f"{'='*60}\n")
+        print(f"{'=' * 60}\n")
 
     elif args.command == "record":
         # Determine outcome_quality
@@ -725,9 +877,9 @@ def main() -> None:
             print(_json.dumps(out, indent=2))
         else:
             status_icon = "⚠️  DEGRADED" if result["degraded"] else "✅ OPTIMIZED"
-            print(f"\n{'='*60}")
+            print(f"\n{'=' * 60}")
             print(f"  Turn-Based Optimization — {status_icon}")
-            print(f"{'='*60}")
+            print(f"{'=' * 60}")
             print(f"  State Complexity:   {result['state']['complexity']}")
             if result["degraded"]:
                 print(f"  Baseline Avg:       {result['baseline_avg']:.1f}/10.0 (last {BASELINE_WINDOW} turns)")
@@ -742,7 +894,7 @@ def main() -> None:
             print(f"  Technical Fidelity: {result['critique']['technical_fidelity']['score']:.1f}/10.0")
             print(f"  Instruction Adhere: {result['critique']['instruction_adherence']['score']:.1f}/10.0")
             print(f"  Changes Made:       {', '.join(result['changes_made'])}")
-            print(f"{'='*60}\n")
+            print(f"{'=' * 60}\n")
 
     else:
         parser.print_help()
