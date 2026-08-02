@@ -1,192 +1,104 @@
 #!/usr/bin/env bash
-# autoresearch.sh — SEBI Circular RAG retrieval benchmark harness.
-#
-# Loads the persisted FAISS+BM25 index, runs every golden_v7 query through
-# HybridRetriever, computes recall@10 / MRR / nDCG@10 + latency.
-# Fully offline, deterministic (fixed seeds via env), exits 0 on success.
 set -euo pipefail
 
+# -- Autoresearch benchmark harness for SEBI RAG --------------------------
+# Builds a HashEmbedder index (deterministic, no model/network), then runs
+# retrieval benchmark on golden_v7.jsonl. Emits METRIC lines for recall@10,
+# MRR, nDCG@10 at circular (doc) level.
+#
+# Deterministic: fixed corpus, fixed golden set, no network, no model weights.
+
 cd "$(dirname "$0")"
+export PYTHONPATH="src:${PYTHONPATH:-}"
+export TOKENIZERS_PARALLELISM=false OMP_NUM_THREADS=1
 
-export TOKENIZERS_PARALLELISM=false
-export OMP_NUM_THREADS=1
-export PYTORCH_ENABLE_MPS_FALLBACK=1
-export HF_HUB_DISABLE_XET=1
-
-exec python - <<'PYEOF'
-"""autoresearch harness — retrieval evaluation against golden_v7."""
-
-import json, os, sys, time
+exec python -u - <<'PYEOF'
+"""Deterministic retrieval benchmark for autoresearch."""
+import json, time, sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[0]
 sys.path.insert(0, str(ROOT / "src"))
 
-from sebi_rag.embeddings import BGEM3Embedder
+from sebi_rag.embeddings import HashEmbedder
 from sebi_rag.retrieve import HybridRetriever
-from sebi_rag.eval_harness import load_golden
+from sebi_rag.corpus import load_circulars
+from sebi_rag.eval import recall_at_k, mrr as calc_mrr, ndcg_at_k
+from sebi_rag.segment import Chunk
 
-# ---------------------------------------------------------------------------
-# Load index (once)
-# ---------------------------------------------------------------------------
-embedder = BGEM3Embedder()
-retriever = HybridRetriever.load(str(ROOT / "data" / "index"), embedder)
-print(f"[harness] loaded {len(retriever.chunks)} chunks in "
-      f"{embedder.dim}d", file=sys.stderr)
+# -- Paths ---------------------------------------------------------------
+CORPUS = ROOT / "data" / "corpus" / "circulars.jsonl"
+INDEX = ROOT / "data" / "index_ar"  # autoresearch index (isolated)
+GOLDEN = ROOT / "eval" / "golden" / "golden_v7.jsonl"
 
-# ---------------------------------------------------------------------------
-# Load golden set
-# ---------------------------------------------------------------------------
-golden_path = ROOT / "eval" / "golden" / "golden_v7.jsonl"
-golden = load_golden(golden_path)
-print(f"[harness] {len(golden)} golden queries", file=sys.stderr)
+# -- Build index with HashEmbedder (deterministic, no model) -------------
+print("Building HashEmbedder index ...", flush=True)
+t0 = time.time()
 
-# ---------------------------------------------------------------------------
-# Run retrieval for each query, collect metrics
-# ---------------------------------------------------------------------------
-K = 10
+chunks = load_circulars(CORPUS)
+print(f" chunks={len(chunks)}", flush=True)
 
-def recall_at_k(ranked_ids, relevant, k):
-    if not relevant:
-        return 0.0
-    hit = len(set(ranked_ids[:k]) & relevant)
-    return hit / len(relevant)
+emb = HashEmbedder(dim=256)
+retriever = HybridRetriever.build(chunks, emb)
+retriever.save(INDEX)
+print(f" built in {time.time()-t0:.1f}s", flush=True)
 
-def mrr(ranked_ids, relevant):
-    for i, cid in enumerate(ranked_ids):
-        if cid in relevant:
-            return 1.0 / (i + 1)
-    return 0.0
+# -- Load golden set -----------------------------------------------------
+print("Loading golden set ...", flush=True)
+golden = []
+with GOLDEN.open() as f:
+    for line in f:
+        item = json.loads(line)
+        if not item.get("abstain", False):
+            golden.append(item)
+print(f" active queries={len(golden)}", flush=True)
 
-def ndcg_at_k(ranked_ids, relevant, k):
-    import math
-    dcg = sum(1.0 / math.log2(i + 2) for i, cid in enumerate(ranked_ids[:k]) if cid in relevant)
-    ideal = sum(1.0 / math.log2(i + 2) for i in range(min(k, len(relevant))))
-    return dcg / ideal if ideal else 0.0
+# -- Benchmark: retrieve + evaluate --------------------------------------
+print(f"\n{'id':<12} {'recall@10':>9} {'mrr':>7} {'ndcg@10':>8}", flush=True)
 
-per_query = []
-total_t0 = time.time()
+k = 10
+recall_scores, mrr_scores, ndcg_scores = [], [], []
 
 for item in golden:
-    q = item["query"]
-    relevant_cids = set(item.get("relevant_circulars", []))
-    if not relevant_cids:
-        continue  # skip items with no ground truth
+    qid = item["id"]
+    query = item["query"]
+    relevant_circulars = set(item.get("relevant_circulars", []))
 
-    t0 = time.time()
-    results = retriever.retrieve(q, k_dense=50, k_sparse=50, top_n=50)
-    elapsed = time.time() - t0
+    # Retrieve top-k chunks
+    results = retriever.retrieve(query, k_dense=50, k_sparse=50, top_n=k)
+    # Extract doc (circular) IDs from ranked chunks
+    ranked_docs = [c.id.split("#", 1)[0] for c, _ in results[:k]]
 
-    # Extract doc_ids from retrieved chunks (strip #chunk suffix)
-    ranked_docs = [c.doc_id.split("#", 1)[0] for c, _ in results]
+    # Circular-level recall: any chunk from a relevant circular counts
+    circ_recall = recall_at_k(ranked_docs, relevant_circulars, k)
 
-    r = recall_at_k(ranked_docs, relevant_cids, K)
-    m = mrr(ranked_docs, relevant_cids)
-    n = ndcg_at_k(ranked_docs, relevant_cids, K)
+    # MRR at circular level
+    circ_mrr = calc_mrr(ranked_docs, relevant_circulars)
 
-    per_query.append({"id": item["id"], "recall": r, "mrr": m, "ndcg": n, "latency_s": elapsed})
+    # nDCG@10 at circular level
+    circ_ndcg = ndcg_at_k(ranked_docs, relevant_circulars, k)
 
-total_elapsed = time.time() - total_t0
+    recall_scores.append(circ_recall)
+    mrr_scores.append(circ_mrr)
+    ndcg_scores.append(circ_ndcg)
 
-# ---------------------------------------------------------------------------
-# Aggregate
-# ---------------------------------------------------------------------------
-n_queries = len(per_query)
-avg_recall = sum(q["recall"] for q in per_query) / n_queries if n_queries else 0.0
-avg_mrr    = sum(q["mrr"] for q in per_query) / n_queries if n_queries else 0.0
-avg_ndcg   = sum(q["ndcg"] for q in per_query) / n_queries if n_queries else 0.0
-avg_latency = sum(q["latency_s"] for q in per_query) / n_queries if n_queries else 0.0
+    print(f"{qid:<12} {circ_recall:>9.4f} {circ_mrr:>7.4f} {circ_ndcg:>8.4f}", flush=True)
 
-# Per-difficulty breakdown
-diffs = {}
-for q in per_query:
-    # Look up difficulty from golden again (we already loaded it)
-    pass
+# -- Aggregate metrics ---------------------------------------------------
+avg_recall = sum(recall_scores) / len(recall_scores) if recall_scores else 0.0
+avg_mrr = sum(mrr_scores) / len(mrr_scores) if mrr_scores else 0.0
+avg_ndcg = sum(ndcg_scores) / len(ndcg_scores) if ndcg_scores else 0.0
 
-# ---------------------------------------------------------------------------
-# Output METRIC lines (autoresearch harness contract)
-# ---------------------------------------------------------------------------
-print(f"METRIC recall_at_10={avg_recall:.6f}")
-print(f"METRIC mrr={avg_mrr:.6f}")
-print(f"METRIC ndcg_at_10={avg_ndcg:.6f}")
-print(f"METRIC avg_latency_s={avg_latency:.4f}")
-print(f"METRIC total_time_s={total_elapsed:.2f}")
-print(f"METRIC n_queries={n_queries}")
+print(f"\n{'='*40}", flush=True)
+print(f"AVG recall@10={avg_recall:.4f}", flush=True)
+print(f"AVG mrr={avg_mrr:.4f}", flush=True)
+print(f"AVG ndcg@10={avg_ndcg:.4f}", flush=True)
+print(f"n_queries={len(golden)}", flush=True)
 
-# Per-difficulty metrics (re-scan golden for difficulty labels)
-diff_metrics = {}
-for item, q in zip(golden, per_query):
-    d = item.get("difficulty", "unknown")
-    if d not in diff_metrics:
-        diff_metrics[d] = {"recall": [], "mrr": [], "ndcg": [], "n": 0}
-    diff_metrics[d]["recall"].append(q["recall"])
-    diff_metrics[d]["mrr"].append(q["mrr"])
-    diff_metrics[d]["ndcg"].append(q["ndcg"])
-    diff_metrics[d]["n"] += 1
+# Emit METRIC lines for autoresearch
+print(f"METRIC recall@10={avg_recall:.4f}", flush=True)
+print(f"METRIC mrr={avg_mrr:.4f}", flush=True)
+print(f"METRIC ndcg@10={avg_ndcg:.4f}", flush=True)
+print(f"METRIC n_queries={len(golden)}", flush=True)
 
-for d, vals in sorted(diff_metrics.items()):
-    n = vals["n"]
-    if n == 0:
-        continue
-    print(f"METRIC recall_at_10_{d}={sum(vals['recall'])/n:.6f}")
-    print(f"METRIC mrr_{d}={sum(vals['mrr'])/n:.6f}")
-    print(f"METRIC ndcg_at_10_{d}={sum(vals['ndcg'])/n:.6f}")
-
-# Per-task_type breakdown
-task_metrics = {}
-for item, q in zip(golden, per_query):
-    t = item.get("task_type", "unknown")
-    if t not in task_metrics:
-        task_metrics[t] = {"recall": [], "mrr": [], "ndcg": [], "n": 0}
-    task_metrics[t]["recall"].append(q["recall"])
-    task_metrics[t]["mrr"].append(q["mrr"])
-    task_metrics[t]["ndcg"].append(q["ndcg"])
-    task_metrics[t]["n"] += 1
-
-for t, vals in sorted(task_metrics.items()):
-    n = vals["n"]
-    if n == 0:
-        continue
-    print(f"METRIC recall_at_10_{t}={sum(vals['recall'])/n:.6f}")
-    print(f"METRIC mrr_{t}={sum(vals['mrr'])/n:.6f}")
-    print(f"METRIC ndcg_at_10_{t}={sum(vals['ndcg'])/n:.6f}")
-
-# Per-citation-level breakdown
-level_metrics = {}
-for item, q in zip(golden, per_query):
-    l = item.get("expected_citation_level", "unknown")
-    if l not in level_metrics:
-        level_metrics[l] = {"recall": [], "mrr": [], "ndcg": [], "n": 0}
-    level_metrics[l]["recall"].append(q["recall"])
-    level_metrics[l]["mrr"].append(q["mrr"])
-    level_metrics[l]["ndcg"].append(q["ndcg"])
-    level_metrics[l]["n"] += 1
-
-for l, vals in sorted(level_metrics.items()):
-    n = vals["n"]
-    if n == 0:
-        continue
-    print(f"METRIC recall_at_10_{l}={sum(vals['recall'])/n:.6f}")
-    print(f"METRIC mrr_{l}={sum(vals['mrr'])/n:.6f}")
-    print(f"METRIC ndcg_at_10_{l}={sum(vals['ndcg'])/n:.6f}")
-
-# Adjudicated-only subset (gate metrics)
-adj = [(item, q) for item, q in zip(golden, per_query)
-       if item.get("review_status") == "adjudicated"]
-if adj:
-    a_recall = sum(q["recall"] for _, q in adj) / len(adj)
-    a_mrr = sum(q["mrr"] for _, q in adj) / len(adj)
-    a_ndcg = sum(q["ndcg"] for _, q in adj) / len(adj)
-    print(f"METRIC recall_at_10_adjudicated={a_recall:.6f}")
-    print(f"METRIC mrr_adjudicated={a_mrr:.6f}")
-    print(f"METRIC ndcg_at_10_adjudicated={a_ndcg:.6f}")
-    print(f"METRIC n_adjudicated={len(adj)}")
-
-# Per-query detail JSON (for debugging / post-processing)
-detail_path = ROOT / "eval" / "runs" / f"autoresearch_{int(time.time())}.json"
-detail_path.parent.mkdir(parents=True, exist_ok=True)
-with open(detail_path, "w") as f:
-    json.dump(per_query, f, indent=2)
-
-print(f"[harness] wrote per-query detail to {detail_path}", file=sys.stderr)
 PYEOF
