@@ -136,7 +136,7 @@ Real stack calibration over 724 circulars / 78,523 chunks (golden_v7):
 
 ```yaml
 params:
-  top_k: 5 (default, configurable via SEBI_RAG_TOP_K)
+  top_k: 10 (default, configurable via SEBI_RAG_TOP_K)
   score_floor: 0.05 (cross-encoder; configurable via SEBI_RAG_SCORE_FLOOR)
   subject_sim_threshold: 0.42 (two-tier: subject_sim >= 0.42 OR section_sim >= 0.60)
   section_threshold: 0.60 (configurable via SEBI_RAG_SECT_THRESHOLD)
@@ -294,7 +294,7 @@ reproducibility:
 
 ```yaml
 prerequisites:
-  P1: "Labelled SEBI evaluation set — COMPLETED (golden_v7, n=260, adjudicated_n=260, gate armed). Calibrated: top_k=3, score_floor=0.05"
+  P1: "Labelled SEBI evaluation set — COMPLETED (golden_v7, n=260, adjudicated_n=260, gate armed). Calibrated: top_k=10, score_floor=0.05"
   P2: "Metadata lineage extraction — COMPLETED (lineage.py, 5 edges, answer-layer warnings wired)"
 ```
 

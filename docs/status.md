@@ -60,7 +60,7 @@ fallback:
   mlx_model: (env SEBI_RAG_MLX_MODEL)
 ```
 ### Operating point constraints
-top_k: 5 | score_floor: 0.05 | two-tier gate (subject ≥ 0.42 OR section ≥ 0.60)
+top_k: 10 | score_floor: 0.05 | two-tier gate (subject ≥ 0.42 OR section ≥ 0.60)
 env: SEBI_RAG_GATE | SEBI_RAG_SUBJ_THRESHOLD | SEBI_RAG_SECT_THRESHOLD
 
 
