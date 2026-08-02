@@ -136,8 +136,8 @@ Real stack calibration over 724 circulars / 78,523 chunks (golden_v7):
 
 ```yaml
 params:
-  top_k: 3 (default, configurable via SEBI_RAG_TOP_K)
-  score_floor: 0.05 (cross-encoder; configurable via SEBI_RAG_ABSTAIN_THRESHOLD)
+  top_k: 5 (default, configurable via SEBI_RAG_TOP_K)
+  score_floor: 0.05 (cross-encoder; configurable via SEBI_RAG_SCORE_FLOOR)
   subject_sim_threshold: 0.42 (two-tier: subject_sim >= 0.42 OR section_sim >= 0.60)
   section_threshold: 0.60 (configurable via SEBI_RAG_SECT_THRESHOLD)
 index_path: data/index/ (reload 0.34s). Re-run after corpus growth.
@@ -148,7 +148,7 @@ index_path: data/index/ (reload 0.34s). Re-run after corpus growth.
 ```yaml
 reporting_set: eval/golden/golden_v7.jsonl (n=260, adjudicated_n=260)
 strata: [title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10]
-abstain_rows: 53 | as_of_dated_rows: 15
+abstain_rows: 41 | as_of_dated_rows: 15
 frozen_fallback: golden_v5.jsonl (n=56) — used when v7 gate not armed
 golden_v6: golden_v6.jsonl (n=56) — intermediate set
 gate: eval/golden/gate_v7.json (armed at adjudicated_n=260)

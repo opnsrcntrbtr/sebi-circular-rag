@@ -1,7 +1,7 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-08-01.
+> Last updated: 2026-08-02.
 
 ## Current Snapshot
 
@@ -13,9 +13,9 @@
 | **Gate** | `gate_v7.json` armed: recall_at_k 0.9322, citation_recall 0.4612, abstention_accuracy 0.9731 |
 | **Frozen sets** | `golden_v5` (n=56), `golden_v6` (n=56) |
 | **v7 strata** | title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10 |
-| **Abstain/as_of rows** | 53 abstain, 15 dated `as_of` |
-| **Draft rows** | 121 draft, 33 seeded |
-| **Test suite** | 640 tests pass (583 test functions, 3 deselected integration, 37 new measure tests) |
+| **Abstain/as_of rows** | 41 abstain, 15 dated `as_of` |
+| **Draft rows** | 0 draft, 0 seeded |
+| **Test suite** | 644 tests pass (583 test functions, 3 deselected integration, 37 new measure tests) |
 | **Source tree** | 33 Python modules in `src/sebi_rag/` (api, api_spaces, pipeline, retrieve, rerank, embeddings, segment, lineage, generate, generate_spaces, corpus, corpus_spaces, eval, eval_harness, benchmark, splade, splade_encoder, hyde, context_headers, reg_citations, reg_lineage, regulations, master_meta, settings, stats, ui, expand, verify_master, eval_asof, device, ingest_pdf, metadata); 38 scripts in `scripts/` (incl. bench_metrics.py, measure.py) |
 | **Golden-v7 pipeline** | 15 scripts in `scripts/golden_v7/` (agreement, backfill_escalations, build_pool, derive_thresholds, gate_select, gemini_adjudicate, local_adjudicate, make_packet, mine_strata, relabel_repooled, remap_doc_ids, score, seed_v7) |
 | **V7 annotations** | `eval/golden/v7_annotations/` — votes.jsonl (207 claude records), pools.jsonl (4.2 MB), arbitration_queue.jsonl (65 KB), external_sample.json, gemini/ (21 dirs), qwen/ (150 files), candidates/, packet_human/ |
@@ -60,7 +60,7 @@ fallback:
   mlx_model: (env SEBI_RAG_MLX_MODEL)
 ```
 ### Operating point constraints
-top_k: 3 | score_floor: 0.05 | two-tier gate (subject ≥ 0.42 OR section ≥ 0.60)
+top_k: 5 | score_floor: 0.05 | two-tier gate (subject ≥ 0.42 OR section ≥ 0.60)
 env: SEBI_RAG_GATE | SEBI_RAG_SUBJ_THRESHOLD | SEBI_RAG_SECT_THRESHOLD
 
 
@@ -143,7 +143,7 @@ env: SEBI_RAG_GATE | SEBI_RAG_SUBJ_THRESHOLD | SEBI_RAG_SECT_THRESHOLD
 ### Census (260 total)
 ✅ adjudicated: 260 | ⚠️ draft: 0 | 📋 seeded: 0
 Strata: title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10
-Abstain: 53 | as_of dated: 15
+Abstain: 41 | as_of dated: 15
 
 ### Agreement (claude vs qwen, 150 external rows)
 ✅ Promoted: 150 (all external IDs adjudicated) | ❌ Flipped: 0 | ✅ Arbitration queue: 0 (resolved)
@@ -182,7 +182,7 @@ abstention_accuracy: observed=0.892, floor=0.849 (margin +0.043)
 
 ## Known Blockers
 
-✅ **No active blockers.** All validation steps pass, all phases complete, 603 tests pass.
+✅ **No active blockers.** All validation steps pass, all phases complete, 644 tests pass.
 
 ### Historical (resolved)
 | Bug | Step | Issue | Fix |
