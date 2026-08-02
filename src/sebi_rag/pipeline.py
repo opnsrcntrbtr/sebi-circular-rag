@@ -42,7 +42,7 @@ class RAGPipeline:
         )
 
     def query(
-        self, question: str, pool: int = 50, top_k: int = 3,
+        self, question: str, pool: int = 50, top_k: int = 5,
         advisory: bool = False, as_of: str | None = None,
     ) -> tuple[Answer, list[str]]:
         candidates = self.retriever.retrieve(question, top_n=pool)

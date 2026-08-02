@@ -18,7 +18,7 @@ def test_defaults_when_no_file(monkeypatch, tmp_path):
     _clear(monkeypatch)
     monkeypatch.setenv("SEBI_RAG_CONFIG", str(tmp_path / "none.toml"))
     s = Settings.load()
-    assert s.generator == "mlx" and s.top_k == 3 and s.rate_per_min == 60
+    assert s.generator == "mlx" and s.top_k == 5 and s.rate_per_min == 60
 
 
 def test_env_overrides(monkeypatch, tmp_path):
