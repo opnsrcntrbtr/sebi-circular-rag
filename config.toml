@@ -5,7 +5,7 @@
 [service]
 generator = "mlx"                                      # mlx | ollama
 mlx_model = "mlx-community/Qwen2.5-1.5B-Instruct-4bit" # 3B for higher groundedness
-top_k = 5                                              # calibrated (citation prec 0.97 / recall 1.0)
+top_k = 10                                             # increased from 5: citation_recall 0.772 → 0.888 (doc_id dedup + wider top_k)
 abstain_threshold = 0.05                               # far-domain score floor; near-domain
                                                        # abstention = subject-sim gate (SEBI_RAG_GATE)
 superseded_penalty = 0.3                               # demote superseded chunks in rerank

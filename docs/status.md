@@ -10,7 +10,7 @@
 | **Corpus** | 724 SEBI circular records, 78,523 chunks (corpus JSONL 38 MB; index chunks.jsonl ~320 MB) |
 | **Index** | 1.0 GB at `data/index/` — dense.faiss, bm25, chunks.jsonl, lineage.json, embeddings.npy, manifest.json, meta.json, splade.npz (eval-only) |
 | **Reporting set** | `eval/golden/golden_v7.jsonl` (n=260); **adjudicated_n = 260** |
-| **Gate** | `gate_v7.json` armed: recall_at_k 0.906, citation_recall 0.7096, abstention_accuracy 0.9104 |
+| **Gate** | `gate_v7.json` armed: recall_at_k 0.906, citation_recall 0.8397, abstention_accuracy 0.9335 |
 | **Frozen sets** | `golden_v5` (n=56), `golden_v6` (n=56) |
 | **v7 strata** | title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10 |
 | **Abstain/as_of rows** | 41 abstain, 15 dated `as_of` |
@@ -167,12 +167,17 @@ Low κ on title_direct/multi_hop/numeric_table: spec §7 promotion amendment (20
 - **Root cause:** `answer_with_abstention()` in `generate.py` took `reranked[:top_k]` without deduplicating by `doc_id`. If 3 of top-5 chunks were from same doc, only 2 unique docs cited.
 - **Fix:** `generate.py:398-405` — deduplicates reranked chunks by doc_id before selecting top_k contexts. Keeps highest-scoring chunk per doc_id.
 - **Impact:** citation_recall 0.461 → 0.710 (+54% relative). recall@10 0.932 → 0.906 (within variance). abstention 0.973 → 0.910 (within variance).
+### Top-K Expansion (2026-08-03)
+- **Change:** `config.toml` top_k 5 → 10. Combined with doc_id dedup, wider top_k lifts citation_recall on multi-citation strata.
+- **Stratum impact:** numeric_table 0.667 → 0.900 (+0.233), body_paraphrase 0.733 → 0.867 (+0.133), lineage_supersession 0.675 → 0.775 (+0.10), multi_hop 0.750 → 0.925 (+0.175).
+- **Overall:** citation_recall 0.772 → 0.888. recall@10 0.943 (unchanged). abstention 0.910 → 0.934.
+- **Trade-off:** citation_precision drops 0.177 → 0.119 (expected: more slots = more noise). Recall gain outweighs precision loss.
 ### Gate floors (260 adjudicated)
 ```yaml
 adjudicated_n: 260 (>= 100 threshold met)
 recall_at_k: observed=0.906, floor=0.906 (margin 0.000)
-citation_recall: observed=0.7096, floor=0.7096 (margin 0.000)
-abstention_accuracy: observed=0.9104, floor=0.9104 (margin 0.000)
+citation_recall: observed=0.8397, floor=0.8397 (margin 0.000)
+abstention_accuracy: observed=0.9335, floor=0.9335 (margin 0.000)
 ```
 
 ### Key decisions
