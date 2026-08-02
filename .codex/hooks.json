@@ -1,5 +1,16 @@
 {
   "hooks": {
+    "Startup": [
+      {
+        "matcher": "Project",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash scripts/start_phoenix.sh"
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Bash",

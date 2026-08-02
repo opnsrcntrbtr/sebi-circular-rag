@@ -61,7 +61,7 @@ from golden_v7.gemini_adjudicate import (  # noqa: E402
 )
 
 ANNOTATOR = "qwen"
-DEFAULT_BASE_URL = "http://127.0.0.1:8001"
+DEFAULT_BASE_URL = "http://127.0.0.1:8787"  # headroom proxy → oMLX at :8001
 DEFAULT_MODEL = "Qwen3.6-35B-A3B-MLX-4bit"
 DEFAULT_CACHE_DIR = ROOT / "eval" / "golden" / "v7_annotations" / "qwen"
 

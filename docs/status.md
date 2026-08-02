@@ -1,7 +1,7 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-07-31.
+> Last updated: 2026-08-01.
 
 ## Current Snapshot
 
@@ -15,12 +15,12 @@
 | **v7 strata** | title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10 |
 | **Abstain/as_of rows** | 53 abstain, 15 dated `as_of` |
 | **Draft rows** | 121 draft, 33 seeded |
-| **Test suite** | 603 tests pass (546 test functions, 3 deselected integration) |
-| **Source tree** | 33 Python modules in `src/sebi_rag/` (api, api_spaces, pipeline, retrieve, rerank, embeddings, segment, lineage, generate, generate_spaces, corpus, corpus_spaces, eval, eval_harness, benchmark, splade, splade_encoder, hyde, context_headers, reg_citations, reg_lineage, regulations, master_meta, settings, stats, ui, expand, verify_master, eval_asof, device, ingest_pdf, metadata); 36 scripts in `scripts/` |
+| **Test suite** | 640 tests pass (583 test functions, 3 deselected integration, 37 new measure tests) |
+| **Source tree** | 33 Python modules in `src/sebi_rag/` (api, api_spaces, pipeline, retrieve, rerank, embeddings, segment, lineage, generate, generate_spaces, corpus, corpus_spaces, eval, eval_harness, benchmark, splade, splade_encoder, hyde, context_headers, reg_citations, reg_lineage, regulations, master_meta, settings, stats, ui, expand, verify_master, eval_asof, device, ingest_pdf, metadata); 38 scripts in `scripts/` (incl. bench_metrics.py, measure.py) |
 | **Golden-v7 pipeline** | 15 scripts in `scripts/golden_v7/` (agreement, backfill_escalations, build_pool, derive_thresholds, gate_select, gemini_adjudicate, local_adjudicate, make_packet, mine_strata, relabel_repooled, remap_doc_ids, score, seed_v7) |
 | **V7 annotations** | `eval/golden/v7_annotations/` — votes.jsonl (207 claude records), pools.jsonl (4.2 MB), arbitration_queue.jsonl (65 KB), external_sample.json, gemini/ (21 dirs), qwen/ (150 files), candidates/, packet_human/ |
 | **Documentation** | 3 ADRs (adr-001 architecture review, adr-002 certainty architecture, adr-003 ANE declined), project_context.md, scraping_plan.md, n8n_automation_plan.md, USAGE.md |
-| **Automation** | n8n workflows in `automation/n8n/` |
+| **Measure pipeline** | `scripts/bench_metrics.py` — 6 metrics: parsing_latency, supersession_precision, temporal_accuracy, retrieval_recall, context_precision, mrr. CLI: `make measure` or `python scripts/bench_metrics.py --smoke`. 37 unit tests in `tests/test_measure.py`. |
 
 ### Hard Negative Fix (2026-07-30)
 - **Problem:** 7 of 40 hard_negative rows were mislabeled as `abstain: True` when they are actually SEBI topics with relevant corpus circulars
@@ -237,4 +237,4 @@ abstention_accuracy: observed=0.892, floor=0.849 (margin +0.043)
 
 ## Last Updated
 
-2026-07-31
+2026-08-01

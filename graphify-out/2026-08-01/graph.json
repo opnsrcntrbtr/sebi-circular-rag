@@ -94,50 +94,20 @@
       "norm_label": "load_history()"
     },
     {
-      "label": "_get_phoenix_client()",
+      "label": "save_history()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L233",
+      "source_location": "L228",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_get_phoenix_client",
+      "id": "scripts_telemetry_engine_save_history",
       "community": 30,
-      "norm_label": "_get_phoenix_client()"
-    },
-    {
-      "label": "query_traces()",
-      "file_type": "code",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L239",
-      "_origin": "ast",
-      "id": "scripts_telemetry_engine_query_traces",
-      "community": 30,
-      "norm_label": "query_traces()"
-    },
-    {
-      "label": "query_spans()",
-      "file_type": "code",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L278",
-      "_origin": "ast",
-      "id": "scripts_telemetry_engine_query_spans",
-      "community": 30,
-      "norm_label": "query_spans()"
-    },
-    {
-      "label": "query_traces_by_attribute()",
-      "file_type": "code",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L308",
-      "_origin": "ast",
-      "id": "scripts_telemetry_engine_query_traces_by_attribute",
-      "community": 30,
-      "norm_label": "query_traces_by_attribute()"
+      "norm_label": "save_history()"
     },
     {
       "label": "record_run()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L324",
+      "source_location": "L235",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_record_run",
       "community": 30,
@@ -147,7 +117,7 @@
       "label": "fetch_omlx_metrics()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L385",
+      "source_location": "L277",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_fetch_omlx_metrics",
       "community": 30,
@@ -157,7 +127,7 @@
       "label": "capture_live_performance()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L408",
+      "source_location": "L300",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_capture_live_performance",
       "community": 30,
@@ -167,7 +137,7 @@
       "label": "suggest_parameters()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L427",
+      "source_location": "L319",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_suggest_parameters",
       "community": 30,
@@ -177,7 +147,7 @@
       "label": "show_status()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L503",
+      "source_location": "L413",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_show_status",
       "community": 30,
@@ -187,7 +157,7 @@
       "label": "show_history()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L550",
+      "source_location": "L450",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_show_history",
       "community": 30,
@@ -197,7 +167,7 @@
       "label": "analyze_state()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L596",
+      "source_location": "L482",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_analyze_state",
       "community": 30,
@@ -207,7 +177,7 @@
       "label": "self_critique()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L621",
+      "source_location": "L507",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_self_critique",
       "community": 30,
@@ -217,7 +187,7 @@
       "label": "correction_pass()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L675",
+      "source_location": "L561",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_correction_pass",
       "community": 30,
@@ -227,7 +197,7 @@
       "label": "load_baseline()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L715",
+      "source_location": "L601",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_load_baseline",
       "community": 30,
@@ -237,27 +207,17 @@
       "label": "update_baseline()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L767",
+      "source_location": "L647",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_update_baseline",
       "community": 30,
       "norm_label": "update_baseline()"
     },
     {
-      "label": "migrate_legacy_json()",
-      "file_type": "code",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L781",
-      "_origin": "ast",
-      "id": "scripts_telemetry_engine_migrate_legacy_json",
-      "community": 30,
-      "norm_label": "migrate_legacy_json()"
-    },
-    {
       "label": "check_degradation()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L809",
+      "source_location": "L667",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_check_degradation",
       "community": 30,
@@ -267,7 +227,7 @@
       "label": "optimize_turn()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L844",
+      "source_location": "L702",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_optimize_turn",
       "community": 30,
@@ -277,7 +237,7 @@
       "label": "build_parser()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L910",
+      "source_location": "L768",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_build_parser",
       "community": 30,
@@ -297,7 +257,7 @@
       "label": "main()",
       "file_type": "code",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L952",
+      "source_location": "L810",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_main",
       "community": 30,
@@ -374,72 +334,42 @@
       "norm_label": "check if ram headroom meets the 3.3 gb soft limit.      returns (is_safe, messag"
     },
     {
-      "label": "Load telemetry history from JSON file (kept for migration only).",
+      "label": "Load telemetry history from JSON file.",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
       "source_location": "L217",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_rationale_217",
       "community": 30,
-      "norm_label": "load telemetry history from json file (kept for migration only)."
+      "norm_label": "load telemetry history from json file."
     },
     {
-      "label": "Get or create a Phoenix client (singleton).",
+      "label": "Save telemetry history to JSON file.",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L234",
+      "source_location": "L229",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_234",
+      "id": "scripts_telemetry_engine_rationale_229",
       "community": 30,
-      "norm_label": "get or create a phoenix client (singleton)."
+      "norm_label": "save telemetry history to json file."
     },
     {
-      "label": "Query traces from Phoenix.      Returns list of trace dicts with:     - id, trac",
+      "label": "Record a new telemetry run entry.      Args:         outcome_quality: 1-5 intege",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
       "source_location": "L240",
       "_origin": "ast",
       "id": "scripts_telemetry_engine_rationale_240",
       "community": 30,
-      "norm_label": "query traces from phoenix.      returns list of trace dicts with:     - id, trac"
-    },
-    {
-      "label": "Query spans from Phoenix.      Returns list of span dicts with:     - id, parent",
-      "file_type": "rationale",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L279",
-      "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_279",
-      "community": 30,
-      "norm_label": "query spans from phoenix.      returns list of span dicts with:     - id, parent"
-    },
-    {
-      "label": "Query traces filtered by an attribute value.      Uses the traces.search() metho",
-      "file_type": "rationale",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L309",
-      "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_309",
-      "community": 30,
-      "norm_label": "query traces filtered by an attribute value.      uses the traces.search() metho"
-    },
-    {
-      "label": "Record a new telemetry run entry to Phoenix.      Creates a span in Phoenix with",
-      "file_type": "rationale",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L329",
-      "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_329",
-      "community": 30,
-      "norm_label": "record a new telemetry run entry to phoenix.      creates a span in phoenix with"
+      "norm_label": "record a new telemetry run entry.      args:         outcome_quality: 1-5 intege"
     },
     {
       "label": "Attempt to fetch live metrics from oMLX server.      Returns inference config an",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L386",
+      "source_location": "L278",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_386",
+      "id": "scripts_telemetry_engine_rationale_278",
       "community": 30,
       "norm_label": "attempt to fetch live metrics from omlx server.      returns inference config an"
     },
@@ -447,49 +377,49 @@
       "label": "Capture live inference metrics from oMLX if available.      Returns {ttft_ms, to",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L409",
+      "source_location": "L301",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_409",
+      "id": "scripts_telemetry_engine_rationale_301",
       "community": 30,
       "norm_label": "capture live inference metrics from omlx if available.      returns {ttft_ms, to"
     },
     {
-      "label": "Suggest optimal parameters based on Phoenix telemetry data.      Queries Phoenix",
+      "label": "Suggest optimal parameters based on historical telemetry data.      Queries tele",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L428",
+      "source_location": "L320",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_428",
+      "id": "scripts_telemetry_engine_rationale_320",
       "community": 30,
-      "norm_label": "suggest optimal parameters based on phoenix telemetry data.      queries phoenix"
+      "norm_label": "suggest optimal parameters based on historical telemetry data.      queries tele"
     },
     {
       "label": "Print current hardware state and safety status.",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L504",
+      "source_location": "L414",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_504",
+      "id": "scripts_telemetry_engine_rationale_414",
       "community": 30,
       "norm_label": "print current hardware state and safety status."
     },
     {
-      "label": "Print recent telemetry history entries from Phoenix.",
+      "label": "Print recent telemetry history entries.",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L551",
+      "source_location": "L451",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_551",
+      "id": "scripts_telemetry_engine_rationale_451",
       "community": 30,
-      "norm_label": "print recent telemetry history entries from phoenix."
+      "norm_label": "print recent telemetry history entries."
     },
     {
       "label": "State Analysis: inspect prompt complexity and session context.      Returns a li",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L597",
+      "source_location": "L483",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_597",
+      "id": "scripts_telemetry_engine_rationale_483",
       "community": 30,
       "norm_label": "state analysis: inspect prompt complexity and session context.      returns a li"
     },
@@ -497,9 +427,9 @@
       "label": "Self-Critique Matrix: measure draft against three excellence criteria.      Retu",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L622",
+      "source_location": "L508",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_622",
+      "id": "scripts_telemetry_engine_rationale_508",
       "community": 30,
       "norm_label": "self-critique matrix: measure draft against three excellence criteria.      retu"
     },
@@ -507,49 +437,39 @@
       "label": "Correction Pass: rewrite flagged portions and return refined draft.      Returns",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L676",
+      "source_location": "L562",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_676",
+      "id": "scripts_telemetry_engine_rationale_562",
       "community": 30,
       "norm_label": "correction pass: rewrite flagged portions and return refined draft.      returns"
     },
     {
-      "label": "Load rolling baseline from Phoenix optimize spans.      Returns dict with avg_ov",
+      "label": "Load rolling baseline from last N optimize scores in telemetry history.      Ret",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L716",
+      "source_location": "L602",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_716",
+      "id": "scripts_telemetry_engine_rationale_602",
       "community": 30,
-      "norm_label": "load rolling baseline from phoenix optimize spans.      returns dict with avg_ov"
+      "norm_label": "load rolling baseline from last n optimize scores in telemetry history.      ret"
     },
     {
-      "label": "Log current optimize score to Phoenix for baseline tracking.",
+      "label": "Append current optimize score to telemetry history for baseline tracking.",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L768",
+      "source_location": "L648",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_768",
+      "id": "scripts_telemetry_engine_rationale_648",
       "community": 30,
-      "norm_label": "log current optimize score to phoenix for baseline tracking."
-    },
-    {
-      "label": "Migrate legacy JSON telemetry history to Phoenix.      Reads ~/.omp/telemetry_hi",
-      "file_type": "rationale",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L782",
-      "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_782",
-      "community": 30,
-      "norm_label": "migrate legacy json telemetry history to phoenix.      reads ~/.omp/telemetry_hi"
+      "norm_label": "append current optimize score to telemetry history for baseline tracking."
     },
     {
       "label": "Check if current scores have degraded below baseline by DRIFT_MARGIN.      Hiera",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L810",
+      "source_location": "L668",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_810",
+      "id": "scripts_telemetry_engine_rationale_668",
       "community": 30,
       "norm_label": "check if current scores have degraded below baseline by drift_margin.      hiera"
     },
@@ -557,9 +477,9 @@
       "label": "Orchestrator: run threshold-gated turn-based optimization workflow.      Steps:",
       "file_type": "rationale",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L845",
+      "source_location": "L703",
       "_origin": "ast",
-      "id": "scripts_telemetry_engine_rationale_845",
+      "id": "scripts_telemetry_engine_rationale_703",
       "community": 30,
       "norm_label": "orchestrator: run threshold-gated turn-based optimization workflow.      steps:"
     },
@@ -859,7 +779,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L74",
       "_origin": "ast",
-      "community": 82,
+      "community": 29,
       "norm_label": "answer",
       "id": "src_sebi_rag_generate_answer"
     },
@@ -869,7 +789,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L88",
       "_origin": "ast",
-      "community": 29,
+      "community": 21,
       "norm_label": "generator",
       "id": "src_sebi_rag_generate_generator"
     },
@@ -879,7 +799,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 29,
+      "community": 82,
       "norm_label": "protocol",
       "id": "protocol"
     },
@@ -929,7 +849,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L109",
       "_origin": "ast",
-      "community": 29,
+      "community": 82,
       "norm_label": "judge",
       "id": "src_sebi_rag_generate_judge"
     },
@@ -939,7 +859,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L110",
       "_origin": "ast",
-      "community": 29,
+      "community": 82,
       "norm_label": ".grounded()",
       "id": "src_sebi_rag_generate_judge_grounded"
     },
@@ -1029,7 +949,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L209",
       "_origin": "ast",
-      "community": 82,
+      "community": 10,
       "norm_label": "subjectsimjudge",
       "id": "src_sebi_rag_generate_subjectsimjudge"
     },
@@ -1039,7 +959,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L219",
       "_origin": "ast",
-      "community": 82,
+      "community": 10,
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_generate_subjectsimjudge_init"
     },
@@ -1099,7 +1019,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L280",
       "_origin": "ast",
-      "community": 21,
+      "community": 82,
       "norm_label": "_grounded_prompt()",
       "id": "src_sebi_rag_generate_grounded_prompt"
     },
@@ -1129,7 +1049,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L316",
       "_origin": "ast",
-      "community": 21,
+      "community": 82,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_mlxgenerator_generate"
     },
@@ -1259,7 +1179,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L210",
       "_origin": "ast",
-      "community": 82,
+      "community": 10,
       "norm_label": "adopted gate (eval_gate round 3): deterministic groundedness signal \u2014     max co",
       "id": "src_sebi_rag_generate_rationale_210"
     },
@@ -1289,7 +1209,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L281",
       "_origin": "ast",
-      "community": 21,
+      "community": 82,
       "norm_label": "f4 (adr-001): retrieved text is explicitly delimited as quoted data and     the",
       "id": "src_sebi_rag_generate_rationale_281"
     },
@@ -1319,7 +1239,7 @@
       "source_file": "app.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 77,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "app.py",
       "id": "app"
@@ -1330,7 +1250,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 77,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "gpu",
       "id": "gpu"
@@ -1341,7 +1261,7 @@
       "source_file": "app.py",
       "source_location": "L39",
       "_origin": "ast",
-      "community": 77,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "warm_up_gpu()",
       "id": "app_warm_up_gpu"
@@ -1352,7 +1272,7 @@
       "source_file": "app.py",
       "source_location": "L42",
       "_origin": "ast",
-      "community": 77,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "get_pipeline()",
       "id": "app_get_pipeline"
@@ -1363,7 +1283,7 @@
       "source_file": "app.py",
       "source_location": "L58",
       "_origin": "ast",
-      "community": 77,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "_parse_as_of()",
       "id": "app_parse_as_of"
@@ -1374,7 +1294,7 @@
       "source_file": "app.py",
       "source_location": "L69",
       "_origin": "ast",
-      "community": 77,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "run_query_spaces()",
       "id": "app_run_query_spaces"
@@ -1385,7 +1305,7 @@
       "source_file": "app.py",
       "source_location": "L127",
       "_origin": "ast",
-      "community": 77,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "build_ui()",
       "id": "app_build_ui"
@@ -1396,7 +1316,7 @@
       "source_file": "app.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 77,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "hugging face spaces entrypoint \u2014 sebi circular rag demo (cpu-only). gradio sdk...",
       "id": "app_rationale_1"
@@ -1407,7 +1327,7 @@
       "source_file": "app.py",
       "source_location": "L43",
       "_origin": "ast",
-      "community": 77,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "cache one pipeline per mode; both share retriever/reranker/lineage.",
       "id": "app_rationale_43"
@@ -1418,7 +1338,7 @@
       "source_file": "app.py",
       "source_location": "L59",
       "_origin": "ast",
-      "community": 77,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "normalise the optional as-of date field: empty -> none, else strict iso yyyy-...",
       "id": "app_rationale_59"
@@ -1850,7 +1770,7 @@
       "source_file": "scripts/analysis/sweep_pool.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 52,
+      "community": 14,
       "community_name": "extract_misses.py",
       "norm_label": "sweep_pool.py",
       "id": "scripts_analysis_sweep_pool"
@@ -1894,7 +1814,7 @@
       "source_file": "scripts/analysis/sweep_pool.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 52,
+      "community": 14,
       "community_name": "extract_misses.py",
       "norm_label": "pool-width sweep (intervention #3): answer-level rescue rate vs reranker...",
       "id": "scripts_analysis_sweep_pool_rationale_1"
@@ -2191,7 +2111,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L97",
       "_origin": "ast",
-      "community": 10,
+      "community": 95,
       "community_name": "api.py",
       "norm_label": "main()",
       "id": "scripts_bench_rerankers_main"
@@ -2257,7 +2177,7 @@
       "source_file": "scripts/bench_retrieval.py",
       "source_location": "L60",
       "_origin": "ast",
-      "community": 94,
+      "community": 95,
       "community_name": "benchmark.py",
       "norm_label": "main()",
       "id": "scripts_bench_retrieval_main"
@@ -2301,7 +2221,7 @@
       "source_file": "scripts/build_golden_v6.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 75,
+      "community": 1,
       "community_name": "benchmark.py",
       "norm_label": "build_golden_v6.py",
       "id": "scripts_build_golden_v6"
@@ -2312,7 +2232,7 @@
       "source_file": "scripts/build_golden_v6.py",
       "source_location": "L17",
       "_origin": "ast",
-      "community": 75,
+      "community": 1,
       "community_name": "benchmark.py",
       "norm_label": "main()",
       "id": "scripts_build_golden_v6_main"
@@ -2323,7 +2243,7 @@
       "source_file": "scripts/build_golden_v6.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 75,
+      "community": 1,
       "community_name": "benchmark.py",
       "norm_label": "create the enriched golden_v6 benchmark seed from frozen golden_v5. this does...",
       "id": "scripts_build_golden_v6_rationale_1"
@@ -2334,7 +2254,7 @@
       "source_file": "scripts/build_index.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 93,
+      "community": 17,
       "community_name": "retrieve.py",
       "norm_label": "build_index.py",
       "id": "scripts_build_index"
@@ -2345,7 +2265,7 @@
       "source_file": "scripts/build_index.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 93,
+      "community": 17,
       "community_name": "retrieve.py",
       "norm_label": "build the dense+sparse index once and persist it (run after corpus changes)....",
       "id": "scripts_build_index_rationale_1"
@@ -2356,7 +2276,7 @@
       "source_file": "scripts/build_reg_edges.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 103,
+      "community": 2,
       "community_name": "write_jsonl",
       "norm_label": "build_reg_edges.py",
       "id": "scripts_build_reg_edges"
@@ -2367,7 +2287,7 @@
       "source_file": "scripts/build_reg_edges.py",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 103,
+      "community": 2,
       "community_name": "write_jsonl",
       "norm_label": "load_jsonl()",
       "id": "scripts_build_reg_edges_load_jsonl"
@@ -2378,7 +2298,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 103,
+      "community": 2,
       "community_name": "write_jsonl",
       "norm_label": "path",
       "id": "scripts_build_reg_edges_py_path"
@@ -2389,7 +2309,7 @@
       "source_file": "scripts/build_reg_edges.py",
       "source_location": "L33",
       "_origin": "ast",
-      "community": 103,
+      "community": 2,
       "community_name": "write_jsonl",
       "norm_label": "write_jsonl()",
       "id": "scripts_build_reg_edges_write_jsonl"
@@ -2400,7 +2320,7 @@
       "source_file": "scripts/build_reg_edges.py",
       "source_location": "L41",
       "_origin": "ast",
-      "community": 103,
+      "community": 2,
       "community_name": "write_jsonl",
       "norm_label": "main()",
       "id": "scripts_build_reg_edges_main"
@@ -2411,7 +2331,7 @@
       "source_file": "scripts/build_reg_edges.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 103,
+      "community": 2,
       "community_name": "write_jsonl",
       "norm_label": "build circular -> regulation edges and annotate the corpus (offline). no...",
       "id": "scripts_build_reg_edges_rationale_1"
@@ -2671,7 +2591,7 @@
       "source_file": "scripts/discover_new.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 93,
+      "community": 21,
       "community_name": "lineage.py",
       "norm_label": "discover_new.py",
       "id": "scripts_discover_new"
@@ -2682,7 +2602,7 @@
       "source_file": "scripts/discover_new.py",
       "source_location": "L26",
       "_origin": "ast",
-      "community": 93,
+      "community": 21,
       "community_name": "lineage.py",
       "norm_label": "docid()",
       "id": "scripts_discover_new_docid"
@@ -2693,7 +2613,7 @@
       "source_file": "scripts/discover_new.py",
       "source_location": "L31",
       "_origin": "ast",
-      "community": 93,
+      "community": 21,
       "community_name": "lineage.py",
       "norm_label": "title()",
       "id": "scripts_discover_new_title"
@@ -2704,7 +2624,7 @@
       "source_file": "scripts/discover_new.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 93,
+      "community": 21,
       "community_name": "lineage.py",
       "norm_label": "emit one json line listing sebi circulars newer than previously seen. uses a...",
       "id": "scripts_discover_new_rationale_1"
@@ -2737,7 +2657,7 @@
       "source_file": "scripts/eval_gate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 47,
+      "community": 29,
       "community_name": "eval_gate.py",
       "norm_label": "eval_gate.py",
       "id": "scripts_eval_gate"
@@ -2759,7 +2679,7 @@
       "source_file": "scripts/eval_gate.py",
       "source_location": "L60",
       "_origin": "ast",
-      "community": 47,
+      "community": 29,
       "community_name": "eval_gate.py",
       "norm_label": "auroc()",
       "id": "scripts_eval_gate_auroc"
@@ -2770,7 +2690,7 @@
       "source_file": "scripts/eval_gate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 47,
+      "community": 29,
       "community_name": "eval_gate.py",
       "norm_label": "adr-002 follow-up: compare the production subject-sim gate against the section-...",
       "id": "scripts_eval_gate_rationale_1"
@@ -2803,7 +2723,7 @@
       "source_file": "scripts/export_benchmark.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 98,
+      "community": 1,
       "community_name": "main",
       "norm_label": "export_benchmark.py",
       "id": "scripts_export_benchmark"
@@ -2814,7 +2734,7 @@
       "source_file": "scripts/export_benchmark.py",
       "source_location": "L26",
       "_origin": "ast",
-      "community": 98,
+      "community": 1,
       "community_name": "main",
       "norm_label": "load_index_chunks()",
       "id": "scripts_export_benchmark_load_index_chunks"
@@ -2825,7 +2745,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 98,
+      "community": 1,
       "community_name": "main",
       "norm_label": "path",
       "id": "scripts_export_benchmark_py_path"
@@ -2836,7 +2756,7 @@
       "source_file": "scripts/export_benchmark.py",
       "source_location": "L34",
       "_origin": "ast",
-      "community": 98,
+      "community": 1,
       "community_name": "main",
       "norm_label": "dataset_quality()",
       "id": "scripts_export_benchmark_dataset_quality"
@@ -2847,7 +2767,7 @@
       "source_file": "scripts/export_benchmark.py",
       "source_location": "L56",
       "_origin": "ast",
-      "community": 98,
+      "community": 1,
       "community_name": "main",
       "norm_label": "write_card()",
       "id": "scripts_export_benchmark_write_card"
@@ -2858,7 +2778,7 @@
       "source_file": "scripts/export_benchmark.py",
       "source_location": "L94",
       "_origin": "ast",
-      "community": 98,
+      "community": 1,
       "community_name": "main",
       "norm_label": "main()",
       "id": "scripts_export_benchmark_main"
@@ -2869,7 +2789,7 @@
       "source_file": "scripts/export_benchmark.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 98,
+      "community": 1,
       "community_name": "main",
       "norm_label": "export benchmark artifacts for retrieval/rag/data-quality evaluation. outputs:...",
       "id": "scripts_export_benchmark_rationale_1"
@@ -3639,7 +3559,7 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L60",
       "_origin": "ast",
-      "community": 51,
+      "community": 1,
       "community_name": "test_golden_v7_agreement.py",
       "norm_label": "_confirms_claude()",
       "id": "scripts_golden_v7_agreement_confirms_claude"
@@ -3793,7 +3713,7 @@
       "source_file": "scripts/golden_v7/agreement.py",
       "source_location": "L63",
       "_origin": "ast",
-      "community": 51,
+      "community": 1,
       "community_name": "test_golden_v7_agreement.py",
       "norm_label": "does this external vote confirm claude's label, at provision level? amendment...",
       "id": "scripts_golden_v7_agreement_rationale_63"
@@ -4013,7 +3933,7 @@
       "source_file": "scripts/golden_v7/build_pool.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": "test_golden_v7_pool.py",
       "norm_label": "build_pool.py",
       "id": "scripts_golden_v7_build_pool"
@@ -4024,7 +3944,7 @@
       "source_file": "scripts/golden_v7/build_pool.py",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": "test_golden_v7_pool.py",
       "norm_label": "assemble_pool()",
       "id": "scripts_golden_v7_build_pool_assemble_pool"
@@ -4035,7 +3955,7 @@
       "source_file": "scripts/golden_v7/build_pool.py",
       "source_location": "L68",
       "_origin": "ast",
-      "community": 10,
+      "community": 95,
       "community_name": "api.py",
       "norm_label": "main()",
       "id": "scripts_golden_v7_build_pool_main"
@@ -4046,7 +3966,7 @@
       "source_file": "scripts/golden_v7/build_pool.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": "test_golden_v7_pool.py",
       "norm_label": "candidate pools for chunk-label judging (spec \u00a76). trec-style pooling: union of...",
       "id": "scripts_golden_v7_build_pool_rationale_1"
@@ -4057,7 +3977,7 @@
       "source_file": "scripts/golden_v7/build_pool.py",
       "source_location": "L26",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": "test_golden_v7_pool.py",
       "norm_label": "trec-style pool: gold-doc literal matches lead, then round-robin over...",
       "id": "scripts_golden_v7_build_pool_rationale_26"
@@ -4090,7 +4010,7 @@
       "source_file": "scripts/golden_v7/derive_thresholds.py",
       "source_location": "L70",
       "_origin": "ast",
-      "community": 20,
+      "community": 95,
       "community_name": "api.py",
       "norm_label": "main()",
       "id": "scripts_golden_v7_derive_thresholds_main"
@@ -5102,7 +5022,7 @@
       "source_file": "scripts/golden_v7/remap_doc_ids.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 72,
+      "community": 58,
       "community_name": "remap_doc_ids.py",
       "norm_label": "remap_doc_ids.py",
       "id": "scripts_golden_v7_remap_doc_ids"
@@ -5113,7 +5033,7 @@
       "source_file": "scripts/golden_v7/remap_doc_ids.py",
       "source_location": "L41",
       "_origin": "ast",
-      "community": 72,
+      "community": 58,
       "community_name": "remap_doc_ids.py",
       "norm_label": "remap()",
       "id": "scripts_golden_v7_remap_doc_ids_remap"
@@ -5124,7 +5044,7 @@
       "source_file": "scripts/golden_v7/remap_doc_ids.py",
       "source_location": "L69",
       "_origin": "ast",
-      "community": 72,
+      "community": 58,
       "community_name": "remap_doc_ids.py",
       "norm_label": "main()",
       "id": "scripts_golden_v7_remap_doc_ids_main"
@@ -5135,7 +5055,7 @@
       "source_file": "scripts/golden_v7/remap_doc_ids.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 72,
+      "community": 58,
       "community_name": "remap_doc_ids.py",
       "norm_label": "rewrite golden_v7 doc references after the corpus renumbering (2026-07-25...",
       "id": "scripts_golden_v7_remap_doc_ids_rationale_1"
@@ -5212,7 +5132,7 @@
       "source_file": "scripts/golden_v7/seed_v7.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 101,
+      "community": 1,
       "community_name": "load_golden",
       "norm_label": "seed_v7.py",
       "id": "scripts_golden_v7_seed_v7"
@@ -5223,7 +5143,7 @@
       "source_file": "scripts/golden_v7/seed_v7.py",
       "source_location": "L19",
       "_origin": "ast",
-      "community": 101,
+      "community": 1,
       "community_name": "load_golden",
       "norm_label": "carry_v6_rows()",
       "id": "scripts_golden_v7_seed_v7_carry_v6_rows"
@@ -5234,7 +5154,7 @@
       "source_file": "scripts/golden_v7/seed_v7.py",
       "source_location": "L29",
       "_origin": "ast",
-      "community": 101,
+      "community": 1,
       "community_name": "load_golden",
       "norm_label": "main()",
       "id": "scripts_golden_v7_seed_v7_main"
@@ -5245,7 +5165,7 @@
       "source_file": "scripts/golden_v7/seed_v7.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 101,
+      "community": 1,
       "community_name": "load_golden",
       "norm_label": "seed golden_v7.jsonl from frozen golden_v6 (spec 2026-07-23 \u00a73, \u00a710 phase 3)....",
       "id": "scripts_golden_v7_seed_v7_rationale_1"
@@ -5633,7 +5553,7 @@
       "source_file": "scripts/rescore_runs.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 95,
+      "community": 6,
       "community_name": "read_trec_run",
       "norm_label": "rescore_runs.py",
       "id": "scripts_rescore_runs"
@@ -5644,7 +5564,7 @@
       "source_file": "scripts/rescore_runs.py",
       "source_location": "L47",
       "_origin": "ast",
-      "community": 95,
+      "community": 6,
       "community_name": "read_trec_run",
       "norm_label": "_fmt()",
       "id": "scripts_rescore_runs_fmt"
@@ -5655,7 +5575,7 @@
       "source_file": "scripts/rescore_runs.py",
       "source_location": "L51",
       "_origin": "ast",
-      "community": 95,
+      "community": 6,
       "community_name": "read_trec_run",
       "norm_label": "score_run()",
       "id": "scripts_rescore_runs_score_run"
@@ -5666,7 +5586,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 95,
+      "community": 6,
       "community_name": "read_trec_run",
       "norm_label": "path",
       "id": "scripts_rescore_runs_py_path"
@@ -5677,7 +5597,7 @@
       "source_file": "scripts/rescore_runs.py",
       "source_location": "L86",
       "_origin": "ast",
-      "community": 95,
+      "community": 6,
       "community_name": "read_trec_run",
       "norm_label": "main()",
       "id": "scripts_rescore_runs_main"
@@ -5688,7 +5608,7 @@
       "source_file": "scripts/rescore_runs.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 95,
+      "community": 6,
       "community_name": "read_trec_run",
       "norm_label": "re-score archived benchmark runs with bootstrap cis and paired significance....",
       "id": "scripts_rescore_runs_rationale_1"
@@ -6458,7 +6378,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 53,
+      "community": 1,
       "community_name": "benchmark.py",
       "norm_label": "benchmark.py",
       "id": "src_sebi_rag_benchmark"
@@ -6469,7 +6389,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L41",
       "_origin": "ast",
-      "community": 53,
+      "community": 1,
       "community_name": "benchmark.py",
       "norm_label": "benchmarkissue",
       "id": "src_sebi_rag_benchmark_benchmarkissue"
@@ -6568,7 +6488,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L162",
       "_origin": "ast",
-      "community": 75,
+      "community": 1,
       "community_name": "benchmark.py",
       "norm_label": "validate_golden()",
       "id": "src_sebi_rag_benchmark_validate_golden"
@@ -6579,7 +6499,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L219",
       "_origin": "ast",
-      "community": 53,
+      "community": 1,
       "community_name": "eval_harness.py",
       "norm_label": "_norm_ws()",
       "id": "src_sebi_rag_benchmark_norm_ws"
@@ -6590,7 +6510,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L223",
       "_origin": "ast",
-      "community": 67,
+      "community": 1,
       "community_name": "validate_golden_v7",
       "norm_label": "validate_golden_v7()",
       "id": "src_sebi_rag_benchmark_validate_golden_v7"
@@ -6601,7 +6521,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L278",
       "_origin": "ast",
-      "community": 53,
+      "community": 1,
       "community_name": "test_golden_v7_resolver.py",
       "norm_label": "chunks_by_doc()",
       "id": "src_sebi_rag_benchmark_chunks_by_doc"
@@ -6612,7 +6532,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L285",
       "_origin": "ast",
-      "community": 53,
+      "community": 1,
       "community_name": "eval_harness.py",
       "norm_label": "resolve_chunk_spans()",
       "id": "src_sebi_rag_benchmark_resolve_chunk_spans"
@@ -6623,7 +6543,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L307",
       "_origin": "ast",
-      "community": 53,
+      "community": 1,
       "community_name": "benchmark.py",
       "norm_label": "_span_resolution_issues()",
       "id": "src_sebi_rag_benchmark_span_resolution_issues"
@@ -6656,7 +6576,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L348",
       "_origin": "ast",
-      "community": 53,
+      "community": 1,
       "community_name": "benchmark.py",
       "norm_label": "qrels_rows()",
       "id": "src_sebi_rag_benchmark_qrels_rows"
@@ -6700,7 +6620,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L395",
       "_origin": "ast",
-      "community": 18,
+      "community": 1,
       "community_name": "read_trec_run",
       "norm_label": "read_trec_run()",
       "id": "src_sebi_rag_benchmark_read_trec_run"
@@ -6711,7 +6631,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L422",
       "_origin": "ast",
-      "community": 94,
+      "community": 40,
       "community_name": "eval_harness.py",
       "norm_label": "per_query_recall()",
       "id": "src_sebi_rag_benchmark_per_query_recall"
@@ -6733,7 +6653,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L464",
       "_origin": "ast",
-      "community": 94,
+      "community": 95,
       "community_name": "eval_harness.py",
       "norm_label": "run_retrieval_benchmark()",
       "id": "src_sebi_rag_benchmark_run_retrieval_benchmark"
@@ -6755,7 +6675,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 53,
+      "community": 1,
       "community_name": "benchmark.py",
       "norm_label": "benchmark dataset validation, export, and reproducibility helpers. the public...",
       "id": "src_sebi_rag_benchmark_rationale_1"
@@ -6788,7 +6708,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L226",
       "_origin": "ast",
-      "community": 67,
+      "community": 1,
       "community_name": "validate_golden_v7",
       "norm_label": "spec 2026-07-23 \u00a73/\u00a74/\u00a78 rails on top of validate_golden. `chunks` is optional:...",
       "id": "src_sebi_rag_benchmark_rationale_226"
@@ -6799,7 +6719,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L288",
       "_origin": "ast",
-      "community": 53,
+      "community": 1,
       "community_name": "eval_harness.py",
       "norm_label": "span {doc, quote} -> matching chunk ids (all overlap matches count). legacy...",
       "id": "src_sebi_rag_benchmark_rationale_288"
@@ -6810,7 +6730,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L396",
       "_origin": "ast",
-      "community": 18,
+      "community": 1,
       "community_name": "read_trec_run",
       "norm_label": "parse a runfile written by `write_trec_run` back into {qid: [(doc, score)]}....",
       "id": "src_sebi_rag_benchmark_rationale_396"
@@ -6821,7 +6741,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L428",
       "_origin": "ast",
-      "community": 94,
+      "community": 40,
       "community_name": "eval_harness.py",
       "norm_label": "per-query recall@k at circular level, matching `run_retrieval_benchmark`....",
       "id": "src_sebi_rag_benchmark_rationale_428"
@@ -6920,7 +6840,7 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L87",
       "_origin": "ast",
-      "community": 17,
+      "community": 54,
       "community_name": "context_headers.py",
       "norm_label": "apply_context_headers()",
       "id": "src_sebi_rag_context_headers_apply_context_headers"
@@ -6986,7 +6906,7 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L90",
       "_origin": "ast",
-      "community": 17,
+      "community": 54,
       "community_name": "context_headers.py",
       "norm_label": "insert each chunk's header as a line below its breadcrumb line. pure and id-...",
       "id": "src_sebi_rag_context_headers_rationale_90"
@@ -6997,7 +6917,7 @@
       "source_file": "src/sebi_rag/corpus.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 78,
+      "community": 17,
       "community_name": "hierarchical_chunk",
       "norm_label": "corpus.py",
       "id": "src_sebi_rag_corpus"
@@ -7008,7 +6928,7 @@
       "source_file": "src/sebi_rag/corpus.py",
       "source_location": "L10",
       "_origin": "ast",
-      "community": 57,
+      "community": 58,
       "community_name": "hierarchical_chunk",
       "norm_label": "load_circulars()",
       "id": "src_sebi_rag_corpus_load_circulars"
@@ -7019,7 +6939,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 57,
+      "community": 58,
       "community_name": "hierarchical_chunk",
       "norm_label": "path",
       "id": "src_sebi_rag_corpus_py_path"
@@ -7030,7 +6950,7 @@
       "source_file": "src/sebi_rag/corpus.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 78,
+      "community": 17,
       "community_name": "hierarchical_chunk",
       "norm_label": "load the real sebi circular corpus (data/corpus/circulars.jsonl) into chunks.",
       "id": "src_sebi_rag_corpus_rationale_1"
@@ -7250,7 +7170,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L17",
       "_origin": "ast",
-      "community": 104,
+      "community": 48,
       "community_name": ".load",
       "norm_label": "_tokens()",
       "id": "src_sebi_rag_embeddings_tokens"
@@ -7283,7 +7203,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L25",
       "_origin": "ast",
-      "community": 104,
+      "community": 48,
       "community_name": ".load",
       "norm_label": ".encode()",
       "id": "src_sebi_rag_embeddings_embedder_encode"
@@ -7294,7 +7214,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 104,
+      "community": 48,
       "community_name": ".load",
       "norm_label": "ndarray",
       "id": "src_sebi_rag_embeddings_py_ndarray"
@@ -7327,7 +7247,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L40",
       "_origin": "ast",
-      "community": 104,
+      "community": 48,
       "community_name": ".load",
       "norm_label": ".encode()",
       "id": "src_sebi_rag_embeddings_hashembedder_encode"
@@ -7360,7 +7280,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L69",
       "_origin": "ast",
-      "community": 104,
+      "community": 48,
       "community_name": ".load",
       "norm_label": ".encode()",
       "id": "src_sebi_rag_embeddings_bgem3embedder_encode"
@@ -7404,7 +7324,7 @@
       "source_file": "src/sebi_rag/eval.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 63,
+      "community": 40,
       "community_name": "test_pipeline.py",
       "norm_label": "eval.py",
       "id": "src_sebi_rag_eval"
@@ -7415,7 +7335,7 @@
       "source_file": "src/sebi_rag/eval.py",
       "source_location": "L11",
       "_origin": "ast",
-      "community": 63,
+      "community": 40,
       "community_name": "test_pipeline.py",
       "norm_label": "recall_at_k()",
       "id": "src_sebi_rag_eval_recall_at_k"
@@ -7426,7 +7346,7 @@
       "source_file": "src/sebi_rag/eval.py",
       "source_location": "L18",
       "_origin": "ast",
-      "community": 63,
+      "community": 40,
       "community_name": "test_pipeline.py",
       "norm_label": "mrr()",
       "id": "src_sebi_rag_eval_mrr"
@@ -7437,7 +7357,7 @@
       "source_file": "src/sebi_rag/eval.py",
       "source_location": "L25",
       "_origin": "ast",
-      "community": 63,
+      "community": 40,
       "community_name": "test_pipeline.py",
       "norm_label": "ndcg_at_k()",
       "id": "src_sebi_rag_eval_ndcg_at_k"
@@ -7448,7 +7368,7 @@
       "source_file": "src/sebi_rag/eval.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 63,
+      "community": 40,
       "community_name": "test_pipeline.py",
       "norm_label": "minimal retrieval metrics (subset of docs/project_context.md section 7)....",
       "id": "src_sebi_rag_eval_rationale_1"
@@ -7580,7 +7500,7 @@
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 94,
+      "community": 29,
       "community_name": "eval_harness.py",
       "norm_label": "eval_harness.py",
       "id": "src_sebi_rag_eval_harness"
@@ -7613,7 +7533,7 @@
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 94,
+      "community": 86,
       "community_name": "eval_harness.py",
       "norm_label": "evalreport",
       "id": "src_sebi_rag_eval_harness_evalreport"
@@ -7646,7 +7566,7 @@
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L63",
       "_origin": "ast",
-      "community": 94,
+      "community": 29,
       "community_name": "eval_harness.py",
       "norm_label": "_mean()",
       "id": "src_sebi_rag_eval_harness_mean"
@@ -7668,7 +7588,7 @@
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L110",
       "_origin": "ast",
-      "community": 94,
+      "community": 29,
       "community_name": "eval_harness.py",
       "norm_label": "_aggregate()",
       "id": "src_sebi_rag_eval_harness_aggregate"
@@ -7690,7 +7610,7 @@
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L143",
       "_origin": "ast",
-      "community": 94,
+      "community": 86,
       "community_name": "eval_harness.py",
       "norm_label": "report_dict()",
       "id": "src_sebi_rag_eval_harness_report_dict"
@@ -7701,7 +7621,7 @@
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 94,
+      "community": 29,
       "community_name": "eval_harness.py",
       "norm_label": "golden-set evaluation harness (p1). runs the pipeline over a labelled golden...",
       "id": "src_sebi_rag_eval_harness_rationale_1"
@@ -8020,7 +7940,7 @@
       "source_file": "src/sebi_rag/ingest_pdf.py",
       "source_location": "L31",
       "_origin": "ast",
-      "community": 53,
+      "community": 91,
       "community_name": "normalize_circular_number",
       "norm_label": "normalize_circular_number()",
       "id": "src_sebi_rag_ingest_pdf_normalize_circular_number"
@@ -8284,7 +8204,7 @@
       "source_file": "src/sebi_rag/ingest_pdf.py",
       "source_location": "L32",
       "_origin": "ast",
-      "community": 53,
+      "community": 91,
       "community_name": "normalize_circular_number",
       "norm_label": "canonical comparison key for a circular number: strip whitespace and trailing...",
       "id": "src_sebi_rag_ingest_pdf_rationale_32"
@@ -8438,7 +8358,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L70",
       "_origin": "ast",
-      "community": 76,
+      "community": 18,
       "community_name": "Lineage",
       "norm_label": "lineage",
       "id": "src_sebi_rag_lineage_lineage"
@@ -8449,7 +8369,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L77",
       "_origin": "ast",
-      "community": 76,
+      "community": 18,
       "community_name": "Lineage",
       "norm_label": ".status()",
       "id": "src_sebi_rag_lineage_lineage_status"
@@ -8460,7 +8380,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L84",
       "_origin": "ast",
-      "community": 76,
+      "community": 18,
       "community_name": "Lineage",
       "norm_label": ".family()",
       "id": "src_sebi_rag_lineage_lineage_family"
@@ -8471,7 +8391,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L96",
       "_origin": "ast",
-      "community": 76,
+      "community": 18,
       "community_name": "Lineage",
       "norm_label": ".governing_on()",
       "id": "src_sebi_rag_lineage_lineage_governing_on"
@@ -8482,7 +8402,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L109",
       "_origin": "ast",
-      "community": 76,
+      "community": 18,
       "community_name": "Lineage",
       "norm_label": ".explicit_superseded_by()",
       "id": "src_sebi_rag_lineage_lineage_explicit_superseded_by"
@@ -8493,7 +8413,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L115",
       "_origin": "ast",
-      "community": 76,
+      "community": 18,
       "community_name": "Lineage",
       "norm_label": ".save()",
       "id": "src_sebi_rag_lineage_lineage_save"
@@ -8504,7 +8424,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 76,
+      "community": 18,
       "community_name": "Lineage",
       "norm_label": "path",
       "id": "src_sebi_rag_lineage_py_path"
@@ -8515,7 +8435,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L123",
       "_origin": "ast",
-      "community": 76,
+      "community": 18,
       "community_name": "Lineage",
       "norm_label": ".load()",
       "id": "src_sebi_rag_lineage_lineage_load"
@@ -8526,7 +8446,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L132",
       "_origin": "ast",
-      "community": 29,
+      "community": 76,
       "community_name": "lineage.py",
       "norm_label": "mc_topic()",
       "id": "src_sebi_rag_lineage_mc_topic"
@@ -8537,7 +8457,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L150",
       "_origin": "ast",
-      "community": 29,
+      "community": 76,
       "community_name": "lineage.py",
       "norm_label": "_currency()",
       "id": "src_sebi_rag_lineage_currency"
@@ -8570,7 +8490,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L218",
       "_origin": "ast",
-      "community": 29,
+      "community": 47,
       "community_name": "answer_with_abstention",
       "norm_label": "superseded_citations()",
       "id": "src_sebi_rag_lineage_superseded_citations"
@@ -8581,7 +8501,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L232",
       "_origin": "ast",
-      "community": 10,
+      "community": 95,
       "community_name": "api.py",
       "norm_label": "load_records()",
       "id": "src_sebi_rag_lineage_load_records"
@@ -8592,7 +8512,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L241",
       "_origin": "ast",
-      "community": 76,
+      "community": 18,
       "community_name": "Lineage",
       "norm_label": "annotate_corpus()",
       "id": "src_sebi_rag_lineage_annotate_corpus"
@@ -8636,7 +8556,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L85",
       "_origin": "ast",
-      "community": 76,
+      "community": 18,
       "community_name": "Lineage",
       "norm_label": "connected component over supersedes/superseded_by (both tiers).",
       "id": "src_sebi_rag_lineage_rationale_85"
@@ -8647,7 +8567,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L98",
       "_origin": "ast",
-      "community": 76,
+      "community": 18,
       "community_name": "Lineage",
       "norm_label": "the circular in this family that governs on date as_of (iso), or none when...",
       "id": "src_sebi_rag_lineage_rationale_98"
@@ -8658,7 +8578,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L133",
       "_origin": "ast",
-      "community": 29,
+      "community": 76,
       "community_name": "lineage.py",
       "norm_label": "normalised topic of a 'master circular for/on <topic>' title, else none. used...",
       "id": "src_sebi_rag_lineage_rationale_133"
@@ -8680,7 +8600,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L219",
       "_origin": "ast",
-      "community": 29,
+      "community": 47,
       "community_name": "answer_with_abstention",
       "norm_label": "map any cited circular that is superseded -> the circular(s) superseding it....",
       "id": "src_sebi_rag_lineage_rationale_219"
@@ -8691,7 +8611,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L242",
       "_origin": "ast",
-      "community": 76,
+      "community": 18,
       "community_name": "Lineage",
       "norm_label": "update each corpus record's supersession_status + superseded_by + supersedes...",
       "id": "src_sebi_rag_lineage_rationale_242"
@@ -8867,7 +8787,7 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L44",
       "_origin": "ast",
-      "community": 82,
+      "community": 47,
       "community_name": "answer_with_abstention",
       "norm_label": ".query()",
       "id": "src_sebi_rag_pipeline_ragpipeline_query"
@@ -9010,7 +8930,7 @@
       "source_file": "src/sebi_rag/reg_lineage.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 73,
+      "community": 2,
       "community_name": "regulations.py",
       "norm_label": "reg_lineage.py",
       "id": "src_sebi_rag_reg_lineage"
@@ -9021,7 +8941,7 @@
       "source_file": "src/sebi_rag/reg_lineage.py",
       "source_location": "L55",
       "_origin": "ast",
-      "community": 73,
+      "community": 2,
       "community_name": "regulations.py",
       "norm_label": "_cited()",
       "id": "src_sebi_rag_reg_lineage_cited"
@@ -9065,7 +8985,7 @@
       "source_file": "src/sebi_rag/reg_lineage.py",
       "source_location": "L180",
       "_origin": "ast",
-      "community": 90,
+      "community": 2,
       "community_name": "build_regulatory_index",
       "norm_label": "build_regulatory_index()",
       "id": "src_sebi_rag_reg_lineage_build_regulatory_index"
@@ -9076,7 +8996,7 @@
       "source_file": "src/sebi_rag/reg_lineage.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 73,
+      "community": 2,
       "community_name": "regulations.py",
       "norm_label": "circular -> regulation edges and corpus annotation (spec 2026-07-23 \u00a73.3-\u00a73.7)....",
       "id": "src_sebi_rag_reg_lineage_rationale_1"
@@ -9087,7 +9007,7 @@
       "source_file": "src/sebi_rag/reg_lineage.py",
       "source_location": "L56",
       "_origin": "ast",
-      "community": 73,
+      "community": 2,
       "community_name": "regulations.py",
       "norm_label": "yield (circular, citation) for every citation occurrence in the corpus.",
       "id": "src_sebi_rag_reg_lineage_rationale_56"
@@ -9131,7 +9051,7 @@
       "source_file": "src/sebi_rag/reg_lineage.py",
       "source_location": "L182",
       "_origin": "ast",
-      "community": 90,
+      "community": 2,
       "community_name": "build_regulatory_index",
       "norm_label": "per-circular regulatory-basis lookup for the query/citation layer. read-only...",
       "id": "src_sebi_rag_reg_lineage_rationale_182"
@@ -9186,7 +9106,7 @@
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L64",
       "_origin": "ast",
-      "community": 65,
+      "community": 105,
       "community_name": "test_regulations.py",
       "norm_label": "name_tokens()",
       "id": "src_sebi_rag_regulations_name_tokens"
@@ -9208,7 +9128,7 @@
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L120",
       "_origin": "ast",
-      "community": 73,
+      "community": 96,
       "community_name": "test_regulations.py",
       "norm_label": "_alias_keys()",
       "id": "src_sebi_rag_regulations_alias_keys"
@@ -9230,7 +9150,7 @@
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L167",
       "_origin": "ast",
-      "community": 73,
+      "community": 104,
       "community_name": "regulations.py",
       "norm_label": "derive_regulatory_basis()",
       "id": "src_sebi_rag_regulations_derive_regulatory_basis"
@@ -9241,7 +9161,7 @@
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L184",
       "_origin": "ast",
-      "community": 65,
+      "community": 98,
       "community_name": "test_regulations.py",
       "norm_label": "load_regulations()",
       "id": "src_sebi_rag_regulations_load_regulations"
@@ -9252,7 +9172,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 65,
+      "community": 98,
       "community_name": "test_regulations.py",
       "norm_label": "path",
       "id": "src_sebi_rag_regulations_py_path"
@@ -9263,7 +9183,7 @@
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L197",
       "_origin": "ast",
-      "community": 65,
+      "community": 101,
       "community_name": "reg_display_name",
       "norm_label": "reg_display_name()",
       "id": "src_sebi_rag_regulations_reg_display_name"
@@ -9296,7 +9216,7 @@
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L65",
       "_origin": "ast",
-      "community": 65,
+      "community": 105,
       "community_name": "test_regulations.py",
       "norm_label": "comparison tokens: lowercased, punctuation-split, stopwords dropped, naively...",
       "id": "src_sebi_rag_regulations_rationale_65"
@@ -9307,7 +9227,7 @@
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L121",
       "_origin": "ast",
-      "community": 73,
+      "community": 96,
       "community_name": "test_regulations.py",
       "norm_label": "candidate alias lookup keys, most literal first. both the raw normalised form...",
       "id": "src_sebi_rag_regulations_rationale_121"
@@ -9329,7 +9249,7 @@
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L168",
       "_origin": "ast",
-      "community": 73,
+      "community": 104,
       "community_name": "regulations.py",
       "norm_label": "regulatory-basis status of one circular from its resolved regulations....",
       "id": "src_sebi_rag_regulations_rationale_168"
@@ -9340,7 +9260,7 @@
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L185",
       "_origin": "ast",
-      "community": 65,
+      "community": 98,
       "community_name": "test_regulations.py",
       "norm_label": "load data/corpus/regulations.jsonl into a list of regulation records. thin...",
       "id": "src_sebi_rag_regulations_rationale_185"
@@ -9351,7 +9271,7 @@
       "source_file": "src/sebi_rag/regulations.py",
       "source_location": "L198",
       "_origin": "ast",
-      "community": 65,
+      "community": 101,
       "community_name": "reg_display_name",
       "norm_label": "human-readable regulation name. year disambiguates same-short_name repeal pairs...",
       "id": "src_sebi_rag_regulations_rationale_198"
@@ -9373,7 +9293,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L15",
       "_origin": "ast",
-      "community": 29,
+      "community": 54,
       "community_name": "segment.py",
       "norm_label": "reranker",
       "id": "src_sebi_rag_rerank_reranker"
@@ -9384,7 +9304,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 29,
+      "community": 54,
       "community_name": "segment.py",
       "norm_label": "protocol",
       "id": "src_sebi_rag_rerank_py_protocol"
@@ -9395,7 +9315,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 29,
+      "community": 54,
       "community_name": "segment.py",
       "norm_label": ".rerank()",
       "id": "src_sebi_rag_rerank_reranker_rerank"
@@ -9406,7 +9326,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": "RAGPipeline",
       "norm_label": "lexicalreranker",
       "id": "src_sebi_rag_rerank_lexicalreranker"
@@ -9417,7 +9337,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 53,
+      "community": 40,
       "community_name": "RAGPipeline",
       "norm_label": ".rerank()",
       "id": "src_sebi_rag_rerank_lexicalreranker_rerank"
@@ -9483,7 +9403,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L115",
       "_origin": "ast",
-      "community": 10,
+      "community": 95,
       "community_name": "api.py",
       "norm_label": "crossencoderreranker",
       "id": "src_sebi_rag_rerank_crossencoderreranker"
@@ -9494,7 +9414,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L121",
       "_origin": "ast",
-      "community": 10,
+      "community": 95,
       "community_name": "api.py",
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_rerank_crossencoderreranker_init"
@@ -9505,7 +9425,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L131",
       "_origin": "ast",
-      "community": 10,
+      "community": 95,
       "community_name": "api.py",
       "norm_label": ".rerank()",
       "id": "src_sebi_rag_rerank_crossencoderreranker_rerank"
@@ -9527,7 +9447,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": "RAGPipeline",
       "norm_label": "deterministic query-coverage reranker (test/fallback). score = fraction of...",
       "id": "src_sebi_rag_rerank_rationale_23"
@@ -9549,7 +9469,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L116",
       "_origin": "ast",
-      "community": 10,
+      "community": 95,
       "community_name": "api.py",
       "norm_label": "production reranker: bge-reranker-v2-m3 via sentence-transformers crossencoder...",
       "id": "src_sebi_rag_rerank_rationale_116"
@@ -9560,7 +9480,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 52,
+      "community": 36,
       "community_name": "retrieve.py",
       "norm_label": "retrieve.py",
       "id": "src_sebi_rag_retrieve"
@@ -9571,7 +9491,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 48,
+      "community": 36,
       "community_name": ".load",
       "norm_label": "_doc_checksum()",
       "id": "src_sebi_rag_retrieve_doc_checksum"
@@ -9637,7 +9557,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L47",
       "_origin": "ast",
-      "community": 48,
+      "community": 52,
       "community_name": "retrieve.py",
       "norm_label": ".search()",
       "id": "src_sebi_rag_retrieve_denseindex_search"
@@ -9648,7 +9568,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L54",
       "_origin": "ast",
-      "community": 48,
+      "community": 52,
       "community_name": "retrieve.py",
       "norm_label": "sparseindex",
       "id": "src_sebi_rag_retrieve_sparseindex"
@@ -9659,7 +9579,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L57",
       "_origin": "ast",
-      "community": 48,
+      "community": 52,
       "community_name": "retrieve.py",
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_retrieve_sparseindex_init"
@@ -9670,7 +9590,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L61",
       "_origin": "ast",
-      "community": 48,
+      "community": 52,
       "community_name": "retrieve.py",
       "norm_label": ".build()",
       "id": "src_sebi_rag_retrieve_sparseindex_build"
@@ -9681,7 +9601,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L66",
       "_origin": "ast",
-      "community": 48,
+      "community": 52,
       "community_name": "retrieve.py",
       "norm_label": ".search()",
       "id": "src_sebi_rag_retrieve_sparseindex_search"
@@ -9692,7 +9612,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L73",
       "_origin": "ast",
-      "community": 63,
+      "community": 52,
       "community_name": "retrieve.py",
       "norm_label": "rrf_fuse()",
       "id": "src_sebi_rag_retrieve_rrf_fuse"
@@ -9703,7 +9623,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L88",
       "_origin": "ast",
-      "community": 69,
+      "community": 36,
       "community_name": "HybridRetriever",
       "norm_label": "hybridretriever",
       "id": "src_sebi_rag_retrieve_hybridretriever"
@@ -9714,7 +9634,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L96",
       "_origin": "ast",
-      "community": 48,
+      "community": 52,
       "community_name": "retrieve.py",
       "norm_label": ".build()",
       "id": "src_sebi_rag_retrieve_hybridretriever_build"
@@ -9736,7 +9656,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 48,
+      "community": 95,
       "community_name": ".load",
       "norm_label": "path",
       "id": "src_sebi_rag_retrieve_py_path"
@@ -9747,7 +9667,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L167",
       "_origin": "ast",
-      "community": 48,
+      "community": 52,
       "community_name": "retrieve.py",
       "norm_label": ".retrieve()",
       "id": "src_sebi_rag_retrieve_hybridretriever_retrieve"
@@ -9758,7 +9678,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L197",
       "_origin": "ast",
-      "community": 48,
+      "community": 36,
       "community_name": ".load",
       "norm_label": ".save()",
       "id": "src_sebi_rag_retrieve_hybridretriever_save"
@@ -9769,7 +9689,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L229",
       "_origin": "ast",
-      "community": 48,
+      "community": 95,
       "community_name": ".load",
       "norm_label": ".load()",
       "id": "src_sebi_rag_retrieve_hybridretriever_load"
@@ -9780,7 +9700,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L244",
       "_origin": "ast",
-      "community": 48,
+      "community": 95,
       "community_name": ".load",
       "norm_label": ".index_exists()",
       "id": "src_sebi_rag_retrieve_hybridretriever_index_exists"
@@ -9791,7 +9711,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 52,
+      "community": 36,
       "community_name": "retrieve.py",
       "norm_label": "stage-1 hybrid retrieval: dense (faiss) + sparse (bm25) fused by rrf. mandatory...",
       "id": "src_sebi_rag_retrieve_rationale_1"
@@ -9802,7 +9722,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 48,
+      "community": 36,
       "community_name": ".load",
       "norm_label": "deterministic per-document checksum over its (enriched) chunk texts \u2014 captures...",
       "id": "src_sebi_rag_retrieve_rationale_23"
@@ -9824,7 +9744,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L55",
       "_origin": "ast",
-      "community": 48,
+      "community": 52,
       "community_name": "retrieve.py",
       "norm_label": "bm25 lexical index (bm25s).",
       "id": "src_sebi_rag_retrieve_rationale_55"
@@ -9835,7 +9755,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L78",
       "_origin": "ast",
-      "community": 63,
+      "community": 52,
       "community_name": "retrieve.py",
       "norm_label": "reciprocal rank fusion. rank-only \u2014 sidesteps score-scale mismatch.",
       "id": "src_sebi_rag_retrieve_rationale_78"
@@ -9857,7 +9777,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 78,
+      "community": 29,
       "community_name": "segment.py",
       "norm_label": "segment.py",
       "id": "src_sebi_rag_segment"
@@ -9879,7 +9799,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L33",
       "_origin": "ast",
-      "community": 53,
+      "community": 54,
       "community_name": "Chunk",
       "norm_label": "chunk",
       "id": "src_sebi_rag_segment_chunk"
@@ -9890,7 +9810,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L41",
       "_origin": "ast",
-      "community": 57,
+      "community": 40,
       "community_name": "hierarchical_chunk",
       "norm_label": "_paragraphs()",
       "id": "src_sebi_rag_segment_paragraphs"
@@ -9901,7 +9821,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L78",
       "_origin": "ast",
-      "community": 57,
+      "community": 40,
       "community_name": "hierarchical_chunk",
       "norm_label": "hierarchical_chunk()",
       "id": "src_sebi_rag_segment_hierarchical_chunk"
@@ -9912,7 +9832,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 78,
+      "community": 29,
       "community_name": "segment.py",
       "norm_label": "segmentation: hierarchical chunking + metadata + stable citation ids. minimal,...",
       "id": "src_sebi_rag_segment_rationale_1"
@@ -9923,7 +9843,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L42",
       "_origin": "ast",
-      "community": 57,
+      "community": 40,
       "community_name": "hierarchical_chunk",
       "norm_label": "split into units each <= max_chars. pdf-extracted text often lacks blank-line...",
       "id": "src_sebi_rag_segment_rationale_42"
@@ -9934,7 +9854,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L84",
       "_origin": "ast",
-      "community": 57,
+      "community": 40,
       "community_name": "hierarchical_chunk",
       "norm_label": "document -> section -> paragraph chunks with stable ids. a \"section\" is...",
       "id": "src_sebi_rag_segment_rationale_84"
@@ -9945,7 +9865,7 @@
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 93,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "settings.py",
       "id": "src_sebi_rag_settings"
@@ -9956,7 +9876,7 @@
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L20",
       "_origin": "ast",
-      "community": 61,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "_get()",
       "id": "src_sebi_rag_settings_get"
@@ -9967,7 +9887,7 @@
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L25",
       "_origin": "ast",
-      "community": 61,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "_as_bool()",
       "id": "src_sebi_rag_settings_as_bool"
@@ -10000,7 +9920,7 @@
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L78",
       "_origin": "ast",
-      "community": 61,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": ".load()",
       "id": "src_sebi_rag_settings_settings_load"
@@ -10011,7 +9931,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 61,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "path",
       "id": "src_sebi_rag_settings_py_path"
@@ -10022,7 +9942,7 @@
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L105",
       "_origin": "ast",
-      "community": 61,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": ".load_spaces()",
       "id": "src_sebi_rag_settings_settings_load_spaces"
@@ -10033,7 +9953,7 @@
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 93,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "central configuration: config.toml defaults, overridden by sebi_rag_* env vars....",
       "id": "src_sebi_rag_settings_rationale_1"
@@ -10044,7 +9964,7 @@
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L21",
       "_origin": "ast",
-      "community": 61,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "resolve a setting: env var > config dict > default.",
       "id": "src_sebi_rag_settings_rationale_21"
@@ -10055,7 +9975,7 @@
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L26",
       "_origin": "ast",
-      "community": 61,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "coerce a config/env value to bool. env vars arrive as strings; toml/default may...",
       "id": "src_sebi_rag_settings_rationale_26"
@@ -10077,7 +9997,7 @@
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L106",
       "_origin": "ast",
-      "community": 61,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "settings.load() plus the [spaces] table as settings.spaces.* load order per...",
       "id": "src_sebi_rag_settings_rationale_106"
@@ -10693,7 +10613,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L19",
       "_origin": "ast",
-      "community": 49,
+      "community": 40,
       "community_name": "RAGPipeline",
       "norm_label": "_offline_pipeline()",
       "id": "tests_test_api_offline_pipeline"
@@ -10704,7 +10624,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 49,
+      "community": 40,
       "community_name": "RAGPipeline",
       "norm_label": "_tiny_pipeline()",
       "id": "tests_test_api_tiny_pipeline"
@@ -10715,7 +10635,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L44",
       "_origin": "ast",
-      "community": 49,
+      "community": 40,
       "community_name": "RAGPipeline",
       "norm_label": "_slowgenerator",
       "id": "tests_test_api_slowgenerator"
@@ -10726,7 +10646,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L45",
       "_origin": "ast",
-      "community": 49,
+      "community": 40,
       "community_name": "RAGPipeline",
       "norm_label": ".generate()",
       "id": "tests_test_api_slowgenerator_generate"
@@ -10737,7 +10657,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L50",
       "_origin": "ast",
-      "community": 49,
+      "community": 40,
       "community_name": "RAGPipeline",
       "norm_label": "_slow_pipeline()",
       "id": "tests_test_api_slow_pipeline"
@@ -10957,7 +10877,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L209",
       "_origin": "ast",
-      "community": 10,
+      "community": 95,
       "community_name": "api.py",
       "norm_label": "test_embedder_reranker_accept_compute_kwargs()",
       "id": "tests_test_api_test_embedder_reranker_accept_compute_kwargs"
@@ -11529,7 +11449,7 @@
       "source_file": "tests/test_benchmark.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 75,
+      "community": 1,
       "community_name": "test_benchmark.py",
       "norm_label": "test_benchmark.py",
       "id": "tests_test_benchmark"
@@ -11540,7 +11460,7 @@
       "source_file": "tests/test_benchmark.py",
       "source_location": "L20",
       "_origin": "ast",
-      "community": 75,
+      "community": 1,
       "community_name": "test_benchmark.py",
       "norm_label": "_golden()",
       "id": "tests_test_benchmark_golden"
@@ -11551,7 +11471,7 @@
       "source_file": "tests/test_benchmark.py",
       "source_location": "L57",
       "_origin": "ast",
-      "community": 75,
+      "community": 1,
       "community_name": "test_benchmark.py",
       "norm_label": "_chunks()",
       "id": "tests_test_benchmark_chunks"
@@ -11562,7 +11482,7 @@
       "source_file": "tests/test_benchmark.py",
       "source_location": "L81",
       "_origin": "ast",
-      "community": 75,
+      "community": 1,
       "community_name": "test_benchmark.py",
       "norm_label": "test_golden_v6_schema_guardrails()",
       "id": "tests_test_benchmark_test_golden_v6_schema_guardrails"
@@ -11573,7 +11493,7 @@
       "source_file": "tests/test_benchmark.py",
       "source_location": "L89",
       "_origin": "ast",
-      "community": 75,
+      "community": 1,
       "community_name": "test_benchmark.py",
       "norm_label": "test_beir_export_and_qrels_shape()",
       "id": "tests_test_benchmark_test_beir_export_and_qrels_shape"
@@ -11595,7 +11515,7 @@
       "source_file": "tests/test_benchmark.py",
       "source_location": "L111",
       "_origin": "ast",
-      "community": 75,
+      "community": 1,
       "community_name": "test_benchmark.py",
       "norm_label": "test_run_metadata_has_reproducibility_fields()",
       "id": "tests_test_benchmark_test_run_metadata_has_reproducibility_fields"
@@ -11606,7 +11526,7 @@
       "source_file": "tests/test_benchmark.py",
       "source_location": "L132",
       "_origin": "ast",
-      "community": 75,
+      "community": 1,
       "community_name": "test_benchmark.py",
       "norm_label": "test_bench_retrieval_smoke_runner()",
       "id": "tests_test_benchmark_test_bench_retrieval_smoke_runner"
@@ -11617,7 +11537,7 @@
       "source_file": "tests/test_build_reg_edges.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 83,
+      "community": 2,
       "community_name": "test_build_reg_edges.py",
       "norm_label": "test_build_reg_edges.py",
       "id": "tests_test_build_reg_edges"
@@ -11628,7 +11548,7 @@
       "source_file": "tests/test_build_reg_edges.py",
       "source_location": "L26",
       "_origin": "ast",
-      "community": 83,
+      "community": 2,
       "community_name": "test_build_reg_edges.py",
       "norm_label": "_setup()",
       "id": "tests_test_build_reg_edges_setup"
@@ -11639,7 +11559,7 @@
       "source_file": "tests/test_build_reg_edges.py",
       "source_location": "L34",
       "_origin": "ast",
-      "community": 83,
+      "community": 2,
       "community_name": "test_build_reg_edges.py",
       "norm_label": "test_driver_writes_edges_and_annotates()",
       "id": "tests_test_build_reg_edges_test_driver_writes_edges_and_annotates"
@@ -11650,7 +11570,7 @@
       "source_file": "tests/test_build_reg_edges.py",
       "source_location": "L53",
       "_origin": "ast",
-      "community": 83,
+      "community": 2,
       "community_name": "test_build_reg_edges.py",
       "norm_label": "test_driver_appends_repealed_stub_to_the_regulations_file()",
       "id": "tests_test_build_reg_edges_test_driver_appends_repealed_stub_to_the_regulations_file"
@@ -11661,7 +11581,7 @@
       "source_file": "tests/test_build_reg_edges.py",
       "source_location": "L65",
       "_origin": "ast",
-      "community": 83,
+      "community": 2,
       "community_name": "test_build_reg_edges.py",
       "norm_label": "test_driver_is_idempotent()",
       "id": "tests_test_build_reg_edges_test_driver_is_idempotent"
@@ -11672,7 +11592,7 @@
       "source_file": "tests/test_build_reg_edges.py",
       "source_location": "L78",
       "_origin": "ast",
-      "community": 83,
+      "community": 2,
       "community_name": "test_build_reg_edges.py",
       "norm_label": "test_driver_preserves_unrelated_circular_fields()",
       "id": "tests_test_build_reg_edges_test_driver_preserves_unrelated_circular_fields"
@@ -11683,7 +11603,7 @@
       "source_file": "tests/test_build_reg_edges.py",
       "source_location": "L88",
       "_origin": "ast",
-      "community": 83,
+      "community": 2,
       "community_name": "test_build_reg_edges.py",
       "norm_label": "test_driver_writes_the_unresolved_report()",
       "id": "tests_test_build_reg_edges_test_driver_writes_the_unresolved_report"
@@ -11694,7 +11614,7 @@
       "source_file": "tests/test_build_reg_edges.py",
       "source_location": "L102",
       "_origin": "ast",
-      "community": 83,
+      "community": 2,
       "community_name": "test_build_reg_edges.py",
       "norm_label": "test_missing_regulations_file_exits_nonzero_without_writing()",
       "id": "tests_test_build_reg_edges_test_missing_regulations_file_exits_nonzero_without_writing"
@@ -11705,7 +11625,7 @@
       "source_file": "tests/test_build_reg_edges.py",
       "source_location": "L114",
       "_origin": "ast",
-      "community": 83,
+      "community": 2,
       "community_name": "test_build_reg_edges.py",
       "norm_label": "test_load_jsonl_skips_blank_lines()",
       "id": "tests_test_build_reg_edges_test_load_jsonl_skips_blank_lines"
@@ -11716,7 +11636,7 @@
       "source_file": "tests/test_build_reg_edges.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 83,
+      "community": 2,
       "community_name": "test_build_reg_edges.py",
       "norm_label": "end-to-end driver test on a temporary corpus (no network).",
       "id": "tests_test_build_reg_edges_rationale_1"
@@ -11881,7 +11801,7 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L56",
       "_origin": "ast",
-      "community": 17,
+      "community": 54,
       "community_name": "context_headers.py",
       "norm_label": "_chunk()",
       "id": "tests_test_context_headers_chunk"
@@ -11892,7 +11812,7 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L60",
       "_origin": "ast",
-      "community": 17,
+      "community": 54,
       "community_name": "context_headers.py",
       "norm_label": "test_header_inserted_below_breadcrumb()",
       "id": "tests_test_context_headers_test_header_inserted_below_breadcrumb"
@@ -11903,7 +11823,7 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L72",
       "_origin": "ast",
-      "community": 17,
+      "community": 54,
       "community_name": "context_headers.py",
       "norm_label": "test_missing_or_empty_header_leaves_chunk_unchanged()",
       "id": "tests_test_context_headers_test_missing_or_empty_header_leaves_chunk_unchanged"
@@ -12508,7 +12428,7 @@
       "source_file": "tests/test_eval_harness.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 78,
+      "community": 29,
       "community_name": "segment.py",
       "norm_label": "test_eval_harness.py",
       "id": "tests_test_eval_harness"
@@ -12519,7 +12439,7 @@
       "source_file": "tests/test_eval_harness.py",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 57,
+      "community": 40,
       "community_name": "RAGPipeline",
       "norm_label": "_pipeline()",
       "id": "tests_test_eval_harness_pipeline"
@@ -12530,7 +12450,7 @@
       "source_file": "tests/test_eval_harness.py",
       "source_location": "L41",
       "_origin": "ast",
-      "community": 78,
+      "community": 58,
       "community_name": "hierarchical_chunk",
       "norm_label": "test_real_corpus_loads_with_provenance_fields()",
       "id": "tests_test_eval_harness_test_real_corpus_loads_with_provenance_fields"
@@ -12541,7 +12461,7 @@
       "source_file": "tests/test_eval_harness.py",
       "source_location": "L49",
       "_origin": "ast",
-      "community": 78,
+      "community": 86,
       "community_name": "test_eval_harness_v7.py",
       "norm_label": "test_eval_harness_metric_suite()",
       "id": "tests_test_eval_harness_test_eval_harness_metric_suite"
@@ -12552,7 +12472,7 @@
       "source_file": "tests/test_eval_harness.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 78,
+      "community": 29,
       "community_name": "segment.py",
       "norm_label": "p1 evaluation-harness test (offline). loads the real seed corpus...",
       "id": "tests_test_eval_harness_rationale_1"
@@ -15302,7 +15222,7 @@
       "source_file": "tests/test_golden_v7_pool.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": "test_golden_v7_pool.py",
       "norm_label": "test_golden_v7_pool.py",
       "id": "tests_test_golden_v7_pool"
@@ -15313,7 +15233,7 @@
       "source_file": "tests/test_golden_v7_pool.py",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": "test_golden_v7_pool.py",
       "norm_label": "_retriever()",
       "id": "tests_test_golden_v7_pool_retriever"
@@ -15324,7 +15244,7 @@
       "source_file": "tests/test_golden_v7_pool.py",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": "test_golden_v7_pool.py",
       "norm_label": "test_gold_literal_chunks_lead_the_pool()",
       "id": "tests_test_golden_v7_pool_test_gold_literal_chunks_lead_the_pool"
@@ -15335,7 +15255,7 @@
       "source_file": "tests/test_golden_v7_pool.py",
       "source_location": "L33",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": "test_golden_v7_pool.py",
       "norm_label": "test_bm25_leg_uses_raw_query_not_expansion()",
       "id": "tests_test_golden_v7_pool_test_bm25_leg_uses_raw_query_not_expansion"
@@ -15346,7 +15266,7 @@
       "source_file": "tests/test_golden_v7_pool.py",
       "source_location": "L42",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": "test_golden_v7_pool.py",
       "norm_label": "_saturating_retriever()",
       "id": "tests_test_golden_v7_pool_saturating_retriever"
@@ -15357,7 +15277,7 @@
       "source_file": "tests/test_golden_v7_pool.py",
       "source_location": "L55",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": "test_golden_v7_pool.py",
       "norm_label": "test_deep_relevant_chunk_is_reachable_despite_a_common_literal()",
       "id": "tests_test_golden_v7_pool_test_deep_relevant_chunk_is_reachable_despite_a_common_literal"
@@ -15368,7 +15288,7 @@
       "source_file": "tests/test_golden_v7_pool.py",
       "source_location": "L78",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": "test_golden_v7_pool.py",
       "norm_label": "test_gold_literal_chunks_still_lead_the_pool_when_bounded()",
       "id": "tests_test_golden_v7_pool_test_gold_literal_chunks_still_lead_the_pool_when_bounded"
@@ -15379,7 +15299,7 @@
       "source_file": "tests/test_golden_v7_pool.py",
       "source_location": "L43",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": "test_golden_v7_pool.py",
       "norm_label": "one gold doc with `n` chunks that all contain the word \"broker\", so a...",
       "id": "tests_test_golden_v7_pool_rationale_43"
@@ -15390,7 +15310,7 @@
       "source_file": "tests/test_golden_v7_pool.py",
       "source_location": "L56",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": "test_golden_v7_pool.py",
       "norm_label": "regression (2026-07-25): a must_contain literal matching many gold-doc chunks...",
       "id": "tests_test_golden_v7_pool_rationale_56"
@@ -15401,7 +15321,7 @@
       "source_file": "tests/test_golden_v7_remap.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 72,
+      "community": 58,
       "community_name": "remap_doc_ids.py",
       "norm_label": "test_golden_v7_remap.py",
       "id": "tests_test_golden_v7_remap"
@@ -15412,7 +15332,7 @@
       "source_file": "tests/test_golden_v7_remap.py",
       "source_location": "L9",
       "_origin": "ast",
-      "community": 72,
+      "community": 58,
       "community_name": "remap_doc_ids.py",
       "norm_label": "_row()",
       "id": "tests_test_golden_v7_remap_row"
@@ -15423,7 +15343,7 @@
       "source_file": "tests/test_golden_v7_remap.py",
       "source_location": "L17",
       "_origin": "ast",
-      "community": 72,
+      "community": 58,
       "community_name": "remap_doc_ids.py",
       "norm_label": "test_remaps_relevant_circulars_and_span_docs()",
       "id": "tests_test_golden_v7_remap_test_remaps_relevant_circulars_and_span_docs"
@@ -15434,7 +15354,7 @@
       "source_file": "tests/test_golden_v7_remap.py",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 72,
+      "community": 58,
       "community_name": "remap_doc_ids.py",
       "norm_label": "test_remaps_must_not_cite()",
       "id": "tests_test_golden_v7_remap_test_remaps_must_not_cite"
@@ -15445,7 +15365,7 @@
       "source_file": "tests/test_golden_v7_remap.py",
       "source_location": "L32",
       "_origin": "ast",
-      "community": 72,
+      "community": 58,
       "community_name": "remap_doc_ids.py",
       "norm_label": "test_unmapped_rows_untouched()",
       "id": "tests_test_golden_v7_remap_test_unmapped_rows_untouched"
@@ -15456,7 +15376,7 @@
       "source_file": "tests/test_golden_v7_remap.py",
       "source_location": "L38",
       "_origin": "ast",
-      "community": 72,
+      "community": 58,
       "community_name": "remap_doc_ids.py",
       "norm_label": "test_matching_is_normalization_insensitive()",
       "id": "tests_test_golden_v7_remap_test_matching_is_normalization_insensitive"
@@ -15467,7 +15387,7 @@
       "source_file": "tests/test_golden_v7_remap.py",
       "source_location": "L45",
       "_origin": "ast",
-      "community": 72,
+      "community": 58,
       "community_name": "remap_doc_ids.py",
       "norm_label": "test_input_rows_are_not_mutated()",
       "id": "tests_test_golden_v7_remap_test_input_rows_are_not_mutated"
@@ -15478,7 +15398,7 @@
       "source_file": "tests/test_golden_v7_remap.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 72,
+      "community": 58,
       "community_name": "remap_doc_ids.py",
       "norm_label": "doc-id remapping after the 2026-07-25 corpus renumbering (task 4).",
       "id": "tests_test_golden_v7_remap_rationale_1"
@@ -15489,7 +15409,7 @@
       "source_file": "tests/test_golden_v7_resolver.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 53,
+      "community": 1,
       "community_name": "test_golden_v7_resolver.py",
       "norm_label": "test_golden_v7_resolver.py",
       "id": "tests_test_golden_v7_resolver"
@@ -15500,7 +15420,7 @@
       "source_file": "tests/test_golden_v7_resolver.py",
       "source_location": "L15",
       "_origin": "ast",
-      "community": 53,
+      "community": 1,
       "community_name": "test_golden_v7_resolver.py",
       "norm_label": "_chunks()",
       "id": "tests_test_golden_v7_resolver_chunks"
@@ -15511,7 +15431,7 @@
       "source_file": "tests/test_golden_v7_resolver.py",
       "source_location": "L19",
       "_origin": "ast",
-      "community": 53,
+      "community": 1,
       "community_name": "test_golden_v7_resolver.py",
       "norm_label": "_row()",
       "id": "tests_test_golden_v7_resolver_row"
@@ -15522,7 +15442,7 @@
       "source_file": "tests/test_golden_v7_resolver.py",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 53,
+      "community": 1,
       "community_name": "test_golden_v7_resolver.py",
       "norm_label": "test_resolves_normalized_whitespace_quote()",
       "id": "tests_test_golden_v7_resolver_test_resolves_normalized_whitespace_quote"
@@ -15533,7 +15453,7 @@
       "source_file": "tests/test_golden_v7_resolver.py",
       "source_location": "L31",
       "_origin": "ast",
-      "community": 53,
+      "community": 1,
       "community_name": "test_golden_v7_resolver.py",
       "norm_label": "test_unresolvable_quote_returns_empty()",
       "id": "tests_test_golden_v7_resolver_test_unresolvable_quote_returns_empty"
@@ -15544,7 +15464,7 @@
       "source_file": "tests/test_golden_v7_resolver.py",
       "source_location": "L38",
       "_origin": "ast",
-      "community": 53,
+      "community": 1,
       "community_name": "test_golden_v7_resolver.py",
       "norm_label": "test_legacy_string_entries_pass_through()",
       "id": "tests_test_golden_v7_resolver_test_legacy_string_entries_pass_through"
@@ -15555,7 +15475,7 @@
       "source_file": "tests/test_golden_v7_resolver.py",
       "source_location": "L43",
       "_origin": "ast",
-      "community": 53,
+      "community": 1,
       "community_name": "test_golden_v7_resolver.py",
       "norm_label": "test_validator_flags_unresolvable_quote_when_chunks_given()",
       "id": "tests_test_golden_v7_resolver_test_validator_flags_unresolvable_quote_when_chunks_given"
@@ -15566,7 +15486,7 @@
       "source_file": "tests/test_golden_v7_resolver.py",
       "source_location": "L53",
       "_origin": "ast",
-      "community": 53,
+      "community": 1,
       "community_name": "test_golden_v7_resolver.py",
       "norm_label": "test_qrels_span_rows_get_grade_2()",
       "id": "tests_test_golden_v7_resolver_test_qrels_span_rows_get_grade_2"
@@ -15577,7 +15497,7 @@
       "source_file": "tests/test_golden_v7_resolver.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 53,
+      "community": 1,
       "community_name": "test_golden_v7_resolver.py",
       "norm_label": "span\u2192chunk resolution (spec \u00a73): quotes survive re-chunking; failures are loud.",
       "id": "tests_test_golden_v7_resolver_rationale_1"
@@ -15588,7 +15508,7 @@
       "source_file": "tests/test_golden_v7_schema.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 67,
+      "community": 1,
       "community_name": "validate_golden_v7",
       "norm_label": "test_golden_v7_schema.py",
       "id": "tests_test_golden_v7_schema"
@@ -15599,7 +15519,7 @@
       "source_file": "tests/test_golden_v7_schema.py",
       "source_location": "L7",
       "_origin": "ast",
-      "community": 67,
+      "community": 1,
       "community_name": "validate_golden_v7",
       "norm_label": "_row()",
       "id": "tests_test_golden_v7_schema_row"
@@ -15610,7 +15530,7 @@
       "source_file": "tests/test_golden_v7_schema.py",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 67,
+      "community": 1,
       "community_name": "validate_golden_v7",
       "norm_label": "test_strata_targets_sum_to_260()",
       "id": "tests_test_golden_v7_schema_test_strata_targets_sum_to_260"
@@ -15621,7 +15541,7 @@
       "source_file": "tests/test_golden_v7_schema.py",
       "source_location": "L29",
       "_origin": "ast",
-      "community": 67,
+      "community": 1,
       "community_name": "validate_golden_v7",
       "norm_label": "test_valid_row_passes()",
       "id": "tests_test_golden_v7_schema_test_valid_row_passes"
@@ -15632,7 +15552,7 @@
       "source_file": "tests/test_golden_v7_schema.py",
       "source_location": "L33",
       "_origin": "ast",
-      "community": 67,
+      "community": 1,
       "community_name": "validate_golden_v7",
       "norm_label": "test_bad_v7_id_flagged()",
       "id": "tests_test_golden_v7_schema_test_bad_v7_id_flagged"
@@ -15643,7 +15563,7 @@
       "source_file": "tests/test_golden_v7_schema.py",
       "source_location": "L38",
       "_origin": "ast",
-      "community": 67,
+      "community": 1,
       "community_name": "validate_golden_v7",
       "norm_label": "test_carried_ids_exempt_from_v7_pattern()",
       "id": "tests_test_golden_v7_schema_test_carried_ids_exempt_from_v7_pattern"
@@ -15654,7 +15574,7 @@
       "source_file": "tests/test_golden_v7_schema.py",
       "source_location": "L44",
       "_origin": "ast",
-      "community": 67,
+      "community": 1,
       "community_name": "validate_golden_v7",
       "norm_label": "test_short_quote_flagged()",
       "id": "tests_test_golden_v7_schema_test_short_quote_flagged"
@@ -15665,7 +15585,7 @@
       "source_file": "tests/test_golden_v7_schema.py",
       "source_location": "L50",
       "_origin": "ast",
-      "community": 67,
+      "community": 1,
       "community_name": "validate_golden_v7",
       "norm_label": "test_quote_doc_must_be_relevant_circular()",
       "id": "tests_test_golden_v7_schema_test_quote_doc_must_be_relevant_circular"
@@ -15676,7 +15596,7 @@
       "source_file": "tests/test_golden_v7_schema.py",
       "source_location": "L57",
       "_origin": "ast",
-      "community": 67,
+      "community": 1,
       "community_name": "validate_golden_v7",
       "norm_label": "test_as_of_only_on_lineage_rows_and_iso()",
       "id": "tests_test_golden_v7_schema_test_as_of_only_on_lineage_rows_and_iso"
@@ -15687,7 +15607,7 @@
       "source_file": "tests/test_golden_v7_schema.py",
       "source_location": "L65",
       "_origin": "ast",
-      "community": 67,
+      "community": 1,
       "community_name": "validate_golden_v7",
       "norm_label": "test_must_not_cite_only_on_lineage_rows()",
       "id": "tests_test_golden_v7_schema_test_must_not_cite_only_on_lineage_rows"
@@ -15698,7 +15618,7 @@
       "source_file": "tests/test_golden_v7_schema.py",
       "source_location": "L70",
       "_origin": "ast",
-      "community": 67,
+      "community": 1,
       "community_name": "validate_golden_v7",
       "norm_label": "test_abstain_row_needs_no_labels()",
       "id": "tests_test_golden_v7_schema_test_abstain_row_needs_no_labels"
@@ -15709,7 +15629,7 @@
       "source_file": "tests/test_golden_v7_schema.py",
       "source_location": "L77",
       "_origin": "ast",
-      "community": 67,
+      "community": 1,
       "community_name": "validate_golden_v7",
       "norm_label": "test_census_enforced_at_full_size()",
       "id": "tests_test_golden_v7_schema_test_census_enforced_at_full_size"
@@ -15720,7 +15640,7 @@
       "source_file": "tests/test_golden_v7_schema.py",
       "source_location": "L83",
       "_origin": "ast",
-      "community": 67,
+      "community": 1,
       "community_name": "validate_golden_v7",
       "norm_label": "test_far_negative_exempt_from_hard_floor()",
       "id": "tests_test_golden_v7_schema_test_far_negative_exempt_from_hard_floor"
@@ -15731,7 +15651,7 @@
       "source_file": "tests/test_golden_v7_schema.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 67,
+      "community": 1,
       "community_name": "validate_golden_v7",
       "norm_label": "offline tests for the golden_v7 schema rails (spec 2026-07-23 \u00a73, \u00a74, \u00a78).",
       "id": "tests_test_golden_v7_schema_rationale_1"
@@ -15742,7 +15662,7 @@
       "source_file": "tests/test_golden_v7_seed.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 101,
+      "community": 1,
       "community_name": "load_golden",
       "norm_label": "test_golden_v7_seed.py",
       "id": "tests_test_golden_v7_seed"
@@ -15753,7 +15673,7 @@
       "source_file": "tests/test_golden_v7_seed.py",
       "source_location": "L10",
       "_origin": "ast",
-      "community": 101,
+      "community": 1,
       "community_name": "load_golden",
       "norm_label": "test_carry_preserves_ids_and_adds_v7_defaults()",
       "id": "tests_test_golden_v7_seed_test_carry_preserves_ids_and_adds_v7_defaults"
@@ -15764,7 +15684,7 @@
       "source_file": "tests/test_golden_v7_seed.py",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 101,
+      "community": 1,
       "community_name": "load_golden",
       "norm_label": "test_seed_script_writes_56_valid_rows()",
       "id": "tests_test_golden_v7_seed_test_seed_script_writes_56_valid_rows"
@@ -15885,7 +15805,7 @@
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 96,
+      "community": 48,
       "community_name": ".load",
       "norm_label": "test_incremental_index.py",
       "id": "tests_test_incremental_index"
@@ -15896,7 +15816,7 @@
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 96,
+      "community": 48,
       "community_name": ".load",
       "norm_label": "countingembedder",
       "id": "tests_test_incremental_index_countingembedder"
@@ -15907,7 +15827,7 @@
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L13",
       "_origin": "ast",
-      "community": 96,
+      "community": 48,
       "community_name": ".load",
       "norm_label": ".__init__()",
       "id": "tests_test_incremental_index_countingembedder_init"
@@ -15929,7 +15849,7 @@
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 96,
+      "community": 48,
       "community_name": ".load",
       "norm_label": "_doc()",
       "id": "tests_test_incremental_index_doc"
@@ -15940,7 +15860,7 @@
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L27",
       "_origin": "ast",
-      "community": 96,
+      "community": 48,
       "community_name": ".load",
       "norm_label": "_corpus_v1()",
       "id": "tests_test_incremental_index_corpus_v1"
@@ -15951,7 +15871,7 @@
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L33",
       "_origin": "ast",
-      "community": 96,
+      "community": 48,
       "community_name": ".load",
       "norm_label": "test_incremental_encodes_only_delta()",
       "id": "tests_test_incremental_index_test_incremental_encodes_only_delta"
@@ -15962,7 +15882,7 @@
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L69",
       "_origin": "ast",
-      "community": 96,
+      "community": 48,
       "community_name": ".load",
       "norm_label": "test_incremental_falls_back_to_full_without_cache()",
       "id": "tests_test_incremental_index_test_incremental_falls_back_to_full_without_cache"
@@ -15973,7 +15893,7 @@
       "source_file": "tests/test_incremental_index.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 96,
+      "community": 48,
       "community_name": ".load",
       "norm_label": "offline tests for f3 incremental indexing (adr-001): only new/changed docs are...",
       "id": "tests_test_incremental_index_rationale_1"
@@ -16204,7 +16124,7 @@
       "source_file": "tests/test_ingest_refs.py",
       "source_location": "L75",
       "_origin": "ast",
-      "community": 99,
+      "community": 91,
       "community_name": "normalize_circular_number",
       "norm_label": "test_dedup_uses_normalized_numbers()",
       "id": "tests_test_ingest_refs_test_dedup_uses_normalized_numbers"
@@ -16413,7 +16333,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L38",
       "_origin": "ast",
-      "community": 29,
+      "community": 76,
       "community_name": "answer_with_abstention",
       "norm_label": "test_superseded_citations_flagged_for_retrieval()",
       "id": "tests_test_lineage_test_superseded_citations_flagged_for_retrieval"
@@ -16479,7 +16399,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L111",
       "_origin": "ast",
-      "community": 76,
+      "community": 18,
       "community_name": "Lineage",
       "norm_label": "test_annotate_corpus_writes_new_metadata_fields()",
       "id": "tests_test_lineage_test_annotate_corpus_writes_new_metadata_fields"
@@ -16534,7 +16454,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L172",
       "_origin": "ast",
-      "community": 76,
+      "community": 18,
       "community_name": "Lineage",
       "norm_label": "test_governing_on_cycle_safe()",
       "id": "tests_test_lineage_test_governing_on_cycle_safe"
@@ -16545,7 +16465,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L180",
       "_origin": "ast",
-      "community": 76,
+      "community": 18,
       "community_name": "Lineage",
       "norm_label": "test_governing_on_parallel_branches_max_date_wins()",
       "id": "tests_test_lineage_test_governing_on_parallel_branches_max_date_wins"
@@ -16600,7 +16520,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L239",
       "_origin": "ast",
-      "community": 76,
+      "community": 18,
       "community_name": "Lineage",
       "norm_label": "test_lineage_save_load_roundtrips_edges()",
       "id": "tests_test_lineage_test_lineage_save_load_roundtrips_edges"
@@ -16611,7 +16531,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L249",
       "_origin": "ast",
-      "community": 76,
+      "community": 18,
       "community_name": "Lineage",
       "norm_label": "test_lineage_load_old_file_defaults_empty_edges()",
       "id": "tests_test_lineage_test_lineage_load_old_file_defaults_empty_edges"
@@ -16622,7 +16542,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L257",
       "_origin": "ast",
-      "community": 76,
+      "community": 18,
       "community_name": "Lineage",
       "norm_label": "test_annotate_corpus_adds_master_fields_and_consolidates_edges()",
       "id": "tests_test_lineage_test_annotate_corpus_adds_master_fields_and_consolidates_edges"
@@ -17062,7 +16982,7 @@
       "source_file": "tests/test_metadata.py",
       "source_location": "L105",
       "_origin": "ast",
-      "community": 8,
+      "community": 58,
       "community_name": "derive_validity",
       "norm_label": "test_chunk_meta_carries_new_fields()",
       "id": "tests_test_metadata_test_chunk_meta_carries_new_fields"
@@ -17084,7 +17004,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 78,
+      "community": 52,
       "community_name": ".load",
       "norm_label": "test_persistence.py",
       "id": "tests_test_persistence"
@@ -17095,7 +17015,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L9",
       "_origin": "ast",
-      "community": 40,
+      "community": 52,
       "community_name": "HashEmbedder",
       "norm_label": "_chunks()",
       "id": "tests_test_persistence_chunks"
@@ -17106,7 +17026,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 48,
+      "community": 52,
       "community_name": ".load",
       "norm_label": "test_index_save_load_roundtrip()",
       "id": "tests_test_persistence_test_index_save_load_roundtrip"
@@ -17117,7 +17037,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 78,
+      "community": 52,
       "community_name": ".load",
       "norm_label": "index persistence round-trip (offline).",
       "id": "tests_test_persistence_rationale_1"
@@ -17128,7 +17048,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 63,
+      "community": 40,
       "community_name": "test_pipeline.py",
       "norm_label": "test_pipeline.py",
       "id": "tests_test_pipeline"
@@ -17139,7 +17059,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L64",
       "_origin": "ast",
-      "community": 63,
+      "community": 40,
       "community_name": "test_pipeline.py",
       "norm_label": "_build_chunks()",
       "id": "tests_test_pipeline_build_chunks"
@@ -17161,7 +17081,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L81",
       "_origin": "ast",
-      "community": 63,
+      "community": 40,
       "community_name": "test_pipeline.py",
       "norm_label": "test_segmentation_has_stable_ids_and_metadata()",
       "id": "tests_test_pipeline_test_segmentation_has_stable_ids_and_metadata"
@@ -17172,7 +17092,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L91",
       "_origin": "ast",
-      "community": 63,
+      "community": 52,
       "community_name": "retrieve.py",
       "norm_label": "test_rrf_fusion_orders_by_reciprocal_rank()",
       "id": "tests_test_pipeline_test_rrf_fusion_orders_by_reciprocal_rank"
@@ -17183,7 +17103,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L100",
       "_origin": "ast",
-      "community": 63,
+      "community": 40,
       "community_name": "test_pipeline.py",
       "norm_label": "test_hybrid_retrieval_finds_relevant_circular()",
       "id": "tests_test_pipeline_test_hybrid_retrieval_finds_relevant_circular"
@@ -17194,7 +17114,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L111",
       "_origin": "ast",
-      "community": 63,
+      "community": 40,
       "community_name": "test_pipeline.py",
       "norm_label": "test_abstention_on_out_of_domain_query()",
       "id": "tests_test_pipeline_test_abstention_on_out_of_domain_query"
@@ -17227,7 +17147,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L162",
       "_origin": "ast",
-      "community": 63,
+      "community": 40,
       "community_name": "test_pipeline.py",
       "norm_label": "test_note_fires_and_disambiguates_year()",
       "id": "tests_test_pipeline_test_note_fires_and_disambiguates_year"
@@ -17238,7 +17158,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L172",
       "_origin": "ast",
-      "community": 63,
+      "community": 40,
       "community_name": "test_pipeline.py",
       "norm_label": "test_note_absent_when_status_not_repealed_basis()",
       "id": "tests_test_pipeline_test_note_absent_when_status_not_repealed_basis"
@@ -17271,7 +17191,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L214",
       "_origin": "ast",
-      "community": 63,
+      "community": 40,
       "community_name": "test_pipeline.py",
       "norm_label": "test_retrieval_metrics()",
       "id": "tests_test_pipeline_test_retrieval_metrics"
@@ -17359,7 +17279,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 63,
+      "community": 40,
       "community_name": "test_pipeline.py",
       "norm_label": "minimal end-to-end test of the sebi rag pipeline. runs fully offline...",
       "id": "tests_test_pipeline_rationale_1"
@@ -18008,7 +17928,7 @@
       "source_file": "tests/test_reg_lineage.py",
       "source_location": "L214",
       "_origin": "ast",
-      "community": 105,
+      "community": 2,
       "community_name": "test_every_alias_target_is_in_force_or_has_a_succession_entry",
       "norm_label": "test_every_alias_target_is_in_force_or_has_a_succession_entry()",
       "id": "tests_test_reg_lineage_test_every_alias_target_is_in_force_or_has_a_succession_entry"
@@ -18063,7 +17983,7 @@
       "source_file": "tests/test_reg_lineage.py",
       "source_location": "L267",
       "_origin": "ast",
-      "community": 90,
+      "community": 2,
       "community_name": "build_regulatory_index",
       "norm_label": "_icirc()",
       "id": "tests_test_reg_lineage_icirc"
@@ -18074,7 +17994,7 @@
       "source_file": "tests/test_reg_lineage.py",
       "source_location": "L272",
       "_origin": "ast",
-      "community": 90,
+      "community": 2,
       "community_name": "build_regulatory_index",
       "norm_label": "test_index_happy_path_resolves_successor_object()",
       "id": "tests_test_reg_lineage_test_index_happy_path_resolves_successor_object"
@@ -18085,7 +18005,7 @@
       "source_file": "tests/test_reg_lineage.py",
       "source_location": "L286",
       "_origin": "ast",
-      "community": 90,
+      "community": 2,
       "community_name": "build_regulatory_index",
       "norm_label": "test_index_uncited_circular_is_unknown_empty()",
       "id": "tests_test_reg_lineage_test_index_uncited_circular_is_unknown_empty"
@@ -18096,7 +18016,7 @@
       "source_file": "tests/test_reg_lineage.py",
       "source_location": "L294",
       "_origin": "ast",
-      "community": 90,
+      "community": 2,
       "community_name": "build_regulatory_index",
       "norm_label": "test_index_missing_basis_fields_default()",
       "id": "tests_test_reg_lineage_test_index_missing_basis_fields_default"
@@ -18107,7 +18027,7 @@
       "source_file": "tests/test_reg_lineage.py",
       "source_location": "L301",
       "_origin": "ast",
-      "community": 90,
+      "community": 2,
       "community_name": "build_regulatory_index",
       "norm_label": "test_index_dangling_reg_id_falls_back()",
       "id": "tests_test_reg_lineage_test_index_dangling_reg_id_falls_back"
@@ -18118,7 +18038,7 @@
       "source_file": "tests/test_reg_lineage.py",
       "source_location": "L308",
       "_origin": "ast",
-      "community": 90,
+      "community": 2,
       "community_name": "build_regulatory_index",
       "norm_label": "test_index_primary_is_unknown_but_a_repealed_reg_is_present()",
       "id": "tests_test_reg_lineage_test_index_primary_is_unknown_but_a_repealed_reg_is_present"
@@ -18129,7 +18049,7 @@
       "source_file": "tests/test_reg_lineage.py",
       "source_location": "L319",
       "_origin": "ast",
-      "community": 90,
+      "community": 2,
       "community_name": "build_regulatory_index",
       "norm_label": "test_index_repealed_with_missing_successor_record()",
       "id": "tests_test_reg_lineage_test_index_repealed_with_missing_successor_record"
@@ -18162,7 +18082,7 @@
       "source_file": "tests/test_reg_lineage.py",
       "source_location": "L215",
       "_origin": "ast",
-      "community": 105,
+      "community": 2,
       "community_name": "test_every_alias_target_is_in_force_or_has_a_succession_entry",
       "norm_label": "an alias pointing at a slug that is neither a scraped in-force regulation nor a...",
       "id": "tests_test_reg_lineage_rationale_215"
@@ -18206,7 +18126,7 @@
       "source_file": "tests/test_regulations.py",
       "source_location": "L44",
       "_origin": "ast",
-      "community": 65,
+      "community": 105,
       "community_name": "test_regulations.py",
       "norm_label": "test_name_tokens_singularises_and_drops_stopwords()",
       "id": "tests_test_regulations_test_name_tokens_singularises_and_drops_stopwords"
@@ -18305,7 +18225,7 @@
       "source_file": "tests/test_regulations.py",
       "source_location": "L112",
       "_origin": "ast",
-      "community": 73,
+      "community": 104,
       "community_name": "regulations.py",
       "norm_label": "test_derive_regulatory_basis_truth_table()",
       "id": "tests_test_regulations_test_derive_regulatory_basis_truth_table"
@@ -18327,7 +18247,7 @@
       "source_file": "tests/test_regulations.py",
       "source_location": "L131",
       "_origin": "ast",
-      "community": 73,
+      "community": 96,
       "community_name": "test_regulations.py",
       "norm_label": "test_acronyms_ending_in_s_reach_their_own_entry()",
       "id": "tests_test_regulations_test_acronyms_ending_in_s_reach_their_own_entry"
@@ -18338,7 +18258,7 @@
       "source_file": "tests/test_regulations.py",
       "source_location": "L142",
       "_origin": "ast",
-      "community": 73,
+      "community": 96,
       "community_name": "test_regulations.py",
       "norm_label": "_resolved()",
       "id": "tests_test_regulations_resolved"
@@ -18349,7 +18269,7 @@
       "source_file": "tests/test_regulations.py",
       "source_location": "L149",
       "_origin": "ast",
-      "community": 73,
+      "community": 96,
       "community_name": "test_regulations.py",
       "norm_label": "test_every_alias_entry_is_reachable_from_some_spelling()",
       "id": "tests_test_regulations_test_every_alias_entry_is_reachable_from_some_spelling"
@@ -18382,7 +18302,7 @@
       "source_file": "tests/test_regulations.py",
       "source_location": "L175",
       "_origin": "ast",
-      "community": 65,
+      "community": 98,
       "community_name": "test_regulations.py",
       "norm_label": "test_load_regulations_round_trips()",
       "id": "tests_test_regulations_test_load_regulations_round_trips"
@@ -18393,7 +18313,7 @@
       "source_file": "tests/test_regulations.py",
       "source_location": "L186",
       "_origin": "ast",
-      "community": 65,
+      "community": 98,
       "community_name": "test_regulations.py",
       "norm_label": "test_load_regulations_skips_blank_lines()",
       "id": "tests_test_regulations_test_load_regulations_skips_blank_lines"
@@ -18404,7 +18324,7 @@
       "source_file": "tests/test_regulations.py",
       "source_location": "L192",
       "_origin": "ast",
-      "community": 65,
+      "community": 101,
       "community_name": "reg_display_name",
       "norm_label": "test_reg_display_name_composes_year()",
       "id": "tests_test_regulations_test_reg_display_name_composes_year"
@@ -18415,7 +18335,7 @@
       "source_file": "tests/test_regulations.py",
       "source_location": "L196",
       "_origin": "ast",
-      "community": 65,
+      "community": 101,
       "community_name": "reg_display_name",
       "norm_label": "test_reg_display_name_falls_back_without_year()",
       "id": "tests_test_regulations_test_reg_display_name_falls_back_without_year"
@@ -18459,7 +18379,7 @@
       "source_file": "tests/test_regulations.py",
       "source_location": "L132",
       "_origin": "ast",
-      "community": 73,
+      "community": 96,
       "community_name": "test_regulations.py",
       "norm_label": "pms/ncs/ilds end in a literal s. unconditional plural-stripping mapped them to...",
       "id": "tests_test_regulations_rationale_132"
@@ -18470,7 +18390,7 @@
       "source_file": "tests/test_regulations.py",
       "source_location": "L143",
       "_origin": "ast",
-      "community": 73,
+      "community": 96,
       "community_name": "test_regulations.py",
       "norm_label": "reg_id resolved purely through the alias table, ignoring the corpus.",
       "id": "tests_test_regulations_rationale_143"
@@ -18481,7 +18401,7 @@
       "source_file": "tests/test_regulations.py",
       "source_location": "L150",
       "_origin": "ast",
-      "community": 73,
+      "community": 96,
       "community_name": "test_regulations.py",
       "norm_label": "a table key that no _alias_keys() output can produce is dead config.",
       "id": "tests_test_regulations_rationale_150"
@@ -18657,7 +18577,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L19",
       "_origin": "ast",
-      "community": 18,
+      "community": 1,
       "community_name": "RAGPipeline",
       "norm_label": "testreadtrecrun",
       "id": "tests_test_rescore_testreadtrecrun"
@@ -18668,7 +18588,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L20",
       "_origin": "ast",
-      "community": 18,
+      "community": 1,
       "community_name": "read_trec_run",
       "norm_label": ".test_round_trips_a_simple_run()",
       "id": "tests_test_rescore_testreadtrecrun_test_round_trips_a_simple_run"
@@ -18679,7 +18599,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 18,
+      "community": 1,
       "community_name": "read_trec_run",
       "norm_label": ".test_recovers_doc_ids_containing_spaces()",
       "id": "tests_test_rescore_testreadtrecrun_test_recovers_doc_ids_containing_spaces"
@@ -18690,7 +18610,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 18,
+      "community": 1,
       "community_name": "read_trec_run",
       "norm_label": ".test_orders_documents_by_rank_not_file_order()",
       "id": "tests_test_rescore_testreadtrecrun_test_orders_documents_by_rank_not_file_order"
@@ -18701,7 +18621,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L43",
       "_origin": "ast",
-      "community": 18,
+      "community": 1,
       "community_name": "read_trec_run",
       "norm_label": ".test_malformed_line_rejected()",
       "id": "tests_test_rescore_testreadtrecrun_test_malformed_line_rejected"
@@ -18712,7 +18632,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L50",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": ".test_mean_reproduces_the_archived_aggregate",
       "norm_label": "testperqueryrecall",
       "id": "tests_test_rescore_testperqueryrecall"
@@ -18723,7 +18643,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L51",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": ".test_mean_reproduces_the_archived_aggregate",
       "norm_label": "._golden()",
       "id": "tests_test_rescore_testperqueryrecall_golden"
@@ -18734,7 +18654,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L58",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": ".test_mean_reproduces_the_archived_aggregate",
       "norm_label": ".test_scores_each_query_and_skips_abstain_items()",
       "id": "tests_test_rescore_testperqueryrecall_test_scores_each_query_and_skips_abstain_items"
@@ -18745,7 +18665,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L67",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": ".test_mean_reproduces_the_archived_aggregate",
       "norm_label": ".test_deduplicates_chunks_to_circulars_before_cutoff()",
       "id": "tests_test_rescore_testperqueryrecall_test_deduplicates_chunks_to_circulars_before_cutoff"
@@ -18756,7 +18676,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L74",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": ".test_mean_reproduces_the_archived_aggregate",
       "norm_label": ".test_mean_reproduces_the_archived_aggregate()",
       "id": "tests_test_rescore_testperqueryrecall_test_mean_reproduces_the_archived_aggregate"
@@ -18778,7 +18698,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L29",
       "_origin": "ast",
-      "community": 18,
+      "community": 1,
       "community_name": "read_trec_run",
       "norm_label": "the archived runfiles embed section headings in the doc id.",
       "id": "tests_test_rescore_rationale_29"
@@ -18789,7 +18709,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L68",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": ".test_mean_reproduces_the_archived_aggregate",
       "norm_label": "ten chunks of one circular must not crowd the cutoff: the k applies to unique...",
       "id": "tests_test_rescore_rationale_68"
@@ -18800,7 +18720,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L75",
       "_origin": "ast",
-      "community": 18,
+      "community": 40,
       "community_name": ".test_mean_reproduces_the_archived_aggregate",
       "norm_label": "end-to-end guarantee behind the re-scoring script: replaying a runfile yields...",
       "id": "tests_test_rescore_rationale_75"
@@ -19196,7 +19116,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 57,
+      "community": 40,
       "community_name": "hierarchical_chunk",
       "norm_label": "test_segment.py",
       "id": "tests_test_segment"
@@ -19207,7 +19127,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 57,
+      "community": 40,
       "community_name": "hierarchical_chunk",
       "norm_label": "_body()",
       "id": "tests_test_segment_body"
@@ -19218,7 +19138,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L33",
       "_origin": "ast",
-      "community": 57,
+      "community": 40,
       "community_name": "hierarchical_chunk",
       "norm_label": "test_bare_parent_heading_not_emitted_as_standalone_chunk()",
       "id": "tests_test_segment_test_bare_parent_heading_not_emitted_as_standalone_chunk"
@@ -19229,7 +19149,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L41",
       "_origin": "ast",
-      "community": 57,
+      "community": 40,
       "community_name": "hierarchical_chunk",
       "norm_label": "test_bare_parent_heading_folds_into_first_subsection()",
       "id": "tests_test_segment_test_bare_parent_heading_folds_into_first_subsection"
@@ -19240,7 +19160,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L49",
       "_origin": "ast",
-      "community": 57,
+      "community": 40,
       "community_name": "hierarchical_chunk",
       "norm_label": "test_leaf_single_line_provision_is_preserved_not_overmerged()",
       "id": "tests_test_segment_test_leaf_single_line_provision_is_preserved_not_overmerged"
@@ -19251,7 +19171,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L76",
       "_origin": "ast",
-      "community": 57,
+      "community": 40,
       "community_name": "hierarchical_chunk",
       "norm_label": "test_sibling_list_item_carries_governing_clause()",
       "id": "tests_test_segment_test_sibling_list_item_carries_governing_clause"
@@ -19262,7 +19182,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L90",
       "_origin": "ast",
-      "community": 57,
+      "community": 40,
       "community_name": "hierarchical_chunk",
       "norm_label": "test_governing_clause_not_duplicated()",
       "id": "tests_test_segment_test_governing_clause_not_duplicated"
@@ -19273,7 +19193,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L98",
       "_origin": "ast",
-      "community": 57,
+      "community": 40,
       "community_name": "hierarchical_chunk",
       "norm_label": "test_nominee_regression_corpus_unchanged_behaviour()",
       "id": "tests_test_segment_test_nominee_regression_corpus_unchanged_behaviour"
@@ -19284,7 +19204,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L125",
       "_origin": "ast",
-      "community": 57,
+      "community": 40,
       "community_name": "hierarchical_chunk",
       "norm_label": "test_wrapped_governing_clause_folds_full_text_into_sibling()",
       "id": "tests_test_segment_test_wrapped_governing_clause_folds_full_text_into_sibling"
@@ -19295,7 +19215,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L140",
       "_origin": "ast",
-      "community": 57,
+      "community": 40,
       "community_name": "hierarchical_chunk",
       "norm_label": "test_terminator_head_absorbs_nothing()",
       "id": "tests_test_segment_test_terminator_head_absorbs_nothing"
@@ -19306,7 +19226,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L161",
       "_origin": "ast",
-      "community": 57,
+      "community": 40,
       "community_name": "hierarchical_chunk",
       "norm_label": "test_absorption_respects_300_char_cap()",
       "id": "tests_test_segment_test_absorption_respects_300_char_cap"
@@ -19317,7 +19237,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 57,
+      "community": 40,
       "community_name": "hierarchical_chunk",
       "norm_label": "chunker (segment.hierarchical_chunk) behaviour. regression guard for the \"5....",
       "id": "tests_test_segment_rationale_1"
@@ -19328,7 +19248,7 @@
       "source_file": "tests/test_segment.py",
       "source_location": "L29",
       "_origin": "ast",
-      "community": 57,
+      "community": 40,
       "community_name": "hierarchical_chunk",
       "norm_label": "chunk text is 'breadcrumb-header\\\\nbody'; return the body.",
       "id": "tests_test_segment_rationale_29"
@@ -19394,7 +19314,7 @@
       "source_file": "tests/test_settings.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 61,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "test_settings.py",
       "id": "tests_test_settings"
@@ -19405,7 +19325,7 @@
       "source_file": "tests/test_settings.py",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 61,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "_clear()",
       "id": "tests_test_settings_clear"
@@ -19416,7 +19336,7 @@
       "source_file": "tests/test_settings.py",
       "source_location": "L17",
       "_origin": "ast",
-      "community": 61,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "test_defaults_when_no_file()",
       "id": "tests_test_settings_test_defaults_when_no_file"
@@ -19427,7 +19347,7 @@
       "source_file": "tests/test_settings.py",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 61,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "test_env_overrides()",
       "id": "tests_test_settings_test_env_overrides"
@@ -19438,7 +19358,7 @@
       "source_file": "tests/test_settings.py",
       "source_location": "L33",
       "_origin": "ast",
-      "community": 61,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "test_load_spaces_defaults_and_file()",
       "id": "tests_test_settings_test_load_spaces_defaults_and_file"
@@ -19449,7 +19369,7 @@
       "source_file": "tests/test_settings.py",
       "source_location": "L54",
       "_origin": "ast",
-      "community": 61,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "test_toml_then_env_precedence()",
       "id": "tests_test_settings_test_toml_then_env_precedence"
@@ -19460,7 +19380,7 @@
       "source_file": "tests/test_settings.py",
       "source_location": "L65",
       "_origin": "ast",
-      "community": 61,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "test_compute_defaults()",
       "id": "tests_test_settings_test_compute_defaults"
@@ -19471,7 +19391,7 @@
       "source_file": "tests/test_settings.py",
       "source_location": "L75",
       "_origin": "ast",
-      "community": 61,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "test_compute_from_file()",
       "id": "tests_test_settings_test_compute_from_file"
@@ -19482,7 +19402,7 @@
       "source_file": "tests/test_settings.py",
       "source_location": "L88",
       "_origin": "ast",
-      "community": 61,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "test_compute_env_overrides()",
       "id": "tests_test_settings_test_compute_env_overrides"
@@ -19493,7 +19413,7 @@
       "source_file": "tests/test_settings.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 61,
+      "community": 21,
       "community_name": "test_spaces.py",
       "norm_label": "settings: defaults, config.toml, and env-override precedence.",
       "id": "tests_test_settings_rationale_1"
@@ -19581,7 +19501,7 @@
       "source_file": "tests/test_spaces.py",
       "source_location": "L109",
       "_origin": "ast",
-      "community": 21,
+      "community": 76,
       "community_name": "test_spaces.py",
       "norm_label": "test_corpus_records_feed_build_lineage()",
       "id": "tests_test_spaces_test_corpus_records_feed_build_lineage"
@@ -19823,7 +19743,7 @@
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 69,
+      "community": 36,
       "community_name": "HybridRetriever",
       "norm_label": "test_splade_leg.py",
       "id": "tests_test_splade_leg"
@@ -19834,7 +19754,7 @@
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 69,
+      "community": 36,
       "community_name": "HybridRetriever",
       "norm_label": "_stubdense",
       "id": "tests_test_splade_leg_stubdense"
@@ -19845,7 +19765,7 @@
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L14",
       "_origin": "ast",
-      "community": 69,
+      "community": 36,
       "community_name": "HybridRetriever",
       "norm_label": ".__init__()",
       "id": "tests_test_splade_leg_stubdense_init"
@@ -19856,7 +19776,7 @@
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L15",
       "_origin": "ast",
-      "community": 69,
+      "community": 36,
       "community_name": "HybridRetriever",
       "norm_label": ".search()",
       "id": "tests_test_splade_leg_stubdense_search"
@@ -19867,7 +19787,7 @@
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L18",
       "_origin": "ast",
-      "community": 69,
+      "community": 36,
       "community_name": "HybridRetriever",
       "norm_label": "_stubsparse",
       "id": "tests_test_splade_leg_stubsparse"
@@ -19878,7 +19798,7 @@
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L19",
       "_origin": "ast",
-      "community": 69,
+      "community": 36,
       "community_name": "HybridRetriever",
       "norm_label": ".__init__()",
       "id": "tests_test_splade_leg_stubsparse_init"
@@ -19889,7 +19809,7 @@
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L20",
       "_origin": "ast",
-      "community": 69,
+      "community": 36,
       "community_name": "HybridRetriever",
       "norm_label": ".search()",
       "id": "tests_test_splade_leg_stubsparse_search"
@@ -19900,7 +19820,7 @@
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 69,
+      "community": 36,
       "community_name": "HybridRetriever",
       "norm_label": "_chunks()",
       "id": "tests_test_splade_leg_chunks"
@@ -19911,7 +19831,7 @@
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 69,
+      "community": 36,
       "community_name": "HybridRetriever",
       "norm_label": "_fake_encode()",
       "id": "tests_test_splade_leg_fake_encode"
@@ -19922,7 +19842,7 @@
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L34",
       "_origin": "ast",
-      "community": 69,
+      "community": 36,
       "community_name": "HybridRetriever",
       "norm_label": "test_splade_leg_changes_fused_order_when_on()",
       "id": "tests_test_splade_leg_test_splade_leg_changes_fused_order_when_on"
@@ -19933,7 +19853,7 @@
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L54",
       "_origin": "ast",
-      "community": 69,
+      "community": 36,
       "community_name": "HybridRetriever",
       "norm_label": "test_flag_off_is_unchanged_and_ignores_splade()",
       "id": "tests_test_splade_leg_test_flag_off_is_unchanged_and_ignores_splade"
@@ -19944,7 +19864,7 @@
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L63",
       "_origin": "ast",
-      "community": 69,
+      "community": 36,
       "community_name": "HybridRetriever",
       "norm_label": "test_use_splade_without_index_raises()",
       "id": "tests_test_splade_leg_test_use_splade_without_index_raises"
@@ -19955,7 +19875,7 @@
       "source_file": "tests/test_splade_leg.py",
       "source_location": "L13",
       "_origin": "ast",
-      "community": 69,
+      "community": 36,
       "community_name": "HybridRetriever",
       "norm_label": "returns a fixed dense ranking regardless of query.",
       "id": "tests_test_splade_leg_rationale_13"
@@ -22686,7 +22606,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L596",
+      "source_location": "L482",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_analyze_state",
@@ -22696,7 +22616,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L910",
+      "source_location": "L768",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_build_parser",
@@ -22706,7 +22626,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L408",
+      "source_location": "L300",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_capture_live_performance",
@@ -22716,7 +22636,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L809",
+      "source_location": "L667",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_check_degradation",
@@ -22736,7 +22656,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L675",
+      "source_location": "L561",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_correction_pass",
@@ -22746,7 +22666,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L385",
+      "source_location": "L277",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_fetch_omlx_metrics",
@@ -22760,16 +22680,6 @@
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_get_hardware_state",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L233",
-      "weight": 1.0,
-      "source": "scripts_telemetry_engine",
-      "target": "scripts_telemetry_engine_get_phoenix_client",
       "confidence_score": 1.0
     },
     {
@@ -22796,7 +22706,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L715",
+      "source_location": "L601",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_load_baseline",
@@ -22816,7 +22726,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L952",
+      "source_location": "L810",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_main",
@@ -22826,17 +22736,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L781",
-      "weight": 1.0,
-      "source": "scripts_telemetry_engine",
-      "target": "scripts_telemetry_engine_migrate_legacy_json",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L844",
+      "source_location": "L702",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_optimize_turn",
@@ -22846,37 +22746,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L278",
-      "weight": 1.0,
-      "source": "scripts_telemetry_engine",
-      "target": "scripts_telemetry_engine_query_spans",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L239",
-      "weight": 1.0,
-      "source": "scripts_telemetry_engine",
-      "target": "scripts_telemetry_engine_query_traces",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L308",
-      "weight": 1.0,
-      "source": "scripts_telemetry_engine",
-      "target": "scripts_telemetry_engine_query_traces_by_attribute",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L324",
+      "source_location": "L235",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_record_run",
@@ -22886,7 +22756,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L621",
+      "source_location": "L228",
+      "weight": 1.0,
+      "source": "scripts_telemetry_engine",
+      "target": "scripts_telemetry_engine_save_history",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L507",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_self_critique",
@@ -22896,7 +22776,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L550",
+      "source_location": "L450",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_show_history",
@@ -22906,7 +22786,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L503",
+      "source_location": "L413",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_show_status",
@@ -22916,7 +22796,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L427",
+      "source_location": "L319",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_suggest_parameters",
@@ -22946,7 +22826,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L767",
+      "source_location": "L647",
       "weight": 1.0,
       "source": "scripts_telemetry_engine",
       "target": "scripts_telemetry_engine_update_baseline",
@@ -22999,7 +22879,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L596",
+      "source_location": "L482",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_analyze_state",
       "target": "any",
@@ -23010,7 +22890,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L809",
+      "source_location": "L667",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_check_degradation",
       "target": "any",
@@ -23021,7 +22901,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L675",
+      "source_location": "L561",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_correction_pass",
       "target": "any",
@@ -23032,20 +22912,9 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L385",
+      "source_location": "L277",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_fetch_omlx_metrics",
-      "target": "any",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "return_type",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L233",
-      "weight": 1.0,
-      "source": "scripts_telemetry_engine_get_phoenix_client",
       "target": "any",
       "confidence_score": 1.0
     },
@@ -23076,7 +22945,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L844",
+      "source_location": "L702",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_optimize_turn",
       "target": "any",
@@ -23087,40 +22956,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L278",
-      "weight": 1.0,
-      "source": "scripts_telemetry_engine_query_spans",
-      "target": "any",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "generic_arg",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L239",
-      "weight": 1.0,
-      "source": "scripts_telemetry_engine_query_traces",
-      "target": "any",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "generic_arg",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L308",
-      "weight": 1.0,
-      "source": "scripts_telemetry_engine_query_traces_by_attribute",
-      "target": "any",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "generic_arg",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L324",
+      "source_location": "L235",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_record_run",
       "target": "any",
@@ -23131,7 +22967,18 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L621",
+      "source_location": "L228",
+      "weight": 1.0,
+      "source": "scripts_telemetry_engine_save_history",
+      "target": "any",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L507",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_self_critique",
       "target": "any",
@@ -23142,7 +22989,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L427",
+      "source_location": "L319",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_suggest_parameters",
       "target": "any",
@@ -23175,7 +23022,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L767",
+      "source_location": "L647",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_update_baseline",
       "target": "any",
@@ -23226,7 +23073,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L339",
+      "source_location": "L249",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_record_run",
       "target": "scripts_telemetry_engine_get_hardware_state",
@@ -23237,7 +23084,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L505",
+      "source_location": "L415",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_show_status",
       "target": "scripts_telemetry_engine_get_hardware_state",
@@ -23258,7 +23105,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L340",
+      "source_location": "L250",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_record_run",
       "target": "scripts_telemetry_engine_check_safety_limit",
@@ -23269,7 +23116,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L506",
+      "source_location": "L416",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_show_status",
       "target": "scripts_telemetry_engine_check_safety_limit",
@@ -23280,9 +23127,9 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L790",
+      "source_location": "L607",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_migrate_legacy_json",
+      "source": "scripts_telemetry_engine_load_baseline",
       "target": "scripts_telemetry_engine_load_history",
       "confidence_score": 1.0
     },
@@ -23301,10 +23148,10 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L286",
+      "source_location": "L266",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_query_spans",
-      "target": "scripts_telemetry_engine_get_phoenix_client",
+      "source": "scripts_telemetry_engine_record_run",
+      "target": "scripts_telemetry_engine_load_history",
       "confidence_score": 1.0
     },
     {
@@ -23312,20 +23159,53 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L248",
+      "source_location": "L452",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_query_traces",
-      "target": "scripts_telemetry_engine_get_phoenix_client",
+      "source": "scripts_telemetry_engine_show_history",
+      "target": "scripts_telemetry_engine_load_history",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L437",
+      "weight": 1.0,
+      "source": "scripts_telemetry_engine_show_status",
+      "target": "scripts_telemetry_engine_load_history",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L336",
+      "weight": 1.0,
+      "source": "scripts_telemetry_engine_suggest_parameters",
+      "target": "scripts_telemetry_engine_load_history",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L650",
+      "weight": 1.0,
+      "source": "scripts_telemetry_engine_update_baseline",
+      "target": "scripts_telemetry_engine_load_history",
       "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L234",
+      "source_location": "L229",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_234",
-      "target": "scripts_telemetry_engine_get_phoenix_client",
+      "source": "scripts_telemetry_engine_rationale_229",
+      "target": "scripts_telemetry_engine_save_history",
       "confidence_score": 1.0
     },
     {
@@ -23333,10 +23213,10 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L722",
+      "source_location": "L268",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_load_baseline",
-      "target": "scripts_telemetry_engine_query_traces",
+      "source": "scripts_telemetry_engine_record_run",
+      "target": "scripts_telemetry_engine_save_history",
       "confidence_score": 1.0
     },
     {
@@ -23344,10 +23224,21 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L313",
+      "source_location": "L664",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_query_traces_by_attribute",
-      "target": "scripts_telemetry_engine_query_traces",
+      "source": "scripts_telemetry_engine_update_baseline",
+      "target": "scripts_telemetry_engine_save_history",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/telemetry_engine.py",
+      "source_location": "L864",
+      "weight": 1.0,
+      "source": "scripts_telemetry_engine_main",
+      "target": "scripts_telemetry_engine_record_run",
       "confidence_score": 1.0
     },
     {
@@ -23357,70 +23248,6 @@
       "source_location": "L240",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_rationale_240",
-      "target": "scripts_telemetry_engine_query_traces",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L553",
-      "weight": 1.0,
-      "source": "scripts_telemetry_engine_show_history",
-      "target": "scripts_telemetry_engine_query_traces",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L528",
-      "weight": 1.0,
-      "source": "scripts_telemetry_engine_show_status",
-      "target": "scripts_telemetry_engine_query_traces",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L446",
-      "weight": 1.0,
-      "source": "scripts_telemetry_engine_suggest_parameters",
-      "target": "scripts_telemetry_engine_query_traces",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L279",
-      "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_279",
-      "target": "scripts_telemetry_engine_query_spans",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L309",
-      "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_309",
-      "target": "scripts_telemetry_engine_query_traces_by_attribute",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L1006",
-      "weight": 1.0,
-      "source": "scripts_telemetry_engine_main",
       "target": "scripts_telemetry_engine_record_run",
       "confidence_score": 1.0
     },
@@ -23429,28 +23256,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L796",
-      "weight": 1.0,
-      "source": "scripts_telemetry_engine_migrate_legacy_json",
-      "target": "scripts_telemetry_engine_record_run",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L329",
-      "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_329",
-      "target": "scripts_telemetry_engine_record_run",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L413",
+      "source_location": "L305",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_capture_live_performance",
       "target": "scripts_telemetry_engine_fetch_omlx_metrics",
@@ -23460,9 +23266,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L386",
+      "source_location": "L278",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_386",
+      "source": "scripts_telemetry_engine_rationale_278",
       "target": "scripts_telemetry_engine_fetch_omlx_metrics",
       "confidence_score": 1.0
     },
@@ -23471,7 +23277,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L518",
+      "source_location": "L428",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_show_status",
       "target": "scripts_telemetry_engine_fetch_omlx_metrics",
@@ -23481,9 +23287,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L409",
+      "source_location": "L301",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_409",
+      "source": "scripts_telemetry_engine_rationale_301",
       "target": "scripts_telemetry_engine_capture_live_performance",
       "confidence_score": 1.0
     },
@@ -23492,7 +23298,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L967",
+      "source_location": "L825",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_main",
       "target": "scripts_telemetry_engine_suggest_parameters",
@@ -23502,9 +23308,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L428",
+      "source_location": "L320",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_428",
+      "source": "scripts_telemetry_engine_rationale_320",
       "target": "scripts_telemetry_engine_suggest_parameters",
       "confidence_score": 1.0
     },
@@ -23513,7 +23319,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L961",
+      "source_location": "L819",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_main",
       "target": "scripts_telemetry_engine_show_status",
@@ -23523,9 +23329,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L504",
+      "source_location": "L414",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_504",
+      "source": "scripts_telemetry_engine_rationale_414",
       "target": "scripts_telemetry_engine_show_status",
       "confidence_score": 1.0
     },
@@ -23534,7 +23340,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L964",
+      "source_location": "L822",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_main",
       "target": "scripts_telemetry_engine_show_history",
@@ -23544,9 +23350,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L551",
+      "source_location": "L451",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_551",
+      "source": "scripts_telemetry_engine_rationale_451",
       "target": "scripts_telemetry_engine_show_history",
       "confidence_score": 1.0
     },
@@ -23555,7 +23361,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L860",
+      "source_location": "L718",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_optimize_turn",
       "target": "scripts_telemetry_engine_analyze_state",
@@ -23565,9 +23371,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L597",
+      "source_location": "L483",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_597",
+      "source": "scripts_telemetry_engine_rationale_483",
       "target": "scripts_telemetry_engine_analyze_state",
       "confidence_score": 1.0
     },
@@ -23576,7 +23382,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L861",
+      "source_location": "L719",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_optimize_turn",
       "target": "scripts_telemetry_engine_self_critique",
@@ -23586,9 +23392,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L622",
+      "source_location": "L508",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_622",
+      "source": "scripts_telemetry_engine_rationale_508",
       "target": "scripts_telemetry_engine_self_critique",
       "confidence_score": 1.0
     },
@@ -23597,7 +23403,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L876",
+      "source_location": "L734",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_optimize_turn",
       "target": "scripts_telemetry_engine_correction_pass",
@@ -23607,9 +23413,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L676",
+      "source_location": "L562",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_676",
+      "source": "scripts_telemetry_engine_rationale_562",
       "target": "scripts_telemetry_engine_correction_pass",
       "confidence_score": 1.0
     },
@@ -23618,7 +23424,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L857",
+      "source_location": "L715",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_optimize_turn",
       "target": "scripts_telemetry_engine_load_baseline",
@@ -23628,9 +23434,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L716",
+      "source_location": "L602",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_716",
+      "source": "scripts_telemetry_engine_rationale_602",
       "target": "scripts_telemetry_engine_load_baseline",
       "confidence_score": 1.0
     },
@@ -23639,7 +23445,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L879",
+      "source_location": "L737",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_optimize_turn",
       "target": "scripts_telemetry_engine_update_baseline",
@@ -23649,20 +23455,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L768",
+      "source_location": "L648",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_768",
+      "source": "scripts_telemetry_engine_rationale_648",
       "target": "scripts_telemetry_engine_update_baseline",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L782",
-      "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_782",
-      "target": "scripts_telemetry_engine_migrate_legacy_json",
       "confidence_score": 1.0
     },
     {
@@ -23670,7 +23466,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L870",
+      "source_location": "L728",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_optimize_turn",
       "target": "scripts_telemetry_engine_check_degradation",
@@ -23680,9 +23476,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L810",
+      "source_location": "L668",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_810",
+      "source": "scripts_telemetry_engine_rationale_668",
       "target": "scripts_telemetry_engine_check_degradation",
       "confidence_score": 1.0
     },
@@ -23691,7 +23487,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L1014",
+      "source_location": "L872",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_main",
       "target": "scripts_telemetry_engine_optimize_turn",
@@ -23701,9 +23497,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L845",
+      "source_location": "L703",
       "weight": 1.0,
-      "source": "scripts_telemetry_engine_rationale_845",
+      "source": "scripts_telemetry_engine_rationale_703",
       "target": "scripts_telemetry_engine_optimize_turn",
       "confidence_score": 1.0
     },
@@ -23712,7 +23508,7 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L910",
+      "source_location": "L768",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_build_parser",
       "target": "argumentparser",
@@ -23723,7 +23519,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/telemetry_engine.py",
-      "source_location": "L953",
+      "source_location": "L811",
       "weight": 1.0,
       "source": "scripts_telemetry_engine_main",
       "target": "scripts_telemetry_engine_build_parser",
@@ -69367,5 +69163,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "d1a1d3c4a83ecb870b14f575558da715c4706f64"
+  "built_at_commit": "c3c6dba1e30bd7ac56aaa689e730872c7384d201"
 }

@@ -5,7 +5,7 @@ PORT ?= 8000
 MAX  ?= 25
 MAX_MASTER ?= 200
 
-.PHONY: help test annotate index reindex calibrate bench-rerank bench-retrieval rescore benchmark-export export-datasets eval-asof serve scrape ops scrape-master verify-master scrape-regs reg-edges audit-regs
+.PHONY: help test annotate index reindex calibrate bench-rerank bench-retrieval rescore benchmark-export export-datasets eval-asof serve scrape ops scrape-master verify-master scrape-regs reg-edges audit-regs measure phoenix
 
 help:
 	@echo "test       run offline test suite"
@@ -27,7 +27,12 @@ help:
 	@echo "scrape-regs    fetch SEBI regulations (Updated List, sid=1&ssid=3)"
 	@echo "reg-edges      build circular->regulation edges + annotate corpus (offline)"
 	@echo "audit-regs     precision audit of regulation edges (sample + CI)"
+	@echo "measure      run automated metric collection"
+	@echo "phoenix    start Arize Phoenix telemetry server (localhost:6006)"
 
+
+measure:
+	@bash .auto/measure.sh
 test:
 	$(PY) -m pytest -q -m "not integration"
 
@@ -121,3 +126,6 @@ validate-corpus:
 ## telemetry: Run the self-optimization telemetry engine
 telemetry:
 	@python scripts/telemetry_engine.py $(filter-out $@,$(MAKECMDGOALS))
+## telemetry: Run the self-optimization telemetry engine
+phoenix:
+	@bash scripts/start_phoenix.sh
