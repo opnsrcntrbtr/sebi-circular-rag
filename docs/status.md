@@ -229,7 +229,7 @@ abstention_accuracy: observed=0.892, floor=0.849 (margin +0.043)
   - `1288263327681.pdf` — Master Cir-04/2010 (non-standard format)
   - `anncir1_p.pdf` — Annexure with Devanagari text
   - `isdcir0108_p.pdf` — ISD/AML/CIR-1/2008 (non-standard format)
-⚠️ SPLADE sidecar (`data/index/splade.npz`) pinned to old 77,859 chunk count — needs rebuild before SPLADE runs (eval-only, off by default)
+✅ SPLADE sidecar rebuilt (78,523 chunks; 724 docs)
 
 ### Build/repair flow
 `scrape → ingest_pdf → repair_corpus_text.py → renumber.py → validate-corpus → build_index.py`
@@ -237,4 +237,5 @@ abstention_accuracy: observed=0.892, floor=0.849 (margin +0.043)
 
 ## Last Updated
 
-2026-08-01
+2026-08-02
+
