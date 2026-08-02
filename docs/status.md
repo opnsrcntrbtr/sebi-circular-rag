@@ -10,7 +10,7 @@
 | **Corpus** | 724 SEBI circular records, 78,523 chunks (corpus JSONL 38 MB; index chunks.jsonl ~320 MB) |
 | **Index** | 1.0 GB at `data/index/` — dense.faiss, bm25, chunks.jsonl, lineage.json, embeddings.npy, manifest.json, meta.json, splade.npz (eval-only) |
 | **Reporting set** | `eval/golden/golden_v7.jsonl` (n=260); **adjudicated_n = 260** |
-| **Gate** | `gate_v7.json` armed: recall_at_k 0.9322, citation_recall 0.4612, abstention_accuracy 0.9731 |
+| **Gate** | `gate_v7.json` armed: recall_at_k 0.906, citation_recall 0.5338, abstention_accuracy 0.8835 |
 | **Frozen sets** | `golden_v5` (n=56), `golden_v6` (n=56) |
 | **v7 strata** | title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10 |
 | **Abstain/as_of rows** | 41 abstain, 15 dated `as_of` |
@@ -165,9 +165,9 @@ Low κ on title_direct/multi_hop/numeric_table: spec §7 promotion amendment (20
 ### Gate floors (260 adjudicated)
 ```yaml
 adjudicated_n: 260 (>= 100 threshold met)
-recall_at_k: observed=0.964, floor=0.932 (margin +0.032)
-citation_recall: observed=0.531, floor=0.461 (margin +0.070)
-abstention_accuracy: observed=0.892, floor=0.849 (margin +0.043)
+recall_at_k: observed=0.906, floor=0.906 (margin 0.000)
+citation_recall: observed=0.5338, floor=0.5338 (margin 0.000)
+abstention_accuracy: observed=0.8835, floor=0.8835 (margin 0.000)
 ```
 
 ### Key decisions
