@@ -395,7 +395,14 @@ def answer_with_abstention(
 ) -> Answer:
     rerank_top = float(reranked[0][1]) if reranked else 0.0
     margin = rerank_top - (float(reranked[1][1]) if len(reranked) > 1 else 0.0)
-    contexts = [c for c, _ in reranked[:top_k]]
+    # Deduplicate by doc_id: keep highest-scoring chunk per document so
+    # top_k slots cover distinct sources instead of stacking duplicates.
+    seen: dict[str, tuple[Chunk, float]] = {}
+    for chunk, score in reranked:
+        prev = seen.get(chunk.doc_id)
+        if prev is None or score > prev[1]:
+            seen[chunk.doc_id] = (chunk, score)
+    contexts = [c for c, _ in sorted(seen.values(), key=lambda cs: -cs[1])][:top_k]
     conf: dict = {"rerank_top": round(rerank_top, 4), "margin": round(margin, 4),
                   "subject_sim": None}
 

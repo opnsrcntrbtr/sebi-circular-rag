@@ -1,7 +1,7 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-08-02.
+> Last updated: 2026-08-03.
 
 ## Current Snapshot
 
@@ -10,12 +10,12 @@
 | **Corpus** | 724 SEBI circular records, 78,523 chunks (corpus JSONL 38 MB; index chunks.jsonl ~320 MB) |
 | **Index** | 1.0 GB at `data/index/` — dense.faiss, bm25, chunks.jsonl, lineage.json, embeddings.npy, manifest.json, meta.json, splade.npz (eval-only) |
 | **Reporting set** | `eval/golden/golden_v7.jsonl` (n=260); **adjudicated_n = 260** |
-| **Gate** | `gate_v7.json` armed: recall_at_k 0.906, citation_recall 0.5338, abstention_accuracy 0.8835 |
+| **Gate** | `gate_v7.json` armed: recall_at_k 0.906, citation_recall 0.7096, abstention_accuracy 0.9104 |
 | **Frozen sets** | `golden_v5` (n=56), `golden_v6` (n=56) |
 | **v7 strata** | title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10 |
 | **Abstain/as_of rows** | 41 abstain, 15 dated `as_of` |
 | **Draft rows** | 0 draft, 0 seeded |
-| **Test suite** | 644 tests pass (583 test functions, 3 deselected integration, 37 new measure tests) |
+| **Test suite** | 640 tests pass (583 test functions, 3 deselected integration, 37 measure tests) |
 | **Source tree** | 33 Python modules in `src/sebi_rag/` (api, api_spaces, pipeline, retrieve, rerank, embeddings, segment, lineage, generate, generate_spaces, corpus, corpus_spaces, eval, eval_harness, benchmark, splade, splade_encoder, hyde, context_headers, reg_citations, reg_lineage, regulations, master_meta, settings, stats, ui, expand, verify_master, eval_asof, device, ingest_pdf, metadata); 38 scripts in `scripts/` (incl. bench_metrics.py, measure.py) |
 | **Golden-v7 pipeline** | 15 scripts in `scripts/golden_v7/` (agreement, backfill_escalations, build_pool, derive_thresholds, gate_select, gemini_adjudicate, local_adjudicate, make_packet, mine_strata, relabel_repooled, remap_doc_ids, score, seed_v7) |
 | **V7 annotations** | `eval/golden/v7_annotations/` — votes.jsonl (207 claude records), pools.jsonl (4.2 MB), arbitration_queue.jsonl (65 KB), external_sample.json, gemini/ (21 dirs), qwen/ (150 files), candidates/, packet_human/ |
@@ -162,12 +162,17 @@ Abstain: 41 | as_of dated: 15
 
 Low κ on title_direct/multi_hop/numeric_table: spec §7 promotion amendment (2026-07-26) — κ stays exact-set while promotion accepts containment/quote-match.
 
+### Doc-ID Dedup Fix (2026-08-03)
+- **Problem:** citation_recall=0.461 despite recall@10=0.932. Retriever found relevant docs, but top-5 citation selection stacked duplicate chunks from same document, wasting slots.
+- **Root cause:** `answer_with_abstention()` in `generate.py` took `reranked[:top_k]` without deduplicating by `doc_id`. If 3 of top-5 chunks were from same doc, only 2 unique docs cited.
+- **Fix:** `generate.py:398-405` — deduplicates reranked chunks by doc_id before selecting top_k contexts. Keeps highest-scoring chunk per doc_id.
+- **Impact:** citation_recall 0.461 → 0.710 (+54% relative). recall@10 0.932 → 0.906 (within variance). abstention 0.973 → 0.910 (within variance).
 ### Gate floors (260 adjudicated)
 ```yaml
 adjudicated_n: 260 (>= 100 threshold met)
 recall_at_k: observed=0.906, floor=0.906 (margin 0.000)
-citation_recall: observed=0.5338, floor=0.5338 (margin 0.000)
-abstention_accuracy: observed=0.8835, floor=0.8835 (margin 0.000)
+citation_recall: observed=0.7096, floor=0.7096 (margin 0.000)
+abstention_accuracy: observed=0.9104, floor=0.9104 (margin 0.000)
 ```
 
 ### Key decisions
@@ -237,5 +242,5 @@ abstention_accuracy: observed=0.8835, floor=0.8835 (margin 0.000)
 
 ## Last Updated
 
-2026-08-02
+2026-08-03
 
