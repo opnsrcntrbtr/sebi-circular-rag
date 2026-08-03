@@ -29,3 +29,5 @@ node_modules
 
 # Pi Agent node extensions block
 .pi/
+# OMP local settings (Oh My Pi config directory)
+.omp/
