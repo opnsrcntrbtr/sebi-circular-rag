@@ -5,7 +5,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from sebi_rag.segment import Chunk  # noqa: E402
-from sebi_rag.generate import select_citations, _CITATION_MARGIN_DEFAULT  # noqa: E402
+from sebi_rag.generate import (  # noqa: E402
+    select_citations, citation_scorer_for, _CITATION_MARGIN_DEFAULT)
 
 
 def _chunk(cid: str, text: str = "x") -> Chunk:
@@ -93,3 +94,18 @@ def test_settings_citation_scorer_enabled_false():
     from sebi_rag.settings import Settings
     s = Settings("/dev/null", "/tmp", citation_scorer_enabled=False)
     assert s.citation_scorer_enabled is False
+
+
+# --- citation_scorer_for: the single shared enable/disable decision -----------
+# All three pipeline builders (build_default_pipeline, eval_json,
+# derive_thresholds) route through this so eval and production can never
+# disagree on whether B' is active (the train/serve skew we are closing).
+
+def test_citation_scorer_for_returns_reranker_when_enabled():
+    scorer = _FakeReranker({})
+    assert citation_scorer_for(True, scorer) is scorer
+
+
+def test_citation_scorer_for_returns_none_when_disabled():
+    scorer = _FakeReranker({})
+    assert citation_scorer_for(False, scorer) is None

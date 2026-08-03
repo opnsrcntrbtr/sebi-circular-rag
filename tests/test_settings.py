@@ -6,7 +6,8 @@ from sebi_rag.settings import Settings
 ENV_KEYS = ["SEBI_RAG_GENERATOR", "SEBI_RAG_TOP_K", "SEBI_RAG_RATE_PER_MIN",
             "SEBI_RAG_TIMEOUT_S", "SEBI_RAG_MLX_MODEL",
             "SEBI_RAG_DEVICE", "SEBI_RAG_USE_FP16", "SEBI_RAG_ENCODE_BATCH_SIZE",
-            "SEBI_RAG_EMBED_BACKEND", "SEBI_RAG_RERANK_BACKEND"]
+            "SEBI_RAG_EMBED_BACKEND", "SEBI_RAG_RERANK_BACKEND",
+            "SEBI_RAG_CITATION_SCORER_ENABLED", "SEBI_RAG_CITATION_MARGIN"]
 
 
 def _clear(monkeypatch):
@@ -19,6 +20,23 @@ def test_defaults_when_no_file(monkeypatch, tmp_path):
     monkeypatch.setenv("SEBI_RAG_CONFIG", str(tmp_path / "none.toml"))
     s = Settings.load()
     assert s.generator == "mlx" and s.top_k == 5 and s.rate_per_min == 60
+
+
+def test_citation_scorer_enabled_defaults_off(monkeypatch, tmp_path):
+    _clear(monkeypatch)
+    monkeypatch.setenv("SEBI_RAG_CONFIG", str(tmp_path / "none.toml"))
+    s = Settings.load()
+    assert s.citation_scorer_enabled is False   # B' ships off until gate re-armed
+    assert 0.0 < s.citation_margin < 1.0
+
+
+def test_citation_scorer_enabled_env_on(monkeypatch, tmp_path):
+    _clear(monkeypatch)
+    monkeypatch.setenv("SEBI_RAG_CONFIG", str(tmp_path / "none.toml"))
+    monkeypatch.setenv("SEBI_RAG_CITATION_SCORER_ENABLED", "1")
+    monkeypatch.setenv("SEBI_RAG_CITATION_MARGIN", "0.2")
+    s = Settings.load()
+    assert s.citation_scorer_enabled is True and s.citation_margin == 0.2
 
 
 def test_env_overrides(monkeypatch, tmp_path):

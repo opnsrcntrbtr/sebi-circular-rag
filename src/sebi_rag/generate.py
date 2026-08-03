@@ -93,6 +93,14 @@ def select_citations(answer_text: str, contexts: list["Chunk"],
     return sorted((c.id for c in kept), key=order.get)
 
 
+def citation_scorer_for(enabled: bool, reranker):
+    """The single enable/disable decision for B'. Returns `reranker` when the
+    filter is enabled, else None. Every pipeline builder (api.build_default_pipeline,
+    eval_json.py, derive_thresholds.py) routes through this so eval and production
+    can never disagree on whether selective citations are active."""
+    return reranker if enabled else None
+
+
 @dataclass
 class Answer:
     text: str

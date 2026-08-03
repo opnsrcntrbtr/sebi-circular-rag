@@ -69,7 +69,7 @@ def derive_floors(per_query: dict[str, list[float]]) -> dict[str, float]:
 def main() -> None:
     from sebi_rag.embeddings import BGEM3Embedder
     from sebi_rag.eval_harness import load_golden
-    from sebi_rag.generate import ExtractiveStubGenerator, SubjectSimJudge
+    from sebi_rag.generate import ExtractiveStubGenerator, SubjectSimJudge, citation_scorer_for
     from sebi_rag.lineage import build_lineage, load_records
     from sebi_rag.pipeline import RAGPipeline
     from sebi_rag.rerank import CrossEncoderReranker
@@ -101,7 +101,7 @@ def main() -> None:
     pipeline = RAGPipeline(
         retriever=retr, reranker=rer, generator=ExtractiveStubGenerator(),
         abstain_threshold=s.abstain_threshold, lineage=lin, judge=judge,
-        citation_scorer=rer if s.citation_scorer_enabled else None,
+        citation_scorer=citation_scorer_for(s.citation_scorer_enabled, rer),
         citation_margin=s.citation_margin)
 
     scored = [score_row(pipeline, item, s.top_k) for item in adjudicated]
