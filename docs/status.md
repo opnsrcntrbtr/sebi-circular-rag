@@ -1,7 +1,7 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-08-03.
+> Last updated: 2026-08-04.
 
 ## Current Snapshot
 
@@ -10,12 +10,12 @@
 | **Corpus** | 724 SEBI circular records, 78,523 chunks (corpus JSONL 38 MB; index chunks.jsonl ~320 MB) |
 | **Index** | 1.0 GB at `data/index/` — dense.faiss, bm25, chunks.jsonl, lineage.json, embeddings.npy, manifest.json, meta.json, splade.npz (eval-only) |
 | **Reporting set** | `eval/golden/golden_v7.jsonl` (n=260); **adjudicated_n = 260** |
-| **Gate** | `gate_v7.json` armed: recall_at_k 0.906, citation_recall 0.8397, abstention_accuracy 0.9335 |
+| **Gate** | `gate_v7.json` armed: recall_at_k 0.906, citation_recall 0.8397, abstention_accuracy 0.9335, citation_precision (floor TBD on re-derive) |
 | **Frozen sets** | `golden_v5` (n=56), `golden_v6` (n=56) |
 | **v7 strata** | title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10 |
 | **Abstain/as_of rows** | 41 abstain, 15 dated `as_of` |
 | **Draft rows** | 0 draft, 0 seeded |
-| **Test suite** | 640 tests pass (583 test functions, 3 deselected integration, 37 measure tests) |
+| **Test suite** | 658 collected (640 passing, 1 skipped, 3 deselected; ~651 test functions) |
 | **Source tree** | 33 Python modules in `src/sebi_rag/` (api, api_spaces, pipeline, retrieve, rerank, embeddings, segment, lineage, generate, generate_spaces, corpus, corpus_spaces, eval, eval_harness, benchmark, splade, splade_encoder, hyde, context_headers, reg_citations, reg_lineage, regulations, master_meta, settings, stats, ui, expand, verify_master, eval_asof, device, ingest_pdf, metadata); 38 scripts in `scripts/` (incl. bench_metrics.py, measure.py) |
 | **Golden-v7 pipeline** | 15 scripts in `scripts/golden_v7/` (agreement, backfill_escalations, build_pool, derive_thresholds, gate_select, gemini_adjudicate, local_adjudicate, make_packet, mine_strata, relabel_repooled, remap_doc_ids, score, seed_v7) |
 | **V7 annotations** | `eval/golden/v7_annotations/` — votes.jsonl (207 claude records), pools.jsonl (4.2 MB), arbitration_queue.jsonl (65 KB), external_sample.json, gemini/ (21 dirs), qwen/ (150 files), candidates/, packet_human/ |
@@ -126,7 +126,7 @@ env: SEBI_RAG_GATE | SEBI_RAG_SUBJ_THRESHOLD | SEBI_RAG_SECT_THRESHOLD
 | — | ADR-002 certainty | top_k Field(ge=1,le=10) → 422; confidence{rerank_top,margin,subject_sim}; banded certainty (high|medium|low); abstention_reason; opt-in advisory: true → draft_answer |
 | — | n8n automation drift | `eval_json.py` → golden_v5 + production-mirrored abstention; canary thresholds re-based |
 | — | Regulatory cross-reference | `scripts/build_reg_edges.py` |
-
+| — | B' Selective Citations (Issue 3) | `generate.py` `select_citations()` + wired into `answer_with_abstention()`; `RAGPipeline` fields (`citation_scorer`, `citation_margin`); Settings (`citation_scorer_enabled`, `citation_margin`); gate re-arm: `citation_precision` added to `_GATED_METRICS`; 6 tasks, 7 tests, 641 passing |
 ## ADR-001 Findings Status
 ### ADR-001 Findings Status
 
@@ -149,18 +149,18 @@ Abstain: 41 | as_of dated: 15
 ✅ Promoted: 150 (all external IDs adjudicated) | ❌ Flipped: 0 | ✅ Arbitration queue: 0 (resolved)
 
 ### Agreement κ by stratum (exact-set; stricter than provision-level promotion)
-| Stratum | n | κ | Raw |
-|---|---|---|---|
-| far_negative | 4 | 1.000 | 100% ✅ |
-| hard_negative | 15 | 1.000 | 100% ✅ |
-| title_direct | 25 | 0.077 | 8% ⚠️ |
-| multi_hop | 13 | 0.071 | 7.7% ⚠️ |
-| numeric_table | 19 | 0.000 | 0% ❌ |
-| lineage_supersession | 24 | 0.201 | 20.8% ⚠️ |
-| repealed_basis | 13 | 0.291 | 30.8% ⚠️ |
-| body_paraphrase | 37 | 0.265 | 27% ⚠️ |
+| Stratum | n | κ | AC1 | Provision | Raw |
+|---|---|---|---|---|---|
+| far_negative | 4 | 1.000 | — | 100% ✅ | 100% ✅ |
+| hard_negative | 15 | 1.000 | — | 100% ✅ | 100% ✅ |
+| title_direct | 25 | 0.077 | 0.138 | 68% ⚠️ | 8% ⚠️ |
+| multi_hop | 13 | 0.071 | 0.039 | 100% ✅ | 7.7% ⚠️ |
+| numeric_table | 19 | 0.000 | -0.027 | 100% ✅ | 0% ❌ |
+| lineage_supersession | 24 | 0.201 | 0.358 | 100% ✅ | 20.8% ⚠️ |
+| repealed_basis | 13 | 0.291 | 0.467 | 100% ✅ | 30.8% ⚠️ |
+| body_paraphrase | 37 | 0.265 | 0.418 | 78.4% ⚠️ | 27% ⚠️ |
 
-Low κ on title_direct/multi_hop/numeric_table: spec §7 promotion amendment (2026-07-26) — κ stays exact-set while promotion accepts containment/quote-match.
+Low κ on title_direct/multi_hop/numeric_table: spec §7 promotion amendment (2026-07-26) — κ stays exact-set while promotion accepts containment/quote-match. AC1 (prevalence-corrected) confirms these are genuine unit-mismatch cases, not the base-rate paradox: numeric_table's AC1 ≈ κ (not inflated by skewed labels) because annotators pick different chunk-copies of the same provision, not because one label dominates.
 
 ### Doc-ID Dedup Fix (2026-08-03)
 - **Problem:** citation_recall=0.461 despite recall@10=0.932. Retriever found relevant docs, but top-5 citation selection stacked duplicate chunks from same document, wasting slots.
@@ -172,6 +172,9 @@ Low κ on title_direct/multi_hop/numeric_table: spec §7 promotion amendment (20
 - **Stratum impact:** numeric_table 0.667 → 0.900 (+0.233), body_paraphrase 0.733 → 0.867 (+0.133), lineage_supersession 0.675 → 0.775 (+0.10), multi_hop 0.750 → 0.925 (+0.175).
 - **Overall:** citation_recall 0.772 → 0.888. recall@10 0.943 (unchanged). abstention 0.910 → 0.934.
 - **Trade-off:** citation_precision drops 0.177 → 0.119 (expected: more slots = more noise). Recall gain outweighs precision loss.
+- **Root cause:** Mechanical citation of all contexts (generate.py:428-430) — every deduped chunk gets a citation regardless of whether the LLM used it. Chunks ranked 6–10 are tangentially related, diluting precision.
+- **Academic context:** Wallat 2025 shows even RAG-optimized models post-rationalize citations (12–57%); Chaganti 2026 shows faithfulness is bounded by exposure, not source quality. Selective citations would improve precision across all top_k values.
+- **Actionability:** NOT the most actionable signal — it's a trade-off, not an urgent fix. Higher-ROI improvements: retrieval quality (reranker fine-tuning), then selective citations (see `2026-08-03-citation-precision-drop-analysis.md`).
 ### Gate floors (260 adjudicated)
 ```yaml
 adjudicated_n: 260 (>= 100 threshold met)
@@ -186,13 +189,13 @@ abstention_accuracy: observed=0.9335, floor=0.9335 (margin 0.000)
 | Local adjudication | ✅ PRIMARY | Qwen3.6-35B-A3B-MLX-4bit via oMLX (127.0.0.1:8001), not Gemini |
 | Provision-level promotion | ✅ Amended | spec §7: containment/quote-match accepted; κ stays exact-set |
 | Parse-error recovery | ✅ 4 recovered | Truncated at max_tokens=4096; GOLDEN_LOCAL_MAX_TOKENS=16384; 3 promoted, 1 draft (v7-rb-007: genuine disagreement → human arbitration) |
-| Claude-label accuracy | ⚠️ 28.9% | 48/166 matched vs externals; 95% CI 22.2–36.4% |
-| Full v7 adjudication | ✅ COMPLETE | 260/260 rows adjudicated (150 external + 110 non-external) |
+| Claude-label accuracy | ⚠️ 28.9% exact / ✅ 90.4% provision | 150/166 matched at provision-level (95% CI 84.8–94.4%); exact-set 48/166 is the unit-mismatch artifact, not labeling quality |
+| Citation precision trade-off | ✅ DECIDED | Option A (prompt-based selective citations) proven 100% no-op on MLXGenerator — Qwen2.5-1.5B emits zero parseable bracket citations, 100% fallback to mechanical cite-all (probe: `scratchpad/probe_fallback.py`). B′ (post-hoc cross-encoder citation filter) is the real fix — model-agnostic, scores context-vs-answer entailment. See `2026-08-03-citation-precision-drop-analysis.md` + `2026-08-03-selective-citations-design.md`. |
 
 
 ## Known Blockers
 
-✅ **No active blockers.** All validation steps pass, all phases complete, 644 tests pass.
+✅ **No active blockers.** All validation steps pass, all phases complete, 640 tests pass (658 collected, 1 skipped, 3 deselected).
 
 ### Historical (resolved)
 | Bug | Step | Issue | Fix |
@@ -247,5 +250,5 @@ abstention_accuracy: observed=0.9335, floor=0.9335 (margin 0.000)
 
 ## Last Updated
 
-2026-08-03
+2026-08-03 — Task #1 complete: provision-level + AC1 agreement columns in `agreement.py`, +14 tests, report regenerated. Gate untouched (adjudicated_n=260). Option A proven no-op via MLX probe.
 
