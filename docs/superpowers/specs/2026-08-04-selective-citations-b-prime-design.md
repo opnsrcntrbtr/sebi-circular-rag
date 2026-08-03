@@ -98,9 +98,15 @@ def select_citations(answer_text: str, contexts: list[Chunk],
 
 - **Full-answer scoring** (not per-sentence): simpler, deterministic, ~one extra rerank
   batch of latency. Per-sentence attribution deferred.
-- **`margin` default:** provisional value pinned in the plan, finalized by a small
-  `calibrate.py` sweep on the golden set (maximize citation_precision subject to
-  citation_recall staying within an acceptable band). Tests pass `margin` explicitly.
+- **`margin` scale and default:** the margin is on the **sigmoid (0–1) score scale** —
+  the same scale as `abstain_threshold` (0.4) and `score_floor` (0.05), since
+  `CrossEncoder.predict` on the single-label bge-reranker head returns sigmoid scores and
+  `answer_with_abstention` already compares `reranked[i][1]` against those thresholds
+  (NOT raw logits). "Within `margin` of top" therefore means e.g. `margin=0.15` keeps
+  contexts scoring ≥ (top − 0.15) on the 0–1 scale. Provisional `_CITATION_MARGIN_DEFAULT`
+  (0.15) pinned in the plan, finalized by a small `calibrate.py` sweep on the golden set
+  (maximize citation_precision subject to citation_recall staying within an acceptable
+  band). Tests pass `margin` explicitly.
 - **Off by default** (`selective_citations=False`), flipped on only after the gate
   re-arms cleanly.
 - **≥1 citation floor** is non-negotiable (protects faithfulness UX and bounds recall loss).
@@ -135,6 +141,10 @@ Scripted verification (needs MPS + persisted index — not in offline suite):
 
 ## Risks
 
+- **Latency.** B′ adds one extra `reranker.rerank(answer, contexts)` call per answered
+  query (on top of the existing question-vs-candidates rerank). For CrossEncoder that is a
+  single batched `predict` over `top_k` pairs (bounded by `batch_size`) — measurable but
+  small (~tens of ms). Abstain rows skip it (no answer to score).
 - **Recall drop below a usable level.** Mitigated by keep-≥1 and the calibration sweep; if
   the sweep can't hold citation_recall in band, revisit margin or fall back to top-N.
 - **Cross-encoder(answer, context) as a support proxy.** It scores relevance, not strict
