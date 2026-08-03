@@ -418,6 +418,8 @@ def answer_with_abstention(
     top_k: int = 5,
     judge: Judge | None = None,
     advisory: bool = False,
+    citation_scorer: "Reranker | None" = None,
+    citation_margin: float = _CITATION_MARGIN_DEFAULT,
 ) -> Answer:
     rerank_top = float(reranked[0][1]) if reranked else 0.0
     margin = rerank_top - (float(reranked[1][1]) if len(reranked) > 1 else 0.0)
@@ -466,16 +468,10 @@ def answer_with_abstention(
     if (subject_sim is not None and subject_sim >= _HIGH_SUBJECT_SIM
             and faith >= 1.0):
         certainty = "high"
-    # Parse LLM bracket citations and map to context IDs (Option A).
-    llm_cited = {b.strip() for b in _BRACKET.findall(text) if "/" in b}
-    cited_ids: set[str] = set()
-    for bracket in llm_cited:
-        bn = bracket.split("#", 1)[0].strip()
-        for c in contexts:
-            if bracket == c.id or bn == c.doc_id or bracket == c.doc_id:
-                cited_ids.add(c.id)
-    id_to_idx = {c.id: i for i, c in enumerate(contexts)}
-    citations = sorted(cited_ids, key=id_to_idx.get) if cited_ids else [c.id for c in contexts]
+    if citation_scorer is not None:
+        citations = select_citations(text, contexts, citation_scorer, citation_margin)
+    else:
+        citations = [c.id for c in contexts]
     return Answer(
         text=text,
         citations=citations,

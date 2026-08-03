@@ -53,3 +53,27 @@ def test_returns_ids_in_original_context_order_not_score_order():
 
 def test_default_margin_is_sigmoid_scale():
     assert 0.0 < _CITATION_MARGIN_DEFAULT < 1.0
+
+from sebi_rag.generate import answer_with_abstention, ExtractiveStubGenerator  # noqa: E402
+
+
+def _reranked(chunks):
+    return [(c, 0.9) for c in chunks]  # all above abstain threshold
+
+
+# --- Task 2: answer_with_abstention integration ---
+
+def test_answer_with_scorer_filters_citations():
+    ctx = [_chunk("A", "alpha text"), _chunk("B", "beta text"), _chunk("C", "gamma")]
+    scorer = _FakeReranker({"A": 0.95, "B": 0.90, "C": 0.30})
+    ans = answer_with_abstention(
+        "q", _reranked(ctx), ExtractiveStubGenerator(), threshold=0.05, top_k=10,
+        citation_scorer=scorer, citation_margin=0.15)
+    assert ans.citations == ["A", "B"]           # C dropped (below margin)
+
+
+def test_answer_without_scorer_cites_all_contexts_backward_compat():
+    ctx = [_chunk("A"), _chunk("B"), _chunk("C")]
+    ans = answer_with_abstention(
+        "q", _reranked(ctx), ExtractiveStubGenerator(), threshold=0.05, top_k=10)
+    assert set(ans.citations) == {"A", "B", "C"}  # unchanged default
