@@ -4,7 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from .embeddings import Embedder
-from .generate import Answer, Generator, Judge, answer_with_abstention
+from .generate import Answer, Generator, Judge, _BRACKET, _CITATION_MARGIN_DEFAULT, answer_with_abstention
 from .lineage import Lineage, demote_superseded, superseded_citations
 from .regulations import reg_display_name
 from .rerank import Reranker
@@ -22,7 +22,8 @@ class RAGPipeline:
     superseded_penalty: float = 0.3  # demote superseded chunks in rerank (0 = drop)
     judge: Judge | None = None  # groundedness gate (ADR-001 item 7)
     regulatory_index: dict[str, dict] | None = None  # repealed-basis staleness signal
-
+    citation_scorer: Reranker | None = None  # B': post-hoc answer-relevance filter
+    citation_margin: float = _CITATION_MARGIN_DEFAULT  # margin for select_citations
     @classmethod
     def build(
         cls,
@@ -75,13 +76,18 @@ class RAGPipeline:
         ans = answer_with_abstention(
             question, reranked, self.generator, self.abstain_threshold, top_k,
             judge=self.judge, advisory=advisory,
+            citation_scorer=self.citation_scorer,
+            citation_margin=self.citation_margin,
         )
         if self.lineage is not None and not ans.abstained and ans.citations:
             flagged = superseded_citations(ans.citations, self.lineage)
             if flagged:
                 ans.superseded = flagged  # full metadata: every flagged context
+                # Strip bracket citations — flag only circulars actually discussed,
+                # not merely cited via [ID] brackets (Option A compat).
+                text_no_brackets = _BRACKET.sub("", ans.text)
                 cited_in_text = {old: new for old, new in flagged.items()
-                                 if old in ans.text}
+                                 if old in text_no_brackets}
                 if cited_in_text:
                     notes = "; ".join(
                         f"{old} has been superseded by {', '.join(new)}"
@@ -103,7 +109,7 @@ class RAGPipeline:
                 entry = self.regulatory_index.get(cn)
                 if (entry is None
                         or entry["regulatory_basis_status"] != "repealed_basis"
-                        or cn not in ans.text):
+                        or cn not in _BRACKET.sub("", ans.text)):
                     continue
                 for reg in entry["regulations"]:
                     if reg["status"] != "repealed":
