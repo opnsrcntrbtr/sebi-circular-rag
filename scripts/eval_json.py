@@ -62,7 +62,9 @@ judge = SubjectSimJudge(
 # using the persisted index.
 pipeline = RAGPipeline(
     retriever=retr, reranker=rer, generator=ExtractiveStubGenerator(),
-    abstain_threshold=s.abstain_threshold, lineage=lin, judge=judge)
+    abstain_threshold=s.abstain_threshold, lineage=lin, judge=judge,
+    citation_scorer=rer if s.citation_scorer_enabled else None,
+    citation_margin=s.citation_margin)
 
 golden_path = select_golden(os.environ, GATE_PATH, V5_PATH, V7_PATH)
 golden = load_golden(golden_path)

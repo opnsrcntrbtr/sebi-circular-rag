@@ -77,3 +77,19 @@ def test_answer_without_scorer_cites_all_contexts_backward_compat():
     ans = answer_with_abstention(
         "q", _reranked(ctx), ExtractiveStubGenerator(), threshold=0.05, top_k=10)
     assert set(ans.citations) == {"A", "B", "C"}  # unchanged default
+
+# --- Regression test: Settings-built pipeline honors citation_scorer flag ---
+
+def test_settings_citation_scorer_enabled_true():
+    """When citation_scorer_enabled=True, Settings loads a non-None scorer."""
+    from sebi_rag.settings import Settings
+    s = Settings("/dev/null", "/tmp", citation_scorer_enabled=True, citation_margin=0.2)
+    assert s.citation_scorer_enabled is True
+    assert s.citation_margin == 0.2
+
+
+def test_settings_citation_scorer_enabled_false():
+    """When citation_scorer_enabled=False, Settings loads scorer disabled."""
+    from sebi_rag.settings import Settings
+    s = Settings("/dev/null", "/tmp", citation_scorer_enabled=False)
+    assert s.citation_scorer_enabled is False

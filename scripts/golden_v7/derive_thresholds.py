@@ -100,7 +100,9 @@ def main() -> None:
     # the persisted index these floors are meant to describe.
     pipeline = RAGPipeline(
         retriever=retr, reranker=rer, generator=ExtractiveStubGenerator(),
-        abstain_threshold=s.abstain_threshold, lineage=lin, judge=judge)
+        abstain_threshold=s.abstain_threshold, lineage=lin, judge=judge,
+        citation_scorer=rer if s.citation_scorer_enabled else None,
+        citation_margin=s.citation_margin)
 
     scored = [score_row(pipeline, item, s.top_k) for item in adjudicated]
     payload = {
