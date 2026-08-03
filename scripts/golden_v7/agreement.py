@@ -460,7 +460,13 @@ def _render_report(kappa_rows: list, ci_pair, counts: dict) -> str:
     return "\n".join(lines)
 
 
-def main() -> None:
+def main(report_only: bool = False) -> None:
+    """Compute agreement + promotion and write the markdown report. When
+    `report_only` (CLI `--report-only`), the promotion decisions are still
+    computed (the report's outcome counts need them) but the golden set and
+    arbitration queue are NOT rewritten - a report refresh must not re-churn
+    a fully-adjudicated set (write_jsonl re-serialization + a regenerated raw
+    queue that downstream arbitration had already resolved)."""
     rows = load_golden(DEFAULT_GOLDEN_PATH)
     rows_by_id = {r["id"]: r for r in rows}
     votes = [json.loads(line) for line in
@@ -492,21 +498,24 @@ def main() -> None:
         if decision == "queue":
             queue_records.append({"row": row, "votes": row_votes})
 
-    updated_rows = apply(rows, decisions)
-    write_jsonl(DEFAULT_GOLDEN_PATH, updated_rows)
+    if not report_only:
+        updated_rows = apply(rows, decisions)
+        write_jsonl(DEFAULT_GOLDEN_PATH, updated_rows)
 
-    with DEFAULT_QUEUE_PATH.open("w", encoding="utf-8") as f:
-        for rec in queue_records:
-            f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+        with DEFAULT_QUEUE_PATH.open("w", encoding="utf-8") as f:
+            for rec in queue_records:
+                f.write(json.dumps(rec, ensure_ascii=False) + "\n")
 
     kappa_rows = _stratum_kappas(rows_by_id, votes_by_row, external_ids, pools_by_id)
     ci_pair = _claude_accuracy_ci(rows_by_id, votes_by_row, external_ids, pools_by_id)
     DEFAULT_REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     DEFAULT_REPORT_PATH.write_text(_render_report(kappa_rows, ci_pair, counts), encoding="utf-8")
 
+    target = DEFAULT_REPORT_PATH if report_only else DEFAULT_GOLDEN_PATH
     print(f"promoted={counts.get('promote', 0)} flipped={counts.get('flip_promote', 0)} "
-          f"queued={counts.get('queue', 0)} -> {DEFAULT_GOLDEN_PATH}")
+          f"queued={counts.get('queue', 0)}"
+          f"{' (report-only)' if report_only else ''} -> {target}")
 
 
 if __name__ == "__main__":
-    main()
+    main(report_only="--report-only" in sys.argv)

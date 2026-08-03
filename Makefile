@@ -114,6 +114,11 @@ golden-v7-local:
 golden-v7-agree:
 	$(ENV) $(PY) scripts/golden_v7/agreement.py
 
+# Refresh reports/golden_v7_agreement.md only; never rewrites the golden set
+# or arbitration queue (safe on a fully-adjudicated set).
+golden-v7-agree-report:
+	$(ENV) $(PY) scripts/golden_v7/agreement.py --report-only
+
 golden-v7-packet-ingest:
 	$(ENV) $(PY) scripts/golden_v7/make_packet.py --ingest eval/golden/v7_annotations/packet_human/labels_template.csv
 

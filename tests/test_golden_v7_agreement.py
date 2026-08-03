@@ -2,12 +2,14 @@
 Cohen's kappa, the promotion truth table, applying decisions to golden rows,
 and resolving a flip's winning chunk ids into {doc, quote} spans via pools.
 """
+import json
 import sys
 from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+import golden_v7.agreement as agr  # noqa: E402
 from golden_v7.agreement import (  # noqa: E402
     _claude_accuracy_ci,
     _provision_agree,
@@ -444,3 +446,45 @@ def test_render_report_includes_ac1_and_provision():
                         Counter())
     assert "AC1" in md
     assert "provision" in md.lower()
+
+
+# ---------------------------------------------------------------------------
+# (h) main(report_only=...) - refresh the report without churning the gate set
+# ---------------------------------------------------------------------------
+
+def _min_agreement_fixture(tmp_path, monkeypatch):
+    golden = tmp_path / "golden.jsonl"
+    golden.write_text(json.dumps(_row(id="v7-nt-001", task_type="numeric_table",
+                                       review_status="draft")) + "\n")
+    votes = tmp_path / "votes.jsonl"
+    votes.write_text(
+        json.dumps({"id": "v7-nt-001", "annotator": "claude", "governing": ["c1"]}) + "\n"
+        + json.dumps({"id": "v7-nt-001", "annotator": "qwen", "governing": ["c1"]}) + "\n")
+    pools = tmp_path / "pools.jsonl"
+    pools.write_text(json.dumps({"id": "v7-nt-001", "candidates": [
+        {"chunk_id": "c1", "doc": "C/1", "text": "C/1 | S | X\nbody"}]}) + "\n")
+    sample = tmp_path / "sample.json"
+    sample.write_text(json.dumps({"external": ["v7-nt-001"]}))
+    monkeypatch.setattr(agr, "DEFAULT_GOLDEN_PATH", golden)
+    monkeypatch.setattr(agr, "DEFAULT_VOTES_PATH", votes)
+    monkeypatch.setattr(agr, "DEFAULT_POOLS_PATH", pools)
+    monkeypatch.setattr(agr, "DEFAULT_SAMPLE_PATH", sample)
+    monkeypatch.setattr(agr, "DEFAULT_QUEUE_PATH", tmp_path / "queue.jsonl")
+    monkeypatch.setattr(agr, "DEFAULT_REPORT_PATH", tmp_path / "report.md")
+    return golden, tmp_path
+
+
+def test_main_report_only_does_not_rewrite_golden_or_queue(tmp_path, monkeypatch):
+    golden, tmp = _min_agreement_fixture(tmp_path, monkeypatch)
+    before = golden.read_text()
+    agr.main(report_only=True)
+    assert golden.read_text() == before                 # gate set untouched
+    assert not (tmp / "queue.jsonl").exists()            # no queue churn
+    assert (tmp / "report.md").exists()                  # report still refreshed
+
+
+def test_main_default_rewrites_golden_and_queue(tmp_path, monkeypatch):
+    golden, tmp = _min_agreement_fixture(tmp_path, monkeypatch)
+    agr.main()
+    assert '"review_status": "adjudicated"' in golden.read_text()  # promoted
+    assert (tmp / "queue.jsonl").exists()
