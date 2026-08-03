@@ -119,10 +119,7 @@ class ExtractiveStubGenerator:
     def generate(self, query: str, contexts: list[Chunk]) -> str:
         if not contexts:
             return ABSTAIN
-        # Bracket-cite all context IDs so the faithfulness parser extracts them
-        # into Answer.citations — keeps eval parity with MLXGenerator.
-        cited = " ".join(f"[{c.id}]" for c in contexts)
-        return f"{cited} {contexts[0].text}"
+        return contexts[0].text
 
 
 # --- Groundedness abstention gate (ADR-001 item 7) -------------------------
