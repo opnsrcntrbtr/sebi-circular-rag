@@ -70,6 +70,29 @@ def faithfulness(text: str, allowed_ids: set[str]) -> tuple[float, list[str]]:
     return (len(cited) - len(unsupported)) / len(cited), unsupported
 
 
+# Sigmoid-scale margin (same scale as abstain_threshold 0.4 / score_floor 0.05),
+# NOT raw logits. Provisional; finalized by scripts/calibrate.py sweep.
+_CITATION_MARGIN_DEFAULT = 0.15
+
+
+def select_citations(answer_text: str, contexts: list["Chunk"],
+                     scorer: "Reranker",
+                     margin: float = _CITATION_MARGIN_DEFAULT) -> list[str]:
+    """Context ids the answer rests on. Scores each context's answer-relevance
+    via `scorer.rerank(answer_text, contexts)` (sigmoid 0-1), keeps those within
+    `margin` of the top score, always keeps >=1 (the top) so a grounded answer
+    never emits zero citations. Ids returned in the contexts' original order."""
+    if not contexts:
+        return []
+    scored = scorer.rerank(answer_text, contexts)
+    if not scored:
+        return []
+    top = scored[0][1]
+    kept = [c for c, s in scored if s >= top - margin] or [scored[0][0]]
+    order = {c.id: i for i, c in enumerate(contexts)}
+    return sorted((c.id for c in kept), key=order.get)
+
+
 @dataclass
 class Answer:
     text: str
