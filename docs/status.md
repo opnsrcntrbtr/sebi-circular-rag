@@ -126,7 +126,7 @@ env: SEBI_RAG_GATE | SEBI_RAG_SUBJ_THRESHOLD | SEBI_RAG_SECT_THRESHOLD
 | — | ADR-002 certainty | top_k Field(ge=1,le=10) → 422; confidence{rerank_top,margin,subject_sim}; banded certainty (high|medium|low); abstention_reason; opt-in advisory: true → draft_answer |
 | — | n8n automation drift | `eval_json.py` → golden_v5 + production-mirrored abstention; canary thresholds re-based |
 | — | Regulatory cross-reference | `scripts/build_reg_edges.py` |
-| — | B' Selective Citations (Issue 3) | `generate.py` `select_citations()` + wired into `answer_with_abstention()`; `RAGPipeline` fields (`citation_scorer`, `citation_margin`); Settings (`citation_scorer_enabled`, `citation_margin`); gate re-arm: `citation_precision` added to `_GATED_METRICS`; 6 tasks, 7 tests, 641 passing |
+| — | B' Selective Citations (Issue 3) | `generate.py` `select_citations()` + wired into `answer_with_abstention()`; `RAGPipeline` fields (`citation_scorer`, `citation_margin`); Settings (`citation_scorer_enabled=False`, `citation_margin=0.15`); gate re-arm: `citation_precision` added to `_GATED_METRICS`; eval scripts wired (off by default); 9 tests, 643 passing |
 ## ADR-001 Findings Status
 ### ADR-001 Findings Status
 
