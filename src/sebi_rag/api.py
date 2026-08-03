@@ -140,15 +140,18 @@ def build_default_pipeline() -> RAGPipeline:
         from .regulations import load_regulations
         regulatory_index = build_regulatory_index(
             load_records(s.corpus_path), load_regulations(regs_path))
+    ce = CrossEncoderReranker(**ck)
     return RAGPipeline(
         retriever=retriever,
-        reranker=CrossEncoderReranker(**ck),
+        reranker=ce,
         generator=generator,
         lineage=lineage,
         abstain_threshold=s.abstain_threshold,
         superseded_penalty=s.superseded_penalty,
         judge=judge,
         regulatory_index=regulatory_index,
+        citation_scorer=ce if s.citation_scorer_enabled else None,
+        citation_margin=s.citation_margin,
     )
 
 

@@ -72,6 +72,8 @@ class Settings:
     encode_batch_size: int = 32        # embed/rerank batch size
     embed_backend: str = "torch"       # torch | mlx (mlx = eval-gated, Phase 2)
     rerank_backend: str = "torch"      # torch | mlx (mlx = eval-gated, Phase 2)
+    citation_scorer_enabled: bool = True  # B': post-hoc answer-relevance filter
+    citation_margin: float = 0.15       # margin for select_citations (sigmoid scale)
     spaces: SpacesSettings | None = None  # populated only by load_spaces()
 
     @classmethod
@@ -97,8 +99,10 @@ class Settings:
             device=device,
             use_fp16=_as_bool(_get("use_fp16", False, "SEBI_RAG_", svc)),
             encode_batch_size=int(_get("encode_batch_size", 32, "SEBI_RAG_", svc)),
-            embed_backend=str(_get("embed_backend", "torch", "SEBI_RAG_", svc)),
             rerank_backend=str(_get("rerank_backend", "torch", "SEBI_RAG_", svc)),
+            embed_backend=str(_get("embed_backend", "torch", "SEBI_RAG_", svc)),
+            citation_scorer_enabled=_as_bool(_get("citation_scorer_enabled", True, "SEBI_RAG_", svc)),
+            citation_margin=float(_get("citation_margin", 0.15, "SEBI_RAG_", svc)),
         )
 
     @classmethod
