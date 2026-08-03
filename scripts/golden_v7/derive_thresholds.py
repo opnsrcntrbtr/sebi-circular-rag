@@ -40,13 +40,12 @@ DEFAULT_GATE_PATH = ROOT / "eval" / "golden" / "gate_v7.json"
 # not a real regression (reranker nondeterminism, float drift).
 _FLOOR_CUSHION = 0.005
 
-# Which metrics gate. citation_precision is measured and reported but not
-# floored: it trades off against citation_recall, so flooring both pins the
-# retriever's operating point and blocks legitimate precision/recall
-# rebalancing that leaves overall quality unchanged.
-_GATED_METRICS = ("recall", "citation_recall", "abstention")
+# B' gates citation_precision alongside recall/recall_tradeoff/abstention.
+# The filter improves precision but lowers citation_recall; the gate now
+# protects both sides of that trade-off so a future regression is caught.
+_GATED_METRICS = ("recall", "citation_recall", "abstention", "citation_precision")
 _FLOOR_NAMES = {"recall": "recall_at_k", "citation_recall": "citation_recall",
-                "abstention": "abstention_accuracy"}
+                "abstention": "abstention_accuracy", "citation_precision": "citation_precision"}
 
 
 def derive_floors(per_query: dict[str, list[float]]) -> dict[str, float]:
