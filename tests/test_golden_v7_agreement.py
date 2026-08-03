@@ -3,15 +3,23 @@ Cohen's kappa, the promotion truth table, applying decisions to golden rows,
 and resolving a flip's winning chunk ids into {doc, quote} spans via pools.
 """
 import sys
+from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from golden_v7.agreement import (  # noqa: E402
+    _claude_accuracy_ci,
+    _provision_agree,
+    _render_report,
     _resolve_governing_spans,
+    _stratum_kappas,
     apply,
     cohen_kappa,
     decide,
+    gwet_ac1,
 )
+from sebi_rag.stats import clopper_pearson_ci  # noqa: E402
 
 
 def _row(**over):
@@ -323,3 +331,116 @@ def test_resolve_governing_spans_multiple_ids_dedupes_and_preserves_order():
     ])
     spans = _resolve_governing_spans(["C/3#a#0", "C/3#b#0", "C/3#a#0"], pool)
     assert spans == [{"doc": "C/3", "quote": "a" * 60}, {"doc": "C/3", "quote": "b" * 60}]
+
+
+# ---------------------------------------------------------------------------
+# (e) gwet_ac1 - prevalence-robust agreement (fixes the kappa base-rate paradox)
+# ---------------------------------------------------------------------------
+
+def test_gwet_ac1_identical_lists_is_one():
+    a = [["c1"], [], ["c2", "c3"], ["c1"]]
+    assert gwet_ac1(a, a) == 1.0
+
+
+def test_gwet_ac1_empty_input_is_one():
+    assert gwet_ac1([], []) == 1.0
+
+
+def test_gwet_ac1_both_constant_and_identical_is_one():
+    a = [["c1"], ["c1"], ["c1"]]
+    assert gwet_ac1(a, a) == 1.0
+
+
+def test_gwet_ac1_exceeds_kappa_on_skewed_high_agreement():
+    """The kappa base-rate paradox: one label dominates, raw agreement is high,
+    yet Cohen's kappa collapses because chance agreement is inflated. Gwet's
+    AC1 does not over-correct for prevalence, so it stays high - this is why
+    numeric_table (heavily skewed) read kappa~0 despite real agreement."""
+    a = [["c1"]] * 8 + [[], ["c2"]]
+    b = [["c1"]] * 8 + [["c2"], []]
+    k = cohen_kappa(a, b)
+    ac1 = gwet_ac1(a, b)
+    assert ac1 > k
+    assert ac1 > 0.7          # tracks the 0.8 raw agreement
+    assert k < 0.5            # kappa understates it
+
+
+# ---------------------------------------------------------------------------
+# (f) _provision_agree - symmetric provision-level match (reuses _confirms_claude)
+# ---------------------------------------------------------------------------
+
+def test_provision_agree_both_empty_is_true():
+    assert _provision_agree(frozenset(), frozenset(), None, None) is True
+
+
+def test_provision_agree_containment_either_direction():
+    # superset in either slot confirms the shared provision
+    assert _provision_agree(frozenset({"c1"}), frozenset({"c1", "c2"}), None, None) is True
+    assert _provision_agree(frozenset({"c1", "c2"}), frozenset({"c1"}), None, None) is True
+
+
+def test_provision_agree_disjoint_without_pool_is_false():
+    assert _provision_agree(frozenset({"c1"}), frozenset({"c2"}), None, None) is False
+
+
+def test_provision_agree_empty_vs_nonempty_is_false():
+    assert _provision_agree(frozenset(), frozenset({"c1"}), None, None) is False
+
+
+def test_provision_agree_same_provision_other_chunk_via_pool():
+    """Different chunk copies of the same quoted provision agree at provision
+    level even though the exact chunk-id sets differ."""
+    quote = "the upfront margin shall be collected at the rate of twenty per cent"
+    row = _row(id="v7-nt-020", task_type="numeric_table",
+               relevant_chunks=[{"doc": "C/1", "quote": quote}])
+    pool = _pool("v7-nt-020", [
+        {"chunk_id": "c1", "doc": "C/1", "text": f"C/1 | S | X\nIntro. {quote}."},
+        {"chunk_id": "c9", "doc": "C/1", "text": f"C/1 | S | Annexure\nAs stated, {quote} in all cases."},
+    ])
+    assert _provision_agree(frozenset({"c1"}), frozenset({"c9"}), row, pool) is True
+
+
+# ---------------------------------------------------------------------------
+# (g) _stratum_kappas / _claude_accuracy_ci - provision-level + AC1 reporting
+# ---------------------------------------------------------------------------
+
+def _same_provision_fixture():
+    quote = "the upfront margin shall be collected at the rate of twenty per cent"
+    rid = "v7-nt-020"
+    rows_by_id = {rid: _row(id=rid, task_type="numeric_table",
+                            relevant_chunks=[{"doc": "C/1", "quote": quote}])}
+    votes_by_row = {rid: {"claude": ["c1"], "qwen": ["c9"]}}
+    pools_by_id = {rid: _pool(rid, [
+        {"chunk_id": "c1", "doc": "C/1", "text": f"C/1 | S | X\nIntro. {quote}."},
+        {"chunk_id": "c9", "doc": "C/1", "text": f"C/1 | S | Annexure\nAs stated, {quote} in all cases."},
+    ])}
+    return rows_by_id, votes_by_row, pools_by_id, [rid]
+
+
+def test_stratum_kappas_adds_ac1_and_provision_agreement():
+    rows_by_id, votes_by_row, pools_by_id, ids = _same_provision_fixture()
+    out = _stratum_kappas(rows_by_id, votes_by_row, ids, pools_by_id)
+    r = next(x for x in out if x["pair"] == ("claude", "qwen"))
+    assert "ac1" in r and "provision_agreement" in r
+    # exact-set disagrees (c1 vs c9) but they are the same provision
+    assert r["raw_agreement"] == 0.0
+    assert r["provision_agreement"] == 1.0
+
+
+def test_claude_accuracy_ci_returns_exact_and_provision():
+    rows_by_id, votes_by_row, pools_by_id, ids = _same_provision_fixture()
+    exact_ci, prov_ci = _claude_accuracy_ci(rows_by_id, votes_by_row, ids, pools_by_id)
+    assert exact_ci.n == prov_ci.n == 1
+    assert exact_ci.successes == 0      # exact chunk-id sets differ
+    assert prov_ci.successes == 1       # same provision
+
+
+def test_render_report_includes_ac1_and_provision():
+    kappa_rows = [{"stratum": "numeric_table", "pair": ("claude", "qwen"),
+                   "n": 1, "kappa": 0.0, "ac1": 1.0,
+                   "raw_agreement": 0.0, "provision_agreement": 1.0}]
+    md = _render_report(kappa_rows,
+                        (clopper_pearson_ci(0, 1), clopper_pearson_ci(1, 1)),
+                        Counter())
+    assert "AC1" in md
+    assert "provision" in md.lower()

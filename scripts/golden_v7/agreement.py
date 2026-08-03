@@ -126,6 +126,61 @@ def cohen_kappa(a: list[list[str]], b: list[list[str]]) -> float:
     return (po - pe) / (1.0 - pe)
 
 
+def gwet_ac1(a: list[list[str]], b: list[list[str]]) -> float:
+    """Gwet's AC1 over the same paired labels as `cohen_kappa`, but with a
+    prevalence-robust chance term. Cohen's `pe` is a dot product of the two
+    marginal distributions, so a single dominant label (numeric_table:
+    almost every row converges on the same governing set) inflates `pe`
+    toward `po` and collapses kappa to ~0 even when raw agreement is high -
+    the base-rate paradox. AC1 instead estimates chance as
+    `1/(L-1) * sum_k pk(1-pk)` over the L observed categories (pk = each
+    label's proportion averaged across the two raters), which does not
+    over-correct for skew. Reported ALONGSIDE kappa, never replacing it.
+
+    Returns 1.0 for empty input and for a single observed category (both
+    raters constant on the same label - no disagreement is possible, so the
+    paradoxical 0/0 is resolved to perfect agreement).
+    """
+    n = len(a)
+    if n == 0:
+        return 1.0
+    labels_a = [_label(x) for x in a]
+    labels_b = [_label(x) for x in b]
+    po = sum(1 for x, y in zip(labels_a, labels_b) if x == y) / n
+
+    count_a = Counter(labels_a)
+    count_b = Counter(labels_b)
+    cats = set(count_a) | set(count_b)
+    L = len(cats)
+    if L <= 1:
+        return 1.0
+    pe = sum(
+        ((count_a.get(c, 0) / n) + (count_b.get(c, 0) / n)) / 2.0
+        * (1.0 - ((count_a.get(c, 0) / n) + (count_b.get(c, 0) / n)) / 2.0)
+        for c in cats
+    ) / (L - 1)
+
+    if pe >= 1.0 - 1e-9:
+        return 1.0
+    return (po - pe) / (1.0 - pe)
+
+
+def _provision_agree(label_a: frozenset, label_b: frozenset,
+                     row: dict | None, pool: dict | None) -> bool:
+    """Symmetric provision-level agreement between two governing labels, using
+    the same confirmation logic as promotion (`_confirms_claude`): exact set
+    equality, containment either way, or - when the row's pool is available -
+    both picking a chunk whose text carries the row's span quote. This is the
+    unit the pipeline actually promotes on; exact chunk-id equality (the kappa
+    unit) is deliberately stricter and undercounts same-provision/different-
+    chunk-copy picks. Both-empty (three-way "none") counts as agreement.
+    """
+    return bool(
+        _confirms_claude(label_a, label_b, row, pool) is True
+        or _confirms_claude(label_b, label_a, row, pool) is True
+    )
+
+
 def decide(row: dict, votes_by_annotator: dict[str, list[str]],
           dated_ids: set[str], pool: dict | None = None,
           literals: dict[str, str] | None = None) -> tuple[str, list[str] | None]:
@@ -270,11 +325,14 @@ def _literals_by_row(votes: list) -> dict:
     return out
 
 
-def _stratum_kappas(rows_by_id: dict, votes_by_row: dict, external_ids: list) -> list:
-    """κ + raw agreement %, per annotator-pair per stratum, over rows in
-    `external_ids` that have votes from BOTH annotators in the pair. The
-    LLM leg's name is discovered from the votes themselves, so the report
-    labels its pairs honestly ("claude-qwen", not a hardcoded "gemini")."""
+def _stratum_kappas(rows_by_id: dict, votes_by_row: dict, external_ids: list,
+                    pools_by_id: dict | None = None) -> list:
+    """Per annotator-pair per stratum, over rows in `external_ids` that have
+    votes from BOTH annotators in the pair: exact-set kappa + raw agreement,
+    Gwet's AC1 (prevalence-robust), and provision-level agreement (the
+    promotion unit; needs `pools_by_id` for the span-quote branch). The LLM
+    leg's name is discovered from the votes themselves, so the report labels
+    its pairs honestly ("claude-qwen", not a hardcoded "gemini")."""
     llm = _llm_annotator(
         {a for rid in external_ids for a in votes_by_row.get(rid, {})})
     pairs = ([("claude", llm), ("claude", "human"), (llm, "human")]
@@ -285,12 +343,14 @@ def _stratum_kappas(rows_by_id: dict, votes_by_row: dict, external_ids: list) ->
         if row is None:
             continue
         stratum = row["task_type"]
+        pool = pools_by_id.get(rid) if pools_by_id else None
         row_votes = votes_by_row.get(rid, {})
         claude = row_votes.get("claude", [])  # implicit [] for abstain rows
         available = {"claude": claude, **{k: v for k, v in row_votes.items() if k != "claude"}}
         for a, b in pairs:
             if a in available and b in available:
-                by_stratum_pair[stratum][(a, b)].append((available[a], available[b]))
+                by_stratum_pair[stratum][(a, b)].append(
+                    (available[a], available[b], row, pool))
 
     out = []
     for stratum in sorted(by_stratum_pair):
@@ -301,57 +361,87 @@ def _stratum_kappas(rows_by_id: dict, votes_by_row: dict, external_ids: list) ->
             a_list = [p[0] for p in paired]
             b_list = [p[1] for p in paired]
             kappa = cohen_kappa(a_list, b_list)
+            ac1 = gwet_ac1(a_list, b_list)
             raw = sum(1 for x, y in zip(a_list, b_list) if _label(x) == _label(y)) / len(paired)
+            prov = sum(1 for x, y, row, pool in paired
+                       if _provision_agree(_label(x), _label(y), row, pool)) / len(paired)
             out.append({"stratum": stratum, "pair": pair, "n": len(paired),
-                        "kappa": kappa, "raw_agreement": raw})
+                        "kappa": kappa, "ac1": ac1, "raw_agreement": raw,
+                        "provision_agreement": prov})
     return out
 
 
-def _claude_accuracy_ci(rows_by_id: dict, votes_by_row: dict, external_ids: list):
-    """Clopper-Pearson 95% CI on claude-label accuracy vs externals: every
-    (row, external annotator) pair where both voted is one trial; success is
-    an exact label match. Abstain rows use the same implicit frozenset()
-    claude label as `decide()`."""
-    successes = 0
+def _claude_accuracy_ci(rows_by_id: dict, votes_by_row: dict, external_ids: list,
+                        pools_by_id: dict | None = None):
+    """Two Clopper-Pearson 95% CIs on claude-label accuracy vs externals -
+    every (row, external annotator) pair where both voted is one trial.
+    Returns `(exact_ci, provision_ci)`:
+
+    - exact: success is exact chunk-id-set match (the stricter, historical
+      figure - the one that read 28.9%).
+    - provision: success is provision-level agreement (`_provision_agree`),
+      the unit the pipeline actually promotes on. Reported alongside exact so
+      the same over-strict-unit artifact that depresses the kappa table is
+      visible here too.
+
+    Abstain rows use the same implicit frozenset() claude label as `decide()`.
+    """
+    successes = prov_successes = 0
     n = 0
     for rid in external_ids:
         row = rows_by_id.get(rid)
         if row is None:
             continue
+        pool = pools_by_id.get(rid) if pools_by_id else None
         row_votes = votes_by_row.get(rid, {})
         claude_label = _label(row_votes.get("claude", []))
         for annotator, governing in row_votes.items():
             if annotator == "claude":
                 continue
             n += 1
-            if _label(governing) == claude_label:
+            ext_label = _label(governing)
+            if ext_label == claude_label:
                 successes += 1
-    return clopper_pearson_ci(successes, n)
+            if _provision_agree(claude_label, ext_label, row, pool):
+                prov_successes += 1
+    return clopper_pearson_ci(successes, n), clopper_pearson_ci(prov_successes, n)
 
 
-def _render_report(kappa_rows: list, ci, counts: dict) -> str:
+def _render_report(kappa_rows: list, ci_pair, counts: dict) -> str:
+    exact_ci, prov_ci = ci_pair
     lines = [
         "# Golden v7 external-annotation agreement",
         "",
-        "Cohen's kappa and raw agreement per annotator pair per stratum, over "
-        "rows in the external-100 sample where both annotators in the pair "
-        "voted. Abstain rows (no claude label in Task 8) compare against an "
+        "Per annotator pair per stratum, over rows in the external-100 sample "
+        "where both annotators in the pair voted. `kappa` and `raw agreement` "
+        "are exact chunk-id-set equality (deliberately strict). `AC1` is "
+        "Gwet's prevalence-robust coefficient (fixes the base-rate paradox "
+        "that collapses kappa on skewed strata like numeric_table). "
+        "`provision` is agreement at the PROVISION level - the unit the "
+        "pipeline actually promotes on (exact set, containment, or same span "
+        "quote). Abstain rows (no claude label in Task 8) compare against an "
         "implicit `frozenset()` claude label matching their authored "
         "`abstain: true` state.",
         "",
-        "| stratum | pair | n | kappa | raw agreement |",
-        "|---|---|---|---|---|",
+        "| stratum | pair | n | kappa | AC1 | raw agreement | provision |",
+        "|---|---|---|---|---|---|---|",
     ]
     for r in kappa_rows:
         lines.append(
             f"| {r['stratum']} | {r['pair'][0]}-{r['pair'][1]} | {r['n']} | "
-            f"{r['kappa']:.3f} | {r['raw_agreement'] * 100:.1f}% |")
+            f"{r['kappa']:.3f} | {r['ac1']:.3f} | "
+            f"{r['raw_agreement'] * 100:.1f}% | {r['provision_agreement'] * 100:.1f}% |")
     lines += [
         "",
         "## Claude-label accuracy vs externals",
         "",
-        f"{ci.successes}/{ci.n} matched ({ci.point * 100:.1f}%), "
-        f"95% CI {ci.lo * 100:.1f}–{ci.hi * 100:.1f}% ({ci.method}).",
+        f"Exact chunk-id-set match: {exact_ci.successes}/{exact_ci.n} "
+        f"({exact_ci.point * 100:.1f}%), 95% CI {exact_ci.lo * 100:.1f}–"
+        f"{exact_ci.hi * 100:.1f}% ({exact_ci.method}).",
+        "",
+        f"Provision-level match: {prov_ci.successes}/{prov_ci.n} "
+        f"({prov_ci.point * 100:.1f}%), 95% CI {prov_ci.lo * 100:.1f}–"
+        f"{prov_ci.hi * 100:.1f}% ({prov_ci.method}).",
         "",
         "## Promotion outcomes",
         "",
@@ -409,10 +499,10 @@ def main() -> None:
         for rec in queue_records:
             f.write(json.dumps(rec, ensure_ascii=False) + "\n")
 
-    kappa_rows = _stratum_kappas(rows_by_id, votes_by_row, external_ids)
-    ci = _claude_accuracy_ci(rows_by_id, votes_by_row, external_ids)
+    kappa_rows = _stratum_kappas(rows_by_id, votes_by_row, external_ids, pools_by_id)
+    ci_pair = _claude_accuracy_ci(rows_by_id, votes_by_row, external_ids, pools_by_id)
     DEFAULT_REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    DEFAULT_REPORT_PATH.write_text(_render_report(kappa_rows, ci, counts), encoding="utf-8")
+    DEFAULT_REPORT_PATH.write_text(_render_report(kappa_rows, ci_pair, counts), encoding="utf-8")
 
     print(f"promoted={counts.get('promote', 0)} flipped={counts.get('flip_promote', 0)} "
           f"queued={counts.get('queue', 0)} -> {DEFAULT_GOLDEN_PATH}")
