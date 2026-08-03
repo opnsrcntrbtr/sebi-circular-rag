@@ -96,7 +96,10 @@ class ExtractiveStubGenerator:
     def generate(self, query: str, contexts: list[Chunk]) -> str:
         if not contexts:
             return ABSTAIN
-        return contexts[0].text
+        # Bracket-cite all context IDs so the faithfulness parser extracts them
+        # into Answer.citations — keeps eval parity with MLXGenerator.
+        cited = " ".join(f"[{c.id}]" for c in contexts)
+        return f"{cited} {contexts[0].text}"
 
 
 # --- Groundedness abstention gate (ADR-001 item 7) -------------------------
@@ -440,9 +443,19 @@ def answer_with_abstention(
     if (subject_sim is not None and subject_sim >= _HIGH_SUBJECT_SIM
             and faith >= 1.0):
         certainty = "high"
+    # Parse LLM bracket citations and map to context IDs (Option A).
+    llm_cited = {b.strip() for b in _BRACKET.findall(text) if "/" in b}
+    cited_ids: set[str] = set()
+    for bracket in llm_cited:
+        bn = bracket.split("#", 1)[0].strip()
+        for c in contexts:
+            if bracket == c.id or bn == c.doc_id or bracket == c.doc_id:
+                cited_ids.add(c.id)
+    id_to_idx = {c.id: i for i, c in enumerate(contexts)}
+    citations = sorted(cited_ids, key=id_to_idx.get) if cited_ids else [c.id for c in contexts]
     return Answer(
         text=text,
-        citations=[c.id for c in contexts],
+        citations=citations,
         abstained=False,
         faithfulness=faith,
         unsupported_citations=unsupported,
