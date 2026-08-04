@@ -177,10 +177,10 @@ adjudication_pipeline: scripts/golden_v7/ (seed, mine_strata, build_pool, gate_s
 ### 7.6 Current Baseline Numbers (golden_v7, full set, n=260)
 
 ```yaml
-recall_at_k: 0.906 (gate floor)
-citation_recall: 0.7233 (gate floor; was 0.8397 pre-B', margin 0.35)
-abstention_accuracy: 0.9335 (gate floor)
-citation_precision: 0.1896 (gate floor; new under B', mean 0.224)
+recall_at_k: 0.943 observed (floor 0.906)
+citation_recall: 0.783 observed (floor 0.7233; was 0.8397 pre-B', margin 0.35)
+abstention_accuracy: 0.962 observed (floor 0.9335)
+citation_precision: 0.224 observed (floor 0.1896; new under B')
 ```
 
 ### 7.7 Index Performance

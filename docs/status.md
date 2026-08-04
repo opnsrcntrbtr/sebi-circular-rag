@@ -10,7 +10,7 @@
 | **Corpus** | 724 SEBI circular records, 78,523 chunks (corpus JSONL 38 MB; index chunks.jsonl ~320 MB) |
 | **Index** | 1.0 GB at `data/index/` — dense.faiss, bm25, chunks.jsonl, lineage.json, embeddings.npy, manifest.json, meta.json, splade.npz (eval-only) |
 | **Reporting set** | `eval/golden/golden_v7.jsonl` (n=260); **adjudicated_n = 260** |
-| **Gate** | `gate_v7.json` armed **under B' selective citations** (margin 0.35, 2026-08-04): recall_at_k 0.906, citation_recall **0.7233** (was 0.8397 mechanical), abstention_accuracy 0.9335, citation_precision **0.1896** (new floor). Gate now requires B' ON to pass (`config.toml citation_scorer_enabled=true`) |
+| **Gate** | `gate_v7.json` armed **under B' selective citations** (margin 0.35, 2026-08-04): recall_at_k **0.943**, citation_recall **0.783** (floor 0.7233), abstention_accuracy **0.962**, citation_precision **0.224** (floor 0.1896). Gate now requires B' ON to pass (`config.toml citation_scorer_enabled=true`) |
 | **Frozen sets** | `golden_v5` (n=56), `golden_v6` (n=56) |
 | **v7 strata** | title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10 |
 | **Abstain/as_of rows** | 41 abstain, 15 dated `as_of` |
@@ -247,8 +247,41 @@ abstention_accuracy: observed=0.9335, floor=0.9335 (margin 0.000)
 ### Build/repair flow
 `scrape → ingest_pdf → repair_corpus_text.py → renumber.py → validate-corpus → build_index.py`
 
+## Citation Recall Variance Analysis (2026-08-04)
+
+### Problem
+citation_recall mean=0.783, floor=0.7233 (6 pp gap). Per-query variance is high — min=0.0, max=1.0 across all task types. B' margin filter (Δ=0.35) removes ALL relevant contexts when answer-relevance scores are spread thin, causing citation_recall=0 on many queries.
+
+### Per-task-type breakdown (260 adjudicated)
+| Task type | n | mean | min | max | <0.5 | <0.7 |
+|---|---|---|---|---|---|---|
+| title_direct | 40 | 0.925 | 0.000 | 1.000 | 3 | 3 |
+| body_paraphrase | 60 | 0.800 | 0.000 | 1.000 | 12 | 12 |
+| lineage_supersession | 40 | 0.725 | 0.000 | 1.000 | 11 | 11 |
+| numeric_table | 30 | 0.633 | 0.000 | 1.000 | 11 | 11 |
+| multi_hop | 20 | 0.775 | 0.000 | 1.000 | 1 | 8 |
+| repealed_basis | 20 | 0.800 | 0.000 | 1.000 | 4 | 4 |
+| hard_negative | 9 | 0.778 | 0.000 | 1.000 | 2 | 2 |
+| **Overall** | **260** | **0.783** | **0.000** | **1.000** | **44** | **59** |
+
+### Key findings
+- **Variance driven by task_type, NOT difficulty** (easy=0.800, medium=0.788, hard=0.770 — flat)
+- **Worst strata:** `numeric_table` (mean=0.633, 11/30 below 0.5), `lineage_supersession` (mean=0.725, 11/40 below 0.5)
+- **Best stratum:** `title_direct` (mean=0.925, only 3/40 below 0.5)
+- **Root cause:** B' margin filter is too aggressive for queries where answer-relevance scores are spread thin (numeric tables, lineage chains)
+- **44/260 queries** get citation_recall < 0.5 (17%); **59/260** get < 0.7 (23%)
+
+### Options under consideration
+1. **Tighter margin** (Δ=0.25): recall rises, precision drops toward ~0.15-0.18
+2. **Stratum-specific margins**: Δ=0.5 for numeric_table/lineage_supersession, Δ=0.25 for title_direct
+3. **Smarter fallback**: keep top-3 regardless of margin when filter drops to 0
+4. **Operational monitoring**: track per-stratum citation_recall, alert when clusters near floor
+
+### Current status
+⚠️ **Variance acknowledged, no fix yet.** Gate passes (0.783 ≥ 0.7233). Precision win (0.224 vs baseline 0.119) retained. Variance reduction is the next design iteration if precision gain proves operationally valuable.
+
 
 ## Last Updated
 
-2026-08-03 — Task #1 complete: provision-level + AC1 agreement columns in `agreement.py`, +14 tests, report regenerated. Gate untouched (adjudicated_n=260). Option A proven no-op via MLX probe.
+2026-08-04 — B' eval: recall=0.943, precision=0.224, citation_recall=0.783, abstention=0.962 (all floors pass). Citation_recall variance analysis: task_type drives variance, numeric_table/lineage_supersession worst. Gate armed, 667 tests pass.
 
