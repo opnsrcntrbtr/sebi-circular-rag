@@ -10,12 +10,12 @@
 | **Corpus** | 724 SEBI circular records, 78,523 chunks (corpus JSONL 38 MB; index chunks.jsonl ~320 MB) |
 | **Index** | 1.0 GB at `data/index/` — dense.faiss, bm25, chunks.jsonl, lineage.json, embeddings.npy, manifest.json, meta.json, splade.npz (eval-only) |
 | **Reporting set** | `eval/golden/golden_v7.jsonl` (n=260); **adjudicated_n = 260** |
-| **Gate** | `gate_v7.json` armed: recall_at_k 0.906, citation_recall 0.8397, abstention_accuracy 0.9335, citation_precision (floor TBD on re-derive) |
+| **Gate** | `gate_v7.json` armed **under mechanical cite-all** (B' off): recall_at_k 0.906, citation_recall 0.8397, abstention_accuracy 0.9335. `citation_precision` now in `_GATED_METRICS` but floor NOT yet derived — set on re-arm under B' (Task 7) |
 | **Frozen sets** | `golden_v5` (n=56), `golden_v6` (n=56) |
 | **v7 strata** | title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10 |
 | **Abstain/as_of rows** | 41 abstain, 15 dated `as_of` |
 | **Draft rows** | 0 draft, 0 seeded |
-| **Test suite** | 658 collected (640 passing, 1 skipped, 3 deselected; ~651 test functions) |
+| **Test suite** | 671 collected (667 passing, 1 skipped, 3 deselected) |
 | **Source tree** | 33 Python modules in `src/sebi_rag/` (api, api_spaces, pipeline, retrieve, rerank, embeddings, segment, lineage, generate, generate_spaces, corpus, corpus_spaces, eval, eval_harness, benchmark, splade, splade_encoder, hyde, context_headers, reg_citations, reg_lineage, regulations, master_meta, settings, stats, ui, expand, verify_master, eval_asof, device, ingest_pdf, metadata); 38 scripts in `scripts/` (incl. bench_metrics.py, measure.py) |
 | **Golden-v7 pipeline** | 15 scripts in `scripts/golden_v7/` (agreement, backfill_escalations, build_pool, derive_thresholds, gate_select, gemini_adjudicate, local_adjudicate, make_packet, mine_strata, relabel_repooled, remap_doc_ids, score, seed_v7) |
 | **V7 annotations** | `eval/golden/v7_annotations/` — votes.jsonl (207 claude records), pools.jsonl (4.2 MB), arbitration_queue.jsonl (65 KB), external_sample.json, gemini/ (21 dirs), qwen/ (150 files), candidates/, packet_human/ |
@@ -126,7 +126,7 @@ env: SEBI_RAG_GATE | SEBI_RAG_SUBJ_THRESHOLD | SEBI_RAG_SECT_THRESHOLD
 | — | ADR-002 certainty | top_k Field(ge=1,le=10) → 422; confidence{rerank_top,margin,subject_sim}; banded certainty (high|medium|low); abstention_reason; opt-in advisory: true → draft_answer |
 | — | n8n automation drift | `eval_json.py` → golden_v5 + production-mirrored abstention; canary thresholds re-based |
 | — | Regulatory cross-reference | `scripts/build_reg_edges.py` |
-| — | B' Selective Citations (Issue 3) | `generate.py` `select_citations()` + wired into `answer_with_abstention()`; `RAGPipeline` fields (`citation_scorer`, `citation_margin`); Settings (`citation_scorer_enabled=False`, `citation_margin=0.15`); gate re-arm: `citation_precision` added to `_GATED_METRICS`; eval scripts wired (off by default); 9 tests, 643 passing |
+| — | B' Selective Citations (Issue 3) | `generate.py` `select_citations()` (reuses `reranker.rerank(answer, contexts)`, relative-margin keep≥1, sigmoid-scale margin) + wired into `answer_with_abstention()`; `RAGPipeline` fields (`citation_scorer`, `citation_margin`); Settings (`citation_scorer_enabled=False`, `citation_margin=0.15`); `citation_precision` added to `_GATED_METRICS`. All 3 builders (`build_default_pipeline`, `eval_json`, `derive_thresholds`) route through `generate.citation_scorer_for(enabled, reranker)` after a parity-gap fix (eval had built pipeline without the scorer while prod defaulted on — train/serve skew, commit e1f7859). **Default OFF; gate NOT yet re-armed under B' — `gate_v7.json` floors are still under mechanical cite-all.** 667 tests passing. ⏳ pending: margin calibration + gate re-arm (Task 7). |
 ## ADR-001 Findings Status
 ### ADR-001 Findings Status
 
@@ -195,7 +195,7 @@ abstention_accuracy: observed=0.9335, floor=0.9335 (margin 0.000)
 
 ## Known Blockers
 
-✅ **No active blockers.** All validation steps pass, all phases complete, 640 tests pass (658 collected, 1 skipped, 3 deselected).
+✅ **No active blockers.** All validation steps pass, all phases complete, 667 tests pass (671 collected, 1 skipped, 3 deselected).
 
 ### Historical (resolved)
 | Bug | Step | Issue | Fix |
