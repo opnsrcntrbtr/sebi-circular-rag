@@ -152,7 +152,7 @@ abstain_rows: 41 | as_of_dated_rows: 15
 frozen_fallback: golden_v5.jsonl (n=56) — used when v7 gate not armed
 golden_v6: golden_v6.jsonl (n=56) — intermediate set
 gate: eval/golden/gate_v7.json (armed at adjudicated_n=260)
-|   floors: recall_at_k=0.9155, citation_recall=0.3245, abstention_accuracy=0.8346, citation_precision (floor TBD on re-derive)
+|   floors (armed under B' selective citations, margin 0.35, 2026-08-04): recall_at_k=0.906, citation_recall=0.7233, abstention_accuracy=0.9335, citation_precision=0.1896
   ci_gates: v7 only when adjudicated_n >= 100
 adjudication_pipeline: scripts/golden_v7/ (seed, mine_strata, build_pool, gate_select, local_adjudicate [Qwen3.6-35B-MLX], gemini_adjudicate [on hold], agreement, relabel_repooled, backfill_escalations, derive_thresholds, score)
 ```
@@ -177,10 +177,10 @@ adjudication_pipeline: scripts/golden_v7/ (seed, mine_strata, build_pool, gate_s
 ### 7.6 Current Baseline Numbers (golden_v7, full set, n=260)
 
 ```yaml
-recall_at_k: 0.9155 (gate floor)
-citation_recall: 0.3245 (gate floor)
-abstention_accuracy: 0.8346 (gate floor)
-citation_precision: gated (floor TBD on B' re-derive)
+recall_at_k: 0.906 (gate floor)
+citation_recall: 0.7233 (gate floor; was 0.8397 pre-B', margin 0.35)
+abstention_accuracy: 0.9335 (gate floor)
+citation_precision: 0.1896 (gate floor; new under B', mean 0.224)
 ```
 
 ### 7.7 Index Performance
@@ -237,7 +237,7 @@ design_decisions:
   D12: "Query expansion via statutory-synonym glossary (Intervention #2). SEBI circulars use statutory vocabulary (freeze, dematerialised, rescinded) where users ask in lay terms (block, electronic, replaced). Appending statutory synonyms to BM25 query closes vocabulary gap without touching index; dense leg keeps raw query. Deterministic and additive: original query always preserved as prefix. Entries grounded in eval/runs/ft-traces/buckets.md failure analysis."
   D13: "Optional third RRF legs (Interventions #5, iv9, iv11). HyDE (Part B): hypothetical statutory passage as additive third dense leg (opt-in, off by default, silent failure). SPLADE: learned-sparse third RRF leg (opt-in, eval-only, off by default). Contextual headers: one lay+statutory sentence per deep sub-clause/annex chunk (opt-in, off by default, silent failure). All three non-destructive — mandatory dense + BM25 + RRF path unchanged; enabling any third leg requires explicit configuration."
   D14: "Regulation-level annotation. Regulations are consolidated living documents (no circular_number, no issue_date, one current row each), keyed by deterministic reg_id slug. Three-stage resolution: exact token match, then hand-maintained REGULATION_ALIASES table (acronyms like PIT → prohibition-of-insider-trading), then Jaccard fuzzy match (threshold 0.8). regulatory_basis_status (current|repealed_basis|mixed|unknown) derived from resolved regulation statuses; CitationMeta.regulations surfaced per-citation in API. In-text advisory note appended when cited circular rests on repealed regulation."
-| D16: "B' Selective Citations (post-hoc cross-encoder answer-relevance filter). `generate.py` `select_citations(answer_text, contexts, scorer, margin)` scores each context via `scorer.rerank(answer_text, contexts)` (sigmoid 0–1) and keeps those within `margin` of the top; always ≥1. Wired into `answer_with_abstention()` (opt-in via Settings.citation_scorer_enabled). `RAGPipeline` holds `citation_scorer` (reuses reranker instance) + `citation_margin`. `citation_precision` added to `_GATED_METRICS` in derive_thresholds.py alongside recall/citation_recall/abstention — protects both sides of the precision↔recall trade-off. Supersedes the inert Option A (prompt-bracket parsing, 100% no-op at Qwen-1.5B). **Status 2026-08-04: implemented; `citation_scorer_enabled` defaults FALSE; all 3 builders (`build_default_pipeline`, `eval_json`, `derive_thresholds`) route through `generate.citation_scorer_for(enabled, reranker)` so eval==production (parity-gap fix e1f7859). Gate NOT yet re-armed under B' — floors still under mechanical cite-all; margin calibration + re-arm pending (Task 7).**"
+| D16: "B' Selective Citations (post-hoc cross-encoder answer-relevance filter). `generate.py` `select_citations(answer_text, contexts, scorer, margin)` scores each context via `scorer.rerank(answer_text, contexts)` (sigmoid 0–1) and keeps those within `margin` of the top; always ≥1. Wired into `answer_with_abstention()` (opt-in via Settings.citation_scorer_enabled). `RAGPipeline` holds `citation_scorer` (reuses reranker instance) + `citation_margin`. `citation_precision` added to `_GATED_METRICS` in derive_thresholds.py alongside recall/citation_recall/abstention — protects both sides of the precision↔recall trade-off. Supersedes the inert Option A (prompt-bracket parsing, 100% no-op at Qwen-1.5B). **Status 2026-08-04: ARMED. All 3 builders (`build_default_pipeline`, `eval_json`, `derive_thresholds`) route through `generate.citation_scorer_for(enabled, reranker)` so eval==production (parity-gap fix e1f7859). Calibrated margin=0.35 (sweep knee, `reports/b-prime-margin-sweep.md`): citation_precision 0.119→0.224 mean (+88%), citation_recall 0.888→0.783 mean. Gate re-derived under B': citation_recall floor 0.8397→0.7233, citation_precision floor 0.1896 (new). Enabled via `config.toml citation_scorer_enabled=true` — gate now REQUIRES B' on to pass.**"
 ```
 
 

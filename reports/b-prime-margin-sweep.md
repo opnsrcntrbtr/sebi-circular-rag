@@ -1,7 +1,7 @@
 # B′ Selective Citations — Margin Sweep (gate re-arm, Task 7)
 
 **Date:** 2026-08-04
-**Status:** IN PROGRESS — margin not yet chosen; gate NOT yet re-armed under B′.
+**Status:** COMPLETE — margin 0.35 chosen; gate re-armed under B′ (2026-08-04).
 **Goal:** pick `citation_margin` for B′ (post-hoc cross-encoder citation filter), then
 re-derive `eval/golden/gate_v7.json` at that margin.
 
@@ -69,12 +69,49 @@ HF_HUB_DISABLE_XET=1 PYTHONPATH=src .venv/bin/python scripts/analysis/sweep_cita
 pass caches per-row answer-relevance scores, then sweeps all margins instantly. It is
 validated by reproducing the four real points above (0.0 / 0.30 / 0.20 / 0.15).
 
-## Next steps
+## Full curve (capture-once, validated)
 
-1. Run capture-once → full curve incl. loose end (0.35–0.60).
-2. Pick margin at the recall≥0.75 knee; set `_CITATION_MARGIN_DEFAULT` (generate.py) +
-   `Settings.citation_margin`.
-3. Re-derive the gate: `SEBI_RAG_CITATION_SCORER_ENABLED=1 make golden-v7-gate` — the
-   authoritative floors come from this real run, not the sweep.
-4. Verify `eval_json` passes the new floors; confirm citation_recall floor ≥ ~0.70 and a
-   material citation_precision floor. Then flip `config.toml [service] citation_scorer_enabled`.
+`scripts/analysis/sweep_citation_margin_capture.py` — one pipeline pass caches per-row
+answer-relevance scores (via the REAL `pipeline.query`), then sweeps all margins instantly.
+**Validation:** reproduced the four full-pass points EXACTLY (mechanical 0.1189/0.8881,
+0.30 0.2406/0.7466, 0.20 0.2741/0.6941, 0.15 0.2919/0.6461), so the loose-end points below
+are trustworthy. n=219 answerable adjudicated rows.
+
+| margin | citation_precision | citation_recall |
+|---|---|---|
+| mechanical | 0.1189 | 0.8881 |
+| 0.60 | 0.1604 | 0.8402 |
+| 0.50 | 0.1761 | 0.8265 |
+| 0.45 | 0.1865 | 0.8082 |
+| 0.40 | 0.2021 | 0.7877 |
+| **0.35 (chosen)** | **0.2241** | **0.7831** |
+| 0.30 | 0.2406 | 0.7466 |
+| 0.25 | 0.2615 | 0.7260 |
+| 0.20 | 0.2741 | 0.6941 |
+| 0.15 | 0.2919 | 0.6461 |
+
+## Decision (2026-08-04)
+
+- **Band:** mean citation_recall ≥ 0.75 (legal-domain recall priority — missing a governing
+  circular is worse than a tangential citation). Guardrail: reject if gate floor < 0.70.
+- **Chosen margin: 0.35.** Precision 0.224 mean (~1.9× the mechanical 0.119) while
+  citation_recall stays 0.783 mean (−12% rel). 0.35 dominates 0.40 (higher precision at
+  essentially equal recall); tightening to 0.30 drops recall below band for +0.017 precision.
+- **Re-armed gate (real `derive_thresholds`, n=260 adjudicated, margin 0.35):**
+
+  | floor | before (mechanical) | after (B′ @ 0.35) |
+  |---|---|---|
+  | recall_at_k | 0.906 | 0.906 |
+  | citation_recall | 0.8397 | **0.7233** |
+  | abstention_accuracy | 0.9335 | 0.9335 |
+  | citation_precision | (ungated) | **0.1896** |
+
+  citation_recall floor 0.7233 ≥ 0.70 guardrail; citation_precision now floored at 0.1896
+  (was effectively ungated at ~0.119). `floors_ok` passes by construction (floor =
+  bootstrap-lower-bound − 0.005 cushion, below the observed mean on the same `score_row` path).
+- **Enabled:** `config.toml [service] citation_scorer_enabled = true`, `citation_margin = 0.35`;
+  code defaults `_CITATION_MARGIN_DEFAULT = 0.35` / `Settings.citation_margin = 0.35`.
+- **Monitor:** per-query citation_recall variance is wide (mean 0.783 → floor 0.7233). If
+  production citation_recall clusters near the floor, tighten the margin later.
+- **Coupling:** the gate now requires B′ ON to pass (citation_precision floor 0.1896 > the
+  mechanical ~0.119). Eval/CI must run with `citation_scorer_enabled=true`.

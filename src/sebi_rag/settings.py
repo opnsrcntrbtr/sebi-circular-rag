@@ -73,7 +73,7 @@ class Settings:
     embed_backend: str = "torch"       # torch | mlx (mlx = eval-gated, Phase 2)
     rerank_backend: str = "torch"      # torch | mlx (mlx = eval-gated, Phase 2)
     citation_scorer_enabled: bool = False # B': post-hoc answer-relevance filter (off until gate re-armed)
-    citation_margin: float = 0.15       # margin for select_citations (sigmoid scale)
+    citation_margin: float = 0.35       # margin for select_citations (sigmoid scale; calibrated 2026-08-04)
     spaces: SpacesSettings | None = None  # populated only by load_spaces()
 
     @classmethod
@@ -102,7 +102,7 @@ class Settings:
             rerank_backend=str(_get("rerank_backend", "torch", "SEBI_RAG_", svc)),
             embed_backend=str(_get("embed_backend", "torch", "SEBI_RAG_", svc)),
             citation_scorer_enabled=_as_bool(_get("citation_scorer_enabled", False, "SEBI_RAG_", svc)),
-            citation_margin=float(_get("citation_margin", 0.15, "SEBI_RAG_", svc)),
+            citation_margin=float(_get("citation_margin", 0.35, "SEBI_RAG_", svc)),
         )
 
     @classmethod

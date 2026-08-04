@@ -72,7 +72,7 @@ def faithfulness(text: str, allowed_ids: set[str]) -> tuple[float, list[str]]:
 
 # Sigmoid-scale margin (same scale as abstain_threshold 0.4 / score_floor 0.05),
 # NOT raw logits. Provisional; finalized by scripts/calibrate.py sweep.
-_CITATION_MARGIN_DEFAULT = 0.15
+_CITATION_MARGIN_DEFAULT = 0.35  # calibrated 2026-08-04 (sweep knee: P +88%, recall 0.783 ≥ 0.75 band)
 
 
 def select_citations(answer_text: str, contexts: list["Chunk"],
