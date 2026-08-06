@@ -325,6 +325,48 @@ def _literals_by_row(votes: list) -> dict:
     return out
 
 
+def _tier_kappas(rows_by_id: dict, votes_by_row: dict, external_ids: list,
+                 pools_by_id: dict | None = None) -> list:
+    """As `_stratum_kappas`, grouped by label provenance tier rather than
+    task_type. Reports agreement per tier so no tier is silently pooled into
+    a headline figure it does not support. Tiers with n < 2 report None
+    rather than a spurious coefficient."""
+    llm = _llm_annotator(
+        {a for rid in external_ids for a in votes_by_row.get(rid, {})})
+    pairs = ([("claude", llm), ("claude", "human"), (llm, "human")]
+             if llm else [("claude", "human")])
+    by_tier_pair: dict = defaultdict(lambda: defaultdict(list))
+    for rid in external_ids:
+        row = rows_by_id.get(rid)
+        if row is None:
+            continue
+        tier = row.get("label_tier", "unknown")
+        pool = pools_by_id.get(rid) if pools_by_id else None
+        row_votes = votes_by_row.get(rid, {})
+        claude = row_votes.get("claude", [])
+        available = {"claude": claude,
+                     **{k: v for k, v in row_votes.items() if k != "claude"}}
+        for a, b in pairs:
+            if a in available and b in available:
+                by_tier_pair[tier][(a, b)].append(
+                    (available[a], available[b], row, pool))
+
+    out = []
+    for tier in sorted(by_tier_pair):
+        for pair in pairs:
+            paired = by_tier_pair[tier].get(pair)
+            if not paired:
+                continue
+            a_list = [p[0] for p in paired]
+            b_list = [p[1] for p in paired]
+            if len(paired) < 2:
+                out.append((tier, pair, len(paired), None, None))
+                continue
+            out.append((tier, pair, len(paired),
+                        cohen_kappa(a_list, b_list), gwet_ac1(a_list, b_list)))
+    return out
+
+
 def _stratum_kappas(rows_by_id: dict, votes_by_row: dict, external_ids: list,
                     pools_by_id: dict | None = None) -> list:
     """Per annotator-pair per stratum, over rows in `external_ids` that have
@@ -460,7 +502,7 @@ def _render_report(kappa_rows: list, ci_pair, counts: dict) -> str:
     return "\n".join(lines)
 
 
-def main(report_only: bool = False) -> None:
+def main(report_only: bool = False, by_tier: bool = False) -> None:
     """Compute agreement + promotion and write the markdown report. When
     `report_only` (CLI `--report-only`), the promotion decisions are still
     computed (the report's outcome counts need them) but the golden set and
@@ -472,6 +514,23 @@ def main(report_only: bool = False) -> None:
     votes = [json.loads(line) for line in
              DEFAULT_VOTES_PATH.read_text(encoding="utf-8").splitlines() if line.strip()]
     votes_by_row = _votes_by_row(votes)
+
+    if by_tier:
+        # Read-only path: returns before write_jsonl, so it can never drop
+        # label_tier. Coverage is the external sample, not all 260 rows.
+        pools_ = {p["id"]: p for p in (json.loads(line) for line in
+                  DEFAULT_POOLS_PATH.read_text(encoding="utf-8").splitlines()
+                  if line.strip())}
+        ext = json.loads(DEFAULT_SAMPLE_PATH.read_text(encoding="utf-8"))["external"]
+        print(f"{'tier':<14}{'pair':<22}{'n':>5}{'kappa':>9}{'AC1':>9}")
+        for tier, pair, n, kappa, ac1 in _tier_kappas(
+                rows_by_id, votes_by_row, ext, pools_):
+            k = "n/a" if kappa is None else f"{kappa:.3f}"
+            a = "n/a" if ac1 is None else f"{ac1:.3f}"
+            print(f"{tier:<14}{pair[0] + '-' + pair[1]:<22}{n:>5}{k:>9}{a:>9}")
+        print(f"\ncoverage: {len(ext)} external-sample rows of {len(rows)} total")
+        return
+
     literals_by_row = _literals_by_row(votes)
     pools = [json.loads(line) for line in
              DEFAULT_POOLS_PATH.read_text(encoding="utf-8").splitlines() if line.strip()]
@@ -518,4 +577,5 @@ def main(report_only: bool = False) -> None:
 
 
 if __name__ == "__main__":
-    main(report_only="--report-only" in sys.argv)
+    main(report_only="--report-only" in sys.argv,
+         by_tier="--by-tier" in sys.argv)
