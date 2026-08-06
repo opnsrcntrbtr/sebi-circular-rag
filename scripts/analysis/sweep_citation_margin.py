@@ -12,7 +12,7 @@ from __future__ import annotations
 import os, sys, json
 from pathlib import Path
 
-ROOT = Path("/Users/ianpinto/sebi_circular_sota_rag/SEBI circular RAG")
+ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 for k, v in {"TOKENIZERS_PARALLELISM": "false", "OMP_NUM_THREADS": "1",
