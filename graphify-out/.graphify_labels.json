@@ -110,7 +110,6 @@
   "108": "Regulation Edge Construction",
   "109": "Retrieval Artifact Testing",
   "110": "Auto-research Environment Script",
-  "111": "RuntimeError",
   "112": "Retrieval Recall Metrics",
   "113": "RAG Demo Application",
   "114": "Human Evaluation Packets",
@@ -135,8 +134,5 @@
   "133": "Golden Dataset Initialization",
   "134": "Depository Master Appendix",
   "135": "SEBI Regulations Directory",
-  "136": "build_chunk_rows",
-  "137": "Decision Application Logic",
-  "138": "build_citation_pairs",
   "139": "Circular Renumbering Audit"
 }
