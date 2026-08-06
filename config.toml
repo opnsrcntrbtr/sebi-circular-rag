@@ -5,7 +5,7 @@
 [service]
 generator = "mlx"                                      # mlx | ollama
 mlx_model = "mlx-community/Qwen2.5-1.5B-Instruct-4bit" # 3B for higher groundedness
-top_k = 3                                              # calibrated (citation prec 0.97 / recall 1.0)
+top_k = 10                                             # increased from 5: citation_recall 0.772 → 0.888 (doc_id dedup + wider top_k)
 abstain_threshold = 0.05                               # far-domain score floor; near-domain
                                                        # abstention = subject-sim gate (SEBI_RAG_GATE)
 superseded_penalty = 0.3                               # demote superseded chunks in rerank
@@ -19,6 +19,9 @@ use_fp16 = false                                       # fp16 on mps/cuda (never
 encode_batch_size = 32                                 # embed/rerank batch size (MPS prefers larger)
 embed_backend = "torch"                                # torch | mlx  (mlx = eval-gated, Phase 2)
 rerank_backend = "torch"                               # torch | mlx  (mlx = eval-gated, Phase 2)
+
+citation_scorer_enabled = true                         # B': post-hoc cross-encoder citation filter (gate armed under B' 2026-08-04)
+citation_margin = 0.35                                  # sigmoid-scale; calibrated at sweep knee (P +88%, citation_recall 0.783 mean)
 
 # Hugging Face Spaces demo (CPU-only). Read ONLY by Settings.load_spaces();
 # the Apple-Silicon local stack above is unaffected. Env prefix: SEBI_RAG_SPACES_.

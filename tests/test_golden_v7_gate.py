@@ -125,14 +125,15 @@ def test_derived_floor_never_goes_negative():
     assert derive_floors({"recall": [0.0, 0.0, 0.0]})["recall_at_k"] == 0.0
 
 
-def test_citation_precision_is_reported_but_never_floored():
-    """It trades off against citation_recall, so flooring both pins the
-    retriever's operating point and blocks a legitimate precision/recall
-    rebalance that leaves overall quality unchanged."""
+def test_citation_precision_is_gated_after_B_prime():
+    """B' gates citation_precision alongside recall/recall_tradeoff/abstention.
+    The filter improves precision but lowers citation_recall; the gate now
+    protects both sides of that trade-off so a future regression is caught."""
     floors = derive_floors({"recall": [1.0], "citation_precision": [1.0],
                             "citation_recall": [1.0], "abstention": [1.0]})
-    assert "citation_precision" not in floors
-    assert set(floors) == {"recall_at_k", "citation_recall", "abstention_accuracy"}
+    assert "citation_precision" in floors
+    assert set(floors) == {"recall_at_k", "citation_recall", "abstention_accuracy",
+                           "citation_precision"}
 
 
 def test_floor_names_match_the_gate_report_keys():

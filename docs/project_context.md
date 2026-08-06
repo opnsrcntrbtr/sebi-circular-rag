@@ -1,7 +1,7 @@
 # Project Context — SEBI Circular RAG
 
 > Authoritative architecture record. Consult before requesting any information.
-> Governed by `SEBI_RAG_Claude_Desktop_Engineering_Handbook.md`. Last updated: 2026-07-27 (Target Architecture + Design Decisions updated).
+> Governed by `SEBI_RAG_Claude_Desktop_Engineering_Handbook.md`. Last updated: 2026-08-04 (B' Selective Citations + Design Decisions updated).
 
 ## 1. Purpose
 
@@ -69,15 +69,15 @@ stages:
       - Confidence bands: high (subject_sim ≥ 0.65 + faithfulness 1.0), medium (passed all gates), low (abstained)
       - Advisory mode: `advisory=True` returns clearly-labelled low-confidence draft answer on gate failure (never authoritative)
       - `as_of` date-scoped queries: score against law as of a date (circular demoted only if superseding circular issued by that date)
-      - Faithfulness check: every cited circular id in square brackets must appear in retrieved context; unsupported citations flagged
+| `pipeline.py` | `RAGPipeline` orchestration; `regulatory_basis_status` per-citation; `citation_scorer`/`citation_margin` for B' selective citations |
   - name: evaluation_mandatory
     desc: See §7
 ```
 
 ### Pipeline flow
-`Query → [Dense ANN (FAISS IndexFlatIP, bge-m3) | Sparse lexical (bm25s)] → RRF → pool(50-100) → cross-encoder (bge-reranker-v2-m3) → top-k → LLM → answer + citations`
+`Query → [Dense ANN (FAISS IndexFlatIP, bge-m3) | Sparse lexical (bm25s)] → RRF → pool(50-100) → cross-encoder (bge-reranker-v2-m3) → top-k → select_citations() [opt-in, margin-based answer-relevance filter] → LLM → answer + citations`
 
-Post-processing: `Judge (SubjectSim/MLX) → abstain if not grounded | Faithfulness check (citation ids in context)`
+| `generate.py` | Local generation + abstention gate (MLXJudge/SubjectSimJudge); `select_citations()` post-hoc answer-relevance filter (B') |
 
 Gate: `Abstain if below threshold (~0.4) | Advisory mode: low-confidence draft on gate failure (advisory=True)`
 
@@ -136,8 +136,8 @@ Real stack calibration over 724 circulars / 78,523 chunks (golden_v7):
 
 ```yaml
 params:
-  top_k: 3 (default, configurable via SEBI_RAG_TOP_K)
-  score_floor: 0.05 (cross-encoder; configurable via SEBI_RAG_ABSTAIN_THRESHOLD)
+  top_k: 10 (default, configurable via SEBI_RAG_TOP_K)
+  abstain_threshold: 0.05 (cross-encoder; configurable via SEBI_RAG_ABSTAIN_THRESHOLD)
   subject_sim_threshold: 0.42 (two-tier: subject_sim >= 0.42 OR section_sim >= 0.60)
   section_threshold: 0.60 (configurable via SEBI_RAG_SECT_THRESHOLD)
 index_path: data/index/ (reload 0.34s). Re-run after corpus growth.
@@ -148,11 +148,11 @@ index_path: data/index/ (reload 0.34s). Re-run after corpus growth.
 ```yaml
 reporting_set: eval/golden/golden_v7.jsonl (n=260, adjudicated_n=260)
 strata: [title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10]
-abstain_rows: 53 | as_of_dated_rows: 15
+abstain_rows: 41 | as_of_dated_rows: 15
 frozen_fallback: golden_v5.jsonl (n=56) — used when v7 gate not armed
 golden_v6: golden_v6.jsonl (n=56) — intermediate set
 gate: eval/golden/gate_v7.json (armed at adjudicated_n=260)
-  floors: recall_at_k=0.9155, citation_recall=0.3245, abstention_accuracy=0.8346
+|   floors (armed under B' selective citations, margin 0.35, 2026-08-04): recall_at_k=0.906, citation_recall=0.7233, abstention_accuracy=0.9335, citation_precision=0.1896
   ci_gates: v7 only when adjudicated_n >= 100
 adjudication_pipeline: scripts/golden_v7/ (seed, mine_strata, build_pool, gate_select, local_adjudicate [Qwen3.6-35B-MLX], gemini_adjudicate [on hold], agreement, relabel_repooled, backfill_escalations, derive_thresholds, score)
 ```
@@ -162,7 +162,7 @@ adjudication_pipeline: scripts/golden_v7/ (seed, mine_strata, build_pool, gate_s
 | Script | Purpose |
 |---|---|
 | `scripts/eval_json.py` | Production-mirrored eval via RAGPipeline (stub generator — no LLM); golden-set resolution (v7 gate → v5 fallback); prints JSON for n8n |
-| `scripts/eval_harness.py` | `run_eval()` → EvalReport (recall, MRR, nDCG, citation prec/rec, abstention acc, groundedness proxy, faithfulness, latency, chunk-level metrics) |
+| `src/sebi_rag/eval_harness.py` (module) | `run_eval()` → EvalReport (recall, MRR, nDCG, citation prec/rec, abstention acc, groundedness proxy, faithfulness, latency, chunk-level metrics) |
 | `scripts/golden_v7/score.py` | Per-row scoring shared by eval_json.py and derive_thresholds.py; `vectors()` aggregates to metric vectors |
 | `scripts/bench_retrieval.py` | Retrieval-only benchmark + TREC runfile export |
 | `scripts/bench_rerankers.py` | Reranker benchmark (AUROC, cluster separation) |
@@ -177,10 +177,10 @@ adjudication_pipeline: scripts/golden_v7/ (seed, mine_strata, build_pool, gate_s
 ### 7.6 Current Baseline Numbers (golden_v7, full set, n=260)
 
 ```yaml
-recall_at_k: 0.9155 (gate floor)
-citation_recall: 0.3245 (gate floor)
-abstention_accuracy: 0.8346 (gate floor)
-full_set_v5_reference: recall@10=0.956, citation_precision=0.711, citation_recall=0.889, abstention_accuracy=0.839 (n=56)
+recall_at_k: 0.943 observed (floor 0.906)
+citation_recall: 0.783 observed (floor 0.7233; was 0.8397 pre-B', margin 0.35)
+abstention_accuracy: 0.962 observed (floor 0.9335)
+citation_precision: 0.224 observed (floor 0.1896; new under B')
 ```
 
 ### 7.7 Index Performance
@@ -237,7 +237,7 @@ design_decisions:
   D12: "Query expansion via statutory-synonym glossary (Intervention #2). SEBI circulars use statutory vocabulary (freeze, dematerialised, rescinded) where users ask in lay terms (block, electronic, replaced). Appending statutory synonyms to BM25 query closes vocabulary gap without touching index; dense leg keeps raw query. Deterministic and additive: original query always preserved as prefix. Entries grounded in eval/runs/ft-traces/buckets.md failure analysis."
   D13: "Optional third RRF legs (Interventions #5, iv9, iv11). HyDE (Part B): hypothetical statutory passage as additive third dense leg (opt-in, off by default, silent failure). SPLADE: learned-sparse third RRF leg (opt-in, eval-only, off by default). Contextual headers: one lay+statutory sentence per deep sub-clause/annex chunk (opt-in, off by default, silent failure). All three non-destructive — mandatory dense + BM25 + RRF path unchanged; enabling any third leg requires explicit configuration."
   D14: "Regulation-level annotation. Regulations are consolidated living documents (no circular_number, no issue_date, one current row each), keyed by deterministic reg_id slug. Three-stage resolution: exact token match, then hand-maintained REGULATION_ALIASES table (acronyms like PIT → prohibition-of-insider-trading), then Jaccard fuzzy match (threshold 0.8). regulatory_basis_status (current|repealed_basis|mixed|unknown) derived from resolved regulation statuses; CitationMeta.regulations surfaced per-citation in API. In-text advisory note appended when cited circular rests on repealed regulation."
-  D15: "API surface. FastAPI service: key-in-body auth (X-API-Key header, secrets.compare_digest), rate limiting (429, configurable SEBI_RATE_PER_MIN, default 60 req/min), per-query timeout (504, configurable), /health (chunk/circular counts, generator info), /ready (eager pipeline build), /query (full response schema with confidence, certainty, abstention_reason, citations_meta including regulatory_basis_status and regulations). retrieval_only mode swaps in ExtractiveStubGenerator for testing."
+| D16: "B' Selective Citations (post-hoc cross-encoder answer-relevance filter). `generate.py` `select_citations(answer_text, contexts, scorer, margin)` scores each context via `scorer.rerank(answer_text, contexts)` (sigmoid 0–1) and keeps those within `margin` of the top; always ≥1. Wired into `answer_with_abstention()` (opt-in via Settings.citation_scorer_enabled). `RAGPipeline` holds `citation_scorer` (reuses reranker instance) + `citation_margin`. `citation_precision` added to `_GATED_METRICS` in derive_thresholds.py alongside recall/citation_recall/abstention — protects both sides of the precision↔recall trade-off. Supersedes the inert Option A (prompt-bracket parsing, 100% no-op at Qwen-1.5B). **Status 2026-08-04: ARMED. All 3 builders (`build_default_pipeline`, `eval_json`, `derive_thresholds`) route through `generate.citation_scorer_for(enabled, reranker)` so eval==production (parity-gap fix e1f7859). Calibrated margin=0.35 (sweep knee, `reports/b-prime-margin-sweep.md`): citation_precision 0.119→0.224 mean (+88%), citation_recall 0.888→0.783 mean. Gate re-derived under B': citation_recall floor 0.8397→0.7233, citation_precision floor 0.1896 (new). Enabled via `config.toml citation_scorer_enabled=true` — gate now REQUIRES B' on to pass.**"
 ```
 
 
@@ -294,7 +294,7 @@ reproducibility:
 
 ```yaml
 prerequisites:
-  P1: "Labelled SEBI evaluation set — COMPLETED (golden_v7, n=260, adjudicated_n=260, gate armed). Calibrated: top_k=3, score_floor=0.05"
+  P1: "Labelled SEBI evaluation set — COMPLETED (golden_v7, n=260, adjudicated_n=260, gate armed). Calibrated: top_k=10, abstain_threshold=0.05"
   P2: "Metadata lineage extraction — COMPLETED (lineage.py, 5 edges, answer-layer warnings wired)"
 ```
 
@@ -304,9 +304,9 @@ Three-phase optimization reduced pre-injected context from **99,189 bytes (~24,8
 
 ```yaml
 config:
-  SYSTEM_md: ".pi/SYSTEM.md — Concise base prompt (1,500 B) replacing pi default"
-  settings_json: ".pi/settings.json — Optimized compaction (keepRecentTokens=16,384, reserveTokens=12,288) and thinking levels (default low with budgets: low=2,048, medium=8,192, high=24,576)"
-  env: ".pi/env — PI_CACHE_RETENTION=long for extended prompt cache (Anthropic: 1h, OpenAI: 24h)"
+  APPEND_SYSTEM_md: ".omp/APPEND_SYSTEM.md — Concise OMP append (1,758 B) concatenated to session system prompt"
+  settings_json: ".omp/settings.json — Optimized compaction (keepRecentTokens=16,384, reserveTokens=12,288) and thinking levels (default low with budgets: low=2,048, medium=8,192, high=24,576)"
+  env: ".omp/env — PI_CACHE_RETENTION=long + OMP_CACHE_RETENTION=long for extended prompt cache (Anthropic: 1h, OpenAI: 24h)"
   agents_md: "AGENTS.md — On-demand context instructions, output constraints, session workflow, model routing"
   claude_md: "CLAUDE.md — 350-byte pointer (duplicate eliminated)"
 savings:

@@ -113,7 +113,7 @@ Every Sunday at 2:00 AM, it:
 | Workflow times out after 30 min | The refresh took too long (large delta). Check `logs/refresh.log` |
 | No macOS notification | System Settings → Notifications → grant permission to n8n |
 | "refresh FAILED" in log | Check `logs/refresh.log` for the actual error (scrape failure, index error, etc.) |
-| High `injection_flagged` count | Run `scripts/ingest_pdf.py --scan` on the corpus to review flagged records |
+| High `injection_flagged` count | Run `make validate-corpus` or `scripts/eval_json.py` to review injection flags (computed live via 8-pattern scan) |
 
 ## Can this workflow run independently?
 

@@ -208,7 +208,7 @@ def build_ui():
                                          placeholder="Required if server uses auth")
 
                 with gr.Accordion("Query controls", open=True):
-                    top_k = gr.Slider(minimum=1, maximum=10, value=3, step=1,
+                    top_k = gr.Slider(minimum=1, maximum=10, value=5, step=1,
                                       label="Top K Citations")
                     mode = gr.Radio(
                         choices=["rag", "retrieval_only"], value="rag", label="Mode",

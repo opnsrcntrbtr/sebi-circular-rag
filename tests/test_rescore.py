@@ -1,8 +1,14 @@
 """Re-scoring archived runfiles: round-trip and agreement with the live metric."""
 from __future__ import annotations
 
+import sys
+from pathlib import Path
+
 import pytest
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+
+from sebi_rag.autoresearch.epoch import Frame, IncomparableFramesError
 from sebi_rag.benchmark import (
     per_query_recall,
     read_trec_run,
@@ -91,3 +97,35 @@ class TestPerQueryRecall:
         scores = per_query_recall(read_trec_run(p), golden)
         replayed = sum(scores.values()) / len(scores)
         assert replayed == pytest.approx(result["recall_at_10"])
+
+
+class TestFrameGuard:
+    """Cross-frame comparisons must raise, not silently report a number."""
+
+    def test_cross_epoch_pair_raises(self):
+        from rescore_runs import guard_pair
+
+        with pytest.raises(IncomparableFramesError, match="different corpora"):
+            guard_pair(
+                Frame(epoch="E1", eval_set="f01d8779"),
+                Frame(epoch="E2", eval_set="f01d8779"),
+                "ft",
+                "iv8",
+            )
+
+    def test_cross_eval_set_pair_raises(self):
+        from rescore_runs import guard_pair
+
+        with pytest.raises(IncomparableFramesError, match="different golden files"):
+            guard_pair(
+                Frame(epoch="E2", eval_set="f01d8779"),
+                Frame(epoch="E2", eval_set="99a9da66"),
+                "iv7-golden",
+                "iv7-probes",
+            )
+
+    def test_same_frame_pair_passes(self):
+        from rescore_runs import guard_pair
+
+        f = Frame(epoch="E2", eval_set="f01d8779")
+        guard_pair(f, f, "iv7", "iv8")

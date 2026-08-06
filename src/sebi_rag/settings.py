@@ -50,7 +50,7 @@ class SpacesSettings:
     max_tokens: int = 200
     temperature: float = 0.2
     top_p: float = 0.9
-    top_k: int = 3
+    top_k: int = 5
     timeout_s: float = 60.0
     abstain_threshold: float = 0.05
     superseded_penalty: float = 0.3
@@ -62,7 +62,7 @@ class Settings:
     index_dir: str
     generator: str = "mlx"
     mlx_model: str = "mlx-community/Qwen2.5-1.5B-Instruct-4bit"
-    top_k: int = 3
+    top_k: int = 5
     abstain_threshold: float = 0.05  # score floor; near-domain gate = SubjectSimJudge
     superseded_penalty: float = 0.3
     rate_per_min: int = 60
@@ -72,6 +72,8 @@ class Settings:
     encode_batch_size: int = 32        # embed/rerank batch size
     embed_backend: str = "torch"       # torch | mlx (mlx = eval-gated, Phase 2)
     rerank_backend: str = "torch"      # torch | mlx (mlx = eval-gated, Phase 2)
+    citation_scorer_enabled: bool = False # B': post-hoc answer-relevance filter (off until gate re-armed)
+    citation_margin: float = 0.35       # margin for select_citations (sigmoid scale; calibrated 2026-08-04)
     spaces: SpacesSettings | None = None  # populated only by load_spaces()
 
     @classmethod
@@ -89,7 +91,7 @@ class Settings:
             index_dir=str(_get("index_dir", str(ROOT / "data" / "index"), "SEBI_RAG_", svc)),
             generator=str(_get("generator", "mlx", "SEBI_RAG_", svc)),
             mlx_model=str(_get("mlx_model", "mlx-community/Qwen2.5-1.5B-Instruct-4bit", "SEBI_RAG_", svc)),
-            top_k=int(_get("top_k", 3, "SEBI_RAG_", svc)),
+            top_k=int(_get("top_k", 5, "SEBI_RAG_", svc)),
             abstain_threshold=float(_get("abstain_threshold", 0.05, "SEBI_RAG_", svc)),
             superseded_penalty=float(_get("superseded_penalty", 0.3, "SEBI_RAG_", svc)),
             rate_per_min=int(_get("rate_per_min", 60, "SEBI_RAG_", svc)),
@@ -97,8 +99,10 @@ class Settings:
             device=device,
             use_fp16=_as_bool(_get("use_fp16", False, "SEBI_RAG_", svc)),
             encode_batch_size=int(_get("encode_batch_size", 32, "SEBI_RAG_", svc)),
-            embed_backend=str(_get("embed_backend", "torch", "SEBI_RAG_", svc)),
             rerank_backend=str(_get("rerank_backend", "torch", "SEBI_RAG_", svc)),
+            embed_backend=str(_get("embed_backend", "torch", "SEBI_RAG_", svc)),
+            citation_scorer_enabled=_as_bool(_get("citation_scorer_enabled", False, "SEBI_RAG_", svc)),
+            citation_margin=float(_get("citation_margin", 0.35, "SEBI_RAG_", svc)),
         )
 
     @classmethod

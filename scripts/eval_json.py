@@ -32,7 +32,7 @@ for k, v in {"TOKENIZERS_PARALLELISM": "false", "OMP_NUM_THREADS": "1",
 
 from sebi_rag.embeddings import BGEM3Embedder  # noqa: E402
 from sebi_rag.eval_harness import load_golden  # noqa: E402
-from sebi_rag.generate import ExtractiveStubGenerator, SubjectSimJudge  # noqa: E402
+from sebi_rag.generate import ExtractiveStubGenerator, SubjectSimJudge, citation_scorer_for  # noqa: E402
 from sebi_rag.ingest_pdf import injection_scan  # noqa: E402
 from sebi_rag.lineage import build_lineage, load_records  # noqa: E402
 from sebi_rag.pipeline import RAGPipeline  # noqa: E402
@@ -62,7 +62,9 @@ judge = SubjectSimJudge(
 # using the persisted index.
 pipeline = RAGPipeline(
     retriever=retr, reranker=rer, generator=ExtractiveStubGenerator(),
-    abstain_threshold=s.abstain_threshold, lineage=lin, judge=judge)
+    abstain_threshold=s.abstain_threshold, lineage=lin, judge=judge,
+    citation_scorer=citation_scorer_for(s.citation_scorer_enabled, rer),
+    citation_margin=s.citation_margin)
 
 golden_path = select_golden(os.environ, GATE_PATH, V5_PATH, V7_PATH)
 golden = load_golden(golden_path)

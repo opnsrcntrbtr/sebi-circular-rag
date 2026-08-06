@@ -5,7 +5,7 @@ PORT ?= 8000
 MAX  ?= 25
 MAX_MASTER ?= 200
 
-.PHONY: help test annotate index reindex calibrate bench-rerank bench-retrieval rescore benchmark-export export-datasets eval-asof serve scrape ops scrape-master verify-master scrape-regs reg-edges audit-regs measure phoenix
+.PHONY: help test annotate index reindex calibrate bench-rerank bench-retrieval rescore trec-parity qrels benchmark-export export-datasets eval-asof serve scrape ops scrape-master verify-master scrape-regs reg-edges audit-regs measure phoenix
 
 help:
 	@echo "test       run offline test suite"
@@ -58,6 +58,13 @@ bench-retrieval:
 
 rescore:
 	$(ENV) $(PY) scripts/rescore_runs.py
+
+trec-parity:
+	uv pip install -e '.[eval]'
+	$(ENV) $(PY) -m pytest tests/test_trec_parity.py -v
+
+qrels:
+	$(ENV) $(PY) scripts/autoresearch/emit_qrels.py
 
 benchmark-export:
 	$(ENV) $(PY) scripts/build_golden_v6.py
@@ -113,6 +120,11 @@ golden-v7-local:
 
 golden-v7-agree:
 	$(ENV) $(PY) scripts/golden_v7/agreement.py
+
+# Refresh reports/golden_v7_agreement.md only; never rewrites the golden set
+# or arbitration queue (safe on a fully-adjudicated set).
+golden-v7-agree-report:
+	$(ENV) $(PY) scripts/golden_v7/agreement.py --report-only
 
 golden-v7-packet-ingest:
 	$(ENV) $(PY) scripts/golden_v7/make_packet.py --ingest eval/golden/v7_annotations/packet_human/labels_template.csv

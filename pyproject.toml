@@ -23,6 +23,9 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=9.1.1", "reportlab>=5.0.0", "httpx>=0.28.1"]
+# Standard IR scoring, used only to prove metric parity. pytrec_eval is a C
+# extension, so this stays optional and the parity test skips without it.
+eval = ["ir_measures>=0.3.7"]
 # HF Spaces demo extras (CPU path); local Apple-Silicon workflow doesn't need them
 spaces = [
     "datasets>=3.0.0",

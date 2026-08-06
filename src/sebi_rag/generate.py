@@ -70,6 +70,37 @@ def faithfulness(text: str, allowed_ids: set[str]) -> tuple[float, list[str]]:
     return (len(cited) - len(unsupported)) / len(cited), unsupported
 
 
+# Sigmoid-scale margin (same scale as abstain_threshold 0.4 / score_floor 0.05),
+# NOT raw logits. Provisional; finalized by scripts/calibrate.py sweep.
+_CITATION_MARGIN_DEFAULT = 0.35  # calibrated 2026-08-04 (sweep knee: P +88%, recall 0.783 ≥ 0.75 band)
+
+
+def select_citations(answer_text: str, contexts: list["Chunk"],
+                     scorer: "Reranker",
+                     margin: float = _CITATION_MARGIN_DEFAULT) -> list[str]:
+    """Context ids the answer rests on. Scores each context's answer-relevance
+    via `scorer.rerank(answer_text, contexts)` (sigmoid 0-1), keeps those within
+    `margin` of the top score, always keeps >=1 (the top) so a grounded answer
+    never emits zero citations. Ids returned in the contexts' original order."""
+    if not contexts:
+        return []
+    scored = scorer.rerank(answer_text, contexts)
+    if not scored:
+        return []
+    top = scored[0][1]
+    kept = [c for c, s in scored if s >= top - margin] or [scored[0][0]]
+    order = {c.id: i for i, c in enumerate(contexts)}
+    return sorted((c.id for c in kept), key=order.get)
+
+
+def citation_scorer_for(enabled: bool, reranker):
+    """The single enable/disable decision for B'. Returns `reranker` when the
+    filter is enabled, else None. Every pipeline builder (api.build_default_pipeline,
+    eval_json.py, derive_thresholds.py) routes through this so eval and production
+    can never disagree on whether selective citations are active."""
+    return reranker if enabled else None
+
+
 @dataclass
 class Answer:
     text: str
@@ -392,10 +423,19 @@ def answer_with_abstention(
     top_k: int = 5,
     judge: Judge | None = None,
     advisory: bool = False,
+    citation_scorer: "Reranker | None" = None,
+    citation_margin: float = _CITATION_MARGIN_DEFAULT,
 ) -> Answer:
     rerank_top = float(reranked[0][1]) if reranked else 0.0
     margin = rerank_top - (float(reranked[1][1]) if len(reranked) > 1 else 0.0)
-    contexts = [c for c, _ in reranked[:top_k]]
+    # Deduplicate by doc_id: keep highest-scoring chunk per document so
+    # top_k slots cover distinct sources instead of stacking duplicates.
+    seen: dict[str, tuple[Chunk, float]] = {}
+    for chunk, score in reranked:
+        prev = seen.get(chunk.doc_id)
+        if prev is None or score > prev[1]:
+            seen[chunk.doc_id] = (chunk, score)
+    contexts = [c for c, _ in sorted(seen.values(), key=lambda cs: -cs[1])][:top_k]
     conf: dict = {"rerank_top": round(rerank_top, 4), "margin": round(margin, 4),
                   "subject_sim": None}
 
@@ -433,9 +473,13 @@ def answer_with_abstention(
     if (subject_sim is not None and subject_sim >= _HIGH_SUBJECT_SIM
             and faith >= 1.0):
         certainty = "high"
+    if citation_scorer is not None:
+        citations = select_citations(text, contexts, citation_scorer, citation_margin)
+    else:
+        citations = [c.id for c in contexts]
     return Answer(
         text=text,
-        citations=[c.id for c in contexts],
+        citations=citations,
         abstained=False,
         faithfulness=faith,
         unsupported_citations=unsupported,

@@ -40,13 +40,12 @@ DEFAULT_GATE_PATH = ROOT / "eval" / "golden" / "gate_v7.json"
 # not a real regression (reranker nondeterminism, float drift).
 _FLOOR_CUSHION = 0.005
 
-# Which metrics gate. citation_precision is measured and reported but not
-# floored: it trades off against citation_recall, so flooring both pins the
-# retriever's operating point and blocks legitimate precision/recall
-# rebalancing that leaves overall quality unchanged.
-_GATED_METRICS = ("recall", "citation_recall", "abstention")
+# B' gates citation_precision alongside recall/recall_tradeoff/abstention.
+# The filter improves precision but lowers citation_recall; the gate now
+# protects both sides of that trade-off so a future regression is caught.
+_GATED_METRICS = ("recall", "citation_recall", "abstention", "citation_precision")
 _FLOOR_NAMES = {"recall": "recall_at_k", "citation_recall": "citation_recall",
-                "abstention": "abstention_accuracy"}
+                "abstention": "abstention_accuracy", "citation_precision": "citation_precision"}
 
 
 def derive_floors(per_query: dict[str, list[float]]) -> dict[str, float]:
@@ -70,7 +69,7 @@ def derive_floors(per_query: dict[str, list[float]]) -> dict[str, float]:
 def main() -> None:
     from sebi_rag.embeddings import BGEM3Embedder
     from sebi_rag.eval_harness import load_golden
-    from sebi_rag.generate import ExtractiveStubGenerator, SubjectSimJudge
+    from sebi_rag.generate import ExtractiveStubGenerator, SubjectSimJudge, citation_scorer_for
     from sebi_rag.lineage import build_lineage, load_records
     from sebi_rag.pipeline import RAGPipeline
     from sebi_rag.rerank import CrossEncoderReranker
@@ -101,7 +100,9 @@ def main() -> None:
     # the persisted index these floors are meant to describe.
     pipeline = RAGPipeline(
         retriever=retr, reranker=rer, generator=ExtractiveStubGenerator(),
-        abstain_threshold=s.abstain_threshold, lineage=lin, judge=judge)
+        abstain_threshold=s.abstain_threshold, lineage=lin, judge=judge,
+        citation_scorer=citation_scorer_for(s.citation_scorer_enabled, rer),
+        citation_margin=s.citation_margin)
 
     scored = [score_row(pipeline, item, s.top_k) for item in adjudicated]
     payload = {

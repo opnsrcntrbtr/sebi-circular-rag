@@ -22,6 +22,11 @@ for k, v in {
 }.items():
     os.environ.setdefault(k, v)
 
+from sebi_rag.autoresearch.trecio import (  # noqa: E402
+    write_docids,
+    write_run_chunk,
+    write_run_doc,
+)
 from sebi_rag.benchmark import (  # noqa: E402
     run_metadata,
     run_retrieval_benchmark,
@@ -93,9 +98,12 @@ def main() -> None:
     else:
         golden = load_golden(args.golden)
         issues = validate_golden(golden)
-        if issues:
-            for issue in issues:
-                print(f"{issue.item_id}: {issue.message}", file=sys.stderr)
+        for issue in issues:
+            level = getattr(issue, "severity", "error").upper()
+            print(f"{level} {issue.item_id}: {issue.message}", file=sys.stderr)
+        # Warnings are handled conditions (unjudged rows are excluded from the
+        # metric, not scored 0); only corruption blocks measurement.
+        if any(getattr(i, "severity", "error") == "error" for i in issues):
             raise SystemExit(1)
         from sebi_rag.api import _compute_kwargs
         from sebi_rag.settings import Settings
@@ -173,6 +181,11 @@ def main() -> None:
         pipeline, golden, top_n=args.top_n, run_name="baseline-retrieval"
     )
     write_trec_run(out / "run.trec", "baseline-retrieval", result["rankings"])
+    # Valid 6-field TREC alongside the legacy file, which embeds headings in the
+    # doc id and cannot be read by trec_eval / ir_measures.
+    write_run_chunk(out / "run.chunk.trec", "baseline-retrieval", result["rankings"])
+    write_run_doc(out / "run.doc.trec", "baseline-retrieval", result["rankings"])
+    write_docids(out / "docids.tsv", result["rankings"])
     result_no_rankings = {k: v for k, v in result.items() if k != "rankings"}
     meta = run_metadata(
         root=ROOT,

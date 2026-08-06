@@ -25,9 +25,27 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+from sebi_rag.autoresearch.epoch import (  # noqa: E402
+    Frame,
+    assert_comparable,
+    frame_of,
+    load_epoch_registry,
+)
 from sebi_rag.benchmark import per_query_recall, read_trec_run  # noqa: E402
 from sebi_rag.eval_harness import load_golden  # noqa: E402
 from sebi_rag.stats import bootstrap_ci, paired_delta  # noqa: E402
+
+EPOCHS = load_epoch_registry(ROOT / "eval" / "epochs" / "epochs.jsonl")
+
+
+def guard_pair(a: Frame | None, b: Frame | None, label_a: str, label_b: str) -> None:
+    """Refuse any paired comparison that spans two frames.
+
+    The archive covers four corpora and three eval sets. Each declared A/B pair
+    is internally clean, but nothing previously stopped a cross-frame pair from
+    being reported as a number.
+    """
+    assert_comparable(a, b, label_a=label_a, label_b=label_b)
 
 GOLDEN = ROOT / "eval" / "golden" / "golden_v6.jsonl"
 PROBES = ROOT / "eval" / "probes" / "probes_v1.jsonl"
@@ -79,6 +97,10 @@ def score_run(run_dir: Path, golden: list[dict]) -> dict | None:
         "golden_sha256": meta.get("golden_sha256", ""),
         "git_commit": meta.get("git_commit", ""),
         "params": meta.get("params", {}),
+        # `frame` is the JSON-safe rendering; `_frame` is the Frame object the
+        # guard compares. Frame is a frozen dataclass and is not serializable.
+        "frame": (lambda f: str(f) if f else None)(frame_of({"metadata": meta}, EPOCHS)),
+        "_frame": frame_of({"metadata": meta}, EPOCHS),
         "_scores": scores,
     }
 
@@ -111,6 +133,7 @@ def main() -> None:
             a, b = scored.get(control), scored.get(treatment)
             if not (a and b):
                 continue
+            guard_pair(a["_frame"], b["_frame"], control, treatment)
             r = paired_delta(a["_scores"], b["_scores"],
                              n_resamples=args.resamples, seed=args.seed)
             pairs.append({
@@ -125,7 +148,7 @@ def main() -> None:
                 "same_index": a["index_fingerprint"] == b["index_fingerprint"],
             })
         report["suites"][suite] = {
-            "runs": [{k: v for k, v in r.items() if k != "_scores"}
+            "runs": [{k: v for k, v in r.items() if not k.startswith("_")}
                      for r in scored.values()],
             "pairs": pairs,
         }
@@ -145,13 +168,14 @@ def main() -> None:
     ]
     for suite, block in report["suites"].items():
         lines += [f"## {suite}", "",
-                  "| run | n | recall@10 | 95% CI | replay == archive |",
-                  "|---|---|---|---|---|"]
+                  "| run | frame | n | recall@10 | 95% CI | replay == archive |",
+                  "|---|---|---|---|---|---|"]
         for r in block["runs"]:
             match = {None: "n/a (no results.json)", True: "yes",
                      False: "**NO**"}[r["replay_matches_archive"]]
             lines.append(
-                f"| {r['run']} | {r['n']} | {_fmt(r['recall_at_10'])} | "
+                f"| {r['run']} | {r['frame'] or '—'} | {r['n']} | "
+                f"{_fmt(r['recall_at_10'])} | "
                 f"{_fmt(r['ci_lo'])}–{_fmt(r['ci_hi'])} | {match} |"
             )
         lines += ["", "### Paired comparisons", "",
@@ -166,6 +190,20 @@ def main() -> None:
                 f"{p['p_value']:.3f} | {p['queries_changed']} | {verdict} |"
             )
         lines.append("")
+
+    lines += [
+        "## Appendix — cross-frame figures are NOT COMPARABLE",
+        "",
+        "A *frame* is the pair (corpus snapshot, eval set); two runs are "
+        "comparable only within one frame. This archive spans four corpora "
+        "(E1–E4) and three eval sets. Every A/B pair above is internally "
+        "valid — control and treatment always shared a frame — but runs from "
+        "different frames cannot be ranked against one another, and no "
+        "intervention here was measured on the current corpus (`5f626dd9`) "
+        "or on golden_v7. `rescore_runs.py` now raises rather than emitting a "
+        "cross-frame comparison.",
+        "",
+    ]
 
     alpha = 0.05
     mde = next(d for d in range(1, 64) if 2 * 0.5 ** d < alpha)
