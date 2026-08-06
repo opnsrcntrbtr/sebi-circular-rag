@@ -5,7 +5,7 @@ PORT ?= 8000
 MAX  ?= 25
 MAX_MASTER ?= 200
 
-.PHONY: help test annotate index reindex calibrate bench-rerank bench-retrieval rescore benchmark-export export-datasets eval-asof serve scrape ops scrape-master verify-master scrape-regs reg-edges audit-regs measure phoenix
+.PHONY: help test annotate index reindex calibrate bench-rerank bench-retrieval rescore trec-parity qrels benchmark-export export-datasets eval-asof serve scrape ops scrape-master verify-master scrape-regs reg-edges audit-regs measure phoenix
 
 help:
 	@echo "test       run offline test suite"
@@ -58,6 +58,10 @@ bench-retrieval:
 
 rescore:
 	$(ENV) $(PY) scripts/rescore_runs.py
+
+trec-parity:
+	uv pip install -e '.[eval]'
+	$(ENV) $(PY) -m pytest tests/test_trec_parity.py -v
 
 benchmark-export:
 	$(ENV) $(PY) scripts/build_golden_v6.py
