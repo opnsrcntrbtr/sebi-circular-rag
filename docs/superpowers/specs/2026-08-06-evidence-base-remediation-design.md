@@ -60,18 +60,20 @@ def chunk_docid(chunk_id: str) -> str:
 
 ### 3.4 Legacy conversion
 
-Legacy lines have fixed head and tail with a variable-width middle:
+**The recovery logic already exists.** `benchmark.read_trec_run` (`src/sebi_rag/benchmark.py:395`) implements exactly this, and its docstring already documents the defect: *"the archived runfiles are NOT valid TREC and trec_eval cannot read them."* It is covered by `tests/test_rescore.py::TestReadTrecRun::test_recovers_doc_ids_containing_spaces`.
 
 ```
-fields[0]   = qid
-fields[1]   = "Q0"
-fields[2:-3] = chunk_id fragments (rejoin with " ")
-fields[-3:] = rank, score, tag
+parts[0]     = qid
+parts[1]     = "Q0"
+parts[2:-3]  = chunk_id fragments (rejoined with " ")
+parts[-3:]   = rank, score, tag
 ```
 
-`scripts/autoresearch/convert_legacy_runs.py` back-converts all 31 run directories in place, writing the three new artifacts alongside the original `run.trec`. The original file is retained unmodified — it is the historical record.
+So D1 is a *known, documented, already-parsed* defect — what is missing is emitting a standards-compliant artifact, not the ability to read the old one. `scripts/autoresearch/convert_legacy_runs.py` is a thin driver over the existing reader: `read_trec_run` → `write_run_chunk` / `write_run_doc` / `write_docids`, for each of the 31 run directories. The original `run.trec` is retained unmodified as the historical record.
 
-**Precondition test:** conversion is only valid while `qid` and `tag` contain no whitespace. The converter asserts this per line and aborts the file on violation rather than writing a corrupt result.
+**Precondition:** recovery is valid only while `qid` and `tag` contain no whitespace. `read_trec_run` already raises `ValueError` on lines with fewer than 6 fields; the converter additionally asserts the whitespace precondition per line and aborts that file rather than writing a corrupt result.
+
+**Naming caution:** `benchmark.write_qrels` (`:375`) already exists but emits **BEIR-style TSV** with a `query-id\tcorpus-id\tscore` header, consumed by `export_benchmark`. It is not TREC qrels format. §4's writer is a separate function and must not shadow or replace it.
 
 ## 4. A2 — qrels emission
 
@@ -174,20 +176,48 @@ Scope: `golden_v7` answerable rows, **n=219** (260 total − 41 abstain), versus
 
 ## 8. A6 — Label provenance stratification
 
-Add `label_source` to each `golden_v7.jsonl` row:
+### 8.1 What already exists
 
-| Value | Meaning |
+`label_source` is **already present on all 260 rows**, but as free-text prose with 14 distinct values, and `review_status` is `adjudicated` for all 260 (zero information). Observed distribution:
+
+| Existing `label_source` | n |
 |---|---|
-| `human` | Labelled in `packet_human/`, no model input |
+| `claude (draft adjudication)` | 95 |
+| `v7-draft-2026-07` | 82 |
+| `claude (abstain validation)` | 26 |
+| `golden_v5` | 20 |
+| `golden_v5 (promoted golden_v5)` | 13 |
+| `claude (arbitration resolved: title_direct \| body_paraphrase)` | 14 |
+| `corrected: actually SEBI {SAST,LODR,FVCI,IPEF,—} topic` | 7 |
+| `external-flip` | 2 |
+| `claude (qwen failed to find governing)` | 1 |
+
+The genuinely human-labelled subset is approximately 7–9 rows. Where the 30 human labels from the `packet_human/` ingest landed is not recoverable from this field and is a question for the audit (§8.2).
+
+### 8.2 Audit before classification
+
+A read-only audit script reports, for each of the 14 values, how many rows each annotation artifact (`votes.jsonl`, `gemini/`, `qwen/`, `packet_human/`, `arbitration_queue.jsonl`) can account for. Classification rules are written against the audit's findings, not assumed.
+
+### 8.3 Controlled vocabulary
+
+A **new** field `label_tier` is added; free-text `label_source` is preserved unchanged as the provenance trail.
+
+| `label_tier` | Meaning |
+|---|---|
+| `human` | Human-authored label or correction, no model input |
 | `arbitrated` | Model disagreement resolved through `arbitration_queue.jsonl` |
-| `model_consensus` | Multiple model annotators agreed, no human review |
-| `single_model` | One model annotator, no corroboration |
+| `model_single` | One model annotator, no corroboration |
+| `inherited_v5` | Carried from golden_v5; provenance not recorded at the time |
+| `draft_seeded` | Seeded draft row (`v7-draft-2026-07`) |
+| `unknown` | Audit could not account for the row |
 
 `golden_v7.jsonl` is the eval set, **not** `CircularMeta` — no chunk payload, no index mutation, constraint in `.claude/rules/circular-meta.md` respected.
 
-Derived from existing artifacts (`votes.jsonl`, `gemini/`, `qwen/`, `packet_human/`, `arbitration_queue.jsonl`) by a one-time script; `agreement.py` gains a `--by-provenance` mode reporting κ and AC1 between human and model labels on the overlap.
+### 8.4 Reporting rule
 
-Reporting rule: metrics are reported on the `human` ∪ `arbitrated` subset as **primary**, and on all n=260 as **secondary**. The κ/AC1 overlap statistic is what licenses reading the secondary number at all.
+**Tiered reporting with no designated primary set.** Every metric is reported broken down by `label_tier` with its `n`, alongside the pooled n=260 figure. No tier is promoted to headline.
+
+Designating the human tier as primary is rejected on the evidence: at n≈9 it has no power, which is the exact defect this programme exists to remove. Publications state plainly that human-only labelling is n≈9 and make no headline claim from it. `agreement.py` gains a `--by-tier` mode reporting κ and AC1 across tiers wherever two tiers overlap on the same rows.
 
 ## 9. Components
 
@@ -241,5 +271,7 @@ TDD. All offline, no network, no model weights, inside `make test`:
 4. `eval/epochs/epochs.jsonl` lists E1–E4 with run assignments.
 5. `rescore_runs.py` raises on cross-frame comparison; a regression test proves it.
 6. Frame E4/golden_v7 has a baseline plus the five re-run interventions, with `ci_rescore.md` regenerated at n=219.
-7. Every `golden_v7` row carries `label_source`; `agreement.py --by-provenance` reports κ and AC1.
+7. Every `golden_v7` row carries `label_tier` from the controlled vocabulary; free-text `label_source` is unchanged; `agreement.py --by-tier` reports κ and AC1; the audit report records tier counts.
 8. `make test` still passes at ≥667.
+
+> **Scope note (2026-08-06):** §7 in this plan's execution covers the E4 **baseline only**. The five intervention re-runs (iv2, iv8, iv9, iv10, iv11) are deferred to a follow-up plan, because they are long-running measurement jobs with no code deliverable and iv9/iv11 may require rebuilding stale sidecars.

@@ -88,11 +88,11 @@ The converse does not hold. `reach ≥ 6` does not establish power — it only m
 
 ## 6. Power module
 
-`src/sebi_rag/autoresearch/power.py` — **numpy and stdlib only**. `scipy` is absent from the environment and is not added; the required tests are elementary.
+`src/sebi_rag/autoresearch/power.py`. `scipy` 1.18.0 and `numpy` 2.5.1 are both present (`pyproject.toml:14-15`), so `scipy.stats` is available for the exact tests and normal quantiles. No new dependency is required.
 
 | Function | Method |
 |---|---|
-| `mcnemar_exact(b, c)` | Two-sided binomial test at p=0.5 via `math.comb`; no approximation |
+| `mcnemar_exact(b, c)` | Two-sided exact binomial at p=0.5 via `scipy.stats.binomtest(b, b + c, 0.5)`; never the chi-square approximation, which is invalid at the small discordance counts this loop operates in |
 | `min_discordant_for_significance(alpha=0.05)` | Smallest `n_d` with `2·0.5^n_d ≤ alpha` → 6 at α=0.05 |
 | `paired_bootstrap_ci(deltas, resamples=10000, seed=0)` | Percentile CI; matches `rescore_runs.py` conventions |
 | `mde_continuous(sd_diff, n, alpha=0.05, power=0.80)` | `(z_{1-α/2} + z_{power}) · sd_diff / √n`, constant 2.80 |
