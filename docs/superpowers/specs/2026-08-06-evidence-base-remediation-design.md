@@ -34,19 +34,32 @@ SEBI/HO/CFD/CFD-PoD-1/P/CIR/2023/123#preamble#0
 SEBI/HO/CFD/CFD-PoD-1/P/CIR/2023/123#1. SEBI vide circular no. CIR/CFD/CMD/4/2015 dated September#1
 ```
 
-`circular_id` contains `/` but no whitespace and no `#`. `heading_text` contains whitespace. `ordinal` is an integer.
+`circular_id` contains `/` and no `#`. `heading_text` contains whitespace. `ordinal` is an integer.
+
+**Correction (2026-08-06, found by the Task 1 injectivity gate):** this spec originally asserted that `circular_id` never contains whitespace. That is false. Measured over the real corpus: **3 of 724 circulars** carry a literal space — `SEBI/IMD/MC No.3/10554/2012`, `SEBI/IMD/MC No.1/189241/2010`, `SEBI/IMD/MC No.2/836/2011` — affecting 506 of 78,523 chunks. No circular id contains `%`, so percent-encoding is unambiguous and reversible.
 
 ### 3.2 Derived docid
 
 ```python
+def circular_docid(circular_id: str) -> str:
+    """Percent-encode whitespace so a circular id is one TREC field."""
+    if "%" in circular_id:
+        raise MalformedChunkId(...)          # would make decoding ambiguous
+    return "".join(f"%{ord(c):02X}" if c.isspace() else c for c in circular_id)
+
+
 def chunk_docid(chunk_id: str) -> str:
     """Whitespace-free, collision-free TREC docid."""
-    circular = chunk_id.split("#", 1)[0]
+    if "#" not in chunk_id:
+        return circular_docid(chunk_id)
+    circular = circular_docid(chunk_id.split("#", 1)[0])
     ordinal = chunk_id.rsplit("#", 1)[1]
     return f"{circular}#{ordinal}"
 ```
 
-`(circular, ordinal)` is unique per chunk, so the mapping is injective. Reversibility is preserved by a sidecar rather than by encoding.
+`(circular, ordinal)` is unique per chunk: verified over all 78,523 chunks — 78,523 distinct docids, zero collisions, zero whitespace. Heading reversibility is preserved by the `docids.tsv` sidecar; whitespace reversibility by the encoding.
+
+**`circular_docid` must be applied identically to runs and qrels.** `write_run_doc` and `write_trec_qrels` both emit bare circular ids as doc ids; if one encodes and the other does not, every affected query silently scores zero rather than failing.
 
 ### 3.3 Emitted artifacts per run
 
