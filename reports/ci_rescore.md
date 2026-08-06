@@ -4,20 +4,20 @@ Replayed from frozen TREC runfiles in `eval/runs`; 10,000 resamples, seed 0, 95%
 
 ## golden
 
-| run | n | recall@10 | 95% CI | replay == archive |
-|---|---|---|---|---|
-| ft-golden | 45 | 95.6 | 88.9–100.0 | yes |
-| iv-final-golden | 45 | 95.6 | 88.9–100.0 | yes |
-| iv10-a-golden | 45 | 95.6 | 88.9–100.0 | yes |
-| iv10-b-golden | 45 | 95.6 | 88.9–100.0 | yes |
-| iv11-a-golden | 45 | 95.6 | 88.9–100.0 | yes |
-| iv11-b-golden | 45 | 95.6 | 88.9–100.0 | yes |
-| iv11-splade-only-golden | 45 | 86.7 | 75.6–95.6 | n/a (no results.json) |
-| iv2-golden | 45 | 97.8 | 93.3–100.0 | yes |
-| iv6-golden | 45 | 95.6 | 88.9–100.0 | yes |
-| iv7-golden | 45 | 95.6 | 88.9–100.0 | yes |
-| iv8-golden | 45 | 95.6 | 88.9–100.0 | yes |
-| iv9-golden | 45 | 93.3 | 84.4–100.0 | yes |
+| run | frame | n | recall@10 | 95% CI | replay == archive |
+|---|---|---|---|---|---|
+| ft-golden | E1/f01d8779 | 45 | 95.6 | 88.9–100.0 | yes |
+| iv-final-golden | E2/f01d8779 | 45 | 95.6 | 88.9–100.0 | yes |
+| iv10-a-golden | E2/f01d8779 | 45 | 95.6 | 88.9–100.0 | yes |
+| iv10-b-golden | E2/f01d8779 | 45 | 95.6 | 88.9–100.0 | yes |
+| iv11-a-golden | E2/f01d8779 | 45 | 95.6 | 88.9–100.0 | yes |
+| iv11-b-golden | E2/f01d8779 | 45 | 95.6 | 88.9–100.0 | yes |
+| iv11-splade-only-golden | — | 45 | 86.7 | 75.6–95.6 | n/a (no results.json) |
+| iv2-golden | E1/f01d8779 | 45 | 97.8 | 93.3–100.0 | yes |
+| iv6-golden | E2/f01d8779 | 45 | 95.6 | 88.9–100.0 | yes |
+| iv7-golden | E2/f01d8779 | 45 | 95.6 | 88.9–100.0 | yes |
+| iv8-golden | E2/f01d8779 | 45 | 95.6 | 88.9–100.0 | yes |
+| iv9-golden | E2/f01d8779 | 45 | 93.3 | 84.4–100.0 | yes |
 
 ### Paired comparisons
 
@@ -31,20 +31,20 @@ Replayed from frozen TREC runfiles in `eval/runs`; 10,000 resamples, seed 0, 95%
 
 ## probes
 
-| run | n | recall@10 | 95% CI | replay == archive |
-|---|---|---|---|---|
-| ft-probes | 25 | 96.0 | 88.0–100.0 | yes |
-| iv-final-probes | 25 | 100.0 | 100.0–100.0 | yes |
-| iv10-a-probes | 25 | 100.0 | 100.0–100.0 | yes |
-| iv10-b-probes | 25 | 100.0 | 100.0–100.0 | yes |
-| iv11-a-probes | 25 | 100.0 | 100.0–100.0 | yes |
-| iv11-b-probes | 25 | 96.0 | 88.0–100.0 | yes |
-| iv11-splade-only-probes | 25 | 96.0 | 88.0–100.0 | n/a (no results.json) |
-| iv2-probes | 25 | 100.0 | 100.0–100.0 | yes |
-| iv6-probes | 25 | 100.0 | 100.0–100.0 | yes |
-| iv7-probes | 25 | 100.0 | 100.0–100.0 | yes |
-| iv8-probes | 25 | 100.0 | 100.0–100.0 | yes |
-| iv9-probes | 25 | 96.0 | 88.0–100.0 | yes |
+| run | frame | n | recall@10 | 95% CI | replay == archive |
+|---|---|---|---|---|---|
+| ft-probes | E1/99a9da66 | 25 | 96.0 | 88.0–100.0 | yes |
+| iv-final-probes | E2/99a9da66 | 25 | 100.0 | 100.0–100.0 | yes |
+| iv10-a-probes | E2/99a9da66 | 25 | 100.0 | 100.0–100.0 | yes |
+| iv10-b-probes | E2/99a9da66 | 25 | 100.0 | 100.0–100.0 | yes |
+| iv11-a-probes | E2/99a9da66 | 25 | 100.0 | 100.0–100.0 | yes |
+| iv11-b-probes | E2/99a9da66 | 25 | 96.0 | 88.0–100.0 | yes |
+| iv11-splade-only-probes | — | 25 | 96.0 | 88.0–100.0 | n/a (no results.json) |
+| iv2-probes | E1/99a9da66 | 25 | 100.0 | 100.0–100.0 | yes |
+| iv6-probes | E2/99a9da66 | 25 | 100.0 | 100.0–100.0 | yes |
+| iv7-probes | E2/99a9da66 | 25 | 100.0 | 100.0–100.0 | yes |
+| iv8-probes | E2/99a9da66 | 25 | 100.0 | 100.0–100.0 | yes |
+| iv9-probes | E2/99a9da66 | 25 | 96.0 | 88.0–100.0 | yes |
 
 ### Paired comparisons
 
@@ -55,6 +55,10 @@ Replayed from frozen TREC runfiles in `eval/runs`; 10,000 resamples, seed 0, 95%
 | iv9 contextual headers (full corpus) | 25 | 100.0 | 96.0 | -4.0 | -12.0–+0.0 | 1.000 | 1 | not distinguishable |
 | iv10 targeted headers (scoped sidecar) | 25 | 100.0 | 100.0 | +0.0 | +0.0–+0.0 | 1.000 | 0 | not distinguishable |
 | iv11 SPLADE learned-sparse third leg | 25 | 100.0 | 96.0 | -4.0 | -12.0–+0.0 | 1.000 | 1 | not distinguishable |
+
+## Appendix — cross-frame figures are NOT COMPARABLE
+
+A *frame* is the pair (corpus snapshot, eval set); two runs are comparable only within one frame. This archive spans four corpora (E1–E4) and three eval sets. Every A/B pair above is internally valid — control and treatment always shared a frame — but runs from different frames cannot be ranked against one another, and no intervention here was measured on the current corpus (`5f626dd9`) or on golden_v7. `rescore_runs.py` now raises rather than emitting a cross-frame comparison.
 
 ## Reading this table
 
