@@ -5,6 +5,9 @@ from sebi_rag.autoresearch.trecio import (
     MalformedChunkId,
     chunk_docid,
     circular_docid,
+    write_docids,
+    write_run_chunk,
+    write_run_doc,
 )
 
 
@@ -53,3 +56,68 @@ def test_encoding_is_applied_to_bare_circular_ids_too():
 def test_percent_in_circular_id_raises_rather_than_encoding_ambiguously():
     with pytest.raises(MalformedChunkId, match="ambiguous"):
         circular_docid("SEBI/HO/100%/2023/1")
+
+
+# -- run writers ---------------------------------------------------------
+
+RANKINGS = {
+    "q1": [
+        ("SEBI/A/2023/1#preamble#0", 0.90),
+        ("SEBI/B/2023/2#2. Some heading here#5", 0.80),
+        ("SEBI/A/2023/1#3. Another heading#7", 0.70),
+    ],
+    "q2": [("SEBI/C/2023/3#intro#0", 0.60)],
+}
+
+
+def test_run_chunk_lines_have_exactly_six_fields(tmp_path):
+    p = tmp_path / "run.chunk.trec"
+    write_run_chunk(p, "unit-test", RANKINGS)
+    lines = p.read_text().splitlines()
+    assert len(lines) == 4
+    for line in lines:
+        assert len(line.split()) == 6, line
+
+
+def test_run_chunk_preserves_rank_order_and_tag(tmp_path):
+    p = tmp_path / "run.chunk.trec"
+    write_run_chunk(p, "unit-test", RANKINGS)
+    first = p.read_text().splitlines()[0].split()
+    assert first[0] == "q1"
+    assert first[1] == "Q0"
+    assert first[2] == "SEBI/A/2023/1#0"
+    assert first[3] == "1"
+    assert first[5] == "unit-test"
+
+
+def test_run_doc_dedupes_to_best_rank(tmp_path):
+    p = tmp_path / "run.doc.trec"
+    write_run_doc(p, "unit-test", RANKINGS)
+    lines = [line.split() for line in p.read_text().splitlines()]
+    q1 = [line for line in lines if line[0] == "q1"]
+    # SEBI/A/2023/1 appears at chunk ranks 1 and 3; it must appear once, at rank 1.
+    assert [line[2] for line in q1] == ["SEBI/A/2023/1", "SEBI/B/2023/2"]
+    assert [line[3] for line in q1] == ["1", "2"]
+
+
+def test_run_doc_lines_have_exactly_six_fields(tmp_path):
+    p = tmp_path / "run.doc.trec"
+    write_run_doc(p, "unit-test", RANKINGS)
+    for line in p.read_text().splitlines():
+        assert len(line.split()) == 6, line
+
+
+def test_run_doc_encodes_space_bearing_circulars(tmp_path):
+    p = tmp_path / "run.doc.trec"
+    write_run_doc(p, "unit-test", {"q1": [("SEBI/IMD/MC No.3/10554/2012#h#0", 0.5)]})
+    line = p.read_text().splitlines()[0].split()
+    assert len(line) == 6
+    assert line[2] == "SEBI/IMD/MC%20No.3/10554/2012"
+
+
+def test_docids_maps_docid_back_to_full_chunk_id(tmp_path):
+    p = tmp_path / "docids.tsv"
+    write_docids(p, RANKINGS)
+    rows = dict(line.split("\t") for line in p.read_text().splitlines())
+    assert rows["SEBI/B/2023/2#5"] == "SEBI/B/2023/2#2. Some heading here#5"
+    assert len(rows) == 4

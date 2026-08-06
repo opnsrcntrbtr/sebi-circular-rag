@@ -14,6 +14,12 @@ the pair silently scores zero instead of failing.
 """
 from __future__ import annotations
 
+from pathlib import Path
+
+from ..eval_harness import _doc
+
+Rankings = dict[str, list[tuple[str, float]]]
+
 
 class MalformedChunkId(ValueError):
     """Raised when an id cannot yield a whitespace-free TREC doc id."""
@@ -53,3 +59,49 @@ def chunk_docid(chunk_id: str) -> str:
             f"doc id still contains whitespace after encoding: {docid!r}"
         )
     return docid
+
+
+def _write_lines(path: str | Path, lines: list[str]) -> None:
+    p = Path(path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text("".join(lines), encoding="utf-8")
+
+
+def write_run_chunk(path: str | Path, run_name: str, rankings: Rankings) -> None:
+    """Valid 6-field TREC run at chunk granularity."""
+    lines = []
+    for qid, ranked in rankings.items():
+        for rank, (chunk_id, score) in enumerate(ranked, start=1):
+            lines.append(
+                f"{qid} Q0 {chunk_docid(chunk_id)} {rank} {score:.8f} {run_name}\n"
+            )
+    _write_lines(path, lines)
+
+
+def write_run_doc(path: str | Path, run_name: str, rankings: Rankings) -> None:
+    """Valid 6-field TREC run collapsed to circular level.
+
+    Keeps each circular once, at its best (lowest) chunk rank, carrying that
+    chunk's score. Ranks are renumbered 1..n so the file is well-formed.
+    Relevance judgments in golden_v7 are circular-level, so this — not the
+    chunk-level run — is what trec_eval should consume.
+    """
+    lines = []
+    for qid, ranked in rankings.items():
+        best: dict[str, float] = {}
+        for chunk_id, score in ranked:
+            circular = circular_docid(_doc(chunk_id))
+            if circular not in best:
+                best[circular] = score
+        for rank, (circular, score) in enumerate(best.items(), start=1):
+            lines.append(f"{qid} Q0 {circular} {rank} {score:.8f} {run_name}\n")
+    _write_lines(path, lines)
+
+
+def write_docids(path: str | Path, rankings: Rankings) -> None:
+    """Reverse map `docid -> full chunk id`, so nothing is lost."""
+    mapping: dict[str, str] = {}
+    for ranked in rankings.values():
+        for chunk_id, _ in ranked:
+            mapping[chunk_docid(chunk_id)] = chunk_id
+    _write_lines(path, [f"{d}\t{c}\n" for d, c in mapping.items()])
