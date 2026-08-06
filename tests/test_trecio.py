@@ -8,6 +8,7 @@ from sebi_rag.autoresearch.trecio import (
     write_docids,
     write_run_chunk,
     write_run_doc,
+    write_trec_qrels,
 )
 
 
@@ -121,3 +122,66 @@ def test_docids_maps_docid_back_to_full_chunk_id(tmp_path):
     rows = dict(line.split("\t") for line in p.read_text().splitlines())
     assert rows["SEBI/B/2023/2#5"] == "SEBI/B/2023/2#2. Some heading here#5"
     assert len(rows) == 4
+
+
+# -- qrels ---------------------------------------------------------------
+
+GOLDEN = [
+    {"id": "q1", "abstain": False, "relevant_circulars": ["SEBI/A/2023/1", "SEBI/B/2023/2"]},
+    {"id": "q2", "abstain": True, "relevant_circulars": []},
+    {"id": "q3", "abstain": False, "relevant_circulars": ["SEBI/C/2023/3"]},
+]
+
+
+def test_qrels_lines_are_four_space_separated_fields(tmp_path):
+    p = tmp_path / "e4.qrels"
+    write_trec_qrels(p, GOLDEN)
+    for line in p.read_text().splitlines():
+        parts = line.split()
+        assert len(parts) == 4, line
+        assert parts[1] == "0"
+        assert parts[3] == "1"
+
+
+def test_qrels_has_no_header(tmp_path):
+    p = tmp_path / "e4.qrels"
+    write_trec_qrels(p, GOLDEN)
+    assert p.read_text().splitlines()[0].split()[0] == "q1"
+
+
+def test_qrels_expands_relevant_circulars(tmp_path):
+    p = tmp_path / "e4.qrels"
+    n = write_trec_qrels(p, GOLDEN)
+    pairs = {(line.split()[0], line.split()[2]) for line in p.read_text().splitlines()}
+    assert pairs == {
+        ("q1", "SEBI/A/2023/1"),
+        ("q1", "SEBI/B/2023/2"),
+        ("q3", "SEBI/C/2023/3"),
+    }
+    assert n == 3
+
+
+def test_qrels_excludes_abstain_rows(tmp_path):
+    p = tmp_path / "e4.qrels"
+    write_trec_qrels(p, GOLDEN)
+    assert "q2" not in p.read_text()
+
+
+def test_qrels_raises_when_nothing_would_be_written(tmp_path):
+    with pytest.raises(ValueError, match="no qrels"):
+        write_trec_qrels(tmp_path / "empty.qrels", [{"id": "q9", "abstain": True}])
+
+
+def test_qrels_docids_match_run_doc_docids_exactly(tmp_path):
+    """The encoding must agree across runs and qrels.
+
+    If a run says `SEBI/IMD/MC%20No.3/...` and qrels say `SEBI/IMD/MC No.3/...`,
+    the query scores zero silently instead of failing loudly.
+    """
+    circ = "SEBI/IMD/MC No.3/10554/2012"
+    run_p, qrels_p = tmp_path / "run.doc.trec", tmp_path / "e4.qrels"
+    write_run_doc(run_p, "t", {"q1": [(f"{circ}#h#0", 0.5)]})
+    write_trec_qrels(qrels_p, [{"id": "q1", "abstain": False, "relevant_circulars": [circ]}])
+    run_docid = run_p.read_text().split()[2]
+    qrels_docid = qrels_p.read_text().split()[2]
+    assert run_docid == qrels_docid == "SEBI/IMD/MC%20No.3/10554/2012"

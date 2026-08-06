@@ -105,3 +105,29 @@ def write_docids(path: str | Path, rankings: Rankings) -> None:
         for chunk_id, _ in ranked:
             mapping[chunk_docid(chunk_id)] = chunk_id
     _write_lines(path, [f"{d}\t{c}\n" for d, c in mapping.items()])
+
+
+def write_trec_qrels(path: str | Path, golden: list[dict]) -> int:
+    """Write TREC qrels (`qid 0 docid rel`) at circular level.
+
+    Binary relevance: golden_v7 carries no graded judgments and none are
+    invented. Abstain rows contribute nothing, matching per_query_recall.
+    Doc ids go through `circular_docid` so they are byte-identical to what
+    `write_run_doc` emits. Returns the number of lines written.
+
+    Distinct from `benchmark.write_qrels`, which emits BEIR TSV with a header
+    for `export_benchmark`. Both formats are needed; neither replaces the other.
+    """
+    lines = []
+    for row in golden:
+        if row.get("abstain"):
+            continue
+        qid = row["id"]
+        for circular in row.get("relevant_circulars", []):
+            lines.append(f"{qid} 0 {circular_docid(circular)} 1\n")
+    if not lines:
+        raise ValueError(
+            f"no qrels to write for {path}: every row was abstain or empty"
+        )
+    _write_lines(path, lines)
+    return len(lines)
