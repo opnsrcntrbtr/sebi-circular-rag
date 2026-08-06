@@ -1,0 +1,7 @@
+{
+  "golden_path": "eval/golden/golden_v7.jsonl",
+  "golden_sha256": "d87e5f3ac29a54dc2464f164f8261619cc655d6c2584831f8ce501608a59520a",
+  "rows": 260,
+  "abstain_excluded": 41,
+  "qrels_lines": 239
+}

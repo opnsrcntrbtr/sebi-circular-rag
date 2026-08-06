@@ -12,6 +12,11 @@
 | **Reporting set** | `eval/golden/golden_v7.jsonl` (n=260); **adjudicated_n = 260** |
 | **Gate** | `gate_v7.json` armed **under B' selective citations** (margin 0.35, 2026-08-04): recall_at_k **0.943**, citation_recall **0.783** (floor 0.7233), abstention_accuracy **0.962**, citation_precision **0.224** (floor 0.1896). Gate now requires B' ON to pass (`config.toml citation_scorer_enabled=true`) |
 | **Frozen sets** | `golden_v5` (n=56), `golden_v6` (n=56) |
+| **Epochs** | E1 `4083518f` (4 runs), E2 `913e762c` (20), E3 `8971de0f` (1), E4 `5f626dd9` (2, **current**). Registry `eval/epochs/epochs.jsonl`; 4 unframed runs excluded (ft-traces, iv11-splade-only-*, pool-sweep). `rescore_runs.py` raises `IncomparableFramesError` on cross-frame pairs |
+| **Frame E4/golden_v7** | baseline `eval/runs/E4-baseline-golden` — **recall_at_10 0.9560**, n_scored 216, n_unjudged 3, latency 0.063 s. qrels `eval/qrels/golden_v7.qrels` (239 lines, 41 abstain excluded), `golden_sha256 d87e5f3a…`. Interventions iv2/iv8/iv9/iv10/iv11 **NOT yet re-run on E4** |
+| **TREC artifacts** | 26 archived runs back-converted to valid 6-field TREC (`run.chunk.trec`, `run.doc.trec`, `docids.tsv`); original `run.trec` retained. Circular ids percent-encode whitespace (3 of 724 are `SEBI/IMD/MC No.N/…`). `make trec-parity` proves `recall@10`/`RR`/`nDCG@10` match `ir_measures` to 1e-9 |
+| **Unjudged rows** | `v7-ls-038/039/040` — answerable, no `relevant_circulars`. Excluded from retrieval metrics as unjudged (TREC convention), not scored 0; `validate_golden` reports them `severity=warning`. Pre-existing, from the abstain-validation flip |
+| **Label tiers** | human 38, arbitrated 13, model_single 114, inherited_v5 30, draft_seeded 65, unknown 0. `label_tier` added; free-text `label_source` preserved. Tiered reporting, **no designated primary set** (`agreement.py --by-tier`) |
 | **v7 strata** | title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10 |
 | **Abstain/as_of rows** | 41 abstain, 15 dated `as_of` |
 | **Draft rows** | 0 draft, 0 seeded |

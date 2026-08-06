@@ -98,9 +98,12 @@ def main() -> None:
     else:
         golden = load_golden(args.golden)
         issues = validate_golden(golden)
-        if issues:
-            for issue in issues:
-                print(f"{issue.item_id}: {issue.message}", file=sys.stderr)
+        for issue in issues:
+            level = getattr(issue, "severity", "error").upper()
+            print(f"{level} {issue.item_id}: {issue.message}", file=sys.stderr)
+        # Warnings are handled conditions (unjudged rows are excluded from the
+        # metric, not scored 0); only corruption blocks measurement.
+        if any(getattr(i, "severity", "error") == "error" for i in issues):
             raise SystemExit(1)
         from sebi_rag.api import _compute_kwargs
         from sebi_rag.settings import Settings

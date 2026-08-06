@@ -63,6 +63,9 @@ trec-parity:
 	uv pip install -e '.[eval]'
 	$(ENV) $(PY) -m pytest tests/test_trec_parity.py -v
 
+qrels:
+	$(ENV) $(PY) scripts/autoresearch/emit_qrels.py
+
 benchmark-export:
 	$(ENV) $(PY) scripts/build_golden_v6.py
 	$(ENV) $(PY) scripts/export_benchmark.py

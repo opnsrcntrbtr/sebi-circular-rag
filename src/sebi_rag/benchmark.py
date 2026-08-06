@@ -41,6 +41,10 @@ REVIEW_STATUSES = {"seeded", "draft", "reviewed", "adjudicated"}
 class BenchmarkIssue:
     item_id: str
     message: str
+    # "error" is corruption a caller must refuse to measure through; "warning"
+    # is a handled condition worth reporting (an answerable row with no
+    # judgments is excluded from the metric, not scored 0).
+    severity: str = "error"
 
 
 def sha256_file(path: str | Path) -> str:
@@ -187,7 +191,15 @@ def validate_golden(rows: list[dict[str, Any]]) -> list[BenchmarkIssue]:
         if row.get("abstain") and relevant:
             issues.append(BenchmarkIssue(item_id, "abstain item has relevant_circulars"))
         if not row.get("abstain") and not relevant:
-            issues.append(BenchmarkIssue(item_id, "answerable item has no relevant_circulars"))
+            # Handled, not corrupt: `per_query_recall` and
+            # `run_retrieval_benchmark` exclude unjudged rows from the mean
+            # rather than scoring them 0, the way TREC treats unjudged queries.
+            issues.append(BenchmarkIssue(
+                item_id,
+                "answerable item has no relevant_circulars (excluded from "
+                "retrieval metrics as unjudged)",
+                severity="warning",
+            ))
         if row.get("task_type") not in TASK_TYPES:
             issues.append(BenchmarkIssue(item_id, f"invalid task_type: {row.get('task_type')}"))
         if row.get("difficulty") not in DIFFICULTIES:
@@ -440,10 +452,15 @@ def per_query_recall(
         ranked = rankings.get(qid)
         if ranked is None:
             continue
-        docs = _unique(_doc(doc_id) for doc_id, _ in ranked)
         relevant = set(item.get("relevant_circulars", []))
+        if not relevant:
+            # Answerable but unjudged: no judgments exist, so no system can
+            # score above 0 and scoring it 0 understates every run. TREC
+            # excludes unjudged queries from the measure; so do we.
+            continue
+        docs = _unique(_doc(doc_id) for doc_id, _ in ranked)
         hit = len(set(docs[:k]) & relevant)
-        scores[qid] = hit / len(relevant) if relevant else 0.0
+        scores[qid] = hit / len(relevant)
     return scores
 
 
@@ -471,20 +488,29 @@ def run_retrieval_benchmark(
     rankings: dict[str, list[tuple[str, float]]] = {}
     recall10: list[float] = []
     latencies: list[float] = []
+    unjudged: list[str] = []
     for item in golden:
         t0 = time.time()
         retrieved = pipeline.retriever.retrieve(item["query"], top_n=top_n)
         latencies.append(time.time() - t0)
         rankings[item["id"]] = [(c.id, float(score)) for c, score in retrieved]
         if not item.get("abstain"):
-            docs = _unique(_doc(c.id) for c, _ in retrieved)
             relevant = set(item.get("relevant_circulars", []))
+            if not relevant:
+                # Answerable but unjudged — excluded from the mean rather than
+                # scored 0, matching per_query_recall and TREC convention.
+                unjudged.append(item["id"])
+                continue
+            docs = _unique(_doc(c.id) for c, _ in retrieved)
             hit = len(set(docs[:10]) & relevant)
-            recall10.append(hit / len(relevant) if relevant else 0.0)
+            recall10.append(hit / len(relevant))
     mean = lambda xs: sum(xs) / len(xs) if xs else 0.0
     return {
         "run_name": run_name,
         "n": len(golden),
+        "n_scored": len(recall10),
+        "n_unjudged": len(unjudged),
+        "unjudged_ids": unjudged,
         "recall_at_10": mean(recall10),
         "avg_retrieval_latency_s": mean(latencies),
         "rankings": rankings,
