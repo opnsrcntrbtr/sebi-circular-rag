@@ -22,6 +22,11 @@ for k, v in {
 }.items():
     os.environ.setdefault(k, v)
 
+from sebi_rag.autoresearch.trecio import (  # noqa: E402
+    write_docids,
+    write_run_chunk,
+    write_run_doc,
+)
 from sebi_rag.benchmark import (  # noqa: E402
     run_metadata,
     run_retrieval_benchmark,
@@ -173,6 +178,11 @@ def main() -> None:
         pipeline, golden, top_n=args.top_n, run_name="baseline-retrieval"
     )
     write_trec_run(out / "run.trec", "baseline-retrieval", result["rankings"])
+    # Valid 6-field TREC alongside the legacy file, which embeds headings in the
+    # doc id and cannot be read by trec_eval / ir_measures.
+    write_run_chunk(out / "run.chunk.trec", "baseline-retrieval", result["rankings"])
+    write_run_doc(out / "run.doc.trec", "baseline-retrieval", result["rankings"])
+    write_docids(out / "docids.tsv", result["rankings"])
     result_no_rankings = {k: v for k, v in result.items() if k != "rankings"}
     meta = run_metadata(
         root=ROOT,
