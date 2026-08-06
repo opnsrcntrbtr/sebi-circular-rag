@@ -61,7 +61,20 @@ for i, item in enumerate(adj):
         cache.append({"abstained": True, "relevant": relevant, "scored": None})
         continue
     contexts = [by_id[c] for c in ans.citations if c in by_id]
-    scored = rer.rerank(contexts[0].text, contexts)          # answer-relevance, once
+    if len(contexts) != len(ans.citations):
+        raise RuntimeError(
+            f"{item['id']}: context reconstruction dropped "
+            f"{len(ans.citations) - len(contexts)} of {len(ans.citations)} ids; "
+            "the sweep would score a different context set than the pipeline used")
+    # Score exactly what production scores. generate.answer_with_abstention:469-477
+    # calls select_citations(text, ...) on the GENERATOR'S RAW OUTPUT, before
+    # RAGPipeline.query appends supersession/faithfulness advisories to ans.text
+    # (pipeline.py:96,127,135) — so `ans.text` is the wrong source here, and
+    # `contexts[0].text` is right only by accident of ExtractiveStubGenerator
+    # returning the top context verbatim. Asking the generator keeps this
+    # correct for any generator.
+    answer_text = pipe.generator.generate(item["query"], contexts)
+    scored = rer.rerank(answer_text, contexts)                # answer-relevance, once
     cache.append({"abstained": False, "relevant": relevant,
                   "scored": [(c.id, float(sc)) for c, sc in scored]})
     if i % 40 == 0:
