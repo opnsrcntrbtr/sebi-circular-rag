@@ -5,7 +5,7 @@ and returns their JSON. Optional shared secret via SEBI_OPS_TOKEN (header X-Ops-
 
 Endpoints:
   GET  /ping                      -> {"ok": true}
-  GET  /canary                    -> eval metrics JSON        (canary.sh, ~40s)
+  GET  /canary                    -> eval metrics JSON        (canary.sh, ~14min)
   GET  /discover                  -> new-circular JSON         (discover.sh, ~20s)
   GET  /smoketest                 -> live /query check (faithfulness==1, not abstained)
   POST /refresh                   -> refresh metrics JSON      (refresh.sh, up to ~30m)
@@ -101,7 +101,7 @@ class Handler(BaseHTTPRequestHandler):
             if r == "/ping":
                 return self._send(200, {"ok": True})
             if r == "/canary":
-                return self._send(200, run_script("canary.sh", 300))
+                return self._send(200, run_script("canary.sh", 1800))
             if r == "/discover":
                 return self._send(200, run_script("discover.sh", 180))
             if r == "/smoketest":
