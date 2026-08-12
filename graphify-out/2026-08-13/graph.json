@@ -20,336 +20,14 @@
   },
   "nodes": [
     {
-      "label": "canary.sh",
-      "file_type": "code",
-      "source_file": "scripts/canary.sh",
-      "source_location": "L1",
-      "metadata": {
-        "language": "bash",
-        "kind": "file"
-      },
-      "_origin": "ast",
-      "id": "scripts_canary",
-      "community": 97,
-      "norm_label": "canary.sh"
-    },
-    {
-      "label": "canary.sh script",
-      "file_type": "code",
-      "source_file": "scripts/canary.sh",
-      "source_location": "L1",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_entrypoint"
-      },
-      "_origin": "ast",
-      "id": "scripts_canary_sh__entry",
-      "community": 97,
-      "norm_label": "canary.sh script"
-    },
-    {
-      "label": "HF_HUB_DISABLE_XET",
-      "file_type": "code",
-      "source_file": "scripts/canary.sh",
-      "source_location": "L6",
-      "metadata": {
-        "language": "bash",
-        "kind": "code"
-      },
-      "_origin": "ast",
-      "id": "scripts_canary_hf_hub_disable_xet",
-      "community": 97,
-      "norm_label": "hf_hub_disable_xet"
-    },
-    {
-      "label": "TOKENIZERS_PARALLELISM",
-      "file_type": "code",
-      "source_file": "scripts/canary.sh",
-      "source_location": "L6",
-      "metadata": {
-        "language": "bash",
-        "kind": "code"
-      },
-      "_origin": "ast",
-      "id": "scripts_canary_tokenizers_parallelism",
-      "community": 97,
-      "norm_label": "tokenizers_parallelism"
-    },
-    {
-      "label": "OMP_NUM_THREADS",
-      "file_type": "code",
-      "source_file": "scripts/canary.sh",
-      "source_location": "L6",
-      "metadata": {
-        "language": "bash",
-        "kind": "code"
-      },
-      "_origin": "ast",
-      "id": "scripts_canary_omp_num_threads",
-      "community": 97,
-      "norm_label": "omp_num_threads"
-    },
-    {
-      "label": "PYTORCH_ENABLE_MPS_FALLBACK",
-      "file_type": "code",
-      "source_file": "scripts/canary.sh",
-      "source_location": "L7",
-      "metadata": {
-        "language": "bash",
-        "kind": "code"
-      },
-      "_origin": "ast",
-      "id": "scripts_canary_pytorch_enable_mps_fallback",
-      "community": 97,
-      "norm_label": "pytorch_enable_mps_fallback"
-    },
-    {
-      "label": "PYTHONPATH",
-      "file_type": "code",
-      "source_file": "scripts/canary.sh",
-      "source_location": "L7",
-      "metadata": {
-        "language": "bash",
-        "kind": "code"
-      },
-      "_origin": "ast",
-      "id": "scripts_canary_pythonpath",
-      "community": 97,
-      "norm_label": "pythonpath"
-    },
-    {
-      "label": "SEBI_RAG_EVAL_GENERATOR",
-      "file_type": "code",
-      "source_file": "scripts/canary.sh",
-      "source_location": "L24",
-      "metadata": {
-        "language": "bash",
-        "kind": "code"
-      },
-      "_origin": "ast",
-      "id": "scripts_canary_sebi_rag_eval_generator",
-      "community": 97,
-      "norm_label": "sebi_rag_eval_generator"
-    },
-    {
-      "label": "ops_server.py",
-      "file_type": "code",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "scripts_ops_server",
-      "community": 69,
-      "norm_label": "ops_server.py"
-    },
-    {
-      "label": "run_script()",
-      "file_type": "code",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L36",
-      "_origin": "ast",
-      "id": "scripts_ops_server_run_script",
-      "community": 69,
-      "norm_label": "run_script()"
-    },
-    {
-      "label": "smoketest()",
-      "file_type": "code",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L51",
-      "_origin": "ast",
-      "id": "scripts_ops_server_smoketest",
-      "community": 69,
-      "norm_label": "smoketest()"
-    },
-    {
-      "label": "Handler",
-      "file_type": "code",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L81",
-      "_origin": "ast",
-      "id": "scripts_ops_server_handler",
-      "community": 69,
-      "norm_label": "handler"
-    },
-    {
-      "label": "BaseHTTPRequestHandler",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "basehttprequesthandler",
-      "community": 69,
-      "norm_label": "basehttprequesthandler"
-    },
-    {
-      "label": "._send()",
-      "file_type": "code",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L82",
-      "_origin": "ast",
-      "id": "scripts_ops_server_handler_send",
-      "community": 69,
-      "norm_label": "._send()"
-    },
-    {
-      "label": "._authed()",
-      "file_type": "code",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L90",
-      "_origin": "ast",
-      "id": "scripts_ops_server_handler_authed",
-      "community": 69,
-      "norm_label": "._authed()"
-    },
-    {
-      "label": "._route()",
-      "file_type": "code",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L93",
-      "_origin": "ast",
-      "id": "scripts_ops_server_handler_route",
-      "community": 69,
-      "norm_label": "._route()"
-    },
-    {
-      "label": ".do_GET()",
-      "file_type": "code",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L96",
-      "_origin": "ast",
-      "id": "scripts_ops_server_handler_do_get",
-      "community": 69,
-      "norm_label": ".do_get()"
-    },
-    {
-      "label": ".do_POST()",
-      "file_type": "code",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L113",
-      "_origin": "ast",
-      "id": "scripts_ops_server_handler_do_post",
-      "community": 69,
-      "norm_label": ".do_post()"
-    },
-    {
-      "label": ".log_message()",
-      "file_type": "code",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L136",
-      "_origin": "ast",
-      "id": "scripts_ops_server_handler_log_message",
-      "community": 69,
-      "norm_label": ".log_message()"
-    },
-    {
-      "label": "test_canary_generator.py",
-      "file_type": "code",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "tests_test_canary_generator",
-      "community": 145,
-      "norm_label": "test_canary_generator.py"
-    },
-    {
-      "label": "_ops_timeout()",
-      "file_type": "code",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L42",
-      "_origin": "ast",
-      "id": "tests_test_canary_generator_ops_timeout",
-      "community": 145,
-      "norm_label": "_ops_timeout()"
-    },
-    {
-      "label": "_canary_jscode()",
-      "file_type": "code",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L48",
-      "_origin": "ast",
-      "id": "tests_test_canary_generator_canary_jscode",
-      "community": 145,
-      "norm_label": "_canary_jscode()"
-    },
-    {
-      "label": "test_canary_pins_the_stub_generator()",
-      "file_type": "code",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L57",
-      "_origin": "ast",
-      "id": "tests_test_canary_generator_test_canary_pins_the_stub_generator",
-      "community": 145,
-      "norm_label": "test_canary_pins_the_stub_generator()"
-    },
-    {
-      "label": "test_ops_timeout_fits_the_measured_runtime()",
-      "file_type": "code",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L63",
-      "_origin": "ast",
-      "id": "tests_test_canary_generator_test_ops_timeout_fits_the_measured_runtime",
-      "community": 145,
-      "norm_label": "test_ops_timeout_fits_the_measured_runtime()"
-    },
-    {
-      "label": "test_n8n_timeout_not_tighter_than_the_ops_budget()",
-      "file_type": "code",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L69",
-      "_origin": "ast",
-      "id": "tests_test_canary_generator_test_n8n_timeout_not_tighter_than_the_ops_budget",
-      "community": 145,
-      "norm_label": "test_n8n_timeout_not_tighter_than_the_ops_budget()"
-    },
-    {
-      "label": "test_alert_thresholds_sit_below_measured_baselines()",
-      "file_type": "code",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L81",
-      "_origin": "ast",
-      "id": "tests_test_canary_generator_test_alert_thresholds_sit_below_measured_baselines",
-      "community": 145,
-      "norm_label": "test_alert_thresholds_sit_below_measured_baselines()"
-    },
-    {
-      "label": "The eval canary must fit its timeout and alert on real regressions.  Measured 20",
-      "file_type": "rationale",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "tests_test_canary_generator_rationale_1",
-      "community": 145,
-      "norm_label": "the eval canary must fit its timeout and alert on real regressions.  measured 20"
-    },
-    {
-      "label": "n8n gives up first if its budget is smaller, so the ops timeout is     never rea",
-      "file_type": "rationale",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L70",
-      "_origin": "ast",
-      "id": "tests_test_canary_generator_rationale_70",
-      "community": 145,
-      "norm_label": "n8n gives up first if its budget is smaller, so the ops timeout is     never rea"
-    },
-    {
-      "label": "A threshold above the healthy value fires every run. citation_precision     was",
-      "file_type": "rationale",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L82",
-      "_origin": "ast",
-      "id": "tests_test_canary_generator_rationale_82",
-      "community": 145,
-      "norm_label": "a threshold above the healthy value fires every run. citation_precision     was"
-    },
-    {
       "label": "eval_json.py",
       "file_type": "code",
       "source_file": "scripts/eval_json.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 59,
-      "norm_label": "eval_json.py",
-      "id": "scripts_eval_json"
+      "id": "scripts_eval_json",
+      "community": 72,
+      "norm_label": "eval_json.py"
     },
     {
       "label": "Emit one JSON line of retrieval/citation/abstention metrics using the persisted",
@@ -357,9 +35,9 @@
       "source_file": "scripts/eval_json.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 59,
-      "norm_label": "emit one json line of retrieval/citation/abstention metrics using the persisted",
-      "id": "scripts_eval_json_rationale_1"
+      "id": "scripts_eval_json_rationale_1",
+      "community": 72,
+      "norm_label": "emit one json line of retrieval/citation/abstention metrics using the persisted"
     },
     {
       "label": "derive_thresholds.py",
@@ -367,9 +45,9 @@
       "source_file": "scripts/golden_v7/derive_thresholds.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 34,
-      "norm_label": "derive_thresholds.py",
-      "id": "scripts_golden_v7_derive_thresholds"
+      "id": "scripts_golden_v7_derive_thresholds",
+      "community": 53,
+      "norm_label": "derive_thresholds.py"
     },
     {
       "label": "derive_floors()",
@@ -377,9 +55,9 @@
       "source_file": "scripts/golden_v7/derive_thresholds.py",
       "source_location": "L58",
       "_origin": "ast",
+      "id": "scripts_golden_v7_derive_thresholds_derive_floors",
       "community": 53,
-      "norm_label": "derive_floors()",
-      "id": "scripts_golden_v7_derive_thresholds_derive_floors"
+      "norm_label": "derive_floors()"
     },
     {
       "label": "main()",
@@ -387,9 +65,9 @@
       "source_file": "scripts/golden_v7/derive_thresholds.py",
       "source_location": "L76",
       "_origin": "ast",
+      "id": "scripts_golden_v7_derive_thresholds_main",
       "community": 34,
-      "norm_label": "main()",
-      "id": "scripts_golden_v7_derive_thresholds_main"
+      "norm_label": "main()"
     },
     {
       "label": "Derive CI gate floors from the golden_v7 adjudicated subset (spec sec 8).  Write",
@@ -397,9 +75,9 @@
       "source_file": "scripts/golden_v7/derive_thresholds.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 34,
-      "norm_label": "derive ci gate floors from the golden_v7 adjudicated subset (spec sec 8).  write",
-      "id": "scripts_golden_v7_derive_thresholds_rationale_1"
+      "id": "scripts_golden_v7_derive_thresholds_rationale_1",
+      "community": 53,
+      "norm_label": "derive ci gate floors from the golden_v7 adjudicated subset (spec sec 8).  write"
     },
     {
       "label": "metric -> per-query score vector, into gate-floor names -> floor value.      Met",
@@ -407,9 +85,9 @@
       "source_file": "scripts/golden_v7/derive_thresholds.py",
       "source_location": "L59",
       "_origin": "ast",
+      "id": "scripts_golden_v7_derive_thresholds_rationale_59",
       "community": 53,
-      "norm_label": "metric -> per-query score vector, into gate-floor names -> floor value.      met",
-      "id": "scripts_golden_v7_derive_thresholds_rationale_59"
+      "norm_label": "metric -> per-query score vector, into gate-floor names -> floor value.      met"
     },
     {
       "label": "score.py",
@@ -417,9 +95,9 @@
       "source_file": "scripts/golden_v7/score.py",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "scripts_golden_v7_score",
       "community": 34,
-      "norm_label": "score.py",
-      "id": "scripts_golden_v7_score"
+      "norm_label": "score.py"
     },
     {
       "label": "score_row()",
@@ -427,9 +105,9 @@
       "source_file": "scripts/golden_v7/score.py",
       "source_location": "L16",
       "_origin": "ast",
+      "id": "scripts_golden_v7_score_score_row",
       "community": 34,
-      "norm_label": "score_row()",
-      "id": "scripts_golden_v7_score_score_row"
+      "norm_label": "score_row()"
     },
     {
       "label": "vectors()",
@@ -437,9 +115,9 @@
       "source_file": "scripts/golden_v7/score.py",
       "source_location": "L52",
       "_origin": "ast",
+      "id": "scripts_golden_v7_score_vectors",
       "community": 34,
-      "norm_label": "vectors()",
-      "id": "scripts_golden_v7_score_vectors"
+      "norm_label": "vectors()"
     },
     {
       "label": "One scoring path shared by `eval_json.py` (which measures) and `derive_threshold",
@@ -447,9 +125,9 @@
       "source_file": "scripts/golden_v7/score.py",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "scripts_golden_v7_score_rationale_1",
       "community": 34,
-      "norm_label": "one scoring path shared by `eval_json.py` (which measures) and `derive_threshold",
-      "id": "scripts_golden_v7_score_rationale_1"
+      "norm_label": "one scoring path shared by `eval_json.py` (which measures) and `derive_threshold"
     },
     {
       "label": "Score one golden row through the production-shaped pipeline.      Returns per-ro",
@@ -457,9 +135,9 @@
       "source_file": "scripts/golden_v7/score.py",
       "source_location": "L17",
       "_origin": "ast",
+      "id": "scripts_golden_v7_score_rationale_17",
       "community": 34,
-      "norm_label": "score one golden row through the production-shaped pipeline.      returns per-ro",
-      "id": "scripts_golden_v7_score_rationale_17"
+      "norm_label": "score one golden row through the production-shaped pipeline.      returns per-ro"
     },
     {
       "label": "Per-row records -> metric -> score vector, skipping rows where the     metric wa",
@@ -467,9 +145,9 @@
       "source_file": "scripts/golden_v7/score.py",
       "source_location": "L53",
       "_origin": "ast",
+      "id": "scripts_golden_v7_score_rationale_53",
       "community": 34,
-      "norm_label": "per-row records -> metric -> score vector, skipping rows where the     metric wa",
-      "id": "scripts_golden_v7_score_rationale_53"
+      "norm_label": "per-row records -> metric -> score vector, skipping rows where the     metric wa"
     },
     {
       "label": "test_eval_generator.py",
@@ -477,9 +155,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "tests_test_eval_generator",
       "community": 137,
-      "norm_label": "test_eval_generator.py",
-      "id": "tests_test_eval_generator"
+      "norm_label": "test_eval_generator.py"
     },
     {
       "label": "test_stub_is_the_default_kind()",
@@ -487,9 +165,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L18",
       "_origin": "ast",
+      "id": "tests_test_eval_generator_test_stub_is_the_default_kind",
       "community": 137,
-      "norm_label": "test_stub_is_the_default_kind()",
-      "id": "tests_test_eval_generator_test_stub_is_the_default_kind"
+      "norm_label": "test_stub_is_the_default_kind()"
     },
     {
       "label": "test_mlx_kind_builds_the_production_generator()",
@@ -497,9 +175,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L22",
       "_origin": "ast",
+      "id": "tests_test_eval_generator_test_mlx_kind_builds_the_production_generator",
       "community": 137,
-      "norm_label": "test_mlx_kind_builds_the_production_generator()",
-      "id": "tests_test_eval_generator_test_mlx_kind_builds_the_production_generator"
+      "norm_label": "test_mlx_kind_builds_the_production_generator()"
     },
     {
       "label": "test_unknown_kind_raises_rather_than_defaulting()",
@@ -507,9 +185,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L30",
       "_origin": "ast",
+      "id": "tests_test_eval_generator_test_unknown_kind_raises_rather_than_defaulting",
       "community": 137,
-      "norm_label": "test_unknown_kind_raises_rather_than_defaulting()",
-      "id": "tests_test_eval_generator_test_unknown_kind_raises_rather_than_defaulting"
+      "norm_label": "test_unknown_kind_raises_rather_than_defaulting()"
     },
     {
       "label": "test_eval_scripts_do_not_construct_a_generator_directly()",
@@ -517,9 +195,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L47",
       "_origin": "ast",
+      "id": "tests_test_eval_generator_test_eval_scripts_do_not_construct_a_generator_directly",
       "community": 137,
-      "norm_label": "test_eval_scripts_do_not_construct_a_generator_directly()",
-      "id": "tests_test_eval_generator_test_eval_scripts_do_not_construct_a_generator_directly"
+      "norm_label": "test_eval_scripts_do_not_construct_a_generator_directly()"
     },
     {
       "label": "test_eval_scripts_use_the_shared_factory()",
@@ -527,9 +205,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L54",
       "_origin": "ast",
+      "id": "tests_test_eval_generator_test_eval_scripts_use_the_shared_factory",
       "community": 137,
-      "norm_label": "test_eval_scripts_use_the_shared_factory()",
-      "id": "tests_test_eval_generator_test_eval_scripts_use_the_shared_factory"
+      "norm_label": "test_eval_scripts_use_the_shared_factory()"
     },
     {
       "label": "test_both_eval_scripts_read_the_same_setting()",
@@ -537,9 +215,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L68",
       "_origin": "ast",
+      "id": "tests_test_eval_generator_test_both_eval_scripts_read_the_same_setting",
       "community": 137,
-      "norm_label": "test_both_eval_scripts_read_the_same_setting()",
-      "id": "tests_test_eval_generator_test_both_eval_scripts_read_the_same_setting"
+      "norm_label": "test_both_eval_scripts_read_the_same_setting()"
     },
     {
       "label": "The eval stack's generator choice must be one shared decision.  `derive_threshol",
@@ -547,9 +225,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "tests_test_eval_generator_rationale_1",
       "community": 137,
-      "norm_label": "the eval stack's generator choice must be one shared decision.  `derive_threshol",
-      "id": "tests_test_eval_generator_rationale_1"
+      "norm_label": "the eval stack's generator choice must be one shared decision.  `derive_threshol"
     },
     {
       "label": "Uses an injected loader so the test stays offline.",
@@ -557,9 +235,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L23",
       "_origin": "ast",
+      "id": "tests_test_eval_generator_rationale_23",
       "community": 137,
-      "norm_label": "uses an injected loader so the test stays offline.",
-      "id": "tests_test_eval_generator_rationale_23"
+      "norm_label": "uses an injected loader so the test stays offline."
     },
     {
       "label": "Silently falling back to the stub would derive floors under semantics     the ca",
@@ -567,9 +245,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L31",
       "_origin": "ast",
+      "id": "tests_test_eval_generator_rationale_31",
       "community": 137,
-      "norm_label": "silently falling back to the stub would derive floors under semantics     the ca",
-      "id": "tests_test_eval_generator_rationale_31"
+      "norm_label": "silently falling back to the stub would derive floors under semantics     the ca"
     },
     {
       "label": "Must assert the factory is CALLED, not merely imported.      Verified 2026-08-12",
@@ -577,9 +255,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L55",
       "_origin": "ast",
+      "id": "tests_test_eval_generator_rationale_55",
       "community": 137,
-      "norm_label": "must assert the factory is called, not merely imported.      verified 2026-08-12",
-      "id": "tests_test_eval_generator_rationale_55"
+      "norm_label": "must assert the factory is called, not merely imported.      verified 2026-08-12"
     },
     {
       "label": "A factory both call is not enough - they must pass the same setting,     or the",
@@ -587,9 +265,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L69",
       "_origin": "ast",
+      "id": "tests_test_eval_generator_rationale_69",
       "community": 137,
-      "norm_label": "a factory both call is not enough - they must pass the same setting,     or the",
-      "id": "tests_test_eval_generator_rationale_69"
+      "norm_label": "a factory both call is not enough - they must pass the same setting,     or the"
     },
     {
       "label": "test_golden_v7_gate.py",
@@ -597,9 +275,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate",
       "community": 53,
-      "norm_label": "test_golden_v7_gate.py",
-      "id": "tests_test_golden_v7_gate"
+      "norm_label": "test_golden_v7_gate.py"
     },
     {
       "label": "_gate_file()",
@@ -607,9 +285,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L24",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_gate_file",
       "community": 53,
-      "norm_label": "_gate_file()",
-      "id": "tests_test_golden_v7_gate_gate_file"
+      "norm_label": "_gate_file()"
     },
     {
       "label": "test_env_override_wins_over_everything()",
@@ -617,9 +295,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L34",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_test_env_override_wins_over_everything",
       "community": 53,
-      "norm_label": "test_env_override_wins_over_everything()",
-      "id": "tests_test_golden_v7_gate_test_env_override_wins_over_everything"
+      "norm_label": "test_env_override_wins_over_everything()"
     },
     {
       "label": "test_armed_gate_selects_v7()",
@@ -627,9 +305,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L40",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_test_armed_gate_selects_v7",
       "community": 53,
-      "norm_label": "test_armed_gate_selects_v7()",
-      "id": "tests_test_golden_v7_gate_test_armed_gate_selects_v7"
+      "norm_label": "test_armed_gate_selects_v7()"
     },
     {
       "label": "test_exactly_at_threshold_arms()",
@@ -637,9 +315,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L45",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_test_exactly_at_threshold_arms",
       "community": 53,
-      "norm_label": "test_exactly_at_threshold_arms()",
-      "id": "tests_test_golden_v7_gate_test_exactly_at_threshold_arms"
+      "norm_label": "test_exactly_at_threshold_arms()"
     },
     {
       "label": "test_below_threshold_falls_back_to_v5()",
@@ -647,9 +325,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L50",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_test_below_threshold_falls_back_to_v5",
       "community": 53,
-      "norm_label": "test_below_threshold_falls_back_to_v5()",
-      "id": "tests_test_golden_v7_gate_test_below_threshold_falls_back_to_v5"
+      "norm_label": "test_below_threshold_falls_back_to_v5()"
     },
     {
       "label": "test_missing_gate_file_falls_back_to_v5()",
@@ -657,9 +335,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L55",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_test_missing_gate_file_falls_back_to_v5",
       "community": 53,
-      "norm_label": "test_missing_gate_file_falls_back_to_v5()",
-      "id": "tests_test_golden_v7_gate_test_missing_gate_file_falls_back_to_v5"
+      "norm_label": "test_missing_gate_file_falls_back_to_v5()"
     },
     {
       "label": "test_malformed_gate_file_falls_back_to_v5()",
@@ -667,9 +345,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L59",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_test_malformed_gate_file_falls_back_to_v5",
       "community": 53,
-      "norm_label": "test_malformed_gate_file_falls_back_to_v5()",
-      "id": "tests_test_golden_v7_gate_test_malformed_gate_file_falls_back_to_v5"
+      "norm_label": "test_malformed_gate_file_falls_back_to_v5()"
     },
     {
       "label": "test_gate_file_without_adjudicated_n_falls_back_to_v5()",
@@ -677,9 +355,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L67",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_test_gate_file_without_adjudicated_n_falls_back_to_v5",
       "community": 53,
-      "norm_label": "test_gate_file_without_adjudicated_n_falls_back_to_v5()",
-      "id": "tests_test_golden_v7_gate_test_gate_file_without_adjudicated_n_falls_back_to_v5"
+      "norm_label": "test_gate_file_without_adjudicated_n_falls_back_to_v5()"
     },
     {
       "label": "test_floors_ok_when_every_metric_meets_its_floor()",
@@ -687,9 +365,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L75",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_test_floors_ok_when_every_metric_meets_its_floor",
       "community": 53,
-      "norm_label": "test_floors_ok_when_every_metric_meets_its_floor()",
-      "id": "tests_test_golden_v7_gate_test_floors_ok_when_every_metric_meets_its_floor"
+      "norm_label": "test_floors_ok_when_every_metric_meets_its_floor()"
     },
     {
       "label": "test_floors_ok_is_inclusive_at_the_boundary()",
@@ -697,9 +375,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L81",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_test_floors_ok_is_inclusive_at_the_boundary",
       "community": 53,
-      "norm_label": "test_floors_ok_is_inclusive_at_the_boundary()",
-      "id": "tests_test_golden_v7_gate_test_floors_ok_is_inclusive_at_the_boundary"
+      "norm_label": "test_floors_ok_is_inclusive_at_the_boundary()"
     },
     {
       "label": "test_floors_not_ok_when_one_metric_is_below()",
@@ -707,9 +385,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L85",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_test_floors_not_ok_when_one_metric_is_below",
       "community": 53,
-      "norm_label": "test_floors_not_ok_when_one_metric_is_below()",
-      "id": "tests_test_golden_v7_gate_test_floors_not_ok_when_one_metric_is_below"
+      "norm_label": "test_floors_not_ok_when_one_metric_is_below()"
     },
     {
       "label": "test_missing_metric_fails_closed()",
@@ -717,9 +395,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L91",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_test_missing_metric_fails_closed",
       "community": 53,
-      "norm_label": "test_missing_metric_fails_closed()",
-      "id": "tests_test_golden_v7_gate_test_missing_metric_fails_closed"
+      "norm_label": "test_missing_metric_fails_closed()"
     },
     {
       "label": "test_no_floors_is_vacuously_ok()",
@@ -727,9 +405,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L98",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_test_no_floors_is_vacuously_ok",
       "community": 53,
-      "norm_label": "test_no_floors_is_vacuously_ok()",
-      "id": "tests_test_golden_v7_gate_test_no_floors_is_vacuously_ok"
+      "norm_label": "test_no_floors_is_vacuously_ok()"
     },
     {
       "label": "test_derived_floor_sits_below_the_observed_mean()",
@@ -737,9 +415,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L106",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_test_derived_floor_sits_below_the_observed_mean",
       "community": 53,
-      "norm_label": "test_derived_floor_sits_below_the_observed_mean()",
-      "id": "tests_test_golden_v7_gate_test_derived_floor_sits_below_the_observed_mean"
+      "norm_label": "test_derived_floor_sits_below_the_observed_mean()"
     },
     {
       "label": "test_derive_floors_skips_metrics_with_no_scored_queries()",
@@ -747,9 +425,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L116",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_test_derive_floors_skips_metrics_with_no_scored_queries",
       "community": 53,
-      "norm_label": "test_derive_floors_skips_metrics_with_no_scored_queries()",
-      "id": "tests_test_golden_v7_gate_test_derive_floors_skips_metrics_with_no_scored_queries"
+      "norm_label": "test_derive_floors_skips_metrics_with_no_scored_queries()"
     },
     {
       "label": "test_derived_floor_never_goes_negative()",
@@ -757,9 +435,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L124",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_test_derived_floor_never_goes_negative",
       "community": 53,
-      "norm_label": "test_derived_floor_never_goes_negative()",
-      "id": "tests_test_golden_v7_gate_test_derived_floor_never_goes_negative"
+      "norm_label": "test_derived_floor_never_goes_negative()"
     },
     {
       "label": "test_citation_precision_is_gated_after_B_prime()",
@@ -767,9 +445,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L128",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_test_citation_precision_is_gated_after_b_prime",
       "community": 53,
-      "norm_label": "test_citation_precision_is_gated_after_b_prime()",
-      "id": "tests_test_golden_v7_gate_test_citation_precision_is_gated_after_b_prime"
+      "norm_label": "test_citation_precision_is_gated_after_b_prime()"
     },
     {
       "label": "test_gate_floors_rank_quality_not_only_recall()",
@@ -777,9 +455,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L139",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_test_gate_floors_rank_quality_not_only_recall",
       "community": 53,
-      "norm_label": "test_gate_floors_rank_quality_not_only_recall()",
-      "id": "tests_test_golden_v7_gate_test_gate_floors_rank_quality_not_only_recall"
+      "norm_label": "test_gate_floors_rank_quality_not_only_recall()"
     },
     {
       "label": "test_ndcg_floor_catches_a_reordering_regression_recall_misses()",
@@ -787,9 +465,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L148",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_test_ndcg_floor_catches_a_reordering_regression_recall_misses",
       "community": 53,
-      "norm_label": "test_ndcg_floor_catches_a_reordering_regression_recall_misses()",
-      "id": "tests_test_golden_v7_gate_test_ndcg_floor_catches_a_reordering_regression_recall_misses"
+      "norm_label": "test_ndcg_floor_catches_a_reordering_regression_recall_misses()"
     },
     {
       "label": "test_vectors_exposes_ndcg_for_floor_derivation()",
@@ -797,9 +475,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L155",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_test_vectors_exposes_ndcg_for_floor_derivation",
       "community": 53,
-      "norm_label": "test_vectors_exposes_ndcg_for_floor_derivation()",
-      "id": "tests_test_golden_v7_gate_test_vectors_exposes_ndcg_for_floor_derivation"
+      "norm_label": "test_vectors_exposes_ndcg_for_floor_derivation()"
     },
     {
       "label": "test_every_derived_floor_is_emitted_by_the_eval_report()",
@@ -807,9 +485,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L166",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_test_every_derived_floor_is_emitted_by_the_eval_report",
       "community": 53,
-      "norm_label": "test_every_derived_floor_is_emitted_by_the_eval_report()",
-      "id": "tests_test_golden_v7_gate_test_every_derived_floor_is_emitted_by_the_eval_report"
+      "norm_label": "test_every_derived_floor_is_emitted_by_the_eval_report()"
     },
     {
       "label": "test_floor_names_match_the_gate_report_keys()",
@@ -817,9 +495,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L181",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_test_floor_names_match_the_gate_report_keys",
       "community": 53,
-      "norm_label": "test_floor_names_match_the_gate_report_keys()",
-      "id": "tests_test_golden_v7_gate_test_floor_names_match_the_gate_report_keys"
+      "norm_label": "test_floor_names_match_the_gate_report_keys()"
     },
     {
       "label": "Offline tests for the golden-v7 CI gate flip (spec 2026-07-23 sec 8).  The gate",
@@ -827,9 +505,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_rationale_1",
       "community": 53,
-      "norm_label": "offline tests for the golden-v7 ci gate flip (spec 2026-07-23 sec 8).  the gate",
-      "id": "tests_test_golden_v7_gate_rationale_1"
+      "norm_label": "offline tests for the golden-v7 ci gate flip (spec 2026-07-23 sec 8).  the gate"
     },
     {
       "label": "A corrupt gate file must not arm the gate, and must not crash CI     either - fa",
@@ -837,9 +515,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L60",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_rationale_60",
       "community": 53,
-      "norm_label": "a corrupt gate file must not arm the gate, and must not crash ci     either - fa",
-      "id": "tests_test_golden_v7_gate_rationale_60"
+      "norm_label": "a corrupt gate file must not arm the gate, and must not crash ci     either - fa"
     },
     {
       "label": "A floor naming a metric the report does not carry cannot be shown to     hold, s",
@@ -847,9 +525,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L92",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_rationale_92",
       "community": 53,
-      "norm_label": "a floor naming a metric the report does not carry cannot be shown to     hold, s",
-      "id": "tests_test_golden_v7_gate_rationale_92"
+      "norm_label": "a floor naming a metric the report does not carry cannot be shown to     hold, s"
     },
     {
       "label": "The floor is a bootstrap lower bound minus a cushion, never the mean.     Gating",
@@ -857,9 +535,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L107",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_rationale_107",
       "community": 53,
-      "norm_label": "the floor is a bootstrap lower bound minus a cushion, never the mean.     gating",
-      "id": "tests_test_golden_v7_gate_rationale_107"
+      "norm_label": "the floor is a bootstrap lower bound minus a cushion, never the mean.     gating"
     },
     {
       "label": "A metric nobody scored must not be floored at 0 - a 0 floor is not a     gate, i",
@@ -867,9 +545,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L117",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_rationale_117",
       "community": 53,
-      "norm_label": "a metric nobody scored must not be floored at 0 - a 0 floor is not a     gate, i",
-      "id": "tests_test_golden_v7_gate_rationale_117"
+      "norm_label": "a metric nobody scored must not be floored at 0 - a 0 floor is not a     gate, i"
     },
     {
       "label": "B' gates citation_precision alongside recall/recall_tradeoff/abstention.     The",
@@ -877,9 +555,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L129",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_rationale_129",
       "community": 53,
-      "norm_label": "b' gates citation_precision alongside recall/recall_tradeoff/abstention.     the",
-      "id": "tests_test_golden_v7_gate_rationale_129"
+      "norm_label": "b' gates citation_precision alongside recall/recall_tradeoff/abstention.     the"
     },
     {
       "label": "recall_at_k is ceiling-limited (baseline 0.956 leaves ~9 failing     queries of",
@@ -887,9 +565,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L140",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_rationale_140",
       "community": 53,
-      "norm_label": "recall_at_k is ceiling-limited (baseline 0.956 leaves ~9 failing     queries of",
-      "id": "tests_test_golden_v7_gate_rationale_140"
+      "norm_label": "recall_at_k is ceiling-limited (baseline 0.956 leaves ~9 failing     queries of"
     },
     {
       "label": "derive_floors reads its vectors from score.vectors(); a metric absent     there",
@@ -897,9 +575,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L156",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_rationale_156",
       "community": 53,
-      "norm_label": "derive_floors reads its vectors from score.vectors(); a metric absent     there",
-      "id": "tests_test_golden_v7_gate_rationale_156"
+      "norm_label": "derive_floors reads its vectors from score.vectors(); a metric absent     there"
     },
     {
       "label": "floors_ok fails closed on a metric the report does not carry, so a     floor nam",
@@ -907,9 +585,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L167",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_rationale_167",
       "community": 53,
-      "norm_label": "floors_ok fails closed on a metric the report does not carry, so a     floor nam",
-      "id": "tests_test_golden_v7_gate_rationale_167"
+      "norm_label": "floors_ok fails closed on a metric the report does not carry, so a     floor nam"
     },
     {
       "label": "derive_floors emits gate-report metric names, not the internal     score_row nam",
@@ -917,9 +595,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L182",
       "_origin": "ast",
+      "id": "tests_test_golden_v7_gate_rationale_182",
       "community": 53,
-      "norm_label": "derive_floors emits gate-report metric names, not the internal     score_row nam",
-      "id": "tests_test_golden_v7_gate_rationale_182"
+      "norm_label": "derive_floors emits gate-report metric names, not the internal     score_row nam"
     },
     {
       "label": "api.py",
@@ -1037,7 +715,7 @@
       "source_file": "src/sebi_rag/api.py",
       "source_location": "L185",
       "_origin": "ast",
-      "community": 37,
+      "community": 22,
       "norm_label": "create_app()",
       "id": "src_sebi_rag_api_create_app"
     },
@@ -1047,7 +725,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 37,
+      "community": 22,
       "norm_label": "fastapi",
       "id": "fastapi"
     },
@@ -1107,7 +785,7 @@
       "source_file": "src/sebi_rag/attribution.py",
       "source_location": "L46",
       "_origin": "ast",
-      "community": 72,
+      "community": 12,
       "norm_label": "nliattributionscorer",
       "id": "src_sebi_rag_attribution_nliattributionscorer"
     },
@@ -1117,7 +795,7 @@
       "source_file": "src/sebi_rag/attribution.py",
       "source_location": "L54",
       "_origin": "ast",
-      "community": 72,
+      "community": 12,
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_attribution_nliattributionscorer_init"
     },
@@ -1187,7 +865,7 @@
       "source_file": "src/sebi_rag/attribution.py",
       "source_location": "L47",
       "_origin": "ast",
-      "community": 72,
+      "community": 12,
       "norm_label": "scores each context by p(entailment) of the answer given that context.      impl",
       "id": "src_sebi_rag_attribution_rationale_47"
     },
@@ -1217,7 +895,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L40",
       "_origin": "ast",
-      "community": 72,
+      "community": 107,
       "norm_label": "_is_non_sebi_domain()",
       "id": "src_sebi_rag_generate_is_non_sebi_domain"
     },
@@ -1267,7 +945,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L158",
       "_origin": "ast",
-      "community": 72,
+      "community": 12,
       "norm_label": "answer",
       "id": "src_sebi_rag_generate_answer"
     },
@@ -1297,7 +975,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L173",
       "_origin": "ast",
-      "community": 91,
+      "community": 42,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_generator_generate"
     },
@@ -1307,7 +985,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 91,
+      "community": 42,
       "norm_label": "chunk",
       "id": "src_sebi_rag_generate_py_chunk"
     },
@@ -1317,7 +995,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L177",
       "_origin": "ast",
-      "community": 37,
+      "community": 115,
       "norm_label": "extractivestubgenerator",
       "id": "src_sebi_rag_generate_extractivestubgenerator"
     },
@@ -1327,7 +1005,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L180",
       "_origin": "ast",
-      "community": 91,
+      "community": 42,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_extractivestubgenerator_generate"
     },
@@ -1347,7 +1025,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L194",
       "_origin": "ast",
-      "community": 91,
+      "community": 42,
       "norm_label": ".grounded()",
       "id": "src_sebi_rag_generate_judge_grounded"
     },
@@ -1387,7 +1065,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L238",
       "_origin": "ast",
-      "community": 42,
+      "community": 80,
       "norm_label": "parse_yes_no()",
       "id": "src_sebi_rag_generate_parse_yes_no"
     },
@@ -1437,7 +1115,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L293",
       "_origin": "ast",
-      "community": 37,
+      "community": 91,
       "norm_label": "subjectsimjudge",
       "id": "src_sebi_rag_generate_subjectsimjudge"
     },
@@ -1447,7 +1125,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L303",
       "_origin": "ast",
-      "community": 37,
+      "community": 91,
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_generate_subjectsimjudge_init"
     },
@@ -1507,7 +1185,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L364",
       "_origin": "ast",
-      "community": 91,
+      "community": 42,
       "norm_label": "_grounded_prompt()",
       "id": "src_sebi_rag_generate_grounded_prompt"
     },
@@ -1537,7 +1215,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L400",
       "_origin": "ast",
-      "community": 91,
+      "community": 42,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_mlxgenerator_generate"
     },
@@ -1567,7 +1245,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L437",
       "_origin": "ast",
-      "community": 91,
+      "community": 42,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_ollamagenerator_generate"
     },
@@ -1597,7 +1275,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L41",
       "_origin": "ast",
-      "community": 72,
+      "community": 107,
       "norm_label": "return true if the query clearly targets a non-sebi regulator's domain.      use",
       "id": "src_sebi_rag_generate_rationale_41"
     },
@@ -1647,7 +1325,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L178",
       "_origin": "ast",
-      "community": 37,
+      "community": 115,
       "norm_label": "deterministic: returns the top context text. no model required.",
       "id": "src_sebi_rag_generate_rationale_178"
     },
@@ -1677,7 +1355,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L239",
       "_origin": "ast",
-      "community": 42,
+      "community": 80,
       "norm_label": "first yes/no in the reply; unparseable fails open (grounded=true) so the     gat",
       "id": "src_sebi_rag_generate_rationale_239"
     },
@@ -1697,7 +1375,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L294",
       "_origin": "ast",
-      "community": 37,
+      "community": 91,
       "norm_label": "adopted gate (eval_gate round 3): deterministic groundedness signal \u2014     max co",
       "id": "src_sebi_rag_generate_rationale_294"
     },
@@ -1727,7 +1405,7 @@
       "source_file": "src/sebi_rag/generate.py",
       "source_location": "L365",
       "_origin": "ast",
-      "community": 91,
+      "community": 42,
       "norm_label": "f4 (adr-001): retrieved text is explicitly delimited as quoted data and     the",
       "id": "src_sebi_rag_generate_rationale_365"
     },
@@ -1767,7 +1445,7 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 37,
+      "community": 12,
       "norm_label": "ragpipeline",
       "id": "src_sebi_rag_pipeline_ragpipeline"
     },
@@ -1827,7 +1505,7 @@
       "source_file": "src/sebi_rag/pipeline.py",
       "source_location": "L46",
       "_origin": "ast",
-      "community": 91,
+      "community": 12,
       "norm_label": ".query()",
       "id": "src_sebi_rag_pipeline_ragpipeline_query"
     },
@@ -1847,7 +1525,7 @@
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 59,
+      "community": 72,
       "norm_label": "settings.py",
       "id": "src_sebi_rag_settings"
     },
@@ -1927,7 +1605,7 @@
       "source_file": "src/sebi_rag/settings.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 59,
+      "community": 72,
       "norm_label": "central configuration: config.toml defaults, overridden by sebi_rag_* env vars.",
       "id": "src_sebi_rag_settings_rationale_1"
     },
@@ -2327,7 +2005,7 @@
       "source_file": "tests/test_selective_citations.py",
       "source_location": "L116",
       "_origin": "ast",
-      "community": 25,
+      "community": 37,
       "norm_label": "test_settings_citation_scorer_enabled_true()",
       "id": "tests_test_selective_citations_test_settings_citation_scorer_enabled_true"
     },
@@ -2337,7 +2015,7 @@
       "source_file": "tests/test_selective_citations.py",
       "source_location": "L124",
       "_origin": "ast",
-      "community": 25,
+      "community": 37,
       "norm_label": "test_settings_citation_scorer_enabled_false()",
       "id": "tests_test_selective_citations_test_settings_citation_scorer_enabled_false"
     },
@@ -2447,7 +2125,7 @@
       "source_file": "tests/test_selective_citations.py",
       "source_location": "L117",
       "_origin": "ast",
-      "community": 25,
+      "community": 37,
       "norm_label": "when citation_scorer_enabled=true, settings loads a non-none scorer.",
       "id": "tests_test_selective_citations_rationale_117"
     },
@@ -2457,7 +2135,7 @@
       "source_file": "tests/test_selective_citations.py",
       "source_location": "L125",
       "_origin": "ast",
-      "community": 25,
+      "community": 37,
       "norm_label": "when citation_scorer_enabled=false, settings loads scorer disabled.",
       "id": "tests_test_selective_citations_rationale_125"
     },
@@ -2527,7 +2205,7 @@
       "source_file": "scripts/build_index.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 59,
+      "community": 72,
       "norm_label": "build_index.py",
       "id": "scripts_build_index"
     },
@@ -2537,7 +2215,7 @@
       "source_file": "scripts/build_index.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 59,
+      "community": 72,
       "norm_label": "build the dense+sparse index once and persist it (run after corpus changes).",
       "id": "scripts_build_index_rationale_1"
     },
@@ -2547,7 +2225,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 59,
+      "community": 72,
       "norm_label": "retrieve.py",
       "id": "src_sebi_rag_retrieve"
     },
@@ -2617,7 +2295,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L47",
       "_origin": "ast",
-      "community": 46,
+      "community": 138,
       "norm_label": ".search()",
       "id": "src_sebi_rag_retrieve_denseindex_search"
     },
@@ -2657,7 +2335,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L66",
       "_origin": "ast",
-      "community": 46,
+      "community": 138,
       "norm_label": ".search()",
       "id": "src_sebi_rag_retrieve_sparseindex_search"
     },
@@ -2717,7 +2395,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L167",
       "_origin": "ast",
-      "community": 46,
+      "community": 138,
       "norm_label": ".retrieve()",
       "id": "src_sebi_rag_retrieve_hybridretriever_retrieve"
     },
@@ -2747,7 +2425,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L249",
       "_origin": "ast",
-      "community": 148,
+      "community": 156,
       "norm_label": ".index_exists()",
       "id": "src_sebi_rag_retrieve_hybridretriever_index_exists"
     },
@@ -2757,7 +2435,7 @@
       "source_file": "src/sebi_rag/retrieve.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 59,
+      "community": 72,
       "norm_label": "stage-1 hybrid retrieval: dense (faiss) + sparse (bm25) fused by rrf.  mandatory",
       "id": "src_sebi_rag_retrieve_rationale_1"
     },
@@ -3501,7 +3179,7 @@
       "source_file": "scripts/acquire_missing_pdfs.py",
       "source_location": "L81",
       "_origin": "ast",
-      "community": 6,
+      "community": 48,
       "norm_label": "check_robots()",
       "id": "scripts_acquire_missing_pdfs_check_robots"
     },
@@ -3511,7 +3189,7 @@
       "source_file": "scripts/acquire_missing_pdfs.py",
       "source_location": "L99",
       "_origin": "ast",
-      "community": 6,
+      "community": 48,
       "norm_label": "main()",
       "id": "scripts_acquire_missing_pdfs_main"
     },
@@ -3551,7 +3229,7 @@
       "source_file": "scripts/acquire_missing_pdfs.py",
       "source_location": "L82",
       "_origin": "ast",
-      "community": 6,
+      "community": 48,
       "norm_label": "log-only re-verification that our paths are still crawlable.",
       "id": "scripts_acquire_missing_pdfs_rationale_82"
     },
@@ -3571,7 +3249,7 @@
       "source_file": "scripts/analysis/extract_misses.py",
       "source_location": "L21",
       "_origin": "ast",
-      "community": 49,
+      "community": 31,
       "norm_label": "_doc()",
       "id": "scripts_analysis_extract_misses_doc"
     },
@@ -3671,7 +3349,7 @@
       "source_file": "scripts/analysis/renumber_audit.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 36,
+      "community": 51,
       "norm_label": "renumber_audit.py",
       "id": "scripts_analysis_renumber_audit"
     },
@@ -3681,7 +3359,7 @@
       "source_file": "scripts/analysis/renumber_audit.py",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 36,
+      "community": 51,
       "norm_label": "main()",
       "id": "scripts_analysis_renumber_audit_main"
     },
@@ -3691,7 +3369,7 @@
       "source_file": "scripts/analysis/renumber_audit.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 36,
+      "community": 51,
       "norm_label": "dry-run audit of every circular_number renumber.py would change, with the docume",
       "id": "scripts_analysis_renumber_audit_rationale_1"
     },
@@ -3701,7 +3379,7 @@
       "source_file": "scripts/analysis/sweep_citation_margin.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 34,
+      "community": 72,
       "norm_label": "sweep_citation_margin.py",
       "id": "scripts_analysis_sweep_citation_margin"
     },
@@ -3731,7 +3409,7 @@
       "source_file": "scripts/analysis/sweep_citation_margin.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 34,
+      "community": 72,
       "norm_label": "margin sweep for b' selective citations on the golden_v7 adjudicated set.  one m",
       "id": "scripts_analysis_sweep_citation_margin_rationale_1"
     },
@@ -3741,7 +3419,7 @@
       "source_file": "scripts/analysis/sweep_citation_margin_capture.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 59,
+      "community": 72,
       "norm_label": "sweep_citation_margin_capture.py",
       "id": "scripts_analysis_sweep_citation_margin_capture"
     },
@@ -3751,7 +3429,7 @@
       "source_file": "scripts/analysis/sweep_citation_margin_capture.py",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 59,
+      "community": 72,
       "norm_label": "log()",
       "id": "scripts_analysis_sweep_citation_margin_capture_log"
     },
@@ -3761,7 +3439,7 @@
       "source_file": "scripts/analysis/sweep_citation_margin_capture.py",
       "source_location": "L85",
       "_origin": "ast",
-      "community": 59,
+      "community": 72,
       "norm_label": "cited_docs()",
       "id": "scripts_analysis_sweep_citation_margin_capture_cited_docs"
     },
@@ -3771,7 +3449,7 @@
       "source_file": "scripts/analysis/sweep_citation_margin_capture.py",
       "source_location": "L96",
       "_origin": "ast",
-      "community": 59,
+      "community": 72,
       "norm_label": "metrics()",
       "id": "scripts_analysis_sweep_citation_margin_capture_metrics"
     },
@@ -3781,7 +3459,7 @@
       "source_file": "scripts/analysis/sweep_citation_margin_capture.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 59,
+      "community": 72,
       "norm_label": "capture-once margin sweep for b' selective citations.  one pipeline pass over th",
       "id": "scripts_analysis_sweep_citation_margin_capture_rationale_1"
     },
@@ -3791,7 +3469,7 @@
       "source_file": "scripts/analysis/sweep_pool.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 31,
+      "community": 82,
       "norm_label": "sweep_pool.py",
       "id": "scripts_analysis_sweep_pool"
     },
@@ -3801,7 +3479,7 @@
       "source_file": "scripts/analysis/sweep_pool.py",
       "source_location": "L39",
       "_origin": "ast",
-      "community": 31,
+      "community": 82,
       "norm_label": "_load_items()",
       "id": "scripts_analysis_sweep_pool_load_items"
     },
@@ -3811,7 +3489,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 31,
+      "community": 82,
       "norm_label": "path",
       "id": "scripts_analysis_sweep_pool_py_path"
     },
@@ -3821,7 +3499,7 @@
       "source_file": "scripts/analysis/sweep_pool.py",
       "source_location": "L45",
       "_origin": "ast",
-      "community": 31,
+      "community": 82,
       "norm_label": "main()",
       "id": "scripts_analysis_sweep_pool_main"
     },
@@ -3831,7 +3509,7 @@
       "source_file": "scripts/analysis/sweep_pool.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 31,
+      "community": 82,
       "norm_label": "pool-width sweep (intervention #3): answer-level rescue rate vs reranker latency",
       "id": "scripts_analysis_sweep_pool_rationale_1"
     },
@@ -4451,7 +4129,7 @@
       "source_file": "scripts/bench_metrics.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 59,
+      "community": 72,
       "norm_label": "bench_metrics.py",
       "id": "scripts_bench_metrics"
     },
@@ -4461,7 +4139,7 @@
       "source_file": "scripts/bench_metrics.py",
       "source_location": "L52",
       "_origin": "ast",
-      "community": 37,
+      "community": 12,
       "norm_label": "smoke_pipeline()",
       "id": "scripts_bench_metrics_smoke_pipeline"
     },
@@ -4471,7 +4149,7 @@
       "source_file": "scripts/bench_metrics.py",
       "source_location": "L73",
       "_origin": "ast",
-      "community": 37,
+      "community": 12,
       "norm_label": "real_pipeline()",
       "id": "scripts_bench_metrics_real_pipeline"
     },
@@ -4481,7 +4159,7 @@
       "source_file": "scripts/bench_metrics.py",
       "source_location": "L92",
       "_origin": "ast",
-      "community": 104,
+      "community": 39,
       "norm_label": "metrics_to_markdown()",
       "id": "scripts_bench_metrics_metrics_to_markdown"
     },
@@ -4491,7 +4169,7 @@
       "source_file": "scripts/bench_metrics.py",
       "source_location": "L108",
       "_origin": "ast",
-      "community": 104,
+      "community": 39,
       "norm_label": "main()",
       "id": "scripts_bench_metrics_main"
     },
@@ -4501,7 +4179,7 @@
       "source_file": "scripts/bench_metrics.py",
       "source_location": "L53",
       "_origin": "ast",
-      "community": 37,
+      "community": 12,
       "norm_label": "build a lightweight pipeline for --smoke mode.      uses a stub retriever (no fa",
       "id": "scripts_bench_metrics_rationale_53"
     },
@@ -4511,7 +4189,7 @@
       "source_file": "scripts/bench_metrics.py",
       "source_location": "L74",
       "_origin": "ast",
-      "community": 37,
+      "community": 12,
       "norm_label": "build the full pipeline with real models.",
       "id": "scripts_bench_metrics_rationale_74"
     },
@@ -4521,7 +4199,7 @@
       "source_file": "scripts/bench_metrics.py",
       "source_location": "L93",
       "_origin": "ast",
-      "community": 104,
+      "community": 39,
       "norm_label": "format results as a markdown table.",
       "id": "scripts_bench_metrics_rationale_93"
     },
@@ -4571,7 +4249,7 @@
       "source_file": "scripts/bench_rerankers.py",
       "source_location": "L97",
       "_origin": "ast",
-      "community": 15,
+      "community": 49,
       "norm_label": "main()",
       "id": "scripts_bench_rerankers_main"
     },
@@ -4611,7 +4289,7 @@
       "source_file": "scripts/build_golden.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 59,
+      "community": 104,
       "norm_label": "build_golden.py",
       "id": "scripts_build_golden"
     },
@@ -4621,7 +4299,7 @@
       "source_file": "scripts/build_golden.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 59,
+      "community": 104,
       "norm_label": "build eval/golden/golden_v4.jsonl for the larger corpus. each query is mapped to",
       "id": "scripts_build_golden_rationale_1"
     },
@@ -4751,7 +4429,7 @@
       "source_file": "scripts/calibrate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 49,
+      "community": 72,
       "norm_label": "calibrate.py",
       "id": "scripts_calibrate"
     },
@@ -4761,7 +4439,7 @@
       "source_file": "scripts/calibrate.py",
       "source_location": "L53",
       "_origin": "ast",
-      "community": 49,
+      "community": 31,
       "norm_label": "evaluate()",
       "id": "scripts_calibrate_evaluate"
     },
@@ -4771,9 +4449,121 @@
       "source_file": "scripts/calibrate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 49,
+      "community": 72,
       "norm_label": "calibrate top_k and the abstention threshold against the citation-precision sign",
       "id": "scripts_calibrate_rationale_1"
+    },
+    {
+      "label": "canary.sh",
+      "file_type": "code",
+      "source_file": "scripts/canary.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "_origin": "ast",
+      "community": 97,
+      "norm_label": "canary.sh",
+      "id": "scripts_canary"
+    },
+    {
+      "label": "canary.sh script",
+      "file_type": "code",
+      "source_file": "scripts/canary.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "_origin": "ast",
+      "community": 97,
+      "norm_label": "canary.sh script",
+      "id": "scripts_canary_sh__entry"
+    },
+    {
+      "label": "HF_HUB_DISABLE_XET",
+      "file_type": "code",
+      "source_file": "scripts/canary.sh",
+      "source_location": "L6",
+      "metadata": {
+        "language": "bash",
+        "kind": "code"
+      },
+      "_origin": "ast",
+      "community": 97,
+      "norm_label": "hf_hub_disable_xet",
+      "id": "scripts_canary_hf_hub_disable_xet"
+    },
+    {
+      "label": "TOKENIZERS_PARALLELISM",
+      "file_type": "code",
+      "source_file": "scripts/canary.sh",
+      "source_location": "L6",
+      "metadata": {
+        "language": "bash",
+        "kind": "code"
+      },
+      "_origin": "ast",
+      "community": 97,
+      "norm_label": "tokenizers_parallelism",
+      "id": "scripts_canary_tokenizers_parallelism"
+    },
+    {
+      "label": "OMP_NUM_THREADS",
+      "file_type": "code",
+      "source_file": "scripts/canary.sh",
+      "source_location": "L6",
+      "metadata": {
+        "language": "bash",
+        "kind": "code"
+      },
+      "_origin": "ast",
+      "community": 97,
+      "norm_label": "omp_num_threads",
+      "id": "scripts_canary_omp_num_threads"
+    },
+    {
+      "label": "PYTORCH_ENABLE_MPS_FALLBACK",
+      "file_type": "code",
+      "source_file": "scripts/canary.sh",
+      "source_location": "L7",
+      "metadata": {
+        "language": "bash",
+        "kind": "code"
+      },
+      "_origin": "ast",
+      "community": 97,
+      "norm_label": "pytorch_enable_mps_fallback",
+      "id": "scripts_canary_pytorch_enable_mps_fallback"
+    },
+    {
+      "label": "PYTHONPATH",
+      "file_type": "code",
+      "source_file": "scripts/canary.sh",
+      "source_location": "L7",
+      "metadata": {
+        "language": "bash",
+        "kind": "code"
+      },
+      "_origin": "ast",
+      "community": 97,
+      "norm_label": "pythonpath",
+      "id": "scripts_canary_pythonpath"
+    },
+    {
+      "label": "SEBI_RAG_EVAL_GENERATOR",
+      "file_type": "code",
+      "source_file": "scripts/canary.sh",
+      "source_location": "L15",
+      "metadata": {
+        "language": "bash",
+        "kind": "code"
+      },
+      "_origin": "ast",
+      "community": 97,
+      "norm_label": "sebi_rag_eval_generator",
+      "id": "scripts_canary_sebi_rag_eval_generator"
     },
     {
       "label": "deploy_space.py",
@@ -4893,7 +4683,7 @@
       "source_file": "scripts/eval_asof.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 59,
+      "community": 72,
       "norm_label": "eval_asof.py",
       "id": "scripts_eval_asof"
     },
@@ -4903,7 +4693,7 @@
       "source_file": "scripts/eval_asof.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 59,
+      "community": 72,
       "norm_label": "run eval/golden/golden_asof_v1.jsonl (selector + pipeline modes) against the per",
       "id": "scripts_eval_asof_rationale_1"
     },
@@ -4913,7 +4703,7 @@
       "source_file": "scripts/eval_gate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 136,
+      "community": 72,
       "norm_label": "eval_gate.py",
       "id": "scripts_eval_gate"
     },
@@ -4923,7 +4713,7 @@
       "source_file": "scripts/eval_gate.py",
       "source_location": "L45",
       "_origin": "ast",
-      "community": 136,
+      "community": 15,
       "norm_label": "contexts_for()",
       "id": "scripts_eval_gate_contexts_for"
     },
@@ -4933,7 +4723,7 @@
       "source_file": "scripts/eval_gate.py",
       "source_location": "L60",
       "_origin": "ast",
-      "community": 136,
+      "community": 72,
       "norm_label": "auroc()",
       "id": "scripts_eval_gate_auroc"
     },
@@ -4943,7 +4733,7 @@
       "source_file": "scripts/eval_gate.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 136,
+      "community": 72,
       "norm_label": "adr-002 follow-up: compare the production subject-sim gate against the section-a",
       "id": "scripts_eval_gate_rationale_1"
     },
@@ -6123,7 +5913,7 @@
       "source_file": "scripts/golden_v7/build_pool.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 43,
+      "community": 66,
       "norm_label": "build_pool.py",
       "id": "scripts_golden_v7_build_pool"
     },
@@ -6143,7 +5933,7 @@
       "source_file": "scripts/golden_v7/build_pool.py",
       "source_location": "L68",
       "_origin": "ast",
-      "community": 43,
+      "community": 66,
       "norm_label": "main()",
       "id": "scripts_golden_v7_build_pool_main"
     },
@@ -6153,7 +5943,7 @@
       "source_file": "scripts/golden_v7/build_pool.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 43,
+      "community": 66,
       "norm_label": "candidate pools for chunk-label judging (spec \u00a76). trec-style pooling: union of",
       "id": "scripts_golden_v7_build_pool_rationale_1"
     },
@@ -7166,6 +6956,116 @@
       "id": "scripts_notify_sh__entry"
     },
     {
+      "label": "ops_server.py",
+      "file_type": "code",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 69,
+      "norm_label": "ops_server.py",
+      "id": "scripts_ops_server"
+    },
+    {
+      "label": "run_script()",
+      "file_type": "code",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L36",
+      "_origin": "ast",
+      "community": 69,
+      "norm_label": "run_script()",
+      "id": "scripts_ops_server_run_script"
+    },
+    {
+      "label": "smoketest()",
+      "file_type": "code",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L51",
+      "_origin": "ast",
+      "community": 69,
+      "norm_label": "smoketest()",
+      "id": "scripts_ops_server_smoketest"
+    },
+    {
+      "label": "Handler",
+      "file_type": "code",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L81",
+      "_origin": "ast",
+      "community": 69,
+      "norm_label": "handler",
+      "id": "scripts_ops_server_handler"
+    },
+    {
+      "label": "BaseHTTPRequestHandler",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "community": 69,
+      "norm_label": "basehttprequesthandler",
+      "id": "basehttprequesthandler"
+    },
+    {
+      "label": "._send()",
+      "file_type": "code",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L82",
+      "_origin": "ast",
+      "community": 69,
+      "norm_label": "._send()",
+      "id": "scripts_ops_server_handler_send"
+    },
+    {
+      "label": "._authed()",
+      "file_type": "code",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L90",
+      "_origin": "ast",
+      "community": 69,
+      "norm_label": "._authed()",
+      "id": "scripts_ops_server_handler_authed"
+    },
+    {
+      "label": "._route()",
+      "file_type": "code",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L93",
+      "_origin": "ast",
+      "community": 69,
+      "norm_label": "._route()",
+      "id": "scripts_ops_server_handler_route"
+    },
+    {
+      "label": ".do_GET()",
+      "file_type": "code",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L96",
+      "_origin": "ast",
+      "community": 69,
+      "norm_label": ".do_get()",
+      "id": "scripts_ops_server_handler_do_get"
+    },
+    {
+      "label": ".do_POST()",
+      "file_type": "code",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L113",
+      "_origin": "ast",
+      "community": 69,
+      "norm_label": ".do_post()",
+      "id": "scripts_ops_server_handler_do_post"
+    },
+    {
+      "label": ".log_message()",
+      "file_type": "code",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L136",
+      "_origin": "ast",
+      "community": 69,
+      "norm_label": ".log_message()",
+      "id": "scripts_ops_server_handler_log_message"
+    },
+    {
       "label": "push_datasets.py",
       "file_type": "code",
       "source_file": "scripts/push_datasets.py",
@@ -7519,7 +7419,7 @@
       "source_file": "scripts/scrape_regulations.py",
       "source_location": "L154",
       "_origin": "ast",
-      "community": 50,
+      "community": 6,
       "norm_label": "main()",
       "id": "scripts_scrape_regulations_main"
     },
@@ -7649,7 +7549,7 @@
       "source_file": "scripts/scrape_sebi.py",
       "source_location": "L176",
       "_origin": "ast",
-      "community": 48,
+      "community": 6,
       "norm_label": "extract_pdf_urls()",
       "id": "scripts_scrape_sebi_extract_pdf_urls"
     },
@@ -7709,7 +7609,7 @@
       "source_file": "scripts/scrape_sebi.py",
       "source_location": "L177",
       "_origin": "ast",
-      "community": 48,
+      "community": 6,
       "norm_label": "all sebi-hosted pdf urls on a detail page, in page order, deduped.      handles",
       "id": "scripts_scrape_sebi_rationale_177"
     },
@@ -8587,7 +8487,7 @@
       "source_file": "src/sebi_rag/__init__.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 144,
+      "community": 72,
       "norm_label": "__init__.py",
       "id": "src_sebi_rag_init"
     },
@@ -8597,7 +8497,7 @@
       "source_file": "src/sebi_rag/__init__.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 144,
+      "community": 72,
       "norm_label": "sebi circular rag \u2014 local-first, apple silicon.  pipeline: ingest -> segment ->",
       "id": "src_sebi_rag_init_rationale_1"
     },
@@ -9037,7 +8937,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L41",
       "_origin": "ast",
-      "community": 11,
+      "community": 88,
       "norm_label": "benchmarkissue",
       "id": "src_sebi_rag_benchmark_benchmarkissue"
     },
@@ -9177,7 +9077,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L319",
       "_origin": "ast",
-      "community": 11,
+      "community": 88,
       "norm_label": "_span_resolution_issues()",
       "id": "src_sebi_rag_benchmark_span_resolution_issues"
     },
@@ -9237,7 +9137,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L395",
       "_origin": "ast",
-      "community": 77,
+      "community": 11,
       "norm_label": "write_trec_run()",
       "id": "src_sebi_rag_benchmark_write_trec_run"
     },
@@ -9247,7 +9147,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L407",
       "_origin": "ast",
-      "community": 77,
+      "community": 83,
       "norm_label": "read_trec_run()",
       "id": "src_sebi_rag_benchmark_read_trec_run"
     },
@@ -9277,7 +9177,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L481",
       "_origin": "ast",
-      "community": 149,
+      "community": 11,
       "norm_label": "run_retrieval_benchmark()",
       "id": "src_sebi_rag_benchmark_run_retrieval_benchmark"
     },
@@ -9347,7 +9247,7 @@
       "source_file": "src/sebi_rag/benchmark.py",
       "source_location": "L408",
       "_origin": "ast",
-      "community": 77,
+      "community": 83,
       "norm_label": "parse a runfile written by `write_trec_run` back into {qid: [(doc, score)]}.",
       "id": "src_sebi_rag_benchmark_rationale_408"
     },
@@ -9407,7 +9307,7 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L46",
       "_origin": "ast",
-      "community": 12,
+      "community": 14,
       "norm_label": "headergenerator",
       "id": "src_sebi_rag_context_headers_headergenerator"
     },
@@ -9417,7 +9317,7 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L47",
       "_origin": "ast",
-      "community": 12,
+      "community": 14,
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_context_headers_headergenerator_init"
     },
@@ -9427,7 +9327,7 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L53",
       "_origin": "ast",
-      "community": 12,
+      "community": 14,
       "norm_label": ".describe()",
       "id": "src_sebi_rag_context_headers_headergenerator_describe"
     },
@@ -9447,7 +9347,7 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L87",
       "_origin": "ast",
-      "community": 12,
+      "community": 14,
       "norm_label": "apply_context_headers()",
       "id": "src_sebi_rag_context_headers_apply_context_headers"
     },
@@ -9507,7 +9407,7 @@
       "source_file": "src/sebi_rag/context_headers.py",
       "source_location": "L90",
       "_origin": "ast",
-      "community": 12,
+      "community": 14,
       "norm_label": "insert each chunk's header as a line below its breadcrumb line.      pure and id",
       "id": "src_sebi_rag_context_headers_rationale_90"
     },
@@ -9517,7 +9417,7 @@
       "source_file": "src/sebi_rag/corpus.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 3,
+      "community": 72,
       "norm_label": "corpus.py",
       "id": "src_sebi_rag_corpus"
     },
@@ -9547,7 +9447,7 @@
       "source_file": "src/sebi_rag/corpus.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 3,
+      "community": 72,
       "norm_label": "load the real sebi circular corpus (data/corpus/circulars.jsonl) into chunks.",
       "id": "src_sebi_rag_corpus_rationale_1"
     },
@@ -9737,7 +9637,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 66,
+      "community": 72,
       "norm_label": "embeddings.py",
       "id": "src_sebi_rag_embeddings"
     },
@@ -9757,7 +9657,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 66,
+      "community": 72,
       "norm_label": "embedder",
       "id": "src_sebi_rag_embeddings_embedder"
     },
@@ -9817,7 +9717,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L51",
       "_origin": "ast",
-      "community": 7,
+      "community": 66,
       "norm_label": "bgem3embedder",
       "id": "src_sebi_rag_embeddings_bgem3embedder"
     },
@@ -9827,7 +9727,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L54",
       "_origin": "ast",
-      "community": 7,
+      "community": 66,
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_embeddings_bgem3embedder_init"
     },
@@ -9847,7 +9747,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 66,
+      "community": 72,
       "norm_label": "embedder protocol + a deterministic test embedder + the real bge-m3 embedder.  t",
       "id": "src_sebi_rag_embeddings_rationale_1"
     },
@@ -9867,7 +9767,7 @@
       "source_file": "src/sebi_rag/embeddings.py",
       "source_location": "L52",
       "_origin": "ast",
-      "community": 7,
+      "community": 66,
       "norm_label": "production dense embedder: baai/bge-m3 on apple silicon mps (step 10).",
       "id": "src_sebi_rag_embeddings_rationale_52"
     },
@@ -9877,7 +9777,7 @@
       "source_file": "src/sebi_rag/eval.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 139,
+      "community": 41,
       "norm_label": "eval.py",
       "id": "src_sebi_rag_eval"
     },
@@ -9887,7 +9787,7 @@
       "source_file": "src/sebi_rag/eval.py",
       "source_location": "L11",
       "_origin": "ast",
-      "community": 139,
+      "community": 41,
       "norm_label": "recall_at_k()",
       "id": "src_sebi_rag_eval_recall_at_k"
     },
@@ -9897,7 +9797,7 @@
       "source_file": "src/sebi_rag/eval.py",
       "source_location": "L18",
       "_origin": "ast",
-      "community": 139,
+      "community": 41,
       "norm_label": "mrr()",
       "id": "src_sebi_rag_eval_mrr"
     },
@@ -9907,7 +9807,7 @@
       "source_file": "src/sebi_rag/eval.py",
       "source_location": "L25",
       "_origin": "ast",
-      "community": 139,
+      "community": 41,
       "norm_label": "ndcg_at_k()",
       "id": "src_sebi_rag_eval_ndcg_at_k"
     },
@@ -9917,7 +9817,7 @@
       "source_file": "src/sebi_rag/eval.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 139,
+      "community": 41,
       "norm_label": "minimal retrieval metrics (subset of docs/project_context.md section 7).  recall",
       "id": "src_sebi_rag_eval_rationale_1"
     },
@@ -10037,7 +9937,7 @@
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 144,
+      "community": 72,
       "norm_label": "eval_harness.py",
       "id": "src_sebi_rag_eval_harness"
     },
@@ -10047,7 +9947,7 @@
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L21",
       "_origin": "ast",
-      "community": 149,
+      "community": 11,
       "norm_label": "_doc()",
       "id": "src_sebi_rag_eval_harness_doc"
     },
@@ -10057,7 +9957,7 @@
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L25",
       "_origin": "ast",
-      "community": 149,
+      "community": 11,
       "norm_label": "_unique()",
       "id": "src_sebi_rag_eval_harness_unique"
     },
@@ -10107,7 +10007,7 @@
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L67",
       "_origin": "ast",
-      "community": 149,
+      "community": 11,
       "norm_label": "_eval_item()",
       "id": "src_sebi_rag_eval_harness_eval_item"
     },
@@ -10147,7 +10047,7 @@
       "source_file": "src/sebi_rag/eval_harness.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 144,
+      "community": 72,
       "norm_label": "golden-set evaluation harness (p1).  runs the pipeline over a labelled golden se",
       "id": "src_sebi_rag_eval_harness_rationale_1"
     },
@@ -10197,7 +10097,7 @@
       "source_file": "src/sebi_rag/generate_spaces.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 82,
+      "community": 5,
       "norm_label": "generate_spaces.py",
       "id": "src_sebi_rag_generate_spaces"
     },
@@ -10247,7 +10147,7 @@
       "source_file": "src/sebi_rag/generate_spaces.py",
       "source_location": "L87",
       "_origin": "ast",
-      "community": 82,
+      "community": 5,
       "norm_label": "hfgenerator",
       "id": "src_sebi_rag_generate_spaces_hfgenerator"
     },
@@ -10267,7 +10167,7 @@
       "source_file": "src/sebi_rag/generate_spaces.py",
       "source_location": "L95",
       "_origin": "ast",
-      "community": 82,
+      "community": 5,
       "norm_label": "._load()",
       "id": "src_sebi_rag_generate_spaces_hfgenerator_load"
     },
@@ -10277,7 +10177,7 @@
       "source_file": "src/sebi_rag/generate_spaces.py",
       "source_location": "L109",
       "_origin": "ast",
-      "community": 82,
+      "community": 5,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_spaces_hfgenerator_generate"
     },
@@ -10307,7 +10207,7 @@
       "source_file": "src/sebi_rag/generate_spaces.py",
       "source_location": "L155",
       "_origin": "ast",
-      "community": 82,
+      "community": 5,
       "norm_label": ".generate()",
       "id": "src_sebi_rag_generate_spaces_hybridgenerator_generate"
     },
@@ -10317,7 +10217,7 @@
       "source_file": "src/sebi_rag/generate_spaces.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 82,
+      "community": 5,
       "norm_label": "cpu / remote generation for the hugging face spaces demo.  all classes implement",
       "id": "src_sebi_rag_generate_spaces_rationale_1"
     },
@@ -10337,7 +10237,7 @@
       "source_file": "src/sebi_rag/generate_spaces.py",
       "source_location": "L88",
       "_origin": "ast",
-      "community": 82,
+      "community": 5,
       "norm_label": "fallback generator: small instruct model via transformers on cpu.",
       "id": "src_sebi_rag_generate_spaces_rationale_88"
     },
@@ -10427,7 +10327,7 @@
       "source_file": "src/sebi_rag/ingest_pdf.py",
       "source_location": "L31",
       "_origin": "ast",
-      "community": 125,
+      "community": 30,
       "norm_label": "normalize_circular_number()",
       "id": "src_sebi_rag_ingest_pdf_normalize_circular_number"
     },
@@ -10467,7 +10367,7 @@
       "source_file": "src/sebi_rag/ingest_pdf.py",
       "source_location": "L82",
       "_origin": "ast",
-      "community": 36,
+      "community": 51,
       "norm_label": "_header()",
       "id": "src_sebi_rag_ingest_pdf_header"
     },
@@ -10667,7 +10567,7 @@
       "source_file": "src/sebi_rag/ingest_pdf.py",
       "source_location": "L32",
       "_origin": "ast",
-      "community": 125,
+      "community": 30,
       "norm_label": "canonical comparison key for a circular number: strip whitespace and     trailin",
       "id": "src_sebi_rag_ingest_pdf_rationale_32"
     },
@@ -10687,7 +10587,7 @@
       "source_file": "src/sebi_rag/ingest_pdf.py",
       "source_location": "L83",
       "_origin": "ast",
-      "community": 36,
+      "community": 51,
       "norm_label": "text above the addressee block ('to,' / hindi '\u092a\u0930\u0924\u093f'), else first 600 chars.",
       "id": "src_sebi_rag_ingest_pdf_rationale_83"
     },
@@ -10767,7 +10667,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 59,
+      "community": 72,
       "norm_label": "lineage.py",
       "id": "src_sebi_rag_lineage"
     },
@@ -10777,7 +10677,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L31",
       "_origin": "ast",
-      "community": 15,
+      "community": 148,
       "norm_label": "_window()",
       "id": "src_sebi_rag_lineage_window"
     },
@@ -10787,7 +10687,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 15,
+      "community": 148,
       "norm_label": "detect_relations_ex()",
       "id": "src_sebi_rag_lineage_detect_relations_ex"
     },
@@ -10797,7 +10697,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L63",
       "_origin": "ast",
-      "community": 15,
+      "community": 148,
       "norm_label": "detect_relations()",
       "id": "src_sebi_rag_lineage_detect_relations"
     },
@@ -10917,7 +10817,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L206",
       "_origin": "ast",
-      "community": 136,
+      "community": 15,
       "norm_label": "demote_superseded()",
       "id": "src_sebi_rag_lineage_demote_superseded"
     },
@@ -10957,7 +10857,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 59,
+      "community": 72,
       "norm_label": "p2 \u2014 cross-document supersession resolution.  classifies each circular's referen",
       "id": "src_sebi_rag_lineage_rationale_1"
     },
@@ -10967,7 +10867,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L36",
       "_origin": "ast",
-      "community": 15,
+      "community": 148,
       "norm_label": "like detect_relations, but returns dict records with evidence spans.",
       "id": "src_sebi_rag_lineage_rationale_36"
     },
@@ -10977,7 +10877,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L64",
       "_origin": "ast",
-      "community": 15,
+      "community": 148,
       "norm_label": "return (relation, referenced_circular) for each distinct reference.",
       "id": "src_sebi_rag_lineage_rationale_64"
     },
@@ -11017,7 +10917,7 @@
       "source_file": "src/sebi_rag/lineage.py",
       "source_location": "L207",
       "_origin": "ast",
-      "community": 136,
+      "community": 15,
       "norm_label": "down-weight reranked (chunk, score) pairs from superseded circulars and     re-s",
       "id": "src_sebi_rag_lineage_rationale_207"
     },
@@ -11117,7 +11017,7 @@
       "source_file": "src/sebi_rag/measure.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 139,
+      "community": 41,
       "norm_label": "measure.py",
       "id": "src_sebi_rag_measure"
     },
@@ -11177,7 +11077,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 107,
+      "community": 41,
       "norm_label": "path",
       "id": "src_sebi_rag_measure_py_path"
     },
@@ -11207,7 +11107,7 @@
       "source_file": "src/sebi_rag/measure.py",
       "source_location": "L114",
       "_origin": "ast",
-      "community": 107,
+      "community": 39,
       "norm_label": "measure_parsing_latency()",
       "id": "src_sebi_rag_measure_measure_parsing_latency"
     },
@@ -11217,7 +11117,7 @@
       "source_file": "src/sebi_rag/measure.py",
       "source_location": "L225",
       "_origin": "ast",
-      "community": 102,
+      "community": 41,
       "norm_label": "measure_supersession_precision()",
       "id": "src_sebi_rag_measure_measure_supersession_precision"
     },
@@ -11227,7 +11127,7 @@
       "source_file": "src/sebi_rag/measure.py",
       "source_location": "L308",
       "_origin": "ast",
-      "community": 102,
+      "community": 41,
       "norm_label": "_verify_supersession_edge()",
       "id": "src_sebi_rag_measure_verify_supersession_edge"
     },
@@ -11237,7 +11137,7 @@
       "source_file": "src/sebi_rag/measure.py",
       "source_location": "L361",
       "_origin": "ast",
-      "community": 147,
+      "community": 39,
       "norm_label": "measure_temporal_accuracy()",
       "id": "src_sebi_rag_measure_measure_temporal_accuracy"
     },
@@ -11247,7 +11147,7 @@
       "source_file": "src/sebi_rag/measure.py",
       "source_location": "L428",
       "_origin": "ast",
-      "community": 146,
+      "community": 41,
       "norm_label": "measure_retrieval_recall()",
       "id": "src_sebi_rag_measure_measure_retrieval_recall"
     },
@@ -11267,7 +11167,7 @@
       "source_file": "src/sebi_rag/measure.py",
       "source_location": "L541",
       "_origin": "ast",
-      "community": 143,
+      "community": 41,
       "norm_label": "measure_mrr()",
       "id": "src_sebi_rag_measure_measure_mrr"
     },
@@ -11277,7 +11177,7 @@
       "source_file": "src/sebi_rag/measure.py",
       "source_location": "L607",
       "_origin": "ast",
-      "community": 111,
+      "community": 39,
       "norm_label": "run_all_metrics()",
       "id": "src_sebi_rag_measure_run_all_metrics"
     },
@@ -11287,7 +11187,7 @@
       "source_file": "src/sebi_rag/measure.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 139,
+      "community": 41,
       "norm_label": "automated metric collection for the sebi circular rag pipeline.  six on-demand m",
       "id": "src_sebi_rag_measure_rationale_1"
     },
@@ -11317,7 +11217,7 @@
       "source_file": "src/sebi_rag/measure.py",
       "source_location": "L120",
       "_origin": "ast",
-      "community": 107,
+      "community": 39,
       "norm_label": "measure pdf ingestion throughput (chars/sec, ms/pdf).      samples 20 pdfs strat",
       "id": "src_sebi_rag_measure_rationale_120"
     },
@@ -11327,7 +11227,7 @@
       "source_file": "src/sebi_rag/measure.py",
       "source_location": "L231",
       "_origin": "ast",
-      "community": 102,
+      "community": 41,
       "norm_label": "measure fraction of detected supersession edges that are genuine.      samples c",
       "id": "src_sebi_rag_measure_rationale_231"
     },
@@ -11337,7 +11237,7 @@
       "source_file": "src/sebi_rag/measure.py",
       "source_location": "L313",
       "_origin": "ast",
-      "community": 102,
+      "community": 41,
       "norm_label": "verify a supersession edge by cross-referencing corpus records.      returns \"tr",
       "id": "src_sebi_rag_measure_rationale_313"
     },
@@ -11347,7 +11247,7 @@
       "source_file": "src/sebi_rag/measure.py",
       "source_location": "L365",
       "_origin": "ast",
-      "community": 147,
+      "community": 39,
       "norm_label": "measure fraction of as_of queries returning correct pre-supersession     circula",
       "id": "src_sebi_rag_measure_rationale_365"
     },
@@ -11357,7 +11257,7 @@
       "source_file": "src/sebi_rag/measure.py",
       "source_location": "L433",
       "_origin": "ast",
-      "community": 146,
+      "community": 41,
       "norm_label": "standard recall@k at circular level, excluding abstain items.",
       "id": "src_sebi_rag_measure_rationale_433"
     },
@@ -11377,7 +11277,7 @@
       "source_file": "src/sebi_rag/measure.py",
       "source_location": "L545",
       "_origin": "ast",
-      "community": 143,
+      "community": 41,
       "norm_label": "mean reciprocal rank at circular level.      for each query, rr = 1/rank of firs",
       "id": "src_sebi_rag_measure_rationale_545"
     },
@@ -11387,7 +11287,7 @@
       "source_file": "src/sebi_rag/measure.py",
       "source_location": "L614",
       "_origin": "ast",
-      "community": 111,
+      "community": 39,
       "norm_label": "run all (or specified) metrics sequentially.",
       "id": "src_sebi_rag_measure_rationale_614"
     },
@@ -11897,7 +11797,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 82,
+      "community": 88,
       "norm_label": ".rerank()",
       "id": "src_sebi_rag_rerank_reranker_rerank"
     },
@@ -11917,7 +11817,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 43,
+      "community": 88,
       "norm_label": ".rerank()",
       "id": "src_sebi_rag_rerank_lexicalreranker_rerank"
     },
@@ -11977,7 +11877,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L115",
       "_origin": "ast",
-      "community": 7,
+      "community": 66,
       "norm_label": "crossencoderreranker",
       "id": "src_sebi_rag_rerank_crossencoderreranker"
     },
@@ -11987,7 +11887,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L121",
       "_origin": "ast",
-      "community": 7,
+      "community": 66,
       "norm_label": ".__init__()",
       "id": "src_sebi_rag_rerank_crossencoderreranker_init"
     },
@@ -11997,7 +11897,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L131",
       "_origin": "ast",
-      "community": 82,
+      "community": 66,
       "norm_label": ".rerank()",
       "id": "src_sebi_rag_rerank_crossencoderreranker_rerank"
     },
@@ -12037,7 +11937,7 @@
       "source_file": "src/sebi_rag/rerank.py",
       "source_location": "L116",
       "_origin": "ast",
-      "community": 7,
+      "community": 66,
       "norm_label": "production reranker: bge-reranker-v2-m3 via sentence-transformers     crossencod",
       "id": "src_sebi_rag_rerank_rationale_116"
     },
@@ -12067,7 +11967,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 3,
+      "community": 72,
       "norm_label": "segment.py",
       "id": "src_sebi_rag_segment"
     },
@@ -12087,7 +11987,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L33",
       "_origin": "ast",
-      "community": 82,
+      "community": 88,
       "norm_label": "chunk",
       "id": "src_sebi_rag_segment_chunk"
     },
@@ -12117,7 +12017,7 @@
       "source_file": "src/sebi_rag/segment.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 3,
+      "community": 72,
       "norm_label": "segmentation: hierarchical chunking + metadata + stable citation ids.  minimal,",
       "id": "src_sebi_rag_segment_rationale_1"
     },
@@ -12797,7 +12697,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L19",
       "_origin": "ast",
-      "community": 22,
+      "community": 15,
       "norm_label": "_offline_pipeline()",
       "id": "tests_test_api_offline_pipeline"
     },
@@ -12807,7 +12707,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 22,
+      "community": 115,
       "norm_label": "_tiny_pipeline()",
       "id": "tests_test_api_tiny_pipeline"
     },
@@ -12817,7 +12717,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L44",
       "_origin": "ast",
-      "community": 22,
+      "community": 115,
       "norm_label": "_slowgenerator",
       "id": "tests_test_api_slowgenerator"
     },
@@ -12827,7 +12727,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L45",
       "_origin": "ast",
-      "community": 22,
+      "community": 115,
       "norm_label": ".generate()",
       "id": "tests_test_api_slowgenerator_generate"
     },
@@ -12837,7 +12737,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L50",
       "_origin": "ast",
-      "community": 22,
+      "community": 115,
       "norm_label": "_slow_pipeline()",
       "id": "tests_test_api_slow_pipeline"
     },
@@ -13037,7 +12937,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L209",
       "_origin": "ast",
-      "community": 7,
+      "community": 66,
       "norm_label": "test_embedder_reranker_accept_compute_kwargs()",
       "id": "tests_test_api_test_embedder_reranker_accept_compute_kwargs"
     },
@@ -13047,7 +12947,7 @@
       "source_file": "tests/test_api.py",
       "source_location": "L219",
       "_origin": "ast",
-      "community": 7,
+      "community": 66,
       "norm_label": "test_bge_fp16_encode_is_normalized()",
       "id": "tests_test_api_test_bge_fp16_encode_is_normalized"
     },
@@ -13657,7 +13557,7 @@
       "source_file": "tests/test_benchmark.py",
       "source_location": "L101",
       "_origin": "ast",
-      "community": 64,
+      "community": 11,
       "norm_label": "test_trec_run_and_research_judges_are_sidecar_only()",
       "id": "tests_test_benchmark_test_trec_run_and_research_judges_are_sidecar_only"
     },
@@ -13667,7 +13567,7 @@
       "source_file": "tests/test_benchmark.py",
       "source_location": "L111",
       "_origin": "ast",
-      "community": 11,
+      "community": 64,
       "norm_label": "test_run_metadata_has_reproducibility_fields()",
       "id": "tests_test_benchmark_test_run_metadata_has_reproducibility_fields"
     },
@@ -13782,6 +13682,56 @@
       "id": "tests_test_build_reg_edges_rationale_1"
     },
     {
+      "label": "test_canary_generator.py",
+      "file_type": "code",
+      "source_file": "tests/test_canary_generator.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 145,
+      "norm_label": "test_canary_generator.py",
+      "id": "tests_test_canary_generator"
+    },
+    {
+      "label": "test_canary_pins_the_stub_generator()",
+      "file_type": "code",
+      "source_file": "tests/test_canary_generator.py",
+      "source_location": "L19",
+      "_origin": "ast",
+      "community": 145,
+      "norm_label": "test_canary_pins_the_stub_generator()",
+      "id": "tests_test_canary_generator_test_canary_pins_the_stub_generator"
+    },
+    {
+      "label": "test_canary_budget_still_matches_the_ops_timeout()",
+      "file_type": "code",
+      "source_file": "tests/test_canary_generator.py",
+      "source_location": "L26",
+      "_origin": "ast",
+      "community": 145,
+      "norm_label": "test_canary_budget_still_matches_the_ops_timeout()",
+      "id": "tests_test_canary_generator_test_canary_budget_still_matches_the_ops_timeout"
+    },
+    {
+      "label": "The eval canary must stay LLM-free.  `ops_server.py` runs canary.sh under a hard",
+      "file_type": "rationale",
+      "source_file": "tests/test_canary_generator.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 145,
+      "norm_label": "the eval canary must stay llm-free.  `ops_server.py` runs canary.sh under a hard",
+      "id": "tests_test_canary_generator_rationale_1"
+    },
+    {
+      "label": "If someone raises the canary to a slow generator, this is the second     tripwir",
+      "file_type": "rationale",
+      "source_file": "tests/test_canary_generator.py",
+      "source_location": "L27",
+      "_origin": "ast",
+      "community": 145,
+      "norm_label": "if someone raises the canary to a slow generator, this is the second     tripwir",
+      "id": "tests_test_canary_generator_rationale_27"
+    },
+    {
       "label": "test_certainty.py",
       "file_type": "code",
       "source_file": "tests/test_certainty.py",
@@ -13877,7 +13827,7 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 12,
+      "community": 14,
       "norm_label": "test_context_headers.py",
       "id": "tests_test_context_headers"
     },
@@ -13887,7 +13837,7 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 12,
+      "community": 14,
       "norm_label": "test_describe_prompt_contains_inputs_and_constraints()",
       "id": "tests_test_context_headers_test_describe_prompt_contains_inputs_and_constraints"
     },
@@ -13897,7 +13847,7 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L38",
       "_origin": "ast",
-      "community": 12,
+      "community": 14,
       "norm_label": "test_describe_cleans_markdown_and_newlines()",
       "id": "tests_test_context_headers_test_describe_cleans_markdown_and_newlines"
     },
@@ -13907,7 +13857,7 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L43",
       "_origin": "ast",
-      "community": 12,
+      "community": 14,
       "norm_label": "test_describe_error_or_empty_returns_empty()",
       "id": "tests_test_context_headers_test_describe_error_or_empty_returns_empty"
     },
@@ -13917,7 +13867,7 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L51",
       "_origin": "ast",
-      "community": 12,
+      "community": 14,
       "norm_label": "test_describe_truncates_to_max_chars()",
       "id": "tests_test_context_headers_test_describe_truncates_to_max_chars"
     },
@@ -13927,7 +13877,7 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L56",
       "_origin": "ast",
-      "community": 12,
+      "community": 14,
       "norm_label": "_chunk()",
       "id": "tests_test_context_headers_chunk"
     },
@@ -13937,7 +13887,7 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L60",
       "_origin": "ast",
-      "community": 12,
+      "community": 14,
       "norm_label": "test_header_inserted_below_breadcrumb()",
       "id": "tests_test_context_headers_test_header_inserted_below_breadcrumb"
     },
@@ -13947,7 +13897,7 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L72",
       "_origin": "ast",
-      "community": 12,
+      "community": 14,
       "norm_label": "test_missing_or_empty_header_leaves_chunk_unchanged()",
       "id": "tests_test_context_headers_test_missing_or_empty_header_leaves_chunk_unchanged"
     },
@@ -13977,7 +13927,7 @@
       "source_file": "tests/test_context_headers.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 12,
+      "community": 14,
       "norm_label": "contextual chunk headers (iv9): one lay+statutory sentence per deep chunk.  offl",
       "id": "tests_test_context_headers_rationale_1"
     },
@@ -14647,7 +14597,7 @@
       "source_file": "tests/test_eval_asof.py",
       "source_location": "L49",
       "_origin": "ast",
-      "community": 101,
+      "community": 115,
       "norm_label": "test_run_pipeline_cases_pass_and_avoid()",
       "id": "tests_test_eval_asof_test_run_pipeline_cases_pass_and_avoid"
     },
@@ -14737,7 +14687,7 @@
       "source_file": "tests/test_eval_harness.py",
       "source_location": "L49",
       "_origin": "ast",
-      "community": 72,
+      "community": 144,
       "norm_label": "test_eval_harness_metric_suite()",
       "id": "tests_test_eval_harness_test_eval_harness_metric_suite"
     },
@@ -15527,7 +15477,7 @@
       "source_file": "tests/test_gate.py",
       "source_location": "L25",
       "_origin": "ast",
-      "community": 115,
+      "community": 80,
       "norm_label": ".grounded()",
       "id": "tests_test_gate_stubjudge_grounded"
     },
@@ -15537,7 +15487,7 @@
       "source_file": "tests/test_gate.py",
       "source_location": "L30",
       "_origin": "ast",
-      "community": 42,
+      "community": 80,
       "norm_label": "test_parse_yes_no()",
       "id": "tests_test_gate_test_parse_yes_no"
     },
@@ -15597,7 +15547,7 @@
       "source_file": "tests/test_gate.py",
       "source_location": "L74",
       "_origin": "ast",
-      "community": 115,
+      "community": 80,
       "norm_label": "test_subject_sim_judge_separates_by_subject()",
       "id": "tests_test_gate_test_subject_sim_judge_separates_by_subject"
     },
@@ -15607,7 +15557,7 @@
       "source_file": "tests/test_gate.py",
       "source_location": "L91",
       "_origin": "ast",
-      "community": 115,
+      "community": 80,
       "norm_label": "test_subject_sim_judge_two_tier_section_gate()",
       "id": "tests_test_gate_test_subject_sim_judge_two_tier_section_gate"
     },
@@ -16937,7 +16887,7 @@
       "source_file": "tests/test_golden_v7_mine.py",
       "source_location": "L27",
       "_origin": "ast",
-      "community": 2,
+      "community": 115,
       "norm_label": "test_paraphrase_skips_preamble_and_short_chunks()",
       "id": "tests_test_golden_v7_mine_test_paraphrase_skips_preamble_and_short_chunks"
     },
@@ -16947,7 +16897,7 @@
       "source_file": "tests/test_golden_v7_mine.py",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 2,
+      "community": 115,
       "norm_label": "test_numeric_miner_requires_numeric_pattern()",
       "id": "tests_test_golden_v7_mine_test_numeric_miner_requires_numeric_pattern"
     },
@@ -17807,7 +17757,7 @@
       "source_file": "tests/test_ingest_pdf.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 51,
+      "community": 36,
       "norm_label": "test_ingest_pdf.py",
       "id": "tests_test_ingest_pdf"
     },
@@ -17817,7 +17767,7 @@
       "source_file": "tests/test_ingest_pdf.py",
       "source_location": "L10",
       "_origin": "ast",
-      "community": 51,
+      "community": 36,
       "norm_label": "_make_pdf()",
       "id": "tests_test_ingest_pdf_make_pdf"
     },
@@ -17827,7 +17777,7 @@
       "source_file": "tests/test_ingest_pdf.py",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 51,
+      "community": 36,
       "norm_label": "test_ingest_extracts_metadata_and_lineage()",
       "id": "tests_test_ingest_pdf_test_ingest_extracts_metadata_and_lineage"
     },
@@ -17837,7 +17787,7 @@
       "source_file": "tests/test_ingest_pdf.py",
       "source_location": "L48",
       "_origin": "ast",
-      "community": 51,
+      "community": 36,
       "norm_label": "test_parse_meta_handles_old_format()",
       "id": "tests_test_ingest_pdf_test_parse_meta_handles_old_format"
     },
@@ -17847,7 +17797,7 @@
       "source_file": "tests/test_ingest_pdf.py",
       "source_location": "L55",
       "_origin": "ast",
-      "community": 51,
+      "community": 36,
       "norm_label": "test_parse_meta_handles_en_dash_in_place_of_slash()",
       "id": "tests_test_ingest_pdf_test_parse_meta_handles_en_dash_in_place_of_slash"
     },
@@ -17857,7 +17807,7 @@
       "source_file": "tests/test_ingest_pdf.py",
       "source_location": "L68",
       "_origin": "ast",
-      "community": 51,
+      "community": 36,
       "norm_label": "test_parse_meta_keeps_spaced_en_dash_as_the_documents_own_hyphen()",
       "id": "tests_test_ingest_pdf_test_parse_meta_keeps_spaced_en_dash_as_the_documents_own_hyphen"
     },
@@ -17867,7 +17817,7 @@
       "source_file": "tests/test_ingest_pdf.py",
       "source_location": "L83",
       "_origin": "ast",
-      "community": 51,
+      "community": 36,
       "norm_label": "test_parse_meta_handles_2011_mc_number_format()",
       "id": "tests_test_ingest_pdf_test_parse_meta_handles_2011_mc_number_format"
     },
@@ -17877,7 +17827,7 @@
       "source_file": "tests/test_ingest_pdf.py",
       "source_location": "L95",
       "_origin": "ast",
-      "community": 51,
+      "community": 36,
       "norm_label": "test_parse_meta_handles_space_before_year_slash()",
       "id": "tests_test_ingest_pdf_test_parse_meta_handles_space_before_year_slash"
     },
@@ -17887,7 +17837,7 @@
       "source_file": "tests/test_ingest_pdf.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 51,
+      "community": 36,
       "norm_label": "validate the local pdf ingestion path with a synthetic circular pdf.",
       "id": "tests_test_ingest_pdf_rationale_1"
     },
@@ -17897,7 +17847,7 @@
       "source_file": "tests/test_ingest_pdf.py",
       "source_location": "L56",
       "_origin": "ast",
-      "community": 51,
+      "community": 36,
       "norm_label": "a pdf kerning artifact can render the number's own '/' as a typographic     en-d",
       "id": "tests_test_ingest_pdf_rationale_56"
     },
@@ -17907,7 +17857,7 @@
       "source_file": "tests/test_ingest_pdf.py",
       "source_location": "L69",
       "_origin": "ast",
-      "community": 51,
+      "community": 36,
       "norm_label": "the mirror of the kerning case above. when the en-dash has spaces on     both si",
       "id": "tests_test_ingest_pdf_rationale_69"
     },
@@ -17917,7 +17867,7 @@
       "source_file": "tests/test_ingest_pdf.py",
       "source_location": "L84",
       "_origin": "ast",
-      "community": 51,
+      "community": 36,
       "norm_label": "2011-era master circulars use \"sebi/<dept>/mc no.<n>/<serial>/<year>\",     match",
       "id": "tests_test_ingest_pdf_rationale_84"
     },
@@ -17927,7 +17877,7 @@
       "source_file": "tests/test_ingest_pdf.py",
       "source_location": "L96",
       "_origin": "ast",
-      "community": 51,
+      "community": 36,
       "norm_label": "old-format pdfs (e.g. cir/mrd/dp/ 11 /2012) split the number with a     space be",
       "id": "tests_test_ingest_pdf_rationale_96"
     },
@@ -17997,7 +17947,7 @@
       "source_file": "tests/test_ingest_refs.py",
       "source_location": "L75",
       "_origin": "ast",
-      "community": 36,
+      "community": 30,
       "norm_label": "test_dedup_uses_normalized_numbers()",
       "id": "tests_test_ingest_refs_test_dedup_uses_normalized_numbers"
     },
@@ -18107,7 +18057,7 @@
       "source_file": "tests/test_integration_e2e.py",
       "source_location": "L26",
       "_origin": "ast",
-      "community": 7,
+      "community": 3,
       "norm_label": "_ollama_up()",
       "id": "tests_test_integration_e2e_ollama_up"
     },
@@ -18117,7 +18067,7 @@
       "source_file": "tests/test_integration_e2e.py",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 7,
+      "community": 3,
       "norm_label": "pipeline()",
       "id": "tests_test_integration_e2e_pipeline"
     },
@@ -18427,7 +18377,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L81",
       "_origin": "ast",
-      "community": 136,
+      "community": 15,
       "norm_label": "test_demote_superseded_puts_in_force_on_top()",
       "id": "tests_test_lineage_test_demote_superseded_puts_in_force_on_top"
     },
@@ -18437,7 +18387,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L91",
       "_origin": "ast",
-      "community": 15,
+      "community": 148,
       "norm_label": "test_plain_citation_is_not_supersession()",
       "id": "tests_test_lineage_test_plain_citation_is_not_supersession"
     },
@@ -18527,7 +18477,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L187",
       "_origin": "ast",
-      "community": 15,
+      "community": 148,
       "norm_label": "test_detect_relations_ex_evidence_and_extractor()",
       "id": "tests_test_lineage_test_detect_relations_ex_evidence_and_extractor"
     },
@@ -18537,7 +18487,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L198",
       "_origin": "ast",
-      "community": 15,
+      "community": 148,
       "norm_label": "test_detect_relations_delegates_unchanged()",
       "id": "tests_test_lineage_test_detect_relations_delegates_unchanged"
     },
@@ -18597,7 +18547,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L298",
       "_origin": "ast",
-      "community": 15,
+      "community": 148,
       "norm_label": "test_detect_relations_ex_supersedes_when_ref_before_trigger()",
       "id": "tests_test_lineage_test_detect_relations_ex_supersedes_when_ref_before_trigger"
     },
@@ -18617,7 +18567,7 @@
       "source_file": "tests/test_lineage.py",
       "source_location": "L299",
       "_origin": "ast",
-      "community": 15,
+      "community": 148,
       "norm_label": "a circular that names another circular before the supersede trigger     word mus",
       "id": "tests_test_lineage_rationale_299"
     },
@@ -18727,7 +18677,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 104,
+      "community": 39,
       "norm_label": "test_measure.py",
       "id": "tests_test_measure"
     },
@@ -18867,7 +18817,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L123",
       "_origin": "ast",
-      "community": 107,
+      "community": 39,
       "norm_label": "testparsinglatency",
       "id": "tests_test_measure_testparsinglatency"
     },
@@ -18877,7 +18827,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L124",
       "_origin": "ast",
-      "community": 107,
+      "community": 39,
       "norm_label": ".test_missing_raw_dir()",
       "id": "tests_test_measure_testparsinglatency_test_missing_raw_dir"
     },
@@ -18887,7 +18837,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L129",
       "_origin": "ast",
-      "community": 107,
+      "community": 39,
       "norm_label": ".test_no_pdfs()",
       "id": "tests_test_measure_testparsinglatency_test_no_pdfs"
     },
@@ -18897,7 +18847,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L136",
       "_origin": "ast",
-      "community": 107,
+      "community": 39,
       "norm_label": ".test_with_dummy_pdf()",
       "id": "tests_test_measure_testparsinglatency_test_with_dummy_pdf"
     },
@@ -18907,7 +18857,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L158",
       "_origin": "ast",
-      "community": 102,
+      "community": 39,
       "norm_label": "testsupersessionprecision",
       "id": "tests_test_measure_testsupersessionprecision"
     },
@@ -18917,7 +18867,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L159",
       "_origin": "ast",
-      "community": 102,
+      "community": 41,
       "norm_label": ".test_empty_corpus()",
       "id": "tests_test_measure_testsupersessionprecision_test_empty_corpus"
     },
@@ -18927,7 +18877,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L166",
       "_origin": "ast",
-      "community": 102,
+      "community": 41,
       "norm_label": ".test_valid_edges()",
       "id": "tests_test_measure_testsupersessionprecision_test_valid_edges"
     },
@@ -18937,7 +18887,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L187",
       "_origin": "ast",
-      "community": 102,
+      "community": 41,
       "norm_label": ".test_no_supersession_mentions()",
       "id": "tests_test_measure_testsupersessionprecision_test_no_supersession_mentions"
     },
@@ -18947,7 +18897,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L209",
       "_origin": "ast",
-      "community": 147,
+      "community": 39,
       "norm_label": "testtemporalaccuracy",
       "id": "tests_test_measure_testtemporalaccuracy"
     },
@@ -18957,7 +18907,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L210",
       "_origin": "ast",
-      "community": 147,
+      "community": 39,
       "norm_label": ".test_no_as_of_rows()",
       "id": "tests_test_measure_testtemporalaccuracy_test_no_as_of_rows"
     },
@@ -18967,7 +18917,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L217",
       "_origin": "ast",
-      "community": 147,
+      "community": 39,
       "norm_label": ".test_as_of_query_hit()",
       "id": "tests_test_measure_testtemporalaccuracy_test_as_of_query_hit"
     },
@@ -18977,7 +18927,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L234",
       "_origin": "ast",
-      "community": 147,
+      "community": 39,
       "norm_label": ".test_as_of_query_miss()",
       "id": "tests_test_measure_testtemporalaccuracy_test_as_of_query_miss"
     },
@@ -18987,7 +18937,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L250",
       "_origin": "ast",
-      "community": 147,
+      "community": 39,
       "norm_label": ".test_as_of_abstain_skipped()",
       "id": "tests_test_measure_testtemporalaccuracy_test_as_of_abstain_skipped"
     },
@@ -18997,7 +18947,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L265",
       "_origin": "ast",
-      "community": 146,
+      "community": 41,
       "norm_label": "testretrievalrecall",
       "id": "tests_test_measure_testretrievalrecall"
     },
@@ -19007,7 +18957,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L266",
       "_origin": "ast",
-      "community": 146,
+      "community": 41,
       "norm_label": ".test_full_recall()",
       "id": "tests_test_measure_testretrievalrecall_test_full_recall"
     },
@@ -19017,7 +18967,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L280",
       "_origin": "ast",
-      "community": 146,
+      "community": 41,
       "norm_label": ".test_partial_recall()",
       "id": "tests_test_measure_testretrievalrecall_test_partial_recall"
     },
@@ -19027,7 +18977,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L294",
       "_origin": "ast",
-      "community": 146,
+      "community": 41,
       "norm_label": ".test_no_relevant_skipped()",
       "id": "tests_test_measure_testretrievalrecall_test_no_relevant_skipped"
     },
@@ -19037,7 +18987,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L303",
       "_origin": "ast",
-      "community": 146,
+      "community": 41,
       "norm_label": ".test_abstain_skipped()",
       "id": "tests_test_measure_testretrievalrecall_test_abstain_skipped"
     },
@@ -19077,7 +19027,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L346",
       "_origin": "ast",
-      "community": 143,
+      "community": 41,
       "norm_label": "testmrr",
       "id": "tests_test_measure_testmrr"
     },
@@ -19087,7 +19037,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L347",
       "_origin": "ast",
-      "community": 143,
+      "community": 41,
       "norm_label": ".test_first_rank()",
       "id": "tests_test_measure_testmrr_test_first_rank"
     },
@@ -19097,7 +19047,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L361",
       "_origin": "ast",
-      "community": 143,
+      "community": 41,
       "norm_label": ".test_second_rank()",
       "id": "tests_test_measure_testmrr_test_second_rank"
     },
@@ -19107,7 +19057,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L375",
       "_origin": "ast",
-      "community": 143,
+      "community": 41,
       "norm_label": ".test_not_found()",
       "id": "tests_test_measure_testmrr_test_not_found"
     },
@@ -19117,7 +19067,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L389",
       "_origin": "ast",
-      "community": 143,
+      "community": 41,
       "norm_label": ".test_no_relevant_skipped()",
       "id": "tests_test_measure_testmrr_test_no_relevant_skipped"
     },
@@ -19127,7 +19077,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L404",
       "_origin": "ast",
-      "community": 111,
+      "community": 39,
       "norm_label": "testregistry",
       "id": "tests_test_measure_testregistry"
     },
@@ -19137,7 +19087,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L405",
       "_origin": "ast",
-      "community": 111,
+      "community": 39,
       "norm_label": ".test_all_metrics_keys()",
       "id": "tests_test_measure_testregistry_test_all_metrics_keys"
     },
@@ -19147,7 +19097,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L416",
       "_origin": "ast",
-      "community": 111,
+      "community": 39,
       "norm_label": ".test_all_metrics_callable()",
       "id": "tests_test_measure_testregistry_test_all_metrics_callable"
     },
@@ -19157,7 +19107,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L420",
       "_origin": "ast",
-      "community": 111,
+      "community": 39,
       "norm_label": ".test_run_all_metrics_subset()",
       "id": "tests_test_measure_testregistry_test_run_all_metrics_subset"
     },
@@ -19167,7 +19117,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L431",
       "_origin": "ast",
-      "community": 111,
+      "community": 39,
       "norm_label": ".test_run_all_metrics_empty_list_defaults_to_all()",
       "id": "tests_test_measure_testregistry_test_run_all_metrics_empty_list_defaults_to_all"
     },
@@ -19177,7 +19127,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L455",
       "_origin": "ast",
-      "community": 104,
+      "community": 39,
       "norm_label": "testcli",
       "id": "tests_test_measure_testcli"
     },
@@ -19187,7 +19137,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L456",
       "_origin": "ast",
-      "community": 104,
+      "community": 39,
       "norm_label": ".test_unknown_metrics_exit()",
       "id": "tests_test_measure_testcli_test_unknown_metrics_exit"
     },
@@ -19197,7 +19147,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L463",
       "_origin": "ast",
-      "community": 104,
+      "community": 39,
       "norm_label": ".test_available_metrics_listed()",
       "id": "tests_test_measure_testcli_test_available_metrics_listed"
     },
@@ -19207,7 +19157,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L467",
       "_origin": "ast",
-      "community": 104,
+      "community": 39,
       "norm_label": ".test_markdown_format()",
       "id": "tests_test_measure_testcli_test_markdown_format"
     },
@@ -19217,7 +19167,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 104,
+      "community": 39,
       "norm_label": "unit tests for sebi_rag.measure \u2014 automated metric collection.",
       "id": "tests_test_measure_rationale_1"
     },
@@ -19247,7 +19197,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L137",
       "_origin": "ast",
-      "community": 107,
+      "community": 39,
       "norm_label": "test with a dummy pdf file \u2014 should not crash.",
       "id": "tests_test_measure_rationale_137"
     },
@@ -19257,7 +19207,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L167",
       "_origin": "ast",
-      "community": 102,
+      "community": 41,
       "norm_label": "two circulars where a supersedes b, dates consistent, mutual reference.",
       "id": "tests_test_measure_rationale_167"
     },
@@ -19267,7 +19217,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L188",
       "_origin": "ast",
-      "community": 102,
+      "community": 41,
       "norm_label": "circulars with no supersession text \u2014 should get zero precision edges.",
       "id": "tests_test_measure_rationale_188"
     },
@@ -19277,7 +19227,7 @@
       "source_file": "tests/test_measure.py",
       "source_location": "L432",
       "_origin": "ast",
-      "community": 111,
+      "community": 39,
       "norm_label": "empty metrics list is falsy \u2192 defaults to all_metrics.",
       "id": "tests_test_measure_rationale_432"
     },
@@ -19567,7 +19517,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 148,
+      "community": 156,
       "norm_label": "test_persistence.py",
       "id": "tests_test_persistence"
     },
@@ -19577,7 +19527,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L9",
       "_origin": "ast",
-      "community": 148,
+      "community": 156,
       "norm_label": "_chunks()",
       "id": "tests_test_persistence_chunks"
     },
@@ -19587,7 +19537,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 148,
+      "community": 156,
       "norm_label": "test_index_save_load_roundtrip()",
       "id": "tests_test_persistence_test_index_save_load_roundtrip"
     },
@@ -19597,7 +19547,7 @@
       "source_file": "tests/test_persistence.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 148,
+      "community": 156,
       "norm_label": "index persistence round-trip (offline).",
       "id": "tests_test_persistence_rationale_1"
     },
@@ -19607,7 +19557,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 115,
+      "community": 136,
       "norm_label": "test_pipeline.py",
       "id": "tests_test_pipeline"
     },
@@ -19617,7 +19567,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L64",
       "_origin": "ast",
-      "community": 115,
+      "community": 136,
       "norm_label": "_build_chunks()",
       "id": "tests_test_pipeline_build_chunks"
     },
@@ -19627,7 +19577,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L71",
       "_origin": "ast",
-      "community": 115,
+      "community": 136,
       "norm_label": "_build_pipeline()",
       "id": "tests_test_pipeline_build_pipeline"
     },
@@ -19637,7 +19587,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L81",
       "_origin": "ast",
-      "community": 115,
+      "community": 136,
       "norm_label": "test_segmentation_has_stable_ids_and_metadata()",
       "id": "tests_test_pipeline_test_segmentation_has_stable_ids_and_metadata"
     },
@@ -19657,7 +19607,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L100",
       "_origin": "ast",
-      "community": 115,
+      "community": 136,
       "norm_label": "test_hybrid_retrieval_finds_relevant_circular()",
       "id": "tests_test_pipeline_test_hybrid_retrieval_finds_relevant_circular"
     },
@@ -19667,7 +19617,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L111",
       "_origin": "ast",
-      "community": 115,
+      "community": 136,
       "norm_label": "test_abstention_on_out_of_domain_query()",
       "id": "tests_test_pipeline_test_abstention_on_out_of_domain_query"
     },
@@ -19687,7 +19637,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L141",
       "_origin": "ast",
-      "community": 115,
+      "community": 136,
       "norm_label": "_repealed_basis_pipeline()",
       "id": "tests_test_pipeline_repealed_basis_pipeline"
     },
@@ -19697,7 +19647,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L162",
       "_origin": "ast",
-      "community": 115,
+      "community": 136,
       "norm_label": "test_note_fires_and_disambiguates_year()",
       "id": "tests_test_pipeline_test_note_fires_and_disambiguates_year"
     },
@@ -19707,7 +19657,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L172",
       "_origin": "ast",
-      "community": 115,
+      "community": 136,
       "norm_label": "test_note_absent_when_status_not_repealed_basis()",
       "id": "tests_test_pipeline_test_note_absent_when_status_not_repealed_basis"
     },
@@ -19717,7 +19667,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L179",
       "_origin": "ast",
-      "community": 115,
+      "community": 136,
       "norm_label": "test_note_absent_when_index_is_none()",
       "id": "tests_test_pipeline_test_note_absent_when_index_is_none"
     },
@@ -19737,7 +19687,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L214",
       "_origin": "ast",
-      "community": 115,
+      "community": 136,
       "norm_label": "test_retrieval_metrics()",
       "id": "tests_test_pipeline_test_retrieval_metrics"
     },
@@ -19817,7 +19767,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 115,
+      "community": 136,
       "norm_label": "minimal end-to-end test of the sebi rag pipeline.  runs fully offline (hashembed",
       "id": "tests_test_pipeline_rationale_1"
     },
@@ -19827,7 +19777,7 @@
       "source_file": "tests/test_pipeline.py",
       "source_location": "L142",
       "_origin": "ast",
-      "community": 115,
+      "community": 136,
       "norm_label": "offline pipeline whose single circular rests on a repealed regulation.",
       "id": "tests_test_pipeline_rationale_142"
     },
@@ -20987,7 +20937,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L25",
       "_origin": "ast",
-      "community": 77,
+      "community": 83,
       "norm_label": "testreadtrecrun",
       "id": "tests_test_rescore_testreadtrecrun"
     },
@@ -20997,7 +20947,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L26",
       "_origin": "ast",
-      "community": 77,
+      "community": 83,
       "norm_label": ".test_round_trips_a_simple_run()",
       "id": "tests_test_rescore_testreadtrecrun_test_round_trips_a_simple_run"
     },
@@ -21007,7 +20957,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L34",
       "_origin": "ast",
-      "community": 77,
+      "community": 83,
       "norm_label": ".test_recovers_doc_ids_containing_spaces()",
       "id": "tests_test_rescore_testreadtrecrun_test_recovers_doc_ids_containing_spaces"
     },
@@ -21017,7 +20967,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L41",
       "_origin": "ast",
-      "community": 77,
+      "community": 83,
       "norm_label": ".test_orders_documents_by_rank_not_file_order()",
       "id": "tests_test_rescore_testreadtrecrun_test_orders_documents_by_rank_not_file_order"
     },
@@ -21027,7 +20977,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L49",
       "_origin": "ast",
-      "community": 77,
+      "community": 83,
       "norm_label": ".test_malformed_line_rejected()",
       "id": "tests_test_rescore_testreadtrecrun_test_malformed_line_rejected"
     },
@@ -21037,7 +20987,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L56",
       "_origin": "ast",
-      "community": 28,
+      "community": 146,
       "norm_label": "testperqueryrecall",
       "id": "tests_test_rescore_testperqueryrecall"
     },
@@ -21047,7 +20997,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L57",
       "_origin": "ast",
-      "community": 28,
+      "community": 146,
       "norm_label": "._golden()",
       "id": "tests_test_rescore_testperqueryrecall_golden"
     },
@@ -21057,7 +21007,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L64",
       "_origin": "ast",
-      "community": 28,
+      "community": 146,
       "norm_label": ".test_scores_each_query_and_skips_abstain_items()",
       "id": "tests_test_rescore_testperqueryrecall_test_scores_each_query_and_skips_abstain_items"
     },
@@ -21067,7 +21017,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L73",
       "_origin": "ast",
-      "community": 28,
+      "community": 146,
       "norm_label": ".test_deduplicates_chunks_to_circulars_before_cutoff()",
       "id": "tests_test_rescore_testperqueryrecall_test_deduplicates_chunks_to_circulars_before_cutoff"
     },
@@ -21077,7 +21027,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L80",
       "_origin": "ast",
-      "community": 77,
+      "community": 115,
       "norm_label": ".test_mean_reproduces_the_archived_aggregate()",
       "id": "tests_test_rescore_testperqueryrecall_test_mean_reproduces_the_archived_aggregate"
     },
@@ -21137,7 +21087,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 77,
+      "community": 83,
       "norm_label": "the archived runfiles embed section headings in the doc id.",
       "id": "tests_test_rescore_rationale_35"
     },
@@ -21147,7 +21097,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L74",
       "_origin": "ast",
-      "community": 28,
+      "community": 146,
       "norm_label": "ten chunks of one circular must not crowd the cutoff: the k applies         to u",
       "id": "tests_test_rescore_rationale_74"
     },
@@ -21157,7 +21107,7 @@
       "source_file": "tests/test_rescore.py",
       "source_location": "L81",
       "_origin": "ast",
-      "community": 77,
+      "community": 115,
       "norm_label": "end-to-end guarantee behind the re-scoring script: replaying a         runfile y",
       "id": "tests_test_rescore_rationale_81"
     },
@@ -21887,7 +21837,7 @@
       "source_file": "tests/test_spaces.py",
       "source_location": "L109",
       "_origin": "ast",
-      "community": 15,
+      "community": 5,
       "norm_label": "test_corpus_records_feed_build_lineage()",
       "id": "tests_test_spaces_test_corpus_records_feed_build_lineage"
     },
@@ -23575,407 +23525,15 @@
   ],
   "links": [
     {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/canary.sh",
-      "source_location": "L6",
-      "weight": 1.0,
-      "source": "scripts_canary",
-      "target": "scripts_canary_hf_hub_disable_xet",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/canary.sh",
-      "source_location": "L6",
-      "weight": 1.0,
-      "source": "scripts_canary",
-      "target": "scripts_canary_omp_num_threads",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/canary.sh",
-      "source_location": "L7",
-      "weight": 1.0,
-      "source": "scripts_canary",
-      "target": "scripts_canary_pythonpath",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/canary.sh",
-      "source_location": "L7",
-      "weight": 1.0,
-      "source": "scripts_canary",
-      "target": "scripts_canary_pytorch_enable_mps_fallback",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/canary.sh",
-      "source_location": "L24",
-      "weight": 1.0,
-      "source": "scripts_canary",
-      "target": "scripts_canary_sebi_rag_eval_generator",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/canary.sh",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "scripts_canary",
-      "target": "scripts_canary_sh__entry",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/canary.sh",
-      "source_location": "L6",
-      "weight": 1.0,
-      "source": "scripts_canary",
-      "target": "scripts_canary_tokenizers_parallelism",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L81",
-      "weight": 1.0,
-      "source": "scripts_ops_server",
-      "target": "scripts_ops_server_handler",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L36",
-      "weight": 1.0,
-      "source": "scripts_ops_server",
-      "target": "scripts_ops_server_run_script",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L51",
-      "weight": 1.0,
-      "source": "scripts_ops_server",
-      "target": "scripts_ops_server_smoketest",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L104",
-      "weight": 1.0,
-      "source": "scripts_ops_server_handler_do_get",
-      "target": "scripts_ops_server_run_script",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L119",
-      "weight": 1.0,
-      "source": "scripts_ops_server_handler_do_post",
-      "target": "scripts_ops_server_run_script",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L108",
-      "weight": 1.0,
-      "source": "scripts_ops_server_handler_do_get",
-      "target": "scripts_ops_server_smoketest",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "inherits",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L81",
-      "weight": 1.0,
-      "source": "scripts_ops_server_handler",
-      "target": "basehttprequesthandler",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L90",
-      "weight": 1.0,
-      "source": "scripts_ops_server_handler",
-      "target": "scripts_ops_server_handler_authed",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L96",
-      "weight": 1.0,
-      "source": "scripts_ops_server_handler",
-      "target": "scripts_ops_server_handler_do_get",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L113",
-      "weight": 1.0,
-      "source": "scripts_ops_server_handler",
-      "target": "scripts_ops_server_handler_do_post",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L136",
-      "weight": 1.0,
-      "source": "scripts_ops_server_handler",
-      "target": "scripts_ops_server_handler_log_message",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L93",
-      "weight": 1.0,
-      "source": "scripts_ops_server_handler",
-      "target": "scripts_ops_server_handler_route",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L82",
-      "weight": 1.0,
-      "source": "scripts_ops_server_handler",
-      "target": "scripts_ops_server_handler_send",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L98",
-      "weight": 1.0,
-      "source": "scripts_ops_server_handler_do_get",
-      "target": "scripts_ops_server_handler_send",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L115",
-      "weight": 1.0,
-      "source": "scripts_ops_server_handler_do_post",
-      "target": "scripts_ops_server_handler_send",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L97",
-      "weight": 1.0,
-      "source": "scripts_ops_server_handler_do_get",
-      "target": "scripts_ops_server_handler_authed",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L114",
-      "weight": 1.0,
-      "source": "scripts_ops_server_handler_do_post",
-      "target": "scripts_ops_server_handler_authed",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L100",
-      "weight": 1.0,
-      "source": "scripts_ops_server_handler_do_get",
-      "target": "scripts_ops_server_handler_route",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/ops_server.py",
-      "source_location": "L117",
-      "weight": 1.0,
-      "source": "scripts_ops_server_handler_do_post",
-      "target": "scripts_ops_server_handler_route",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L48",
-      "weight": 1.0,
-      "source": "tests_test_canary_generator",
-      "target": "tests_test_canary_generator_canary_jscode",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L42",
-      "weight": 1.0,
-      "source": "tests_test_canary_generator",
-      "target": "tests_test_canary_generator_ops_timeout",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L81",
-      "weight": 1.0,
-      "source": "tests_test_canary_generator",
-      "target": "tests_test_canary_generator_test_alert_thresholds_sit_below_measured_baselines",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L57",
-      "weight": 1.0,
-      "source": "tests_test_canary_generator",
-      "target": "tests_test_canary_generator_test_canary_pins_the_stub_generator",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L69",
-      "weight": 1.0,
-      "source": "tests_test_canary_generator",
-      "target": "tests_test_canary_generator_test_n8n_timeout_not_tighter_than_the_ops_budget",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L63",
-      "weight": 1.0,
-      "source": "tests_test_canary_generator",
-      "target": "tests_test_canary_generator_test_ops_timeout_fits_the_measured_runtime",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "tests_test_canary_generator_rationale_1",
-      "target": "tests_test_canary_generator",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L77",
-      "weight": 1.0,
-      "source": "tests_test_canary_generator_test_n8n_timeout_not_tighter_than_the_ops_budget",
-      "target": "tests_test_canary_generator_ops_timeout",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L64",
-      "weight": 1.0,
-      "source": "tests_test_canary_generator_test_ops_timeout_fits_the_measured_runtime",
-      "target": "tests_test_canary_generator_ops_timeout",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L84",
-      "weight": 1.0,
-      "source": "tests_test_canary_generator_test_alert_thresholds_sit_below_measured_baselines",
-      "target": "tests_test_canary_generator_canary_jscode",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L70",
-      "weight": 1.0,
-      "source": "tests_test_canary_generator_rationale_70",
-      "target": "tests_test_canary_generator_test_n8n_timeout_not_tighter_than_the_ops_budget",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/test_canary_generator.py",
-      "source_location": "L82",
-      "weight": 1.0,
-      "source": "tests_test_canary_generator_rationale_82",
-      "target": "tests_test_canary_generator_test_alert_thresholds_sit_below_measured_baselines",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/eval_json.py",
       "source_location": "L43",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_json",
-      "target": "scripts_golden_v7_gate_select"
+      "target": "scripts_golden_v7_gate_select",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -23984,9 +23542,9 @@
       "source_file": "scripts/eval_json.py",
       "source_location": "L44",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_json",
-      "target": "scripts_golden_v7_score"
+      "target": "scripts_golden_v7_score",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -23995,9 +23553,9 @@
       "source_file": "scripts/eval_json.py",
       "source_location": "L33",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_json",
-      "target": "src_sebi_rag_embeddings"
+      "target": "src_sebi_rag_embeddings",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -24006,9 +23564,9 @@
       "source_file": "scripts/eval_json.py",
       "source_location": "L34",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_json",
-      "target": "src_sebi_rag_eval_harness"
+      "target": "src_sebi_rag_eval_harness",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -24017,9 +23575,9 @@
       "source_file": "scripts/eval_json.py",
       "source_location": "L35",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_json",
-      "target": "src_sebi_rag_generate"
+      "target": "src_sebi_rag_generate",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -24028,9 +23586,9 @@
       "source_file": "scripts/eval_json.py",
       "source_location": "L36",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_json",
-      "target": "src_sebi_rag_ingest_pdf"
+      "target": "src_sebi_rag_ingest_pdf",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -24039,9 +23597,9 @@
       "source_file": "scripts/eval_json.py",
       "source_location": "L37",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_json",
-      "target": "src_sebi_rag_lineage"
+      "target": "src_sebi_rag_lineage",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -24050,9 +23608,9 @@
       "source_file": "scripts/eval_json.py",
       "source_location": "L38",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_json",
-      "target": "src_sebi_rag_pipeline"
+      "target": "src_sebi_rag_pipeline",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -24061,9 +23619,9 @@
       "source_file": "scripts/eval_json.py",
       "source_location": "L39",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_json",
-      "target": "src_sebi_rag_rerank"
+      "target": "src_sebi_rag_rerank",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -24072,9 +23630,9 @@
       "source_file": "scripts/eval_json.py",
       "source_location": "L40",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_json",
-      "target": "src_sebi_rag_retrieve"
+      "target": "src_sebi_rag_retrieve",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -24083,9 +23641,9 @@
       "source_file": "scripts/eval_json.py",
       "source_location": "L41",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_json",
-      "target": "src_sebi_rag_settings"
+      "target": "src_sebi_rag_settings",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -24093,29 +23651,9 @@
       "source_file": "scripts/eval_json.py",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_eval_json_rationale_1",
-      "target": "scripts_eval_json"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/derive_thresholds.py",
-      "source_location": "L58",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_derive_thresholds",
-      "target": "scripts_golden_v7_derive_thresholds_derive_floors"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/golden_v7/derive_thresholds.py",
-      "source_location": "L76",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_golden_v7_derive_thresholds",
-      "target": "scripts_golden_v7_derive_thresholds_main"
+      "target": "scripts_eval_json",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -24124,9 +23662,9 @@
       "source_file": "scripts/golden_v7/derive_thresholds.py",
       "source_location": "L33",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_derive_thresholds",
-      "target": "scripts_golden_v7_gate_select"
+      "target": "scripts_golden_v7_gate_select",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -24135,9 +23673,29 @@
       "source_file": "scripts/golden_v7/derive_thresholds.py",
       "source_location": "L34",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_derive_thresholds",
-      "target": "scripts_golden_v7_score"
+      "target": "scripts_golden_v7_score",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/derive_thresholds.py",
+      "source_location": "L58",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_derive_thresholds",
+      "target": "scripts_golden_v7_derive_thresholds_derive_floors",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/golden_v7/derive_thresholds.py",
+      "source_location": "L76",
+      "weight": 1.0,
+      "source": "scripts_golden_v7_derive_thresholds",
+      "target": "scripts_golden_v7_derive_thresholds_main",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -24145,9 +23703,9 @@
       "source_file": "scripts/golden_v7/derive_thresholds.py",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_derive_thresholds_rationale_1",
-      "target": "scripts_golden_v7_derive_thresholds"
+      "target": "scripts_golden_v7_derive_thresholds",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -24156,9 +23714,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L13",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "scripts_golden_v7_derive_thresholds"
+      "target": "scripts_golden_v7_derive_thresholds",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -24167,9 +23725,9 @@
       "source_file": "scripts/golden_v7/derive_thresholds.py",
       "source_location": "L120",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_derive_thresholds_main",
-      "target": "scripts_golden_v7_derive_thresholds_derive_floors"
+      "target": "scripts_golden_v7_derive_thresholds_derive_floors",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -24177,9 +23735,9 @@
       "source_file": "scripts/golden_v7/derive_thresholds.py",
       "source_location": "L59",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_derive_thresholds_rationale_59",
-      "target": "scripts_golden_v7_derive_thresholds_derive_floors"
+      "target": "scripts_golden_v7_derive_thresholds_derive_floors",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -24297,9 +23855,9 @@
       "source_file": "scripts/golden_v7/score.py",
       "source_location": "L16",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_score",
-      "target": "scripts_golden_v7_score_score_row"
+      "target": "scripts_golden_v7_score_score_row",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24307,9 +23865,9 @@
       "source_file": "scripts/golden_v7/score.py",
       "source_location": "L52",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_score",
-      "target": "scripts_golden_v7_score_vectors"
+      "target": "scripts_golden_v7_score_vectors",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -24317,9 +23875,9 @@
       "source_file": "scripts/golden_v7/score.py",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_score_rationale_1",
-      "target": "scripts_golden_v7_score"
+      "target": "scripts_golden_v7_score",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -24338,9 +23896,9 @@
       "source_file": "scripts/golden_v7/score.py",
       "source_location": "L17",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_score_rationale_17",
-      "target": "scripts_golden_v7_score_score_row"
+      "target": "scripts_golden_v7_score_score_row",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -24359,9 +23917,9 @@
       "source_file": "scripts/golden_v7/score.py",
       "source_location": "L53",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_golden_v7_score_rationale_53",
-      "target": "scripts_golden_v7_score_vectors"
+      "target": "scripts_golden_v7_score_vectors",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -24381,9 +23939,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L15",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_eval_generator",
-      "target": "src_sebi_rag_generate"
+      "target": "src_sebi_rag_generate",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24391,9 +23949,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L68",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_eval_generator",
-      "target": "tests_test_eval_generator_test_both_eval_scripts_read_the_same_setting"
+      "target": "tests_test_eval_generator_test_both_eval_scripts_read_the_same_setting",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24401,9 +23959,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L47",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_eval_generator",
-      "target": "tests_test_eval_generator_test_eval_scripts_do_not_construct_a_generator_directly"
+      "target": "tests_test_eval_generator_test_eval_scripts_do_not_construct_a_generator_directly",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24411,9 +23969,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L54",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_eval_generator",
-      "target": "tests_test_eval_generator_test_eval_scripts_use_the_shared_factory"
+      "target": "tests_test_eval_generator_test_eval_scripts_use_the_shared_factory",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24421,9 +23979,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L22",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_eval_generator",
-      "target": "tests_test_eval_generator_test_mlx_kind_builds_the_production_generator"
+      "target": "tests_test_eval_generator_test_mlx_kind_builds_the_production_generator",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24431,9 +23989,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L18",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_eval_generator",
-      "target": "tests_test_eval_generator_test_stub_is_the_default_kind"
+      "target": "tests_test_eval_generator_test_stub_is_the_default_kind",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24441,9 +23999,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L30",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_eval_generator",
-      "target": "tests_test_eval_generator_test_unknown_kind_raises_rather_than_defaulting"
+      "target": "tests_test_eval_generator_test_unknown_kind_raises_rather_than_defaulting",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -24451,9 +24009,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_eval_generator_rationale_1",
-      "target": "tests_test_eval_generator"
+      "target": "tests_test_eval_generator",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -24461,9 +24019,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L23",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_eval_generator_rationale_23",
-      "target": "tests_test_eval_generator_test_mlx_kind_builds_the_production_generator"
+      "target": "tests_test_eval_generator_test_mlx_kind_builds_the_production_generator",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -24471,9 +24029,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L31",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_eval_generator_rationale_31",
-      "target": "tests_test_eval_generator_test_unknown_kind_raises_rather_than_defaulting"
+      "target": "tests_test_eval_generator_test_unknown_kind_raises_rather_than_defaulting",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -24481,9 +24039,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L55",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_eval_generator_rationale_55",
-      "target": "tests_test_eval_generator_test_eval_scripts_use_the_shared_factory"
+      "target": "tests_test_eval_generator_test_eval_scripts_use_the_shared_factory",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -24491,9 +24049,9 @@
       "source_file": "tests/test_eval_generator.py",
       "source_location": "L69",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_eval_generator_rationale_69",
-      "target": "tests_test_eval_generator_test_both_eval_scripts_read_the_same_setting"
+      "target": "tests_test_eval_generator_test_both_eval_scripts_read_the_same_setting",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -24502,9 +24060,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L14",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "scripts_golden_v7_gate_select"
+      "target": "scripts_golden_v7_gate_select",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24512,9 +24070,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L24",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_gate_file"
+      "target": "tests_test_golden_v7_gate_gate_file",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24522,9 +24080,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L40",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_test_armed_gate_selects_v7"
+      "target": "tests_test_golden_v7_gate_test_armed_gate_selects_v7",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24532,9 +24090,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L50",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_test_below_threshold_falls_back_to_v5"
+      "target": "tests_test_golden_v7_gate_test_below_threshold_falls_back_to_v5",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24542,9 +24100,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L128",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_test_citation_precision_is_gated_after_b_prime"
+      "target": "tests_test_golden_v7_gate_test_citation_precision_is_gated_after_b_prime",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24552,9 +24110,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L116",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_test_derive_floors_skips_metrics_with_no_scored_queries"
+      "target": "tests_test_golden_v7_gate_test_derive_floors_skips_metrics_with_no_scored_queries",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24562,9 +24120,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L124",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_test_derived_floor_never_goes_negative"
+      "target": "tests_test_golden_v7_gate_test_derived_floor_never_goes_negative",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24572,9 +24130,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L106",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_test_derived_floor_sits_below_the_observed_mean"
+      "target": "tests_test_golden_v7_gate_test_derived_floor_sits_below_the_observed_mean",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24582,9 +24140,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L34",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_test_env_override_wins_over_everything"
+      "target": "tests_test_golden_v7_gate_test_env_override_wins_over_everything",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24592,9 +24150,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L166",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_test_every_derived_floor_is_emitted_by_the_eval_report"
+      "target": "tests_test_golden_v7_gate_test_every_derived_floor_is_emitted_by_the_eval_report",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24602,9 +24160,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L45",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_test_exactly_at_threshold_arms"
+      "target": "tests_test_golden_v7_gate_test_exactly_at_threshold_arms",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24612,9 +24170,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L181",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_test_floor_names_match_the_gate_report_keys"
+      "target": "tests_test_golden_v7_gate_test_floor_names_match_the_gate_report_keys",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24622,9 +24180,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L85",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_test_floors_not_ok_when_one_metric_is_below"
+      "target": "tests_test_golden_v7_gate_test_floors_not_ok_when_one_metric_is_below",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24632,9 +24190,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L81",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_test_floors_ok_is_inclusive_at_the_boundary"
+      "target": "tests_test_golden_v7_gate_test_floors_ok_is_inclusive_at_the_boundary",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24642,9 +24200,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L75",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_test_floors_ok_when_every_metric_meets_its_floor"
+      "target": "tests_test_golden_v7_gate_test_floors_ok_when_every_metric_meets_its_floor",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24652,9 +24210,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L67",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_test_gate_file_without_adjudicated_n_falls_back_to_v5"
+      "target": "tests_test_golden_v7_gate_test_gate_file_without_adjudicated_n_falls_back_to_v5",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24662,9 +24220,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L139",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_test_gate_floors_rank_quality_not_only_recall"
+      "target": "tests_test_golden_v7_gate_test_gate_floors_rank_quality_not_only_recall",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24672,9 +24230,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L59",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_test_malformed_gate_file_falls_back_to_v5"
+      "target": "tests_test_golden_v7_gate_test_malformed_gate_file_falls_back_to_v5",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24682,9 +24240,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L55",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_test_missing_gate_file_falls_back_to_v5"
+      "target": "tests_test_golden_v7_gate_test_missing_gate_file_falls_back_to_v5",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24692,9 +24250,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L91",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_test_missing_metric_fails_closed"
+      "target": "tests_test_golden_v7_gate_test_missing_metric_fails_closed",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24702,9 +24260,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L148",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_test_ndcg_floor_catches_a_reordering_regression_recall_misses"
+      "target": "tests_test_golden_v7_gate_test_ndcg_floor_catches_a_reordering_regression_recall_misses",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24712,9 +24270,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L98",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_test_no_floors_is_vacuously_ok"
+      "target": "tests_test_golden_v7_gate_test_no_floors_is_vacuously_ok",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24722,9 +24280,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L155",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate",
-      "target": "tests_test_golden_v7_gate_test_vectors_exposes_ndcg_for_floor_derivation"
+      "target": "tests_test_golden_v7_gate_test_vectors_exposes_ndcg_for_floor_derivation",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -24732,9 +24290,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate_rationale_1",
-      "target": "tests_test_golden_v7_gate"
+      "target": "tests_test_golden_v7_gate",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -24743,9 +24301,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L41",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate_test_armed_gate_selects_v7",
-      "target": "tests_test_golden_v7_gate_gate_file"
+      "target": "tests_test_golden_v7_gate_gate_file",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -24754,9 +24312,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L51",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate_test_below_threshold_falls_back_to_v5",
-      "target": "tests_test_golden_v7_gate_gate_file"
+      "target": "tests_test_golden_v7_gate_gate_file",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -24765,9 +24323,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L35",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate_test_env_override_wins_over_everything",
-      "target": "tests_test_golden_v7_gate_gate_file"
+      "target": "tests_test_golden_v7_gate_gate_file",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -24776,9 +24334,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L46",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate_test_exactly_at_threshold_arms",
-      "target": "tests_test_golden_v7_gate_gate_file"
+      "target": "tests_test_golden_v7_gate_gate_file",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -24787,9 +24345,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L68",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate_test_gate_file_without_adjudicated_n_falls_back_to_v5",
-      "target": "tests_test_golden_v7_gate_gate_file"
+      "target": "tests_test_golden_v7_gate_gate_file",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -24797,9 +24355,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L60",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate_rationale_60",
-      "target": "tests_test_golden_v7_gate_test_malformed_gate_file_falls_back_to_v5"
+      "target": "tests_test_golden_v7_gate_test_malformed_gate_file_falls_back_to_v5",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -24807,9 +24365,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L92",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate_rationale_92",
-      "target": "tests_test_golden_v7_gate_test_missing_metric_fails_closed"
+      "target": "tests_test_golden_v7_gate_test_missing_metric_fails_closed",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -24817,9 +24375,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L107",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate_rationale_107",
-      "target": "tests_test_golden_v7_gate_test_derived_floor_sits_below_the_observed_mean"
+      "target": "tests_test_golden_v7_gate_test_derived_floor_sits_below_the_observed_mean",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -24827,9 +24385,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L117",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate_rationale_117",
-      "target": "tests_test_golden_v7_gate_test_derive_floors_skips_metrics_with_no_scored_queries"
+      "target": "tests_test_golden_v7_gate_test_derive_floors_skips_metrics_with_no_scored_queries",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -24837,9 +24395,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L129",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate_rationale_129",
-      "target": "tests_test_golden_v7_gate_test_citation_precision_is_gated_after_b_prime"
+      "target": "tests_test_golden_v7_gate_test_citation_precision_is_gated_after_b_prime",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -24847,9 +24405,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L140",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate_rationale_140",
-      "target": "tests_test_golden_v7_gate_test_gate_floors_rank_quality_not_only_recall"
+      "target": "tests_test_golden_v7_gate_test_gate_floors_rank_quality_not_only_recall",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -24857,9 +24415,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L156",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate_rationale_156",
-      "target": "tests_test_golden_v7_gate_test_vectors_exposes_ndcg_for_floor_derivation"
+      "target": "tests_test_golden_v7_gate_test_vectors_exposes_ndcg_for_floor_derivation",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -24867,9 +24425,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L167",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate_rationale_167",
-      "target": "tests_test_golden_v7_gate_test_every_derived_floor_is_emitted_by_the_eval_report"
+      "target": "tests_test_golden_v7_gate_test_every_derived_floor_is_emitted_by_the_eval_report",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -24877,9 +24435,9 @@
       "source_file": "tests/test_golden_v7_gate.py",
       "source_location": "L182",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "tests_test_golden_v7_gate_rationale_182",
-      "target": "tests_test_golden_v7_gate_test_floor_names_match_the_gate_report_keys"
+      "target": "tests_test_golden_v7_gate_test_floor_names_match_the_gate_report_keys",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -36007,6 +35565,76 @@
       "target": "src_sebi_rag_eval_harness_unique"
     },
     {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/canary.sh",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_canary",
+      "target": "scripts_canary_hf_hub_disable_xet"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/canary.sh",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_canary",
+      "target": "scripts_canary_omp_num_threads"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/canary.sh",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_canary",
+      "target": "scripts_canary_pythonpath"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/canary.sh",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_canary",
+      "target": "scripts_canary_pytorch_enable_mps_fallback"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/canary.sh",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_canary",
+      "target": "scripts_canary_sebi_rag_eval_generator"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/canary.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_canary",
+      "target": "scripts_canary_sh__entry"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/canary.sh",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_canary",
+      "target": "scripts_canary_tokenizers_parallelism"
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/deploy_space.py",
@@ -42364,6 +41992,205 @@
       "confidence_score": 1.0,
       "source": "scripts_notify",
       "target": "scripts_notify_sh__entry"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L81",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_ops_server",
+      "target": "scripts_ops_server_handler"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L36",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_ops_server",
+      "target": "scripts_ops_server_run_script"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L51",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_ops_server",
+      "target": "scripts_ops_server_smoketest"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L104",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_ops_server_handler_do_get",
+      "target": "scripts_ops_server_run_script"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L119",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_ops_server_handler_do_post",
+      "target": "scripts_ops_server_run_script"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L108",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_ops_server_handler_do_get",
+      "target": "scripts_ops_server_smoketest"
+    },
+    {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L81",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_ops_server_handler",
+      "target": "basehttprequesthandler"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L90",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_ops_server_handler",
+      "target": "scripts_ops_server_handler_authed"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L96",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_ops_server_handler",
+      "target": "scripts_ops_server_handler_do_get"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L113",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_ops_server_handler",
+      "target": "scripts_ops_server_handler_do_post"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L136",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_ops_server_handler",
+      "target": "scripts_ops_server_handler_log_message"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L93",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_ops_server_handler",
+      "target": "scripts_ops_server_handler_route"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L82",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_ops_server_handler",
+      "target": "scripts_ops_server_handler_send"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L98",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_ops_server_handler_do_get",
+      "target": "scripts_ops_server_handler_send"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L115",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_ops_server_handler_do_post",
+      "target": "scripts_ops_server_handler_send"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L97",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_ops_server_handler_do_get",
+      "target": "scripts_ops_server_handler_authed"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L114",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_ops_server_handler_do_post",
+      "target": "scripts_ops_server_handler_authed"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L100",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_ops_server_handler_do_get",
+      "target": "scripts_ops_server_handler_route"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ops_server.py",
+      "source_location": "L117",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_ops_server_handler_do_post",
+      "target": "scripts_ops_server_handler_route"
     },
     {
       "relation": "contains",
@@ -60986,6 +60813,46 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "tests/test_canary_generator.py",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tests_test_canary_generator",
+      "target": "tests_test_canary_generator_test_canary_budget_still_matches_the_ops_timeout"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_canary_generator.py",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tests_test_canary_generator",
+      "target": "tests_test_canary_generator_test_canary_pins_the_stub_generator"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_canary_generator.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tests_test_canary_generator_rationale_1",
+      "target": "tests_test_canary_generator"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_canary_generator.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "tests_test_canary_generator_rationale_27",
+      "target": "tests_test_canary_generator_test_canary_budget_still_matches_the_ops_timeout"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "tests/test_certainty.py",
       "source_location": "L16",
       "weight": 1.0,
@@ -73531,5 +73398,5 @@
       "source_file": "tests/fixtures/master_appendix_pre2015.txt"
     }
   ],
-  "built_at_commit": "57ba444d1e824c3ccfebe755e40bb377539b4c2f"
+  "built_at_commit": "94f668fd31a8df7fa2feb2b1b20d463c989a92a3"
 }

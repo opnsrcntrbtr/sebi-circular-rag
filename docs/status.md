@@ -343,6 +343,43 @@ correlated, so their agreement is *not* independent confirmation. **iv11 is the 
 candidate the programme has produced, but it is suggestive, not established** — it warrants a
 preregistered confirmatory run with nDCG@10 as the single primary endpoint before adoption.
 
+## Zero-cite composition under the production generator (2026-08-13)
+
+Re-measured with MLX on both arms (validity check passed: retrieval identical). This **corrects
+the earlier claim that B′ is the main citation bottleneck** — that came from the stub, which
+inflated B′'s share roughly fivefold.
+
+| | B′ OFF | B′ ON (production) |
+|---|---|---|
+| zero-cite rows (of 206) | 15 | 19 |
+| citation_recall | 0.9248 | 0.8981 |
+| citation_precision | 0.1240 | 0.1948 |
+
+Composition of the 19:
+
+| Cause | n | Note |
+|---|---|---|
+| **Caused solely by B′** | **4** | stub said 19 — a 5× overstatement |
+| **False abstention** | **6** | answerable row, every relevant doc retrieved, pipeline still abstained |
+| **Answered but cited only wrong docs** | **9** | retrieval succeeded, citations missed entirely |
+| B′ rescues | 0 | |
+
+**B′ is exonerated.** It costs 4 rows and buys citation_precision 0.1240 → 0.1948 (+57%);
+the zero-cite difference is not significant (p=0.123). Do not tune or replace it on the strength
+of the old stub numbers — `min_keep` and the NLI backend were both chasing a 19-row problem that
+is really a 4-row one.
+
+**False abstentions (6 of 206, 2.9%)** — `para-mfborrow`, `para-pricedata`, `v7-ls-015`,
+`v7-ls-029`, `v7-nt-013`, `v7-nt-025` (body_paraphrase 2, lineage_supersession 2, numeric_table 2).
+The system held the evidence and refused to answer. For a legal tool that is a distinct and
+arguably worse failure than citing imprecisely, and it is invisible in `abstention_accuracy`
+(0.962) because that metric pools abstain-labelled rows.
+
+**Cite-wrong-docs (9)** — not yet diagnosed. Hypothesis, untested: `recall` is measured over
+`retrieved_ids` while citations come from the `top_k` contexts after `demote_superseded`, so
+supersession demotion may push relevant docs out of the context window the generator and citer
+see. Checkable without a new run.
+
 ## Gate re-derived under the production generator (2026-08-12)
 
 The floors were previously derived under `ExtractiveStubGenerator` while production runs MLX. The
@@ -529,6 +566,11 @@ can be the governing provision without textually entailing a paraphrase of it �
 **Also learned:** under the real generator B′'s catastrophic-failure rate is **19 rows, not 34** —
 roughly half what the stub measurement implied. The stub systematically overstates this failure.
 
+> **Superseded 2026-08-13.** Even 19 overstates B′'s share. Re-measuring with MLX on *both* arms
+> shows B′ causes only **4** of those 19; 6 are false abstentions and 9 are cite-wrong-docs. B′
+> needs no fix — it costs 4 rows and buys +57% citation_precision. See §Zero-cite composition.
+> Both `min_keep` and the NLI backend were chasing a problem five times larger than it is.
+
 ⚠️ **Open question, not a finding:** the gate's `citation_precision` floor (0.1896) was derived
 under the **stub**, while production runs MLX; on this subset MLX precision is 0.1948. Denominators
 differ (gate = 260 adjudicated incl. abstain; this = 206 answerable perfect-retrieval), so this is
@@ -597,6 +639,8 @@ adopting iv11: the sole surviving exploratory result failed on data that did not
 cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
+
+2026-08-13 — **B′ exonerated; three distinct citation problems, not one.** Re-measured zero-cite with MLX on both arms: of 19 rows, **4** are B′-caused (stub said 19 — 5x overstatement), **6** are **false abstentions** (answerable, evidence retrieved, pipeline refused), 9 cite wrong docs. B′ costs 4 rows for +57% citation_precision — leave it alone. Canary budget fixed: measured **840s**, not the documented ~40s (reporting set grew v5 n=56 → v7 n=260, plus B′ per-row cross-encoder); ops/n8n timeouts 300s → 1800s and alert thresholds rebased (citation_precision fired below 0.35 against a measured 0.224).
 
 2026-08-12 — **Gate re-derived under the production MLX generator.** `eval_generator_for` makes the generator one shared decision across `derive_thresholds.py` + `eval_json.py` (3 coupling tests); `config.toml eval_generator="mlx"`. Floors: citation_recall 0.7233→**0.8124** (stricter), citation_precision 0.1896→**0.1571**; retrieval/ranking/abstention floors bit-identical as they must be. The old stub gate described a system that does not exist — MLX precision 0.186 sat *below* its 0.1896 floor. Verified `floors_ok: true` end-to-end. **NLI attribution scorer built, preregistered, and REJECTED in two runs.** Run 1 (stub) was confounded by `ExtractiveStubGenerator` returning `contexts[0].text` verbatim — a limitation preregistered in advance. Run 2 re-ran **both arms** under the real MLX generator (all 3 validity checks passed): zero-cite **19 (reranker) vs 54 (NLI)**, Δ +0.1699, p=0.0001 — **H1 refuted under a valid test; stop pursuing NLI for B′**. Also: under the real generator B′ breaks **19 rows, not 34** — the stub overstates this failure by ~2x. **Stage-loss analysis: bottleneck is citation selection, not retrieval.** The A/B bench never invoked the reranker (`benchmark.py:494`), so all iv runs measured fusion order, not what production serves; added `bench_retrieval --rerank`. Pool R@50 saturates at **0.9861** across three arms — retrieval has ≤1.4 pp headroom, which explains all five nulls. On 206 rows with perfect retrieval, **34 cite nothing relevant**; **19 solely because of B′**. Added `select_citations(min_keep=)` (TDD) — measured at 3, repairs only 5/19 and costs precision (p=0.0005), **not adopted, default stays 1**. Root cause: B′ uses a relevance reranker as an attribution scorer. **iv9/iv10 measured: both null** (nDCG@10 +0.0033 p=0.713; +0.0018 p=0.741). All five iv arms now resolved on E4, none adoptable. Added `build_index --out` + `bench_retrieval --index-dir` (TDD) so arm indexes build without clobbering the 1.0 GB production index. **Gate now floors `ndcg_at_10` at 0.6512** (TDD; score.py + derive_thresholds.py + eval_json.py, coupling test prevents gated-but-unreported drift). **iv11 REJECTED** on preregistered held-out confirmation (probes n=25, primary nDCG@10 Δ −0.0068, p=0.865). SPLADE sidecar rebuilt (3.7 h, n=78523) and **iv11 measured: the only intervention showing benefit** — nDCG@10 +0.0291 (p=0.032 uncorrected), MRR +0.0284, R@10 +1.85 pp, 1.36× latency. Established that **recall@10 is ceiling-limited (0.956) and was masking all effects**: nDCG@10 yields 95 discordant queries vs 8. iv2 made measurable (`expand_sparse` param + `--no-expand`, TDD) and measured: **exact no-op on E4** (Δ 0.000000, 0/216 discordant, toggle verified live via 11 reordered queries). Suite **738 passed**, 1 skipped, 3 deselected. iv9/iv10 header-sidecar alignment verified against E4 (99.8% / 100% chunk-id match) — those re-runs are cost-gated, not data-blocked. SPLADE sidecar rebuild in flight (~3.5 h). Step 1 (E4 re-runs): iv8 HyDE measured and rejected (Δ −2.31 pp, p=0.177, 41× latency); iv2 found to be non-separable from baseline; iv9/iv10/iv11 blocked (stale SPLADE sidecar, E2-keyed header sidecars, index-rebuild cost). Step 2: `make test` → **736 passed, 1 skipped, 3 deselected**. Step 3: reconciled stale test counts (640/667 → 736) across CLAUDE.md, AGENTS.md, `.claude/rules/`; corrected gate-floor contradictions in `refusal-criteria.md` (0.9155/0.3245/0.8346 → 0.906/0.7233/0.9335 per `gate_v7.json`) and the stale pre-B′ gate-floors block here.
 
