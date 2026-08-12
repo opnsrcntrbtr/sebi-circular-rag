@@ -43,8 +43,15 @@ _FLOOR_CUSHION = 0.005
 # B' gates citation_precision alongside recall/recall_tradeoff/abstention.
 # The filter improves precision but lowers citation_recall; the gate now
 # protects both sides of that trade-off so a future regression is caught.
-_GATED_METRICS = ("recall", "citation_recall", "abstention", "citation_precision")
-_FLOOR_NAMES = {"recall": "recall_at_k", "citation_recall": "citation_recall",
+# nDCG@10 joins the gate (2026-08-12): recall_at_k is ceiling-limited at
+# ~0.956, leaving ~9 failing queries of 216 and ~8 discordant queries per A/B
+# — too few to detect anything. nDCG@10 scores 0.7044 on the same runs and
+# moves on 95+ queries, so it is the metric that can actually catch a
+# ranking regression. See docs/status.md §"recall@10 is the wrong primary
+# metric".
+_GATED_METRICS = ("recall", "ndcg", "citation_recall", "abstention", "citation_precision")
+_FLOOR_NAMES = {"recall": "recall_at_k", "ndcg": "ndcg_at_10",
+                "citation_recall": "citation_recall",
                 "abstention": "abstention_accuracy", "citation_precision": "citation_precision"}
 
 
@@ -69,7 +76,7 @@ def derive_floors(per_query: dict[str, list[float]]) -> dict[str, float]:
 def main() -> None:
     from sebi_rag.embeddings import BGEM3Embedder
     from sebi_rag.eval_harness import load_golden
-    from sebi_rag.generate import ExtractiveStubGenerator, SubjectSimJudge, citation_scorer_for
+    from sebi_rag.generate import SubjectSimJudge, citation_scorer_for, eval_generator_for
     from sebi_rag.lineage import build_lineage, load_records
     from sebi_rag.pipeline import RAGPipeline
     from sebi_rag.rerank import CrossEncoderReranker
@@ -99,9 +106,11 @@ def main() -> None:
     # HybridRetriever.build() and would re-embed the whole corpus, discarding
     # the persisted index these floors are meant to describe.
     pipeline = RAGPipeline(
-        retriever=retr, reranker=rer, generator=ExtractiveStubGenerator(),
+        retriever=retr, reranker=rer,
+        generator=eval_generator_for(s.eval_generator, s.mlx_model),
         abstain_threshold=s.abstain_threshold, lineage=lin, judge=judge,
-        citation_scorer=citation_scorer_for(s.citation_scorer_enabled, rer),
+        citation_scorer=citation_scorer_for(s.citation_scorer_enabled, rer,
+                                            s.citation_scorer_backend),
         citation_margin=s.citation_margin)
 
     scored = [score_row(pipeline, item, s.top_k) for item in adjudicated]

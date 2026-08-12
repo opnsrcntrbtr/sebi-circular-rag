@@ -38,6 +38,10 @@ def score_row(pipeline, item: dict, top_k: int) -> dict:
 
     retrieved_docs = _unique(_doc(i) for i in retrieved_ids)
     rec["recall"] = M.recall_at_k(retrieved_docs, relevant, 10)
+    # recall@10 is ceiling-limited on this corpus (~0.956 baseline), so it
+    # cannot see a regression that keeps the same documents in the top-10 and
+    # merely reorders them. nDCG@10 is rank-sensitive and has real headroom.
+    rec["ndcg"] = M.ndcg_at_k(retrieved_docs, relevant, 10)
     cited = [] if ans.abstained else _unique(_doc(c) for c in ans.citations)
     hit = len(set(cited) & relevant)
     rec["citation_precision"] = hit / len(cited) if cited else 0.0
@@ -50,5 +54,5 @@ def vectors(recs: list[dict], adjudicated_only: bool = False) -> dict[str, list[
     metric was never measured (see `score_row`)."""
     if adjudicated_only:
         recs = [r for r in recs if r["adjudicated"]]
-    keys = ("recall", "citation_precision", "citation_recall", "abstention")
+    keys = ("recall", "ndcg", "citation_precision", "citation_recall", "abstention")
     return {k: [r[k] for r in recs if k in r] for k in keys}

@@ -20,6 +20,14 @@ encode_batch_size = 32                                 # embed/rerank batch size
 embed_backend = "torch"                                # torch | mlx  (mlx = eval-gated, Phase 2)
 rerank_backend = "torch"                               # torch | mlx  (mlx = eval-gated, Phase 2)
 
+# Generator the gate is BOTH derived and measured under (derive_thresholds.py +
+# eval_json.py route through generate.eval_generator_for). "mlx" = production
+# parity. Set 2026-08-12: floors were previously derived under the extractive
+# stub, which overstates B' citation failures ~2x (34 rows vs 19 under MLX) and
+# understates citation_recall. Cost: the eval stack now loads MLX (~4x slower,
+# ~20 min over 260 rows) and is only reproducible on Apple Silicon.
+eval_generator = "mlx"                                 # stub | mlx
+
 citation_scorer_enabled = true                         # B': post-hoc cross-encoder citation filter (gate armed under B' 2026-08-04)
 citation_margin = 0.35                                  # sigmoid-scale; calibrated at sweep knee (P +88%, citation_recall 0.783 mean)
 
