@@ -70,6 +70,19 @@ def main() -> None:
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--hyde", action="store_true")
     ap.add_argument("--splade", action="store_true")
+    # iv2 control arm: glossary expansion is ON in the production retriever,
+    # so the only way to measure it is to run the arm that turns it off.
+    ap.add_argument("--no-expand", dest="no_expand", action="store_true",
+                    help="disable iv2 glossary expansion on the BM25 leg")
+    # iv9/iv10 build a headered index beside the production one; without this
+    # the bench would measure data/index under the arm's run name.
+    ap.add_argument("--index-dir", dest="index_dir", default=None,
+                    help="index directory to bench (default: data/index)")
+    # Fusion order is re-sorted by the cross-encoder in production
+    # (pipeline.query reranks the whole pool), so a fusion-only measurement
+    # describes a stage the user never sees.
+    ap.add_argument("--rerank", action="store_true",
+                    help="measure the cross-encoder reranked order, as production serves it")
     args = ap.parse_args()
 
     started = time.time()
@@ -110,7 +123,8 @@ def main() -> None:
 
         ck = _compute_kwargs(Settings.load())
         emb = BGEM3Embedder(**ck)
-        retr = HybridRetriever.load(ROOT / "data" / "index", emb)
+        index_dir = Path(args.index_dir) if args.index_dir else ROOT / "data" / "index"
+        retr = HybridRetriever.load(index_dir, emb)
         lin = build_lineage(load_records(ROOT / "data" / "corpus" / "circulars.jsonl"))
         pipeline = RAGPipeline(
             retriever=retr,
@@ -119,12 +133,36 @@ def main() -> None:
             lineage=lin,
         )
         corpus_path = ROOT / "data" / "corpus" / "circulars.jsonl"
-        index_dir = ROOT / "data" / "index"
+        # index_dir already resolved above from --index-dir; do not reset it
+        # here or the metadata would credit the production index for an arm.
         models = {
             "embedder": "BAAI/bge-m3",
             "retriever": "FAISS+BM25/RRF",
             "reranker": "BAAI/bge-reranker-v2-m3",
         }
+
+    if args.no_expand:
+
+        class _NoExpandRetriever:
+            """iv2 control arm: force the BM25 leg to see the raw query.
+
+            Innermost wrapper, so the HyDE/SPLADE wrappers below compose on
+            top of it and their kwargs still reach HybridRetriever.retrieve.
+            """
+
+            def __init__(self, inner):
+                object.__setattr__(self, "inner", inner)
+
+            def retrieve(self, query: str, **kw):
+                return self.inner.retrieve(query, expand_sparse=False, **kw)
+
+            def __getattr__(self, name):
+                return getattr(object.__getattribute__(self, "inner"), name)
+
+            def __setattr__(self, name, value):
+                setattr(object.__getattribute__(self, "inner"), name, value)
+
+        pipeline.retriever = _NoExpandRetriever(pipeline.retriever)
 
     hyde_log: dict[str, str] = {}
     if args.hyde:
@@ -177,6 +215,24 @@ def main() -> None:
 
         pipeline.retriever = _SpladeRetriever(pipeline.retriever)
 
+    if args.rerank:
+
+        class _RerankedRetriever:
+            """Outermost wrapper: mirrors pipeline.query's retrieve->rerank.
+
+            Applied last so it reranks whatever pool the arms below produced.
+            """
+
+            def __init__(self, inner, reranker):
+                self.inner = inner
+                self.reranker = reranker
+
+            def retrieve(self, query: str, top_n: int = 50, **kw):
+                cands = self.inner.retrieve(query, top_n=top_n, **kw)
+                return self.reranker.rerank(query, [c for c, _ in cands])
+
+        pipeline.retriever = _RerankedRetriever(pipeline.retriever, pipeline.reranker)
+
     result = run_retrieval_benchmark(
         pipeline, golden, top_n=args.top_n, run_name="baseline-retrieval"
     )
@@ -195,7 +251,8 @@ def main() -> None:
         run_name="baseline-retrieval",
         models=models,
         params={"top_n": args.top_n, "smoke": args.smoke, "hyde": args.hyde,
-                "splade": args.splade},
+                "splade": args.splade, "expand_sparse": not args.no_expand,
+                "rerank": args.rerank},
         started_at=started,
     )
     (out / "results.json").write_text(

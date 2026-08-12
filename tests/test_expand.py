@@ -107,6 +107,28 @@ def test_retrieve_routes_expanded_query_to_sparse_leg(monkeypatch):
     assert "freeze" in seen["q"]
 
 
+def test_expand_sparse_off_routes_raw_query_to_sparse_leg(monkeypatch):
+    # iv2 A/B control arm: with expansion off the BM25 leg must see the
+    # verbatim query, so the adopted glossary can be measured against its
+    # own absence on a fixed corpus.
+    chunks = [
+        _chunk(1, "The depository shall freeze the folio upon written request."),
+        _chunk(2, "Settlement of trades occurs on a T plus one cycle."),
+    ]
+    r = HybridRetriever.build(chunks, HashEmbedder(dim=64))
+    seen: dict[str, str] = {}
+    orig = r.sparse.search
+
+    def spy(q: str, k: int):
+        seen["q"] = q
+        return orig(q, k)
+
+    monkeypatch.setattr(r.sparse, "search", spy)
+    q = "investor wants to block debit entries"
+    r.retrieve(q, expand_sparse=False)
+    assert seen["q"] == q
+
+
 def test_retrieve_dense_leg_keeps_raw_query(monkeypatch):
     chunks = [
         _chunk(1, "The depository shall freeze the folio upon written request."),

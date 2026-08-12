@@ -38,7 +38,15 @@ ap.add_argument("--full", action="store_true", help="force re-encode of every do
 ap.add_argument("--context-headers",
                 default=str(ROOT / "data" / "corpus" / "context_headers.jsonl"),
                 help="path to context headers sidecar")
+# Build an experiment arm beside the production index instead of over it.
+# The iv9/iv10 header arms are throwaway indexes; overwriting data/index in
+# place would leave the production stack in the treatment state on any
+# mid-build failure, recoverable only by another full re-encode.
+ap.add_argument("--out", default=None,
+                help="index output directory (default: data/index)")
 args, _ = ap.parse_known_args()
+
+OUT = Path(args.out) if args.out else INDEX
 
 chunks = load_circulars(CORPUS)
 # iv9: merge contextual headers (no-op when the sidecar is absent)
@@ -54,6 +62,7 @@ if args.full:
 else:
     retriever, stats = HybridRetriever.build_incremental(chunks, emb, INDEX)
 print(f"built in {time.time() - t0:.0f}s  {stats}", flush=True)
-retriever.save(INDEX)
-build_lineage(load_records(CORPUS)).save(INDEX / "lineage.json")
-print(f"saved index + lineage -> {INDEX}", flush=True)
+OUT.mkdir(parents=True, exist_ok=True)
+retriever.save(OUT)
+build_lineage(load_records(CORPUS)).save(OUT / "lineage.json")
+print(f"saved index + lineage -> {OUT}", flush=True)

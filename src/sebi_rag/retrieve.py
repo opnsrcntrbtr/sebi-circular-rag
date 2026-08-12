@@ -173,11 +173,16 @@ class HybridRetriever:
         hyde_text: str | None = None,
         use_splade: bool = False,
         k_splade: int = 50,
+        expand_sparse: bool = True,
     ) -> list[tuple[Chunk, float]]:
         dense = self.dense.search(query, k_dense)
         # intervention #2: statutory-synonym expansion, sparse leg only —
         # BM25 misses lay vocabulary; dense keeps the raw query.
-        sparse = self.sparse.search(expand_query(query), k_sparse)
+        # expand_sparse=False is the iv2 control arm: it is the only way to
+        # measure the adopted glossary against its own absence.
+        sparse = self.sparse.search(
+            expand_query(query) if expand_sparse else query, k_sparse
+        )
         legs = [dense, sparse]
         if hyde_text:
             # intervention #5 (HyDE, Part B): hypothetical statutory passage
