@@ -77,28 +77,81 @@ _CITATION_MARGIN_DEFAULT = 0.35  # calibrated 2026-08-04 (sweep knee: P +88%, re
 
 def select_citations(answer_text: str, contexts: list["Chunk"],
                      scorer: "Reranker",
-                     margin: float = _CITATION_MARGIN_DEFAULT) -> list[str]:
+                     margin: float = _CITATION_MARGIN_DEFAULT,
+                     min_keep: int = 1) -> list[str]:
     """Context ids the answer rests on. Scores each context's answer-relevance
     via `scorer.rerank(answer_text, contexts)` (sigmoid 0-1), keeps those within
-    `margin` of the top score, always keeps >=1 (the top) so a grounded answer
-    never emits zero citations. Ids returned in the contexts' original order."""
+    `margin` of the top score, and never fewer than `min_keep` (bounded by how
+    many contexts exist). Ids returned in the contexts' original order.
+
+    `min_keep` exists because the margin alone can collapse the kept set to a
+    single context: the top always satisfies `s >= top - margin`, so when the
+    scores are spread thin exactly one citation survives, and a grounded answer
+    whose one surviving pick is the wrong document scores citation_recall 0.
+    Measured 2026-08-12 over 206 golden_v7 rows where retrieval found every
+    relevant document: 34 cited nothing relevant, 19 of them solely due to this
+    collapse (15 fail with B' off too, a separate problem).
+    """
     if not contexts:
         return []
     scored = scorer.rerank(answer_text, contexts)
     if not scored:
         return []
     top = scored[0][1]
-    kept = [c for c, s in scored if s >= top - margin] or [scored[0][0]]
+    kept = [c for c, s in scored if s >= top - margin]
+    if len(kept) < min_keep:
+        # scored is descending, so this widens to the best `min_keep` overall.
+        kept = [c for c, _ in scored[:min_keep]]
     order = {c.id: i for i, c in enumerate(contexts)}
     return sorted((c.id for c in kept), key=order.get)
 
 
-def citation_scorer_for(enabled: bool, reranker):
-    """The single enable/disable decision for B'. Returns `reranker` when the
-    filter is enabled, else None. Every pipeline builder (api.build_default_pipeline,
-    eval_json.py, derive_thresholds.py) routes through this so eval and production
-    can never disagree on whether selective citations are active."""
-    return reranker if enabled else None
+def eval_generator_for(kind: str = "stub", mlx_model: str | None = None,
+                       mlx_loader=None):
+    """The single generator decision for the eval stack.
+
+    `derive_thresholds.py` sets the gate floors and `eval_json.py` measures
+    against them; both route through here so the floors and the measurements
+    can never be produced under different generators. Floors derived under a
+    generator production does not use describe a system that does not exist —
+    measured 2026-08-12, the stub overstates B' catastrophic citation failures
+    by ~2x (34 rows vs 19 under MLX).
+
+    Unknown kinds raise rather than defaulting: silently falling back to the
+    stub would derive floors under semantics the caller did not ask for.
+    """
+    if kind == "stub":
+        return ExtractiveStubGenerator()
+    if kind == "mlx":
+        if mlx_loader is None:
+            mlx_loader = MLXGenerator
+        return mlx_loader(mlx_model) if mlx_model else mlx_loader()
+    raise ValueError(f"unknown eval generator kind: {kind!r}")
+
+
+def citation_scorer_for(enabled: bool, reranker, backend: str = "reranker",
+                        nli_loader=None):
+    """The single enable/disable AND backend decision for B'.
+
+    Returns None when disabled; otherwise the scorer for `backend`:
+      "reranker" - bge-reranker-v2-m3, i.e. query<->document *relevance*
+      "nli"      - entailment scoring, i.e. does the context *support* the answer
+
+    Every pipeline builder (api.build_default_pipeline, eval_json.py,
+    derive_thresholds.py) routes through this so eval and production can never
+    disagree about which scorer produced a citation set. The disabled check
+    comes first so a discarded scorer is never loaded.
+    """
+    if not enabled:
+        return None
+    if backend == "reranker":
+        return reranker
+    if backend == "nli":
+        if nli_loader is None:
+            from .attribution import NLIAttributionScorer
+            nli_loader = NLIAttributionScorer.load
+        return nli_loader()
+    raise ValueError(f"unknown citation scorer backend: {backend!r}")
 
 
 @dataclass
@@ -425,6 +478,7 @@ def answer_with_abstention(
     advisory: bool = False,
     citation_scorer: "Reranker | None" = None,
     citation_margin: float = _CITATION_MARGIN_DEFAULT,
+    citation_min_keep: int = 1,
 ) -> Answer:
     rerank_top = float(reranked[0][1]) if reranked else 0.0
     margin = rerank_top - (float(reranked[1][1]) if len(reranked) > 1 else 0.0)
@@ -474,7 +528,8 @@ def answer_with_abstention(
             and faith >= 1.0):
         certainty = "high"
     if citation_scorer is not None:
-        citations = select_citations(text, contexts, citation_scorer, citation_margin)
+        citations = select_citations(text, contexts, citation_scorer,
+                                     citation_margin, citation_min_keep)
     else:
         citations = [c.id for c in contexts]
     return Answer(

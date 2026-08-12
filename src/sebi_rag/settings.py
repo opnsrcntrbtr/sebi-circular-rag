@@ -74,6 +74,9 @@ class Settings:
     rerank_backend: str = "torch"      # torch | mlx (mlx = eval-gated, Phase 2)
     citation_scorer_enabled: bool = False # B': post-hoc answer-relevance filter (off until gate re-armed)
     citation_margin: float = 0.35       # margin for select_citations (sigmoid scale; calibrated 2026-08-04)
+    citation_min_keep: int = 1          # floor on kept citations (B' collapse guard)
+    citation_scorer_backend: str = "reranker"  # reranker | nli (see attribution.py)
+    eval_generator: str = "stub"        # stub | mlx — generator the gate is derived AND measured under
     spaces: SpacesSettings | None = None  # populated only by load_spaces()
 
     @classmethod
@@ -103,6 +106,9 @@ class Settings:
             embed_backend=str(_get("embed_backend", "torch", "SEBI_RAG_", svc)),
             citation_scorer_enabled=_as_bool(_get("citation_scorer_enabled", False, "SEBI_RAG_", svc)),
             citation_margin=float(_get("citation_margin", 0.35, "SEBI_RAG_", svc)),
+            citation_min_keep=int(_get("citation_min_keep", 1, "SEBI_RAG_", svc)),
+            citation_scorer_backend=str(_get("citation_scorer_backend", "reranker", "SEBI_RAG_", svc)),
+            eval_generator=str(_get("eval_generator", "stub", "SEBI_RAG_", svc)),
         )
 
     @classmethod

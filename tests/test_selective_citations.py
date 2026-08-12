@@ -41,6 +41,38 @@ def test_always_keeps_at_least_one_when_all_below_margin():
     assert select_citations("ans", ctx, scorer, margin=0.05) == ["A"]
 
 
+def test_min_keep_widens_a_collapsed_selection():
+    """Measured 2026-08-12: on 206 rows where retrieval found every relevant
+    doc, B' left 34 citing nothing relevant — 19 of them solely because the
+    margin collapsed the kept set to a single wrong context. Keeping the top
+    `min_keep` by score bounds that failure."""
+    ctx = [_chunk("A"), _chunk("B"), _chunk("C"), _chunk("D")]
+    scorer = _FakeReranker({"A": 0.90, "B": 0.20, "C": 0.15, "D": 0.10})
+    # margin 0.05 keeps only A; min_keep=3 widens to the top three by score.
+    assert select_citations("ans", ctx, scorer, margin=0.05, min_keep=3) == ["A", "B", "C"]
+
+
+def test_min_keep_does_not_shrink_a_wider_margin_selection():
+    ctx = [_chunk("A"), _chunk("B"), _chunk("C"), _chunk("D")]
+    scorer = _FakeReranker({"A": 0.90, "B": 0.88, "C": 0.86, "D": 0.84})
+    # all four within margin; min_keep must not truncate to 3.
+    assert select_citations("ans", ctx, scorer, margin=0.15, min_keep=3) == ["A", "B", "C", "D"]
+
+
+def test_min_keep_cannot_exceed_available_contexts():
+    ctx = [_chunk("A"), _chunk("B")]
+    scorer = _FakeReranker({"A": 0.90, "B": 0.10})
+    assert select_citations("ans", ctx, scorer, margin=0.05, min_keep=3) == ["A", "B"]
+
+
+def test_min_keep_defaults_to_current_single_keep_behaviour():
+    """Default must not change the pure function's contract; the wider
+    operating point is a configured decision, not a silent one."""
+    ctx = [_chunk("A"), _chunk("B")]
+    scorer = _FakeReranker({"A": 0.90, "B": 0.10})
+    assert select_citations("ans", ctx, scorer, margin=0.05) == ["A"]
+
+
 def test_empty_contexts_returns_empty():
     assert select_citations("ans", [], _FakeReranker({}), margin=0.15) == []
 
@@ -109,3 +141,36 @@ def test_citation_scorer_for_returns_reranker_when_enabled():
 def test_citation_scorer_for_returns_none_when_disabled():
     scorer = _FakeReranker({})
     assert citation_scorer_for(False, scorer) is None
+
+
+def test_citation_scorer_for_selects_the_nli_backend():
+    """The backend choice must go through the same single decision point as
+    the enable flag, or eval and production can disagree about which scorer
+    produced a citation set."""
+    reranker = _FakeReranker({})
+    sentinel = object()
+    got = citation_scorer_for(True, reranker, backend="nli",
+                              nli_loader=lambda: sentinel)
+    assert got is sentinel
+
+
+def test_citation_scorer_for_defaults_to_the_reranker_backend():
+    reranker = _FakeReranker({})
+    assert citation_scorer_for(True, reranker) is reranker
+
+
+def test_citation_scorer_for_disabled_beats_backend_choice():
+    reranker = _FakeReranker({})
+    called = []
+    got = citation_scorer_for(False, reranker, backend="nli",
+                              nli_loader=lambda: called.append(1))
+    assert got is None and not called, "must not load a model just to discard it"
+
+
+def test_citation_scorer_for_rejects_an_unknown_backend():
+    try:
+        citation_scorer_for(True, _FakeReranker({}), backend="magic")
+    except ValueError as e:
+        assert "magic" in str(e)
+    else:
+        raise AssertionError("expected ValueError on unknown backend")
