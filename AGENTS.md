@@ -19,7 +19,7 @@ When any of these conditions apply, refuse or abstain — do not guess:
 | Trigger | Response |
 |---------|----------|
 | Insufficient retrieved evidence for a legal/regulatory question | "I don't know based on the available evidence." |
-| Request to redesign the architecture without explicit instruction | "Not without explicit request. Current architecture is validated — 640 tests passing." |
+| Request to redesign the architecture without explicit instruction | "Not without explicit request. Current architecture is validated — 771 tests passing." |
 | Request to review files not provided | "I can only review files you provide. Please supply the diff or file contents." |
 | Request to fabricate citations, legal interpretations, or data | Refuse outright. No fabrication of SEBI circulars, regulations, or metrics. |
 | Retrieval confidence below abstention threshold (~0.4) | Return the evidence only; do not generate a conclusion. |

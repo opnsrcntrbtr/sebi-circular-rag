@@ -5,12 +5,12 @@
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2333 nodes · 4736 edges · 147 communities (116 shown, 31 thin omitted)
-- Extraction: 77% EXTRACTED · 23% INFERRED · 0% AMBIGUOUS · INFERRED: 1085 edges (avg confidence: 0.75)
+- 2333 nodes · 4727 edges · 151 communities (118 shown, 33 thin omitted)
+- Extraction: 77% EXTRACTED · 23% INFERRED · 0% AMBIGUOUS · INFERRED: 1076 edges (avg confidence: 0.75)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `94f668fd`
+- Built from commit: `46fac098`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -92,6 +92,7 @@
 - Bootstrap Confidence Intervals
 - Retrieval Failure Analysis
 - Governing Span Resolution
+- Reciprocal Rank Metrics
 - Agreement Metric Testing
 - Adjudication Error Handling
 - Supersession Precision Metrics
@@ -116,6 +117,7 @@
 - Path
 - Data Refresh Scripts
 - write_dataset_cards
+- PDF Parsing Latency Metrics
 - Annotation Provenance Auditing
 - Temporal Accuracy Metrics
 - Temporal UI Testing
@@ -124,6 +126,7 @@
 - Regulation Edge Construction
 - Retrieval Artifact Testing
 - Auto-research Environment Script
+- test_ingest_pdf.py
 - Retrieval Recall Metrics
 - RAG Demo Application
 - Human Evaluation Packets
@@ -150,6 +153,7 @@
 - test_pipeline.py
 - test_eval_generator.py
 - .build
+- build_regulatory_index
 - test_incremental_index.py
 - expand.py
 - test_build_index_out_dir.py
@@ -181,10 +185,10 @@
   tests/test_metadata.py → src/sebi_rag/corpus.py
 - `test_numbers_normalize_distinctly()` --calls--> `normalize_circular_number()`  [INFERRED]
   tests/test_repair_corpus_text.py → src/sebi_rag/ingest_pdf.py
-- `test_to_record_carries_injection_flags()` --calls--> `to_record()`  [INFERRED]
-  tests/test_injection.py → src/sebi_rag/ingest_pdf.py
-- `test_corpus_records_feed_build_lineage()` --calls--> `build_lineage()`  [INFERRED]
-  tests/test_spaces.py → src/sebi_rag/lineage.py
+- `test_parse_meta_dept_order_document_end_to_end()` --calls--> `parse_meta()`  [INFERRED]
+  tests/test_ingest_refs.py → src/sebi_rag/ingest_pdf.py
+- `test_parse_meta_excludes_prefix_variant_self_reference()` --calls--> `parse_meta()`  [INFERRED]
+  tests/test_ingest_refs.py → src/sebi_rag/ingest_pdf.py
 
 ## Import Cycles
 - None detected.
@@ -192,7 +196,7 @@
 ## Hyperedges (group relationships)
 - **SEBI Regulatory Framework** — tests_fixtures_master_appendix_pre2015_sebi, tests_fixtures_master_appendix_pre2015_circulars, tests_fixtures_master_appendix_pre2015_communications [INFERRED 0.90]
 
-## Communities (147 total, 31 thin omitted)
+## Communities (151 total, 33 thin omitted)
 
 ### Community 0 - "Dataset Export and Packaging"
 Cohesion: 0.06
@@ -231,8 +235,8 @@ Cohesion: 0.10
 Nodes (32): Citation, _clause_in(), extract_citations(), _is_table_artefact(), Extract regulation citations from circular text (spec 2026-07-23 §3.3).  Deliber, All regulation citations in a circular, one per occurrence (not deduped).      S, (start, end, sentence) spans over `text`, in order., First clause reference in a sentence, ignoring 4-digit years.      "Regulations (+24 more)
 
 ### Community 9 - "Regulation Metadata Annotation"
-Cohesion: 0.14
-Nodes (30): annotate_regulation_fields(), build_regulation_edges(), build_regulatory_index(), One `cites` edge per (circular, regulation) pair.      The merged edge carries t, Set regulations / primary_regulation / regulatory_basis_status in place.      Re, Per-circular regulatory-basis lookup for the query/citation layer.      Read-onl, _circ(), _icirc() (+22 more)
+Cohesion: 0.16
+Nodes (28): annotate_regulation_fields(), build_regulation_edges(), One `cites` edge per (circular, regulation) pair.      The merged edge carries t, Set regulations / primary_regulation / regulatory_basis_status in place.      Re, Stub records for cited regulations absent from the Updated List.      Returns NE, synthesise_repealed_stubs(), _circ(), Regulation edges + corpus annotation (spec 2026-07-23 §3.3, §3.4, §3.7). (+20 more)
 
 ### Community 10 - "Dataset Card Validation"
 Cohesion: 0.06
@@ -240,11 +244,11 @@ Nodes (29): Task 4 & 5: Dataset card generation and platform packaging tests., Z
 
 ### Community 11 - "Golden Set Versioning"
 Cohesion: 0.16
-Nodes (26): main(), Emit TREC qrels for an eval set, keyed by its golden_sha256.      .venv/bin/pyth, beir_corpus_rows(), beir_query_rows(), build_golden_v6(), dir_fingerprint(), enrich_golden_item(), export_beir() (+18 more)
+Nodes (25): main(), Emit TREC qrels for an eval set, keyed by its golden_sha256.      .venv/bin/pyth, beir_corpus_rows(), beir_query_rows(), build_golden_v6(), dir_fingerprint(), enrich_golden_item(), export_beir() (+17 more)
 
 ### Community 12 - "Answer Validation and Groundedness"
-Cohesion: 0.22
-Nodes (8): Build a lightweight pipeline for --smoke mode.      Uses a stub retriever (no FA, Build the full pipeline with real models., real_pipeline(), smoke_pipeline(), NLIAttributionScorer, Scores each context by P(entailment) of the answer given that context.      Impl, Answer, RAGPipeline
+Cohesion: 0.19
+Nodes (5): _grounded_prompt(), Chunk, Max cosine(query, doc subject line) over contexts — the primary         gate sig, Max cosine(query, section heading) over contexts — the second tier., F4 (ADR-001): retrieved text is explicitly delimited as quoted DATA and     the
 
 ### Community 13 - "Circular Metadata and Validity"
 Cohesion: 0.12
@@ -271,8 +275,8 @@ Cohesion: 0.11
 Nodes (24): _chunk(), _citation_corpus_record(), _dept_record(), Offline tests for the dataset export pipeline (corpus config, Task 1)., _record(), test_build_citation_pairs_context_window_is_whitespace_collapsed(), test_build_citation_pairs_excludes_self_reference(), test_build_citation_pairs_normalizes_and_classifies_family() (+16 more)
 
 ### Community 19 - "Temporal Evaluation Runner"
-Cohesion: 0.15
-Nodes (13): _cited(), Circular -> regulation edges and corpus annotation (spec 2026-07-23 §3.3-§3.7)., Yield (circular, Citation) for every citation occurrence in the corpus., Stub records for cited regulations absent from the Updated List.      Returns NE, synthesise_repealed_stubs(), derive_regulatory_basis(), Regulatory-basis status of one circular from its resolved regulations.      `unk, test_stub_is_created_for_a_cited_regulation_with_a_known_successor() (+5 more)
+Cohesion: 0.29
+Nodes (6): _cited(), Circular -> regulation edges and corpus annotation (spec 2026-07-23 §3.3-§3.7)., Yield (circular, Citation) for every citation occurrence in the corpus., derive_regulatory_basis(), Regulatory-basis status of one circular from its resolved regulations.      `unk, test_derive_regulatory_basis_truth_table()
 
 ### Community 20 - "Golden Set Schema Validation"
 Cohesion: 0.28
@@ -315,8 +319,8 @@ Cohesion: 0.15
 Nodes (21): _claude_accuracy_ci(), gwet_ac1(), _label(), _literals_by_row(), _llm_annotator(), main(), Agreement, promotion, and arbitration for the golden-v7 external annotation slic, Gwet's AC1 over the same paired labels as `cohen_kappa`, but with a     prevalen (+13 more)
 
 ### Community 30 - "PDF Ingestion and Normalization"
-Cohesion: 0.14
-Nodes (22): Re-derive circular number + dates from each record's stored text and rewrite the, _existing_numbers(), extract_text(), ingest(), main(), normalize_circular_number(), _ocr_text(), Path (+14 more)
+Cohesion: 0.12
+Nodes (24): Re-derive circular number + dates from each record's stored text and rewrite the, main(), Repair the 6 records whose body text was overwritten with one shared circular's, _existing_numbers(), extract_text(), ingest(), main(), normalize_circular_number() (+16 more)
 
 ### Community 31 - "Retrieval Error Classification"
 Cohesion: 0.15
@@ -331,16 +335,16 @@ Cohesion: 0.06
 Nodes (66): Rankings, _assert_fixed_tail(), convert_run_dir(), main(), Path, Back-convert archived runfiles into standards-compliant TREC artifacts.  The arc, Trailing field of the first line; also the whitespace precondition check., read_trec_run assumes qid and tag carry no whitespace. Verify per line. (+58 more)
 
 ### Community 34 - "Circular Web Scraping"
-Cohesion: 0.28
-Nodes (8): log(), run(), main(), One scoring path shared by `eval_json.py` (which measures) and `derive_threshold, Score one golden row through the production-shaped pipeline.      Returns per-ro, Per-row records -> metric -> score vector, skipping rows where the     metric wa, score_row(), vectors()
+Cohesion: 0.29
+Nodes (7): log(), run(), One scoring path shared by `eval_json.py` (which measures) and `derive_threshold, Score one golden row through the production-shaped pipeline.      Returns per-ro, Per-row records -> metric -> score vector, skipping rows where the     metric wa, score_row(), vectors()
 
 ### Community 35 - "Missing PDF Recovery"
 Cohesion: 0.33
 Nodes (14): validate(), 2011-era master circulars use "SEBI/IMD/MC No.2/836/2011" — the     document's o, _rec(), test_allows_legacy_mc_no_format(), test_clean_corpus_has_no_violations(), test_duplicate_text_across_records_flagged(), test_empty_text_is_not_a_duplicate_cluster(), test_flags_bad_issue_date() (+6 more)
 
 ### Community 36 - "PDF Metadata Parsing"
-Cohesion: 0.10
-Nodes (23): Pattern, _iso_date(), _labeled_date(), parse_meta(), _primary_number(), _subject(), _make_pdf(), Validate the local PDF ingestion path with a synthetic circular PDF. (+15 more)
+Cohesion: 0.11
+Nodes (21): Pattern, main(), Dry-run audit of every circular_number renumber.py would change, with the docume, _header(), _iso_date(), _labeled_date(), parse_meta(), Text above the addressee block ('To,' / Hindi 'प्रति'), else first 600 chars. (+13 more)
 
 ### Community 37 - "RAG Pipeline Construction"
 Cohesion: 0.15
@@ -359,12 +363,12 @@ Cohesion: 0.12
 Nodes (20): classify_tier(), human_reviewed_ids(), main(), Path, Add a controlled-vocabulary `label_tier` alongside free-text `label_source`.  go, Map provenance to the controlled vocabulary.      `human_reviewed` (row appears, Row ids present in the human labelling packet., Controlled-vocabulary label_tier over golden_v7 (spec A §8.3). (+12 more)
 
 ### Community 41 - "Statistical and Hardware Helpers"
-Cohesion: 0.06
-Nodes (25): mrr(), Minimal retrieval metrics (subset of docs/project_context.md section 7).  Recall, recall_at_k(), _bootstrap_ci(), _git_commit(), measure_mrr(), measure_retrieval_recall(), measure_supersession_precision() (+17 more)
+Cohesion: 0.10
+Nodes (15): _bootstrap_ci(), _git_commit(), measure_supersession_precision(), _mps_memory(), Path, Measure fraction of detected supersession edges that are genuine.      Samples c, Verify a supersession edge by cross-referencing corpus records.      Returns "tr, Return (mean, lower_95, upper_95) via bootstrap. (+7 more)
 
 ### Community 42 - "Reranker Performance Evaluation"
-Cohesion: 0.13
-Nodes (11): _grounded_prompt(), _judge_prompt(), _judge_prompt_identify(), MLXJudge, parse_excerpt_choice(), Chunk, v2 protocol: closed-set identification instead of yes/no judgment.     Naming wh, True iff the reply names a valid excerpt number. 'none' or anything     unparsea (+3 more)
+Cohesion: 0.15
+Nodes (11): _judge_prompt(), _judge_prompt_identify(), MLXJudge, parse_excerpt_choice(), parse_yes_no(), v2 protocol: closed-set identification instead of yes/no judgment.     Naming wh, True iff the reply names a valid excerpt number. 'none' or anything     unparsea, First yes/no in the reply; unparseable fails OPEN (grounded=True) so the     gat (+3 more)
 
 ### Community 43 - "Export Integration Testing"
 Cohesion: 0.28
@@ -395,28 +399,28 @@ Cohesion: 0.31
 Nodes (8): parse_last_amended(), parse_listing(), Polite SEBI regulations scraper -> data/corpus/regulations.jsonl (RUN LOCALLY)., (year, url, title, short_name, last_amended) per listing row, in order., ISO date of the last amendment, or None when the title carries none., The bracketed short name, e.g. 'Mutual Funds'.      Takes the LAST bracket group, short_name_of(), _text()
 
 ### Community 51 - "Query Expansion and RRF"
-Cohesion: 0.40
-Nodes (4): main(), Dry-run audit of every circular_number renumber.py would change, with the docume, _header(), Text above the addressee block ('To,' / Hindi 'प्रति'), else first 600 chars.
+Cohesion: 0.33
+Nodes (5): Parse a runfile written by `write_trec_run` back into {qid: [(doc, score)]}., read_trec_run(), write_trec_run(), The archived runfiles embed section headings in the doc id., TestReadTrecRun
 
 ### Community 52 - "Hugging Face Spaces Deployment"
 Cohesion: 0.14
 Nodes (11): Regression coverage for the ZeroGPU-hardware workaround in app.py.  Background:, Inject a fake `spaces` module so app.py's `import spaces` succeeds     offline,, Static guard: if `import spaces` or the `@spaces.GPU` decorator is     ever remo, It must stay dead code: calling it would request a real ZeroGPU     allocation (, The functions actually on the request path (get_pipeline,     run_query_spaces), `hardware:` in README-spaces.md is not a documented Spaces config key     (only, stub_spaces_module(), test_app_imports_spaces_and_declares_gpu_function() (+3 more)
 
 ### Community 53 - "Golden Set Evaluation Gates"
-Cohesion: 0.06
-Nodes (36): derive_floors(), Derive CI gate floors from the golden_v7 adjudicated subset (spec sec 8).  Write, metric -> per-query score vector, into gate-floor names -> floor value.      Met, floors_ok(), Path, Which golden set gates CI, and whether its adjudicated subset clears the derived, Resolution order: explicit SEBI_RAG_GOLDEN override, then the armed     v7 gate,, True iff every floor's metric is present in `report_gate` and meets it.      Mis (+28 more)
+Cohesion: 0.05
+Nodes (35): derive_floors(), main(), Derive CI gate floors from the golden_v7 adjudicated subset (spec sec 8).  Write, metric -> per-query score vector, into gate-floor names -> floor value.      Met, floors_ok(), Path, Which golden set gates CI, and whether its adjudicated subset clears the derived, Resolution order: explicit SEBI_RAG_GOLDEN override, then the armed     v7 gate, (+27 more)
 
 ### Community 54 - "Hardware Device Selection"
 Cohesion: 0.20
 Nodes (11): pick_device(), Device + precision selection for Apple-Silicon inference.  Centralizes the mps/c, Resolve the compute device.      A truthy explicit `pref` ("mps"/"cpu"/"cuda") w, fp16 only on GPU-class devices; never on cpu. bf16 is never returned     here by, should_use_fp16(), Device + fp16 policy selection (no real torch/mps required)., test_pick_device_auto_cpu_when_no_mps(), test_pick_device_auto_mps_when_available() (+3 more)
 
 ### Community 55 - "Reference Number Normalization"
-Cohesion: 0.50
-Nodes (4): Rejoin numbers split by a space around a slash, e.g. "CIR/ 2025/104",     "HO/ (, References split across tokens: merge up to 4 tokens after the first     HO/CIR/, _rejoin_split(), _s_anchor_merge()
+Cohesion: 0.17
+Nodes (10): _primary_number(), Rejoin numbers split by a space around a slash, e.g. "CIR/ 2025/104",     "HO/ (, References split across tokens: merge up to 4 tokens after the first     HO/CIR/, _rejoin_split(), _s_anchor_merge(), Regression matrix for SEBI reference-number extraction.  One case per known form, test_fulltext_fallback_returns_earliest_body_reference(), test_parse_meta_dept_order_document_end_to_end() (+2 more)
 
 ### Community 56 - "Golden Set Seeding"
-Cohesion: 0.28
-Nodes (6): carry_v6_rows(), main(), Seed golden_v7.jsonl from frozen golden_v6 (spec 2026-07-23 §3, §10 phase 3).  C, load_golden(), Path, test_carry_preserves_ids_and_adds_v7_defaults()
+Cohesion: 0.38
+Nodes (4): carry_v6_rows(), main(), Seed golden_v7.jsonl from frozen golden_v6 (spec 2026-07-23 §3, §10 phase 3).  C, test_carry_preserves_ids_and_adds_v7_defaults()
 
 ### Community 57 - "MLX Native Reranking"
 Cohesion: 0.15
@@ -443,12 +447,8 @@ Cohesion: 0.18
 Nodes (4): Unit tests for the local Gradio UI's pure logic (no server, no gradio launch)., _Resp, test_submit_query_retrieval_only_prepends_banner(), test_submit_query_surfaces_confidence_and_retrieved()
 
 ### Community 64 - "Benchmark Schema Validation"
-Cohesion: 0.43
-Nodes (5): _chunks(), _golden(), test_beir_export_and_qrels_shape(), test_golden_v6_schema_guardrails(), test_run_metadata_has_reproducibility_fields()
-
-### Community 65 - "Corpus Text Repair"
-Cohesion: 0.22
-Nodes (4): main(), Repair the 6 records whose body text was overwritten with one shared circular's, The repair map must name a real orphan PDF that parses to the circular_number it, test_numbers_normalize_distinctly()
+Cohesion: 0.36
+Nodes (6): _chunks(), _golden(), test_beir_export_and_qrels_shape(), test_golden_v6_schema_guardrails(), test_run_metadata_has_reproducibility_fields(), test_trec_run_and_research_judges_are_sidecar_only()
 
 ### Community 66 - "Evaluation Harness Testing"
 Cohesion: 0.13
@@ -471,8 +471,8 @@ Cohesion: 0.23
 Nodes (12): adjudicate_draft(), _current_model(), _extract_text(), main(), _post_local(), Adjudicate draft rows using Qwen via oMLX.  Reads draft rows from golden_v7.json, Extract text from oMLX chat completion response., Run blind protocol over draft rows. (+4 more)
 
 ### Community 72 - "Incremental Index Building"
-Cohesion: 0.07
-Nodes (34): Protocol, cited_docs(), metrics(), Capture-once margin sweep for B' selective citations.  One pipeline pass over th, Margin sweep for B' selective citations on the golden_v7 adjudicated set.  One m, Benchmark MLX generators on the golden set: faithfulness, groundedness, abstenti, Retrieval-only benchmark with TREC runfile and reproducibility metadata.  Use --, Build the dense+sparse index once and persist it (run after corpus changes). (+26 more)
+Cohesion: 0.08
+Nodes (32): Protocol, cited_docs(), metrics(), Capture-once margin sweep for B' selective citations.  One pipeline pass over th, Margin sweep for B' selective citations on the golden_v7 adjudicated set.  One m, Benchmark MLX generators on the golden set: faithfulness, groundedness, abstenti, Retrieval-only benchmark with TREC runfile and reproducibility metadata.  Use --, Build the dense+sparse index once and persist it (run after corpus changes). (+24 more)
 
 ### Community 74 - "Bootstrap Confidence Intervals"
 Cohesion: 0.29
@@ -486,6 +486,10 @@ Nodes (9): first_answer_rank(), first_gold_rank(), heading_only(), main(), Trace
 Cohesion: 0.21
 Nodes (16): _body(), Winning chunk ids (from a flip_promote decision) -> {doc, quote}     spans, look, _resolve_governing_spans(), _min_agreement_fixture(), _pool(), Offline tests for golden-v7 agreement/promotion (spec 2026-07-23 sec 7): Cohen's, _same_provision_fixture(), test_claude_accuracy_ci_returns_exact_and_provision() (+8 more)
 
+### Community 77 - "Reciprocal Rank Metrics"
+Cohesion: 0.14
+Nodes (10): mrr(), Minimal retrieval metrics (subset of docs/project_context.md section 7).  Recall, recall_at_k(), measure_mrr(), measure_retrieval_recall(), Automated metric collection for the SEBI Circular RAG pipeline.  Six on-demand m, Standard recall@k at circular level, excluding abstain items., Mean reciprocal rank at circular level.      For each query, RR = 1/rank of firs (+2 more)
+
 ### Community 78 - "Agreement Metric Testing"
 Cohesion: 0.29
 Nodes (7): apply(), Applies each row's `(decision, new_governing_spans)` from `decisions`     (keyed, test_apply_does_not_mutate_input_rows(), test_apply_flip_promote_rebuilds_spans_and_label_source(), test_apply_promote_sets_adjudicated_only(), test_apply_queue_decision_leaves_row_untouched(), test_apply_row_without_a_decision_is_never_touched()
@@ -495,8 +499,8 @@ Cohesion: 0.22
 Nodes (10): adjudicate(), _parse_error_ids(), Path, Runs the blind protocol over every id in `ids`, calling `post(prompt)     -> str, Scans the per-row cache for `ids` and returns the ones flagged     parse_error:, A garbled reply to an abstain-protocol (YES/NO) prompt is distinct     from a we, Defensive: an id that was never adjudicated (no cache file at all)     is not re, test_adjudicate_marks_parse_error_for_garbled_abstain_protocol_reply() (+2 more)
 
 ### Community 80 - "Supersession Precision Metrics"
-Cohesion: 0.21
-Nodes (13): parse_yes_no(), First yes/no in the reply; unparseable fails OPEN (grounded=True) so the     gat, _chunk(), Offline tests for the groundedness abstention gate (ADR-001 item 7)., _StubJudge, test_identify_prompt_numbers_excerpts(), test_judge_no_forces_abstention(), test_judge_yes_answers_normally() (+5 more)
+Cohesion: 0.23
+Nodes (12): ADOPTED gate (eval_gate round 3): deterministic groundedness signal —     max co, SubjectSimJudge, _chunk(), Offline tests for the groundedness abstention gate (ADR-001 item 7)., _StubJudge, test_identify_prompt_numbers_excerpts(), test_judge_no_forces_abstention(), test_judge_yes_answers_normally() (+4 more)
 
 ### Community 81 - "Regulation Edge Integration Testing"
 Cohesion: 0.31
@@ -507,8 +511,8 @@ Cohesion: 0.60
 Nodes (4): _load_items(), main(), Path, Pool-width sweep (intervention #3): answer-level rescue rate vs reranker latency
 
 ### Community 83 - "Run Rescoring and Backfilling"
-Cohesion: 0.06
-Nodes (46): load_runs(), main(), Path, Assign epochs to the archived runs and write the epoch registry.  Every run's re, _fmt(), guard_pair(), main(), Path (+38 more)
+Cohesion: 0.07
+Nodes (42): load_runs(), main(), Path, Assign epochs to the archived runs and write the epoch registry.  Every run's re, _fmt(), guard_pair(), main(), Path (+34 more)
 
 ### Community 85 - "Prompt Injection Security"
 Cohesion: 0.28
@@ -531,8 +535,8 @@ Cohesion: 0.29
 Nodes (8): _alias_keys(), Candidate alias lookup keys, most literal first.      Both the raw normalised fo, PMS/NCS/ILDS end in a literal S. Unconditional plural-stripping mapped     them, reg_id resolved purely through the alias table, ignoring the corpus., A table key that no _alias_keys() output can produce is dead config., _resolved(), test_acronyms_ending_in_s_reach_their_own_entry(), test_every_alias_entry_is_reachable_from_some_spelling()
 
 ### Community 91 - "Retrieval Metric Implementation"
-Cohesion: 0.21
-Nodes (13): answer_with_abstention(), ADOPTED gate (eval_gate round 3): deterministic groundedness signal —     max co, Max cosine(query, doc subject line) over contexts — the primary         gate sig, Max cosine(query, section heading) over contexts — the second tier., SubjectSimJudge, _chunk(), Offline tests for the ADR-002 certainty architecture: abstention reasons, confid, test_advisory_draft_on_gate_failure_only_when_requested() (+5 more)
+Cohesion: 0.44
+Nodes (9): answer_with_abstention(), _chunk(), Offline tests for the ADR-002 certainty architecture: abstention reasons, confid, test_advisory_draft_on_gate_failure_only_when_requested(), test_certainty_capped_medium_without_gate(), test_certainty_high_when_subject_sim_strong_and_faithful(), test_no_context_reason_when_top_k_zero(), test_score_floor_reason() (+1 more)
 
 ### Community 92 - ".family"
 Cohesion: 0.25
@@ -571,8 +575,12 @@ Cohesion: 0.29
 Nodes (6): HF_HUB_DISABLE_XET, OMP_NUM_THREADS, PYTHONPATH, PYTORCH_ENABLE_MPS_FALLBACK, refresh.sh script, TOKENIZERS_PARALLELISM
 
 ### Community 101 - "write_dataset_cards"
-Cohesion: 0.12
-Nodes (25): AsofCaseResult, build_report(), load_golden_asof(), Path, As-of-date golden evaluation runner (P4b).  Two case modes drawn from eval/golde, Assemble the persisted as-of run artifact.      Pipeline accuracy is the headlin, Aggregate case results with an exact confidence interval.      Pure function of, run_pipeline_cases() (+17 more)
+Cohesion: 0.09
+Nodes (31): Build a lightweight pipeline for --smoke mode.      Uses a stub retriever (no FA, Build the full pipeline with real models., real_pipeline(), smoke_pipeline(), AsofCaseResult, build_report(), load_golden_asof(), Path (+23 more)
+
+### Community 102 - "PDF Parsing Latency Metrics"
+Cohesion: 0.67
+Nodes (3): faithfulness(), Check that every circular id the answer cites (in square brackets) was     actua, test_faithfulness_scoring()
 
 ### Community 103 - "Annotation Provenance Auditing"
 Cohesion: 0.21
@@ -603,8 +611,8 @@ Cohesion: 0.11
 Nodes (30): Reranker, HashEmbedder, Deterministic hashed bag-of-words embedding. No model, no network.      Stable a, ExtractiveStubGenerator, Deterministic: returns the top context text. No model required., Chunk, Lineage, CircularMeta (+22 more)
 
 ### Community 125 - "Quote to Chunk Resolution"
-Cohesion: 0.27
-Nodes (13): chunks_by_doc(), _norm_ws(), qrels_rows(), Span {doc, quote} -> matching chunk ids (all overlap matches count).      Legacy, resolve_chunk_spans(), _chunks(), Span→chunk resolution (spec §3): quotes survive re-chunking; failures are loud., _row() (+5 more)
+Cohesion: 0.24
+Nodes (14): chunks_by_doc(), _norm_ws(), Span {doc, quote} -> matching chunk ids (all overlap matches count).      Legacy, resolve_chunk_spans(), _eval_item(), _unique(), _chunks(), Span→chunk resolution (spec §3): quotes survive re-chunking; failures are loud. (+6 more)
 
 ### Community 130 - "RAG Benchmark Export"
 Cohesion: 0.52
@@ -621,6 +629,10 @@ Nodes (9): The eval stack's generator choice must be one shared decision.  `deri
 ### Community 138 - ".build"
 Cohesion: 0.21
 Nodes (8): main(), mrr(), ndcg_at_k(), Sweep RRF k_const values on the golden set. No index rebuild needed., recall_at_k(), Reciprocal Rank Fusion. Rank-only — sidesteps score-scale mismatch., rrf_fuse(), test_rrf_fusion_orders_by_reciprocal_rank()
+
+### Community 139 - "build_regulatory_index"
+Cohesion: 0.33
+Nodes (9): build_regulatory_index(), Per-circular regulatory-basis lookup for the query/citation layer.      Read-onl, _icirc(), test_index_dangling_reg_id_falls_back(), test_index_happy_path_resolves_successor_object(), test_index_missing_basis_fields_default(), test_index_primary_is_unknown_but_a_repealed_reg_is_present(), test_index_repealed_with_missing_successor_record() (+1 more)
 
 ### Community 140 - "test_incremental_index.py"
 Cohesion: 0.46
@@ -657,16 +669,16 @@ Nodes (14): Embedder, ndarray, Path, RAGPipeline, main(), smoke_pipeline(), Dens
 ## Knowledge Gaps
 - **46 isolated node(s):** `measure.sh script`, `autoresearch.sh script`, `PYTHONPATH`, `TOKENIZERS_PARALLELISM`, `OMP_NUM_THREADS` (+41 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **31 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **33 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `Chunk` connect `sweep_rrf_k.py` to `Benchmark Schema Validation`, `RAG Benchmark Export`, `End-to-End Integration Testing`, `Evaluation Harness Testing`, `LLM Generation Providers`, `Hugging Face Data Loading`, `Incremental Index Building`, `Golden Set Versioning`, `Export Integration Testing`, `Citation and Generation Benchmarking`, `Contextual Header Generation`, `Circular Relation Detection`, `Supersession Precision Metrics`, `Golden Set Schema Validation`, `Prompt Injection Security`, `Regulatory Basis Indexing`, `Retrieval Metric Implementation`, `Quote to Chunk Resolution`?**
-  _High betweenness centrality (0.067) - this node is a cross-community bridge._
-- **Why does `RAGPipeline` connect `Answer Validation and Groundedness` to `Circular Web Scraping`, `RAG Pipeline Construction`, `write_dataset_cards`, `Hugging Face Data Loading`, `Incremental Index Building`, `Statistical and Hardware Helpers`, `Context Precision Metrics`, `Golden Set Versioning`, `Circular Relation Detection`, `.encode`, `TestPerQueryRecall`, `Lexical Reranking and Pooling`, `Run Rescoring and Backfilling`, `API Service and Integration`, `sweep_rrf_k.py`?**
-  _High betweenness centrality (0.059) - this node is a cross-community bridge._
-- **Why does `CircularMeta` connect `Lexical Reranking and Pooling` to `End-to-End Integration Testing`, `Context Precision Metrics`, `Incremental Index Building`, `Statistical and Hardware Helpers`, `Hugging Face Data Loading`, `Export Integration Testing`, `test_incremental_index.py`, `test_pipeline.py`, `detect_relations_ex`, `.encode`, `TestPerQueryRecall`, `Run Rescoring and Backfilling`, `_doc_checksum`, `Quote to Chunk Resolution`?**
+  _High betweenness centrality (0.068) - this node is a cross-community bridge._
+- **Why does `RAGPipeline` connect `write_dataset_cards` to `Circular Web Scraping`, `RAG Pipeline Construction`, `Hugging Face Data Loading`, `Incremental Index Building`, `Context Precision Metrics`, `Statistical and Hardware Helpers`, `Golden Set Versioning`, `Reciprocal Rank Metrics`, `Circular Relation Detection`, `.encode`, `TestPerQueryRecall`, `Lexical Reranking and Pooling`, `Run Rescoring and Backfilling`, `Query Expansion and RRF`, `API Service and Integration`, `sweep_rrf_k.py`, `Quote to Chunk Resolution`?**
+  _High betweenness centrality (0.066) - this node is a cross-community bridge._
+- **Why does `CircularMeta` connect `Lexical Reranking and Pooling` to `End-to-End Integration Testing`, `Context Precision Metrics`, `Incremental Index Building`, `Hugging Face Data Loading`, `test_pipeline.py`, `Export Integration Testing`, `test_incremental_index.py`, `Reciprocal Rank Metrics`, `detect_relations_ex`, `.encode`, `TestPerQueryRecall`, `Run Rescoring and Backfilling`, `Query Expansion and RRF`, `_doc_checksum`, `Quote to Chunk Resolution`?**
   _High betweenness centrality (0.042) - this node is a cross-community bridge._
 - **Are the 27 inferred relationships involving `Chunk` (e.g. with `BenchmarkIssue` and `HeaderGenerator`) actually correct?**
   _`Chunk` has 27 INFERRED edges - model-reasoned connections that need verification._

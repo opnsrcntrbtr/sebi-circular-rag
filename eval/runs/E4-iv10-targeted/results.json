@@ -1,0 +1,43 @@
+{
+  "metrics": {
+    "run_name": "baseline-retrieval",
+    "n": 260,
+    "n_scored": 216,
+    "n_unjudged": 3,
+    "unjudged_ids": [
+      "v7-ls-038",
+      "v7-ls-039",
+      "v7-ls-040"
+    ],
+    "recall_at_10": 0.9560185185185185,
+    "avg_retrieval_latency_s": 0.04101715638087346
+  },
+  "metadata": {
+    "run_name": "baseline-retrieval",
+    "ts": "2026-08-12T15:30:01+0530",
+    "git_commit": "f6490c86e630c1fbc55be1dd20a64c5328813958",
+    "python": "3.12.13",
+    "platform": "macOS-26.6.1-arm64-arm-64bit",
+    "models": {
+      "embedder": "BAAI/bge-m3",
+      "retriever": "FAISS+BM25/RRF",
+      "reranker": "BAAI/bge-reranker-v2-m3"
+    },
+    "params": {
+      "top_n": 50,
+      "smoke": false,
+      "hyde": false,
+      "splade": false,
+      "expand_sparse": true
+    },
+    "env": {
+      "TOKENIZERS_PARALLELISM": "false",
+      "OMP_NUM_THREADS": "1",
+      "PYTORCH_ENABLE_MPS_FALLBACK": "1",
+      "HF_HUB_DISABLE_XET": "1"
+    },
+    "corpus_sha256": "5f626dd9a881f30884beb9fac972d710ea09151271964f8d546824f110121d8d",
+    "index_fingerprint": "d2140c975842385f7465e31f85c0372299e33f153c0fae19fad2eb504df17904",
+    "golden_sha256": "d87e5f3ac29a54dc2464f164f8261619cc655d6c2584831f8ce501608a59520a"
+  }
+}
