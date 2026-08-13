@@ -20,7 +20,7 @@
 | **v7 strata** | title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10 |
 | **Abstain/as_of rows** | 41 abstain, 15 dated `as_of` |
 | **Draft rows** | 0 draft, 0 seeded |
-| **Test suite** | 777 collected (773 passing, 1 skipped, 3 deselected) |
+| **Test suite** | 786 collected (782 passing, 1 skipped, 3 deselected) |
 | **Source tree** | 33 Python modules in `src/sebi_rag/` (api, api_spaces, pipeline, retrieve, rerank, embeddings, segment, lineage, generate, generate_spaces, corpus, corpus_spaces, eval, eval_harness, benchmark, splade, splade_encoder, hyde, context_headers, reg_citations, reg_lineage, regulations, master_meta, settings, stats, ui, expand, verify_master, eval_asof, device, ingest_pdf, metadata); 38 scripts in `scripts/` (incl. bench_metrics.py, measure.py) |
 | **Golden-v7 pipeline** | 15 scripts in `scripts/golden_v7/` (agreement, backfill_escalations, build_pool, derive_thresholds, gate_select, gemini_adjudicate, local_adjudicate, make_packet, mine_strata, relabel_repooled, remap_doc_ids, score, seed_v7) |
 | **V7 annotations** | `eval/golden/v7_annotations/` — votes.jsonl (207 claude records), pools.jsonl (4.2 MB), arbitration_queue.jsonl (65 KB), external_sample.json, gemini/ (21 dirs), qwen/ (150 files), candidates/, packet_human/ |
@@ -445,8 +445,15 @@ preregistration with `stale@1`/`stale@3` as guardrail and an explicit price on l
 
 **Incidental:** 0.3 sits near the knee of the stale@3 curve — the current value looks well chosen.
 
-Also surfaced: `v7-ls-015` is caught by the `_is_non_sebi_domain` keyword filter (added
-2026-07-30) — a false positive on a genuine SEBI lineage question.
+**FIXED 2026-08-13 — substring-matching bug in `_is_non_sebi_domain`.** `v7-ls-015` was flagged
+non-SEBI because the keyword `"rbi"` matched inside **a·rbi·tration**. The filter used bare
+substring matching, so *arbitration* and *arbitrage* — core securities vocabulary, present in 86
+corpus circulars — tripped the RBI keyword and the pipeline **abstained on genuine SEBI questions**.
+Shipped 2026-07-30 with no test coverage. Now word-boundary matched (`_NON_SEBI_RE`), 9 tests
+including a guard that every short keyword resists substring embedding.
+
+Verified end-to-end on `v7-ls-015`: `abstention` 0.0 → **1.0**, `citation_recall` 0.0 → **1.0**.
+One false abstention and one zero-cite row eliminated.
 
 *Instrumentation note:* `as_of` rows take the `as_of` branch instead of `demote_superseded`
 (`pipeline.py:51` `if/elif`), so their pre/post ranks are unrecorded — `v7-ls-029` (as_of
@@ -711,6 +718,8 @@ adopting iv11: the sole surviving exploratory result failed on data that did not
 cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
+
+2026-08-13 — **Reranker lever exhausted; found and fixed a real production bug instead.** The reranker promotes 3 and demotes 3 relevant docs across the top-10 boundary — net zero on membership — and no combiner (RRF, rank-cap) beats it: all within ±1 of baseline 9 misses, non-monotonic in the cap parameter, i.e. noise. **`_is_non_sebi_domain` matched substrings**, so `"rbi"` inside *arbitration*/*arbitrage* made the pipeline abstain on genuine SEBI questions (86 corpus circulars use that vocabulary; shipped 2026-07-30 untested). Fixed with word boundaries; `v7-ls-015` goes abstained→answered and citation_recall 0→1.
 
 2026-08-13 — **`superseded_penalty` confirmatory run at 0.5: NOT ADOPTED, 0.3 retained.** Owner set the harm definition (top-ranked context only), under which the grid selects 0.5 robustly across a 40x price range. Production run (MLX, B′ on) met every preregistered criterion — zero-cite 19→**18**, no guardrail breached — but the gain is **1 row of 206 at p=1.000** while citation_precision fell 0.1859→0.1757, consuming **35% of the headroom** above the armed floor. The criterion specified a direction and no minimum effect size; recorded as a deviation rather than rewritten. config.toml unchanged.
 

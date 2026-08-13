@@ -37,18 +37,26 @@ _NON_SEBI_KEYWORDS = frozenset((
 ))
 
 
+# Word-boundary matching, NOT substring. "rbi" as a bare substring matches
+# inside "arbitration" and "arbitrage" — both core securities vocabulary — so
+# the filter abstained on genuine SEBI questions (golden v7-ls-015, online
+# dispute resolution; 86 corpus circulars mention arbitration/arbitrage).
+_NON_SEBI_RE = re.compile(
+    r"\b(?:" + "|".join(re.escape(k) for k in sorted(_NON_SEBI_KEYWORDS)) + r")\b"
+)
+
+
 def _is_non_sebi_domain(query: str) -> bool:
     """Return True if the query clearly targets a non-SEBI regulator's domain.
 
-    Uses case-insensitive substring matching on a curated keyword set, with
+    Case-insensitive **word-boundary** matching on a curated keyword set, with
     an early-exit guard: if "sebi" appears in the query we assume SEBI-domain
     intent (the SubjectSimJudge handles those). This prevents false positives
     on queries like "SEBI's online resolution mechanism under RBI's framework".
     """
     if "sebi" in query.lower():
         return False
-    q = query.lower()
-    return any(kw in q for kw in _NON_SEBI_KEYWORDS)
+    return _NON_SEBI_RE.search(query.lower()) is not None
 
 
 def faithfulness(text: str, allowed_ids: set[str]) -> tuple[float, list[str]]:
