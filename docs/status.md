@@ -1,7 +1,7 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-08-12.
+> Last updated: 2026-08-13.
 
 ## Current Snapshot
 
@@ -375,10 +375,14 @@ The system held the evidence and refused to answer. For a legal tool that is a d
 arguably worse failure than citing imprecisely, and it is invisible in `abstention_accuracy`
 (0.962) because that metric pools abstain-labelled rows.
 
-**Cite-wrong-docs (9)** — not yet diagnosed. Hypothesis, untested: `recall` is measured over
-`retrieved_ids` while citations come from the `top_k` contexts after `demote_superseded`, so
-supersession demotion may push relevant docs out of the context window the generator and citer
-see. Checkable without a new run.
+**Cite-wrong-docs (9)** — now the largest single bucket, not yet diagnosed. Hypothesis, untested:
+`recall` is measured over `retrieved_ids` while citations come from the `top_k` contexts after
+`demote_superseded`, so supersession demotion may push relevant docs out of the context window the
+generator and citer actually see.
+
+Testing it needs an **instrumented run** (~20 min): `score_row` records only scalars
+(`recall`, `citation_*`, `abstention`) and keeps no document ids, so the existing artifacts cannot
+answer it. An earlier note here claimed otherwise — that was wrong.
 
 ## Gate re-derived under the production generator (2026-08-12)
 
