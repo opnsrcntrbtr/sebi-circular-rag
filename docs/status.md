@@ -421,8 +421,29 @@ labelled-relevant circular is often itself superseded — which for `lineage_sup
 `repealed_basis` strata is precisely what the question asks about.
 
 ⚠️ **Do not just lower `superseded_penalty`.** It trades citation correctness against surfacing
-repealed law, which is the more serious failure for a legal tool. This needs a preregistered
-penalty sweep with both harms measured, not a one-line change.
+repealed law, which is the more serious failure for a legal tool.
+
+**Sweep run 2026-08-13 (preregistered) — NOT ADOPTED, penalty stays 0.3.**
+`docs/superpowers/specs/2026-08-13-superseded-penalty-sweep-prereg.md`. One rerank pass over 204
+answerable non-`as_of` rows, penalties applied post-hoc; fidelity assertion passed (all 6 diagnosed
+rows miss at 0.3, all 6 rescued at 1.0).
+
+| penalty | context_miss | stale@3 | stale@1 |
+|---|---|---|---|
+| 0.15 | 17 | 70 | 1 |
+| **0.30 (current)** | **15** | **83** | **1** |
+| 0.50 | 13 | 101 | 1 |
+| 0.70 | 12 | 122 | 4 |
+| 1.00 | 9 | 188 | 68 |
+
+The rule selected 0.7, but **its guardrail was mis-specified**: "any superseded circular anywhere in
+top-10" is near-ceiling (192–203 of 204 — the corpus has 1350 superseded circulars) and cannot see
+the harm it exists to prevent. Rank-sensitive views show 0.3 → 0.7 buys 3 citation rows while
+**quadrupling top-rank repealed law** (stale@1 1 → 4); at 1.0 the top context is repealed law in 33%
+of rows. Result recorded as-is rather than re-scored under a swapped metric; the fix is a new
+preregistration with `stale@1`/`stale@3` as guardrail and an explicit price on legal-risk exposure.
+
+**Incidental:** 0.3 sits near the knee of the stale@3 curve — the current value looks well chosen.
 
 Also surfaced: `v7-ls-015` is caught by the `_is_non_sebi_domain` keyword filter (added
 2026-07-30) — a false positive on a genuine SEBI lineage question.
@@ -690,6 +711,8 @@ adopting iv11: the sole surviving exploratory result failed on data that did not
 cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
+
+2026-08-13 — **`superseded_penalty` sweep run and NOT adopted; 0.3 retained.** Preregistered, one rerank pass, fidelity assertion passed. The rule selected 0.7 (miss 15→12) but its guardrail was mis-specified — stale@10 is near-ceiling (192–203/204) and blind to the harm; rank-sensitive stale@1 shows 0.7 quadruples top-rank repealed law (1→4) and 1.0 puts it there in 33% of rows. Recorded the rule's output as-is rather than re-scoring under a swapped metric. Incidentally 0.3 sits near the knee — the current value looks well chosen.
 
 2026-08-13 — **Cite-wrong-docs diagnosed: supersession demotion is the top cause of zero-cite, ahead of B′.** `score_row`'s `recall` measures the PRE-rerank fusion list (`pipeline.py:141`) while citations come from the POST-rerank, POST-demotion `top_k` — so the gate's recall and its citation metrics describe different sets. Of 9 cite-wrong rows, **6** had the relevant doc inside the context window after reranking and `superseded_penalty=0.3` pushed it out (two from rank 0); 3 are reranker ordering failures. Full 19-row split: demotion 6, B′ 4, reranker 3, subject_gate 3, score_floor 2, non_sebi_domain false positive 1. Do NOT lower the penalty without a preregistered sweep — it trades citation correctness against surfacing repealed law.
 
