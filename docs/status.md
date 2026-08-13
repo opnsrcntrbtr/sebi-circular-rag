@@ -375,14 +375,61 @@ The system held the evidence and refused to answer. For a legal tool that is a d
 arguably worse failure than citing imprecisely, and it is invisible in `abstention_accuracy`
 (0.962) because that metric pools abstain-labelled rows.
 
-**Cite-wrong-docs (9)** — now the largest single bucket, not yet diagnosed. Hypothesis, untested:
-`recall` is measured over `retrieved_ids` while citations come from the `top_k` contexts after
-`demote_superseded`, so supersession demotion may push relevant docs out of the context window the
-generator and citer actually see.
+**Cite-wrong-docs (9) — DIAGNOSED 2026-08-13.** The hypothesis was right.
 
-Testing it needs an **instrumented run** (~20 min): `score_row` records only scalars
-(`recall`, `citation_*`, `abstention`) and keeps no document ids, so the existing artifacts cannot
-answer it. An earlier note here claimed otherwise — that was wrong.
+Root cause of the measurement mismatch: `score_row`'s `recall` is computed over
+`pipeline.query`'s `retrieved_ids`, which is the **pre-rerank fusion list**
+(`pipeline.py:141` — `candidates`, not `reranked`). Citations come from `contexts`, the
+doc-deduped `top_k` of the **post-rerank, post-demotion** list (`generate.py:486-492`).
+"Retrieval found it" and "the citer saw it" are different claims, and the gate reports only
+the first.
+
+Instrumented run (B′ off so citations == contexts; `demote_superseded` wrapped to capture rank
+before and after). Rank of the first relevant document, `top_k`=10:
+
+| id | stratum | fusion | pre-demote | post-demote | cause |
+|---|---|---|---|---|---|
+| v7-bp-017 | body_paraphrase | 7 | **0** | **12** | demotion |
+| v7-bp-036 | body_paraphrase | 0 | **4** | **16** | demotion |
+| v7-ls-005 | lineage_supersession | 9 | **9** | **12** | demotion |
+| v7-ls-006 | lineage_supersession | 1 | **6** | **13** | demotion |
+| v7-mh-020 | multi_hop | 0 | **0** | **10** | demotion |
+| v7-nt-014 | numeric_table | 8 | **8** | **10** | demotion |
+| v7-bp-016 | body_paraphrase | 4 | 11 | 19 | reranker |
+| v7-ls-024 | lineage_supersession | 1 | 18 | 18 | reranker |
+| v7-rb-007 | repealed_basis | 8 | 15 | 19 | reranker |
+
+**6 of 9 are caused by `demote_superseded` alone** — the relevant document was *inside* the
+context window after reranking and the `superseded_penalty=0.3` multiplier pushed it out.
+`v7-mh-020` and `v7-bp-017` went from rank 0 to outside entirely. The other 3 are reranker
+ordering failures, unaffected by demotion.
+
+### Full composition of the 19 zero-cite rows
+
+| Cause | n |
+|---|---|
+| **Supersession demotion pushes relevant doc out of top_k** | **6** |
+| B′ citation filter | 4 |
+| Reranker ranks relevant doc below top_k | 3 |
+| Abstained — `subject_gate` | 3 |
+| Abstained — `score_floor` | 2 |
+| Abstained — `non_sebi_domain` **false positive** (`v7-ls-015`) | 1 |
+
+**Supersession demotion is the single largest cause — larger than B′.** A mechanism added for
+legal correctness (don't surface repealed law) is the top driver of wrong citations, because the
+labelled-relevant circular is often itself superseded — which for `lineage_supersession` and
+`repealed_basis` strata is precisely what the question asks about.
+
+⚠️ **Do not just lower `superseded_penalty`.** It trades citation correctness against surfacing
+repealed law, which is the more serious failure for a legal tool. This needs a preregistered
+penalty sweep with both harms measured, not a one-line change.
+
+Also surfaced: `v7-ls-015` is caught by the `_is_non_sebi_domain` keyword filter (added
+2026-07-30) — a false positive on a genuine SEBI lineage question.
+
+*Instrumentation note:* `as_of` rows take the `as_of` branch instead of `demote_superseded`
+(`pipeline.py:51` `if/elif`), so their pre/post ranks are unrecorded — `v7-ls-029` (as_of
+2013-01-10) shows `None` for that reason, not because the document was dropped.
 
 ## Gate re-derived under the production generator (2026-08-12)
 
@@ -643,6 +690,8 @@ adopting iv11: the sole surviving exploratory result failed on data that did not
 cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
+
+2026-08-13 — **Cite-wrong-docs diagnosed: supersession demotion is the top cause of zero-cite, ahead of B′.** `score_row`'s `recall` measures the PRE-rerank fusion list (`pipeline.py:141`) while citations come from the POST-rerank, POST-demotion `top_k` — so the gate's recall and its citation metrics describe different sets. Of 9 cite-wrong rows, **6** had the relevant doc inside the context window after reranking and `superseded_penalty=0.3` pushed it out (two from rank 0); 3 are reranker ordering failures. Full 19-row split: demotion 6, B′ 4, reranker 3, subject_gate 3, score_floor 2, non_sebi_domain false positive 1. Do NOT lower the penalty without a preregistered sweep — it trades citation correctness against surfacing repealed law.
 
 2026-08-13 — **B′ exonerated; three distinct citation problems, not one.** Re-measured zero-cite with MLX on both arms: of 19 rows, **4** are B′-caused (stub said 19 — 5x overstatement), **6** are **false abstentions** (answerable, evidence retrieved, pipeline refused), 9 cite wrong docs. B′ costs 4 rows for +57% citation_precision — leave it alone. Canary budget fixed: measured **840s**, not the documented ~40s (reporting set grew v5 n=56 → v7 n=260, plus B′ per-row cross-encoder); ops/n8n timeouts 300s → 1800s and alert thresholds rebased (citation_precision fired below 0.35 against a measured 0.224).
 
