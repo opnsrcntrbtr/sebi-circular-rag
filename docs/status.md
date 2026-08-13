@@ -453,7 +453,9 @@ Shipped 2026-07-30 with no test coverage. Now word-boundary matched (`_NON_SEBI_
 including a guard that every short keyword resists substring embedding.
 
 Verified end-to-end on `v7-ls-015`: `abstention` 0.0 → **1.0**, `citation_recall` 0.0 → **1.0**.
-One false abstention and one zero-cite row eliminated.
+One false abstention and one zero-cite row eliminated. Full gate re-checked after the fix:
+**`floors_ok: true`**, with `citation_recall` 0.863 → **0.868** and `abstention_accuracy`
+0.962 → **0.965**; recall_at_k, ndcg_at_10 and citation_precision unchanged. Nothing regressed.
 
 *Instrumentation note:* `as_of` rows take the `as_of` branch instead of `demote_superseded`
 (`pipeline.py:51` `if/elif`), so their pre/post ranks are unrecorded — `v7-ls-029` (as_of
