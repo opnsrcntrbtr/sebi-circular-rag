@@ -841,3 +841,15 @@ cycle is the gate fix, not an accepted intervention.
 
 2026-08-04 — B' eval: recall=0.943, precision=0.224, citation_recall=0.783, abstention=0.962 (all floors pass). Citation_recall variance analysis: task_type drives variance, numeric_table/lineage_supersession worst. Gate armed, 736 tests pass.
 
+2026-08-13 — **System stable; 5 false abstentions accepted as known limitations.** All gate floors pass with healthy margins (recall_at_k 0.943 vs floor 0.906, abstention_accuracy 0.962 vs 0.934, citation_recall 0.863 vs 0.812). Three levers exhausted: retrieval (iv-series combiners within ±1 baseline, non-monotonic), superseded_penalty (0.5 confirmatory p=1.000, 0.3 retained), reranker (net zero membership change). The 5 remaining false abstentions are individually diagnosable but not systematically fixable:
+| Row | Type | subject_sim | rerank_top | Fix path |
+|-----|------|-------------|------------|----------|
+| v7-ls-029 | subject_gate | 0.4073 | — | Hybrid gate (cross-encoder OR) |
+| v7-nt-013 | subject_gate | 0.3108 | — | Hybrid gate (cross-encoder OR) |
+| v7-nt-025 | subject_gate | 0.4105 | — | Hybrid gate (cross-encoder OR) |
+| para-mfborrow | score_floor | 0.5922 | 0.0296 | Relax floor (releases 13 FPs) |
+| para-pricedata | score_floor | 0.5233 | 0.0114 | Relax floor (releases 13 FPs) |
+Lowering subject threshold to 0.40 is net zero (rescues 2, releases 2). Relaxing score_floor answers 13 abstain rows but releases 13 false positives (13 have subject_sim ≥ 0.42). **Decision: accept current state; pursue hybrid gate experiment for subject_gate rows only.**
+
+2026-08-13 — **Cite-wrong-docs is structural, not a bug.** Supersession demotion correctly surfaces current regulations at the cost of older relevant docs in top_k. 6 of 9 cite-wrong rows are demotion-caused (relevant doc at rank 0/1 pushed out by penalty=0.3). Lowering the penalty trades citation correctness for surfacing repealed law — worse outcome. The measurement mismatch (recall measures pre-rerank, citations from post-rerank) is documented in `score_row` comments.
+
