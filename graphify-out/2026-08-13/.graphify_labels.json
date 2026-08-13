@@ -150,7 +150,17 @@
   "148": "detect_relations_ex",
   "149": "_unique",
   "150": "stats.py",
+  "151": "_resolve_governing_spans",
+  "152": "write_run_doc",
+  "153": "SparseIndex",
+  "154": "test_trec_parity.py",
+  "155": "test_eval_asof.py",
   "156": "_doc_checksum",
   "157": "ndarray",
-  "158": "Path"
+  "158": "Path",
+  "159": "main",
+  "160": "TestPerQueryRecall",
+  "161": "discover_new.py",
+  "162": "load_golden_asof",
+  "163": "Chunk"
 }

@@ -343,6 +343,57 @@ correlated, so their agreement is *not* independent confirmation. **iv11 is the 
 candidate the programme has produced, but it is suggestive, not established** — it warrants a
 preregistered confirmatory run with nDCG@10 as the single primary endpoint before adoption.
 
+## False abstentions diagnosed — threshold tuning is dead, one lead survives (2026-08-13)
+
+All 5 remaining false abstentions measured (answerable rows, relevant doc retrieved, pipeline refused).
+Abstention is decided before generation, so the stub generator is faithful and the run takes ~1 min.
+
+| id | reason | rerank_top | subject_sim | relevant doc rank |
+|---|---|---|---|---|
+| v7-ls-029 | subject_gate | 0.8697 | 0.4073 | 1 |
+| v7-nt-013 | subject_gate | 0.9878 | 0.3108 | 0 |
+| v7-nt-025 | subject_gate | 0.9948 | 0.4105 | 0 |
+| para-mfborrow | score_floor | 0.0296 | 0.5922 | 0 |
+| para-pricedata | score_floor | 0.0114 | 0.5233 | 0 |
+
+**In all 5 the relevant document sits at rank 0 or 1 and the two gate signals contradict each other.**
+The gate is a conjunction — `rerank_top >= 0.05` **AND** the subject gate — so either noisy signal
+vetoes alone and false-abstention risk compounds. subject_gate rows have a near-ceiling cross-encoder
+and sub-threshold subject-sim; score_floor rows are the exact mirror.
+
+### Both threshold levers are dead — measured, not assumed
+
+Gate signals on all 41 abstain-labelled rows:
+
+- **Nudging subject threshold 0.42 → 0.40 is net zero.** It rescues `v7-ls-029` (0.4073) and
+  `v7-nt-025` (0.4105) but releases `v7-hn-010` (0.4062) and `v7-hn-007` (0.4148). Answerable and
+  abstain rows **interleave** in that band — subject_sim does not separate there at any threshold.
+- **Relaxing `score_floor` is far worse.** 29 abstain rows are held by it (rerank_top max 0.0462),
+  and **13 of them have subject_sim ≥ 0.42** — they would be answered outright. The 2 score_floor
+  false abstentions (0.0296, 0.0114) sit inside that same band. No separation.
+
+### The one surviving lead — promising, NOT yet actionable
+
+`rerank_top` separates cleanly at the top end: **every correctly-abstaining row is ≤ 0.8458**, while
+the 3 subject_gate false abstentions are **0.8697 / 0.9878 / 0.9948**. A rule like "high cross-encoder
+confidence overrides the subject gate" would rescue 3 of 5 at zero measured cost.
+
+⚠️ **Do not ship this off these numbers.** The margin is 0.024 on 41 abstain rows, and any threshold
+picked here is fitted to the observed maximum — textbook overfitting. It needs a preregistration with
+a minimum effect size and a floor-headroom cap (the lesson from the `superseded_penalty` sweep), and
+ideally held-out abstain rows, which golden_v7 does not currently have.
+
+### Two incidental findings
+
+**3 abstain-labelled rows are being falsely ANSWERED** — `v7-hn-011` (TDS on dividend), `v7-hn-016`
+(stamp duty on a bank locker agreement), `v7-hn-025` (CCI merger notification). Verified **not** caused
+by the 2026-08-13 word-boundary fix: zero rows were caught by the old substring filter and released by
+the new one. Pre-existing.
+
+**Doc/code drift in the non-SEBI keyword list.** `status.md` and the 2026-07-30 note claim
+`overseas direct investment` and `bank safe deposit locker` are keywords; **neither is in
+`_NON_SEBI_KEYWORDS`** (19 entries). The missing locker keyword is exactly why `v7-hn-016` is answered.
+
 ## Zero-cite composition under the production generator (2026-08-13)
 
 Re-measured with MLX on both arms (validity check passed: retrieval identical). This **corrects
@@ -720,6 +771,8 @@ adopting iv11: the sole surviving exploratory result failed on data that did not
 cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
+
+2026-08-13 — **All 5 false abstentions diagnosed; threshold tuning is dead.** In every one the relevant doc is at rank 0/1 and the two gate signals contradict; the gate is an AND so either vetoes alone. Subject threshold 0.42→0.40 is net zero (rescues 2, releases 2 — the bands interleave); relaxing score_floor would answer 13 abstain rows. One lead: rerank_top separates (all abstaining ≤0.8458 vs 0.8697–0.9948 for the false ones) but the 0.024 margin is fitted to the observed max — needs prereg + held-out. Incidental: **3 abstain rows are falsely answered** (pre-existing, NOT from my word-boundary fix — verified), and 2 documented non-SEBI keywords are missing from the code.
 
 2026-08-13 — **Reranker lever exhausted; found and fixed a real production bug instead.** The reranker promotes 3 and demotes 3 relevant docs across the top-10 boundary — net zero on membership — and no combiner (RRF, rank-cap) beats it: all within ±1 of baseline 9 misses, non-monotonic in the cap parameter, i.e. noise. **`_is_non_sebi_domain` matched substrings**, so `"rbi"` inside *arbitration*/*arbitrage* made the pipeline abstain on genuine SEBI questions (86 corpus circulars use that vocabulary; shipped 2026-07-30 untested). Fixed with word boundaries; `v7-ls-015` goes abstained→answered and citation_recall 0→1.
 
