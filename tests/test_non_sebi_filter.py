@@ -62,6 +62,54 @@ def test_sebi_mention_short_circuits():
         "SEBI's online resolution mechanism under the RBI framework")
 
 
+def test_bank_locker_query_is_flagged():
+    """Documented as a keyword since 2026-07-30 but never actually present in
+    _NON_SEBI_KEYWORDS, which is why golden v7-hn-016 was answered instead of
+    abstained. 0 corpus circulars mention safe deposit lockers."""
+    assert _is_non_sebi_domain(
+        "Who is liable to pay stamp duty on a bank safe deposit locker agreement?")
+
+
+def test_overseas_direct_investment_is_flagged():
+    """Also documented but absent from the code. RBI/FEMA territory."""
+    assert _is_non_sebi_domain(
+        "What are the reporting rules for overseas direct investment by residents?")
+
+
+# --- keywords deliberately NOT added ---------------------------------------
+# "tds" (9 corpus circulars) and "competition commission of india" (3) name
+# topics SEBI genuinely regulates around - dividend distribution, takeover
+# approvals. Adding them would recreate the arbitration-class false-abstention
+# bug. golden v7-hn-011 and v7-hn-025 therefore stay unfixed by this filter.
+
+def test_genuine_sebi_tds_question_is_not_flagged():
+    assert not _is_non_sebi_domain(
+        "What TDS applies when a mutual fund distributes dividend to unitholders?")
+
+
+def test_genuine_takeover_question_mentioning_cci_is_not_flagged():
+    assert not _is_non_sebi_domain(
+        "Does an acquirer need Competition Commission of India approval before an open offer?")
+
+
+def test_no_answerable_golden_row_is_flagged():
+    """Permanent guard on the whole keyword set.
+
+    This is the test whose absence let the substring bug ship: it exercises
+    every real query the filter must not touch. Any future keyword addition
+    that catches an answerable row fails here.
+    """
+    import json
+
+    golden = Path(__file__).resolve().parents[1] / "eval" / "golden" / "golden_v7.jsonl"
+    rows = [json.loads(line) for line in golden.read_text(encoding="utf-8").splitlines()
+            if line.strip()]
+    answerable = [r for r in rows if not r.get("abstain")]
+    assert answerable, "golden set did not load"
+    flagged = [r["id"] for r in answerable if _is_non_sebi_domain(r["query"])]
+    assert not flagged, f"non-SEBI filter would abstain on answerable rows: {flagged}"
+
+
 def test_every_short_keyword_is_word_bounded():
     """Any single-token keyword <= 5 chars is a substring hazard. Embedding it
     inside a longer word must not trigger the filter."""

@@ -20,7 +20,7 @@
 | **v7 strata** | title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10 |
 | **Abstain/as_of rows** | 41 abstain, 15 dated `as_of` |
 | **Draft rows** | 0 draft, 0 seeded |
-| **Test suite** | 786 collected (782 passing, 1 skipped, 3 deselected) |
+| **Test suite** | 791 collected (787 passing, 1 skipped, 3 deselected) |
 | **Source tree** | 33 Python modules in `src/sebi_rag/` (api, api_spaces, pipeline, retrieve, rerank, embeddings, segment, lineage, generate, generate_spaces, corpus, corpus_spaces, eval, eval_harness, benchmark, splade, splade_encoder, hyde, context_headers, reg_citations, reg_lineage, regulations, master_meta, settings, stats, ui, expand, verify_master, eval_asof, device, ingest_pdf, metadata); 38 scripts in `scripts/` (incl. bench_metrics.py, measure.py) |
 | **Golden-v7 pipeline** | 15 scripts in `scripts/golden_v7/` (agreement, backfill_escalations, build_pool, derive_thresholds, gate_select, gemini_adjudicate, local_adjudicate, make_packet, mine_strata, relabel_repooled, remap_doc_ids, score, seed_v7) |
 | **V7 annotations** | `eval/golden/v7_annotations/` — votes.jsonl (207 claude records), pools.jsonl (4.2 MB), arbitration_queue.jsonl (65 KB), external_sample.json, gemini/ (21 dirs), qwen/ (150 files), candidates/, packet_human/ |
@@ -390,9 +390,21 @@ ideally held-out abstain rows, which golden_v7 does not currently have.
 by the 2026-08-13 word-boundary fix: zero rows were caught by the old substring filter and released by
 the new one. Pre-existing.
 
-**Doc/code drift in the non-SEBI keyword list.** `status.md` and the 2026-07-30 note claim
-`overseas direct investment` and `bank safe deposit locker` are keywords; **neither is in
-`_NON_SEBI_KEYWORDS`** (19 entries). The missing locker keyword is exactly why `v7-hn-016` is answered.
+**Doc/code drift in the non-SEBI keyword list — FIXED.** `status.md` and the 2026-07-30 note claimed
+`overseas direct investment` and `bank safe deposit locker` were keywords; neither was in
+`_NON_SEBI_KEYWORDS`. Both added (0 and 1 corpus circulars mention them — unambiguously banking/RBI).
+`v7-hn-016` now correctly abstains with reason `non_sebi_domain`.
+
+**`v7-hn-011` (TDS) and `v7-hn-025` (CCI) deliberately NOT fixed this way.** `tds` appears in **9**
+corpus circulars and `competition commission of india` in **3** — SEBI genuinely regulates around
+dividend distribution and takeover approvals, so those keywords would recreate the arbitration-class
+false-abstention bug. Both rows stay answered; fixing them needs the semantic gate, not the keyword
+list. Note both already pass score_floor and the subject gate (subj 0.442 / 0.614) — the judge
+considers them grounded, so they are genuinely hard near-domain negatives.
+
+**New permanent guard:** `test_no_answerable_golden_row_is_flagged` runs the filter over every
+answerable golden_v7 row. This is the test whose absence let the substring bug ship; any future
+keyword that catches a real query now fails CI.
 
 ## Zero-cite composition under the production generator (2026-08-13)
 

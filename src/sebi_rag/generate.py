@@ -24,6 +24,10 @@ _BRACKET = re.compile(r"\[([^\]]+)\]")
 _NON_SEBI_KEYWORDS = frozenset((
     # RBI / FEMA — standalone mentions (not "SEBI under RBI")
     "rbi", "reserve bank of india", "fema", "foreign exchange management act",
+    # Documented in status.md since 2026-07-30 but never actually present here,
+    # which is why golden v7-hn-016 (bank locker) was answered, not abstained.
+    # Both are unambiguously banking/RBI: 0 and 1 corpus circulars respectively.
+    "overseas direct investment", "safe deposit locker",
     # GST / indirect tax — specific mechanisms, not general turnover
     "gst council", "cbic", "central board of indirect taxes", "e-invoicing",
     # State-level (not SEBI)
