@@ -535,13 +535,12 @@ def answer_with_abstention(
         sect_scorer = getattr(judge, "section_score", None)
         if callable(sect_scorer):
             conf["section_sim"] = round(float(sect_scorer(query, contexts)), 4)
-    # Hybrid gate (2026-08-13): cross-encoder near-ceiling overrides subject_gate.
-    # Three golden_v7 rows (v7-nt-013, v7-nt-025, v7-ls-026) have rerank_top ≥ 0.97
-    # but subject_sim < 0.42 — the cross-encoder is confident where the semantic
-    # gate fails. Threshold 0.85: zero false positives over 41 abstain rows.
-    HYBRID_THRESHOLD = 0.85
-    if not judge.grounded(query, contexts) and rerank_top < HYBRID_THRESHOLD:
-        return _abstain("subject_gate")
+        # Hybrid gate (2026-08-13): cross-encoder near-ceiling overrides subject_gate.
+        # Threshold 0.85: zero false positives over 41 abstain rows, zero rescues needed
+        # (word-boundary fix already resolved the subject_gate false abstentions).
+        HYBRID_THRESHOLD = 0.85
+        if not judge.grounded(query, contexts) and rerank_top < HYBRID_THRESHOLD:
+            return _abstain("subject_gate")
     text = generator.generate(query, contexts)
     allowed = {c.id for c in contexts} | {c.doc_id for c in contexts}
     faith, unsupported = faithfulness(text, allowed)

@@ -49,10 +49,19 @@ def test_identify_prompt_numbers_excerpts():
 
 
 def test_judge_no_forces_abstention():
-    reranked = [(_chunk(), 0.95)]
+    # rerank_top below hybrid threshold so judge's abstention is respected
+    reranked = [(_chunk(), 0.5)]
     ans = answer_with_abstention("q", reranked, ExtractiveStubGenerator(),
                                  threshold=0.4, judge=_StubJudge(False))
     assert ans.abstained and ans.text == ABSTAIN and ans.citations == []
+
+def test_hybrid_gate_overrides_judge_when_rerank_top_high():
+    """Hybrid gate: rerank_top >= 0.85 overrides judge's abstention."""
+    # Judge says not grounded, but rerank_top is high enough to override
+    reranked = [(_chunk(), 0.9)]
+    ans = answer_with_abstention("q", reranked, ExtractiveStubGenerator(),
+                                 threshold=0.4, judge=_StubJudge(False))
+    assert not ans.abstained  # hybrid gate overrides subject_gate
 
 
 def test_judge_yes_answers_normally():
