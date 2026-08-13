@@ -24,6 +24,7 @@ class RAGPipeline:
     regulatory_index: dict[str, dict] | None = None  # repealed-basis staleness signal
     citation_scorer: Reranker | None = None  # B': post-hoc answer-relevance filter
     citation_margin: float = _CITATION_MARGIN_DEFAULT  # margin for select_citations
+    citation_min_keep: int = 1  # floor on kept citations; see select_citations
     @classmethod
     def build(
         cls,
@@ -78,6 +79,7 @@ class RAGPipeline:
             judge=self.judge, advisory=advisory,
             citation_scorer=self.citation_scorer,
             citation_margin=self.citation_margin,
+            citation_min_keep=self.citation_min_keep,
         )
         if self.lineage is not None and not ans.abstained and ans.citations:
             flagged = superseded_citations(ans.citations, self.lineage)

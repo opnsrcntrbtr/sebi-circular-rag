@@ -151,8 +151,10 @@ def build_default_pipeline() -> RAGPipeline:
         superseded_penalty=s.superseded_penalty,
         judge=judge,
         regulatory_index=regulatory_index,
-        citation_scorer=citation_scorer_for(s.citation_scorer_enabled, ce),
+        citation_scorer=citation_scorer_for(s.citation_scorer_enabled, ce,
+                                            s.citation_scorer_backend),
         citation_margin=s.citation_margin,
+        citation_min_keep=s.citation_min_keep,
     )
 
 

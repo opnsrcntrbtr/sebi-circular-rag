@@ -136,6 +136,48 @@ def test_citation_precision_is_gated_after_B_prime():
                            "citation_precision"}
 
 
+def test_gate_floors_rank_quality_not_only_recall():
+    """recall_at_k is ceiling-limited (baseline 0.956 leaves ~9 failing
+    queries of 216), so it cannot detect a ranking regression that keeps the
+    same documents in the top-10 but reorders them. nDCG@10 has ~30pp of
+    headroom on the same runs and must be gated too."""
+    floors = derive_floors({"recall": [0.9], "ndcg": [0.7]})
+    assert "ndcg_at_10" in floors, "gate cannot see rank quality"
+
+
+def test_ndcg_floor_catches_a_reordering_regression_recall_misses():
+    floors = derive_floors({"recall": [1.0, 1.0], "ndcg": [0.90, 0.90]})
+    # Same docs retrieved (recall untouched), but ranked worse.
+    report = {"recall_at_k": 1.0, "ndcg_at_10": 0.40}
+    assert floors_ok(report, floors) is False
+
+
+def test_vectors_exposes_ndcg_for_floor_derivation():
+    """derive_floors reads its vectors from score.vectors(); a metric absent
+    there can never be floored no matter what _GATED_METRICS says."""
+    from golden_v7.score import vectors
+
+    recs = [{"adjudicated": True, "recall": 1.0, "ndcg": 0.8,
+             "citation_precision": 1.0, "citation_recall": 1.0,
+             "abstention": 1.0}]
+    assert vectors(recs)["ndcg"] == [0.8]
+
+
+def test_every_derived_floor_is_emitted_by_the_eval_report():
+    """floors_ok fails closed on a metric the report does not carry, so a
+    floor name with no matching key in eval_json's gate_report turns the gate
+    permanently red. This couples the two sides so adding a gated metric to
+    one without the other cannot ship."""
+    from golden_v7.derive_thresholds import _FLOOR_NAMES
+
+    src = (Path(__file__).resolve().parents[1] / "scripts" / "eval_json.py"
+           ).read_text(encoding="utf-8")
+    gate_block = src.split("gate_report = {", 1)[1].split("}", 1)[0]
+    for floor_name in _FLOOR_NAMES.values():
+        assert f'"{floor_name}"' in gate_block, (
+            f"{floor_name} is gated but never reported -> gate fails closed")
+
+
 def test_floor_names_match_the_gate_report_keys():
     """derive_floors emits gate-report metric names, not the internal
     score_row names - floors_ok looks metrics up by these exact keys, and a

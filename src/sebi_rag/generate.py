@@ -24,6 +24,10 @@ _BRACKET = re.compile(r"\[([^\]]+)\]")
 _NON_SEBI_KEYWORDS = frozenset((
     # RBI / FEMA — standalone mentions (not "SEBI under RBI")
     "rbi", "reserve bank of india", "fema", "foreign exchange management act",
+    # Documented in status.md since 2026-07-30 but never actually present here,
+    # which is why golden v7-hn-016 (bank locker) was answered, not abstained.
+    # Both are unambiguously banking/RBI: 0 and 1 corpus circulars respectively.
+    "overseas direct investment", "safe deposit locker",
     # GST / indirect tax — specific mechanisms, not general turnover
     "gst council", "cbic", "central board of indirect taxes", "e-invoicing",
     # State-level (not SEBI)
@@ -37,18 +41,26 @@ _NON_SEBI_KEYWORDS = frozenset((
 ))
 
 
+# Word-boundary matching, NOT substring. "rbi" as a bare substring matches
+# inside "arbitration" and "arbitrage" — both core securities vocabulary — so
+# the filter abstained on genuine SEBI questions (golden v7-ls-015, online
+# dispute resolution; 86 corpus circulars mention arbitration/arbitrage).
+_NON_SEBI_RE = re.compile(
+    r"\b(?:" + "|".join(re.escape(k) for k in sorted(_NON_SEBI_KEYWORDS)) + r")\b"
+)
+
+
 def _is_non_sebi_domain(query: str) -> bool:
     """Return True if the query clearly targets a non-SEBI regulator's domain.
 
-    Uses case-insensitive substring matching on a curated keyword set, with
+    Case-insensitive **word-boundary** matching on a curated keyword set, with
     an early-exit guard: if "sebi" appears in the query we assume SEBI-domain
     intent (the SubjectSimJudge handles those). This prevents false positives
     on queries like "SEBI's online resolution mechanism under RBI's framework".
     """
     if "sebi" in query.lower():
         return False
-    q = query.lower()
-    return any(kw in q for kw in _NON_SEBI_KEYWORDS)
+    return _NON_SEBI_RE.search(query.lower()) is not None
 
 
 def faithfulness(text: str, allowed_ids: set[str]) -> tuple[float, list[str]]:
@@ -77,28 +89,81 @@ _CITATION_MARGIN_DEFAULT = 0.35  # calibrated 2026-08-04 (sweep knee: P +88%, re
 
 def select_citations(answer_text: str, contexts: list["Chunk"],
                      scorer: "Reranker",
-                     margin: float = _CITATION_MARGIN_DEFAULT) -> list[str]:
+                     margin: float = _CITATION_MARGIN_DEFAULT,
+                     min_keep: int = 1) -> list[str]:
     """Context ids the answer rests on. Scores each context's answer-relevance
     via `scorer.rerank(answer_text, contexts)` (sigmoid 0-1), keeps those within
-    `margin` of the top score, always keeps >=1 (the top) so a grounded answer
-    never emits zero citations. Ids returned in the contexts' original order."""
+    `margin` of the top score, and never fewer than `min_keep` (bounded by how
+    many contexts exist). Ids returned in the contexts' original order.
+
+    `min_keep` exists because the margin alone can collapse the kept set to a
+    single context: the top always satisfies `s >= top - margin`, so when the
+    scores are spread thin exactly one citation survives, and a grounded answer
+    whose one surviving pick is the wrong document scores citation_recall 0.
+    Measured 2026-08-12 over 206 golden_v7 rows where retrieval found every
+    relevant document: 34 cited nothing relevant, 19 of them solely due to this
+    collapse (15 fail with B' off too, a separate problem).
+    """
     if not contexts:
         return []
     scored = scorer.rerank(answer_text, contexts)
     if not scored:
         return []
     top = scored[0][1]
-    kept = [c for c, s in scored if s >= top - margin] or [scored[0][0]]
+    kept = [c for c, s in scored if s >= top - margin]
+    if len(kept) < min_keep:
+        # scored is descending, so this widens to the best `min_keep` overall.
+        kept = [c for c, _ in scored[:min_keep]]
     order = {c.id: i for i, c in enumerate(contexts)}
     return sorted((c.id for c in kept), key=order.get)
 
 
-def citation_scorer_for(enabled: bool, reranker):
-    """The single enable/disable decision for B'. Returns `reranker` when the
-    filter is enabled, else None. Every pipeline builder (api.build_default_pipeline,
-    eval_json.py, derive_thresholds.py) routes through this so eval and production
-    can never disagree on whether selective citations are active."""
-    return reranker if enabled else None
+def eval_generator_for(kind: str = "stub", mlx_model: str | None = None,
+                       mlx_loader=None):
+    """The single generator decision for the eval stack.
+
+    `derive_thresholds.py` sets the gate floors and `eval_json.py` measures
+    against them; both route through here so the floors and the measurements
+    can never be produced under different generators. Floors derived under a
+    generator production does not use describe a system that does not exist —
+    measured 2026-08-12, the stub overstates B' catastrophic citation failures
+    by ~2x (34 rows vs 19 under MLX).
+
+    Unknown kinds raise rather than defaulting: silently falling back to the
+    stub would derive floors under semantics the caller did not ask for.
+    """
+    if kind == "stub":
+        return ExtractiveStubGenerator()
+    if kind == "mlx":
+        if mlx_loader is None:
+            mlx_loader = MLXGenerator
+        return mlx_loader(mlx_model) if mlx_model else mlx_loader()
+    raise ValueError(f"unknown eval generator kind: {kind!r}")
+
+
+def citation_scorer_for(enabled: bool, reranker, backend: str = "reranker",
+                        nli_loader=None):
+    """The single enable/disable AND backend decision for B'.
+
+    Returns None when disabled; otherwise the scorer for `backend`:
+      "reranker" - bge-reranker-v2-m3, i.e. query<->document *relevance*
+      "nli"      - entailment scoring, i.e. does the context *support* the answer
+
+    Every pipeline builder (api.build_default_pipeline, eval_json.py,
+    derive_thresholds.py) routes through this so eval and production can never
+    disagree about which scorer produced a citation set. The disabled check
+    comes first so a discarded scorer is never loaded.
+    """
+    if not enabled:
+        return None
+    if backend == "reranker":
+        return reranker
+    if backend == "nli":
+        if nli_loader is None:
+            from .attribution import NLIAttributionScorer
+            nli_loader = NLIAttributionScorer.load
+        return nli_loader()
+    raise ValueError(f"unknown citation scorer backend: {backend!r}")
 
 
 @dataclass
@@ -114,6 +179,10 @@ class Answer:
     certainty: str = "low"          # high | medium | low (banded, not a probability)
     abstention_reason: str = ""     # "" | no_context | score_floor | subject_gate
     draft_answer: str = ""          # advisory mode only; NEVER authoritative
+    # The top_k contexts actually passed to the generator: post-rerank and
+    # post-demote_superseded. `retrieved_ids` from pipeline.query is the
+    # PRE-rerank fusion list, so it does NOT describe this window.
+    context_ids: list[str] = field(default_factory=list)
 
 
 class Generator(Protocol):
@@ -425,6 +494,7 @@ def answer_with_abstention(
     advisory: bool = False,
     citation_scorer: "Reranker | None" = None,
     citation_margin: float = _CITATION_MARGIN_DEFAULT,
+    citation_min_keep: int = 1,
 ) -> Answer:
     rerank_top = float(reranked[0][1]) if reranked else 0.0
     margin = rerank_top - (float(reranked[1][1]) if len(reranked) > 1 else 0.0)
@@ -441,6 +511,7 @@ def answer_with_abstention(
 
     def _abstain(reason: str) -> Answer:
         a = Answer(text=ABSTAIN, citations=[], abstained=True,
+                   context_ids=[c.id for c in contexts],
                    abstention_reason=reason, certainty="low", confidence=conf)
         if advisory and contexts and reason != "no_context":
             # Clearly-labelled best-effort draft; `answer`/`abstained` untouched
@@ -464,7 +535,11 @@ def answer_with_abstention(
         sect_scorer = getattr(judge, "section_score", None)
         if callable(sect_scorer):
             conf["section_sim"] = round(float(sect_scorer(query, contexts)), 4)
-        if not judge.grounded(query, contexts):  # two-tier decision lives here
+        # Hybrid gate (2026-08-13): cross-encoder near-ceiling overrides subject_gate.
+        # Threshold 0.85: zero false positives over 41 abstain rows, zero rescues needed
+        # (word-boundary fix already resolved the subject_gate false abstentions).
+        HYBRID_THRESHOLD = 0.85
+        if not judge.grounded(query, contexts) and rerank_top < HYBRID_THRESHOLD:
             return _abstain("subject_gate")
     text = generator.generate(query, contexts)
     allowed = {c.id for c in contexts} | {c.doc_id for c in contexts}
@@ -474,7 +549,8 @@ def answer_with_abstention(
             and faith >= 1.0):
         certainty = "high"
     if citation_scorer is not None:
-        citations = select_citations(text, contexts, citation_scorer, citation_margin)
+        citations = select_citations(text, contexts, citation_scorer,
+                                     citation_margin, citation_min_keep)
     else:
         citations = [c.id for c in contexts]
     return Answer(
@@ -485,4 +561,5 @@ def answer_with_abstention(
         unsupported_citations=unsupported,
         confidence=conf,
         certainty=certainty,
+        context_ids=[c.id for c in contexts],
     )

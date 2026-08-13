@@ -32,7 +32,7 @@ for k, v in {"TOKENIZERS_PARALLELISM": "false", "OMP_NUM_THREADS": "1",
 
 from sebi_rag.embeddings import BGEM3Embedder  # noqa: E402
 from sebi_rag.eval_harness import load_golden  # noqa: E402
-from sebi_rag.generate import ExtractiveStubGenerator, SubjectSimJudge, citation_scorer_for  # noqa: E402
+from sebi_rag.generate import SubjectSimJudge, citation_scorer_for, eval_generator_for  # noqa: E402
 from sebi_rag.ingest_pdf import injection_scan  # noqa: E402
 from sebi_rag.lineage import build_lineage, load_records  # noqa: E402
 from sebi_rag.pipeline import RAGPipeline  # noqa: E402
@@ -61,9 +61,11 @@ judge = SubjectSimJudge(
 # HybridRetriever.build() and would re-embed the whole corpus instead of
 # using the persisted index.
 pipeline = RAGPipeline(
-    retriever=retr, reranker=rer, generator=ExtractiveStubGenerator(),
+    retriever=retr, reranker=rer,
+    generator=eval_generator_for(s.eval_generator, s.mlx_model),
     abstain_threshold=s.abstain_threshold, lineage=lin, judge=judge,
-    citation_scorer=citation_scorer_for(s.citation_scorer_enabled, rer),
+    citation_scorer=citation_scorer_for(s.citation_scorer_enabled, rer,
+                                        s.citation_scorer_backend),
     citation_margin=s.citation_margin)
 
 golden_path = select_golden(os.environ, GATE_PATH, V5_PATH, V7_PATH)
@@ -81,6 +83,8 @@ if adjudicated_n:
     gate_report = {
         "n": adjudicated_n,
         "recall_at_k": mean(g["recall"]),
+        "context_recall": mean(g["context_recall"]),
+        "ndcg_at_10": mean(g["ndcg"]),
         "citation_precision": mean(g["citation_precision"]),
         "citation_recall": mean(g["citation_recall"]),
         "abstention_accuracy": mean(g["abstention"]),
@@ -101,6 +105,8 @@ print(json.dumps({
     "golden_items": len(golden),
     "top_k": s.top_k,
     "recall_at_10": mean(overall["recall"]),
+    "context_recall": mean(overall["context_recall"]),
+    "ndcg_at_10": mean(overall["ndcg"]),
     "citation_precision": mean(overall["citation_precision"]),
     "citation_recall": mean(overall["citation_recall"]),
     "abstention_accuracy": mean(overall["abstention"]),
