@@ -20,7 +20,7 @@
 | **v7 strata** | title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10 |
 | **Abstain/as_of rows** | 41 abstain, 15 dated `as_of` |
 | **Draft rows** | 0 draft, 0 seeded |
-| **Test suite** | 797 collected (793 passing, 1 skipped, 3 deselected) |
+| **Test suite** | 790 passed (793 collected, 2 skipped, 3 deselected) |
 | **Source tree** | 33 Python modules in `src/sebi_rag/` (api, api_spaces, pipeline, retrieve, rerank, embeddings, segment, lineage, generate, generate_spaces, corpus, corpus_spaces, eval, eval_harness, benchmark, splade, splade_encoder, hyde, context_headers, reg_citations, reg_lineage, regulations, master_meta, settings, stats, ui, expand, verify_master, eval_asof, device, ingest_pdf, metadata); 38 scripts in `scripts/` (incl. bench_metrics.py, measure.py) |
 | **Golden-v7 pipeline** | 15 scripts in `scripts/golden_v7/` (agreement, backfill_escalations, build_pool, derive_thresholds, gate_select, gemini_adjudicate, local_adjudicate, make_packet, mine_strata, relabel_repooled, remap_doc_ids, score, seed_v7) |
 | **V7 annotations** | `eval/golden/v7_annotations/` — votes.jsonl (207 claude records), pools.jsonl (4.2 MB), arbitration_queue.jsonl (65 KB), external_sample.json, gemini/ (21 dirs), qwen/ (150 files), candidates/, packet_human/ |
@@ -207,7 +207,7 @@ citation_precision:   observed=0.224, floor=0.1896  (margin +0.034)
 
 ## Known Blockers
 
-✅ **No active blockers.** All validation steps pass, all phases complete, 736 tests pass (740 collected, 1 skipped, 3 deselected).
+✅ **No active blockers.** All validation steps pass, all phases complete, 790 tests pass (793 collected, 2 skipped, 3 deselected).
 
 ### Historical (resolved)
 | Bug | Step | Issue | Fix |

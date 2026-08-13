@@ -1,16 +1,16 @@
 # Graph Report - SEBI circular RAG  (2026-08-13)
 
 ## Corpus Check
-- 191 files · ~179,171 words
+- 192 files · ~179,292 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2373 nodes · 5034 edges · 142 communities (117 shown, 25 thin omitted)
+- 2374 nodes · 5034 edges · 142 communities (117 shown, 25 thin omitted)
 - Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 329 edges (avg confidence: 0.59)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `fe2b7851`
+- Built from commit: `34de1474`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -49,7 +49,7 @@
 - Retrieval Error Classification
 - Local Model Adjudication
 - test_export_integration.py
-- test_every_alias_target_is_in_force_or_has_a_succession_entry
+- test_annotation_adds_no_circular_meta_field
 - settings.py
 - ingest_pdf.py
 - RAGPipeline
@@ -81,6 +81,7 @@
 - UI Logic Testing
 - Benchmark Schema Validation
 - TestReadTrecRun
+- sebi-rag
 - paired_delta
 - remap_doc_ids.py
 - Operations Server Management
@@ -140,10 +141,8 @@
 - Slash Command Optimization
 - Circular ID Tracking
 - Label Escalation Management
-- RAG Benchmark Export
 - Unresolved Regulation Tracking
 - HF Spaces Dependencies
-- Golden Dataset Initialization
 - Depository Master Appendix
 - SEBI Regulations Directory
 - test_eval_generator.py
@@ -168,19 +167,19 @@
 7. `Lineage` - 33 edges
 8. `build_lineage()` - 32 edges
 9. `LexicalReranker` - 30 edges
-10. `Settings` - 26 edges
+10. `SubjectSimJudge` - 26 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `test_vectors_exposes_context_recall()` --calls--> `vectors()`  [INFERRED]
+  tests/test_context_recall.py → scripts/golden_v7/score.py
 - `test_chunk_meta_carries_new_fields()` --calls--> `load_circulars()`  [INFERRED]
   tests/test_metadata.py → src/sebi_rag/corpus.py
 - `test_corpus_records_feed_build_lineage()` --calls--> `build_lineage()`  [INFERRED]
   tests/test_spaces.py → src/sebi_rag/lineage.py
-- `test_vectors_exposes_context_recall()` --calls--> `vectors()`  [INFERRED]
-  tests/test_context_recall.py → scripts/golden_v7/score.py
-- `TestSupersessionPrecision` --uses--> `MeasureReport`  [INFERRED]
-  tests/test_measure.py → src/sebi_rag/measure.py
-- `TestSupersessionPrecision` --uses--> `MeasureResult`  [INFERRED]
-  tests/test_measure.py → src/sebi_rag/measure.py
+- `get_pipeline()` --calls--> `build_spaces_pipeline()`  [INFERRED]
+  app.py → src/sebi_rag/api_spaces.py
+- `get_pipeline()` --calls--> `ExtractiveStubGenerator`  [INFERRED]
+  app.py → src/sebi_rag/generate.py
 
 ## Import Cycles
 - None detected.
@@ -216,7 +215,7 @@ Nodes (25): _grounded_prompt(), F4 (ADR-001): retrieved text is explicitly delim
 
 ### Community 6 - "scrape_sebi.py"
 Cohesion: 0.05
-Nodes (62): _add_months(), check_robots(), main(), month_window(), date, Recover the 14 circular PDFs missed in the 2026-07-08 audit by resolving their…, [first day of month-pad, last day of month+pad] around the stem's epoch., Map each stem to (current pdf_url, detail_url) via listing sweeps. (+54 more)
+Nodes (60): _add_months(), check_robots(), main(), month_window(), date, Recover the 14 circular PDFs missed in the 2026-07-08 audit by resolving their…, [first day of month-pad, last day of month+pad] around the stem's epoch., Map each stem to (current pdf_url, detail_url) via listing sweeps. (+52 more)
 
 ### Community 7 - "api_spaces.py"
 Cohesion: 0.23
@@ -303,8 +302,8 @@ Cohesion: 0.12
 Nodes (19): entailment_index(), NLI attribution scoring for B' citation selection. B' asks "does this context…, Index of the entailment class in a model's label map. Read from the checkpoint…, Wrap an already-constructed cross-encoder (also the test seam)., _chunk(), _FakeNLI, NLI attribution scorer for B' citation selection. B' needs to know whether a…, Failing loudly beats scoring on an arbitrary class. (+11 more)
 
 ### Community 28 - "per_query_recall"
-Cohesion: 0.16
-Nodes (14): main(), Create the enriched golden_v6 benchmark seed from frozen golden_v5. This does…, per_query_recall(), Per-query recall@k at circular level, matching `run_retrieval_benchmark`.…, validate_golden(), Answerable-but-unjudged rows are excluded from metrics, never scored 0.…, A real, fully-populated golden row, so the fixture cannot drift out of sync…, _template() (+6 more)
+Cohesion: 0.12
+Nodes (20): main(), Create the enriched golden_v6 benchmark seed from frozen golden_v5. This does…, dataset_quality(), load_index_chunks(), main(), Path, Export benchmark artifacts for retrieval/RAG/data-quality evaluation. Outputs:…, write_card() (+12 more)
 
 ### Community 29 - "agreement.py"
 Cohesion: 0.15
@@ -468,7 +467,7 @@ Nodes (13): RuntimeError, adjudicate_draft(), _current_model(), _extract_text(),
 
 ### Community 72 - "generate.py"
 Cohesion: 0.09
-Nodes (28): cited_docs(), metrics(), Capture-once margin sweep for B' selective citations. One pipeline pass over…, Benchmark MLX generators on the golden set: faithfulness, groundedness,…, Retrieval-only benchmark with TREC runfile and reproducibility metadata. Use…, Calibrate top_k and the abstention threshold against the citation-precision…, scripts/eval_asof.py, Run eval/golden/golden_asof_v1.jsonl (selector + pipeline modes) against the… (+20 more)
+Nodes (27): cited_docs(), metrics(), Capture-once margin sweep for B' selective citations. One pipeline pass over…, Benchmark MLX generators on the golden set: faithfulness, groundedness,…, Retrieval-only benchmark with TREC runfile and reproducibility metadata. Use…, Calibrate top_k and the abstention threshold against the citation-precision…, Run eval/golden/golden_asof_v1.jsonl (selector + pipeline modes) against the…, ADR-002 follow-up: compare the production subject-sim gate against the SECTION-… (+19 more)
 
 ### Community 73 - "test_golden_v7_agreement.py"
 Cohesion: 0.19
@@ -524,7 +523,7 @@ Nodes (8): qwen3_rerank_prompt(), Qwen3MLXReranker, Qwen3-Reranker via MLX (Appl
 
 ### Community 89 - "bench_rerankers.py"
 Cohesion: 0.28
-Nodes (8): auroc(), best_threshold(), evaluate(), F2 (ADR-001): benchmark rerankers on golden_v5 with cluster-separation metrics.…, P(pos_score > neg_score); ties count half. pos = answerable top-scores, neg =…, Threshold maximising abstention accuracy: answer if score >= thr. Returns (thr,…, sebi_rag/__init__.py, SEBI Circular RAG — local-first, Apple Silicon. Pipeline: ingest -> segment ->…
+Nodes (7): auroc(), best_threshold(), evaluate(), F2 (ADR-001): benchmark rerankers on golden_v5 with cluster-separation metrics.…, P(pos_score > neg_score); ties count half. pos = answerable top-scores, neg =…, Threshold maximising abstention accuracy: answer if score >= thr. Returns (thr,…, SEBI Circular RAG — local-first, Apple Silicon. Pipeline: ingest -> segment ->…
 
 ### Community 90 - "test_measure.py"
 Cohesion: 0.28
@@ -610,10 +609,6 @@ Nodes (66): smoke_pipeline(), assemble_pool(), Candidate pools for chunk-label j
 Cohesion: 0.38
 Nodes (9): chunks_by_doc(), _chunks(), Span→chunk resolution (spec §3): quotes survive re-chunking; failures are loud., _row(), test_legacy_string_entries_pass_through(), test_qrels_span_rows_get_grade_2(), test_resolves_normalized_whitespace_quote(), test_unresolvable_quote_returns_empty() (+1 more)
 
-### Community 130 - "RAG Benchmark Export"
-Cohesion: 0.52
-Nodes (6): dataset_quality(), load_index_chunks(), main(), Path, Export benchmark artifacts for retrieval/RAG/data-quality evaluation. Outputs:…, write_card()
-
 ### Community 137 - "test_eval_generator.py"
 Cohesion: 0.17
 Nodes (10): The eval stack's generator choice must be one shared decision.…, Uses an injected loader so the test stays offline., Silently falling back to the stub would derive floors under semantics the…, Must assert the factory is CALLED, not merely imported. Verified 2026-08-12 by…, A factory both call is not enough - they must pass the same setting, or the…, test_both_eval_scripts_read_the_same_setting(), test_eval_scripts_use_the_shared_factory(), test_mlx_kind_builds_the_production_generator() (+2 more)
@@ -656,22 +651,22 @@ Nodes (8): _body(), Winning chunk ids (from a flip_promote decision) -> {doc, qu
 
 ### Community 155 - "sebi_rag/eval_asof.py"
 Cohesion: 0.21
-Nodes (14): sebi_rag/eval_asof.py, AsofCaseResult, load_golden_asof(), Path, As-of-date golden evaluation runner (P4b). Two case modes drawn from…, Aggregate case results with an exact confidence interval. Pure function of the…, run_pipeline_cases(), run_selector_cases() (+6 more)
+Nodes (13): AsofCaseResult, load_golden_asof(), Path, As-of-date golden evaluation runner (P4b). Two case modes drawn from…, Aggregate case results with an exact confidence interval. Pure function of the…, run_pipeline_cases(), run_selector_cases(), summarize() (+5 more)
 
 ## Knowledge Gaps
-- **49 isolated node(s):** `HF_HUB_DISABLE_XET`, `OMP_NUM_THREADS`, `PYTHONPATH`, `PYTORCH_ENABLE_MPS_FALLBACK`, `refresh.sh script` (+44 more)
+- **47 isolated node(s):** `measure.sh script`, `autoresearch.sh script`, `PYTHONPATH`, `TOKENIZERS_PARALLELISM`, `OMP_NUM_THREADS` (+42 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **25 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Chunk` connect `Chunk` to `RAG Benchmark Export`, `ExtractiveStubGenerator`, `test_spaces.py`, `api_spaces.py`, `sweep_rrf_k.py`, `benchmark.py`, `corpus.py`, `Lineage`, `validate_golden_v7`, `test_selective_citations.py`, `test_attribution.py`, `RAGPipeline`, `test_hyde.py`, `.build`, `MLXJudge`, `test_golden_v7_gate.py`, `SpladeIndex`, `Benchmark Schema Validation`, `generate.py`, `Prompt Injection Security`, `Qwen3MLXReranker`, `hierarchical_chunk`, `test_golden_v7_resolver.py`?**
-  _High betweenness centrality (0.080) - this node is a cross-community bridge._
+- **Why does `Chunk` connect `Chunk` to `ExtractiveStubGenerator`, `test_spaces.py`, `api_spaces.py`, `sweep_rrf_k.py`, `benchmark.py`, `corpus.py`, `Lineage`, `validate_golden_v7`, `test_selective_citations.py`, `test_attribution.py`, `per_query_recall`, `RAGPipeline`, `test_hyde.py`, `.build`, `MLXJudge`, `test_golden_v7_gate.py`, `SpladeIndex`, `Benchmark Schema Validation`, `generate.py`, `Prompt Injection Security`, `Qwen3MLXReranker`, `hierarchical_chunk`, `test_golden_v7_resolver.py`?**
+  _High betweenness centrality (0.093) - this node is a cross-community bridge._
 - **Why does `RAGPipeline` connect `RAGPipeline` to `ExtractiveStubGenerator`, `api_spaces.py`, `benchmark.py`, `measure.py`, `measure_mrr`, `eval_harness.py`, `Lineage`, `measure_retrieval_recall`, `measure_temporal_accuracy`, `API Service and Integration`, `sebi_rag/eval_asof.py`, `settings.py`, `Context Precision Metrics`, `Chunk`, `.build`, `TestReadTrecRun`, `generate.py`, `Frame`, `run_all_metrics`, `measure_supersession_precision`, `measure_parsing_latency`, `hierarchical_chunk`?**
-  _High betweenness centrality (0.071) - this node is a cross-community bridge._
-- **Why does `sebi_rag/eval_asof.py` connect `sebi_rag/eval_asof.py` to `RAGPipeline`, `generate.py`, `bootstrap_ci`, `Lineage`, `clopper_pearson_ci`, `build_report`?**
-  _High betweenness centrality (0.034) - this node is a cross-community bridge._
+  _High betweenness centrality (0.075) - this node is a cross-community bridge._
+- **Why does `Lineage` connect `Lineage` to `RAGPipeline`, `api_spaces.py`, `generate.py`, `hierarchical_chunk`, `API Service and Integration`, `sebi_rag/eval_asof.py`?**
+  _High betweenness centrality (0.028) - this node is a cross-community bridge._
 - **Are the 30 inferred relationships involving `Chunk` (e.g. with `NLIAttributionScorer` and `BenchmarkIssue`) actually correct?**
   _`Chunk` has 30 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 26 inferred relationships involving `RAGPipeline` (e.g. with `main()` and `CitationMeta`) actually correct?**
