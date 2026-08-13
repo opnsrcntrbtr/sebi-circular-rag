@@ -62,11 +62,12 @@ class NLIAttributionScorer:
         return cls(model, entailment_index(model.id2label), batch_size)
 
     @classmethod
-    def load(cls, model: str = DEFAULT_NLI_MODEL, device: str = "mps",
+    def load(cls, model: str = DEFAULT_NLI_MODEL, device: str | None = None,
              batch_size: int = 32) -> "NLIAttributionScorer":
         from sentence_transformers import CrossEncoder
+        from .device import pick_device
 
-        ce = CrossEncoder(model, device=device)
+        ce = CrossEncoder(model, device=pick_device(device))
         id2label = getattr(ce.model.config, "id2label", None)
         if not id2label:
             raise ValueError(f"{model} exposes no id2label; cannot locate the entailment class")
