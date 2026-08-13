@@ -393,7 +393,7 @@ the new one. Pre-existing.
 **Doc/code drift in the non-SEBI keyword list — FIXED.** `status.md` and the 2026-07-30 note claimed
 `overseas direct investment` and `bank safe deposit locker` were keywords; neither was in
 `_NON_SEBI_KEYWORDS`. Both added (0 and 1 corpus circulars mention them — unambiguously banking/RBI).
-`v7-hn-016` now correctly abstains with reason `non_sebi_domain`.
+`v7-hn-016` now correctly abstains with reason `non_sebi_domain`. Gate re-checked: **`floors_ok: true`**, `abstention_accuracy` 0.965 → **0.969**, everything else unchanged.
 
 **`v7-hn-011` (TDS) and `v7-hn-025` (CCI) deliberately NOT fixed this way.** `tds` appears in **9**
 corpus circulars and `competition commission of india` in **3** — SEBI genuinely regulates around
@@ -783,6 +783,8 @@ adopting iv11: the sole surviving exploratory result failed on data that did not
 cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
+
+2026-08-13 — **Non-SEBI keyword drift fixed; 1 of 3 false answers resolved.** Added the two keywords the docs claimed but the code lacked (`overseas direct investment`, `safe deposit locker`) — `v7-hn-016` now abstains correctly. Deliberately did NOT add `tds` (9 corpus circulars) or `competition commission of india` (3): they would recreate the arbitration-class bug, so `v7-hn-011`/`v7-hn-025` stay answered and need the semantic gate instead. Added a permanent guard running the filter over every answerable golden row. Gate: `floors_ok: true`, abstention_accuracy 0.965 → **0.969**.
 
 2026-08-13 — **All 5 false abstentions diagnosed; threshold tuning is dead.** In every one the relevant doc is at rank 0/1 and the two gate signals contradict; the gate is an AND so either vetoes alone. Subject threshold 0.42→0.40 is net zero (rescues 2, releases 2 — the bands interleave); relaxing score_floor would answer 13 abstain rows. One lead: rerank_top separates (all abstaining ≤0.8458 vs 0.8697–0.9948 for the false ones) but the 0.024 margin is fitted to the observed max — needs prereg + held-out. Incidental: **3 abstain rows are falsely answered** (pre-existing, NOT from my word-boundary fix — verified), and 2 documented non-SEBI keywords are missing from the code.
 
