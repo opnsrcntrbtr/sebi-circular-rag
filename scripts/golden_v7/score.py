@@ -42,6 +42,13 @@ def score_row(pipeline, item: dict, top_k: int) -> dict:
     # cannot see a regression that keeps the same documents in the top-10 and
     # merely reorders them. nDCG@10 is rank-sensitive and has real headroom.
     rec["ndcg"] = M.ndcg_at_k(retrieved_docs, relevant, 10)
+    # `retrieved_docs` above comes from pipeline.query's `retrieved_ids`, the
+    # PRE-rerank fusion list (pipeline.py:141). The answer and its citations
+    # are built from `ans.context_ids` — post-rerank, post-demote_superseded.
+    # Measured 2026-08-13: fusion recall 0.9534 vs context recall 0.9240, and
+    # the fusion view hides 6 of 15 complete misses.
+    context_docs = _unique(_doc(i) for i in ans.context_ids)
+    rec["context_recall"] = M.recall_at_k(context_docs, relevant, 10)
     cited = [] if ans.abstained else _unique(_doc(c) for c in ans.citations)
     hit = len(set(cited) & relevant)
     rec["citation_precision"] = hit / len(cited) if cited else 0.0
@@ -54,5 +61,6 @@ def vectors(recs: list[dict], adjudicated_only: bool = False) -> dict[str, list[
     metric was never measured (see `score_row`)."""
     if adjudicated_only:
         recs = [r for r in recs if r["adjudicated"]]
-    keys = ("recall", "ndcg", "citation_precision", "citation_recall", "abstention")
+    keys = ("recall", "context_recall", "ndcg", "citation_precision",
+            "citation_recall", "abstention")
     return {k: [r[k] for r in recs if k in r] for k in keys}

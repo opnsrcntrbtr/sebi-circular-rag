@@ -179,6 +179,10 @@ class Answer:
     certainty: str = "low"          # high | medium | low (banded, not a probability)
     abstention_reason: str = ""     # "" | no_context | score_floor | subject_gate
     draft_answer: str = ""          # advisory mode only; NEVER authoritative
+    # The top_k contexts actually passed to the generator: post-rerank and
+    # post-demote_superseded. `retrieved_ids` from pipeline.query is the
+    # PRE-rerank fusion list, so it does NOT describe this window.
+    context_ids: list[str] = field(default_factory=list)
 
 
 class Generator(Protocol):
@@ -507,6 +511,7 @@ def answer_with_abstention(
 
     def _abstain(reason: str) -> Answer:
         a = Answer(text=ABSTAIN, citations=[], abstained=True,
+                   context_ids=[c.id for c in contexts],
                    abstention_reason=reason, certainty="low", confidence=conf)
         if advisory and contexts and reason != "no_context":
             # Clearly-labelled best-effort draft; `answer`/`abstained` untouched
@@ -552,4 +557,5 @@ def answer_with_abstention(
         unsupported_citations=unsupported,
         confidence=conf,
         certainty=certainty,
+        context_ids=[c.id for c in contexts],
     )

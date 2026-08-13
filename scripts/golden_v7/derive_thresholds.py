@@ -49,8 +49,13 @@ _FLOOR_CUSHION = 0.005
 # moves on 95+ queries, so it is the metric that can actually catch a
 # ranking regression. See docs/status.md §"recall@10 is the wrong primary
 # metric".
-_GATED_METRICS = ("recall", "ndcg", "citation_recall", "abstention", "citation_precision")
-_FLOOR_NAMES = {"recall": "recall_at_k", "ndcg": "ndcg_at_10",
+# context_recall joins 2026-08-13: `recall` measures the pre-rerank fusion
+# list, which overstates delivery by ~3pp and hides complete misses caused
+# downstream by reranking and supersession demotion.
+_GATED_METRICS = ("recall", "context_recall", "ndcg", "citation_recall",
+                  "abstention", "citation_precision")
+_FLOOR_NAMES = {"recall": "recall_at_k", "context_recall": "context_recall",
+                "ndcg": "ndcg_at_10",
                 "citation_recall": "citation_recall",
                 "abstention": "abstention_accuracy", "citation_precision": "citation_precision"}
 

@@ -83,6 +83,7 @@ if adjudicated_n:
     gate_report = {
         "n": adjudicated_n,
         "recall_at_k": mean(g["recall"]),
+        "context_recall": mean(g["context_recall"]),
         "ndcg_at_10": mean(g["ndcg"]),
         "citation_precision": mean(g["citation_precision"]),
         "citation_recall": mean(g["citation_recall"]),
@@ -104,6 +105,7 @@ print(json.dumps({
     "golden_items": len(golden),
     "top_k": s.top_k,
     "recall_at_10": mean(overall["recall"]),
+    "context_recall": mean(overall["context_recall"]),
     "ndcg_at_10": mean(overall["ndcg"]),
     "citation_precision": mean(overall["citation_precision"]),
     "citation_recall": mean(overall["citation_recall"]),

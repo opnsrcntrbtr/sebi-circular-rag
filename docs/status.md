@@ -20,7 +20,7 @@
 | **v7 strata** | title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10 |
 | **Abstain/as_of rows** | 41 abstain, 15 dated `as_of` |
 | **Draft rows** | 0 draft, 0 seeded |
-| **Test suite** | 791 collected (787 passing, 1 skipped, 3 deselected) |
+| **Test suite** | 797 collected (793 passing, 1 skipped, 3 deselected) |
 | **Source tree** | 33 Python modules in `src/sebi_rag/` (api, api_spaces, pipeline, retrieve, rerank, embeddings, segment, lineage, generate, generate_spaces, corpus, corpus_spaces, eval, eval_harness, benchmark, splade, splade_encoder, hyde, context_headers, reg_citations, reg_lineage, regulations, master_meta, settings, stats, ui, expand, verify_master, eval_asof, device, ingest_pdf, metadata); 38 scripts in `scripts/` (incl. bench_metrics.py, measure.py) |
 | **Golden-v7 pipeline** | 15 scripts in `scripts/golden_v7/` (agreement, backfill_escalations, build_pool, derive_thresholds, gate_select, gemini_adjudicate, local_adjudicate, make_packet, mine_strata, relabel_repooled, remap_doc_ids, score, seed_v7) |
 | **V7 annotations** | `eval/golden/v7_annotations/` — votes.jsonl (207 claude records), pools.jsonl (4.2 MB), arbitration_queue.jsonl (65 KB), external_sample.json, gemini/ (21 dirs), qwen/ (150 files), candidates/, packet_human/ |
@@ -342,6 +342,43 @@ discriminating power on the identical run files.
 correlated, so their agreement is *not* independent confirmation. **iv11 is the strongest
 candidate the programme has produced, but it is suggestive, not established** — it warrants a
 preregistered confirmatory run with nDCG@10 as the single primary endpoint before adoption.
+
+## Gate now measures the context window, not just the fusion list (2026-08-13)
+
+`pipeline.query` returns `retrieved_ids` from `candidates` — the **pre-rerank fusion output**
+(`pipeline.py:141`). `score_row`'s `recall` was computed over that, so the gate's headline retrieval
+metric described the retriever, while the answer and its citations are built from the `top_k`
+contexts *after* reranking and `demote_superseded`.
+
+Measured over 204 answerable non-`as_of` rows:
+
+| view | recall | complete misses |
+|---|---|---|
+| pre-rerank fusion (what the gate reported) | 0.9534 | 9 |
+| context window (what the answer uses) | 0.9240 | **15** |
+
+The gate overstated recall by **2.94 pp** and hid **6 of 15** complete misses — every one caused
+downstream by reranking or supersession demotion, i.e. exactly the failures diagnosed this week.
+
+**Fix is additive, not a replacement.** `Answer.context_ids` now records the window the generator
+received (populated on the abstain path too — retrieval delivery shouldn't depend on whether the
+pipeline chose to answer). `score_row` emits `context_recall` alongside `recall`; both are gated.
+The retriever metric stays meaningful, it just was never the whole story.
+
+### Floors re-derived
+
+| floor | before | after | |
+|---|---|---|---|
+| recall_at_k | 0.9060 | 0.9060 | unchanged |
+| **context_recall** | — | **0.8740** | **new** |
+| ndcg_at_10 | 0.6512 | 0.6512 | unchanged |
+| citation_recall | 0.8124 | 0.8169 | stricter |
+| abstention_accuracy | 0.9335 | 0.9412 | stricter |
+| citation_precision | 0.1571 | 0.1577 | stricter |
+
+Every existing floor is unchanged or **stricter** — the tightening comes from today's two bug fixes,
+not from moving goalposts. Verified end-to-end: **`floors_ok: true`**, with the gap now visible in
+the report itself — `recall_at_k` 0.943 vs `context_recall` **0.916**.
 
 ## False abstentions diagnosed — threshold tuning is dead, one lead survives (2026-08-13)
 
@@ -783,6 +820,8 @@ adopting iv11: the sole surviving exploratory result failed on data that did not
 cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
+
+2026-08-13 — **Gate now measures the context window (`context_recall`), not just the fusion list.** `score_row`'s `recall` came from `pipeline.query`'s pre-rerank `retrieved_ids`, overstating delivery by 2.94pp and hiding 6 of 15 complete misses caused downstream by reranking/demotion. Added `Answer.context_ids` (populated on the abstain path too) and gated `context_recall`; floor **0.874**, observed **0.916** vs `recall_at_k` 0.943. All pre-existing floors unchanged or stricter. `floors_ok: true`.
 
 2026-08-13 — **Non-SEBI keyword drift fixed; 1 of 3 false answers resolved.** Added the two keywords the docs claimed but the code lacked (`overseas direct investment`, `safe deposit locker`) — `v7-hn-016` now abstains correctly. Deliberately did NOT add `tds` (9 corpus circulars) or `competition commission of india` (3): they would recreate the arbitration-class bug, so `v7-hn-011`/`v7-hn-025` stay answered and need the semantic gate instead. Added a permanent guard running the filter over every answerable golden row. Gate: `floors_ok: true`, abstention_accuracy 0.965 → **0.969**.
 
