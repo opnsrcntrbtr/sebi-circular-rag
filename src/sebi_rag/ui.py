@@ -9,18 +9,55 @@ import pandas as pd
 
 from sebi_rag.regulations import reg_display_name
 
-_EMPTY_DF_COLS = ["Circular", "Status", "Superseded By", "Regulatory Basis"]
 _RETRIEVAL_ONLY_BANNER = (
     "**Retrieval-only mode** — no LLM generation; the text below is the "
     "top retrieved excerpt. Evaluate the citations and metadata.\n\n"
 )
 
+_EMPTY_DF_COLS = ["Circular", "Status", "Superseded By", "Regulatory Basis"]
 
-def _empty_outputs(message: str) -> tuple:
-    """Ten-slot output tuple for early returns (matches build_ui outputs order)."""
-    return (message, pd.DataFrame(columns=_EMPTY_DF_COLS),
-            "", "", "", "", "", "", "", "")
+def _certainty_badge(certainty: str) -> str:
+    """Return a color-coded confidence badge string."""
+    colors = {"high": "🟢", "medium": "🟡", "low": "🔴"}
+    icon = colors.get(certainty, "⚪")
+    return f"{icon} {certainty.capitalize()}"
 
+
+def _build_citations_markdown(rows: list[dict]) -> str:
+    """Build an expandable markdown table for citations with superseded highlighting."""
+    if not rows:
+        return "*No citations retrieved.*"
+
+    lines = [
+        "| # | Circular | Status | Superseded By | Regulatory Basis | Preview |",
+        "|---|----------|--------|---------------|------------------|---------|",
+    ]
+
+    for i, row in enumerate(rows, 1):
+        circular = row.get("Circular", "")
+        status = row.get("Status", "")
+        superseded_by = row.get("Superseded By", "-")
+        basis = row.get("Regulatory Basis", "")
+
+        # Highlight superseded rows
+        is_superseded = "superseded" in status.lower() or "repealed" in status.lower()
+        icon = "⚠️" if is_superseded else ""
+
+        preview_text = f"[📄 Read text]($preview_{i})"
+
+        lines.append(
+            f"| {i} | {circular} {icon} | {status} | {superseded_by} | {basis} | {preview_text} |"
+        )
+
+    # Build expandable preview sections (placeholder — actual text from API)
+    for i, row in enumerate(rows, 1):
+        circular = row.get("Circular", "")
+        lines.append(f"\n<details>")
+        lines.append(f"<summary><b>{circular}</b></summary>")
+        lines.append(f"\n*Preview: click 'Read text' above to expand.*\n")
+        lines.append(f"</details>\n")
+
+    return "\n".join(lines)
 
 def _parse_as_of(raw: str) -> str | None:
     """Normalise the optional as-of field: empty -> None, else strict ISO
@@ -104,17 +141,30 @@ def _validate_api_url(url: str) -> None:
 
     # If we get here, the IP is public — allow it
 
+def _empty_outputs_md() -> str:
+    """Return empty markdown placeholder for streaming."""
+    return ""
 
-def submit_query(question: str, api_url: str, api_key: str, top_k: float,
-                 mode: str, as_of_raw: str, advisory: bool) -> tuple:
+def submit_query_stream(
+    question: str, api_url: str, api_key: str, top_k: float,
+    mode: str, as_of_raw: str, advisory: bool, chat_history: list[list],
+) -> tuple:
+    """Generator that streams the answer while updating chat history."""
+    empty_df = pd.DataFrame(columns=_EMPTY_DF_COLS)
+
     if not question.strip():
-        return _empty_outputs("Please enter a question.")
+        yield (chat_history + [["You", "Please enter a question."]], "", _empty_outputs_md(),
+               empty_df, "", "", "⚪ N/A", "", "", "", "", "")
+        return
+
+    current_history = chat_history + [[question, ""]]
 
     try:
         as_of = _parse_as_of(as_of_raw)
     except ValueError:
-        return _empty_outputs(
-            "**Error:** 'As of date' must be YYYY-MM-DD (e.g. 2025-01-10).")
+        yield (current_history + [["", "**Error:** 'As of date' must be YYYY-MM-DD."]],
+               "", _empty_outputs_md(), empty_df, "", "", "⚪ Error", "", "", "", "", "")
+        return
 
     headers = {}
     if api_key:
@@ -123,20 +173,38 @@ def submit_query(question: str, api_url: str, api_key: str, top_k: float,
     payload = {"question": question, "top_k": int(top_k),
                "mode": mode, "advisory": bool(advisory), "as_of": as_of}
 
-    # --- SSRF guard: validate api_url before making the request ---
     _validate_api_url(api_url)
 
     try:
         resp = httpx.post(api_url, json=payload, headers=headers, timeout=120.0)
         if resp.status_code != 200:
-            return _empty_outputs(
-                f"**Error:** API returned status code {resp.status_code}\n\n{resp.text}")
+            error_msg = f"**Error:** API returned status code {resp.status_code}\n\n{resp.text}"
+            yield (current_history + [["", error_msg]], "", _empty_outputs_md(),
+                   empty_df, "", "", "⚪ Error", "", "", "", "", "")
+            return
         data = resp.json()
     except httpx.TimeoutException:
-        return _empty_outputs("**Request Failed:** API timed out.")
+        yield (current_history + [["", "**Request Failed:** API timed out."]],
+               "", _empty_outputs_md(), empty_df, "", "", "⚪ Error", "", "", "", "", "")
+        return
     except Exception as e:  # noqa: BLE001 - surface, don't crash the UI
-        return _empty_outputs(f"**Request Failed:** {str(e)}")
+        yield (current_history + [["", f"**Request Failed:** {str(e)}"]],
+               "", _empty_outputs_md(), empty_df, "", "", "⚪ Error", "", "", "", "", "")
+        return
 
+    # Build streaming chunks (typing effect)
+    answer_text = data.get("answer", "")
+    if mode == "retrieval_only" and not data.get("abstained", False):
+        answer_text = _RETRIEVAL_ONLY_BANNER + answer_text
+
+    # Yield streaming chunks for typing effect
+    chunk_size = 20
+    for i in range(0, len(answer_text), chunk_size):
+        partial = answer_text[: i + chunk_size]
+        yield (current_history, partial, _empty_outputs_md(), empty_df,
+               "", "", "⚪ Processing…", "", "", "", "", "")
+
+    # Final yield with all data
     df_rows = []
     for item in data.get("citations_meta", []):
         superseded_by = ", ".join(item.get("superseded_by", []))
@@ -164,52 +232,74 @@ def submit_query(question: str, api_url: str, api_key: str, top_k: float,
 
     superseded = json.dumps(data.get("superseded", {}), indent=2)
     unsupported = ", ".join(data.get("unsupported_citations", [])) or "None"
-
-    answer_text = data.get("answer", "")
-    if mode == "retrieval_only" and not abstained:
-        answer_text = _RETRIEVAL_ONLY_BANNER + answer_text
-
     confidence_json = json.dumps(data.get("confidence", {}), indent=2)
     draft = data.get("draft_answer", "") or ""
     draft_md = (f"**Advisory draft — not authoritative**\n\n{draft}" if draft else "")
     retrieved_json = json.dumps(data.get("retrieved", []), indent=2)
 
-    return (answer_text, df, latency, faithfulness, certainty_str, superseded,
-            unsupported, confidence_json, draft_md, retrieved_json)
+    # Update chat history with full answer
+    final_history = current_history + [[answer_text if not abstained else f"⚠️ *Abstained: {data.get('abstention_reason', '')}*"]]
+
+    citations_md = _build_citations_markdown(df_rows) if df_rows else "*No citations retrieved.*"
+
+    yield (final_history, answer_text, citations_md, df, latency, faithfulness,
+           _certainty_badge(certainty_str) if not abstained else f"🔴 {certainty_str}",
+           superseded, unsupported, confidence_json, draft_md, retrieved_json)
 
 
 def build_ui():
-    with gr.Blocks(title="SEBI Circular RAG", theme=gr.themes.Soft()) as demo:
-        gr.Markdown("# SEBI Circular RAG")
-        gr.Markdown("Local-first, Apple-Silicon Retrieval-Augmented Generation "
-                    "over Indian SEBI circulars.")
+    with gr.Blocks(title="SEBI Circular RAG") as demo:
+        gr.Markdown(
+            "Local-first, Apple-Silicon Retrieval-Augmented Generation over Indian SEBI circulars. "
+            "Hybrid FAISS + BM25 retrieval with cross-encoder reranking, supersession-aware citations "
+            "and an abstention gate."
+        )
+
+        # Chat history (multi-turn)
+        chatbot = gr.Chatbot(
+            label="Conversation",
+        )
 
         with gr.Row():
             with gr.Column(scale=3):
                 question_input = gr.Textbox(
                     label="Question",
-                    placeholder="Ask a question about SEBI circulars (e.g. 'What are "
-                                "the modified norms for nomination in demat accounts?')...",
+                    placeholder="Ask a question about SEBI circulars (e.g. 'What are the modified norms for nomination in demat accounts?')...",
                     lines=3,
                 )
+
+                # Example query chips
+                gr.Markdown("**Try an example:**")
+                with gr.Row():
+                    for query in [
+                        "Nomination norms in demat accounts",
+                        "Maximum leverage for equity derivatives",
+                        "Research analyst compliance requirements",
+                        "Mutual fund expense ratio caps",
+                        "SME IPO listing requirements",
+                    ]:
+                        gr.Button(query, size="sm", variant="secondary").click(
+                            fn=lambda q=query: q, outputs=question_input,
+                        )
+
                 submit_btn = gr.Button("Submit Query", variant="primary")
-                answer_output = gr.Markdown(label="Answer")
-                gr.Markdown("### Citations")
-                citations_df = gr.Dataframe(
-                    headers=["Circular", "Status", "Superseded By"],
-                    interactive=False, wrap=True,
-                )
 
             with gr.Column(scale=1):
+                # Connection settings
                 with gr.Accordion("Connection", open=True):
-                    api_url = gr.Textbox(label="API Endpoint URL",
-                                         value="http://127.0.0.1:8000/query")
-                    api_key = gr.Textbox(label="API Key", type="password",
-                                         placeholder="Required if server uses auth")
+                    api_url = gr.Textbox(
+                        label="API Endpoint URL", value="http://127.0.0.1:8000/query"
+                    )
+                    api_key = gr.Textbox(
+                        label="API Key", type="password",
+                        placeholder="Required if server uses auth"
+                    )
 
+                # Query controls
                 with gr.Accordion("Query controls", open=True):
-                    top_k = gr.Slider(minimum=1, maximum=10, value=5, step=1,
-                                      label="Top K Citations")
+                    top_k = gr.Slider(
+                        minimum=1, maximum=10, value=5, step=1, label="Top K Citations"
+                    )
                     mode = gr.Radio(
                         choices=["rag", "retrieval_only"], value="rag", label="Mode",
                         info="Full RAG answer, or retrieval-only academic benchmark "
@@ -225,28 +315,48 @@ def build_ui():
                         info="Opt-in low-confidence draft when the abstention gate trips.",
                     )
 
-                with gr.Accordion("Metadata", open=True):
-                    latency_out = gr.Textbox(label="Latency", interactive=False)
-                    faithfulness_out = gr.Textbox(label="Faithfulness", interactive=False)
-                    certainty_out = gr.Textbox(label="Certainty & Abstention",
-                                               interactive=False)
-                    superseded_out = gr.Code(label="Superseded Warnings",
-                                             language="json", interactive=False)
-                    unsupported_out = gr.Textbox(label="Unsupported Citations",
-                                                 interactive=False)
+                # Metadata bar (always visible)
+                with gr.Accordion("Metadata", open=False):
+                    metadata_row = gr.Row()
+                    with metadata_row:
+                        latency_out = gr.Textbox(label="Latency", interactive=False)
+                        faithfulness_out = gr.Textbox(label="Faithfulness", interactive=False)
+                        certainty_out = gr.Markdown(label="Confidence Gauge")
 
+                # Advanced outputs
                 with gr.Accordion("Advanced outputs", open=False):
-                    confidence_out = gr.Code(label="Confidence", language="json",
-                                             interactive=False)
+                    superseded_out = gr.Code(
+                        label="Superseded Warnings", language="json", interactive=False
+                    )
+                    unsupported_out = gr.Textbox(
+                        label="Unsupported Citations", interactive=False
+                    )
+                    confidence_out = gr.Code(
+                        label="Confidence", language="json", interactive=False
+                    )
                     draft_out = gr.Markdown(label="Advisory Draft")
-                    retrieved_out = gr.Code(label="Retrieved (doc ids)",
-                                            language="json", interactive=False)
+                    retrieved_out = gr.Code(
+                        label="Retrieved (doc ids)", language="json", interactive=False
+                    )
 
+        # Streaming answer output
+        answer_output = gr.Markdown(label="Answer")
+
+        # Citations with superseded highlighting
+        gr.Markdown("### Citations")
+        citations_md = gr.Markdown(label="Citations (click to expand)")
+        citations_df = gr.Dataframe(
+            headers=["Circular", "Status", "Superseded By", "Regulatory Basis"],
+            interactive=False, wrap=True,
+        )
+
+        # Wire up streaming submit
         submit_btn.click(
-            fn=submit_query,
-            inputs=[question_input, api_url, api_key, top_k, mode, as_of_input, advisory],
-            outputs=[answer_output, citations_df, latency_out, faithfulness_out,
-                     certainty_out, superseded_out, unsupported_out,
+            fn=submit_query_stream,
+            inputs=[question_input, api_url, api_key, top_k, mode, as_of_input,
+                    advisory, chatbot],
+            outputs=[chatbot, answer_output, citations_md, citations_df, latency_out,
+                     faithfulness_out, certainty_out, superseded_out, unsupported_out,
                      confidence_out, draft_out, retrieved_out],
         )
 

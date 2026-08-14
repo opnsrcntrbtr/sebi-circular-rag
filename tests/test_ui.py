@@ -56,10 +56,9 @@ def test_submit_query_malformed_as_of_short_circuits(monkeypatch):
         raise AssertionError("httpx.post must not be called on bad as_of")
 
     monkeypatch.setattr(ui.httpx, "post", _boom)
-    out = ui.submit_query("q", "http://x/query", "", 3, "rag", "10-01-2025", False)
-    assert out[0].startswith("**Error:**")
+    out = list(ui.submit_query_stream("q", "http://x/query", "", 3, "rag", "10-01-2025", False, []))
+    assert out[0][0] == [["q", ""], ["", "**Error:** 'As of date' must be YYYY-MM-DD."]]
     assert called["n"] == 0
-    assert len(out) == 10
 
 
 def test_submit_query_sends_new_fields_and_returns_ten(monkeypatch):
@@ -70,26 +69,29 @@ def test_submit_query_sends_new_fields_and_returns_ten(monkeypatch):
         return _Resp(_CANNED)
 
     monkeypatch.setattr(ui.httpx, "post", _fake_post)
-    out = ui.submit_query("q", "http://x/query", "", 5, "rag", "2025-01-10", True)
+    out = list(ui.submit_query_stream("q", "http://x/query", "", 5, "rag", "2025-01-10", True, []))
     assert seen["mode"] == "rag"
     assert seen["advisory"] is True
     assert seen["as_of"] == "2025-01-10"
     assert seen["top_k"] == 5
-    assert len(out) == 10
-    assert out[0] == "The nomination norms are X."  # no banner in rag mode
+    final = out[-1]
+    assert len(final) == 12
+    assert final[1] == "The nomination norms are X."  # no banner in rag mode
 
 
 def test_submit_query_retrieval_only_prepends_banner(monkeypatch):
     monkeypatch.setattr(ui.httpx, "post", lambda *a, **k: _Resp(_CANNED))
-    out = ui.submit_query("q", "http://x/query", "", 3, "retrieval_only", "", False)
-    assert out[0].startswith("**Retrieval-only mode**")
-    assert "The nomination norms are X." in out[0]
+    out = list(ui.submit_query_stream("q", "http://x/query", "", 3, "retrieval_only", "", False, []))
+    final = out[-1]
+    assert final[1].startswith("**Retrieval-only mode**")
+    assert "The nomination norms are X." in final[1]
 
 
 def test_submit_query_surfaces_confidence_and_retrieved(monkeypatch):
     monkeypatch.setattr(ui.httpx, "post", lambda *a, **k: _Resp(_CANNED))
-    out = ui.submit_query("q", "http://x/query", "", 3, "rag", "", False)
-    confidence_json, draft_md, retrieved_json = out[7], out[8], out[9]
+    out = list(ui.submit_query_stream("q", "http://x/query", "", 3, "rag", "", False, []))
+    final = out[-1]
+    confidence_json, draft_md, retrieved_json = final[9], final[10], final[11]
     assert json.loads(confidence_json) == {"score": 0.8}
     assert draft_md == ""  # empty draft renders nothing
     assert json.loads(retrieved_json) == ["SEBI/2025/9#0"]

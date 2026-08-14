@@ -77,11 +77,11 @@ def test_warm_up_gpu_is_never_called():
 
 def test_pipeline_query_path_has_no_gpu_decorator(app_module):
     """The functions actually on the request path (get_pipeline,
-    run_query_spaces) must stay undecorated, confirming the real RAG logic
+    run_query_stream) must stay undecorated, confirming the real RAG logic
     runs outside any @spaces.GPU-gated call and therefore on CPU."""
     import inspect
 
-    for fn in (app_module.get_pipeline, app_module.run_query_spaces):
+    for fn in (app_module.get_pipeline, app_module.run_query_stream):
         src = inspect.getsource(fn)
         assert "@spaces.GPU" not in src
 
