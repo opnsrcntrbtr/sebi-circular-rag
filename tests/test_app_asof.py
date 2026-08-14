@@ -38,4 +38,4 @@ def test_parse_as_of_rejects_garbage(app_module):
 def test_run_query_rejects_bad_as_of_before_building_pipeline(app_module):
     # Must error out on the date BEFORE get_pipeline() (no index download).
     out = list(app_module.run_query_stream("what are the norms?", 3, "rag", "not-a-date", []))
-    assert out[0][0][-1] == ["", "**Error:** 'As of date' must be YYYY-MM-DD (e.g. 2025-01-10)."]
+    assert out[0][0][-1] == {"role": "assistant", "content": "**Error:** 'As of date' must be YYYY-MM-DD (e.g. 2025-01-10)."}

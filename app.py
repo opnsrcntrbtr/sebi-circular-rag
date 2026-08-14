@@ -127,12 +127,40 @@ def _empty_citations_md() -> str:
     return "*No citations retrieved.*"
 
 
+def _to_gradio5_history(history):
+    """Normalize chat history to Gradio 5+ message format.
+
+    Gradio 5+ expects: [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}]
+    Old format was: [[user_msg, bot_msg], ...]
+    Handles both; returns new-format list.
+    """
+    if not history:
+        return []
+    result = []
+    for entry in history:
+        if isinstance(entry, dict) and "role" in entry and "content" in entry:
+            # Already Gradio 5+ format
+            result.append(entry)
+        elif isinstance(entry, (list, tuple)) and len(entry) >= 2:
+            # Old [[user, bot], ...] format — convert
+            if entry[0]:  # user message present
+                result.append({"role": "user", "content": entry[0]})
+            if entry[1]:  # bot message present
+                result.append({"role": "assistant", "content": entry[1]})
+        elif isinstance(entry, dict):
+            # Already a single message dict
+            result.append(entry)
+    return result
+
+def _append_message(history, role, content):
+    """Append a single message to history in Gradio 5+ format."""
+    return history + [{"role": role, "content": content}]
 def run_query_stream(
     question: str,
     top_k: int,
     mode: str,
     as_of_raw: str,
-    chat_history: list[list],
+    chat_history: list | None,
 ):
     """Generator that streams the answer while updating chat history."""
     empty_df = pd.DataFrame(
@@ -141,7 +169,7 @@ def run_query_stream(
 
     if not question.strip():
         yield (
-            chat_history + [["You", "Please enter a question."]],
+            _append_message(_to_gradio5_history(chat_history), "assistant", "Please enter a question."),
             "",  # streaming answer
             _empty_citations_md(),
             empty_df,
@@ -157,13 +185,13 @@ def run_query_stream(
         as_of = _parse_as_of(as_of_raw)
     except ValueError:
         yield (
-            chat_history + [["", "**Error:** 'As of date' must be YYYY-MM-DD (e.g. 2025-01-10)."]],
+            _append_message(_to_gradio5_history(chat_history), "assistant", "**Error:** 'As of date' must be YYYY-MM-DD (e.g. 2025-01-10)."),
             "", _empty_citations_md(), empty_df, "", "", "⚪ Error", "", "",
         )
         return
 
     # Show user message immediately
-    current_history = chat_history + [[question, ""]]
+    current_history = _append_message(_to_gradio5_history(chat_history), "user", question)
 
     try:
         pipeline = get_pipeline(mode)  # type: ignore[assignment]
@@ -173,6 +201,7 @@ def run_query_stream(
         ans, _retrieved = pipeline.query(  # type: ignore[attr-defined]
             question, top_k=int(top_k), advisory=False, as_of=as_of,
         )
+        latency_ms = (time.perf_counter() - t0) * 1000
         # Build streaming chunks (yield every ~20 chars for typing effect)
         answer_text = ans.text
         if mode == "retrieval_only" and not ans.abstained:
@@ -229,7 +258,8 @@ def run_query_stream(
             certainty_str += f" (Abstained: {ans.abstention_reason})"
 
         # Update chat history with full answer
-        final_history = current_history + [[ans.text if not ans.abstained else f"⚠️ *Abstained: {ans.abstention_reason}*"]]
+        answer_content = ans.text if not ans.abstained else f"⚠️ *Abstained: {ans.abstention_reason}*"
+        final_history = _append_message(current_history, "assistant", answer_content)
 
         yield (
             final_history,  # complete chat history
@@ -240,13 +270,13 @@ def run_query_stream(
             f"{ans.faithfulness:.2f}",
             _certainty_badge(ans.certainty) + (f" — {ans.abstention_reason}" if ans.abstained else ""),
             json.dumps(ans.superseded, indent=2) if ans.superseded else "None",
-            ", ".join(ans.unsupported_citations) or "None",
+            ", ".join(ans.unsupported_citations or []) or "None",
         )
 
     except Exception as exc:  # noqa: BLE001 — surface, don't crash the Space
         error_msg = f"**Error:** {exc}"
         yield (
-            current_history + [["", error_msg]],
+            _append_message(current_history, "assistant", error_msg),
             error_msg,
             _empty_citations_md(),
             empty_df,
