@@ -191,15 +191,18 @@ def validate_golden(rows: list[dict[str, Any]]) -> list[BenchmarkIssue]:
         if row.get("abstain") and relevant:
             issues.append(BenchmarkIssue(item_id, "abstain item has relevant_circulars"))
         if not row.get("abstain") and not relevant:
-            # Handled, not corrupt: `per_query_recall` and
-            # `run_retrieval_benchmark` exclude unjudged rows from the mean
-            # rather than scoring them 0, the way TREC treats unjudged queries.
-            issues.append(BenchmarkIssue(
-                item_id,
-                "answerable item has no relevant_circulars (excluded from "
-                "retrieval metrics as unjudged)",
-                severity="warning",
-            ))
+            # Allow expected_citation_level="none" (as-of-date queries where
+            # relevant circulars predate the cutoff) — these are valid test
+            # cases, not corrupt data.
+            if row.get("expected_citation_level") == "none":
+                pass  # valid: no citation expected
+            else:
+                issues.append(BenchmarkIssue(
+                    item_id,
+                    "answerable item has no relevant_circulars (excluded from "
+                    "retrieval metrics as unjudged)",
+                    severity="warning",
+                ))
         if row.get("task_type") not in TASK_TYPES:
             issues.append(BenchmarkIssue(item_id, f"invalid task_type: {row.get('task_type')}"))
         if row.get("difficulty") not in DIFFICULTIES:

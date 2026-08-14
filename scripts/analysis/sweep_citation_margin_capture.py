@@ -25,7 +25,7 @@ for k, v in {"TOKENIZERS_PARALLELISM": "false", "OMP_NUM_THREADS": "1",
 
 from sebi_rag.embeddings import BGEM3Embedder
 from sebi_rag.eval_harness import load_golden, _doc, _unique
-from sebi_rag.generate import ExtractiveStubGenerator, SubjectSimJudge
+from sebi_rag.generate import SubjectSimJudge, eval_generator_for, citation_scorer_for
 from sebi_rag.lineage import build_lineage, load_records
 from sebi_rag.pipeline import RAGPipeline
 from sebi_rag.rerank import CrossEncoderReranker
@@ -44,9 +44,14 @@ rer = CrossEncoderReranker(device="mps")
 _sect = os.environ.get("SEBI_RAG_SECT_THRESHOLD", "0.60")
 judge = SubjectSimJudge(emb, threshold=0.42,
                         section_threshold=(None if _sect.lower() in ("off", "0") else float(_sect)))
-# Mechanical pipeline (citation_scorer=None): ans.citations == deduped top-k contexts.
-pipe = RAGPipeline(retriever=retr, reranker=rer, generator=ExtractiveStubGenerator(),
-                   abstain_threshold=s.abstain_threshold, lineage=lin, judge=judge)
+# Production-parallel pipeline (MLX generator + citation scorer enabled).
+pipe = RAGPipeline(
+    retriever=retr, reranker=rer,
+    generator=eval_generator_for(s.eval_generator, s.mlx_model),
+    abstain_threshold=s.abstain_threshold, lineage=lin, judge=judge,
+    citation_scorer=citation_scorer_for(s.citation_scorer_enabled, rer,
+                                        s.citation_scorer_backend),
+    citation_margin=s.citation_margin)
 by_id = {c.id: c for c in retr.chunks}
 
 rows = load_golden(ROOT / "eval" / "golden" / "golden_v7.jsonl")

@@ -192,7 +192,7 @@ def test_live_export_produces_valid_files():
 
     out_dir = Path("dist/datasets")
     manifest = X.export_all(corpus_path, chunks_path, lineage_path, golden_path, out_dir)
-
+    X.write_dataset_cards(out_dir)
     # Validate manifest
     assert "version" in manifest
     assert "configs" in manifest
@@ -292,11 +292,11 @@ def test_row_count_accuracy_in_live_export():
     # +87 citation-normalization, +9 supersession-pairs) from orphan PDF ingest
     # (11 normal + 2 OCR + 1 unparseable master). supersession-pairs unchanged.
     expected = {
-        "corpus": 724,
-        "chunks": 78523,
+        "corpus": 728,
+        "chunks": 78585,
         "lineage": 4577,
         "eval": 56,
-        "citation-normalization": 8901,
+        "citation-normalization": 8903,
         "supersession-pairs": 2769,
     }
 

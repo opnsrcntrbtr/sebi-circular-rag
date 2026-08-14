@@ -29,7 +29,7 @@ rerank_backend = "torch"                               # torch | mlx  (mlx = eva
 eval_generator = "mlx"                                 # stub | mlx
 
 citation_scorer_enabled = true                         # B': post-hoc cross-encoder citation filter (gate armed under B' 2026-08-04)
-citation_margin = 0.35                                  # sigmoid-scale; calibrated at sweep knee (P +88%, citation_recall 0.783 mean)
+citation_margin = 0.35                                  # sigmoid-scale; MLX-parallel sweep knee (P +5.4%, recall 0.8721, n=219)
 
 # Hugging Face Spaces demo (CPU-only). Read ONLY by Settings.load_spaces();
 # the Apple-Silicon local stack above is unaffected. Env prefix: SEBI_RAG_SPACES_.

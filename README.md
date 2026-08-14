@@ -40,7 +40,11 @@ make eval-asof # As-of-date golden eval; writes eval/runs/asof-$ASOF_OUT (defaul
 make bench-retrieval # Retrieval-only benchmark + TREC runfile
 make bench-rerank    # Reranker benchmark (--models bge,qwen0.6b)
 make benchmark-export # Golden v6 build + BEIR/TREC/RAG benchmark export
+make export-datasets  # Export dataset configs (JSONL + Parquet)
 make measure     # Collect pipeline metrics (parsing latency, retrieval recall, MRR, etc.)
+make rescore     # Rescore existing eval runs
+make trec-parity # TREC runfile parity check
+make qrels       # Generate QRELS for TREC evaluation
 ```
 
 ## Testing & Evaluation
@@ -48,7 +52,7 @@ make measure     # Collect pipeline metrics (parsing latency, retrieval recall, 
 - `make test` runs `pytest -q -m "not integration"`. The `integration` marker exercises real bge-m3 / cross-encoder weights (slow) — run explicitly with `pytest -m integration`.
  - `scripts/bench_metrics.py` collects 6 pipeline metrics (parsing latency, supersession precision, temporal accuracy, retrieval recall, context precision, MRR). Run via `make measure` or `python scripts/bench_metrics.py --smoke` for a fast smoke test. Outputs to `.auto/measure.sh` for the autoresearch dashboard.
 - `golden_v7.jsonl` (n=260, stratified, span-anchored `{doc, quote}` chunk labels, plus a `review_status` lifecycle of `seeded`/`draft` → `adjudicated`) is the reporting set. **CI does not gate on it yet.** `scripts/eval_json.py` reports on v7 only once `eval/golden/gate_v7.json` exists *and* records `adjudicated_n >= 100`; until then it falls back to frozen `golden_v5`, so a partially reviewed v7 cannot silently become the set that gates merges. `SEBI_RAG_GOLDEN` overrides the choice. Arm the gate with `make golden-v7-gate` (refuses below 100 and says why). `golden_v1..v6`, `probes_v1`, and `golden_asof_v1` are frozen.
-- `make golden-v7-*` drives the v7 pipeline: `-seed`, `-mine`, `-pool`, `-packet`, `-packet-ingest`, `-local`, `-gemini`, `-agree`, `-gate`. The **primary** external-annotation leg (`-local`) calls a local oMLX server (Anthropic-compatible API on `127.0.0.1:8001` — deliberately not 8000, which `make serve` binds; `Qwen3.6-35B-A3B-MLX-4bit`, votes as `annotator: "qwen"`) — no quota, no network. The Gemini leg (`-gemini`) is ON HOLD: its free tier allows ~20 requests/day/model, a multi-day wall for a 100-row pass. Both legs cache per row and resume, and every row in one leg must come from the **same** model or the agreement statistics measure model differences rather than label uncertainty (`agreement.py` discovers the LLM leg generically and fails loud on two at once).
+- `make golden-v7-*` drives the v7 pipeline: `-seed`, `-mine`, `-pool`, `-packet`, `-packet-ingest`, `-local`, `-gemini`, `-agree`, `-agree-report`, `-gate`. The **primary** external-annotation leg (`-local`) calls a local oMLX server (Anthropic-compatible API on `127.0.0.1:8001` — deliberately not 8000, which `make serve` binds; `Qwen3.6-35B-A3B-MLX-4bit`, votes as `annotator: "qwen"`) — no quota, no network. The Gemini leg (`-gemini`) is ON HOLD: its free tier allows ~20 requests/day/model, a multi-day wall for a 100-row pass. Both legs cache per row and resume, and every row in one leg must come from the **same** model or the agreement statistics measure model differences rather than label uncertainty (`agreement.py` discovers the LLM leg generically and fails loud on two at once).
 - `make validate-corpus` checks corpus integrity: no two records share a body text, and each record's `circular_number` is derivable from its own text. Add `--deep` to also re-extract every PDF and compare. **Run it after any ingest, backfill, or repair** — both invariants exist because those bug classes shipped undetected (see `docs/status.md` 2026-07-25).
 - Interventions are specced in `docs/superpowers/specs/`, planned in `plans/`, results in `reports/`.
 
@@ -64,12 +68,12 @@ The SEBI Circulars corpus and derived task datasets are published on HuggingFace
 
 ### Dataset Configurations
 
-Six structured dataset configs available in JSONL + Parquet formats (v2026.07 snapshot, 724 circulars):
+Six structured dataset configs available in JSONL + Parquet formats (v2026.08 snapshot, 728 circulars):
 
 | Config | Rows | Purpose |
 |---|---|---|
-| **corpus** | 724 | Full circular text + metadata, regulatory lineage, effective dates |
-| **chunks** | 78,523 | Section-aware retrieval chunks for RAG and dense retrieval |
+| **corpus** | 728 | Full circular text + metadata, regulatory lineage, effective dates |
+| **chunks** | 78,585 | Section-aware retrieval chunks for RAG and dense retrieval |
 | **lineage** | 4,577 | Regulatory supersession/amendment edges (citation graph) |
 | **eval** | 56 | Curated benchmark queries for domain-specific retrieval evaluation |
 | **citation-normalization** | 8,901 | Raw reference → normalized circular pairs (seq2seq/NER task) |
@@ -97,7 +101,7 @@ Full schema documentation on [the HF dataset page](https://huggingface.co/datase
 1. **Not legal advice.** Circulars are informational only; verify against [sebi.gov.in](https://sebi.gov.in) before regulatory reliance.
 2. **Not SEBI-endorsed.** This dataset is independent and not affiliated with or endorsed by the Securities and Exchange Board of India.
 3. **Coverage:** Corpus spans 2010–2026, including all 130 SEBI master circulars, and is not exhaustive of all SEBI circulars.
-4. **Data quality:** `issuing_department` is UNKNOWN for 0/724 records (parsing artifact resolved). Some master-circular `subject` fields may be oversized (~2900 chars, also pre-existing).
+4. **Data quality:** `issuing_department` is UNKNOWN for 0/728 records (parsing artifact resolved). Some master-circular `subject` fields may be oversized (~2900 chars, also pre-existing).
 
 ### Citation
 
@@ -141,7 +145,8 @@ Please cite this dataset if you use it:
 Pipeline: scrape → ingest_pdf → lineage.annotate → build_index → retrieve → rerank → generate.
 
 | File (`src/sebi_rag/`) | Purpose |
-|------|---------|\n| `api.py` | FastAPI entry point, app factory, key-in-body auth |
+|------|---------|
+| `api.py` | FastAPI entry point, app factory, key-in-body auth |
 | `pipeline.py` | `RAGPipeline` orchestration; `regulatory_basis_status` is surfaced per-citation in the API (`CitationMeta.regulations`) and UI, with an in-text advisory note for `repealed_basis` circulars |
 | `retrieve.py` | `HybridRetriever` — FAISS + BM25 RRF fusion (optional SPLADE leg, eval-only) |
 | `rerank.py` / `embeddings.py` | Cross-encoder reranking / BGE-M3 embedding |
@@ -150,9 +155,20 @@ Pipeline: scrape → ingest_pdf → lineage.annotate → build_index → retriev
 | `regulations.py` | Regulation identity, alias table, name resolution, `load_regulations`/`reg_display_name` |
 | `reg_citations.py` | Regulation citations extracted from circular text |
 | `reg_lineage.py` | Circular→regulation edges + `regulatory_basis_status` annotation; `build_regulatory_index` (query-layer lookup) |
-| `generate.py` | Local generation + abstention gate (MLX-LM/Ollama via `Generator` protocol) |
+| `generate.py` | Local generation + abstention gate (MLX-LM/Ollama via `Generator` protocol); `select_citations()` B' answer-relevance filter |
 | `eval.py` / `eval_harness.py` / `benchmark.py` | Metrics, golden-set runner, BEIR/TREC export |
 | `splade.py`, `hyde.py`, `context_headers.py` | Retrieval experiments (opt-in, off by default) |
+| `attribution.py` | Attribution scoring for generated answers |
+| `settings.py` | Configuration model (`Settings`) with env overrides |
+| `stats.py` | Corpus/index statistics helpers |
+| `device.py` | Device detection (MPS/CPU) for MLX backend selection |
+| `eval_asof.py` | As-of-date golden evaluation runner |
+| `measure.py` | Pipeline metrics collection (parsing latency, retrieval recall, MRR) |
+| `splade_encoder.py` | SPLADE sparse encoder (eval-only, off by default) |
+| `expand.py` | Query expansion utilities |
+| `master_meta.py` | Master circular metadata management (`annotate_master_fields`) |
+| `corpus.py` | Corpus I/O and validation helpers |
+| `metadata.py` | Metadata schema definitions |
 
 ### ⚠️ Two parallel code paths
 
