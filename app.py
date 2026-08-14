@@ -77,7 +77,11 @@ def _certainty_badge(certainty: str) -> str:
 
 
 def _build_citations_markdown(rows: list[dict], chunks_map: dict[str, str]) -> str:
-    """Build a citations table with inline expandable previews."""
+    """Build a citations table with inline truncated previews.
+
+    Gradio markdown tables don't support nested HTML (<details> escapes the cell),
+    so we show truncated preview text directly instead of an accordion.
+    """
     if not rows:
         return "*No citations retrieved.*"
 
@@ -95,19 +99,16 @@ def _build_citations_markdown(rows: list[dict], chunks_map: dict[str, str]) -> s
         is_superseded = "superseded" in status.lower() or "repealed" in status.lower()
         icon = "⚠️" if is_superseded else ""
 
-        # Inline expandable preview (no $preview_N links — they navigate away in HF Spaces)
+        # Inline truncated preview (no <details> — Gradio tables don't nest HTML)
         chunk_id = row.get("id", "")
         text = chunks_map.get(chunk_id, "*Preview unavailable.*")
-        if text == "*Preview unavailable.*" and chunk_id:
-            import logging; _log = logging.getLogger("app")
-            _log.debug(f"LOOKUP FAIL: chunk_id={chunk_id!r}, chunks_map keys={list(chunks_map.keys())[:10]}")
-        if len(text) > 600:
-            text = text[:600] + "… (truncated)"
+        if len(text) > 200:
+            text = text[:200] + "… (truncated)"
         # Escape pipe chars and backslashes for markdown table safety
         text = text.replace("|", "\\|").replace("\\", "\\\\")
-        preview_cell = f"<details><summary>📄 Read text</summary>{text}</details>"
+
         lines.append(
-            f"| {i} | {circular} {icon} | {status} | {superseded_by} | {preview_cell} |"
+            f"| {i} | {circular} {icon} | {status} | {superseded_by} | {text} |"
         )
 
     return "\n".join(lines)
