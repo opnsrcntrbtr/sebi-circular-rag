@@ -98,11 +98,10 @@ def _build_citations_markdown(rows: list[dict], chunks_map: dict[str, str]) -> s
         # Inline expandable preview (no $preview_N links — they navigate away in HF Spaces)
         chunk_id = row.get("id", "")
         text = chunks_map.get(chunk_id, "*Preview unavailable.*")
+        if text == "*Preview unavailable.*" and chunk_id:
+            import logging; _log = logging.getLogger("app")
+            _log.debug(f"LOOKUP FAIL: chunk_id={chunk_id!r}, chunks_map keys={list(chunks_map.keys())[:10]}")
         if len(text) > 600:
-            text = text[:600] + "… (truncated)"
-        # Escape pipe chars and backslashes for markdown table safety
-        text = text.replace("|", "\\|").replace("\\", "\\\\")
-        preview_cell = f"<details><summary>📄 Read text</summary>{text}</details>"
 
         lines.append(
             f"| {i} | {circular} {icon} | {status} | {superseded_by} | {preview_cell} |"
@@ -225,9 +224,12 @@ def run_query_stream(
         chunks_map: dict[str, str] = {}
         retriever = getattr(pipeline, "retriever", None)  # type: ignore[attr-defined]
         if retriever is not None and hasattr(retriever, "chunks"):
-            for c in retriever.chunks:  # type: ignore[attr-defined]
-                if c.id not in chunks_map and len(chunks_map) < 5:
-                    chunks_map[c.id] = c.text[:800] + ("…" if len(c.text) > 800 else "")
+            all_chunks = list(retriever.chunks)  # type: ignore[attr-defined]
+            for c in all_chunks[:5]:
+                chunks_map[c.id] = c.text[:800] + ("…" if len(c.text) > 800 else "")
+            import logging; _log = logging.getLogger("app")
+            _log.debug(f"chunks_map: {len(chunks_map)} keys from {len(all_chunks)} retriever chunks. Keys={list(chunks_map.keys())}")
+            _log.debug(f"ans.citations = {ans.citations[:5]}")
 
         # Build citation rows with chunk IDs for preview lookup
         seen_circulars: set[str] = set()
