@@ -13,7 +13,7 @@ The project is not just a prototype. The current stack includes:
 - Authenticated FastAPI `/health` and `/query` endpoints
 - A Gradio UI for interactive exploration
 
-The implementation details and validation history are tracked in [docs/status.md](docs/status.md) and the validation sequence is documented in [docs/validation_roadmap.md](docs/validation_roadmap.md).
+The implementation details and validation history are tracked in [docs/status.md](docs/status.md) and the validation sequence is documented in [docs/project_context.md](docs/project_context.md).
 
 ## Quick Start
 
@@ -64,15 +64,15 @@ The SEBI Circulars corpus and derived task datasets are published on HuggingFace
 
 ### Dataset Configurations
 
-Six structured dataset configs available in JSONL + Parquet formats (v2026.07 snapshot, 705 circulars):
+Six structured dataset configs available in JSONL + Parquet formats (v2026.07 snapshot, 724 circulars):
 
 | Config | Rows | Purpose |
 |---|---|---|
-| **corpus** | 705 | Full circular text + metadata, regulatory lineage, effective dates |
-| **chunks** | 77,859 | Section-aware retrieval chunks for RAG and dense retrieval |
-| **lineage** | 4,483 | Regulatory supersession/amendment edges (citation graph) |
+| **corpus** | 724 | Full circular text + metadata, regulatory lineage, effective dates |
+| **chunks** | 78,523 | Section-aware retrieval chunks for RAG and dense retrieval |
+| **lineage** | 4,577 | Regulatory supersession/amendment edges (citation graph) |
 | **eval** | 56 | Curated benchmark queries for domain-specific retrieval evaluation |
-| **citation-normalization** | 8,802 | Raw reference → normalized circular pairs (seq2seq/NER task) |
+| **citation-normalization** | 8,901 | Raw reference → normalized circular pairs (seq2seq/NER task) |
 | **supersession-pairs** | 2,769 | Labeled circular pairs (supersedes/amends/unrelated classification) |
 
 ### Schema Details
@@ -97,7 +97,7 @@ Full schema documentation on [the HF dataset page](https://huggingface.co/datase
 1. **Not legal advice.** Circulars are informational only; verify against [sebi.gov.in](https://sebi.gov.in) before regulatory reliance.
 2. **Not SEBI-endorsed.** This dataset is independent and not affiliated with or endorsed by the Securities and Exchange Board of India.
 3. **Coverage:** Corpus spans 2010–2026, including all 130 SEBI master circulars, and is not exhaustive of all SEBI circulars.
-4. **Data quality:** `issuing_department` is UNKNOWN for 158/705 records (parsing artifact). Some master-circular `subject` fields may be oversized (~2900 chars, also pre-existing).
+4. **Data quality:** `issuing_department` is UNKNOWN for 0/724 records (parsing artifact resolved). Some master-circular `subject` fields may be oversized (~2900 chars, also pre-existing).
 
 ### Citation
 

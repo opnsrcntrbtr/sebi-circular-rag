@@ -1,14 +1,14 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-08-13.
+> Last updated: 2026-08-14.
 
 ## Current Snapshot
 
 | Metric | Value |
 |---|---|
 | **Corpus** | 724 SEBI circular records, 78,523 chunks (corpus JSONL 38 MB; index chunks.jsonl ~320 MB) |
-| **Index** | 1.0 GB at `data/index/` — dense.faiss, bm25, chunks.jsonl, lineage.json, embeddings.npy, manifest.json, meta.json, splade.npz (eval-only) |
+| **Index** | ~984 MB at `data/index/` — dense.faiss (307 MB), bm25/ (33 MB), chunks.jsonl (312 MB), embeddings.npy (307 MB), lineage.json (2.1 MB), manifest.json, meta.json; splade.npz absent (eval-only, not rebuilt by `make reindex`) |
 | **Reporting set** | `eval/golden/golden_v7.jsonl` (n=260); **adjudicated_n = 260** |
 | **Gate** | `gate_v7.json` re-derived **under the production MLX generator** 2026-08-12 (`eval_generator="mlx"`; floors and measurements now share one decision via `eval_generator_for`). Floors: recall_at_k 0.906, ndcg_at_10 0.6512, citation_recall **0.8124**, abstention_accuracy 0.9335, citation_precision **0.1571**. Verified end-to-end `floors_ok: true` — observed 0.943 / 0.697 / 0.863 / 0.962 / 0.186 on 260 adjudicated rows. Prior stub-derived floors (citation_recall 0.7233, citation_precision 0.1896) described a generator production does not use; MLX precision 0.186 sat *below* that old floor. Gate requires B' ON (`citation_scorer_enabled=true`) |
 | **Frozen sets** | `golden_v5` (n=56), `golden_v6` (n=56) |
@@ -20,8 +20,8 @@
 | **v7 strata** | title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10 |
 | **Abstain/as_of rows** | 41 abstain, 15 dated `as_of` |
 | **Draft rows** | 0 draft, 0 seeded |
-| **Test suite** | 790 passed (793 collected, 2 skipped, 3 deselected) |
-| **Source tree** | 33 Python modules in `src/sebi_rag/` (api, api_spaces, pipeline, retrieve, rerank, embeddings, segment, lineage, generate, generate_spaces, corpus, corpus_spaces, eval, eval_harness, benchmark, splade, splade_encoder, hyde, context_headers, reg_citations, reg_lineage, regulations, master_meta, settings, stats, ui, expand, verify_master, eval_asof, device, ingest_pdf, metadata); 38 scripts in `scripts/` (incl. bench_metrics.py, measure.py) |
+| **Test suite** | 791 passed (795 collected, 2 skipped, 3 deselected) |
+| **Source tree** | 35 Python modules in `src/sebi_rag/` (api, api_spaces, pipeline, retrieve, rerank, embeddings, segment, lineage, generate, generate_spaces, corpus, corpus_spaces, eval, eval_harness, benchmark, splade, splade_encoder, hyde, context_headers, reg_citations, reg_lineage, regulations, master_meta, settings, stats, ui, expand, verify_master, eval_asof, device, ingest_pdf, metadata, attribution, measure); 36 scripts in `scripts/` (incl. bench_metrics.py, measure.py, hybrid_gate_sweep.py) |
 | **Golden-v7 pipeline** | 15 scripts in `scripts/golden_v7/` (agreement, backfill_escalations, build_pool, derive_thresholds, gate_select, gemini_adjudicate, local_adjudicate, make_packet, mine_strata, relabel_repooled, remap_doc_ids, score, seed_v7) |
 | **V7 annotations** | `eval/golden/v7_annotations/` — votes.jsonl (207 claude records), pools.jsonl (4.2 MB), arbitration_queue.jsonl (65 KB), external_sample.json, gemini/ (21 dirs), qwen/ (150 files), candidates/, packet_human/ |
 | **Documentation** | 3 ADRs (adr-001 architecture review, adr-002 certainty architecture, adr-003 ANE declined), project_context.md, scraping_plan.md, n8n_automation_plan.md, USAGE.md |
@@ -114,8 +114,8 @@ env: SEBI_RAG_GATE | SEBI_RAG_SUBJ_THRESHOLD | SEBI_RAG_SECT_THRESHOLD
 
 | Phase | Item | Key Facts |
 |---|---|---|
-| P1 | Golden eval set + harness (v1→v7) | corpus 705/77,841; `eval_harness.py` (recall@10, MRR, nDCG, citation prec/recall, abstention acc, faithfulness); `corpus.py`; `eval.py`; `calibrate.py` |
-| P2 | Cross-document supersession | `lineage.py`: class `Lineage`, 17 functions; 705 records, 5 edges (90 false-positives removed) |
+| P1 | Golden eval set + harness (v1→v7) | corpus 724/78,523; `eval_harness.py` (recall@10, MRR, nDCG, citation prec/recall, abstention acc, faithfulness); `corpus.py`; `eval.py`; `calibrate.py` |
+| P2 | Cross-document supersession | `lineage.py`: class `Lineage`, 17 functions; 724 records, 5 edges (90 false-positives removed) |
 | P3 | FastAPI | `api.py`: GET /health, POST /query; auth: SEBI_RAG_API_KEY → X-API-Key (401); rate limit: SEBI_RAG_RATE_PER_MIN (429) |
 | — | Scraping | `scripts/scrape_sebi.py`; robots.txt verified; scraper → ingest_pdf → corpus; Legal>Master (ssid=6, 135 recs); Circulars (ssid=7, ~2.8k) |
 | — | PDF ingestion | `ingest_pdf.py`: pdfplumber extraction (circular number, date, subject, dept, version lineage); provenance, dedupe, --replace |
@@ -123,12 +123,12 @@ env: SEBI_RAG_GATE | SEBI_RAG_SUBJ_THRESHOLD | SEBI_RAG_SECT_THRESHOLD
 | — | Supersession warning | `pipeline.py` imports demote_superseded/superseded_citations; superseded_penalty=0.3; `Answer.superseded` |
 | — | Generation latency | MLXGenerator (MLX-LM, Apple-Silicon native); `generate.py` class MLXGenerator; Qwen2.5-1.5B-4bit ~0.2s; /query: ~18.8s → ~2.1s warm (~9x); env SEBI_RAG_GENERATOR=mlx|ollama, SEBI_RAG_MLX_MODEL; SEBI_RAG_TIMEOUT_S default 30s |
 | — | Faithfulness | `generate.py` faithfulness(text, allowed_ids): flags bracketed citations absent from context; returns (score, unsupported_citations); pipeline appends caution |
-| — | Supersession-aware retrieval | demote_superseded penalises superseded chunks (superseded_penalty=0.3); verified at 705 records |
+| — | Supersession-aware retrieval | demote_superseded penalises superseded chunks (superseded_penalty=0.3); verified at 724 records |
 | — | Golden set sharpening | v3 (20 queries), v4 (30 grounded, multi-label), v5 (56 held-out: 31 v4 + 15 paraphrase + 10 hard negatives), v6 (56), v7 (260) |
 | — | Chunk enrichment (F1) | `segment.py` prepends circular_no + subject(≤120) + section at flush; cit-prec 0.60→0.74 (+23%), recall@10 0.98→1.00, cit-rec 0.87→0.89 |
 | — | Reranker benchmark (F2) | `rerank.py` Qwen3MLXReranker + `bench_rerankers.py`; bge-reranker-v2-m3 AUROC 0.812 vs Qwen3-Reranker-0.6B AUROC 0.799 (saturation, worse precision, 2x latency) — baseline retained |
 | — | Groundedness gate (ADR-001 item 7) | SubjectSimJudge (`generate.py` line 176, deterministic, bge-m3, ~30ms); two-tier gate: subject_sim ≥ 0.42 OR section_sim ≥ 0.60; env SEBI_RAG_GATE, SEBI_RAG_SUBJ_THRESHOLD, SEBI_RAG_SECT_THRESHOLD; abstention 0.875, ZERO false abstentions |
-| — | Incremental indexing (F3) | `retrieve.py` build_incremental (line 105); reuses cached rows, encodes only new/changed; `build_index.py` incremental by default, --full forces re-encode; seed: 507s → 5s incremental (docs_reused=705, chunks_encoded=0) |
+| — | Incremental indexing (F3) | `retrieve.py` build_incremental (line 105); reuses cached rows, encodes only new/changed; `build_index.py` incremental by default, --full forces re-encode; seed: 507s → 5s incremental (docs_reused=724, chunks_encoded=0) |
 | — | Prompt-injection hardening (F4) | delimited data-not-instructions prompt; `ingest_pdf.py` injection_scan (8 pattern classes incl. delimiter spoofing) → injection_flags; timing-safe API-key compare |
 | — | ADR-002 certainty | top_k Field(ge=1,le=10) → 422; confidence{rerank_top,margin,subject_sim}; banded certainty (high|medium|low); abstention_reason; opt-in advisory: true → draft_answer |
 | — | n8n automation drift | `eval_json.py` → golden_v5 + production-mirrored abstention; canary thresholds re-based |
@@ -207,7 +207,7 @@ citation_precision:   observed=0.224, floor=0.1896  (margin +0.034)
 
 ## Known Blockers
 
-✅ **No active blockers.** All validation steps pass, all phases complete, 790 tests pass (793 collected, 2 skipped, 3 deselected).
+✅ **No active blockers.** All validation steps pass, all phases complete, 791 tests pass (795 collected, 2 skipped, 3 deselected).
 
 ### Historical (resolved)
 | Bug | Step | Issue | Fix |
@@ -218,7 +218,7 @@ citation_precision:   observed=0.224, floor=0.1896  (margin +0.034)
 
 ## Corpus Integrity (2026-07-25 repair)
 
-### Defects found: 18 of 705 records
+### Defects found: 18 of 705 records (corpus at time of repair; now 724)
 | Type | Count | Issue | Fix |
 |---|---|---|---|
 | Text-corrupted | 5 | Body text overwritten with shared circular's text (batch write from stale variables); PDFs on disk as orphans | `scripts/repair_corpus_text.py` |
