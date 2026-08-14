@@ -102,7 +102,10 @@ def _build_citations_markdown(rows: list[dict], chunks_map: dict[str, str]) -> s
             import logging; _log = logging.getLogger("app")
             _log.debug(f"LOOKUP FAIL: chunk_id={chunk_id!r}, chunks_map keys={list(chunks_map.keys())[:10]}")
         if len(text) > 600:
-
+            text = text[:600] + "… (truncated)"
+        # Escape pipe chars and backslashes for markdown table safety
+        text = text.replace("|", "\\|").replace("\\", "\\\\")
+        preview_cell = f"<details><summary>📄 Read text</summary>{text}</details>"
         lines.append(
             f"| {i} | {circular} {icon} | {status} | {superseded_by} | {preview_cell} |"
         )
@@ -220,17 +223,15 @@ def run_query_stream(
         # Build citations with document preview
         from sebi_rag.api import _citation_meta
 
-        # Map chunk IDs to their text for inline previews
+        # Map chunk IDs to their text for inline previews (all chunks, not just first 5)
         chunks_map: dict[str, str] = {}
         retriever = getattr(pipeline, "retriever", None)  # type: ignore[attr-defined]
         if retriever is not None and hasattr(retriever, "chunks"):
-            all_chunks = list(retriever.chunks)  # type: ignore[attr-defined]
-            for c in all_chunks[:5]:
-                chunks_map[c.id] = c.text[:800] + ("…" if len(c.text) > 800 else "")
+            for c in retriever.chunks:  # type: ignore[attr-defined]
+                if c.id not in chunks_map:
+                    chunks_map[c.id] = c.text[:800] + ("…" if len(c.text) > 800 else "")
             import logging; _log = logging.getLogger("app")
-            _log.debug(f"chunks_map: {len(chunks_map)} keys from {len(all_chunks)} retriever chunks. Keys={list(chunks_map.keys())}")
-            _log.debug(f"ans.citations = {ans.citations[:5]}")
-
+            _log.debug(f"chunks_map: {len(chunks_map)} keys. ans.citations={ans.citations[:3]}")
         # Build citation rows with chunk IDs for preview lookup
         seen_circulars: set[str] = set()
         citation_rows = []
