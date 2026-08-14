@@ -39,7 +39,7 @@ index_repo         = "opnsrcntrbtrian/sebi-circulars-index"  # HF dataset repo w
 default_config     = "chunks"                          # "chunks" | "corpus"
 default_subset     = "full"                            # "full" | "recent"
 recent_years       = [2025, 2026]
-external_space     = "huggingface-projects/llama-2-7b-chat"  # official HF org Space, Llama-2-7B-Chat (live-verified 2026-07-10, ~7s latency)
+external_space     = "Qwen/Qwen2.5-7B-Instruct"  # HF model Space for generation (faster, more reliable than shared public Spaces)
 external_api_name  = "/generate"
 external_timeout_s = 30.0                              # live-tested 2026-07-10: queue time on this
                                                        # shared public Space ranged 7-23s; 20s caused
