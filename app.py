@@ -77,7 +77,7 @@ def _certainty_badge(certainty: str) -> str:
 
 
 def _build_citations_markdown(rows: list[dict], chunks_map: dict[str, str]) -> str:
-    """Build an expandable markdown table for citations with superseded highlighting."""
+    """Build a citations table with inline expandable previews."""
     if not rows:
         return "*No citations retrieved.*"
 
@@ -95,30 +95,18 @@ def _build_citations_markdown(rows: list[dict], chunks_map: dict[str, str]) -> s
         is_superseded = "superseded" in status.lower() or "repealed" in status.lower()
         icon = "⚠️" if is_superseded else ""
 
-        # Build preview link
-        chunk_id = row.get("id", "")
-        if is_superseded:
-            preview_text = f"[📄 Read superseded text]($preview_{i})"
-        else:
-            preview_text = f"[📄 Read text]($preview_{i})"
-
-        lines.append(
-            f"| {i} | {circular} {icon} | {status} | {superseded_by} | {preview_text} |"
-        )
-
-    # Build expandable preview sections
-    for i, row in enumerate(rows, 1):
+        # Inline expandable preview (no $preview_N links — they navigate away in HF Spaces)
         chunk_id = row.get("id", "")
         text = chunks_map.get(chunk_id, "*Preview unavailable.*")
-        # Truncate long previews to ~800 chars
-        if len(text) > 800:
-            text = text[:800] + "… (truncated)"
+        if len(text) > 600:
+            text = text[:600] + "… (truncated)"
+        # Escape pipe chars and backslashes for markdown table safety
+        text = text.replace("|", "\\|").replace("\\", "\\\\")
+        preview_cell = f"<details><summary>📄 Read text</summary>{text}</details>"
 
-        circular = row.get("Circular", "")
-        lines.append(f"\n<details>")
-        lines.append(f"<summary><b>{circular}</b></summary>")
-        lines.append(f"\n{text}\n")
-        lines.append(f"</details>\n")
+        lines.append(
+            f"| {i} | {circular} {icon} | {status} | {superseded_by} | {preview_cell} |"
+        )
 
     return "\n".join(lines)
 
