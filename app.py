@@ -221,23 +221,26 @@ def run_query_stream(
         # Build citations with document preview
         from sebi_rag.api import _citation_meta
 
-        citation_rows = [
-            {
-                "Circular": m.circular,
-                "Status": m.status,
-                "Superseded By": ", ".join(m.superseded_by) or "-",
-            }
-            for m in _citation_meta(ans.citations, pipeline.lineage)  # type: ignore[attr-defined]
-        ]
-
-        # Build chunks map for previews (doc_id -> text of top chunk per doc)
+        # Map chunk IDs to their text for inline previews
         chunks_map: dict[str, str] = {}
         retriever = getattr(pipeline, "retriever", None)  # type: ignore[attr-defined]
         if retriever is not None and hasattr(retriever, "chunks"):
             for c in retriever.chunks:  # type: ignore[attr-defined]
-                if c.doc_id not in chunks_map and len(chunks_map) < 5:
-                    # Use first chunk per doc_id for preview
-                    chunks_map[c.doc_id] = c.text[:800] + ("…" if len(c.text) > 800 else "")
+                if c.id not in chunks_map and len(chunks_map) < 5:
+                    chunks_map[c.id] = c.text[:800] + ("…" if len(c.text) > 800 else "")
+
+        # Build citation rows with chunk IDs for preview lookup
+        seen_circulars: set[str] = set()
+        citation_rows = []
+        for cit_id, m in zip(ans.citations, _citation_meta(ans.citations, pipeline.lineage)):  # type: ignore[attr-defined]
+            if m.circular not in seen_circulars:
+                seen_circulars.add(m.circular)
+                citation_rows.append({
+                    "id": cit_id,
+                    "Circular": m.circular,
+                    "Status": m.status,
+                    "Superseded By": ", ".join(m.superseded_by) or "-",
+                })
 
         citations_md = _build_citations_markdown(citation_rows, chunks_map) if citation_rows else _empty_citations_md()
 
