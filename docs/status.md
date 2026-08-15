@@ -1,7 +1,7 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-08-14.
+> Last updated: 2026-08-15.
 
 ## Current Snapshot
 
@@ -857,4 +857,6 @@ Lowering subject threshold to 0.40 is net zero (rescues 2, releases 2). Relaxing
 2026-08-13 — **Cite-wrong-docs is structural, not a bug.** Supersession demotion correctly surfaces current regulations at the cost of older relevant docs in top_k. 6 of 9 cite-wrong rows are demotion-caused (relevant doc at rank 0/1 pushed out by penalty=0.3). Lowering the penalty trades citation correctness for surfacing repealed law — worse outcome. The measurement mismatch (recall measures pre-rerank, citations from post-rerank) is documented in `score_row` comments.
 2026-08-14 — **Workstream 2 (Corpus Expansion) completed.** Scraped 4 new circulars (latest: 2026-08-12), corpus now 728 records / 78,585 chunks (was 724/78,523). Reindexed with lineage annotation. Tests pass (791), validate-corpus clean (0 violations). Workstream 1 (Margin Sweep) already completed — B' ON, margin=0.35 adopted. Workstream 3 (Test Coverage) tests exist: test_selective_citations.py, test_attribution.py, test_gate.py, test_non_sebi_filter.py. Final validation: make test 791 passed, make validate-corpus 0 violations, eval-asof 12/13 passed.
 2026-08-14 — **Streaming generator rewrite.** `run_query_spaces` → `run_query_stream` (generator yielding tuples). Added `_parse_as_of` ValueError handling with user-friendly error. Updated all test callers (test_ui.py, test_app_asof.py, test_app_zerogpu.py) for generator API. Fixed Gradio 6.0 theme deprecation (Blocks → launch). All 771 tests pass, zero warnings.
+
+2026-08-15 — **Spaces UI citation preview fixed (`app.py`, CPU-only demo).** Inline citation previews instead of `$preview_N` links; `chunks_map` keyed on chunk ID and built from ALL retriever chunks (was top-k only); plain truncated preview text replaces broken accordion. Gradio 5+ chat message format + missing `latency_ms` fixed. `config.toml external_space` → Qwen/Qwen2.5-7B-Instruct. UI layer only — no pipeline/metric/test changes (791 pass, 795 collected).
 
