@@ -51,11 +51,14 @@ class RAGPipeline:
         reranked = self.reranker.rerank(question, [c for c, _ in candidates])
         if as_of is not None and self.lineage is not None:
             # As-of queries score against the law as it stood on `as_of`:
-            # a circular is demoted only if a superseding circular had
-            # already been issued by `as_of` (per-edge timing). The global
-            # demotion below encodes *today's* status, and governing_on is
-            # unreliable here — master reference-lists join circulars into
-            # one giant family whose latest member out-governs everything.
+            # a circular is excluded if (a) it did not yet exist on `as_of`,
+            # or (b) a superseding circular had already been issued by `as_of`
+            # (per-edge timing). Exclusion — not demotion — because a 0.3x
+            # penalty leaves superseded chunks above non-superseded alternatives
+            # when the former score ~1.0 pre-demotion (asof-p2 regression).
+            # `kept or reranked` below falls back to the undemoted list if every
+            # chunk is excluded, so no answer is lost. The global demotion in the
+            # non-as_of branch (line 76) still uses superseded_penalty.
             dates = {c.doc_id: (c.meta.get("issue_date") or "")
                      for c, _ in reranked}
             kept = []
@@ -67,9 +70,9 @@ class RAGPipeline:
                     (dates.get(nb) or "") and dates[nb] <= as_of
                     for nb in self.lineage.superseded_by.get(c.doc_id, [])
                 )
-                kept.append(
-                    (c, s * self.superseded_penalty if superseded_on_asof else s)
-                )
+                if superseded_on_asof:
+                    continue  # not the governing law on as_of; exclude from context
+                kept.append((c, s))
             kept.sort(key=lambda cs: -cs[1])
             reranked = kept or reranked
         elif self.lineage is not None:

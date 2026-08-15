@@ -1,7 +1,7 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-08-15.
+> Last updated: 2026-08-16.
 
 ## Current Snapshot
 
@@ -10,17 +10,17 @@
 | **Corpus** | 728 SEBI circular records, 78,585 chunks (corpus JSONL 39 MB; index chunks.jsonl ~320 MB) |
 | **Index** | ~985 MB at `data/index/` — dense.faiss (307 MB), bm25/ (33 MB), chunks.jsonl (312 MB), embeddings.npy (307 MB), lineage.json (2.1 MB), manifest.json, meta.json; splade.npz absent (eval-only, not rebuilt by `make reindex`) |
 | **Reporting set** | `eval/golden/golden_v7.jsonl` (n=260); **adjudicated_n = 260** |
-| **Gate** | `gate_v7.json` derived 2026-08-13T15:47Z (MLX generator, B' ON). Floors: recall_at_k 0.906, context_recall 0.874, ndcg_at_10 0.6512, citation_recall **0.8169**, abstention_accuracy 0.9412, citation_precision **0.1577**. Full end-to-end eval with generation metrics not yet saved to runs/ (asof-baseline: 12/13 passed, 0.923 accuracy). B' ON (`citation_scorer_enabled=true`), margin=0.35 (MLX-parallel sweep knee: P +5.4% vs mechanical, recall 0.8721 on adjudicated answerable n=219). Prior stub-derived floors (citation_recall 0.7233, citation_precision 0.1896) described a generator production does not use; MLX precision 0.186 sat *below* that old floor. Gate requires B' ON (`citation_scorer_enabled=true`) |
+| **Gate** | `gate_v7.json` derived 2026-08-13T15:47Z (MLX generator, B' ON). Floors: recall_at_k 0.906, context_recall 0.874, ndcg_at_10 0.6512, citation_recall **0.8169**, abstention_accuracy 0.9412, citation_precision **0.1577**. Full end-to-end eval saved to `eval/runs/full-eval-2026-08-15.json` (asof-baseline: 13/13 passed, 1.0 accuracy). B' ON (`citation_scorer_enabled=true`), margin=0.35 (MLX-parallel sweep knee: P +5.4% vs mechanical, recall 0.8721 on adjudicated answerable n=219). Prior stub-derived floors (citation_recall 0.7233, citation_precision 0.1896) described a generator production does not use; MLX precision 0.186 sat *below* that old floor. Gate requires B' ON (`citation_scorer_enabled=true`) |
 | **Frozen sets** | `golden_v5` (n=56), `golden_v6` (n=56) |
 | **Epochs** | E1 `4083518f` (4 runs), E2 `913e762c` (20), E3 `8971de0f` (1), E4 `5f626dd9` (10, **current**). Registry `eval/epochs/epochs.jsonl`; 4 unframed runs excluded (ft-traces, iv11-splade-only-*, pool-sweep). `rescore_runs.py` raises `IncomparableFramesError` on cross-frame pairs |
 | **Frame E4/golden_v7** | baseline `eval/runs/E4-baseline-golden` — **recall_at_10 0.9560**, n_scored 216, n_unjudged 3, latency 0.063 s. qrels `eval/qrels/golden_v7.qrels` (239 lines, 41 abstain excluded), `golden_sha256 d87e5f3a…`. Intervention re-runs on E4: **iv2 DONE (exact no-op)**, **iv8 DONE (rejected)**; **iv11 REJECTED on preregistered confirmation** (probes n=25: nDCG@10 Δ −0.0068, p=0.865); **iv9/iv10 DONE (both null)** — all five iv arms resolved, none adoptable; see §iv-series FINAL VERDICT |
-| **TREC artifacts** | 26 archived runs back-converted to valid 6-field TREC (`run.chunk.trec`, `run.doc.trec`, `docids.tsv`); original `run.trec` retained. Circular ids percent-encode whitespace (3 of 724 are `SEBI/IMD/MC No.N/…`). `make trec-parity` proves `recall@10`/`RR`/`nDCG@10` match `ir_measures` to 1e-9 |
+| **TREC artifacts** | 26 archived runs back-converted to valid 6-field TREC (`run.chunk.trec`, `run.doc.trec`, `docids.tsv`); original `run.trec` retained. Circular ids percent-encode whitespace (3 of 728 are `SEBI/IMD/MC No.N/…`). `make trec-parity` proves `recall@10`/`RR`/`nDCG@10` match `ir_measures` to 1e-9 |
 | **Unjudged rows** | `v7-ls-038/039/040` — answerable, no `relevant_circulars`. Excluded from retrieval metrics as unjudged (TREC convention), not scored 0; `validate_golden` reports them `severity=warning`. Pre-existing, from the abstain-validation flip |
 | **Label tiers** | human 38, arbitrated 13, model_single 114, inherited_v5 30, draft_seeded 65, unknown 0. `label_tier` added; free-text `label_source` preserved. Tiered reporting, **no designated primary set** (`agreement.py --by-tier`) |
 | **v7 strata** | title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10 |
 | **Abstain/as_of rows** | 41 abstain, 15 dated `as_of` |
 | **Draft rows** | 0 draft, 0 seeded |
-| **Test suite** | 771 passed (775 collected, 4 skipped) — `run_query` → streaming generator (`run_query_stream`) |
+| **Test suite** | 791 passed, 2 skipped, 3 deselected — `run_query` → streaming generator (`run_query_stream`) |
 | **Source tree** | 35 Python modules in `src/sebi_rag/` (api, api_spaces, pipeline, retrieve, rerank, embeddings, segment, lineage, generate, generate_spaces, corpus, corpus_spaces, eval, eval_harness, benchmark, splade, splade_encoder, hyde, context_headers, reg_citations, reg_lineage, regulations, master_meta, settings, stats, ui, expand, verify_master, eval_asof, device, ingest_pdf, metadata, attribution, measure); 37 scripts in `scripts/` (incl. bench_metrics.py, measure.py, hybrid_gate_sweep.py) |
 | **Golden-v7 pipeline** | 14 scripts in `scripts/golden_v7/` (adjudicate_draft, agreement, backfill_escalations, build_pool, derive_thresholds, gate_select, gemini_adjudicate, local_adjudicate, make_packet, mine_strata, relabel_repooled, remap_doc_ids, score, seed_v7) |
 | **V7 annotations** | `eval/golden/v7_annotations/` — votes.jsonl (207 claude records), pools.jsonl (4.2 MB), arbitration_queue.jsonl (65 KB), external_sample.json, gemini/ (21 dirs), qwen/ (150 files), candidates/, packet_human/ |
@@ -48,22 +48,25 @@
   - Re-labeled `v7-ls-038`, `v7-ls-039`, `v7-ls-040` as `abstain: False` (as_of rows — pipeline fallback returns answerable content)
 - **Impact:** abstention_accuracy improved from 0.8488 → 0.9731 (+12.43pp); abstain rows: 41/41 = 1.0000
 
-### Production metrics (real stack, 724 circulars)
+### Production metrics (real stack, 728 circulars)
 ```yaml
-metrics:
-  recall_at_10: 0.956 (retrieval-only, E4-baseline-golden; full eval with generation metrics pending save)
-  ndcg_at_10: 0.697 (pending full eval save)
-  citation_precision: pending full eval save; B' margin=0.35 active
-  citation_recall: pending full eval save; B' margin=0.35 active
-  abstention_accuracy: pending full eval save
+metrics: # full eval saved 2026-08-15 (eval_json.py, MLX generator, golden_v7 n=260)
+  recall_at_10: 0.943 (full eval; retrieval-only E4-baseline-golden was 0.956)
+  context_recall: 0.916
+  ndcg_at_10: 0.697
+  citation_precision: 0.194; B' margin=0.35 active
+  citation_recall: 0.881; B' margin=0.35 active
+  abstention_accuracy: 0.981 (was 0.9731 pre-corpus-expansion)
+  injection_flagged: 10 (all benign — "system prompt to change default password" IT checklist in master circulars; triaged 2026-08-15)
   faithfulness: not yet measured in full eval
+gate: adjudicated_n=260/260, floors_ok=true (eval/runs/full-eval-2026-08-15.json)
 latency:
   generation_warm: ~2.1s (MLXGenerator Qwen2.5-1.5B-Instruct-4bit)
   index_reload: 0.34s
   incremental_reindex_delta: ~82s
   full_reindex: ~50min measured 2026-08-12 (78,523 chunks, BGE-M3 on MPS, build_index --full).
     The previous "~8min" figure was wrong and under-costed the iv9/iv10 arm builds by ~6x.
-  eval_json_full: ~25min (260 rows, MLX generator)
+  eval_json_full: ~38min measured 2026-08-15 (260 rows, MLX generator; prior "~25min" estimate low)
 fallback:
   generator: Ollama (env SEBI_RAG_GENERATOR=mlx|ollama)
   mlx_model: (env SEBI_RAG_MLX_MODEL)
@@ -859,4 +862,6 @@ Lowering subject threshold to 0.40 is net zero (rescues 2, releases 2). Relaxing
 2026-08-14 — **Streaming generator rewrite.** `run_query_spaces` → `run_query_stream` (generator yielding tuples). Added `_parse_as_of` ValueError handling with user-friendly error. Updated all test callers (test_ui.py, test_app_asof.py, test_app_zerogpu.py) for generator API. Fixed Gradio 6.0 theme deprecation (Blocks → launch). All 771 tests pass, zero warnings.
 
 2026-08-15 — **Spaces UI citation preview fixed (`app.py`, CPU-only demo).** Inline citation previews instead of `$preview_N` links; `chunks_map` keyed on chunk ID and built from ALL retriever chunks (was top-k only); plain truncated preview text replaces broken accordion. Gradio 5+ chat message format + missing `latency_ms` fixed. `config.toml external_space` → Qwen/Qwen2.5-7B-Instruct. UI layer only — no pipeline/metric/test changes (791 pass, 795 collected).
+2026-08-15 — **Full eval saved on expanded corpus (728 circulars, 78,585 chunks).** `eval/runs/full-eval-2026-08-15.json`: recall_at_10 0.943, context_recall 0.916, ndcg_at_10 0.697, citation_precision 0.194, citation_recall 0.881, abstention_accuracy 0.981 (was 0.9731), injection_flagged **10** (all benign — "system prompt to change default password" IT checklist in master circulars; triaged 2026-08-15). Gate: adjudicated_n=260/260, floors_ok=true. eval_json_full runtime ~38min (prior "~25min" estimate low).
+2026-08-15 — **asof-p2 regression fixed (eval-asof 12/13 → 13/13).** Root cause: the as_of path in `pipeline.py` demoted superseded circulars by `superseded_penalty=0.3`, but the 2025 AFD circulars (136, 128) scored ~1.0 pre-demotion → ~0.3 post, still above non-superseded alternatives (~0.28). They survived into the top-5 distinct docs in `answer_with_abstention` and were cited. Fix: **exclude** superseded_on_asof circulars from the context window in as_of mode (skip, not penalty); `kept or reranked` fallback preserves the undemoted list if all chunks are excluded. Non-as_of path (line 79, `demote_superseded`) unchanged — still uses 0.3 penalty. All 791 tests pass; eval-asof 13/13.
 

@@ -1,7 +1,7 @@
 # Project Context — SEBI Circular RAG
 
 > Authoritative architecture record. Consult before requesting any information.
-> Governed by `SEBI_RAG_Claude_Desktop_Engineering_Handbook.md`. Last updated: 2026-08-14 (D16 B' selective citations updated with MLX-parallel sweep results).
+> Governed by `SEBI_RAG_Claude_Desktop_Engineering_Handbook.md`. Last updated: 2026-08-16 (corpus growth to 728 circulars / 78,585 chunks; gate floors re-derived).
 
 ## 1. Purpose
 
@@ -132,7 +132,7 @@ Optimise only validated stages; recommend changes expected to yield ≥10% measu
 
 ### 7.3 Calibrated Retrieval Parameters
 
-Real stack calibration over 724 circulars / 78,523 chunks (golden_v7):
+Real stack calibration over 728 circulars / 78,585 chunks (golden_v7):
 
 ```yaml
 params:
@@ -152,7 +152,7 @@ abstain_rows: 41 | as_of_dated_rows: 15
 frozen_fallback: golden_v5.jsonl (n=56) — used when v7 gate not armed
 golden_v6: golden_v6.jsonl (n=56) — intermediate set
 gate: eval/golden/gate_v7.json (armed at adjudicated_n=260)
-|   floors (armed under B' selective citations, margin 0.35, 2026-08-04): recall_at_k=0.906, citation_recall=0.7233, abstention_accuracy=0.9335, citation_precision=0.1896
+|   floors (armed under B' selective citations, margin 0.35, derived 2026-08-13 MLX generator): recall_at_k=0.906, context_recall=0.874, ndcg_at_10=0.6512, citation_recall=0.8169, abstention_accuracy=0.9412, citation_precision=0.1577
   ci_gates: v7 only when adjudicated_n >= 100
 adjudication_pipeline: scripts/golden_v7/ (seed, mine_strata, build_pool, gate_select, local_adjudicate [Qwen3.6-35B-MLX], gemini_adjudicate [on hold], agreement, relabel_repooled, backfill_escalations, derive_thresholds, score)
 ```
@@ -178,9 +178,11 @@ adjudication_pipeline: scripts/golden_v7/ (seed, mine_strata, build_pool, gate_s
 
 ```yaml
 recall_at_k: 0.943 observed (floor 0.906)
-citation_recall: 0.783 observed (floor 0.7233; was 0.8397 pre-B', margin 0.35)
-abstention_accuracy: 0.962 observed (floor 0.9335)
-citation_precision: 0.224 observed (floor 0.1896; new under B')
+context_recall: 0.916 observed (floor 0.874)
+ndcg_at_10: 0.697 observed (floor 0.6512)
+citation_recall: 0.881 observed (floor 0.8169)
+abstention_accuracy: 0.981 observed (floor 0.9412)
+citation_precision: 0.194 observed (floor 0.1577)
 ```
 
 ### 7.7 Index Performance
@@ -189,7 +191,7 @@ citation_precision: 0.224 observed (floor 0.1896; new under B')
 full_seed_build: ~507s (22,273 chunks at 209 circulars)
 incremental_reindex: ~5s (no-op, all docs reused)
 index_reload: 0.34s
-disk_embeddings_npy: 307 MB (78,523 chunks); scales to ~2 GB at 500k chunks
+disk_embeddings_npy: 307 MB (78,585 chunks); scales to ~2 GB at 500k chunks
 ```
 
 
@@ -254,7 +256,7 @@ design_decisions:
 ```
 SEBI circular RAG/
 ├── docs/ — project_context.md (this file), status.md, scraping_plan.md, n8n_automation_plan.md, adr-001/002/003-*.md, graphify-analysis/, assets/, superpowers/{plans/, reports/, specs/}
-├── data/ — raw/ (PDFs + .sha256, 724 records), corpus/ (circulars.jsonl, context_headers_targeted.jsonl, regulations.jsonl), manifests/ (master_circulars.jsonl, master_exceptions.jsonl, regulation_edges.jsonl), index/ (dense.faiss, bm25/, chunks.jsonl, lineage.json, embeddings.npy, manifest.json, meta.json; splade.npz absent)
+├── data/ — raw/ (PDFs + .sha256, 728 records), corpus/ (circulars.jsonl, context_headers_targeted.jsonl, regulations.jsonl), manifests/ (master_circulars.jsonl, master_exceptions.jsonl, regulation_edges.jsonl), index/ (dense.faiss, bm25/, chunks.jsonl, lineage.json, embeddings.npy, manifest.json, meta.json; splade.npz absent)
 ├── src/sebi_rag/ — flat module (no subpackages): __init__.py, api.py, api_spaces.py, pipeline.py, retrieve.py, splade.py, splade_encoder.py, context_headers.py, hyde.py, rerank.py, embeddings.py, segment.py, lineage.py, master_meta.py, metadata.py, generate.py, generate_spaces.py, corpus.py, corpus_spaces.py, eval.py, eval_asof.py, eval_harness.py, benchmark.py, settings.py, device.py, stats.py, expand.py, reg_citations.py, reg_lineage.py, regulations.py, verify_master.py, ui.py, ingest_pdf.py, attribution.py, measure.py
 ├── scripts/ — build_index.py, calibrate.py, scrape_sebi.py, scrape_regulations.py, build_golden.py, build_golden_v6.py, build_reg_edges.py, build_splade_index.py, eval_json.py, eval_gate.py, eval_asof.py, bench_generators.py, bench_metrics.py, bench_rerankers.py, bench_retrieval.py, export_benchmark.py, export_datasets.py, golden_v7/ (agreement.py, build_pool.py, derive_thresholds.py, gate_select.py, local_adjudicate.py, gemini_adjudicate.py, …), validate_corpus.py, repair_corpus_text.py, renumber.py, audit_reg_edges.py, rescore_runs.py, ops_server.py, deploy_space.py, acquire_missing_pdfs.py, analysis/ (extract_misses.py, renumber_audit.py, sweep_pool.py, trace_failure.py), canary.sh, discover.sh, discover_new.py, generate_context_headers.py, notify.sh, push_datasets.py, refresh.sh, splade_pilot.py, upload_spaces_index.py, select_targeted_headers.py, hybrid_gate_sweep.py, hybrid_gate_fp_check.py, telemetry_engine.py, sweep_rrf_k.py, verify_master.py
 ├── tests/ — conftest.py (fixtures, env guards, mock models), fixtures/, test_*.py

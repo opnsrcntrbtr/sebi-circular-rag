@@ -100,12 +100,13 @@ def _build_citations_markdown(rows: list[dict], chunks_map: dict[str, str]) -> s
         icon = "⚠️" if is_superseded else ""
 
         # Inline truncated preview (no <details> — Gradio tables don't nest HTML)
+        # Strip newlines — they break markdown table rendering
         chunk_id = row.get("id", "")
         text = chunks_map.get(chunk_id, "*Preview unavailable.*")
         if len(text) > 200:
             text = text[:200] + "… (truncated)"
-        # Escape pipe chars and backslashes for markdown table safety
-        text = text.replace("|", "\\|").replace("\\", "\\\\")
+        # Escape backslashes first, then pipes — order matters to avoid double-escaping
+        text = text.replace("\\", "\\\\").replace("|", "\\|").replace("\n", " ").replace("\r", "")
 
         lines.append(
             f"| {i} | {circular} {icon} | {status} | {superseded_by} | {text} |"

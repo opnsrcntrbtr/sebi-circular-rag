@@ -1,0 +1,34 @@
+{
+  "pipeline": {
+    "n": 10,
+    "passed": 9,
+    "accuracy": 0.9,
+    "ci_lo": 0.5549838829718046,
+    "ci_hi": 0.9974714214555382,
+    "ci_method": "clopper-pearson",
+    "failures": [
+      "asof-p2"
+    ]
+  },
+  "selector": {
+    "n": 3,
+    "passed": 3,
+    "accuracy": 1.0,
+    "ci_lo": 0.29240177382128674,
+    "ci_hi": 1.0,
+    "ci_method": "clopper-pearson",
+    "failures": [],
+    "role": "regression",
+    "note": "governing_on unit check on pre-verified families"
+  },
+  "overall": {
+    "n": 13,
+    "passed": 12,
+    "accuracy": 0.9230769230769231,
+    "failures": [
+      "asof-p2"
+    ],
+    "note": "pooled across incommensurable modes; no CI claimed"
+  },
+  "out": "/Users/ianpinto/sebi_circular_sota_rag/SEBI circular RAG/eval/runs/asof-baseline"
+}
