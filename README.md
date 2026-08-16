@@ -169,6 +169,8 @@ Pipeline: scrape → ingest_pdf → lineage.annotate → build_index → retriev
 | `master_meta.py` | Master circular metadata management (`annotate_master_fields`) |
 | `corpus.py` | Corpus I/O and validation helpers |
 | `metadata.py` | Metadata schema definitions |
+| `api_spaces.py` / `corpus_spaces.py` / `generate_spaces.py` | CPU-only Hugging Face Spaces variants (no MLX/MPS) |
+| `ui.py` | Gradio dashboard UI components |
 
 ### ⚠️ Two parallel code paths
 
