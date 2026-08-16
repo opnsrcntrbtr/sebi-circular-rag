@@ -127,6 +127,28 @@ Return: PASS / FAIL, One most likely root cause, One best fix, Verification comm
 
 Optimize only validated stages. Recommend changes expected to produce measurable (>10%) benefit.
 
+## Tool Usage Conventions
+
+### LSP-First (symbol-aware over text search)
+- **Rename/refactor:** Always use `lsp references` before renaming any exported symbol. Text grep misses cross-file callsites, re-exports, and dynamic dispatch targets.
+- **Pre-edit check:** Run `lsp diagnostics` on the target file before editing to surface existing type errors or unused imports.
+- **Code actions:** Prefer `lsp code_actions` for import fixes, quick-fixes, and server-known refactors over hand edits.
+- **Definition/type:** Use `lsp definition` / `lsp type_definition` for navigation; never guess symbol locations.
+
+### Subagent Parallelism
+- **Multi-file changes:** Dispatch parallel `scout` agents for independent file discovery (e.g., find all callers of a symbol, locate test files).
+- **Independent tasks:** Use `task` with parallel subagents for truly independent work slices — no serialization unless data dependency exists.
+- **No overhead:** Each task must skip formatters, linters, and project-wide test suites. Validate once at the end.
+
+### Browser Verification
+- **Gradio UI changes:** Verify via `browser` tool before yielding app changes. Open the Gradio UI, exercise changed paths, confirm visual output.
+- **Never yield app changes** without browser verification of the actual surface — screenshots or aria snapshots as proof.
+
+### Hub Dev Server Lifecycle
+- **FastAPI/Gradio:** Use `hub start` for long-running services (dev server, watcher, debugger). Never use raw `bash` for persistent processes.
+- **Pattern:** `hub start name="api" application="make" args=["serve"] ready={log: "Uvicorn running", port: 8000, timeout: 30}`
+- **Teardown:** `hub stop api` before killing terminal; `hub restart api` for config changes.
+
 ## Environment
 
 - `SEBI_RAG_API_KEY` — API auth token (FastAPI key-in-body guard)

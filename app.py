@@ -30,10 +30,11 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "src"))
 
+from sebi_rag.pipeline import RAGPipeline  # noqa: E402
 from sebi_rag.settings import Settings  # noqa: E402
 
 _settings = Settings.load_spaces()
-_pipelines: dict[str, object] = {}
+_pipelines: dict[str, RAGPipeline] = {}
 _lock = threading.Lock()
 
 
@@ -52,7 +53,7 @@ def get_pipeline(mode: str):
         if mode == "retrieval_only" and mode not in _pipelines:
             from sebi_rag.generate import ExtractiveStubGenerator
 
-            _pipelines[mode] = dataclasses.replace(  # type: ignore[arg-type]
+            _pipelines[mode] = dataclasses.replace(
                 _pipelines["rag"], generator=ExtractiveStubGenerator()
             )
         return _pipelines[mode if mode == "retrieval_only" else "rag"]

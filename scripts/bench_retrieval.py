@@ -162,7 +162,7 @@ def main() -> None:
             def __setattr__(self, name, value):
                 setattr(object.__getattribute__(self, "inner"), name, value)
 
-        pipeline.retriever = _NoExpandRetriever(pipeline.retriever)
+        pipeline.retriever = _NoExpandRetriever(pipeline.retriever)  # pyright: ignore[reportAttributeAccessIssue]
 
     hyde_log: dict[str, str] = {}
     if args.hyde:
@@ -185,7 +185,7 @@ def main() -> None:
                 return self.inner.retrieve(query, top_n=top_n,
                                            hyde_text=h or None)
 
-        pipeline.retriever = _HydeRetriever(pipeline.retriever)
+        pipeline.retriever = _HydeRetriever(pipeline.retriever)  # pyright: ignore[reportAttributeAccessIssue]
 
     if args.splade:
         from sebi_rag.splade import SpladeIndex
@@ -203,7 +203,7 @@ def main() -> None:
             enc = SpladeEncoder.load()
             si = SpladeIndex.load(index_dir, enc,
                                   expected_n=len(pipeline.retriever.chunks))
-        pipeline.retriever.splade = si
+        pipeline.retriever.splade = si  # pyright: ignore[reportAttributeAccessIssue]
 
         class _SpladeRetriever:
             def __init__(self, inner):
@@ -231,7 +231,7 @@ def main() -> None:
                 cands = self.inner.retrieve(query, top_n=top_n, **kw)
                 return self.reranker.rerank(query, [c for c, _ in cands])
 
-        pipeline.retriever = _RerankedRetriever(pipeline.retriever, pipeline.reranker)
+        pipeline.retriever = _RerankedRetriever(pipeline.retriever, pipeline.reranker)  # pyright: ignore[reportAttributeAccessIssue]
 
     result = run_retrieval_benchmark(
         pipeline, golden, top_n=args.top_n, run_name="baseline-retrieval"
