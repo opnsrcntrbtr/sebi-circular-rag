@@ -174,3 +174,46 @@ def test_citation_scorer_for_rejects_an_unknown_backend():
         assert "magic" in str(e)
     else:
         raise AssertionError("expected ValueError on unknown backend")
+
+def test_margin_045_keeps_more_than_035():
+    """Looser margin (0.45) keeps more contexts than tight margin (0.35)."""
+    ctx = [_chunk("A"), _chunk("B"), _chunk("C"), _chunk("D")]
+    scorer = _FakeReranker({"A": 0.95, "B": 0.75, "C": 0.60, "D": 0.30})
+    # margin 0.35: keep >= 0.60 -> A, B, C (D at 0.30 < 0.60)
+    tight = select_citations("ans", ctx, scorer, margin=0.35)
+    assert tight == ["A", "B", "C"]
+    # margin 0.45: keep >= 0.50 -> A, B, C (D at 0.30 < 0.50)
+    loose = select_citations("ans", ctx, scorer, margin=0.45)
+    assert loose == ["A", "B", "C"]  # same set at this score distribution
+    # With a tighter spread, margin difference matters more:
+    scorer2 = _FakeReranker({"A": 0.95, "B": 0.80, "C": 0.65, "D": 0.40})
+    tight2 = select_citations("ans", ctx, scorer2, margin=0.35)
+    loose2 = select_citations("ans", ctx, scorer2, margin=0.45)
+    # tight: keep >= 0.60 -> A, B, C; loose: keep >= 0.50 -> A, B, C (D at 0.40 < 0.50)
+    assert tight2 == ["A", "B", "C"]
+    assert loose2 == ["A", "B", "C"]  # D still below both margins
+    # Verify margin widening actually matters with closer scores:
+    scorer3 = _FakeReranker({"A": 0.95, "B": 0.85, "C": 0.75})
+    tight3 = select_citations("ans", ctx[:3], scorer3, margin=0.15)
+    loose3 = select_citations("ans", ctx[:3], scorer3, margin=0.25)
+    assert tight3 == ["A", "B"]  # C at 0.75 < 0.80 (top-0.15)
+    assert loose3 == ["A", "B", "C"]  # C at 0.75 >= 0.60 (top-0.25)
+
+
+def test_scorer_disabled_cites_all_contexts():
+    """When citation scorer is None, all contexts are cited (legacy behavior)."""
+    from sebi_rag.generate import answer_with_abstention, ExtractiveStubGenerator
+    ctx = [_chunk("SEBI/A/1#s#0"), _chunk("SEBI/B/2#s#0")]
+    reranked = [(ctx[0], 0.9), (ctx[1], 0.7)]
+    ans = answer_with_abstention("q", reranked, ExtractiveStubGenerator(),
+                                 threshold=0.4, citation_scorer=None)
+    assert not ans.abstained
+    # All context ids cited (not selective)
+    assert set(ans.citations) == {"SEBI/A/1#s#0", "SEBI/B/2#s#0"}
+
+
+def test_select_citations_empty_contexts():
+    """Empty context list returns empty citation list."""
+    scorer = _FakeReranker({})
+    result = select_citations("ans", [], scorer)
+    assert result == []

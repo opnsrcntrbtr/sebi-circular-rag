@@ -119,3 +119,19 @@ def test_every_short_keyword_is_word_bounded():
         probe = f"discussion of x{kw}y provisions for listed entities"
         assert not _is_non_sebi_domain(probe), (
             f"{kw!r} matched inside a longer word")
+
+def test_sebi_and_rbi_query_not_flagged():
+    """Query mentioning both SEBI and RBI should NOT abstain — SEBI intent wins."""
+    assert not _is_non_sebi_domain(
+        "What is SEBI's framework for RBI-governed FPI investments?")
+
+
+def test_empty_string_query_not_flagged():
+    """Empty query should not trigger the non-SEBI filter."""
+    assert not _is_non_sebi_domain("")
+
+
+def test_fema_in_sebi_context_not_flagged():
+    """FEMA keyword in a SEBI context should NOT abstain — SEBI intent wins."""
+    assert not _is_non_sebi_domain(
+        "How does SEBI coordinate with FEMA on cross-border securities?")

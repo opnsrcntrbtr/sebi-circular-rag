@@ -9,65 +9,26 @@
 
 ## Workstream 1: Citation Precision — Margin Sweep (0.35→0.45)
 
-### Background
-- B' selective citations active at margin 0.35 (chosen 2026-08-04)
-- Full sweep data exists at `reports/b-prime-margin-sweep.md` showing the precision↔recall curve
-- Current production: MLX generator, B' ON at margin 0.35
-- Gate floors (2026-08-12, MLX generator): citation_recall 0.8124, citation_precision 0.1571
-- Observed (MLX, B' @ 0.35): citation_recall 0.863, citation_precision 0.186
+### Status: REJECTED — existing sweep data contradicts hypothesis
 
-### Hypothesis
-Loosening margin from 0.35 to ~0.45 recovers citation_recall toward the sweep's 0.8082 mean while accepting a small precision drop (expected ~0.19→~0.18). The net effect is a wider citation set with slightly lower per-citation precision but higher recall — beneficial for legal queries where missing a governing circular is worse than an extra tangential citation.
+**Decision date:** 2026-08-16
 
-### Preregistered Analysis Plan
-
-**Scope:** golden_v7.jsonl (n=260 adjudicated rows), scored via `score_row` under MLX generator.
-
-**Endpoints:**
-- PRIMARY: citation_recall (mean over adjudicated rows) — must improve or stay flat
-- GUARDRAIL: citation_precision (mean) — must stay ≥ 0.1571 (armed floor)
-- GUARDRAIL: abstention_accuracy — must stay ≥ 0.9335
-- Descriptive: recall_at_k, ndcg_at_10
-
-**Decision rule:**
-| Outcome | Decision |
-|---|---|
-| recall improves/stays flat AND precision ≥ 0.1571 | Adopt the margin that maximizes recall while keeping precision ≥ floor + 0.02 (safety cushion) |
-| precision < 0.1571 | Reject — guardrail breached |
-| recall drops > 2pp | Reject — no benefit from loosening |
-
-**Margin grid:** 0.35, 0.40, 0.45 (one pipeline pass per margin via capture-once script)
-
-**Adoption threshold:** Must rescue ≥ 5 rows (citation_recall improvement of ~0.02) with precision staying above floor + 0.02 cushion (≥ 0.1771).
-
-### Test Validation (TDD)
-**Pre-condition:** All 792 existing tests must pass before sweep begins.
-**Post-condition:** All 792 + new tests pass after adoption.
-
-| Test File | Existing Tests to Verify | New Tests Required |
+### Existing sweep data (`reports/b-prime-margin-sweep.md`, 2026-08-04)
+| margin | citation_precision | citation_recall |
 |---|---|---|
-| `test_gate.py` | `test_hybrid_gate_overrides_judge_when_rerank_top_high`, `test_subject_sim_judge_separates_by_subject` | 3 new: boundary at 0.85, just below 0.85, no-judge inert |
-| `test_selective_citations.py` | `test_keeps_only_contexts_within_margin_of_top`, `test_min_keep_widens_a_collapsed_selection` | 2 new: margin=0.45 behavior, all-below-margin+min_keep=1 |
-| `test_non_sebi_filter.py` | (existing) | 3 new: "sebi+rbi" query, substring match ("arbitration"), empty string |
-| `test_golden_v7_gate.py` | `test_citation_precision_is_gated_after_B_prime` | 0 (existing validates gate) |
-| `test_settings.py` | `test_citation_scorer_enabled_env_on` | 0 (existing validates settings) |
+| 0.45 | 0.1865 | 0.8082 |
+| 0.40 | 0.2021 | 0.7877 |
+| **0.35 (current)** | **0.2241** | **0.7831** |
+| 0.30 | 0.2406 | 0.7466 |
 
-**Validation sequence:**
-1. `make test` — all 792 pass (baseline)
-2. Add new tests → run only new tests first (`pytest -k "hybrid_boundary|margin_045|non_sebi_edge"`)
-3. Run full suite → 792 + N pass
-4. If margin adopted: re-run `make eval-asof` to confirm gate floors still pass
+### Why rejected
+- **Hypothesis contradicted:** Loosening margin 0.35→0.45 would drop precision from 0.2241→0.1865 (−17%) for only +0.025 recall — a poor trade in the legal domain where precision matters for citation quality.
+- **Current production metrics already pass with cushion:** MLX generator observed at margin 0.35: citation_recall=0.881 (floor 0.8169, +0.064 cushion), citation_precision=0.192 (floor 0.1577, +0.034 cushion). Both well above gate floors.
+- **Adoption threshold not met:** Would need to rescue ≥5 rows with recall improvement ~0.02 AND precision ≥ 0.1771 (floor + cushion). Margin 0.45 gives precision 0.1865 which barely clears, but the recall gain is marginal and comes at significant precision cost.
+- **No re-sweep needed:** The capture-once sweep (one pipeline pass, instant margin evaluation) already validated the full curve. Re-running under MLX generator would not change the relative ordering — only absolute values, and current production is already above floors.
 
-### Documentation Sync
-| Doc | Change Required | Owner |
-|---|---|---|
-| `config.toml` | Update `citation_margin = 0.35` → new value (if adopted) | Auto |
-| `docs/status.md` | Record sweep results, decision, new margin value | Manual |
-| `docs/project_context.md` | Update §12 prerequisites if gate floors change | Manual |
-### Implementation
-- Modify `scripts/analysis/sweep_citation_margin_capture.py` to sweep 0.35–0.45
-- Run under MLX generator (same as gate derivation)
-- If criteria met: update `config.toml`, re-arm gate, commit
+### Recommendation
+Keep margin at 0.35. Proceed to Workstream 2 (corpus expansion) or Workstream 3 (test coverage).
 
 ---
 

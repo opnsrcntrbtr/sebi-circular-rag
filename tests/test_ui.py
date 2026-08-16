@@ -100,3 +100,138 @@ def test_submit_query_surfaces_confidence_and_retrieved(monkeypatch):
 def test_build_ui_constructs():
     demo = ui.build_ui()
     assert demo is not None
+
+# --- _certainty_badge --------------------------------------------------------
+
+def test_certainty_badge_high():
+    assert ui._certainty_badge("high") == "🟢 High"
+
+
+def test_certainty_badge_medium():
+    assert ui._certainty_badge("medium") == "🟡 Medium"
+
+
+def test_certainty_badge_low():
+    assert ui._certainty_badge("low") == "🔴 Low"
+
+
+def test_certainty_badge_unknown_defaults_white():
+    assert ui._certainty_badge("unknown") == "⚪ Unknown"
+
+
+# --- _build_citations_markdown -----------------------------------------------
+
+def test_build_citations_markdown_empty():
+    assert ui._build_citations_markdown([]) == "*No citations retrieved.*"
+
+
+def test_build_citations_markdown_single_row():
+    rows = [{"Circular": "SEBI/HO/X/2026/1", "Status": "in_force"}]
+    out = ui._build_citations_markdown(rows)
+    assert "| 1 | SEBI/HO/X/2026/1 " in out
+    assert "| in_force |" in out
+    assert "<details>" in out
+    assert "SEBI/HO/X/2026/1" in out
+
+
+def test_build_citations_markdown_superseded_highlight():
+    rows = [{"Circular": "SEBI/HO/X/2025/1", "Status": "superseded"}]
+    out = ui._build_citations_markdown(rows)
+    assert "⚠️" in out, "superseded rows should have warning icon"
+
+
+def test_build_citations_markdown_repealed_highlight():
+    rows = [{"Circular": "SEBI/HO/X/2024/1", "Status": "repealed"}]
+    out = ui._build_citations_markdown(rows)
+    assert "⚠️" in out, "repealed rows should have warning icon"
+
+
+def test_build_citations_markdown_multiple_rows():
+    rows = [
+        {"Circular": "SEBI/HO/X/2026/1", "Status": "in_force"},
+        {"Circular": "SEBI/HO/X/2025/1", "Status": "superseded"},
+    ]
+    out = ui._build_citations_markdown(rows)
+    assert "| 1 | SEBI/HO/X/2026/1 " in out
+    assert "| 2 | SEBI/HO/X/2025/1 ⚠️ |" in out
+    # Two <details> blocks for two rows
+    assert out.count("<details>") == 2
+
+
+# --- _validate_api_url (SSRF guard) ------------------------------------------
+
+def test_validate_api_url_allows_127():
+    ui._validate_api_url("http://127.0.0.1:8000")
+    ui._validate_api_url("http://localhost:8000")
+
+
+def test_validate_api_url_rejects_private_10():
+    with pytest.raises(ValueError, match="SSRF blocked"):
+        ui._validate_api_url("http://10.0.0.1:8000")
+
+
+def test_validate_api_url_rejects_private_172():
+    with pytest.raises(ValueError, match="SSRF blocked"):
+        ui._validate_api_url("http://172.16.0.1:8000")
+    with pytest.raises(ValueError, match="SSRF blocked"):
+        ui._validate_api_url("http://172.31.255.255:8000")
+
+
+def test_validate_api_url_rejects_private_192():
+    with pytest.raises(ValueError, match="SSRF blocked"):
+        ui._validate_api_url("http://192.168.1.1:8000")
+
+
+def test_validate_api_url_rejects_cloud_metadata():
+    with pytest.raises(ValueError, match="SSRF blocked"):
+        ui._validate_api_url("http://169.254.169.254/latest/meta-data/")
+
+
+def test_validate_api_url_rejects_non_http_scheme():
+    with pytest.raises(ValueError, match="SSRF blocked"):
+        ui._validate_api_url("file:///etc/passwd")
+    with pytest.raises(ValueError, match="SSRF blocked"):
+        ui._validate_api_url("ftp://example.com")
+    with pytest.raises(ValueError, match="SSRF blocked"):
+        ui._validate_api_url("ssh://host")
+
+
+def test_validate_api_url_rejects_zero_address():
+    with pytest.raises(ValueError, match="SSRF blocked"):
+        ui._validate_api_url("http://0.0.0.0:8000")
+
+
+def test_validate_api_url_rejects_multicast():
+    with pytest.raises(ValueError, match="SSRF blocked"):
+        ui._validate_api_url("http://224.0.0.1:8000")
+    with pytest.raises(ValueError, match="SSRF blocked"):
+        ui._validate_api_url("http://240.0.0.1:8000")
+
+
+def test_validate_api_url_rejects_test_net_ranges():
+    with pytest.raises(ValueError, match="SSRF blocked"):
+        ui._validate_api_url("http://192.0.2.1:8000")
+    with pytest.raises(ValueError, match="SSRF blocked"):
+        ui._validate_api_url("http://198.51.100.1:8000")
+    with pytest.raises(ValueError, match="SSRF blocked"):
+        ui._validate_api_url("http://203.0.113.1:8000")
+    with pytest.raises(ValueError, match="SSRF blocked"):
+        ui._validate_api_url("http://198.18.0.1:8000")
+
+
+def test_validate_api_url_rejects_cgnat():
+    with pytest.raises(ValueError, match="SSRF blocked"):
+        ui._validate_api_url("http://100.64.0.1:8000")
+    with pytest.raises(ValueError, match="SSRF blocked"):
+        ui._validate_api_url("http://100.127.255.255:8000")
+
+
+def test_validate_api_url_allows_public():
+    # Unresolvable hostnames are allowed (DNS error deferred to httpx)
+    ui._validate_api_url("http://example.com:8000")
+
+
+# --- _empty_outputs_md -------------------------------------------------------
+
+def test_empty_outputs_md_returns_blank():
+    assert ui._empty_outputs_md() == ""

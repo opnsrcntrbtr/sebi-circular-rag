@@ -124,3 +124,69 @@ def test_no_judge_preserves_legacy_behaviour():
     ans = answer_with_abstention("q", reranked, ExtractiveStubGenerator(),
                                  threshold=0.4)
     assert not ans.abstained
+
+def test_hybrid_boundary_at_085_passes():
+    """rerank_top exactly at 0.85 overrides judge abstention (HYBRID_THRESHOLD=0.85)."""
+    reranked = [(_chunk(), 0.85)]
+    j = _StubJudge(False)
+    ans = answer_with_abstention("q", reranked, ExtractiveStubGenerator(),
+                                 threshold=0.4, judge=j)
+    assert not ans.abstained  # hybrid gate overrides subject_gate at boundary
+    assert j.calls == 1       # judge was still invoked
+
+
+def test_hybrid_boundary_below_085_abstains():
+    """rerank_top just below 0.85 does NOT override judge abstention."""
+    reranked = [(_chunk(), 0.849)]
+    j = _StubJudge(False)
+    ans = answer_with_abstention("q", reranked, ExtractiveStubGenerator(),
+                                 threshold=0.4, judge=j)
+    assert ans.abstained      # below hybrid threshold → judge abstention respected
+    assert ans.abstention_reason == "subject_gate"
+
+
+def test_no_judge_hybrid_inert():
+    """When no judge is present, hybrid gate logic must be inert (no crash)."""
+    reranked = [(_chunk(), 0.5)]  # below hybrid threshold, but no judge to check
+    ans = answer_with_abstention("q", reranked, ExtractiveStubGenerator(),
+                                 threshold=0.4)  # no judge arg
+    assert not ans.abstained      # score_gate passes, no hybrid check without judge
+
+
+def test_subject_sim_below_threshold_abstains():
+    """Unrelated query vs context: subject_sim < 0.42 → grounded() returns False."""
+    from sebi_rag.embeddings import HashEmbedder
+    from sebi_rag.generate import SubjectSimJudge
+    emb = HashEmbedder()
+    judge = SubjectSimJudge(emb, threshold=0.42)
+    # "test query" is semantically unrelated to doc_id "SEBI/A/1"
+    q = "test query"
+    c = _chunk("SEBI/A/1#s#0")
+    assert not judge.grounded(q, [c])  # low similarity → abstains
+
+
+def test_section_score_gate_on_subject_sim_judge():
+    """SubjectSimJudge has a section_score method (second-tier gate)."""
+    from sebi_rag.embeddings import HashEmbedder
+    from sebi_rag.generate import SubjectSimJudge
+    emb = HashEmbedder()
+    judge = SubjectSimJudge(emb, threshold=0.42)
+    # section_score should return a float (cosine similarity to section heading)
+    q = "test query"
+    c = _chunk("SEBI/A/1#s#0")
+    score = judge.section_score(q, [c])
+    assert isinstance(score, float)
+
+
+def test_hybrid_rescue_overrides_subject_gate():
+    """Hybrid gate rescues when rerank_top >= 0.85 even if judge.grounded() is False."""
+    from sebi_rag.embeddings import HashEmbedder
+    from sebi_rag.generate import SubjectSimJudge
+    emb = HashEmbedder()
+    judge = SubjectSimJudge(emb, threshold=0.42)
+    # "test query" vs "SEBI/A/1" → low similarity → grounded() = False
+    reranked = [(_chunk("SEBI/A/1#s#0"), 0.9)]  # high rerank score
+    ans = answer_with_abstention("test query", reranked, ExtractiveStubGenerator(),
+                                 threshold=0.4, judge=judge)
+    # With high rerank_top (0.9 >= 0.85), hybrid gate overrides subject_gate
+    assert not ans.abstained  # hybrid rescue: rerank_top overrides judge abstention
