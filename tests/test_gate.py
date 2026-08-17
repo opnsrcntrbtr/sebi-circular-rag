@@ -190,3 +190,54 @@ def test_hybrid_rescue_overrides_subject_gate():
                                  threshold=0.4, judge=judge)
     # With high rerank_top (0.9 >= 0.85), hybrid gate overrides subject_gate
     assert not ans.abstained  # hybrid rescue: rerank_top overrides judge abstention
+
+
+def test_subject_sim_exactly_at_threshold_passes():
+    """subject_sim == threshold (0.42) passes the gate (>= comparison)."""
+    import math
+
+    import numpy as np
+    from sebi_rag.generate import SubjectSimJudge
+
+    q_vec = np.array([1.0, 0.0])
+    s_vec = np.array([0.42, math.sqrt(1 - 0.42 ** 2)])
+
+    class _Emb:
+        def encode(self, texts):
+            m = {"boundary query": q_vec, "boundary subject": s_vec}
+            return [m[t] for t in texts]
+
+    c = Chunk(id="A#s#0", doc_id="A", section="A/s/p0", text="x",
+              meta={"subject": "boundary subject"})
+    j = SubjectSimJudge(_Emb(), threshold=0.42, section_threshold=None)
+    assert j.score("boundary query", [c]) == 0.42
+    assert j.grounded("boundary query", [c])
+
+
+def test_section_score_exactly_at_threshold_passes():
+    """section_score == section_threshold (0.60) passes via second tier."""
+    import math
+
+    import numpy as np
+    from sebi_rag.generate import SubjectSimJudge
+
+    q_vec = np.array([1.0, 0.0])
+    below_vec = np.array([0.40, math.sqrt(1 - 0.40 ** 2)])   # dot = 0.40 < 0.42
+    sec_vec = np.array([0.60, math.sqrt(1 - 0.60 ** 2)])     # dot = 0.60 exactly
+
+    class _Emb:
+        def encode(self, texts):
+            m = {
+                "boundary query": q_vec,
+                "unrelated subject": below_vec,
+                "exact section heading": sec_vec,
+            }
+            return [m[t] for t in texts]
+
+    c = Chunk(id="M/1#exact section heading#0", doc_id="M/1",
+              section="M/1/exact section heading/p0", text="x",
+              meta={"subject": "unrelated subject"})
+    j = SubjectSimJudge(_Emb(), threshold=0.42, section_threshold=0.60)
+    assert j.score("boundary query", [c]) < 0.42       # subject tier fails
+    assert j.section_score("boundary query", [c]) == 0.60
+    assert j.grounded("boundary query", [c])           # section tier rescues

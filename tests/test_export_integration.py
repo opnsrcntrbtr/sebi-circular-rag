@@ -291,9 +291,14 @@ def test_row_count_accuracy_in_live_export():
     # Updated 2026-07-31: corpus grew by +14 circulars (+582 chunks, +0 lineage,
     # +87 citation-normalization, +9 supersession-pairs) from orphan PDF ingest
     # (11 normal + 2 OCR + 1 unparseable master). supersession-pairs unchanged.
+    #
+    # Updated 2026-08-18: corpus grew by +2 circulars (+45 chunks) — the two
+    # 2026-08-14 DDHS circulars (HO/17/11/(2)2026, HO/17/11/17(5)2026) ingested
+    # after the 2026-08-14 expansion. lineage/eval/citation-normalization/
+    # supersession-pairs unchanged (new circulars carry no reg citations).
     expected = {
-        "corpus": 728,
-        "chunks": 78585,
+        "corpus": 730,
+        "chunks": 78630,
         "lineage": 4577,
         "eval": 56,
         "citation-normalization": 8903,
