@@ -262,7 +262,9 @@ citation_precision:     observed=0.192, floor=0.1577  (margin +0.034)
   - `1288263327681.pdf` — Master Cir-04/2010 (non-standard format)
   - `anncir1_p.pdf` — Annexure with Devanagari text
   - `isdcir0108_p.pdf` — ISD/AML/CIR-1/2008 (non-standard format)
-❌ **SPLADE sidecar is STALE** — `data/index/splade_meta.json` reports `n=77859`, but `data/index/chunks.jsonl` has 78,523 rows. `SpladeIndex.load` raises `ValueError: SPLADE row count 77859 != expected 78523`, so **`bench_retrieval.py --splade` cannot run at all** on the E4 index. The earlier "rebuilt" claim (commit `64e7796`) predates the final chunk additions. Rebuild via `scripts/build_splade_index.py` (~3.5 h encode, no resume, no batching flags) before any iv11 comparison.
+❌ **SPLADE artifacts are ABSENT** (verified 2026-08-19) — `ls data/index/splade*` matches nothing; both `splade.npz` and `splade_meta.json` are gone. The 2026-08-12 rebuild (13,302 s = 3.7 h, `n=78523`) did not survive: `make reindex` does not rebuild the sidecar, and the index has since grown to 78,630 chunks. `bench_retrieval.py --splade` cannot run.
+**Not scheduled for rebuild** — iv11 was rejected on preregistered held-out confirmation (probes n=25, nDCG@10 Δ −0.0068, p=0.865), so no pending comparison needs it. Cost if ever required: `scripts/build_splade_index.py`, ~3.7 h, no resume, no batching flags.
+*(This entry previously read "sidecar is STALE — splade_meta.json reports n=77859". That described a file that no longer exists. The dated iv11 log entries below are historical records and are left as written.)*
 
 ### Build/repair flow
 `scrape → ingest_pdf → repair_corpus_text.py → renumber.py → validate-corpus → build_index.py`
@@ -828,6 +830,8 @@ adopting iv11: the sole surviving exploratory result failed on data that did not
 cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
+
+2026-08-19 — **SPLADE artifacts confirmed absent, not stale; two research docs added.** `data/index/splade*` matches nothing — the 3.7 h 2026-08-12 rebuild did not survive a reindex, and §Residual described a file that no longer exists. Corrected (dated iv11 entries left as historical records). No rebuild scheduled: iv11 is rejected. Added `docs/research-synthesis-2026-08-19.md` (source verification: 3 of 5 load-bearing claims in an agent-produced synthesis contradicted their own cited papers — PoQuAD is not tabular, the quantization paper reports a *null* at 7B and never tested 1.5B) and `docs/research-roadmap-2026-08-19.md` (12 verified sources, ranked R0–R7). Three preregistrations frozen: `2026-08-19-crossref-eval-validity-prereg.md` (tests whether pool R@50 0.9861 is a golden_v7 property), `2026-08-19-supersession-confidence-tier-prereg.md`, `2026-08-19-fast-gate-tier-prereg.md`. **Measured 2026-08-19:** supersedes edges 4476 explicit_text / 60 inferred; 37 of 1350 superseded circulars (2.7%) rest on inferred edges only; chunk bodies <80 chars = 6736 (8.57%); tabular chunks 1579 (2.01%) of which 291 (18.4%) open or close mid-table; 0/7986 numeric-dense chunks retain multi-space column gaps (pdfplumber collapses them at ingest).
 
 2026-08-19 — **Stale current-state claims swept across agent-facing docs.** Gate floors in `.claude/rules/refusal-criteria.md` were still the stub-derived set superseded 2026-08-12: citation_recall 0.7233→**0.8169**, citation_precision 0.1896→**0.1577**, abstention_accuracy 0.9335→**0.9412**; `context_recall` (0.874) and `ndcg_at_10` (0.6512) were gated 2026-08-13 but never listed there, now added. All six cross-checked programmatically against `eval/golden/gate_v7.json`, which those files now name as authoritative over their own tables. Test counts 791/793/835 → **859** in `CLAUDE.md`, `AGENTS.md`, `.claude/rules/`, and this file. `abstention_accuracy` floor was also wrong (0.934) in the 2026-08-19 prereg §7 — a confirmation criterion — corrected to 0.9412.
 
