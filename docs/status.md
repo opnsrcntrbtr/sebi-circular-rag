@@ -827,6 +827,38 @@ cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
 
+2026-08-19 — **CE paraphrase rescue REJECTED on the preregistered guardrail; 2026-08-18 diagnostic corrected.** Prereg: `docs/superpowers/specs/2026-08-19-ce-paraphrase-rescue-prereg.md`.
+
+**Correction first.** `scripts/score_floor_diagnostic.py:46` set `GATE = 0.42` and classified rows by comparing the cross-encoder `ce_top` against it. 0.42 is the **`SubjectSimJudge` threshold** (`generate.py:322`) — a different signal on a different scale. The CE score floor is `Settings.abstain_threshold` = **0.05** (`settings.py:66`), used by both `api.py:150` and `eval_json.py:66`; `pipeline.py:20`'s 0.40 is a dataclass default neither path uses. Production ground truth (`reports/abstention-reason-check-2026-08-19.json`):
+
+| Row | ce_top | vs 0.05 | production |
+|---|---|---|---|
+| para-mfmaster | 0.3577 | 7.2× above | ✅ answers, cites relevant circular |
+| para-glitch | 0.0631 | 1.3× above | ✅ answers, cites relevant circular |
+| para-mfborrow | 0.0296 | below | ❌ abstains `score_floor` |
+| para-pricedata | 0.0114 | below | ❌ abstains `score_floor` |
+
+**2 of the 4 "CE_MISMATCH" rows were never failures.** Real cohort = 2, matching the 2026-08-13 status entry. Also retired: para-glitch's boilerplate pileup is already handled by supersession demotion (ce_top 0.1024 undemoted → 0.0631 production, relevant doc cited), and para-mfmaster's stub chunk scores 0.9234 under a domain query.
+
+**Score floor earns its place; tuning is dead by measurement** (`reports/score-floor-utility-2026-08-19.json`, 245 non-as-of rows): catches **29 of 41** correct abstentions, costs **2 of 204** answerable. The 2 false abstentions (0.0114, 0.0296) sit *inside* the true-positive band (0.0001–0.0462); first correct abstention above the floor is 0.0578. No threshold separates them.
+
+**Probe — the reranker is capable, the query is wrong** (`reports/ce-query-reform-probe-2026-08-19.json`): rescoring the *same pool* with a hand-written domain-vocabulary query lifts para-mfborrow 0.0296 → **0.9943** and para-pricedata 0.0114 → **0.9774**; `orig` control reproduces recorded ce_top to 4 dp. ⚠️ Variants were hand-written with gold knowledge — a **ceiling**, not a shippable result.
+
+**Arm R1 (MLX rewrite below floor, PRF over top-5 pool) REJECTED** (`reports/ce-rescue-cohort-2026-08-19.json`, cohort n=31 = 2 targets + 29 guardrail):
+
+| Endpoint | Result | Rule |
+|---|---|---|
+| rescued | **0 / 2** | §6.2 needs 2 |
+| false_positive | **2 / 29** | §6.1 needs 0 |
+| rewrite_degenerate | **23 / 31 (74.2%)** | §6.3 threshold 50% |
+| latency | 501 ms median | — |
+
+Qwen2.5-1.5B returned both target queries **verbatim** (no rewrite), while rewriting two hard negatives into plausible regulatory questions that cleared the floor — v7-hn-022 gained the injected phrase *"In the context of the SEBI circular"* on an **NPS** question. Harmful where it worked, inert where needed. Per §6.3 the primary was never exercised: this rejects the arm, not the mechanism. Per §8 the prompt was **not** edited or re-run — a different rewriter is a new arm.
+
+**Shipped inert:** `src/sebi_rag/paraphrase_rescue.py` + `pipeline.query` wiring (`_apply_lineage` extracted so rescued lists take the identical supersession path), `[service] paraphrase_rescue = false`. Tests **859 passed**, 2 skipped (22 new). No pipeline behaviour change with the flag off.
+
+**Known limitations (unchanged):** para-mfborrow, para-pricedata false-abstain; v7-hn-011, v7-hn-025 falsely answered (need semantic gate).
+
 2026-08-13 — **Gate now measures the context window (`context_recall`), not just the fusion list.** `score_row`'s `recall` came from `pipeline.query`'s pre-rerank `retrieved_ids`, overstating delivery by 2.94pp and hiding 6 of 15 complete misses caused downstream by reranking/demotion. Added `Answer.context_ids` (populated on the abstain path too) and gated `context_recall`; floor **0.874**, observed **0.916** vs `recall_at_k` 0.943. All pre-existing floors unchanged or stricter. `floors_ok: true`.
 
 2026-08-13 — **Non-SEBI keyword drift fixed; 1 of 3 false answers resolved.** Added the two keywords the docs claimed but the code lacked (`overseas direct investment`, `safe deposit locker`) — `v7-hn-016` now abstains correctly. Deliberately did NOT add `tds` (9 corpus circulars) or `competition commission of india` (3): they would recreate the arbitration-class bug, so `v7-hn-011`/`v7-hn-025` stay answered and need the semantic gate instead. Added a permanent guard running the filter over every answerable golden row. Gate: `floors_ok: true`, abstention_accuracy 0.965 → **0.969**.

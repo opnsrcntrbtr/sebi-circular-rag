@@ -1,0 +1,182 @@
+[
+  {
+    "id": "para-mfmaster",
+    "query": "Which single SEBI compilation must asset management companies follow for all regulatory requirements after April 2026?",
+    "pool_n": 16,
+    "recorded_ce_top": 0.3577,
+    "variants": {
+      "orig": {
+        "queries": [
+          "Which single SEBI compilation must asset management companies follow for all regulatory requirements after April 2026?"
+        ],
+        "ce_top": 0.3577,
+        "ce_relevant_best": 0.3577,
+        "gate_opens": false,
+        "argmax_is_relevant": true
+      },
+      "reform": {
+        "queries": [
+          "Master Circular for Mutual Funds consolidating all circulars applicable to asset management companies"
+        ],
+        "ce_top": 0.9234,
+        "ce_relevant_best": 0.9234,
+        "gate_opens": true,
+        "argmax_is_relevant": true
+      },
+      "title": {
+        "queries": [
+          "Master Circular for Mutual Funds"
+        ],
+        "ce_top": 0.9949,
+        "ce_relevant_best": 0.9949,
+        "gate_opens": true,
+        "argmax_is_relevant": true
+      },
+      "subq": {
+        "queries": [
+          "Which Master Circular applies to mutual funds and AMCs?",
+          "Does a single compilation supersede prior mutual fund circulars?"
+        ],
+        "ce_top": 0.9916,
+        "ce_relevant_best": 0.9916,
+        "gate_opens": true,
+        "argmax_is_relevant": true
+      }
+    }
+  },
+  {
+    "id": "para-glitch",
+    "query": "If a brokerage's order platform malfunctions during market hours, what must the firm do and are smaller firms exempt?",
+    "pool_n": 9,
+    "recorded_ce_top": 0.1024,
+    "variants": {
+      "orig": {
+        "queries": [
+          "If a brokerage's order platform malfunctions during market hours, what must the firm do and are smaller firms exempt?"
+        ],
+        "ce_top": 0.1024,
+        "ce_relevant_best": 0.0631,
+        "gate_opens": false,
+        "argmax_is_relevant": false
+      },
+      "reform": {
+        "queries": [
+          "framework to address technical glitches in stock brokers' electronic trading systems and its applicability to small brokers"
+        ],
+        "ce_top": 0.9982,
+        "ce_relevant_best": 0.9982,
+        "gate_opens": true,
+        "argmax_is_relevant": true
+      },
+      "title": {
+        "queries": [
+          "Review of Framework to address the 'technical glitches' in Stock Brokers' Electronic Trading Systems"
+        ],
+        "ce_top": 0.9991,
+        "ce_relevant_best": 0.9991,
+        "gate_opens": true,
+        "argmax_is_relevant": true
+      },
+      "subq": {
+        "queries": [
+          "What must a stock broker do when a technical glitch occurs in its electronic trading system?",
+          "Are small stock brokers exempt from the technical glitch framework?"
+        ],
+        "ce_top": 0.9988,
+        "ce_relevant_best": 0.9988,
+        "gate_opens": true,
+        "argmax_is_relevant": true
+      }
+    }
+  },
+  {
+    "id": "para-mfborrow",
+    "query": "Can an asset manager take a short-term bank loan to bridge a same-day cash mismatch when paying out exiting unitholders?",
+    "pool_n": 8,
+    "recorded_ce_top": 0.0296,
+    "variants": {
+      "orig": {
+        "queries": [
+          "Can an asset manager take a short-term bank loan to bridge a same-day cash mismatch when paying out exiting unitholders?"
+        ],
+        "ce_top": 0.0296,
+        "ce_relevant_best": 0.0296,
+        "gate_opens": false,
+        "argmax_is_relevant": true
+      },
+      "reform": {
+        "queries": [
+          "intraday borrowing by mutual funds to meet redemption payout settlement mismatch"
+        ],
+        "ce_top": 0.9943,
+        "ce_relevant_best": 0.9943,
+        "gate_opens": true,
+        "argmax_is_relevant": true
+      },
+      "title": {
+        "queries": [
+          "Borrowing by Mutual Funds - Intraday Borrowings"
+        ],
+        "ce_top": 0.9964,
+        "ce_relevant_best": 0.9964,
+        "gate_opens": true,
+        "argmax_is_relevant": true
+      },
+      "subq": {
+        "queries": [
+          "Can a mutual fund borrow intraday to meet redemption payouts?",
+          "What is the limit on intraday borrowing by mutual fund schemes?"
+        ],
+        "ce_top": 0.9961,
+        "ce_relevant_best": 0.9961,
+        "gate_opens": true,
+        "argmax_is_relevant": true
+      }
+    }
+  },
+  {
+    "id": "para-pricedata",
+    "query": "How old must exchange quotes be before a teaching institute that is not a regulated entity can show them to students?",
+    "pool_n": 9,
+    "recorded_ce_top": 0.0114,
+    "variants": {
+      "orig": {
+        "queries": [
+          "How old must exchange quotes be before a teaching institute that is not a regulated entity can show them to students?"
+        ],
+        "ce_top": 0.0114,
+        "ce_relevant_best": 0.0114,
+        "gate_opens": false,
+        "argmax_is_relevant": true
+      },
+      "reform": {
+        "queries": [
+          "norms for sharing and usage of price data for educational purposes by unregulated entities, and the applicable delay period"
+        ],
+        "ce_top": 0.9774,
+        "ce_relevant_best": 0.9774,
+        "gate_opens": true,
+        "argmax_is_relevant": true
+      },
+      "title": {
+        "queries": [
+          "Norms for sharing and usage of price data for educational purposes"
+        ],
+        "ce_top": 0.9937,
+        "ce_relevant_best": 0.9937,
+        "gate_opens": true,
+        "argmax_is_relevant": true
+      },
+      "subq": {
+        "queries": [
+          "What delay applies to price data shared for educational purposes?",
+          "Can an entity not registered with SEBI use exchange price data to teach?"
+        ],
+        "ce_top": 0.9914,
+        "ce_relevant_best": 0.9914,
+        "gate_opens": true,
+        "argmax_is_relevant": true
+      }
+    }
+  }
+]

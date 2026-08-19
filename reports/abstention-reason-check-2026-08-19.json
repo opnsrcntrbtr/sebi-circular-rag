@@ -1,0 +1,76 @@
+{
+  "abstain_threshold": 0.05,
+  "subject_sim_threshold": 0.42,
+  "rows": [
+    {
+      "id": "para-mfmaster",
+      "expected_abstain": false,
+      "abstained": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3577,
+        "margin": 0.0085,
+        "subject_sim": 0.5232,
+        "section_sim": 0.6259
+      },
+      "relevant": [
+        "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026"
+      ],
+      "cited_relevant": [
+        "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026"
+      ],
+      "n_citations": 4
+    },
+    {
+      "id": "para-glitch",
+      "expected_abstain": false,
+      "abstained": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.0631,
+        "margin": 0.0323,
+        "subject_sim": 0.5937,
+        "section_sim": 0.6227
+      },
+      "relevant": [
+        "HO/38/44/12(1)2026-MIRSD-TPD1"
+      ],
+      "cited_relevant": [
+        "HO/38/44/12(1)2026-MIRSD-TPD1"
+      ],
+      "n_citations": 7
+    },
+    {
+      "id": "para-mfborrow",
+      "expected_abstain": false,
+      "abstained": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0296,
+        "margin": 0.0185,
+        "subject_sim": null
+      },
+      "relevant": [
+        "HO/(92)2026-IMD-POD-2/I/6961/2026"
+      ],
+      "cited_relevant": [],
+      "n_citations": 0
+    },
+    {
+      "id": "para-pricedata",
+      "expected_abstain": false,
+      "abstained": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0114,
+        "margin": 0.0095,
+        "subject_sim": null
+      },
+      "relevant": [
+        "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026"
+      ],
+      "cited_relevant": [],
+      "n_citations": 0
+    }
+  ]
+}

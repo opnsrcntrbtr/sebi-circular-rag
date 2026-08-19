@@ -28,6 +28,12 @@ rerank_backend = "torch"                               # torch | mlx  (mlx = eva
 # ~20 min over 260 rows) and is only reproducible on Apple Silicon.
 eval_generator = "mlx"                                 # stub | mlx
 
+# Paraphrase rescue (prereg docs/superpowers/specs/2026-08-19-ce-paraphrase-rescue-prereg.md).
+# When rerank_top falls below abstain_threshold, rewrite the query into SEBI
+# vocabulary from the retrieved pool and re-rank the SAME pool once. OFF until
+# the preregistered cohort + full-eval confirmation pass (§6, §7).
+paraphrase_rescue = false                              # true = rescue below the score floor
+
 citation_scorer_enabled = true                         # B': post-hoc cross-encoder citation filter (gate armed under B' 2026-08-04)
 citation_margin = 0.35                                  # sigmoid-scale; MLX-parallel sweep knee (P +5.4%, recall 0.8721, n=219)
 

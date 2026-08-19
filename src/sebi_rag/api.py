@@ -141,6 +141,7 @@ def build_default_pipeline() -> RAGPipeline:
         regulatory_index = build_regulatory_index(
             load_records(s.corpus_path), load_regulations(regs_path))
     from .generate import citation_scorer_for
+    from .paraphrase_rescue import query_rewriter_for
     ce = CrossEncoderReranker(**ck)
     return RAGPipeline(
         retriever=retriever,
@@ -155,6 +156,7 @@ def build_default_pipeline() -> RAGPipeline:
                                             s.citation_scorer_backend),
         citation_margin=s.citation_margin,
         citation_min_keep=s.citation_min_keep,
+        query_rewriter=query_rewriter_for(s.paraphrase_rescue, s.mlx_model),
     )
 
 

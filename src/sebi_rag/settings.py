@@ -77,6 +77,7 @@ class Settings:
     citation_min_keep: int = 1          # floor on kept citations (B' collapse guard)
     citation_scorer_backend: str = "reranker"  # reranker | nli (see attribution.py)
     eval_generator: str = "stub"        # stub | mlx — generator the gate is derived AND measured under
+    paraphrase_rescue: bool = False     # rewrite + re-rank below the score floor (prereg 2026-08-19)
     spaces: SpacesSettings | None = None  # populated only by load_spaces()
 
     @classmethod
@@ -109,6 +110,7 @@ class Settings:
             citation_min_keep=int(_get("citation_min_keep", 1, "SEBI_RAG_", svc)),
             citation_scorer_backend=str(_get("citation_scorer_backend", "reranker", "SEBI_RAG_", svc)),
             eval_generator=str(_get("eval_generator", "stub", "SEBI_RAG_", svc)),
+            paraphrase_rescue=_as_bool(_get("paraphrase_rescue", False, "SEBI_RAG_", svc)),
         )
 
     @classmethod

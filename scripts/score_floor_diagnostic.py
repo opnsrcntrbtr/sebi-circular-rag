@@ -3,11 +3,23 @@
 Re-runs the 19 score_floor rows against the current index (rebuilt
 2026-08-17, 730 circulars / 78,630 chunks) and classifies each:
 
-- NOW_PASSES    relevant doc in fusion pool AND top CE score >= 0.42
-- CE_MISMATCH   relevant doc in fusion pool but top CE score < 0.42
+- NOW_PASSES    relevant doc in fusion pool AND top CE score >= floor
+- CE_MISMATCH   relevant doc in fusion pool but top CE score < floor
 - RECALL_DEEP   not in top-50 pool, but reachable at dense k=200
 - RECALL_ABSENT in index, unreachable even at dense k=200
 - DOC_MISSING   relevant circular absent from the index entirely
+
+CORRECTED 2026-08-19: this script previously compared `ce_top` against 0.42,
+which is the SubjectSimJudge threshold (`generate.py:322`) — a cosine
+subject-similarity floor, not a cross-encoder score. The CE score floor is
+`Settings.abstain_threshold` (0.05), which is what `api.py` and `eval_json.py`
+pass to `answer_with_abstention`. Under 0.42 the script reported 4 CE_MISMATCH
+rows; under the real floor only 2 are failures — para-mfmaster (0.3577) and
+para-glitch (0.0631) answer correctly in production. See
+`docs/superpowers/specs/2026-08-19-ce-paraphrase-rescue-prereg.md` §0.
+
+`reports/score-floor-diagnostic-2026-08-18.json` was produced BEFORE this fix
+and carries `"gate": 0.42`; read it with §0 in hand.
 
 Usage: PYTHONPATH=src python scripts/score_floor_diagnostic.py
 """
@@ -43,11 +55,10 @@ SCORE_FLOOR_IDS = [
     "v7-bp-015", "para-glitch", "para-mfborrow", "para-pricedata",
 ]
 
-GATE = 0.42  # subject_sim floor (generate.py), per spec §3 arm table
-
-
 def main() -> None:
     s = Settings.load()
+    # The CE score floor, not the subject_sim threshold — see module docstring.
+    GATE = s.abstain_threshold
     print(f"loading index from {s.index_dir} ...", file=sys.stderr)
     emb = BGEM3Embedder(device="mps")
     retr = HybridRetriever.load(s.index_dir, emb)
