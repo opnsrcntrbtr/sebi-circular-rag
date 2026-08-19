@@ -118,6 +118,7 @@
   "116": ".query",
   "117": "test_build_index_out_dir.py",
   "118": "main",
+  "119": "sebi-rag",
   "121": "autoresearch.sh",
   "122": "sweep_rrf_k.py",
   "125": "Overall Evaluation Summary",
