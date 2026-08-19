@@ -222,11 +222,14 @@ generator, B′ on) reporting, against the armed floors in `eval/golden/gate_v7.
 
 | Metric | Floor |
 |---|---|
-| abstention_accuracy | 0.934 |
+| abstention_accuracy | 0.9412 |
 | citation_recall | 0.8169 |
 | citation_precision | 0.1577 |
 | context_recall | 0.874 |
 | ndcg_at_10 | 0.6512 |
+
+(Values read from `eval/golden/gate_v7.json`. An earlier draft of this table said
+abstention_accuracy 0.934, propagated from `docs/status.md`; the armed floor is 0.9412.)
 
 `floors_ok: true` required. A cohort result alone is **not** grounds to enable the flag.
 
