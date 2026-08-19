@@ -1,0 +1,292 @@
+{
+  "gate": 0.42,
+  "index_dir": "/Users/ianpinto/sebi_circular_sota_rag/SEBI circular RAG/data/index",
+  "n_chunks": 78630,
+  "rows": [
+    {
+      "id": "v7-nt-004",
+      "query": "For closed-ended mutual fund schemes, to what percentage are the illiquid-securi",
+      "relevant": [
+        "CIR/IMD/DF/18/2014"
+      ],
+      "in_index": true,
+      "fusion_rank_50": 3,
+      "dense_rank_50": 4,
+      "sparse_rank_50": 3,
+      "dense_rank_200": 4,
+      "ce_top": 0.9976,
+      "ce_relevant_best": 0.9976,
+      "class": "NOW_PASSES"
+    },
+    {
+      "id": "v7-bp-039",
+      "query": "If an investment adviser outsources some work to a firm in another country, does",
+      "relevant": [
+        "HO/38/12/11(2)2026-MIRSD-POD/I/4300/2026"
+      ],
+      "in_index": true,
+      "fusion_rank_50": 4,
+      "dense_rank_50": 4,
+      "sparse_rank_50": 2,
+      "dense_rank_200": 4,
+      "ce_top": 0.5716,
+      "ce_relevant_best": 0.4129,
+      "class": "NOW_PASSES"
+    },
+    {
+      "id": "para-parrva",
+      "query": "Which credit rating agency was recognised to validate performance claims of inte",
+      "relevant": [
+        "HO/38/14/(4)2026-MIRSD-POD/I/10557/2026"
+      ],
+      "in_index": true,
+      "fusion_rank_50": 6,
+      "dense_rank_50": null,
+      "sparse_rank_50": 2,
+      "dense_rank_200": null,
+      "ce_top": 0.4431,
+      "ce_relevant_best": 0.4003,
+      "class": "NOW_PASSES"
+    },
+    {
+      "id": "para-mfmaster",
+      "query": "Which single SEBI compilation must asset management companies follow for all reg",
+      "relevant": [
+        "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026"
+      ],
+      "in_index": true,
+      "fusion_rank_50": 6,
+      "dense_rank_50": 19,
+      "sparse_rank_50": 3,
+      "dense_rank_200": 19,
+      "ce_top": 0.3577,
+      "ce_relevant_best": 0.3577,
+      "class": "CE_MISMATCH"
+    },
+    {
+      "id": "para-freeze",
+      "query": "Can an investor voluntarily block all outgoing transactions from their folio unt",
+      "relevant": [
+        "HO/24/12/12(5)2026-IMD-SEC-1/I/6373/2026"
+      ],
+      "in_index": true,
+      "fusion_rank_50": 40,
+      "dense_rank_50": null,
+      "sparse_rank_50": 20,
+      "dense_rank_200": 98,
+      "ce_top": 0.4556,
+      "ce_relevant_best": 0.1464,
+      "class": "NOW_PASSES"
+    },
+    {
+      "id": "v7-td-005",
+      "query": "What is included in SEBI's September 2013 master circular for mutual funds?",
+      "relevant": [
+        "CIR/IMD/DF/14/2013"
+      ],
+      "in_index": true,
+      "fusion_rank_50": 1,
+      "dense_rank_50": 3,
+      "sparse_rank_50": 1,
+      "dense_rank_200": 3,
+      "ce_top": 0.9886,
+      "ce_relevant_best": 0.9886,
+      "class": "NOW_PASSES"
+    },
+    {
+      "id": "v7-nt-016",
+      "query": "How many days after completion of settlement must commodity exchanges disclose t",
+      "relevant": [
+        "SEBI/HO/CDMRD/DNPMP/CIR/P/2020/118"
+      ],
+      "in_index": true,
+      "fusion_rank_50": 4,
+      "dense_rank_50": 4,
+      "sparse_rank_50": 2,
+      "dense_rank_200": 4,
+      "ce_top": 0.9986,
+      "ce_relevant_best": 0.9963,
+      "class": "NOW_PASSES"
+    },
+    {
+      "id": "v7-ls-013",
+      "query": "Under the current Cybersecurity and Cyber Resilience Framework (CSCRF) applicabl",
+      "relevant": [
+        "SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2024/113"
+      ],
+      "in_index": true,
+      "fusion_rank_50": 6,
+      "dense_rank_50": 2,
+      "sparse_rank_50": 25,
+      "dense_rank_200": 2,
+      "ce_top": 0.9931,
+      "ce_relevant_best": 0.9931,
+      "class": "NOW_PASSES"
+    },
+    {
+      "id": "v7-rb-009",
+      "query": "What is the minimum subscription amount that must be brought in by a distributor",
+      "relevant": [
+        "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2025/115"
+      ],
+      "in_index": true,
+      "fusion_rank_50": 1,
+      "dense_rank_50": 1,
+      "sparse_rank_50": 1,
+      "dense_rank_200": 1,
+      "ce_top": 0.995,
+      "ce_relevant_best": 0.995,
+      "class": "NOW_PASSES"
+    },
+    {
+      "id": "v7-ls-031",
+      "query": "As the rules stood in April 2023, under the Takeover Regulations, by what maximu",
+      "relevant": [
+        "SEBI/HO/CFD/PoD-1/P/CIR/2023/31"
+      ],
+      "in_index": true,
+      "fusion_rank_50": 1,
+      "dense_rank_50": 1,
+      "sparse_rank_50": 1,
+      "dense_rank_200": 1,
+      "ce_top": 0.9862,
+      "ce_relevant_best": 0.9862,
+      "class": "NOW_PASSES"
+    },
+    {
+      "id": "v7-bp-024",
+      "query": "If the same outsourcing vendor handles work for several different brokers, what ",
+      "relevant": [
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90"
+      ],
+      "in_index": true,
+      "fusion_rank_50": 20,
+      "dense_rank_50": 43,
+      "sparse_rank_50": 10,
+      "dense_rank_200": 43,
+      "ce_top": 0.4801,
+      "ce_relevant_best": 0.0064,
+      "class": "NOW_PASSES"
+    },
+    {
+      "id": "v7-td-009",
+      "query": "What does SEBI's July 2020 master circular for the commodity derivatives market ",
+      "relevant": [
+        "SEBI/HO/CDMRD/DNPMP/CIR/P/2020/118"
+      ],
+      "in_index": true,
+      "fusion_rank_50": 1,
+      "dense_rank_50": 2,
+      "sparse_rank_50": 1,
+      "dense_rank_200": 2,
+      "ce_top": 0.971,
+      "ce_relevant_best": 0.971,
+      "class": "NOW_PASSES"
+    },
+    {
+      "id": "v7-bp-034",
+      "query": "How often does a KYC Registration Agency need to run a penetration test on its s",
+      "relevant": [
+        "SEBI/HO/MIRSD/DoP/P/CIR/2022/74"
+      ],
+      "in_index": true,
+      "fusion_rank_50": 1,
+      "dense_rank_50": 1,
+      "sparse_rank_50": 1,
+      "dense_rank_200": 1,
+      "ce_top": 0.9026,
+      "ce_relevant_best": 0.9026,
+      "class": "NOW_PASSES"
+    },
+    {
+      "id": "v7-bp-013",
+      "query": "Under SEBI's cybersecurity framework, what kind of cyberattack on a regulated en",
+      "relevant": [
+        "SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2024/113"
+      ],
+      "in_index": true,
+      "fusion_rank_50": 1,
+      "dense_rank_50": 1,
+      "sparse_rank_50": 1,
+      "dense_rank_200": 1,
+      "ce_top": 0.8757,
+      "ce_relevant_best": 0.8757,
+      "class": "NOW_PASSES"
+    },
+    {
+      "id": "hn-takeover",
+      "query": "At what shareholding threshold does an acquirer have to make a mandatory open of",
+      "relevant": [
+        "SEBI/HO/CFD/PoD-1/P/CIR/2023/31"
+      ],
+      "in_index": true,
+      "fusion_rank_50": 1,
+      "dense_rank_50": 1,
+      "sparse_rank_50": 1,
+      "dense_rank_200": 1,
+      "ce_top": 0.8525,
+      "ce_relevant_best": 0.8525,
+      "class": "NOW_PASSES"
+    },
+    {
+      "id": "v7-bp-015",
+      "query": "Are regulated entities required to keep backup 'template' copies of their critic",
+      "relevant": [
+        "SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2024/113"
+      ],
+      "in_index": true,
+      "fusion_rank_50": 3,
+      "dense_rank_50": 4,
+      "sparse_rank_50": 1,
+      "dense_rank_200": 4,
+      "ce_top": 0.6934,
+      "ce_relevant_best": 0.6934,
+      "class": "NOW_PASSES"
+    },
+    {
+      "id": "para-glitch",
+      "query": "If a brokerage's order platform malfunctions during market hours, what must the ",
+      "relevant": [
+        "HO/38/44/12(1)2026-MIRSD-TPD1"
+      ],
+      "in_index": true,
+      "fusion_rank_50": 1,
+      "dense_rank_50": 1,
+      "sparse_rank_50": null,
+      "dense_rank_200": 1,
+      "ce_top": 0.1024,
+      "ce_relevant_best": 0.0631,
+      "class": "CE_MISMATCH"
+    },
+    {
+      "id": "para-mfborrow",
+      "query": "Can an asset manager take a short-term bank loan to bridge a same-day cash misma",
+      "relevant": [
+        "HO/(92)2026-IMD-POD-2/I/6961/2026"
+      ],
+      "in_index": true,
+      "fusion_rank_50": 3,
+      "dense_rank_50": 36,
+      "sparse_rank_50": 32,
+      "dense_rank_200": 36,
+      "ce_top": 0.0296,
+      "ce_relevant_best": 0.0296,
+      "class": "CE_MISMATCH"
+    },
+    {
+      "id": "para-pricedata",
+      "query": "How old must exchange quotes be before a teaching institute that is not a regula",
+      "relevant": [
+        "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026"
+      ],
+      "in_index": true,
+      "fusion_rank_50": 1,
+      "dense_rank_50": 3,
+      "sparse_rank_50": 7,
+      "dense_rank_200": 3,
+      "ce_top": 0.0114,
+      "ce_relevant_best": 0.0114,
+      "class": "CE_MISMATCH"
+    }
+  ]
+}

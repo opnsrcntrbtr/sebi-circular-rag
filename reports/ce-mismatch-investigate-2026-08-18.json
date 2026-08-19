@@ -1,0 +1,468 @@
+[
+  {
+    "id": "para-mfmaster",
+    "query": "Which single SEBI compilation must asset management companies follow for all regulatory requirements after April 2026?",
+    "relevant": [
+      "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026"
+    ],
+    "gate": 0.42,
+    "ce_top": 0.3577,
+    "relevant_in_pool": [
+      {
+        "ce_rank": 1,
+        "ce_score": 0.3577,
+        "chunk_id": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#1. The SEBI (Mutual Funds) Regulations, 2026 has been notifi#1",
+        "section": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026/1. The SEBI (Mutual Funds) Regulations, 2026 has been notifi/p1",
+        "text": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026 | Master Circular for Mutual Funds | 1. The SEBI (Mutual Funds) Regulations, 2026 has been notifi\n1. The SEBI (Mutual Funds) Regulations, 2026 has been notified and the same\nshall come into force with effect from April 01, 2026."
+      },
+      {
+        "ce_rank": 4,
+        "ce_score": 0.3141,
+        "chunk_id": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#1.8. Timelines related to processing of scheme related appli#37",
+        "section": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026/1.8. Timelines related to processing of scheme related appli/p37",
+        "text": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026 | Master Circular for Mutual Funds | 1.8. Timelines related to processing of scheme related appli\n1. The SEBI (Mutual Funds) Regulations, 2026 has been notified and the same shall come into force with effect from April 01, 2026.\n1.8. Timelines related to processing of scheme related applications filed by\nAMCs19\n13 SEBI Circular No.SEBI/HO/IMD/IMD-I DOF2/P/CIR/2021/0560 dated April 30, 2021\n14 Inserted vide SEBI Circular No. SEBI/HO/IMD/IMD-RAC-2/P/CIR/2023/000175 dated November 01, 2023. Refer SEBI letter\nNo. SEBI/HO/IMD/IMD-RAC-2/P/OW/2023/ 44197/1 dated November 02, 2023\n15 SEBI Circular- SEBI/IMD/CIR No. 5/126096/08 dated May 23, 2008\n16 SEBI Circular no MFD/Cir. No 9/120/2000 dated November 24, 2000. SEBI Circular No.SEBI/IMD/CIR No. 18/198647/2010\ndated March 15, 2010.\n17 Inserted vide SEBI Circular No. SEBI/HO/IMD/IMD-RAC-2/P/CIR/2023/60 dated April 25, 2023\n18 SEBI Circular No. SEBI/HO/IMD/DF2/CIR/P/2016/42 dated March 18, 2016 and SEBI circular No.\nSEBI/HO/IMD/DF2/CIR/P/2021/024 dated March 04, 2021.\n19 SEBI Circular No. SEBI/HO/IMD/IMD-II DOF3/P/CIR/2021/603 dated July 23, 2021\nPage 12 of 748\nMaster Circular for Mutual Funds as on March 20, 2026\nBack to Index"
+      },
+      {
+        "ce_rank": 5,
+        "ce_score": 0.1888,
+        "chunk_id": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#3. The Asset Management Companies which fail to meet the sti#2819",
+        "section": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026/3. The Asset Management Companies which fail to meet the sti/p2819",
+        "text": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026 | Master Circular for Mutual Funds | 3. The Asset Management Companies which fail to meet the sti\n3. The Asset Management Companies which fail to meet the stipulated timelines maybe liable for\nsuitable action as deemed fir in terms of SEBI Act, 1992 or regulations framed thereunder.\nGRIEVANCE REDRESSAL MECHANISM FOR INVESTORS"
+      },
+      {
+        "ce_rank": 17,
+        "ce_score": 0.0483,
+        "chunk_id": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#2) Identification and Appropriation of Expenses:#2337",
+        "section": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026/2) Identification and Appropriation of Expenses:/p2337",
+        "text": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026 | Master Circular for Mutual Funds | 2) Identification and Appropriation of Expenses:\n2) Identification and Appropriation of Expenses:\ni. Confirm that all scheme related expenses including commission paid to distributors, by\nwhatever name it may be called and in whatever manner it may be paid, was paid from\nthe scheme only within the regulatory limits and not from the books of the Asset\nManagement Companies (AMC), its associate, sponsor, trustee or any other entity through\nany route.\nii. Confirm that in case certain expenses are paid from the AMC books then they are in\ncompliance with the regulatory requirements and are within the permissible limit of 2 bps\nand are properly recorded and audited."
+      },
+      {
+        "ce_rank": 30,
+        "ce_score": 0.0279,
+        "chunk_id": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#146. SE BI/HO/IMD/DF2/CIR/P/20 April 11, 2019 System Audit F#1332",
+        "section": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026/146. SE BI/HO/IMD/DF2/CIR/P/20 April 11, 2019 System Audit F/p1332",
+        "text": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026 | Master Circular for Mutual Funds | 146. SE BI/HO/IMD/DF2/CIR/P/20 April 11, 2019 System Audit F\n146. SE BI/HO/IMD/DF2/CIR/P/20 April 11, 2019 System Audit Framework for Mutual Funds/\n19/57 Asset Management Companies (AMCs)"
+      },
+      {
+        "ce_rank": 31,
+        "ce_score": 0.0276,
+        "chunk_id": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#101. SE BI/HO/IMD/IMD- April 28, 2021 Alignment of interest #1287",
+        "section": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026/101. SE BI/HO/IMD/IMD- April 28, 2021 Alignment of interest /p1287",
+        "text": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026 | Master Circular for Mutual Funds | 101. SE BI/HO/IMD/IMD- April 28, 2021 Alignment of interest \n101. SE BI/HO/IMD/IMD- April 28, 2021 Alignment of interest of Key Employees of\nI/DOF5/P/CIR/2021/553 Asset Management Companies (AMCs) with\nthe unitholders of the Mutual Fund schemes"
+      },
+      {
+        "ce_rank": 34,
+        "ce_score": 0.0233,
+        "chunk_id": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#145. SE BI/HO/IMD/DF2/CIR/P/20 April 11, 2019 Technology com#1331",
+        "section": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026/145. SE BI/HO/IMD/DF2/CIR/P/20 April 11, 2019 Technology com/p1331",
+        "text": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026 | Master Circular for Mutual Funds | 145. SE BI/HO/IMD/DF2/CIR/P/20 April 11, 2019 Technology com\n145. SE BI/HO/IMD/DF2/CIR/P/20 April 11, 2019 Technology committee for Mutual Funds/\n19/058 Asset Management Companies (AMCs)"
+      },
+      {
+        "ce_rank": 36,
+        "ce_score": 0.0215,
+        "chunk_id": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#63. Compliance with requirements of System Audit framework f#2256",
+        "section": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026/63. Compliance with requirements of System Audit framework f/p2256",
+        "text": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026 | Master Circular for Mutual Funds | 63. Compliance with requirements of System Audit framework f\n63. Compliance with requirements of System Audit framework for Mutual Funds / Asset\nManagement Companies (AMCs). Further, Trustees should furnish the open item pertaining\nto system audits."
+      },
+      {
+        "ce_rank": 39,
+        "ce_score": 0.015,
+        "chunk_id": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#7.17. Institutional mechanism by Asset Management Companies #470",
+        "section": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026/7.17. Institutional mechanism by Asset Management Companies /p470",
+        "text": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026 | Master Circular for Mutual Funds | 7.17. Institutional mechanism by Asset Management Companies \n7. Pursuant to issuance of this Master Circular, the entities which are required to ensure compliance with various provisions shall submit necessary reports as envisaged in this Master Circular on a periodic/ continuous basis.\n7.17. Institutional mechanism by Asset Management Companies for\nidentification and deterrence of potential market abuse including front-\nrunning and fraudulent transactions in securities200"
+      },
+      {
+        "ce_rank": 40,
+        "ce_score": 0.0144,
+        "chunk_id": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#62. Compliance with requirements with respect to Cyber Secur#2255",
+        "section": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026/62. Compliance with requirements with respect to Cyber Secur/p2255",
+        "text": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026 | Master Circular for Mutual Funds | 62. Compliance with requirements with respect to Cyber Secur\n62. Compliance with requirements with respect to Cyber Security and Cyber Resilience framework\nfor Mutual Funds / Asset Management Companies (AMCs)."
+      },
+      {
+        "ce_rank": 45,
+        "ce_score": 0.0114,
+        "chunk_id": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#103. SE BI/HO/IMD/IMD-1 April 06, 2021 Setting Up Limited Pu#1289",
+        "section": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026/103. SE BI/HO/IMD/IMD-1 April 06, 2021 Setting Up Limited Pu/p1289",
+        "text": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026 | Master Circular for Mutual Funds | 103. SE BI/HO/IMD/IMD-1 April 06, 2021 Setting Up Limited Pu\n103. SE BI/HO/IMD/IMD-1 April 06, 2021 Setting Up Limited Purpose Clearing\nDOF2/P/CIR/2021/0548 Corporation (LPCC) by Asset Management\nCompanies (AMCs) of Mutual Funds"
+      }
+    ],
+    "top_pool": [
+      {
+        "ce_rank": 1,
+        "ce_score": 0.3577,
+        "chunk_id": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#1. The SEBI (Mutual Funds) Regulations, 2026 has been notifi#1",
+        "doc_id": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026",
+        "section": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026/1. The SEBI (Mutual Funds) Regulations, 2026 has been notifi/p1",
+        "is_relevant": true,
+        "text": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026 | Master Circular for Mutual Funds | 1. The SEBI (Mutual Funds) Regulations, 2026 has been notifi\n1. The SEBI (Mutual Funds) Regulations, 2026 has been notified and the same\nshall come into force with effect from April 01, 2026."
+      },
+      {
+        "ce_rank": 2,
+        "ce_score": 0.3493,
+        "chunk_id": "HO/49/14/14(13)2026-CFD-POD2/I/8772/2026#preamble#0",
+        "doc_id": "HO/49/14/14(13)2026-CFD-POD2/I/8772/2026",
+        "section": "HO/49/14/14(13)2026-CFD-POD2/I/8772/2026/preamble/p0",
+        "is_relevant": false,
+        "text": "HO/49/14/14(13)2026-CFD-POD2/I/8772/2026 | Relaxation from the applicability of SEBI Master Circular for compliance with the provisions of the SEBI (Listing Obliga | preamble\nCIRCULAR\nHO/49/14/14(13)2026-CFD-POD2/ I/8772/2026 April 7, 2026\nTo,\nAll listed entities\nAll recognised Stock Exchanges\nAll registered Depositories\nMadam / Sir,\nSubject: Relaxation from the applicability of SEBI Master Circular for compliance with the\nprovisions of the SEBI (Listing Obligations and Disclosure Requirements) Regulations,\n2015 on non-compliance with the Minimum Public Shareholding (MPS) requirements"
+      },
+      {
+        "ce_rank": 3,
+        "ce_score": 0.3393,
+        "chunk_id": "HO/49/14/14(13)2026-CFD-POD2/I/8772/2026#3. Considering the above representation and the prevailing m#3",
+        "doc_id": "HO/49/14/14(13)2026-CFD-POD2/I/8772/2026",
+        "section": "HO/49/14/14(13)2026-CFD-POD2/I/8772/2026/3. Considering the above representation and the prevailing m/p3",
+        "is_relevant": false,
+        "text": "HO/49/14/14(13)2026-CFD-POD2/I/8772/2026 | Relaxation from the applicability of SEBI Master Circular for compliance with the provisions of the SEBI (Listing Obliga | 3. Considering the above representation and the prevailing m\n3. Considering the above representation and the prevailing market conditions, it has been\ndecided to grant one-time relaxation from the applicability of penal provisions under the\nMaster Circular for listed entities whose due date for compliance with MPS requirements\nfalls during the period from April 1, 2026 to September 30, 2026. Accordingly, recognised\nstock exchanges and depositories are advised not to take any penal action as envisaged\nunder the Master Circular against such entities for non-compliance during the said period.\nFurther, any penal actions initiated by the stock exchanges or depositories against such\nPage 1 of 2\nlisted entities for non-compliance with MPS requirements during the period from April 1,\n2026 till date may be withdrawn."
+      },
+      {
+        "ce_rank": 4,
+        "ce_score": 0.3141,
+        "chunk_id": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#1.8. Timelines related to processing of scheme related appli#37",
+        "doc_id": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026",
+        "section": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026/1.8. Timelines related to processing of scheme related appli/p37",
+        "is_relevant": true,
+        "text": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026 | Master Circular for Mutual Funds | 1.8. Timelines related to processing of scheme related appli\n1. The SEBI (Mutual Funds) Regulations, 2026 has been notified and the same shall come into force with effect from April 01, 2026.\n1.8. Timelines related to processing of scheme related applications filed by\nAMCs19\n13 SEBI Circular No.SEBI/HO/IMD/IMD-I DOF2/P/CIR/2021/0560 dated April 30, 2021\n14 Inserted vide SEBI Circular No. SEBI/HO/IMD/IMD-RAC-2/P/CIR/2023/000175 dated November 01, 2023. Refer SEBI letter\nNo. SEBI/HO/IMD/IMD-RAC-2/P/OW/2023/ 44197/1 dated November 02, 2023\n15 SEBI Circular- SEBI/IMD/CIR No. 5/126096/08 dated May 23, 2008\n16 SEBI Circular no MFD/Cir. No 9/120/2000 dated November 24, 2000. SEBI Circular No.SEBI/IMD/CIR No. 18/198647/2010\ndated March 15, 2010.\n17 Inserted vide SEBI Circular No. SEBI/HO/IMD/IMD-RAC-2/P/CIR/2023/60 dated April 25, 2023\n18 SEBI Circular No. SEBI/HO/IMD/DF2/CIR/P/2016/42 dated March 18, 2016 and SEBI circular No.\nSEBI/HO/IMD/DF2/CIR/P/2021/024 dated March 04, 2021.\n19 SEBI Circular No. SEBI/HO/IMD/IMD-II DOF3/P/CIR/2021/603 dated July 23, 2021\nPage 12 of 748\nMaster Circular for Mutual Funds as on March 20, 2026\nBack to Index"
+      },
+      {
+        "ce_rank": 5,
+        "ce_score": 0.1888,
+        "chunk_id": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#3. The Asset Management Companies which fail to meet the sti#2819",
+        "doc_id": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026",
+        "section": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026/3. The Asset Management Companies which fail to meet the sti/p2819",
+        "is_relevant": true,
+        "text": "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026 | Master Circular for Mutual Funds | 3. The Asset Management Companies which fail to meet the sti\n3. The Asset Management Companies which fail to meet the stipulated timelines maybe liable for\nsuitable action as deemed fir in terms of SEBI Act, 1992 or regulations framed thereunder.\nGRIEVANCE REDRESSAL MECHANISM FOR INVESTORS"
+      },
+      {
+        "ce_rank": 6,
+        "ce_score": 0.1846,
+        "chunk_id": "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2025/23#4. This circular shall come into effect from April 1, 2025.#6",
+        "doc_id": "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2025/23",
+        "section": "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2025/23/4. This circular shall come into effect from April 1, 2025./p6",
+        "is_relevant": false,
+        "text": "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2025/23 | Timelines for deployment of funds collected by Asset Management Companies (AMCs) in New Fund Offer (NFO) as per asset al | 4. This circular shall come into effect from April 1, 2025.\n4. This circular shall come into effect from April 1, 2025.\nPage 2 of 3"
+      },
+      {
+        "ce_rank": 7,
+        "ce_score": 0.1517,
+        "chunk_id": "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2025/53#preamble#0",
+        "doc_id": "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2025/53",
+        "section": "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2025/53/preamble/p0",
+        "is_relevant": false,
+        "text": "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2025/53 | Clarification on Regulatory framework for Specialized Investment Funds (\u2018SIF\u2019) | preamble\nCIRCULAR\nSEBI/HO/IMD/IMD-PoD-1/P/CIR/2025/53 April 09, 2025\nTo,\nAll Mutual Funds\nAll Asset Management Companies (AMCs)\nAll Registrar and Share Transfer Agents (RTAs)\nAll Trustee Companies/ Board of Trustees of Mutual Funds\nAll Recognized Stock Exchanges\nAll Recognized Clearing Corporations\nAll Depositories\nAssociation of Mutual Funds in India (AMFI)\nMadam/ Sir,\nSubject: Clarification on Regulatory framework for Specialized Investment Funds\n(\u2018SIF\u2019)"
+      },
+      {
+        "ce_rank": 8,
+        "ce_score": 0.1316,
+        "chunk_id": "SEBI/HO/IMD/DOF2/P/CIR/2022/111#preamble#0",
+        "doc_id": "SEBI/HO/IMD/DOF2/P/CIR/2022/111",
+        "section": "SEBI/HO/IMD/DOF2/P/CIR/2022/111/preamble/p0",
+        "is_relevant": false,
+        "text": "SEBI/HO/IMD/DOF2/P/CIR/2022/111 | Disclosure requirement for Asset Management Companies (AMCs) | preamble\n\u00bc\u00e3\u00e3\u00c0\u00a6\u00e3\u00e3\u00e8\u00be\u00e3 \u00b9\u00e3\u00c6\u00e3\u00e4\u00a6\u00e3\u00bc\u00e3\u00ee\u00e3\u00e4\u00a6\u00e3 \u201a\u00e3\u00e3\u00f5\u00c0 \u00e3\u00e4\u00cc\u00e3\u00e3\u00e4\u00b6\u00e3\u00bd\u00e3\u00be\u00e3 \u00ba\u00e3\u00e3\u00f1\u00a1\u00c3\nSecurities and Exchange Board of India\nCIRCULAR\nSEBI/HO/IMD/DOF2/P/CIR/2022/111 August 25, 2022\nTo\nAll Mutual Funds/\nAll Asset Management Companies (AMCs)/\nAll Trustee Companies/ Boards of Trustees of Mutual Funds/\nAssociation of Mutual Funds in India (AMFI)\nDear Sir/ Madam,\nSubject: Disclosure requirement for Asset Management Companies (AMCs)"
+      }
+    ]
+  },
+  {
+    "id": "para-glitch",
+    "query": "If a brokerage's order platform malfunctions during market hours, what must the firm do and are smaller firms exempt?",
+    "relevant": [
+      "HO/38/44/12(1)2026-MIRSD-TPD1"
+    ],
+    "gate": 0.42,
+    "ce_top": 0.1024,
+    "relevant_in_pool": [
+      {
+        "ce_rank": 5,
+        "ce_score": 0.0631,
+        "chunk_id": "HO/38/44/12(1)2026-MIRSD-TPD1#3. The extant technical glitch framework for the stock broke#3",
+        "section": "HO/38/44/12(1)2026-MIRSD-TPD1/3. The extant technical glitch framework for the stock broke/p3",
+        "text": "HO/38/44/12(1)2026-MIRSD-TPD1 | - Review of Framework to address the \u2018technical glitches\u2019 in Stock Brokers\u2019 Electronic Trading Systems\u2019 | 3. The extant technical glitch framework for the stock broke\n3. The extant technical glitch framework for the stock brokers is thus modified.\nThe modification is carried out based on the following broad principles:\n3.1 Ease of compliance: The eligibility criteria has been streamlined to\nexclude smaller size stock brokers from the technical glitch framework to\nreduce overall compliance of such stock brokers.\n3.2 Exemptions from applicability: The technical glitches which are outside\nthe stock brokers\u2019 trading architecture, glitches that don\u2019t directly affect the\nPage 1 of 7\ntrading functionality and those which have negligible impact have been\nexempted from the technical glitch framework.\n3.3 Simplifying the reporting requirement: Extension of time for reporting of\ntechnical glitches (from one hour to two hours), consideration of trading\nholiday\u2019s while submitting reports and streamlining the reporting requirement\nfrom reporting to all the exchanges to a single reporting platform (i.e.\nCommon Reporting Platform)\n3.4 Rationalised and cost effective based technology requirements: The\nrequirements for the capacity planning, software testing and DR drill have\nbeen rationalised based on the size of the stock brokers & their technology\ndependency."
+      },
+      {
+        "ce_rank": 19,
+        "ce_score": 0.0049,
+        "chunk_id": "HO/38/44/12(1)2026-MIRSD-TPD1#7. Reporting Requirements:#10",
+        "section": "HO/38/44/12(1)2026-MIRSD-TPD1/7. Reporting Requirements:/p10",
+        "text": "HO/38/44/12(1)2026-MIRSD-TPD1 | - Review of Framework to address the \u2018technical glitches\u2019 in Stock Brokers\u2019 Electronic Trading Systems\u2019 | 7. Reporting Requirements:\n7. Reporting Requirements:\n7.1 Stock brokers shall inform regarding the technical glitch to the stock\nexchanges and also to their clients within 2 hours from the time of occurrence\nof the glitch. Exchanges in turn shall disseminate the technical glitch\nincidents on their website.\n7.2 Stock brokers shall inform their clients regarding the occurrence of technical\nglitch by disseminating information on their website and any other mode such\nas SMS/email/pop-up in mobile based/ web based trading application etc.\n7.3 Stock brokers shall submit a Preliminary Incident Report (as per the format\nprescribed by stock exchanges) to the stock exchange within T+1 day of the\nincident (T being the date of the incident). However, if T+1 day falls on a\ntrading holiday; submission may be done on next trading day.\n7.4 Stock brokers shall submit a Root Cause Analysis Report (RCA) (as per the\nformat prescribed by stock exchanges) of the technical glitch to stock\nexchange, within 14 working days from the date of the incident.\n7.5 Stock brokers shall submit information/reports mentioned above, on\n\u2018Samuhik Prativedan Manch\u2019 i.e. common portal for submissions by stock\nbrokers.\nPage 4 of 7"
+      }
+    ],
+    "top_pool": [
+      {
+        "ce_rank": 1,
+        "ce_score": 0.1024,
+        "chunk_id": "SEBI/HO/CDMRD/DNPMP/CIR/P/2020/118#15.6.12. Penalty on malfunction of software used by broker /#684",
+        "doc_id": "SEBI/HO/CDMRD/DNPMP/CIR/P/2020/118",
+        "section": "SEBI/HO/CDMRD/DNPMP/CIR/P/2020/118/15.6.12. Penalty on malfunction of software used by broker //p684",
+        "is_relevant": false,
+        "text": "SEBI/HO/CDMRD/DNPMP/CIR/P/2020/118 | Master Circular for Commodity Derivatives Market | 15.6.12. Penalty on malfunction of software used by broker /\n15.6. Testing of software used in or related to Trading and Risk Management147\n15.6.12. Penalty on malfunction of software used by broker / trading member:\nStock exchanges with commodity derivatives segment shall examine the\ncases of malfunctioning of software used by brokers / trading members\nand apply deterrent penalties in form of fines or suspension to the stock\nbroker/trading member whose software malfunctioned. In addition,\nbrokers/trading members shall implement various mechanisms including\nthe following to minimize their losses in the event of software\nmalfunction:\nI. include suitable clauses in their agreement with the software vendors\nto define liabilities of software vendor and broker / trading member in\ncase of software malfunction, and / or,\nII. consider taking suitable insurance cover to meet probable losses in\ncase of software malfunction.\nPage 190 of 310\n\u092d\u093e\u0930\u0924\u0940\u092f \u092a\u094d\u0930\u0924\u0924\u092d\u0924\u0942 \u0924 \u0914\u0930 \u0924\u093f\u0924\u093f\u092e\u092f \u092c\u094b\u0930\u094d\u0921\nSecurities and Exchange Board of India"
+      },
+      {
+        "ce_rank": 2,
+        "ce_score": 0.099,
+        "chunk_id": "SEBI/HO/CDMRD/DMP/P/CIR/2021/589#15.6.12. Penalty on malfunction of software used by broker /#698",
+        "doc_id": "SEBI/HO/CDMRD/DMP/P/CIR/2021/589",
+        "section": "SEBI/HO/CDMRD/DMP/P/CIR/2021/589/15.6.12. Penalty on malfunction of software used by broker //p698",
+        "is_relevant": false,
+        "text": "SEBI/HO/CDMRD/DMP/P/CIR/2021/589 | Master Circular for Commodity Derivatives Market | 15.6.12. Penalty on malfunction of software used by broker /\n15.6. Testing of software used in or related to Trading and Risk Management164\n15.6.12. Penalty on malfunction of software used by broker / trading member:\nStock exchanges with commodity derivatives segment shall examine the\ncases of malfunctioning of software used by brokers / trading members\nand apply deterrent penalties in form of fines or suspension to the stock\nbroker/trading member whose software malfunctioned. In addition,\nbrokers/trading members shall implement various mechanisms including\nthe following to minimize their losses in the event of software\nmalfunction:\nI. include suitable clauses in their agreement with the software vendors\nto define liabilities of software vendor and broker / trading member in\ncase of software malfunction, and / or,\nII. consider taking suitable insurance cover to meet probable losses in\ncase of software malfunction."
+      },
+      {
+        "ce_rank": 3,
+        "ce_score": 0.0989,
+        "chunk_id": "SEBI/HO/CDMRD/DMP/P/CIR/2022/64#16.6.12. Penalty on malfunction of software used by broker /#755",
+        "doc_id": "SEBI/HO/CDMRD/DMP/P/CIR/2022/64",
+        "section": "SEBI/HO/CDMRD/DMP/P/CIR/2022/64/16.6.12. Penalty on malfunction of software used by broker //p755",
+        "is_relevant": false,
+        "text": "SEBI/HO/CDMRD/DMP/P/CIR/2022/64 | Master Circular for Commodity Derivatives Market | 16.6.12. Penalty on malfunction of software used by broker /\n16.6. Testing of software used in or related to Trading and Risk Management173\n16.6.12. Penalty on malfunction of software used by broker / trading member:\nStock exchanges with commodity derivatives segment shall examine the\ncases of malfunctioning of software used by brokers / trading members\nand apply deterrent penalties in form of fines or suspension to the stock\nbroker/trading member whose software malfunctioned. In addition,\nbrokers/trading members shall implement various mechanisms including\nthe following to minimize their losses in the event of software\nmalfunction:\nPage 208 of 330\n\u092d\u093e\u0930\u0924\u0940\u092f \u092a\u094d\u0930\u0924\u0924\u092d\u0942\u0924\u0924 \u0914\u0930 \u0924\u093f\u0924\u093f\u092e\u092f \u092c\u094b\u0930\u094d\u0921\nSecurities and Exchange Board of India\nI. include suitable clauses in their agreement with the software vendors\nto define liabilities of software vendor and broker / trading member in\ncase of software malfunction, and / or,\nII. consider taking suitable insurance cover to meet probable losses in\ncase of software malfunction."
+      },
+      {
+        "ce_rank": 4,
+        "ce_score": 0.0835,
+        "chunk_id": "CDMRD/DMP/CIR/P/2018/126#9.4.12. Penalty on malfunction of software used by broker / #506",
+        "doc_id": "CDMRD/DMP/CIR/P/2018/126",
+        "section": "CDMRD/DMP/CIR/P/2018/126/9.4.12. Penalty on malfunction of software used by broker / /p506",
+        "is_relevant": false,
+        "text": "CDMRD/DMP/CIR/P/2018/126 | Master Circular for Commodity Derivatives Market | 9.4.12. Penalty on malfunction of software used by broker / \n9.4. Testing of software used in or related to Trading and Risk Management93\n9.4.12. Penalty on malfunction of software used by broker / trading\nmember: National commodity derivatives exchanges shall examine\nthe cases of malfunctioning of software used by brokers / trading\nmembers and apply deterrent penalties in form of fines or\nsuspension to the stock broker/trading member whose software\nmalfunctioned. In addition, brokers/trading members shall\nimplement various mechanisms including the following to minimize\ntheir losses in the event of software malfunction:\nI. include suitable clauses in their agreement with the software\nvendors to define liabilities of software vendor and broker /\ntrading member in case of software malfunction, and / or,\nII. consider taking suitable insurance cover to meet probable\nlosses in case of software malfunction."
+      },
+      {
+        "ce_rank": 5,
+        "ce_score": 0.0631,
+        "chunk_id": "HO/38/44/12(1)2026-MIRSD-TPD1#3. The extant technical glitch framework for the stock broke#3",
+        "doc_id": "HO/38/44/12(1)2026-MIRSD-TPD1",
+        "section": "HO/38/44/12(1)2026-MIRSD-TPD1/3. The extant technical glitch framework for the stock broke/p3",
+        "is_relevant": true,
+        "text": "HO/38/44/12(1)2026-MIRSD-TPD1 | - Review of Framework to address the \u2018technical glitches\u2019 in Stock Brokers\u2019 Electronic Trading Systems\u2019 | 3. The extant technical glitch framework for the stock broke\n3. The extant technical glitch framework for the stock brokers is thus modified.\nThe modification is carried out based on the following broad principles:\n3.1 Ease of compliance: The eligibility criteria has been streamlined to\nexclude smaller size stock brokers from the technical glitch framework to\nreduce overall compliance of such stock brokers.\n3.2 Exemptions from applicability: The technical glitches which are outside\nthe stock brokers\u2019 trading architecture, glitches that don\u2019t directly affect the\nPage 1 of 7\ntrading functionality and those which have negligible impact have been\nexempted from the technical glitch framework.\n3.3 Simplifying the reporting requirement: Extension of time for reporting of\ntechnical glitches (from one hour to two hours), consideration of trading\nholiday\u2019s while submitting reports and streamlining the reporting requirement\nfrom reporting to all the exchanges to a single reporting platform (i.e.\nCommon Reporting Platform)\n3.4 Rationalised and cost effective based technology requirements: The\nrequirements for the capacity planning, software testing and DR drill have\nbeen rationalised based on the size of the stock brokers & their technology\ndependency."
+      },
+      {
+        "ce_rank": 6,
+        "ce_score": 0.0609,
+        "chunk_id": "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2023/136#16.6.12. Penalty on malfunction of software used by broker /#713",
+        "doc_id": "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2023/136",
+        "section": "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2023/136/16.6.12. Penalty on malfunction of software used by broker //p713",
+        "is_relevant": false,
+        "text": "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2023/136 | Master Circular for Commodity Derivatives Segment | 16.6.12. Penalty on malfunction of software used by broker /\n16.6. Testing of software used in or related to Trading and Risk Management184\n16.6.12. Penalty on malfunction of software used by broker / trading\nmember: Stock exchanges with commodity derivatives segment\nshall examine the cases of malfunctioning of software used by\nbrokers / trading members and apply deterrent penalties in form of\nfines or suspension to the stock broker/trading member whose\nsoftware malfunctioned. In addition, brokers/trading members shall\nimplement various mechanisms including the following to minimize\ntheir losses in the event of software malfunction:\nI. include suitable clauses in their agreement with the software\nvendors to define liabilities of software vendor and broker /\ntrading member in case of software malfunction, and / or,\nII. consider taking suitable insurance cover to meet probable\nlosses in case of software malfunction."
+      },
+      {
+        "ce_rank": 7,
+        "ce_score": 0.0443,
+        "chunk_id": "SEBI/HO/MIRSD/DOP1/CIR/P/2018/87#48.6.1. Stock exchanges shall examine the cases of malfuncti#1032",
+        "doc_id": "SEBI/HO/MIRSD/DOP1/CIR/P/2018/87",
+        "section": "SEBI/HO/MIRSD/DOP1/CIR/P/2018/87/48.6.1. Stock exchanges shall examine the cases of malfuncti/p1032",
+        "is_relevant": false,
+        "text": "SEBI/HO/MIRSD/DOP1/CIR/P/2018/87 | Master Circular for Stock Brokers | 48.6.1. Stock exchanges shall examine the cases of malfuncti\n48.6. Penalty on malfunction of software used by stock broker / trading member:\n48.6.1. Stock exchanges shall examine the cases of malfunctioning of software\nused by stock brokers / trading members and apply deterrent penalties\n139\n\u092d\u093e\u0930\u0924\u0940\u092f \u092a\u094d\u0930\u0924\u0924\u092d\u0942\u0924\u0924 \u0914\u0930 \u0935\u093f\u0924\u093f\u092e\u092f \u092c\u094b\u0930\u094d\u0921\nSecurities and Exchange Board of India\nin form of fines or suspension to the stock broker / trading member\nwhose software malfunctioned. In addition, stock brokers / trading\nmembers shall implement various mechanisms including the following to\nminimize their losses in the event of software malfunction:\na. include suitable clauses in their agreement with the software vendors\nto define liabilities of software vendor and stock broker / trading\nmember in case of software malfunction, and / or,\nb. consider taking suitable insurance cover to meet probable losses in\ncase of software malfunction."
+      },
+      {
+        "ce_rank": 8,
+        "ce_score": 0.0235,
+        "chunk_id": "SEBI/HO/MIRSD/DOP1/CIR/P/2018/87#47.2.4. In the interest of orderly trading and market integr#981",
+        "doc_id": "SEBI/HO/MIRSD/DOP1/CIR/P/2018/87",
+        "section": "SEBI/HO/MIRSD/DOP1/CIR/P/2018/87/47.2.4. In the interest of orderly trading and market integr/p981",
+        "is_relevant": false,
+        "text": "SEBI/HO/MIRSD/DOP1/CIR/P/2018/87 | Master Circular for Stock Brokers | 47.2.4. In the interest of orderly trading and market integr\n47.2. Guidelines to the stock exchanges and the stock brokers:\n47.2.4. In the interest of orderly trading and market integrity, the stock exchange\nshall put in place a system to identify dysfunctional algos (i.e. algos\nleading to loop or runaway situation) and take suitable measures,\nincluding advising the member, to shut down such algos and remove any\n54 Reference: Circular CIR/MRD/DP/09/2012 dated March 30, 2012 and Circular\nCIR/MRD/DP/16/2013 dated May 21, 2013.\n132\n\u092d\u093e\u0930\u0924\u0940\u092f \u092a\u094d\u0930\u0924\u0924\u092d\u0942\u0924\u0924 \u0914\u0930 \u0935\u093f\u0924\u093f\u092e\u092f \u092c\u094b\u0930\u094d\u0921\nSecurities and Exchange Board of India\noutstanding orders in the system that have emanated from such\ndysfunctional algos. Further, in exigency, the stock exchange should be in\na position to shut down the broker\u2019s terminal."
+      }
+    ]
+  },
+  {
+    "id": "para-mfborrow",
+    "query": "Can an asset manager take a short-term bank loan to bridge a same-day cash mismatch when paying out exiting unitholders?",
+    "relevant": [
+      "HO/(92)2026-IMD-POD-2/I/6961/2026"
+    ],
+    "gate": 0.42,
+    "ce_top": 0.0296,
+    "relevant_in_pool": [
+      {
+        "ce_rank": 1,
+        "ce_score": 0.0296,
+        "chunk_id": "HO/(92)2026-IMD-POD-2/I/6961/2026#1. As per prevalent industry practice, primarily for liquid #1",
+        "section": "HO/(92)2026-IMD-POD-2/I/6961/2026/1. As per prevalent industry practice, primarily for liquid /p1",
+        "text": "HO/(92)2026-IMD-POD-2/I/6961/2026 | Borrowing by Mutual Funds A. Intraday Borrowings | 1. As per prevalent industry practice, primarily for liquid \n1. As per prevalent industry practice, primarily for liquid and overnight schemes, the\nredemption payouts to the investors are processed in the morning hours of T+1\nday whereas the mutual fund schemes receive the maturity proceeds from TREPS\nand reverse repo in the evening hours of T+1 day. In order to bridge the intraday\ntiming mismatch of inflow and outflow of funds, the mutual funds enter into\nformal intraday borrowing arrangements with financial institution such as banks."
+      }
+    ],
+    "top_pool": [
+      {
+        "ce_rank": 1,
+        "ce_score": 0.0296,
+        "chunk_id": "HO/(92)2026-IMD-POD-2/I/6961/2026#1. As per prevalent industry practice, primarily for liquid #1",
+        "doc_id": "HO/(92)2026-IMD-POD-2/I/6961/2026",
+        "section": "HO/(92)2026-IMD-POD-2/I/6961/2026/1. As per prevalent industry practice, primarily for liquid /p1",
+        "is_relevant": true,
+        "text": "HO/(92)2026-IMD-POD-2/I/6961/2026 | Borrowing by Mutual Funds A. Intraday Borrowings | 1. As per prevalent industry practice, primarily for liquid \n1. As per prevalent industry practice, primarily for liquid and overnight schemes, the\nredemption payouts to the investors are processed in the morning hours of T+1\nday whereas the mutual fund schemes receive the maturity proceeds from TREPS\nand reverse repo in the evening hours of T+1 day. In order to bridge the intraday\ntiming mismatch of inflow and outflow of funds, the mutual funds enter into\nformal intraday borrowing arrangements with financial institution such as banks."
+      },
+      {
+        "ce_rank": 2,
+        "ce_score": 0.029,
+        "chunk_id": "SEBI/HO/AFD/PoD1/P/CIR/2023/130#2.5.4. \u2018Material changes\u2019 may be construed as changes in the#48",
+        "doc_id": "SEBI/HO/AFD/PoD1/P/CIR/2023/130",
+        "section": "SEBI/HO/AFD/PoD1/P/CIR/2023/130/2.5.4. \u2018Material changes\u2019 may be construed as changes in the/p48",
+        "is_relevant": false,
+        "text": "SEBI/HO/AFD/PoD1/P/CIR/2023/130 | Master Circular for Alternative Investment Funds (AIFs) | 2.5.4. \u2018Material changes\u2019 may be construed as changes in the\n2.5. Changes in PPM7\nd June 19, 2014, SEBI Circular No. CIR/IMD/DF/16/2014\ndated July 18, 2014\n8 SEBI circular No. SEBI/HO/IMD/IMD-I/DOF6/CIR/2021/549 dated April 07, 2021\n9 SEBI Circular No. SEBI/HO/IMD/IMD-I/DF6/P/CIR/2021/645 dated October 21, 2021\nPage 11 of 113\nA. Buying out of units of the dissenting investors by the manager/\nany other person as may be arranged by the manager, valuation\nof which shall be based on market price of underlying assets.\nB. Redemption of units of the investors through sale of underlying\nassets.\n(iii) In case of close-ended schemes of the AIF, the exit option may be\nprovided as under:\nA. The exit option shall be provided by buying out of units of the\ndissenting investors by the manager/ any other person as may\nbe arranged by the manager.\nB. Prior to buying out of such units, valuation of the units shall be\nundertaken by two independent valuers and the exit shall be at\nvalue not less than average of the two valuations.\n(iv) The responsibility to provide exit to the dissenting investors shall be\non the manager. The expenses for the entire process shall be borne\nby the manager/sponsor/proposed new manager or sponsor and shall\nnot be charged to the unit holders."
+      },
+      {
+        "ce_rank": 3,
+        "ce_score": 0.0215,
+        "chunk_id": "SEBI/HO/AFD-1/AFD-1-PoD/P/CIR/2024/39#2.5.4. \u2018Material changes\u2019 may be construed as changes in the#46",
+        "doc_id": "SEBI/HO/AFD-1/AFD-1-PoD/P/CIR/2024/39",
+        "section": "SEBI/HO/AFD-1/AFD-1-PoD/P/CIR/2024/39/2.5.4. \u2018Material changes\u2019 may be construed as changes in the/p46",
+        "is_relevant": false,
+        "text": "SEBI/HO/AFD-1/AFD-1-PoD/P/CIR/2024/39 | Master Circular for Alternative Investment Funds (AIFs) | 2.5.4. \u2018Material changes\u2019 may be construed as changes in the\n2.5. Changes in PPM7\ninvestors by the manager/\nany other person as may be arranged by the manager, valuation\nof which shall be based on market price of underlying assets.\nB. Redemption of units of the investors through sale of underlying\nassets.\n(iii) In case of close-ended schemes of the AIF, the exit option may be\nprovided as under:\nA. The exit option shall be provided by buying out of units of the\ndissenting investors by the manager/ any other person as may\nbe arranged by the manager.\nB. Prior to buying out of such units, valuation of the units shall be\nundertaken by two independent valuers and the exit shall be at\nvalue not less than average of the two valuations.\n(iv) The responsibility to provide exit to the dissenting investors shall be\non the manager. The expenses for the entire process shall be borne\nby the manager/sponsor/proposed new manager or sponsor and shall\nnot be charged to the unit holders.\n9 SEBI Circular No. SEBI/HO/IMD/IMD-I/DF6/P/CIR/2021/645 dated October 21, 2021\nPage 11 of 126\n(v) The entire process of exit to dissenting investors shall be completed\nwithin 3 months from the date of expiry of last date of the offer for\ndissent."
+      },
+      {
+        "ce_rank": 4,
+        "ce_score": 0.0172,
+        "chunk_id": "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90#3) Corrective actions at the level of Fund manager, CIO and#1080",
+        "doc_id": "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90",
+        "section": "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90/3) Corrective actions at the level of Fund manager, CIO and/p1080",
+        "is_relevant": false,
+        "text": "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90 | Master Circular for Mutual Funds | 3) Corrective actions at the level of Fund manager, CIO and\ntime, shall be one of the factors\nto be considered in liquidity risk management.\ne. The model should incorporate forward looking asset liability mis-\nmatch for the scheme at different periods of time at least up to next\n30 days.\nii. The AMC should have policy in place on management of the mis-match in\nputative liabilities vis-\u00e0-vis the liquid assets of each scheme. It should\nfollow the following principles:\na. There should be an upper limit or threshold on the mis-match in\nputative liabilities vis-\u00e0-vis the liquid assets of each scheme. The\nupper limit shall be customized depending on size or type of the\nscheme.\nb. There should be a system based mechanism to generate alerts as per\npoint(a) above.\nc. The policy shall include monthly reporting to Board of AMC and\nTrustees and on quarterly basis to SEBI in a standard format (to be\nprescribed by AMFI in consultation with SEBI).\nd. The report shall include the details of alerts generated by the system\nregarding asset liability mis-match in excess of the defined threshold\nand subsequent actions taken to address the same. The scheme wise\nmis-match limits shall be put in the system and all alerts shall be\nmanaged effectively."
+      },
+      {
+        "ce_rank": 5,
+        "ce_score": 0.016,
+        "chunk_id": "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2022/52#10.4.6. [However, in case an acquisition described under Reg#325",
+        "doc_id": "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2022/52",
+        "section": "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2022/52/10.4.6. [However, in case an acquisition described under Reg/p325",
+        "is_relevant": false,
+        "text": "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2022/52 | Master Circular for Real Estate Investment Trusts (REITs) | 10.4.6. [However, in case an acquisition described under Reg\n10.4. Manner and mechanism of exit option:\nting by the Manager to Acquirer and\nstock exchange(s) along with the number of\ndissenting unit holders and total number of Within forty-eight hours of\nunits held by them as of the cut-off date, as the last day of voting\ncertified by its compliance officer.\nManager shall provide the list of dissenting\nunit holders to the Lead Manager(s).\nThe day of aforesaid intimation by Manager\nshall be construed as \u201cDate of Intimation\u201d.\nPage 86 of 121\nActivity Description Timelines\nAcquirer through the Lead Manager(s) shall\nsend the Letter of Offer (LoF) to all dissenting\nunit holders and file a copy of the same with\nthe stock exchange(s). Lead Manager(s)\nshall exercise due diligence with regard to all Within three working days\ninformation and disclosures contained in the from the Date of Intimation\nLoF.\nThe stock exchange(s) shall disseminate the\nLoF on its website as soon as it receives the\nsame.\nAcquirer shall create an escrow account\nwherein the aggregate amount of\nAt least two working days\nconsideration based on the list of dissenting\nprior to opening of the\nunit holders provided by the Manager to Lead\ntendering period.\nManager would be deposited in the manner\nspecified at para 10.4.7 below."
+      },
+      {
+        "ce_rank": 6,
+        "ce_score": 0.016,
+        "chunk_id": "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2021/674#10.4.6. [However, in case an acquisition described under Reg#324",
+        "doc_id": "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2021/674",
+        "section": "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2021/674/10.4.6. [However, in case an acquisition described under Reg/p324",
+        "is_relevant": false,
+        "text": "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2021/674 | Master Circular for Real Estate Investment Trusts (REITs) | 10.4.6. [However, in case an acquisition described under Reg\n10.4. Manner and mechanism of exit option:\nting by the Manager to Acquirer and\nstock exchange(s) along with the number of\ndissenting unit holders and total number of Within forty-eight hours of\nunits held by them as of the cut-off date, as the last day of voting\ncertified by its compliance officer.\nManager shall provide the list of dissenting\nunit holders to the Lead Manager(s).\nThe day of aforesaid intimation by Manager\nshall be construed as \u201cDate of Intimation\u201d.\nPage 83 of 109\nActivity Description Timelines\nAcquirer through the Lead Manager(s) shall\nsend the Letter of Offer (LoF) to all dissenting\nunit holders and file a copy of the same with\nthe stock exchange(s). Lead Manager(s)\nshall exercise due diligence with regard to all Within three working days\ninformation and disclosures contained in the from the Date of Intimation\nLoF.\nThe stock exchange(s) shall disseminate the\nLoF on its website as soon as it receives the\nsame.\nAcquirer shall create an escrow account\nwherein the aggregate amount of\nAt least two working days\nconsideration based on the list of dissenting\nprior to opening of the\nunit holders provided by the Manager to Lead\ntendering period.\nManager would be deposited in the manner\nspecified at para 10.4.7 below."
+      },
+      {
+        "ce_rank": 7,
+        "ce_score": 0.0122,
+        "chunk_id": "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2021/674#10.2. An acquirer providing exit option to dissenting unitho#312",
+        "doc_id": "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2021/674",
+        "section": "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2021/674/10.2. An acquirer providing exit option to dissenting unitho/p312",
+        "is_relevant": false,
+        "text": "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2021/674 | Master Circular for Real Estate Investment Trusts (REITs) | 10.2. An acquirer providing exit option to dissenting unitho\n10.2. An acquirer providing exit option to dissenting unitholders in terms of this chapter\nshall appoint one or more merchant bankers, registered with the Board, as lead\nmanager(s) for the exit option/offer, who shall ensure compliance with the\nprovisions of REIT Regulations and this chapter. Lead manager(s) shall send the\nLetter of Offer (LoF) to all dissenting unit holders and shall also file the same along\nwith the due diligence certificate, in line with format specified in Form A in\nAnnexure-I of SEBI circular no. CIR/IMD/DF/136/2016 dated December 19, 2016\n(Annexure - 1 of the master circular), with the Exchange(s). The broad contents of\nLoF are indicated in Annexure - 8.\n26 Circular No. SEBI/HO/DDHS/DDHS_Div3/P/CIR/2021/640 dated October 05, 2021\nPage 78 of 109"
+      },
+      {
+        "ce_rank": 8,
+        "ce_score": 0.012,
+        "chunk_id": "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2022/52#10.2. An acquirer providing exit option to dissenting unitho#313",
+        "doc_id": "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2022/52",
+        "section": "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2022/52/10.2. An acquirer providing exit option to dissenting unitho/p313",
+        "is_relevant": false,
+        "text": "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2022/52 | Master Circular for Real Estate Investment Trusts (REITs) | 10.2. An acquirer providing exit option to dissenting unitho\n10.2. An acquirer providing exit option to dissenting unitholders in terms of this chapter\nshall appoint one or more merchant bankers, registered with the Board, as lead\nmanager(s) for the exit option/offer, who shall ensure compliance with the\nprovisions of REIT Regulations and this chapter. Lead manager(s) shall send the\nLetter of Offer (LoF) to all dissenting unit holders and shall also file the same along\nwith the due diligence certificate, in line with format specified in Form A in\nAnnexure-I of SEBI circular no. CIR/IMD/DF/136/2016 dated December 19, 2016\n(Annexure - 1 of the master circular), with the Exchange(s). The broad contents of\nLoF are indicated in Annexure - 8.\n26 Circular No. SEBI/HO/DDHS/DDHS_Div3/P/CIR/2021/640 dated October 05, 2021\nPage 81 of 121"
+      }
+    ]
+  },
+  {
+    "id": "para-pricedata",
+    "query": "How old must exchange quotes be before a teaching institute that is not a regulated entity can show them to students?",
+    "relevant": [
+      "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026"
+    ],
+    "gate": 0.42,
+    "ce_top": 0.0114,
+    "relevant_in_pool": [
+      {
+        "ce_rank": 1,
+        "ce_score": 0.0114,
+        "chunk_id": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026#3. The purposes of these two circulars were different. The C#3",
+        "section": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026/3. The purposes of these two circulars were different. The C/p3",
+        "text": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026 | Norms for sharing and usage of price data for educational purposes | 3. The purposes of these two circulars were different. The C\n3. The purposes of these two circulars were different. The Circular dated May 24, 2024\nallowed exchanges to share data for educational purposes with a time lag of one day,\nwhile the Circular dated January 29, 2025 operates after that as to how much old data\nPage 1 of 4\ncan be actually used for sole educational purposes and for that a time lag of three\nmonths had been prescribed."
+      },
+      {
+        "ce_rank": 2,
+        "ce_score": 0.0019,
+        "chunk_id": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026#4. Based on feedback received from various stakeholders that#4",
+        "section": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026/4. Based on feedback received from various stakeholders that/p4",
+        "text": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026 | Norms for sharing and usage of price data for educational purposes | 4. Based on feedback received from various stakeholders that\n4. Based on feedback received from various stakeholders that the lag of one day for\nsharing of price data is very short and there is possibility of mis-use of the same, and lag\nof three months for usage of the price data being too long for educational purposes; and\nsubsequent comments received through public consultation, it has been decided to\nprescribe a time lag of 30 days for both sharing and usage of price data for educational\npurposes."
+      },
+      {
+        "ce_rank": 8,
+        "ce_score": 0.0011,
+        "chunk_id": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026#6.2. Question No.8 of FAQ at Annexure-A of SEBI Circular No.#8",
+        "section": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026/6.2. Question No.8 of FAQ at Annexure-A of SEBI Circular No./p8",
+        "text": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026 | Norms for sharing and usage of price data for educational purposes | 6.2. Question No.8 of FAQ at Annexure-A of SEBI Circular No.\n6. Accordingly, the relevant provisions of SEBI Circulars dated May 24, 2024 and January 29, 2025 have been modified as under:\n6.2. Question No.8 of FAQ at Annexure-A of SEBI Circular No. SEBI/HO/MIRSD/MIRSD-\nPoD-1/P/CIR/2025/11 dated January 29, 2025 on \u201cDetails/clarifications on provisions\nrelated to association of persons regulated by the Board, MIIs, and their agents with\npersons engaged in prohibited activities\u201d stands modified as under:\n\u201c8. What distinguishes education and advice/recommendation?\nA person engaged solely in education shall mean that such person is not engaged in\nany of the two prohibited activities. Such person should not be using the market price\ndata of the preceding thirty days to speak/talk/display the name of any security\nincluding using any code name of the security in his/her talk/speech, video, ticker,\nscreen share etc. indicating the future price, advice or recommendation related to\nsecurity or securities. However, the National Institute of Securities Markets (NISM) can\nuse the market price data with a lag of one day only for the purpose of usage in its\nsimulation lab.\u201d"
+      },
+      {
+        "ce_rank": 26,
+        "ce_score": 0.0004,
+        "chunk_id": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026#6.1. Paragraphs 2(iii) & (iv) of SEBI Circular No. SEBI/HO/M#7",
+        "section": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026/6.1. Paragraphs 2(iii) & (iv) of SEBI Circular No. SEBI/HO/M/p7",
+        "text": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026 | Norms for sharing and usage of price data for educational purposes | 6.1. Paragraphs 2(iii) & (iv) of SEBI Circular No. SEBI/HO/M\n6. Accordingly, the relevant provisions of SEBI Circulars dated May 24, 2024 and January 29, 2025 have been modified as under:\n6.1. Paragraphs 2(iii) & (iv) of SEBI Circular No. SEBI/HO/MRD/MRD-PoD-\n3/P/CIR/2024/56 dated May 24, 2024 on \u201cNorms for sharing of real time price data to\nthird parties\u201d stands modified as under:\n\u201c2(iii). Market price data may be shared for investor education and awareness activities\nwithout offering any kind of monetary incentive to the participants, with a lag of thirty\ndays. However, the market price data may be shared with National Institute of\nSecurities Markets (NISM) with a lag of one day only for the purpose of usage in its\nsimulation lab. For this purpose, the MIIs or the market intermediaries shall also enter\ninto appropriate legal agreement with entities/persons with whom the data is being\nshared.\n2(iv). MIIs and market intermediaries shall ensure due diligence while sharing such\ndata. The legal agreement for sharing the data shall have provisions to prevent any\nPage 2 of 4\nkind of misuse of the same by the entities/persons including maintenance of audit\ntrail for usage of such data.\u201d"
+      }
+    ],
+    "top_pool": [
+      {
+        "ce_rank": 1,
+        "ce_score": 0.0114,
+        "chunk_id": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026#3. The purposes of these two circulars were different. The C#3",
+        "doc_id": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026",
+        "section": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026/3. The purposes of these two circulars were different. The C/p3",
+        "is_relevant": true,
+        "text": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026 | Norms for sharing and usage of price data for educational purposes | 3. The purposes of these two circulars were different. The C\n3. The purposes of these two circulars were different. The Circular dated May 24, 2024\nallowed exchanges to share data for educational purposes with a time lag of one day,\nwhile the Circular dated January 29, 2025 operates after that as to how much old data\nPage 1 of 4\ncan be actually used for sole educational purposes and for that a time lag of three\nmonths had been prescribed."
+      },
+      {
+        "ce_rank": 2,
+        "ce_score": 0.0019,
+        "chunk_id": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026#4. Based on feedback received from various stakeholders that#4",
+        "doc_id": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026",
+        "section": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026/4. Based on feedback received from various stakeholders that/p4",
+        "is_relevant": true,
+        "text": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026 | Norms for sharing and usage of price data for educational purposes | 4. Based on feedback received from various stakeholders that\n4. Based on feedback received from various stakeholders that the lag of one day for\nsharing of price data is very short and there is possibility of mis-use of the same, and lag\nof three months for usage of the price data being too long for educational purposes; and\nsubsequent comments received through public consultation, it has been decided to\nprescribe a time lag of 30 days for both sharing and usage of price data for educational\npurposes."
+      },
+      {
+        "ce_rank": 3,
+        "ce_score": 0.0017,
+        "chunk_id": "CIR/MRD/DSA/SE/43/2010#2. Circular No. SMD/MRD/DSA/24/2010 dated August 11, 2010#77",
+        "doc_id": "CIR/MRD/DSA/SE/43/2010",
+        "section": "CIR/MRD/DSA/SE/43/2010/2. Circular No. SMD/MRD/DSA/24/2010 dated August 11, 2010/p77",
+        "is_relevant": false,
+        "text": "CIR/MRD/DSA/SE/43/2010 | Master Circular on Administration of Stock Exchanges, Arbitration in recognised Stock Exchanges and Stock Exchanges / tr | 2. Circular No. SMD/MRD/DSA/24/2010 dated August 11, 2010\no the selling broker.\n(c) Execution of the order at the quoted price and quantity must be\nguaranteed by the Market Maker, for the quotes given by him.\n(d) There would not be more than five Market Makers for a scrip. These\nwould be selected on the basis of objective criteria to be evolved by the\nExchange which would include capital adequacy, networth,\ninfrastructure, minimum volume of business etc.\n(e\nYS\nThe Market Maker may compete with other Market Makers for better\nquotes to the investors;\n(f) Once registered as a Market Maker, he has to start providing quotes\nfrom the day of the listing / the day when designated as the Market\nMaker for the respective scrip and shall be subject to the guidelines laid\ndown for market making by the exchange\n(g) Once registered as a Market Maker, he has to act in that capacity for a\nperiod as mutually decided between the Merchant Banker and the\nmarket maker.\n(h) Further, the Market Maker shall be allowed to deregister by giving one\nmonth notice to the exchange, subject to (g) above.\n. Dissemination of Information\nThe exchange should disseminate the list of Market Makers for the\nrespective scrip to the public.\nNumber of Shares per Market Maker"
+      },
+      {
+        "ce_rank": 4,
+        "ce_score": 0.0015,
+        "chunk_id": "SEBI/HO/CFD/PoD2/CIR/P/0155#6.2. Concerned recognized stock exchange(s) shall display on#258",
+        "doc_id": "SEBI/HO/CFD/PoD2/CIR/P/0155",
+        "section": "SEBI/HO/CFD/PoD2/CIR/P/0155/6.2. Concerned recognized stock exchange(s) shall display on/p258",
+        "is_relevant": false,
+        "text": "SEBI/HO/CFD/PoD2/CIR/P/0155 | Master circular for compliance with the provisions of the Securities and Exchange Board of India (Listing Obligations an | 6.2. Concerned recognized stock exchange(s) shall display on\n6. Regulation 17(1A) Rs. 2,000 per day Non-compliance with the requirements pertaining to the appointment or continuation of Non-executive director who has attained the age of seventy five years Page 49 of 261\n6.2. Concerned recognized stock exchange(s) shall display on their website non-compliance by\nthe listed entity and details of fine levied/ action taken."
+      },
+      {
+        "ce_rank": 5,
+        "ce_score": 0.0015,
+        "chunk_id": "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/91#8. What distinguishes education and advice/recommendation?#650",
+        "doc_id": "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/91",
+        "section": "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/91/8. What distinguishes education and advice/recommendation?/p650",
+        "is_relevant": false,
+        "text": "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/91 | Master Circular for Registrars to an Issue and Share Transfer Agents I. Securities and Exchange Board of India (\u201cSEBI\u201d/  | 8. What distinguishes education and advice/recommendation?\n8. What distinguishes education and advice/recommendation?\nA person engaged solely in education shall mean that such person is not engaged in\nany of the two prohibited activities. Such person should not be using the market price\ndata of the preceding three months to speak/talk/display the name of any security\nincluding using any code name of the security in his/her talk/speech, video, ticker,\nscreen share etc. indicating the future price, advice or recommendation related to\nsecurity or securities."
+      },
+      {
+        "ce_rank": 6,
+        "ce_score": 0.0015,
+        "chunk_id": "HO/49/14/14(7)2025-CFD-POD2/I/3762/2026#6.2. Concerned recognized stock exchange(s) shall display on#303",
+        "doc_id": "HO/49/14/14(7)2025-CFD-POD2/I/3762/2026",
+        "section": "HO/49/14/14(7)2025-CFD-POD2/I/3762/2026/6.2. Concerned recognized stock exchange(s) shall display on/p303",
+        "is_relevant": false,
+        "text": "HO/49/14/14(7)2025-CFD-POD2/I/3762/2026 | Master Circular for compliance with the provisions of the Securities and Exchange Board of India (Listing Obligations an | 6.2. Concerned recognized stock exchange(s) shall display on\n6. Regulation 17(1A) Rs. 2,000 per day Non-compliance with the requirements pertaining to the appointment or continuation of Non-executive director who has attained the age of seventy five years\n6.2. Concerned recognized stock exchange(s) shall display on their website non-compliance by\nthe listed entity and details of fine levied/ action taken."
+      },
+      {
+        "ce_rank": 7,
+        "ce_score": 0.0014,
+        "chunk_id": "SEBI/HO/CFD/PoD2/CIR/P/2023/120#6.2. Concerned recognized stock exchange(s) shall display on#247",
+        "doc_id": "SEBI/HO/CFD/PoD2/CIR/P/2023/120",
+        "section": "SEBI/HO/CFD/PoD2/CIR/P/2023/120/6.2. Concerned recognized stock exchange(s) shall display on/p247",
+        "is_relevant": false,
+        "text": "SEBI/HO/CFD/PoD2/CIR/P/2023/120 | Master circular for compliance with the provisions of the Securities and Exchange Board of India (Listing Obligations an | 6.2. Concerned recognized stock exchange(s) shall display on\n6. Regulation 17(1A) Rs. 2,000 per day Non-compliance with the requirements pertaining to the appointment or continuation of Non-executive director who has attained the age of seventy five years Page 46 of 230\n6.2. Concerned recognized stock exchange(s) shall display on their website non-compliance by\nthe listed entity and details of fine levied/ action taken."
+      },
+      {
+        "ce_rank": 8,
+        "ce_score": 0.0011,
+        "chunk_id": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026#6.2. Question No.8 of FAQ at Annexure-A of SEBI Circular No.#8",
+        "doc_id": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026",
+        "section": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026/6.2. Question No.8 of FAQ at Annexure-A of SEBI Circular No./p8",
+        "is_relevant": true,
+        "text": "HO/47/17/12(11)2025-MRD-POD3/I/11107/2026 | Norms for sharing and usage of price data for educational purposes | 6.2. Question No.8 of FAQ at Annexure-A of SEBI Circular No.\n6. Accordingly, the relevant provisions of SEBI Circulars dated May 24, 2024 and January 29, 2025 have been modified as under:\n6.2. Question No.8 of FAQ at Annexure-A of SEBI Circular No. SEBI/HO/MIRSD/MIRSD-\nPoD-1/P/CIR/2025/11 dated January 29, 2025 on \u201cDetails/clarifications on provisions\nrelated to association of persons regulated by the Board, MIIs, and their agents with\npersons engaged in prohibited activities\u201d stands modified as under:\n\u201c8. What distinguishes education and advice/recommendation?\nA person engaged solely in education shall mean that such person is not engaged in\nany of the two prohibited activities. Such person should not be using the market price\ndata of the preceding thirty days to speak/talk/display the name of any security\nincluding using any code name of the security in his/her talk/speech, video, ticker,\nscreen share etc. indicating the future price, advice or recommendation related to\nsecurity or securities. However, the National Institute of Securities Markets (NISM) can\nuse the market price data with a lag of one day only for the purpose of usage in its\nsimulation lab.\u201d"
+      }
+    ]
+  }
+]
