@@ -20,7 +20,7 @@
 | **v7 strata** | title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10 |
 | **Abstain/as_of rows** | 41 abstain, 15 dated `as_of` |
 | **Draft rows** | 0 draft, 0 seeded |
-| **Test suite** | 859 passed, 2 skipped, 3 deselected (2026-08-19) |
+| **Test suite** | 867 passed, 2 skipped, 3 deselected (2026-08-19) |
 | **Source tree** | 35 Python modules in `src/sebi_rag/` (api, api_spaces, pipeline, retrieve, rerank, embeddings, segment, lineage, generate, generate_spaces, corpus, corpus_spaces, eval, eval_harness, benchmark, splade, splade_encoder, hyde, context_headers, paraphrase_rescue, reg_citations, reg_lineage, regulations, master_meta, settings, stats, ui, expand, verify_master, eval_asof, device, ingest_pdf, metadata, attribution, measure); 39 top-level scripts in `scripts/` (incl. bench_retrieval.py, measure.py, hybrid_gate_sweep.py) plus `scripts/analysis/` and `scripts/golden_v7/` |
 | **Golden-v7 pipeline** | 14 scripts in `scripts/golden_v7/` (adjudicate_draft, agreement, backfill_escalations, build_pool, derive_thresholds, gate_select, gemini_adjudicate, local_adjudicate, make_packet, mine_strata, relabel_repooled, remap_doc_ids, score, seed_v7) |
 | **V7 annotations** | `eval/golden/v7_annotations/` — votes.jsonl (207 claude records), pools.jsonl (4.2 MB), arbitration_queue.jsonl (65 KB), external_sample.json, gemini/ (21 dirs), qwen/ (150 files), candidates/, packet_human/ |
@@ -213,7 +213,7 @@ citation_precision:     observed=0.192, floor=0.1577  (margin +0.034)
 
 ## Known Blockers
 
-✅ **No active blockers.** All validation steps pass, all phases complete: `make test` → 859 passed, 2 skipped, 3 deselected (2026-08-19).
+✅ **No active blockers.** All validation steps pass, all phases complete: `make test` → 867 passed, 2 skipped, 3 deselected (2026-08-19).
 
 ⚠️ **Known limitations (not blockers):** 2 false abstentions (`para-mfborrow`, `para-pricedata` — CE paraphrase collapse below the 0.05 score floor; no separating threshold exists, rescue arm R1 rejected 2026-08-19) and 2 false answers (`v7-hn-011`, `v7-hn-025` — need the semantic gate; keyword filter cannot fix without recreating the arbitration-substring bug).
 
@@ -830,6 +830,30 @@ adopting iv11: the sole surviving exploratory result failed on data that did not
 cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
+
+2026-08-19 — **Supersession confidence tiering REJECTED on the preregistered guardrail; the exploratory signal was a size confound.** Prereg: `docs/superpowers/specs/2026-08-19-supersession-confidence-tier-prereg.md`. Run `reports/supersession-tier-cohort-2026-08-19.json` (2259 s, MLX, B′ on).
+
+Hypothesis: supersession edges inferred from the master-circular title heuristic (`mc_topic`) are less reliable than those read from supersession clauses, so applying the same 0.3 penalty to both discards governing law. Exploratory support looked strong — 37 of 1350 superseded circulars (2.7%) rest only on inferred edges, yet 4 of the 6 demotion-caused zero-cite rows involve one.
+
+**Arm T1 (`explicit=0.3`, `inferred=1.0`) is worse on every measured quantity:**
+
+| Endpoint | Control | T1 | Rule |
+|---|---|---|---|
+| zero_cite (primary, n=197) | 14 | **19** | §6.3 needs ≤12 ❌ |
+| stale@1 | 7 | **61** | §6.1 needs ≤7 ❌ |
+| stale@3 | 100 | **163** | §6.2 needs ≤105 ❌ |
+| citation_recall | 0.9188 | 0.8934 | — |
+| citation_precision | 0.1854 | 0.1735 | — |
+
+**The 4 exploratory rows all flipped to cited (4 → 0) while the 197 held-out rows got worse.** §4's exclusion of the hypothesis-generating rows is the only reason this is recorded as a rejection rather than a 4-of-4 success.
+
+**Root cause — `confidence="inferred"` is a proxy for "is a master circular", not a reliability signal.** All **37 of 37** only-inferred circulars are master circulars (`mc_topic` fires on nothing else). They are 5.07% of circulars but **24.40% of chunk mass** (19,183 of 78,630), averaging **518 chunks vs the corpus mean of 108 (4.8×)**. They dominate every candidate pool, so demotion matters more for them — the §0 enrichment is a **size effect**, not evidence the edges are wrong. Removing their penalty floods the context window with superseded master circulars.
+
+**Establishes:** flat `superseded_penalty=0.3` is correct for master-circular re-issues, and provenance tiering is dead as a lever (T1 was the extreme; `stale@1` is monotone in `inferred_penalty`). **Does not establish** that the 6 demotion-caused zero-cite rows are unfixable — only that a scalar rerank multiplier cannot express "best topical match, wrong law".
+
+**Shipped inert:** `demote_superseded(..., inferred_penalty=None)` and `RAGPipeline.inferred_supersession_penalty=None` preserve current behaviour exactly. No `Settings`/`config.toml` wiring added. **+8 tests (867 passed, 2 skipped).**
+
+⚠️ **Cohort correction.** The "frozen 206-row perfect-retrieval subset" was never persisted and is index-dependent. Recomputed on the live 730-circular index: **201 of 204** eligible rows. All prior-index reference values were wrong here — `stale@1` 1→**7**, `stale@3` 83→**100**, `zero_cite` 19→**14**. Any future cohort experiment must recompute, not quote.
 
 2026-08-19 — **SPLADE artifacts confirmed absent, not stale; two research docs added.** `data/index/splade*` matches nothing — the 3.7 h 2026-08-12 rebuild did not survive a reindex, and §Residual described a file that no longer exists. Corrected (dated iv11 entries left as historical records). No rebuild scheduled: iv11 is rejected. Added `docs/research-synthesis-2026-08-19.md` (source verification: 3 of 5 load-bearing claims in an agent-produced synthesis contradicted their own cited papers — PoQuAD is not tabular, the quantization paper reports a *null* at 7B and never tested 1.5B) and `docs/research-roadmap-2026-08-19.md` (12 verified sources, ranked R0–R7). Three preregistrations frozen: `2026-08-19-crossref-eval-validity-prereg.md` (tests whether pool R@50 0.9861 is a golden_v7 property), `2026-08-19-supersession-confidence-tier-prereg.md`, `2026-08-19-fast-gate-tier-prereg.md`. **Measured 2026-08-19:** supersedes edges 4476 explicit_text / 60 inferred; 37 of 1350 superseded circulars (2.7%) rest on inferred edges only; chunk bodies <80 chars = 6736 (8.57%); tabular chunks 1579 (2.01%) of which 291 (18.4%) open or close mid-table; 0/7986 numeric-dense chunks retain multi-space column gaps (pdfplumber collapses them at ingest).
 

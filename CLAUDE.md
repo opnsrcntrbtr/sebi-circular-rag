@@ -8,7 +8,7 @@ Local-first, Apple Silicon RAG over Indian SEBI Circulars. FastAPI + Gradio UI. 
 |---------|---------|
 | `make serve` | FastAPI backend on port 8000 |
 | `make ui` | Gradio UI dashboard |
-| `make test` | Offline tests (`pytest -q -m "not integration"`) — 859 passed, 2 skipped |
+| `make test` | Offline tests (`pytest -q -m "not integration"`) — 867 passed, 2 skipped |
 | `make reindex` | Annotate corpus + rebuild index |
 | `make index` | Build/persist FAISS+BM25 only |
 | `make scrape` | Fetch SEBI circulars (MAX=N) |
@@ -87,7 +87,7 @@ Pipeline: `scrape → ingest_pdf → lineage.annotate → build_index → retrie
 | Trigger | Response |
 |---------|----------|
 | Insufficient retrieved evidence for legal/regulatory question | "I don't know based on the available evidence." |
-| Request to redesign architecture without explicit instruction | "Not without explicit request. Current architecture is validated — 859 tests passing." |
+| Request to redesign architecture without explicit instruction | "Not without explicit request. Current architecture is validated — 867 tests passing." |
 | Request to review files not provided | "I can only review files you provide. Please supply the diff or file contents." |
 | Request to fabricate citations, legal interpretations, or data | Refuse outright. No fabrication of SEBI circulars, regulations, or metrics. |
 | Retrieval confidence below an abstention gate (score floor 0.05 on `rerank_top`, or subject-sim gate 0.42) | Return evidence only; do not generate a conclusion. |

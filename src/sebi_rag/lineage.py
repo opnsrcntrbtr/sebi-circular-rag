@@ -203,14 +203,37 @@ def build_lineage(records: list[dict]) -> Lineage:
     return lin
 
 
-def demote_superseded(reranked, lineage: "Lineage", penalty: float = 0.3):
+def demote_superseded(reranked, lineage: "Lineage", penalty: float = 0.3,
+                      inferred_penalty: float | None = None):
     """Down-weight reranked (chunk, score) pairs from superseded circulars and
     re-sort, so an in-force successor is cited over its superseded predecessor.
+
+    `inferred_penalty` (prereg 2026-08-19-supersession-confidence-tier) tiers the
+    penalty by edge provenance. A circular whose supersession is attested by a
+    supersession clause in the text (`confidence="explicit_text"`) demotes at
+    `penalty`; one known only from the master-circular title heuristic
+    (`confidence="inferred"`, see `mc_topic`) demotes at `inferred_penalty`.
+    A circular with both kinds of edge demotes at `penalty` — evidence wins.
+
+    `inferred_penalty=None` (default) reproduces the untiered behaviour exactly.
     """
-    out = [
-        (c, s * penalty if c.doc_id in lineage.superseded_by else s)
-        for c, s in reranked
-    ]
+    if inferred_penalty is None:
+        out = [
+            (c, s * penalty if c.doc_id in lineage.superseded_by else s)
+            for c, s in reranked
+        ]
+    else:
+        # Same predicate as `Lineage.explicit_superseded_by`, evaluated once per
+        # call rather than once per chunk: that accessor rescans `edges` (4577
+        # entries in production) on every lookup, and this is a per-query path.
+        explicit = {e["target"] for e in lineage.edges
+                    if e["relation"] == "supersedes"
+                    and e["confidence"] == "explicit_text"}
+        out = [
+            (c, s * (penalty if c.doc_id in explicit else inferred_penalty)
+             if c.doc_id in lineage.superseded_by else s)
+            for c, s in reranked
+        ]
     out.sort(key=lambda cs: -cs[1])
     return out
 

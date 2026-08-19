@@ -41,6 +41,10 @@ class RAGPipeline:
     abstain_threshold: float = 0.40  # calibrated (cross-encoder); see scripts/calibrate.py
     lineage: Lineage | None = None  # P2: flag superseded citations in answers
     superseded_penalty: float = 0.3  # demote superseded chunks in rerank (0 = drop)
+    # prereg 2026-08-19-supersession-confidence-tier: penalty for circulars whose
+    # supersession is only inferred from the master-circular title heuristic.
+    # None = untiered (production default); see lineage.demote_superseded.
+    inferred_supersession_penalty: float | None = None
     judge: Judge | None = None  # groundedness gate (ADR-001 item 7)
     regulatory_index: dict[str, dict] | None = None  # repealed-basis staleness signal
     citation_scorer: Reranker | None = None  # B': post-hoc answer-relevance filter
@@ -101,7 +105,9 @@ class RAGPipeline:
             kept.sort(key=lambda cs: -cs[1])
             reranked = kept or reranked
         elif self.lineage is not None:
-            reranked = demote_superseded(reranked, self.lineage, self.superseded_penalty)
+            reranked = demote_superseded(
+                reranked, self.lineage, self.superseded_penalty,
+                self.inferred_supersession_penalty)
         return reranked
 
     def query(

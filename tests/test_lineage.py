@@ -3,6 +3,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 from sebi_rag.lineage import (
     Lineage,
     build_lineage,
@@ -328,3 +330,79 @@ def test_detect_relations_ex_supersedes_when_ref_before_trigger():
     )
     assert sup[0]["target"] == "SEBI/HO/IMD/DF2/CIR/P/2021/024"
     assert sup[0]["extractor"] == "regex:SUPERSEDE_RE"
+
+
+# --- supersession confidence tiering (prereg 2026-08-19) ---
+# `demote_superseded` applies one scalar to every superseded circular, whether its
+# supersession was read from a supersession clause (`explicit_text`) or inferred
+# from a 4-word master-circular title heuristic (`inferred`, `mc_topic`). These
+# cover the optional second tier.
+
+def _tier_lineage() -> Lineage:
+    """OLD_E superseded by an explicit clause; OLD_I only by a title heuristic."""
+    return Lineage(
+        superseded_by={"OLD_E": ["NEW"], "OLD_I": ["NEW"]},
+        supersedes={"NEW": ["OLD_E", "OLD_I"]},
+        edges=[
+            {"source": "NEW", "target": "OLD_E", "relation": "supersedes",
+             "confidence": "explicit_text", "extractor": "regex:SUPERSEDE_RE",
+             "evidence": "supersedes OLD_E"},
+            {"source": "NEW", "target": "OLD_I", "relation": "supersedes",
+             "confidence": "inferred", "extractor": "master_topic",
+             "evidence": "master-topic re-issue"},
+        ],
+    )
+
+
+def _tier_chunks() -> list[tuple[Chunk, float]]:
+    return [
+        (Chunk(id="OLD_E#1", doc_id="OLD_E", section="", text="e"), 0.9),
+        (Chunk(id="OLD_I#1", doc_id="OLD_I", section="", text="i"), 0.9),
+        (Chunk(id="LIVE#1", doc_id="LIVE", section="", text="l"), 0.5),
+    ]
+
+
+def _score(out, doc_id: str) -> float:
+    return next(s for c, s in out if c.doc_id == doc_id)
+
+
+def test_inferred_penalty_default_none_demotes_both_tiers_identically():
+    """Backward compatibility: the default reproduces current behaviour exactly."""
+    out = demote_superseded(_tier_chunks(), _tier_lineage(), penalty=0.3)
+    assert _score(out, "OLD_E") == pytest.approx(0.27)
+    assert _score(out, "OLD_I") == pytest.approx(0.27)
+
+
+def test_explicit_text_supersession_demotes_at_penalty():
+    out = demote_superseded(_tier_chunks(), _tier_lineage(),
+                            penalty=0.3, inferred_penalty=1.0)
+    assert _score(out, "OLD_E") == pytest.approx(0.27)
+
+
+def test_inferred_only_supersession_demotes_at_inferred_penalty():
+    out = demote_superseded(_tier_chunks(), _tier_lineage(),
+                            penalty=0.3, inferred_penalty=1.0)
+    assert _score(out, "OLD_I") == pytest.approx(0.9)
+
+
+def test_circular_with_both_edge_kinds_uses_the_explicit_penalty():
+    """An explicit clause anywhere outranks a heuristic edge — evidence wins."""
+    lin = _tier_lineage()
+    lin.edges.append({"source": "NEWER", "target": "OLD_E", "relation": "supersedes",
+                      "confidence": "inferred", "extractor": "master_topic",
+                      "evidence": "master-topic re-issue"})
+    lin.superseded_by["OLD_E"].append("NEWER")
+    out = demote_superseded(_tier_chunks(), lin, penalty=0.3, inferred_penalty=1.0)
+    assert _score(out, "OLD_E") == pytest.approx(0.27)
+
+
+def test_tiering_leaves_non_superseded_chunks_untouched():
+    out = demote_superseded(_tier_chunks(), _tier_lineage(),
+                            penalty=0.3, inferred_penalty=1.0)
+    assert _score(out, "LIVE") == pytest.approx(0.5)
+
+
+def test_tiering_reorders_so_inferred_only_outranks_explicitly_superseded():
+    out = demote_superseded(_tier_chunks(), _tier_lineage(),
+                            penalty=0.3, inferred_penalty=1.0)
+    assert [c.doc_id for c, _ in out] == ["OLD_I", "LIVE", "OLD_E"]

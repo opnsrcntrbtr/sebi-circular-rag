@@ -372,3 +372,57 @@ def test_as_of_demotes_circular_already_superseded_on_that_date():
     ans_before, _ = pipe.query("digital accessibility compliance",
                                as_of="2025-12-01", top_k=1)
     assert ans_before.citations[0].startswith(OLD), ans_before.citations
+
+
+# --- supersession confidence tiering pass-through (prereg 2026-08-19) ---
+
+def _master_reissue_pipeline():
+    """Two master circulars on one topic: `mc_topic` infers supersession.
+
+    Neither text contains a supersession clause, so the only edge linking them
+    is `confidence="inferred"` from the title heuristic — the class the prereg
+    argues is unreliable.
+    """
+    OLD, NEW = "SEBI/HO/MIRSD/2020/011", "SEBI/HO/MIRSD/2023/077"
+    subject = "Master Circular for Stock Brokers"
+    old_text = "Brokers shall maintain a client ledger and reconcile it daily."
+    new_text = "Brokers shall maintain a client ledger and reconcile it daily."
+    recs = [
+        {"circular_number": OLD, "issue_date": "2020-01-01",
+         "subject": subject, "text": old_text},
+        {"circular_number": NEW, "issue_date": "2023-01-01",
+         "subject": subject, "text": new_text},
+    ]
+    lineage = build_lineage(recs)
+    # guard: the edge really is the heuristic kind, not a textual clause
+    assert lineage.superseded_by.get(OLD) == [NEW]
+    assert lineage.explicit_superseded_by(OLD) == []
+
+    chunks = hierarchical_chunk(
+        old_text, CircularMeta(circular_number=OLD, issue_date="2020-01-01",
+                               subject=subject))
+    chunks += hierarchical_chunk(
+        new_text, CircularMeta(circular_number=NEW, issue_date="2023-01-01",
+                               subject=subject))
+    pipe = RAGPipeline.build(
+        chunks=chunks, embedder=HashEmbedder(256),
+        reranker=_FixedReranker({OLD: 0.9, NEW: 0.5}),
+        generator=ExtractiveStubGenerator(),
+        abstain_threshold=0.05, lineage=lineage,
+    )
+    return pipe, OLD, NEW
+
+
+def test_inferred_only_supersession_is_demoted_by_default():
+    """Current behaviour: the heuristic edge demotes OLD below NEW."""
+    pipe, OLD, NEW = _master_reissue_pipeline()
+    ans, _ = pipe.query("client ledger reconciliation")
+    assert ans.citations[0].startswith(NEW)
+
+
+def test_pipeline_inferred_penalty_preserves_heuristically_superseded_circular():
+    """With tiering on, an unevidenced supersession no longer demotes."""
+    pipe, OLD, NEW = _master_reissue_pipeline()
+    pipe.inferred_supersession_penalty = 1.0
+    ans, _ = pipe.query("client ledger reconciliation")
+    assert ans.citations[0].startswith(OLD)

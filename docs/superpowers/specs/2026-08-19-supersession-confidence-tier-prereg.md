@@ -139,19 +139,31 @@ Frozen properties:
 
 ## 4. Endpoints
 
-**Cohort.** The frozen **206-row perfect-retrieval subset** — answerable golden_v7 rows where every
-relevant document is retrieved — the same denominator used by both prior B′ arms and the
-2026-08-13 zero-cite composition. **Row ids are written to
-`reports/supersession-tier-cohort-2026-08-19.json` before the treatment arm runs.**
+**Cohort.** The perfect-retrieval subset — answerable golden_v7 rows where every relevant document
+is retrieved — the same *definition* used by both prior B′ arms and the 2026-08-13 zero-cite
+composition.
 
-- **PRIMARY — `zero_cite`**: rows citing nothing relevant. Control value **19**. Reported over the
-  cohort **excluding** the 4 rows named in §0 (n=202), so the hypothesis is confirmed on data that
-  did not generate it.
+⚠️ **The cohort is not a stored artifact and its membership is index-dependent.** It was derived
+inline in the 2026-08-12/13 analyses and never persisted. Those runs used the **724-circular /
+78,523-chunk** index and produced 206 rows; the current index is **730 / 78,630**, so the subset
+must be **recomputed** and may not be 206 rows. **Row ids are computed and written to
+`reports/supersession-tier-cohort-2026-08-19.json` before the treatment arm runs**, and that file
+is the cohort of record for this experiment.
+
+⚠️ **All control values below are prior-index reference figures, not this experiment's baseline.**
+They are recorded to show the expected order of magnitude and to make an unexplained divergence
+visible. **The Control arm (§5) is re-measured on the current index and is the only baseline the
+§6 decision rule may use.** Comparing T1 against a figure from a different index is exactly the
+frame-mixing error `rescore_runs.py` raises `IncomparableFramesError` to prevent.
+
+- **PRIMARY — `zero_cite`**: rows citing nothing relevant. Reported over the cohort **excluding**
+  the 4 rows named in §0, so the hypothesis is confirmed on data that did not generate it.
+  *(prior-index reference: 19 over 206 rows)*
 - **GUARDRAIL — `stale@1`**: rows whose **top-ranked context chunk** is from a circular superseded
-  at corpus head. Control value **1** (204 answerable non-as_of rows, penalty 0.3).
-- **GUARDRAIL — `stale@3`**: same within top-3. Control value **83**.
+  at corpus head. *(prior-index reference: 1 over 204 answerable non-as_of rows at penalty 0.3)*
+- **GUARDRAIL — `stale@3`**: same within top-3. *(prior-index reference: 83)*
 - **SECONDARY** — `citation_recall`, `citation_precision`, `context_recall`, `context_miss`
-  (control 15).
+  *(prior-index reference: 15)*.
 - **EXPLORATORY, reported separately and binding on nothing** — the 4 §0 rows.
 
 ### On the guardrail metric
@@ -190,9 +202,9 @@ value will, and the hypothesis is dead in one run rather than a grid.
    with the hybrid-gate and rescue preregs.
 2. **Discard T1 if `stale@3` > 83** by more than 5 rows. A modest rise is expected and acceptable;
    a large one means the inferred edges were mostly correct.
-3. **Adopt only if `zero_cite` improves on the n=202 primary**, i.e. ≤ 17 against a control of 19
-   measured on the same 202 rows. A 1-row gain does not qualify — the repo rejected
-   `superseded_penalty` 0.5 on exactly that (1 row, p=1.000).
+3. **Adopt only if `zero_cite` improves by ≥ 2 rows** against the **Control arm measured in this
+   run** on the identical cohort (§4), not against any prior-index figure. A 1-row gain does not
+   qualify — the repo rejected `superseded_penalty` 0.5 on exactly that (1 row, p=1.000).
 4. If 1-3 are met → proceed to §7. Otherwise record the null, leave `inferred_penalty=None`, and
    the 37 circulars keep the flat penalty.
 
@@ -253,4 +265,112 @@ Hard constraints this change must respect:
 
 ## 10. OUTCOME (recorded after execution)
 
-_Not yet run._
+**Run:** 2026-08-19, `scripts/analysis/supersession_tier_cohort.py`,
+`reports/supersession-tier-cohort-2026-08-19.json`. 2259 s (37.7 min), MLX
+`Qwen2.5-1.5B-Instruct-4bit`, B′ on at margin 0.35, `superseded_penalty=0.3`.
+
+### Cohort, recomputed as §4 requires
+
+| | value |
+|---|---|
+| eligible (answerable, non-as_of, gold citations) | **204** |
+| perfect-retrieval cohort | **201** *(prior-index reference: 206)* |
+| primary set (cohort − 4 exploratory) | **197** |
+| lineage | superseded 1350, explicit 1313, **only_inferred 37** |
+
+The §4 patch was load-bearing. Every prior-index reference figure was wrong on the
+current index: `stale@1` 1 → **7**, `stale@3` 83 → **100**, `zero_cite` 19 → **14**.
+Had T1 been compared against the status.md values it would have looked even worse than
+it is, for the wrong reason.
+
+### §4 endpoints
+
+| Endpoint | Control | T1 | Δ | Rule |
+|---|---|---|---|---|
+| **PRIMARY `zero_cite`** | 14 | **19** | **+5 worse** | §6.3 needs ≤ 12 |
+| **GUARDRAIL `stale@1`** | 7 | **61** | **+54** | §6.1 needs ≤ 7 |
+| **GUARDRAIL `stale@3`** | 100 | **163** | **+63** | §6.2 needs ≤ 105 |
+| `context_miss` | 8 | 12 | +4 | — |
+| `citation_recall` | 0.9188 | 0.8934 | −0.0254 | — |
+| `citation_precision` | 0.1854 | 0.1735 | −0.0119 | — |
+| `context_recall` | 0.9569 | 0.9315 | −0.0254 | — |
+| abstained | 2 | 2 | 0 | — |
+
+### Decision: **T1 REJECTED** — all three rules fire
+
+Worse on every measured quantity. `stale@1` rose **8.7×**: in 61 of 197 rows the
+top-ranked context became a superseded circular.
+
+### The hypothesis was confounded, and the confound is measurable
+
+**All 4 exploratory rows flipped to cited (`exploratory_zero_cite` 4 → 0).** The rows that
+generated the hypothesis were fixed exactly as predicted — while the 197 that did not
+generate it got worse. Reporting the exploratory rows as the result would have read as a
+clean 4-of-4 success. **§4's exclusion is the only reason this is not recorded as an
+adoption.**
+
+Root cause, measured after the run:
+
+| | value |
+|---|---|
+| only-inferred circulars that are **master circulars** | **37 of 37 (100%)** |
+| their share of circulars | 5.07% |
+| their share of **chunk mass** | **24.40%** (19,183 of 78,630) |
+| mean chunks/circular — only-inferred vs corpus | **518 vs 108 (4.8×)** |
+
+`confidence="inferred"` is not an independent signal about edge reliability — it is a
+**proxy for "is a master circular"**, because `mc_topic` only ever fires on master-circular
+titles. Master circulars are 4.8× larger than the average circular and occupy a quarter of
+the index, so they saturate any candidate pool.
+
+That inverts §0. The enrichment (2.7% of superseded circulars → ~67% of demotion-caused
+failures) is a **size effect, not a provenance-reliability effect**: these circulars are hit
+hardest by demotion because they are everywhere in the pool, not because their supersession
+is wrongly inferred. Removing their penalty does not restore governing law — it floods the
+context window with superseded master circulars.
+
+### What this establishes, and what it does not
+
+- **Establishes:** the flat `superseded_penalty=0.3` is correct for master-circular re-issues.
+  Master-circular supersession inferred by `mc_topic` is **behaving as if reliable** — the
+  demotion it triggers is load-bearing, and removing it is severely harmful.
+- **Establishes:** provenance tiering as specified in §3 is dead. Not a magnitude question —
+  T1 was the extreme, and it fails in the same direction at every intermediate value, since
+  any `inferred_penalty > 0.3` moves `stale@1` upward monotonically.
+- **Does not establish** that the 6 demotion-caused zero-cite rows are unfixable. It
+  establishes that *this* lever is the wrong one: the problem is that a superseded master
+  circular can be simultaneously the best topical match and the wrong law, and a single
+  rerank multiplier cannot express that.
+- **Does not establish** anything about `explicit_text` edge quality, which was not varied.
+
+### Per §8, not done
+
+No intermediate `inferred_penalty` was tried after T1 failed. `mc_topic` was not edited. The
+primary was not moved to the full 201 rows to reach adoption. The 4 exploratory rows are
+reported above and bind nothing.
+
+### Disposition
+
+`inferred_supersession_penalty` defaults to `None` in `RAGPipeline`, so **production
+behaviour is unchanged and the code ships inert**. `demote_superseded`'s new parameter is
+backward-compatible by default (guarded by
+`test_inferred_penalty_default_none_demotes_both_tiers_identically`). No `Settings` or
+`config.toml` wiring was added — deliberately deferred to adoption, which did not happen.
+**8 tests added** (6 in `tests/test_lineage.py`, 2 in `tests/test_pipeline.py`); suite
+**867 passed**, 2 skipped.
+
+### If a next arm is attempted
+
+The finding points away from rerank weighting entirely. A superseded master circular is
+often the best *topical* match and the wrong *law*; that is a two-dimensional fact and a
+scalar multiplier collapses it. Candidate directions, each needing its own prereg:
+
+1. **Chunk-level rather than document-level demotion.** A superseded master circular's
+   individual provisions may be unchanged in the successor; penalising all 1,595 chunks
+   uniformly is what makes demotion so blunt on these documents.
+2. **Redirect rather than demote.** Where a superseded master circular chunk is the best
+   match, retrieve the *corresponding* provision from its successor — `governing_on`
+   (`lineage.py:96`, currently unused by the demotion path) already computes which circular
+   governs.
+3. Note the size confound generalises: any future intervention keyed on a document-level
+   property must check whether that property is a proxy for chunk mass.
