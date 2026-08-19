@@ -1,16 +1,16 @@
 # Graph Report - SEBI circular RAG  (2026-08-19)
 
 ## Corpus Check
-- 205 files · ~190,021 words
+- 204 files · ~189,900 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2588 nodes · 5447 edges · 151 communities (123 shown, 28 thin omitted)
+- 2587 nodes · 5447 edges · 150 communities (122 shown, 28 thin omitted)
 - Extraction: 91% EXTRACTED · 9% INFERRED · 0% AMBIGUOUS · INFERRED: 509 edges (avg confidence: 0.55)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `15e28e68`
+- Built from commit: `e5bfa823`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -134,7 +134,6 @@
 - .query
 - test_build_index_out_dir.py
 - main
-- sebi-rag
 - autoresearch.sh
 - sweep_rrf_k.py
 - Overall Evaluation Summary
@@ -163,6 +162,7 @@
 - Label Escalations
 - Unresolved Regulations
 - Hugging Face Spaces Requirements
+- golden_v7/__init__.py
 - Master Appendix (Depository)
 - SEBI Regulations Listing
 
@@ -175,20 +175,20 @@
 6. `HashEmbedder` - 40 edges
 7. `Settings` - 37 edges
 8. `build_lineage()` - 35 edges
-9. `answer_with_abstention()` - 32 edges
-10. `CircularMeta` - 32 edges
+9. `CircularMeta` - 32 edges
+10. `answer_with_abstention()` - 32 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `test_chunk_meta_carries_new_fields()` --calls--> `load_circulars()`  [INFERRED]
-  tests/test_metadata.py → src/sebi_rag/corpus.py
-- `test_corpus_records_feed_build_lineage()` --calls--> `build_lineage()`  [INFERRED]
-  tests/test_spaces.py → src/sebi_rag/lineage.py
 - `_chunk()` --uses--> `Chunk`  [INFERRED]
   tests/test_hyde.py → src/sebi_rag/segment.py
 - `test_chunks_config_refuses_header_and_maps_fields()` --uses--> `Chunk`  [INFERRED]
   tests/test_spaces.py → src/sebi_rag/segment.py
-- `get_pipeline()` --calls--> `build_spaces_pipeline()`  [INFERRED]
-  app.py → src/sebi_rag/api_spaces.py
+- `test_corpus_records_feed_build_lineage()` --calls--> `build_lineage()`  [INFERRED]
+  tests/test_spaces.py → src/sebi_rag/lineage.py
+- `test_chunk_meta_carries_new_fields()` --calls--> `load_circulars()`  [INFERRED]
+  tests/test_metadata.py → src/sebi_rag/corpus.py
+- `_record()` --uses--> `RegulationMeta`  [INFERRED]
+  scripts/scrape_regulations.py → src/sebi_rag/regulations.py
 
 ## Import Cycles
 - None detected.
@@ -197,7 +197,7 @@
 - **Evaluation Run 2026-08-15** — eval_runs_eval_asof_2026_08_15_pipeline, eval_runs_eval_asof_2026_08_15_selector, eval_runs_eval_asof_2026_08_15_overall [EXTRACTED 1.00]
 - **SEBI Regulatory Framework** — tests_fixtures_master_appendix_pre2015_sebi, tests_fixtures_master_appendix_pre2015_circulars, tests_fixtures_master_appendix_pre2015_communications [INFERRED 0.90]
 
-## Communities (151 total, 28 thin omitted)
+## Communities (150 total, 28 thin omitted)
 
 ### Community 0 - "export_datasets.py"
 Cohesion: 0.06
@@ -209,7 +209,7 @@ Nodes (63): Rankings, _assert_fixed_tail(), convert_run_dir(), main(), Path, Bac
 
 ### Community 2 - "generate.py"
 Cohesion: 0.07
-Nodes (40): Ground truth: what do the 4 CE_MISMATCH rows actually DO in production? The…, Preregistered cohort measurement for the CE paraphrase rescue. Spec:…, What does the 0.05 cross-encoder score floor actually catch?…, Capture-once margin sweep for B' selective citations. One pipeline pass over…, Margin sweep for B' selective citations on the golden_v7 adjudicated set. One…, Benchmark MLX generators on the golden set: faithfulness, groundedness,…, F2 (ADR-001): benchmark rerankers on golden_v5 with cluster-separation metrics.…, Retrieval-only benchmark with TREC runfile and reproducibility metadata. Use… (+32 more)
+Nodes (42): Ground truth: what do the 4 CE_MISMATCH rows actually DO in production? The…, Preregistered cohort measurement for the CE paraphrase rescue. Spec:…, What does the 0.05 cross-encoder score floor actually catch?…, Capture-once margin sweep for B' selective citations. One pipeline pass over…, Margin sweep for B' selective citations on the golden_v7 adjudicated set. One…, Benchmark MLX generators on the golden set: faithfulness, groundedness,…, F2 (ADR-001): benchmark rerankers on golden_v5 with cluster-separation metrics.…, Retrieval-only benchmark with TREC runfile and reproducibility metadata. Use… (+34 more)
 
 ### Community 3 - "telemetry_engine.py"
 Cohesion: 0.06
@@ -269,7 +269,7 @@ Nodes (38): citation_scorer_for(), The single enable/disable AND backend decisio
 
 ### Community 17 - "sebi_rag/eval_asof.py"
 Cohesion: 0.20
-Nodes (16): AsofCaseResult, load_golden_asof(), Path, As-of-date golden evaluation runner (P4b). Two case modes drawn from…, Aggregate case results with an exact confidence interval. Pure function of the…, run_pipeline_cases(), run_selector_cases(), summarize() (+8 more)
+Nodes (17): sebi_rag/eval_asof.py, AsofCaseResult, load_golden_asof(), Path, As-of-date golden evaluation runner (P4b). Two case modes drawn from…, Aggregate case results with an exact confidence interval. Pure function of the…, run_pipeline_cases(), run_selector_cases() (+9 more)
 
 ### Community 18 - "test_reg_lineage.py"
 Cohesion: 0.12
@@ -337,7 +337,7 @@ Nodes (23): _current_model(), _daily_quota_exhausted(), main(), _parse_letter_ch
 
 ### Community 34 - "scrape_sebi.py"
 Cohesion: 0.26
-Nodes (13): discover(), _listing_url(), main(), _page(), _parse_date(), parse_rows(), pdf_url_for(), date (+5 more)
+Nodes (14): discover(), _listing_url(), main(), _page(), _parse_date(), parse_rows(), pdf_url_for(), date (+6 more)
 
 ### Community 35 - "app.py"
 Cohesion: 0.13
@@ -353,7 +353,7 @@ Nodes (24): beir_corpus_rows(), beir_query_rows(), BenchmarkIssue, build_golden_
 
 ### Community 38 - "sebi_rag/verify_master.py"
 Cohesion: 0.19
-Nodes (20): diff_manifest(), _iso(), parse_listing(), Path, Master-circular coverage verification (spec 2026-07-13). Pure functions only:…, (listing_date, detail_url, title) rows from one listing page, deduped., Assign exactly one status to every listed row + extra_in_corpus rows., render_markdown() (+12 more)
+Nodes (21): sebi_rag/verify_master.py, diff_manifest(), _iso(), parse_listing(), Path, Master-circular coverage verification (spec 2026-07-13). Pure functions only:…, (listing_date, detail_url, title) rows from one listing page, deduped., Assign exactly one status to every listed row + extra_in_corpus rows. (+13 more)
 
 ### Community 39 - "extract_misses.py"
 Cohesion: 0.15
@@ -688,7 +688,7 @@ Cohesion: 0.33
 Nodes (4): _ollama_up(), pipeline(), fixture, Step 12 — end-to-end RAG integration test with the REAL stack. bge-m3 (MPS) +…
 
 ## Knowledge Gaps
-- **49 isolated node(s):** `measure.sh script`, `autoresearch.sh script`, `PYTHONPATH`, `TOKENIZERS_PARALLELISM`, `OMP_NUM_THREADS` (+44 more)
+- **51 isolated node(s):** `HF_HUB_DISABLE_XET`, `OMP_NUM_THREADS`, `PYTHONPATH`, `PYTORCH_ENABLE_MPS_FALLBACK`, `SEBI_RAG_EVAL_GENERATOR` (+46 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **28 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -696,11 +696,11 @@ Nodes (4): _ollama_up(), pipeline(), fixture, Step 12 — end-to-end RAG integra
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `Chunk` connect `Chunk` to `generate.py`, `SpladeIndex`, `test_golden_v7_gate.py`, `test_benchmark.py`, `build_lineage`, `.grounded`, `RAGPipeline`, `test_attribution.py`, `test_spaces.py`, `load_circulars`, `test_selective_citations.py`, `answer_with_abstention`, `test_paraphrase_rescue.py`, `.build_incremental`, `benchmark.py`, `HybridRetriever`, `SubjectSimJudge`, `validate_golden_v7`, `.build`, `test_hyde.py`, `Qwen3MLXReranker`, `test_certainty.py`, `paraphrase_rescue.py`, `test_injection.py`, `build_spaces_pipeline`, `main`, `hierarchical_chunk`, `.query`, `sweep_rrf_k.py`?**
-  _High betweenness centrality (0.116) - this node is a cross-community bridge._
+  _High betweenness centrality (0.100) - this node is a cross-community bridge._
 - **Why does `RAGPipeline` connect `RAGPipeline` to `generate.py`, `test_golden_v7_gate.py`, `build_lineage`, `test_integration_e2e.py`, `sebi_rag/eval_asof.py`, `test_paraphrase_rescue.py`, `api.py`, `benchmark.py`, `HybridRetriever`, `Chunk`, `test_eval_harness_v7.py`, `measure_parsing_latency`, `measure.py`, `measure_supersession_precision`, `Embedder`, `paraphrase_rescue.py`, `MeasureResult`, `_doc`, `build_spaces_pipeline`, `measure_mrr`, `measure_retrieval_recall`, `measure_temporal_accuracy`, `.query`?**
-  _High betweenness centrality (0.040) - this node is a cross-community bridge._
-- **Why does `main()` connect `HybridRetriever` to `ValueError`, `generate.py`, `benchmark.py`, `read_trec_run`, `SpladeIndex`, `build_lineage`, `Settings`, `RAGPipeline`, `_doc`, `test_hyde.py`, `per_query_recall`?**
-  _High betweenness centrality (0.034) - this node is a cross-community bridge._
+  _High betweenness centrality (0.051) - this node is a cross-community bridge._
+- **Why does `sebi_rag/eval_asof.py` connect `sebi_rag/eval_asof.py` to `generate.py`, `clopper_pearson_ci`, `build_lineage`, `RAGPipeline`, `build_report`, `stats.py`?**
+  _High betweenness centrality (0.027) - this node is a cross-community bridge._
 - **Are the 60 inferred relationships involving `Chunk` (e.g. with `dataset_quality()` and `NLIAttributionScorer`) actually correct?**
   _`Chunk` has 60 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 44 inferred relationships involving `RAGPipeline` (e.g. with `main()` and `run()`) actually correct?**
