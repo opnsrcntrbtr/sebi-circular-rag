@@ -20,8 +20,8 @@
 | **v7 strata** | title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10 |
 | **Abstain/as_of rows** | 41 abstain, 15 dated `as_of` |
 | **Draft rows** | 0 draft, 0 seeded |
-| **Test suite** | 835 passed, 2 skipped, 3 deselected — `run_query` → streaming generator (`run_query_stream`) |
-| **Source tree** | 35 Python modules in `src/sebi_rag/` (api, api_spaces, pipeline, retrieve, rerank, embeddings, segment, lineage, generate, generate_spaces, corpus, corpus_spaces, eval, eval_harness, benchmark, splade, splade_encoder, hyde, context_headers, reg_citations, reg_lineage, regulations, master_meta, settings, stats, ui, expand, verify_master, eval_asof, device, ingest_pdf, metadata, attribution, measure); 37 scripts in `scripts/` (incl. bench_retrieval.py, measure.py, hybrid_gate_sweep.py) |
+| **Test suite** | 859 passed, 2 skipped, 3 deselected (2026-08-19) |
+| **Source tree** | 35 Python modules in `src/sebi_rag/` (api, api_spaces, pipeline, retrieve, rerank, embeddings, segment, lineage, generate, generate_spaces, corpus, corpus_spaces, eval, eval_harness, benchmark, splade, splade_encoder, hyde, context_headers, paraphrase_rescue, reg_citations, reg_lineage, regulations, master_meta, settings, stats, ui, expand, verify_master, eval_asof, device, ingest_pdf, metadata, attribution, measure); 39 top-level scripts in `scripts/` (incl. bench_retrieval.py, measure.py, hybrid_gate_sweep.py) plus `scripts/analysis/` and `scripts/golden_v7/` |
 | **Golden-v7 pipeline** | 14 scripts in `scripts/golden_v7/` (adjudicate_draft, agreement, backfill_escalations, build_pool, derive_thresholds, gate_select, gemini_adjudicate, local_adjudicate, make_packet, mine_strata, relabel_repooled, remap_doc_ids, score, seed_v7) |
 | **V7 annotations** | `eval/golden/v7_annotations/` — votes.jsonl (207 claude records), pools.jsonl (4.2 MB), arbitration_queue.jsonl (65 KB), external_sample.json, gemini/ (21 dirs), qwen/ (150 files), candidates/, packet_human/ |
 | **Documentation** | 3 ADRs (adr-001 architecture review, adr-002 certainty architecture, adr-003 ANE declined), project_context.md, scraping_plan.md, n8n_automation_plan.md, USAGE.md |
@@ -213,7 +213,9 @@ citation_precision:     observed=0.192, floor=0.1577  (margin +0.034)
 
 ## Known Blockers
 
-✅ **No active blockers.** All validation steps pass, all phases complete, 791 tests pass (795 collected, 2 skipped, 3 deselected).
+✅ **No active blockers.** All validation steps pass, all phases complete: `make test` → 859 passed, 2 skipped, 3 deselected (2026-08-19).
+
+⚠️ **Known limitations (not blockers):** 2 false abstentions (`para-mfborrow`, `para-pricedata` — CE paraphrase collapse below the 0.05 score floor; no separating threshold exists, rescue arm R1 rejected 2026-08-19) and 2 false answers (`v7-hn-011`, `v7-hn-025` — need the semantic gate; keyword filter cannot fix without recreating the arbitration-substring bug).
 
 ### Historical (resolved)
 | Bug | Step | Issue | Fix |
@@ -826,6 +828,12 @@ adopting iv11: the sole surviving exploratory result failed on data that did not
 cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
+
+2026-08-19 — **Stale current-state claims swept across agent-facing docs.** Gate floors in `.claude/rules/refusal-criteria.md` were still the stub-derived set superseded 2026-08-12: citation_recall 0.7233→**0.8169**, citation_precision 0.1896→**0.1577**, abstention_accuracy 0.9335→**0.9412**; `context_recall` (0.874) and `ndcg_at_10` (0.6512) were gated 2026-08-13 but never listed there, now added. All six cross-checked programmatically against `eval/golden/gate_v7.json`, which those files now name as authoritative over their own tables. Test counts 791/793/835 → **859** in `CLAUDE.md`, `AGENTS.md`, `.claude/rules/`, and this file. `abstention_accuracy` floor was also wrong (0.934) in the 2026-08-19 prereg §7 — a confirmation criterion — corrected to 0.9412.
+
+Also replaced "abstention threshold (~0.4)" in `CLAUDE.md`, `AGENTS.md` and `.claude/rules/refusal-criteria.md`: it conflated the cross-encoder **score floor (0.05, `Settings.abstain_threshold`)** with the **subject-sim gate (0.42, `SubjectSimJudge`)**. That exact conflation produced the misclassified 2026-08-18 diagnostic.
+
+**Deliberately NOT rewritten:** dated log entries in this file and the frozen preregs in `docs/superpowers/specs/` quote the floors that were armed *at the time* (0.7233 / 0.1896 / 0.9335). Those are historical records — a prereg's guardrail is what it was preregistered as, and editing it would falsify the record. `.claude/` is excluded by `.gitignore:23`, so those rule edits are local-only and unversioned.
 
 2026-08-19 — **CE paraphrase rescue REJECTED on the preregistered guardrail; 2026-08-18 diagnostic corrected.** Prereg: `docs/superpowers/specs/2026-08-19-ce-paraphrase-rescue-prereg.md`.
 

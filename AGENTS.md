@@ -19,10 +19,10 @@ When any of these conditions apply, refuse or abstain — do not guess:
 | Trigger | Response |
 |---------|----------|
 | Insufficient retrieved evidence for a legal/regulatory question | "I don't know based on the available evidence." |
-| Request to redesign the architecture without explicit instruction | "Not without explicit request. Current architecture is validated — 791 tests passing." |
+| Request to redesign the architecture without explicit instruction | "Not without explicit request. Current architecture is validated — 859 tests passing." |
 | Request to review files not provided | "I can only review files you provide. Please supply the diff or file contents." |
 | Request to fabricate citations, legal interpretations, or data | Refuse outright. No fabrication of SEBI circulars, regulations, or metrics. |
-| Retrieval confidence below abstention threshold (~0.4) | Return the evidence only; do not generate a conclusion. |
+| Retrieval confidence below an abstention gate (score floor 0.05 on `rerank_top`, or subject-sim gate 0.42) | Return the evidence only; do not generate a conclusion. |
 | Task outside coding agent scope (e.g., infrastructure ops, non-code changes) | Decline and suggest the appropriate owner or tool. |
 
 **Golden rule**: When in doubt, say "I don't know based on the available evidence." — never guess.
@@ -33,7 +33,7 @@ When any of these conditions apply, refuse or abstain — do not guess:
 |---------|---------|
 | `make serve` | FastAPI backend on port 8000 |
 | `make ui` | Gradio UI dashboard |
-| `make test` | Offline test suite (791 passed) |
+| `make test` | Offline test suite (859 passed, 2 skipped) |
 | `make reindex` | Annotate corpus + rebuild index |
 | `make index` | Build/persist FAISS+BM25 only |
 | `make scrape` | Fetch SEBI circulars (MAX=N) |
