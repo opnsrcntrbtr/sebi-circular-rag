@@ -831,6 +831,28 @@ cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
 
+2026-08-20 — **P0 prep: generator cost measured. B3 does not fire; 7B is 2.05x, not 4-5x; but a timeout tail blocks it.** Probe `scripts/analysis/generator_cost_probe.py`, reports `reports/generator-cost-*.json`. 20 answerable non-as_of rows per model, 2 warm-up discarded, production path via `build_default_pipeline`.
+
+| model | peak RSS | query p50 | query max | >30s | implied 260-row gate |
+|---|---|---|---|---|---|
+| Qwen2.5-1.5B-4bit | 5.29 GB | 7.28 s | 11.88 s | 0 | **34.0 min** |
+| Qwen2.5-3B-4bit | 7.72 GB | 11.89 s | 15.34 s | **0** | **49.4 min** |
+| Qwen2.5-7B-4bit | 8.91 GB | 12.36 s | **38.20 s** | **3 of 20** | **69.9 min** |
+
+**Bug B3 does NOT fire.** All three ran to completion with bge-m3 + bge-reranker-v2-m3 on MPS and MLX co-resident. Peak RSS 8.91 GB of 48 GB — no memory pressure. The dual-model-on-MPS concern is retired for generators up to 7B-4bit.
+
+**The ~3 h estimate for a 7B gate re-derivation was wrong by ~2.5x** — measured 69.9 min. That estimate was mine (2026-08-19) and it was the sole cost premise in `2026-08-19-fast-gate-tier-prereg.md` §1. See the addendum there.
+
+⚠️ **New blocker: latency tail. 3 of 20 rows (15%) exceed `timeout_s = 30` at 7B** (max 38.20 s) — production `/query` returns 504. **Not an output-length artifact:** `corr(answer_chars, query_s) = 0.154`; the 38.2 s row emitted 781 chars while a 23.2 s row emitted 1254. Capping `max_tokens` will not fix it. Candidate fixes (none measured): raise `timeout_s`, cut `top_k` context (changes retrieval behaviour), or use 3B.
+
+**3B clears the timeout with margin** — max 15.34 s, zero violations, 1.45x cost. `config.toml` already carries the comment "3B for higher groundedness".
+
+**Incidental: the cross-encoder is a fixed ~3.1 s floor** (3.093 / 3.396 / 3.068 s) independent of generator — 42% of 1.5B query time. Constant across all three arms; not previously isolated.
+
+⚠️ **n = 20, so the reported p95 equals the max by construction.** "3 of 20 over 30 s" is sound; the p95 estimate is not. A timeout decision needs more samples.
+
+**Nothing shipped.** `config.toml mlx_model` unchanged; the probe overrides via `SEBI_RAG_MLX_MODEL` only.
+
 2026-08-19 — **Supersession confidence tiering REJECTED on the preregistered guardrail; the exploratory signal was a size confound.** Prereg: `docs/superpowers/specs/2026-08-19-supersession-confidence-tier-prereg.md`. Run `reports/supersession-tier-cohort-2026-08-19.json` (2259 s, MLX, B′ on).
 
 Hypothesis: supersession edges inferred from the master-circular title heuristic (`mc_topic`) are less reliable than those read from supersession clauses, so applying the same 0.3 penalty to both discards governing law. Exploratory support looked strong — 37 of 1350 superseded circulars (2.7%) rest only on inferred edges, yet 4 of the 6 demotion-caused zero-cite rows involve one.

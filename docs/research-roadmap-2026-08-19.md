@@ -72,7 +72,7 @@ Ranked by (measured share of failures) × (external support) ÷ (cost). Dependen
 
 ---
 
-### R0 — Generator upgrade: 1.5B-4bit → 7B/8B-4bit  ⟨gates R1, R6⟩
+### R0 — Generator upgrade: 1.5B-4bit → 3B-4bit (revised 2026-08-20; was 7B/8B)  ⟨gates R1, R6⟩
 
 **Claim.** The generator is the binding constraint on every instruction-dependent mechanism.
 
@@ -92,16 +92,33 @@ enforced by three coupling tests. The stub→MLX precedent moved two floors
 (citation_recall 0.7233→0.8124, citation_precision 0.1896→0.1571). Scope = **config +
 full gate re-derivation + re-arm.**
 
-**Costs to measure before committing.**
-- `timeout_s = 30` vs 2.1 s warm at 1.5B — a 7B is ~4–5× the compute per token.
-- Eval runtime ~38 min at 1.5B over 260 rows → plausibly 2–3 h; `make golden-v7-gate` is on
-  that path.
-- **Bug B3** (dual-model-on-MPS segfault) with bge-m3 + cross-encoder + MLX co-resident in 48 GB.
+**Costs — MEASURED 2026-08-20** (`reports/generator-cost-*.json`, 20 rows/model):
 
-**Decision rule (preregister).** Primary = zero-cite rows on the frozen 206-row
-perfect-retrieval subset. Guardrails: latency p95 < `timeout_s`; `citation_precision` ≥ 0.1577;
+| model | peak RSS | query p50 | query max | >30 s | 260-row gate |
+|---|---|---|---|---|---|
+| 1.5B-4bit | 5.29 GB | 7.28 s | 11.88 s | 0 | 34.0 min |
+| **3B-4bit** | 7.72 GB | 11.89 s | 15.34 s | **0** | **49.4 min** |
+| 7B-4bit | 8.91 GB | 12.36 s | **38.20 s** | **3 of 20** | 69.9 min |
+
+- ✅ **Bug B3 retired** — no segfault at any size; 8.91 GB peak of 48 GB.
+- ✅ **Gate cost is 69.9 min at 7B, not 2–3 h.** The earlier estimate was wrong by ~2.5×.
+- ❌ **`timeout_s = 30` is breached at 7B** on 15% of rows, and it is *not* an output-length
+  effect (corr(chars, latency) = 0.154), so `max_tokens` will not fix it.
+- **Revised target: 3B first.** Clears the timeout with margin at 1.45× cost. The open
+  question — does it follow citation instructions where 1.5B scored 0/48? — is answerable by a
+  ~50-row screen before any gate work.
+
+**Decision rule (preregister).** Primary = zero-cite rows on the perfect-retrieval cohort,
+**recomputed on the live index and persisted with its corpus hash** — the cohort is not a stored
+artifact and is index-dependent (R2 measured 201 of 204 eligible where the prior index gave 206;
+every prior-index reference value was wrong). Guardrails: **zero rows over `timeout_s`** (not a
+p95 estimate — at n=20 the p95 equals the max by construction); `citation_precision` ≥ 0.1577;
 `abstention_accuracy` ≥ 0.9412. Target `citation_recall` / zero-cite — **not**
 `citation_precision`, which already clears its floor at 0.194.
+
+**Sequence.** Screen 3B for mechanism-firing (~50 rows, ~10 min) *before* any gate work — the
+documented failure is total (0/48 brackets), so a screen kills or licenses the arm cheaply. Only
+if 3B fails to fire does 7B become worth its timeout problem.
 
 ---
 

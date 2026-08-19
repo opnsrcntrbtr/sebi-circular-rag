@@ -52,6 +52,16 @@ R0's scope is a **full gate re-derivation** (`derive_thresholds.py` + `eval_json
 and the failure mode is silent: arms stop being re-run after small changes, and the gate drifts
 from what production does — the exact class of defect the 2026-08-12 stub-vs-MLX re-derive fixed.
 
+> **Addendum 2026-08-20 — the cost premise above is measured and was overstated.**
+> §1.1 reasons from "~3 h per arm" at a 7B generator. Measured
+> (`reports/generator-cost-Qwen2.5-7B-Instruct-4bit.json`): a 260-row gate is
+> **69.9 min**, not ~3 h — 7B is **2.05x** 1.5B, not 4-5x. At 70 min the
+> iteration-cost argument for T-Cohort is materially weaker, though §1.2's
+> argument for **T-Screen** is untouched (it rests on the two no-ops, not on
+> runtime). The original text is left as written; this is a record, not a rewrite.
+> **Re-read §4 before running this spec** — the decision to build the ladder at
+> all should be revisited against 70 min.
+
 ### 1.2 Both known no-ops were detectable at n≈50
 
 The two documented generator failures did not need 260 rows:

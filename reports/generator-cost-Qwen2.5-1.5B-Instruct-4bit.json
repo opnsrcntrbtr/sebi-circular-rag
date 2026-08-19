@@ -1,0 +1,204 @@
+{
+  "model": "mlx-community/Qwen2.5-1.5B-Instruct-4bit",
+  "n": 20,
+  "pipeline_load_s": 21.5,
+  "peak_rss_gb": 5.29,
+  "b3_segfault": false,
+  "query_s": {
+    "p50": 7.28,
+    "p95": 11.88,
+    "mean": 7.86,
+    "max": 11.88
+  },
+  "gen_s": {
+    "p50": 4.48,
+    "mean": 4.66
+  },
+  "retrieve_s_mean": 0.1,
+  "rerank_s_mean": 3.093,
+  "timeout_s": 30.0,
+  "over_timeout": 0,
+  "implied_gate_260_min": 34.0,
+  "rows": [
+    {
+      "id": "depo",
+      "retrieve_s": 0.2167661190032959,
+      "rerank_s": 3.9541330337524414,
+      "query_s": 11.044356107711792,
+      "gen_s": 6.873456954956055,
+      "abstained": false,
+      "chars": 457
+    },
+    {
+      "id": "secc",
+      "retrieve_s": 0.12750601768493652,
+      "rerank_s": 2.5777201652526855,
+      "query_s": 7.236210823059082,
+      "gen_s": 4.53098464012146,
+      "abstained": false,
+      "chars": 604
+    },
+    {
+      "id": "broker",
+      "retrieve_s": 0.08737993240356445,
+      "rerank_s": 2.7167422771453857,
+      "query_s": 7.8070151805877686,
+      "gen_s": 5.002892971038818,
+      "abstained": false,
+      "chars": 546
+    },
+    {
+      "id": "esg",
+      "retrieve_s": 0.10275101661682129,
+      "rerank_s": 2.8586511611938477,
+      "query_s": 6.0981926918029785,
+      "gen_s": 3.1367905139923096,
+      "abstained": false,
+      "chars": 826
+    },
+    {
+      "id": "cra",
+      "retrieve_s": 0.08495402336120605,
+      "rerank_s": 3.035598039627075,
+      "query_s": 7.542818069458008,
+      "gen_s": 4.422266006469727,
+      "abstained": false,
+      "chars": 681
+    },
+    {
+      "id": "reit",
+      "retrieve_s": 0.11228799819946289,
+      "rerank_s": 3.3881378173828125,
+      "query_s": 6.977052927017212,
+      "gen_s": 3.4766271114349365,
+      "abstained": false,
+      "chars": 532
+    },
+    {
+      "id": "invit",
+      "retrieve_s": 0.07763886451721191,
+      "rerank_s": 3.377660036087036,
+      "query_s": 6.792189836502075,
+      "gen_s": 3.336890935897827,
+      "abstained": false,
+      "chars": 370
+    },
+    {
+      "id": "pms",
+      "retrieve_s": 0.0837702751159668,
+      "rerank_s": 2.549143075942993,
+      "query_s": 5.464676856994629,
+      "gen_s": 2.831763505935669,
+      "abstained": false,
+      "chars": 739
+    },
+    {
+      "id": "dt",
+      "retrieve_s": 0.08549785614013672,
+      "rerank_s": 3.0651462078094482,
+      "query_s": 6.926069736480713,
+      "gen_s": 3.775425672531128,
+      "abstained": false,
+      "chars": 649
+    },
+    {
+      "id": "sse",
+      "retrieve_s": 0.10610723495483398,
+      "rerank_s": 3.113982915878296,
+      "query_s": 7.083822727203369,
+      "gen_s": 3.8637325763702393,
+      "abstained": false,
+      "chars": 382
+    },
+    {
+      "id": "ia",
+      "retrieve_s": 0.08407402038574219,
+      "rerank_s": 2.5108749866485596,
+      "query_s": 7.315979957580566,
+      "gen_s": 4.721030950546265,
+      "abstained": false,
+      "chars": 593
+    },
+    {
+      "id": "ra",
+      "retrieve_s": 0.0936880111694336,
+      "rerank_s": 2.711124897003174,
+      "query_s": 5.427491903305054,
+      "gen_s": 2.6226789951324463,
+      "abstained": false,
+      "chars": 399
+    },
+    {
+      "id": "rta",
+      "retrieve_s": 0.09543919563293457,
+      "rerank_s": 2.8423759937286377,
+      "query_s": 8.669851064682007,
+      "gen_s": 5.732035875320435,
+      "abstained": false,
+      "chars": 903
+    },
+    {
+      "id": "matevents",
+      "retrieve_s": 0.0855410099029541,
+      "rerank_s": 3.445129871368408,
+      "query_s": 6.0158891677856445,
+      "gen_s": 2.4852182865142822,
+      "abstained": false,
+      "chars": 515
+    },
+    {
+      "id": "blockdeal",
+      "retrieve_s": 0.0804448127746582,
+      "rerank_s": 3.270104169845581,
+      "query_s": 9.482430934906006,
+      "gen_s": 6.131881952285767,
+      "abstained": false,
+      "chars": 1107
+    },
+    {
+      "id": "cas",
+      "retrieve_s": 0.09147000312805176,
+      "rerank_s": 3.0327510833740234,
+      "query_s": 6.113357782363892,
+      "gen_s": 2.9891366958618164,
+      "abstained": false,
+      "chars": 609
+    },
+    {
+      "id": "otr",
+      "retrieve_s": 0.09738302230834961,
+      "rerank_s": 3.2171411514282227,
+      "query_s": 8.606932878494263,
+      "gen_s": 5.29240870475769,
+      "abstained": false,
+      "chars": 767
+    },
+    {
+      "id": "calspread",
+      "retrieve_s": 0.08130407333374023,
+      "rerank_s": 3.333319902420044,
+      "query_s": 11.883557081222534,
+      "gen_s": 8.46893310546875,
+      "abstained": false,
+      "chars": 936
+    },
+    {
+      "id": "intraday",
+      "retrieve_s": 0.09441399574279785,
+      "rerank_s": 3.357614040374756,
+      "query_s": 10.945378065109253,
+      "gen_s": 7.493350028991699,
+      "abstained": false,
+      "chars": 963
+    },
+    {
+      "id": "disc_doc",
+      "retrieve_s": 0.1065678596496582,
+      "rerank_s": 3.5051519870758057,
+      "query_s": 9.68454909324646,
+      "gen_s": 6.072829246520996,
+      "abstained": false,
+      "chars": 822
+    }
+  ]
+}
