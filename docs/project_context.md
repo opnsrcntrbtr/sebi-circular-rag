@@ -64,20 +64,17 @@ stages:
   - name: generation
     desc: Local LLM. Default MLX-LM Qwen2.5-1.5B-Instruct-4bit (Apple-Silicon native). Ollama optional via SEBI_RAG_GENERATOR (deterministic: temperature 0, fixed seed)
     details:
-      - Abstention gate: reranker confidence below threshold (calibrated ≈ 0.4) → abstain ("I don't know based on the available evidence."); never generate unsupported legal conclusions
+      - Abstention gate — TWO SEPARATE SIGNALS ON TWO SCALES, routinely confused: score floor `abstain_threshold = 0.05` on the cross-encoder `rerank_top` (`config.toml [service]`), and the groundedness gate `subject_sim >= 0.42` / `section_sim >= 0.60` (SubjectSimJudge). Below either → abstain ("I don't know based on the available evidence."); never generate unsupported legal conclusions. ⚠️ 0.4 is the `RAGPipeline` dataclass default (`pipeline.py:41`), NOT production — `Settings.load()` supplies 0.05. Comparing one gate against the other's threshold produced a misclassified diagnostic on 2026-08-18; see `.claude/rules/refusal-criteria.md`.
       - ADR-002 certainty architecture: SubjectSimJudge (two-tier groundedness — max cosine(query, subject line) threshold 0.42, section-heading tier at 0.60); MLXJudge (deterministic groundedness judge on MLX, modes: identify/provisions)
       - Confidence bands: high (subject_sim ≥ 0.65 + faithfulness 1.0), medium (passed all gates), low (abstained)
       - Advisory mode: `advisory=True` returns clearly-labelled low-confidence draft answer on gate failure (never authoritative)
       - `as_of` date-scoped queries: score against law as of a date (circular demoted only if superseding circular issued by that date)
-| `pipeline.py` | `RAGPipeline` orchestration; `regulatory_basis_status` per-citation; `citation_scorer`/`citation_margin` for B' selective citations |
   - name: evaluation_mandatory
     desc: See §7
 ```
 
 ### Pipeline flow
 `Query → [Dense ANN (FAISS IndexFlatIP, bge-m3) | Sparse lexical (bm25s)] → RRF → pool(50-100) → cross-encoder (bge-reranker-v2-m3) → top-k → select_citations() [opt-in, margin-based answer-relevance filter] → LLM → answer + citations`
-
-| `generate.py` | Local generation + abstention gate (MLXJudge/SubjectSimJudge); `select_citations()` post-hoc answer-relevance filter (B') |
 
 Gate: `Abstain if below threshold (~0.4) | Advisory mode: low-confidence draft on gate failure (advisory=True)`
 
@@ -132,7 +129,7 @@ Optimise only validated stages; recommend changes expected to yield ≥10% measu
 
 ### 7.3 Calibrated Retrieval Parameters
 
-Real stack calibration over 728 circulars / 78,585 chunks (golden_v7):
+Real stack calibration over 728 circulars / 78,585 chunks (golden_v7). ⚠️ The live index is **730 circulars / 78,630 chunks** (`eval/runs/full-eval-2026-08-19.json`); these parameters have not been re-calibrated against it.
 
 ```yaml
 params:
@@ -141,6 +138,12 @@ params:
   subject_sim_threshold: 0.42 (two-tier: subject_sim >= 0.42 OR section_sim >= 0.60)
   section_threshold: 0.60 (configurable via SEBI_RAG_SECT_THRESHOLD)
 index_path: data/index/ (reload 0.34s). Re-run after corpus growth.
+thresholds_are_model_dependent: |
+  abstain_threshold is a raw cross-encoder score, so it is meaningful ONLY for
+  bge-reranker-v2-m3. subject_sim / section_sim are cosines in bge-m3 embedding space.
+  Swapping either model changes the SCALE these numbers live on, not just the optimum —
+  0.05 does not transfer to a different reranker. Re-calibrate via scripts/calibrate.py
+  before carrying any of these across a model change.
 ```
 
 ### 7.4 Golden-Set Architecture
@@ -151,8 +154,19 @@ strata: [title_direct 40, body_paraphrase 60, numeric_table 30, lineage_superses
 abstain_rows: 41 | as_of_dated_rows: 15
 frozen_fallback: golden_v5.jsonl (n=56) — used when v7 gate not armed
 golden_v6: golden_v6.jsonl (n=56) — intermediate set
-gate: eval/golden/gate_v7.json (armed at adjudicated_n=260)
-|   floors (armed under B' selective citations, margin 0.35, derived 2026-08-13 MLX generator): recall_at_k=0.906, context_recall=0.874, ndcg_at_10=0.6512, citation_recall=0.8169, abstention_accuracy=0.9412, citation_precision=0.1577
+gate: eval/golden/gate_v7.json (armed at adjudicated_n=260) — AUTHORITATIVE; read the JSON, not this prose
+  floors (armed under B' selective citations, margin 0.35, derived 2026-08-13 MLX generator): recall_at_k=0.906, context_recall=0.874, ndcg_at_10=0.6512, citation_recall=0.8169, abstention_accuracy=0.9412, citation_precision=0.1577
+  floors_are_model_dependent: |
+    These floors are NOT properties of the corpus or the golden set. They were derived under a
+    specific stack: bge-m3 embedder + bge-reranker-v2-m3 cross-encoder + B' margin 0.35 +
+    MLX generator Qwen2.5-1.5B-Instruct-4bit. Three of the six (citation_recall,
+    citation_precision, abstention_accuracy) are generation-dependent and WILL move if the
+    generator changes; the 2026-08-12 stub->MLX re-derivation moved citation_recall 0.7233 ->
+    0.8169 and citation_precision 0.1896 -> 0.1577 on an unchanged corpus.
+    RULE: changing the generator, embedder, reranker, or B' margin INVALIDATES these floors.
+    Re-derive via scripts/golden_v7/derive_thresholds.py before comparing anything against them.
+    A candidate model measured against floors derived under a different model is not a
+    pass/fail result — it is a category error.
   ci_gates: v7 only when adjudicated_n >= 100
 adjudication_pipeline: scripts/golden_v7/ (seed, mine_strata, build_pool, gate_select, local_adjudicate [Qwen3.6-35B-MLX], gemini_adjudicate [on hold], agreement, relabel_repooled, backfill_escalations, derive_thresholds, score)
 ```
@@ -161,7 +175,7 @@ adjudication_pipeline: scripts/golden_v7/ (seed, mine_strata, build_pool, gate_s
 
 | Script | Purpose |
 |---|---|
-| `scripts/eval_json.py` | Production-mirrored eval via RAGPipeline (stub generator — no LLM); golden-set resolution (v7 gate → v5 fallback); prints JSON for n8n |
+| `scripts/eval_json.py` | Production-mirrored eval via RAGPipeline. ⚠️ **Runs the real MLX generator, not a stub** — `config.toml [service] eval_generator = "mlx"`, routed through `generate.eval_generator_for` so floors and measurements can never come from different generators. Floors were re-derived under MLX on 2026-08-12 precisely because stub-derived floors describe a system that does not run (the stub overstated B′ citation failures ~2×: 34 rows vs 19). The module docstring still says "stub" and is stale. Golden-set resolution (v7 gate → v5 fallback); prints JSON for n8n |
 | `src/sebi_rag/eval_harness.py` (module) | `run_eval()` → EvalReport (recall, MRR, nDCG, citation prec/rec, abstention acc, groundedness proxy, faithfulness, latency, chunk-level metrics) |
 | `scripts/golden_v7/score.py` | Per-row scoring shared by eval_json.py and derive_thresholds.py; `vectors()` aggregates to metric vectors |
 | `scripts/bench_retrieval.py` | Retrieval-only benchmark + TREC runfile export |
@@ -176,7 +190,11 @@ adjudication_pipeline: scripts/golden_v7/ (seed, mine_strata, build_pool, gate_s
 
 ### 7.6 Current Baseline Numbers (golden_v7, full set, n=260)
 
+⚠️ **These are BASELINE observations under one specific generator, not properties of the system.**
+Source of truth is the newest dated run in `eval/runs/`, not this block — it has drifted before.
+
 ```yaml
+generator: mlx-community/Qwen2.5-1.5B-Instruct-4bit   # the arm these numbers describe
 recall_at_k: 0.943 observed (floor 0.906)
 context_recall: 0.916 observed (floor 0.874)
 ndcg_at_10: 0.697 observed (floor 0.6512)
@@ -184,6 +202,13 @@ citation_recall: 0.881 observed (floor 0.8169)
 abstention_accuracy: 0.981 observed (floor 0.9412)
 citation_precision: 0.194 observed (floor 0.1577)
 ```
+
+⚠️ **Three of these disagree with the newest recorded run** (`eval/runs/full-eval-2026-08-19.json`,
+which post-dates the 2026-08-17 index rebuild): context_recall **0.906** (not 0.916),
+citation_recall **0.872** (not 0.881), citation_precision **0.191** (not 0.194). recall_at_k,
+ndcg_at_10 and abstention_accuracy agree. The three that differ are exactly the
+generation-and-rerank-dependent ones. Do not cite this block as current until a fresh control run
+resolves it — quote the dated run file instead.
 
 ### 7.7 Index Performance
 
@@ -207,7 +232,39 @@ design_decisions:
     title: "bge-m3 is the baseline embedding model only"
     desc: Subject to benchmarking against Qwen-family embedder and one lightweight Apple Silicon model. Do not change baseline without benchmark evidence.
     amended: "2026-07-02 (ADR-001): Qwen3-Embedding-0.6B (embedder) and Qwen3-Reranker-0.6B/4B via MLX (reranker) are sanctioned benchmark candidates; D6 canonical-runtime rules apply."
-  D3: "Sparse path = BM25. bge-m3 supplies dense only for baseline; its sparse/ColBERT vectors deferred to avoid fusion double-counting."
+    baseline_vs_candidate: |
+      "Baseline" names the model currently instantiating a MANDATORY stage (D1 hybrid retrieval,
+      D4 reranking) — it does not make that model architectural. The stage is fixed; the model
+      is replaceable on >=10% evidence (D1 amendment). Any doc sentence that reads as though
+      bge-m3 or bge-reranker-v2-m3 were themselves architecture is describing the current
+      instantiation, not a constraint.
+    candidates_added_2026-08-20:
+      jina-reranker-v3:
+        status: "candidate — NOT benchmarked here, no spec written"
+        why: |
+          Listwise "last but not late interaction" reranker (~0.6B): documents and query share one
+          context window and are scored in a single pass. That makes it an INSTANTIATION of the
+          roadmap's R4 (listwise/set-wise reranking), not a separate line item.
+        caution: |
+          Its attention is causal, so scores are ORDER-DEPENDENT — unlike Set-Encoder, which is
+          permutation-invariant by construction. Any benchmark must fix and report input order,
+          or it measures the ordering as much as the model.
+        numbers: |
+          arXiv 2509.25085 reports BEIR nDCG@10 ~61.94 vs bge-reranker-v2-m3 ~56.5 (~+5.4).
+          PAPER-REPORTED, NOT MEASURED HERE — verify against the paper before quoting in a spec.
+          An earlier internal handoff circulated "76.69 vs 67.69 (+9)" for this pair; that is
+          WRONG and must not be propagated. On multilingual benchmarks the direction REVERSES
+          (bge-reranker-v2-m3 ~69.32, Jina lower) — SEBI is English, so the candidate survives,
+          but at roughly 60% of the margin that handoff claimed.
+      voyage-3/4-large:
+        status: "REJECTED as a candidate on architectural grounds — not on quality"
+        why: |
+          API-only proprietary service. This conflicts head-on with the project's first
+          principle (local-first) and with D6 (one canonical LOCAL benchmark runtime), and it
+          would send SEBI queries to a third party. Strong MTEB law/finance results do not
+          override that. Reconsider only if the local-first constraint is deliberately relaxed
+          by explicit decision, which has not happened.
+  D3: "Sparse path = BM25 (bm25s 0.3.9 — NOT SPLADE, and not bge-m3's sparse head). bge-m3 supplies dense only for baseline; its sparse/ColBERT vectors deferred to avoid fusion double-counting. SPLADE exists only as an opt-in eval-only third leg (D13) and was rejected on confirmation; its index artifacts no longer exist on disk."
   D4: "Reranking is a mandatory production stage, not an implementation detail."
   D5: "Citation-grounded evaluation + abstention policy are architectural components, not optional add-ons."
   D7:
@@ -239,7 +296,7 @@ design_decisions:
   D12: "Query expansion via statutory-synonym glossary (Intervention #2). SEBI circulars use statutory vocabulary (freeze, dematerialised, rescinded) where users ask in lay terms (block, electronic, replaced). Appending statutory synonyms to BM25 query closes vocabulary gap without touching index; dense leg keeps raw query. Deterministic and additive: original query always preserved as prefix. Entries grounded in eval/runs/ft-traces/buckets.md failure analysis."
   D13: "Optional third RRF legs (Interventions #5, iv9, iv11). HyDE (Part B): hypothetical statutory passage as additive third dense leg (opt-in, off by default, silent failure). SPLADE: learned-sparse third RRF leg (opt-in, eval-only, off by default). Contextual headers: one lay+statutory sentence per deep sub-clause/annex chunk (opt-in, off by default, silent failure). All three non-destructive — mandatory dense + BM25 + RRF path unchanged; enabling any third leg requires explicit configuration."
   D14: "Regulation-level annotation. Regulations are consolidated living documents (no circular_number, no issue_date, one current row each), keyed by deterministic reg_id slug. Three-stage resolution: exact token match, then hand-maintained REGULATION_ALIASES table (acronyms like PIT → prohibition-of-insider-trading), then Jaccard fuzzy match (threshold 0.8). regulatory_basis_status (current|repealed_basis|mixed|unknown) derived from resolved regulation statuses; CitationMeta.regulations surfaced per-citation in API. In-text advisory note appended when cited circular rests on repealed regulation."
-| D16: "B' Selective Citations (post-hoc cross-encoder answer-relevance filter). `generate.py` `select_citations(answer_text, contexts, scorer, margin)` scores each context via `scorer.rerank(answer_text, contexts)` (sigmoid 0–1) and keeps those within `margin` of the top; always ≥1. Wired into `answer_with_abstention()` (opt-in via Settings.citation_scorer_enabled). `RAGPipeline` holds `citation_scorer` (reuses reranker instance) + `citation_margin`. `citation_precision` added to `_GATED_METRICS` in derive_thresholds.py alongside recall/citation_recall/abstention — protects both sides of the precision↔recall trade-off. Supersedes the inert Option A (prompt-bracket parsing, 100% no-op at Qwen-1.5B). **Status 2026-08-14: ARMED. All 3 builders (`build_default_pipeline`, `eval_json`, `derive_thresholds`) route through `generate.citation_scorer_for(enabled, reranker)` so eval==production (parity-gap fix e1f7859). Calibrated margin=0.35 (MLX-parallel sweep knee, 219 adjudicated answerable): citation_precision 0.192→0.202 mean (+5.4%), citation_recall 0.881→0.872. Gate re-derived under MLX generator (margin=0.35, 2026-08-13): citation_recall floor 0.8124, citation_precision floor 0.1571. Verified end-to-end `floors_ok: true` (observed 0.881/0.192). Enabled via `config.toml citation_scorer_enabled=true` — gate now REQUIRES B' on to pass.**"
+  D16: "B' Selective Citations (post-hoc cross-encoder answer-relevance filter). `generate.py` `select_citations(answer_text, contexts, scorer, margin)` scores each context via `scorer.rerank(answer_text, contexts)` (sigmoid 0–1) and keeps those within `margin` of the top; always ≥1. Wired into `answer_with_abstention()` (opt-in via Settings.citation_scorer_enabled). `RAGPipeline` holds `citation_scorer` (reuses reranker instance) + `citation_margin`. `citation_precision` added to `_GATED_METRICS` in derive_thresholds.py alongside recall/citation_recall/abstention — protects both sides of the precision↔recall trade-off. Supersedes the inert Option A (prompt-bracket parsing, 100% no-op at Qwen-1.5B). **Status 2026-08-14: ARMED. All 3 builders (`build_default_pipeline`, `eval_json`, `derive_thresholds`) route through `generate.citation_scorer_for(enabled, reranker)` so eval==production (parity-gap fix e1f7859). Calibrated margin=0.35 (MLX-parallel sweep knee, 219 adjudicated answerable): citation_precision 0.192→0.202 mean (+5.4%), citation_recall 0.881→0.872. Gate re-derived under MLX generator (margin=0.35, 2026-08-13). ⚠️ This line previously quoted floors 0.8124 / 0.1571; the armed values in `eval/golden/gate_v7.json` (derived_at 2026-08-13T15:47:25) are **citation_recall 0.8169, citation_precision 0.1577**. Read the JSON, never this prose — stale floors propagating out of docs have already produced one wrong review finding. Verified end-to-end `floors_ok: true` (observed 0.881/0.192). Enabled via `config.toml citation_scorer_enabled=true` — gate now REQUIRES B' on to pass.**"
 ```
 
 
