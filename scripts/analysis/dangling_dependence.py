@@ -27,7 +27,7 @@ MODEL = os.environ.get("OMLX_MODEL", "Qwen3.6-35B-A3B-OptiQ-4bit")
 WINDOW = 6000            # §2: +/- 6,000 chars around each labelled quote
 CTX_CAP = 40000          # bound prefill; truncation count is reported
 GOLDEN = ROOT / "eval" / "golden" / "golden_v7.jsonl"
-DEST = ROOT / "reports" / "dangling-dependence-2026-08-20.json"
+DEST = ROOT / "reports" / "dangling-dependence-2026-08-20-run2.json"
 
 PROMPT = """You are a strict auditor for a legal retrieval system.
 
@@ -58,8 +58,15 @@ def call(prompt: str, retries: int = 2) -> tuple[str, str]:
     separates its chain of thought into `reasoning_content`, leaving `content`
     clean. Thinking is left ENABLED — this is a legal judgement and the quality
     is worth ~4 s/row — and only `content` is parsed."""
+    # RUN 2 (run 1 VOID): thinking DISABLED. With it on, a real prompt needs
+    # >1024 completion tokens, hits finish_reason=length mid-thought, the
+    # thinking block never closes, oMLX cannot split it out, and raw reasoning
+    # lands in `content` — which run 1 then parsed as if it were an answer.
+    # This task is a bounded extractive classification; deliberation is not
+    # required, and a single strict line is.
     body = json.dumps({
-        "model": MODEL, "temperature": 0, "max_tokens": 1024,
+        "model": MODEL, "temperature": 0, "max_tokens": 128,
+        "chat_template_kwargs": {"enable_thinking": False},
         "messages": [{"role": "user", "content": prompt}],
     }).encode()
     for a in range(retries + 1):
@@ -68,7 +75,11 @@ def call(prompt: str, retries: int = 2) -> tuple[str, str]:
                 ENDPOINT, data=body, headers={"Content-Type": "application/json"})
             with urllib.request.urlopen(req, timeout=600) as r:
                 d = json.loads(r.read())
-            m = d["choices"][0]["message"]
+            ch = d["choices"][0]
+            if ch.get("finish_reason") == "length":
+                # never silently accept a truncated reply again
+                return ("__TRUNCATED__", "")
+            m = ch["message"]
             return ((m.get("content") or "").strip(),
                     (m.get("reasoning_content") or "")[:400])
         except Exception as e:  # noqa: BLE001
@@ -76,6 +87,12 @@ def call(prompt: str, retries: int = 2) -> tuple[str, str]:
                 return (f"__ERROR__ {e}", "")
             time.sleep(3)
     return ("__ERROR__", "")
+
+
+def _norm(x: str) -> str:
+    """Uppercase, strip all whitespace — so 'CIR/MIRSD/5/ 2013' matches
+    'CIR/MIRSD/5/2013'."""
+    return re.sub(r"\s+", "", x).upper()
 
 
 def windows(text: str, quotes: list[str]) -> str:
@@ -136,12 +153,20 @@ def main() -> None:
                 windows(by[d].get("text", ""), quotes) for d in docs[:2])
             truncated = len(ctx) > CTX_CAP
             reply, reasoning = call(PROMPT.format(ctx=ctx[:CTX_CAP], q=r["query"]))
+            # Strict parse: last non-empty line only, prefix-anchored, and the
+            # circular is taken from AFTER the NEEDS marker. Run 1 used
+            # `"NEEDS" in reply` + REF_RE.search(whole reply), which picked up
+            # the first circular number anywhere in the text — frequently the
+            # excerpt's OWN number rather than the model's answer.
             named, verdict = None, "unparseable"
-            up = reply.upper()
+            lines = [x.strip() for x in reply.splitlines() if x.strip()]
+            last = lines[-1] if lines else ""
+            up = last.upper()
             if up.startswith("SUFFICIENT"):
                 verdict = "sufficient"
-            elif "NEEDS" in up:
-                m = REF_RE.search(reply)
+            elif up.startswith("NEEDS"):
+                tail = last[last.upper().index("NEEDS") + len("NEEDS"):]
+                m = REF_RE.search(tail)
                 if m:
                     named = m.group(0)
                     verdict = "needs_unheld" if named not in held else "needs_held"
@@ -150,7 +175,12 @@ def main() -> None:
             out_rows.append({
                 "id": r["id"], "group": gname, "task_type": r.get("task_type"),
                 "verdict": verdict, "named": named,
-                "named_in_context": bool(named and named in ctx),
+                # Normalised containment: the judge may reformat a circular
+                # number (spacing/case) without fabricating it, and a raw
+                # substring test would score that as fabrication. Fixed BEFORE
+                # seeing any run-2 result — the guardrail THRESHOLD (§4.4, 20%)
+                # is untouched.
+                "named_in_context": bool(named and _norm(named) in _norm(ctx)),
                 "ctx_chars": len(ctx), "ctx_truncated": truncated,
                 "reply": reply[:200],
                 # kept only for verifiable-dependent rows, so a human can audit
@@ -183,7 +213,11 @@ def main() -> None:
 
     out = {
         "spec": "docs/superpowers/specs/2026-08-20-dangling-citation-dependence-prereg.md",
-        "model": MODEL, "window_chars": WINDOW,
+        "run": 2,
+        "run1": "VOID — reports/dangling-dependence-2026-08-20-run1-VOID.json; thinking "
+                "hit finish_reason=length mid-thought, so partial reasoning landed in "
+                "`content` and was parsed as an answer",
+        "model": MODEL, "window_chars": WINDOW, "thinking": False,
         "treatment": {"dependent": t_dep, "n": t_n, "pct": T},
         "control": {"dependent": c_dep, "n": c_n, "pct": C},
         "delta_pp": round(T - C, 1),
