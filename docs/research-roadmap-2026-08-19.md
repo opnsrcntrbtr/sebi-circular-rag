@@ -283,9 +283,18 @@ quantified regression.
 is that warrant is a **third** criterion rather than a third attempt at entailment — that claim is
 what the preregistration has to make falsifiable in advance, not assert.
 
-**Decision rule.** Same frozen 206-row subset, zero-cite as primary, matching the two prior
-B′ arms so results are comparable. Guardrail: precision must not fall below floor. Must also carry
-the CS1 label-tier split, and should use the `SEBI_RAG_EVAL_ROWS` per-row dump (landed 2026-08-20).
+**Decision rule.** ✅ **PREREGISTERED 2026-08-20** —
+`docs/superpowers/specs/2026-08-20-warrant-citation-scorer-prereg.md`. Not yet run.
+
+⚠️ The spec **deviates from the decision rule written here**, deliberately and before any run. This
+entry proposed *"zero-cite as primary, matching the two prior B′ arms"*. Comparability is the right
+instinct but the wrong endpoint: B′ causes only **4 of the 19** zero-cite rows (demotion 6, B′ 4,
+reranker 3, subject_gate 3, score_floor 2, non-SEBI 1), so on that endpoint R1's *ceiling* is 4
+rows — and this cohort returned **p=1.000 on a 1-row change** in the `superseded_penalty` arm. It
+is underpowered by construction. The spec makes `citation_precision` primary (the channel where B′'s
+effect is measured large, +57%) and zero-cite a **guardrail** (where the NLI failure shape lives,
+19 → 54), with a **+0.02 absolute effect-size floor** fixed in advance — the thing the
+`superseded_penalty` run omitted and consequently adopted nothing on.
 
 ---
 
