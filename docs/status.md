@@ -831,6 +831,27 @@ cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
 
+2026-08-20 — **R3 VOID: the cross-reference stratum is not minable at this corpus size; 73.8% of cross-references point outside the corpus.** Miner `scripts/analysis/mine_crossref_stratum.py`, report `reports/crossref-mining-2026-08-20.json`, outcome recorded in the spec's §10. Mining stage only — **no query generated, no arm scored, no metric produced**.
+
+| stage | count |
+|---|---|
+| raw `references` edges in the 730-record corpus | **507** |
+| − target not in corpus | −374 (**73.8%**) |
+| − target superseded (not in force) | −103 |
+| − pair already in golden_v7 | −9 |
+| **candidates mined** | **21** |
+| §3.1 target | **600** |
+
+§6.4 fires on *"fewer than 150 rows survive filtering"*. Recorded as **void, not null** — per the spec it *"does not license any §7 conclusion"*. **The saturation finding (pool R@50 0.9861) is therefore unchallenged: neither confirmed nor scoped.** It remains exactly as well-supported as before — scoped to golden_v7, untested outside it.
+
+**Two spec corrections found at execution.** §3.1 names the relation class `cites`; it is **`references`**. And §3.1 says to read the persisted lineage graph, which contains **zero** such edges — `build_lineage` handles the `supersedes` and `amends` branches and **silently drops `references`** (no `else`, `lineage.py:174-184`). `lineage.json` is 4536 supersedes + 41 amends + 0 references. The roadmap's *"the machinery already exists"* is half-true: the extractor exists, the artifact does not. Pairs were re-extracted from corpus text with the unchanged extractor.
+
+**The reusable finding is corpus coverage.** 374 of 507 cross-references (73.8%) point at circulars outside the 730-record corpus. Cross-references leave this corpus more often than they stay inside it — so a cross-reference stratum cannot be mined here, and by the same token a practitioner query depending on one will frequently need a document the index does not hold. Fixing the instrument means a materially larger corpus; §8 forbids loosening the mining criteria and re-reporting as preregistered, so any re-run is a **new stratum**, not a continuation. Not scheduled.
+
+⚠️ **A hypothesis raised and REFUTED mid-execution — recorded so it is not re-raised.** `detect_relations_ex` gates the `amends` branch on proximity (`abs(p - a) < 120`) but gates `supersedes` on **nothing**: any document with one `SUPERSEDE_RE` match classifies *every* reference in it as a supersession. Measured: of 4,476 such classifications only **86 (1.9%)** sit within 120 chars of a supersede clause; **98.1%** rest on document-level presence. That looked like an unintended asymmetry inflating the graph `demote_superseded` consumes — the top measured cause of zero-cite.
+
+**It is not a bug.** 99 of the 175 supersede-clause documents are **Master Circulars** contributing **94.1%** of classifications (4,213 of 4,476); the top 12 carry 105–234 references each. A master circular *is* a consolidation rescinding a listed schedule, so document-level attribution is **correct**, and a proximity gate would discard ~98% of legitimate supersessions. The asymmetry with `amends` is justified — an amendment names its target beside the amending language; a master circular rescinds an annexure. **No code change warranted.**
+
 2026-08-20 — **Roadmap dependencies re-derived after R0 and R2 both closed; R1 unblocked, promoted, and preregistered.** Spec `docs/superpowers/specs/2026-08-20-warrant-citation-scorer-prereg.md`. **Not run** — preregistration only, no code changed.
 
 **R1 was never actually blocked by R0.** It carried `⟨depends on R0⟩` because a warrant judge is a *prompted judgement* and 1.5B cannot follow one. What R0 was supplying was the answer to *"does a local model exist that can follow a prompted judgement?"* — and the **T-Screen answered that independently of the gate run**: 0.0% at 1.5B, 47.6% at 7B. R0 was rejected for an unrelated reason (the generator cannot move citation metrics because B′ owns selection), which does not apply to changing the scorer. Left uncorrected, the roadmap would have read "R1 is blocked forever" — wrong in the expensive direction.

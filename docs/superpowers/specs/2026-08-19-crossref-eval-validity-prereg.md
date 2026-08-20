@@ -331,4 +331,72 @@ already deterministic. A re-run must reproduce `crossref_v1.jsonl` byte-for-byte
 
 ## 10. OUTCOME (recorded after execution)
 
+### VOID per §6.4 — the stratum is not minable at this corpus size
+
+Executed 2026-08-20, mining stage only (`scripts/analysis/mine_crossref_stratum.py`,
+`reports/crossref-mining-2026-08-20.json`). **No query was generated, no arm was scored, no
+metric was produced.** §6.4 fires on *"fewer than 150 rows survive filtering (§3.1)"*:
+
+| stage | count |
+|---|---|
+| raw `references` edges in the 730-record corpus | **507** |
+| − target B not in corpus | −374 (**73.8%**) |
+| − target B superseded (not in force) | −103 |
+| − pair already represented in golden_v7 | −9 |
+| **candidates mined** | **21** |
+| §3.1 target | 600 |
+
+**21 of a 600 target, against a design that needs ≥150 rows to *survive* a filter expected to
+remove ~70%.** Void, and per §6.4 recorded as void — **not** as a null. It licenses no §7
+conclusion in either direction: the saturation finding is neither confirmed nor scoped, it is
+**unchallenged**.
+
+### Two spec corrections found at execution
+
+1. §3.1 names the relation class `cites`. It is **`references`** (`lineage.detect_relations_ex`).
+2. §3.1 says to read the **persisted lineage graph**. That graph contains **zero** such edges —
+   `build_lineage` handles the `supersedes` and `amends` branches and silently drops `references`
+   (no `else`, `lineage.py:174-184`). `data/index/lineage.json` is 4536 supersedes + 41 amends + 0
+   references. §1.3's *"the machinery already exists"* is half-true: the **extractor** exists, the
+   **artifact** does not. Pairs were re-extracted from corpus text with the unchanged extractor.
+
+### The dominant cause is corpus coverage, not the criteria
+
+**374 of 507 cross-references (73.8%) point at circulars outside the 730-record corpus.** The
+corpus is a *sample* of SEBI's output, and cross-references leave it far more often than they stay
+inside it. This is the finding with reach beyond R3: a cross-reference stratum cannot be mined at
+this corpus size, and by the same token a real practitioner query that depends on a cross-reference
+will frequently need a document the index does not hold.
+
+### ⚠️ A hypothesis raised and REFUTED during execution — recorded so it is not re-raised
+
+`detect_relations_ex` gates the `amends` branch on proximity (`abs(p - a) < 120`) but gates the
+`supersedes` branch on **nothing** — any document containing one `SUPERSEDE_RE` match classifies
+*every* reference in it as a supersession. Measured: of 4,476 such classifications, only **86
+(1.9%)** have the reference within 120 chars of a supersede clause; **98.1%** rest on document-level
+presence alone. That looked like an unintended asymmetry inflating the supersession graph that
+`demote_superseded` consumes — which status.md 2026-08-13 names the top cause of zero-cite.
+
+**It is not a bug.** 99 of the 175 supersede-clause documents are **Master Circulars**, and they
+contribute **94.1%** of the classifications (4,213 of 4,476); the top 12 carry 105–234 references
+each. A master circular *is* a consolidation that rescinds a listed schedule, so document-level
+attribution is **correct** here and a proximity gate would discard ~98% of legitimate supersessions.
+The asymmetry with `amends` is justified: an amendment names its target beside the amending
+language; a master circular rescinds an annexure. **No code change is warranted.**
+
+### Disposition
+
+Per §6.4, *"the instrument is fixed before re-running"*. The instrument defect is **corpus
+coverage**, not mining criteria — and §8 forbids loosening the criteria and re-reporting as
+preregistered. A re-run therefore requires a materially larger corpus, and it would be a **new
+stratum recorded alongside this one**, not a continuation. Not scheduled.
+
+**R3 does not answer its question, and the roadmap must not claim it does.** The saturation
+conclusion (pool R@50 0.9861) remains exactly as well-supported as it was before this run —
+scoped to golden_v7, untested outside it.
+
+---
+
+## 10b. Original outcome placeholder
+
 _Not yet run._

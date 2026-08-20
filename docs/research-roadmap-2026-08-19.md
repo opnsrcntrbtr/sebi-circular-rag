@@ -344,7 +344,7 @@ result (13/13) is direct in-repo evidence the exclusion semantics work.
 
 ---
 
-### R3 — Eval-set validity: is retrieval actually saturated?  ⟨independent, cheap, highest-leverage-if-true⟩
+### R3 — Eval-set validity: is retrieval actually saturated?  ⚠️ **VOID 2026-08-20 — not minable at this corpus size**
 
 **Claim.** Pool R@50 = 0.9861 across three arms may be a property of **golden_v7**, not of the
 retriever. If so, "stop proposing retrieval interventions" is premature.
@@ -392,6 +392,21 @@ fact (staged opt-in `SEBI_RAG_EVAL_ROWS` dump; not applied while an arm is mid-f
 and circular→regulation edges, and `data/manifests/regulation_edges.jsonl` exists. A
 CRAwLeR-style cross-reference stratum can be mined from machinery already built and validated —
 no new extraction.
+
+**❌ RUN AND VOID 2026-08-20** (spec §10; `reports/crossref-mining-2026-08-20.json`). Mining
+yielded **21 candidates against a 600 target**, on a design needing ≥150 to *survive* a ~70%
+filter. §6.4 fires; recorded as **void, not null** — it licenses no conclusion, so the saturation
+finding is **unchallenged, neither confirmed nor scoped**.
+
+⚠️ **The paragraph above was wrong on the key point.** The persisted lineage graph contains **zero**
+circular→circular reference edges: `build_lineage` handles `supersedes` and `amends` and silently
+drops the `references` branch (`lineage.py:174-184`). The extractor exists; the artifact does not.
+
+**The blocker is corpus coverage, and that is the reusable finding: 374 of 507 cross-references
+(73.8%) point at circulars outside the 730-record corpus.** Cross-references leave this corpus more
+often than they stay in it — which also means a real practitioner query depending on one will
+frequently need a document the index does not hold. Re-running R3 needs a materially larger corpus
+and would be a **new stratum** (§8 forbids loosening criteria and re-reporting), not a continuation.
 
 **Why it matters most.** It is the one item that can *invalidate a standing conclusion*. If a
 cross-reference stratum drops R@10 substantially, the saturation finding is scoped to

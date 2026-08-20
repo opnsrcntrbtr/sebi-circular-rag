@@ -1,0 +1,197 @@
+{
+  "spec": "docs/superpowers/specs/2026-08-19-crossref-eval-validity-prereg.md \u00a73.1",
+  "stage": "MINING ONLY \u2014 no query generation, no scoring, no metric",
+  "spec_corrections": [
+    "relation class is 'references', not 'cites'",
+    "persisted lineage.json has 0 reference edges (build_lineage drops the branch, lineage.py:174-184); re-extracted from corpus text instead"
+  ],
+  "criteria": {
+    "min_nondegenerate_chunks": 3,
+    "min_body_chars": 80,
+    "max_pairs_per_source": 3,
+    "target_candidates": 600
+  },
+  "corpus_records": 730,
+  "attrition": {
+    "raw_reference_edges": 507,
+    "drop_b_not_in_corpus": 374,
+    "drop_b_superseded": 103,
+    "suppressed_by_supersede_doc": 4476,
+    "drop_in_golden_v7": 9,
+    "kept": 21
+  },
+  "candidates_mined": 21,
+  "distinct_sources": 20,
+  "distinct_targets": 16,
+  "meets_target": false,
+  "pairs": [
+    {
+      "a": "HO/17/11/24(1)2026-DDHS-POD1/I/5967/2026",
+      "b": "SEBI/HO/DDHS/DDHS-RACPOD1/P/CIR/2023/023",
+      "a_subject": "Revised Norms for appointment of an independent third-party reviewer/ certifier for green debt security",
+      "b_subject": "Review of Chapter IX \u2013 Green Debt Securities of the Operational Circular for issue and listing of Non-Convertible Securities (NCS), Securitised Debt Instruments (SDI), Security Receipts (SR), Municipa",
+      "b_chunks": 36,
+      "evidence": "October 15, 2025 (hereinafter referred to as \u201cNCS Master Circular\u201d). 1 SEBI circular no. SEBI/HO/DDHS/DDHS-RACPOD1/P/CIR/2023/023 dated February 06, 2023 Page 1 of 4 2. Chapter IX"
+    },
+    {
+      "a": "HO/17/11/24(1)2025-DDHS-POD1/I/491/2025",
+      "b": "SEBI/HO/DDHS/DDHS-PoD-1/P/CIR/2024/94",
+      "a_subject": "Modification in the conditions specified for reduction in denomination of debt securities",
+      "b_subject": "Reduction in denomination of debt securities and non-convertible redeemable preference shares (Modification to Chapter V of the Master Circular for issue and listing of Non- convertible Securities, Se",
+      "b_chunks": 14,
+      "evidence": "ditions specified for reduction in denomination of debt securities 1. SEBI, vide circular SEBI/HO/DDHS/DDHS-PoD-1/P/CIR/2024/94 dated July 03, 2024 (hereinafter referred as \u201csaid c"
+    },
+    {
+      "a": "HO/17/11/24(1)2025-DDHS-POD1/I/491/2025",
+      "b": "SEBI/HO/DDHS/DDHS-PoD/P/CIR/2025/0000000137",
+      "a_subject": "Modification in the conditions specified for reduction in denomination of debt securities",
+      "b_subject": "Master Circular for issue and listing of Non-convertible Securities, Securitised Debt Instruments, Security Receipts, Municipal Debt Securities and Commercial Paper",
+      "b_chunks": 892,
+      "evidence": "ination of issuance and trading of Non-Convertible Securities) of the Master Circular no. SEBI/HO/DDHS/DDHS-PoD/P/CIR/2025/0000000137 dated October 15, 2025, (hereinafter referred"
+    },
+    {
+      "a": "HO/47/15/11(1)2025-MRD-TPD1/I/63/2025",
+      "b": "SEBI/HO/MRD/TPD-1/P/CIR/2025/79",
+      "a_subject": "- Implementation of eligibility criteria for derivatives on existing Non- Benchmark Indices",
+      "b_subject": "",
+      "b_chunks": 133,
+      "evidence": "ria for derivatives on existing Non- Benchmark Indices 1. Clause 5.7 of SEBI circular no. SEBI/HO/MRD/TPD-1/P/CIR/2025/79 dated May 29, 2025, stipulates the following prudential no"
+    },
+    {
+      "a": "HO/47/11/12(1)2025-MRD-POD3",
+      "b": "SEBI/HO/MRD/MRD-PoD-3/P/CIR/2024/172",
+      "a_subject": "Further extension of timeline for mandatory implementation of systems and processes by Qualified Stock Brokers (QSBs) with respect to T+0 settlement cycle",
+      "b_subject": "Enhancement in the scope of optional T+0 rolling settlement cycle in addition to the existing T+1 settlement cycle in Equity Cash Markets",
+      "b_chunks": 24,
+      "evidence": "ified Stock Brokers (QSBs) with respect to T+0 settlement cycle 1. SEBI vide Circular No. SEBI/HO/MRD/MRD-PoD-3/P/CIR/2024/172 dated December 10, 2024, enhanced the scope of option"
+    },
+    {
+      "a": "SEBI/HO/AFD/AFD-POD-3/P/CIR/2025/71",
+      "b": "SEBI/HO/AFD/AFD-POD-3/P/CIR/2024/176",
+      "a_subject": "Extension of timeline for implementation of provisions of SEBI circular dated December 17, 2024 on Measures to address regulatory arbitrage with respect to Offshore Derivative Instruments (ODIs) and F",
+      "b_subject": "Measures to address regulatory arbitrage with respect to Offshore Derivative Instruments (ODIs) and FPIs with segregated portfolios vis-\u00e0-vis FPIs",
+      "b_chunks": 35,
+      "evidence": "ments (ODIs) and FPIs with segregated portfolios vis-\u00e0-vis FPIs 1. SEBI vide Circular No. SEBI/HO/AFD/AFD-POD-3/P/CIR/2024/176 dated December 17, 2024, inter alia, provided for add"
+    },
+    {
+      "a": "SEBI/HO/MRD/MRD-PoD-3/P/CIR/2025/58",
+      "b": "SEBI/HO/MRD/MRD-PoD-3/P/CIR/2024/172",
+      "a_subject": "Extension of timeline for implementation of provisions of SEBI Circular dated December 10, 2024, on optional T+0 settlement cycle for Qualified Stock Brokers (QSBs)",
+      "b_subject": "Enhancement in the scope of optional T+0 rolling settlement cycle in addition to the existing T+1 settlement cycle in Equity Cash Markets",
+      "b_chunks": 24,
+      "evidence": "ptional T+0 settlement cycle for Qualified Stock Brokers (QSBs) 1. SEBI vide Circular No. SEBI/HO/MRD/MRD-PoD-3/P/CIR/2024/172 dated December 10, 2024, enhanced the scope of option"
+    },
+    {
+      "a": "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2025/32",
+      "b": "SEBI/HO/OIAE/OIAE_IAD-1/P/CIR/2023/0000000163",
+      "a_subject": "Harnessing DigiLocker as a Digital Public Infrastructure for reducing Unclaimed Assets in the Indian Securities Market",
+      "b_subject": "Centralized mechanism for reporting the demise of an investor through KRAs",
+      "b_chunks": 18,
+      "evidence": "respective notifier(s), thus preventing the generation of unidentified UA. 8 Circular No. SEBI/HO/OIAE/OIAE_IAD-1/P/CIR/2023/0000000163, titled, \u2018Centralized mechanism for reportin"
+    },
+    {
+      "a": "SEBI/HO/MIRSD/MIRSD-PoD1/P/CIR/2024/147",
+      "b": "SEBI/HO/MIRSD/MIRSD-PoD-2/P/CIR/2024/38",
+      "a_subject": "(A) Annual Compliance Certificate for Client Level Segregation by non- individual Investment Advisers; (B) Timeline for submission of periodic reports (A) Annual Compliance Certificate for Client Leve",
+      "b_subject": "Periodic reporting format for Investment Advisers",
+      "b_chunks": 16,
+      "evidence": "of periodic reports - 30 days from the end of reporting period 4. SEBI, vide Circular no. SEBI/HO/MIRSD/MIRSD-PoD-2/P/CIR/2024/38 dated May 7, 2024 and Master Circular dated May 21"
+    },
+    {
+      "a": "SEBI/HO/MIRSD/MIRSD-PoD1/P/CIR/2024/146",
+      "b": "SEBI/HO/MIRSD/MIRSD-PoD-2/P/CIR/2023/51",
+      "a_subject": "Clarification with respect to advertisement code for Research Analysts (RAs)",
+      "b_subject": "Advertisement code for Investment Advisers (IA) and Research Analysts (RA)",
+      "b_chunks": 11,
+      "evidence": "with respect to advertisement code for Research Analysts (RAs) 1. SEBI, vide Circular no. SEBI/HO/MIRSD/MIRSD-PoD-2/P/CIR/2023/51 dated April 5, 2023 and Master Circular for Resear"
+    },
+    {
+      "a": "SEBI/HO/DDHS/DDHS-PoD-1/P/CIR/2024/142",
+      "b": "SEBI/HO/DDHS/DDHS-PoD-1/P/CIR/2024/128",
+      "a_subject": "Clarification with regard to usage of 3 \u2013 in \u2013 1 type accounts for making an application in public issue of securities",
+      "b_subject": "Usage of UPI by individual investors for making an application in public issue of securities through intermediaries",
+      "b_chunks": 7,
+      "evidence": "Master Circular and notwithstanding the provision specified under para 2 of SEBI circular SEBI/HO/DDHS/DDHS-PoD-1/P/CIR/2024/128 dated September 24, 2024, investors may continue to"
+    },
+    {
+      "a": "SEBI/HO/CFD/PoD-1/P/CIR/2024/134",
+      "b": "SEBI/HO/CFD/PoD-1/P/CIR/2024/0059",
+      "a_subject": "Timelines for disclosures by Social Enterprises on Social Stock Exchange (\u201cSSE\u201d) for FY 2023-24.",
+      "b_subject": "Timelines for disclosures by Social Enterprises on Social Stock Exchange (\u201cSSE\u201d) for FY 2023-24.",
+      "b_chunks": 4,
+      "evidence": "Social Enterprises on Social Stock Exchange (\u201cSSE\u201d) for FY 2023-24. 1. SEBI vide Circular SEBI/HO/CFD/PoD-1/P/CIR/2024/0059 dated May 27, 2024 had prescribed outer timelines for an"
+    },
+    {
+      "a": "SEBI/HO/MRD/MRD-PoD-3/P/CIR/2024/82",
+      "b": "SEBI/HO/MRD/MRD-PoD-3/P/CIR/2024/6",
+      "a_subject": "Modification in Framework for Offer for Sale (OFS) of Shares to Employees through Stock Exchange Mechanism",
+      "b_subject": "Framework for Offer for Sale (OFS) of Shares to Employees through Stock Exchange Mechanism",
+      "b_chunks": 13,
+      "evidence": "or Sale (OFS) of shares through stock exchange mechanism. Further, SEBI vide Circular No. SEBI/HO/MRD/MRD-PoD-3/P/CIR/2024/6 dated January 23, 2024 issued Framework for Offer for S"
+    },
+    {
+      "a": "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2023/191",
+      "b": "SEBI/HO/OIAE/OIAE_IAD-1/P/CIR/2023/131",
+      "a_subject": "Amendment to Circular dated July 31, 2023 on Online Resolution of Disputes in the Indian Securities Market",
+      "b_subject": "Online Resolution of Disputes in the Indian Securities Market",
+      "b_chunks": 90,
+      "evidence": "Online Resolution of Disputes in the Indian Securities Market 1. SEBI issued circular no. SEBI/HO/OIAE/OIAE_IAD-1/P/CIR/2023/131 dated July 31, 2023 providing the guidelines for on"
+    },
+    {
+      "a": "SEBI/HO/DDHS/P/CIR/2023/0164",
+      "b": "SEBI/HO/DDHS/P/CIR/2022/0063",
+      "a_subject": "Limited relaxation from compliance with certain provisions of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015",
+      "b_subject": "Relaxation from compliance with certain provisions of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015",
+      "b_chunks": 6,
+      "evidence": "HO/CFD/CMD2/CIR/P/2021/11 dated January 15, 2021, till December 31, 2021; b) Circular no. SEBI/HO/DDHS/P/CIR/2022/0063 dated May 13, 2022 up to December 31, 2022 and c) Circular no"
+    },
+    {
+      "a": "SEBI/HO/OIAE/OIAE_IAD-1/P/CIR/2023/135",
+      "b": "SEBI/HO/OIAE/OIAE_IAD-1/P/CIR/2023/131",
+      "a_subject": "Corrigendum cum Amendment to Circular dated July 31, 2023 on Online Resolution of Disputes in the Indian Securities Market",
+      "b_subject": "Online Resolution of Disputes in the Indian Securities Market",
+      "b_chunks": 90,
+      "evidence": "Online Resolution of Disputes in the Indian Securities Market 1. SEBI issued circular no. SEBI/HO/OIAE/OIAE_IAD-1/P/CIR/2023/131 dated July 31, 2023 providing the guidelines for on"
+    },
+    {
+      "a": "SEBI/HO/DDHS/RACPOD1/CIR/P/2023/003",
+      "b": "SEBI/HO/MIRSD/CRADT/CIR/P/2022/38",
+      "a_subject": "Extension of timelines for entering and verification of the details of the existing outstanding non-convertible securities in the \u2018Security and Covenant Monitoring\u2019 system hosted by Depositories",
+      "b_subject": "Operational guidelines for \u2018Security and Covenant Monitoring\u2019 using Distributed Ledger Technology (DLT)",
+      "b_chunks": 17,
+      "evidence": "nd Covenant Monitoring\u2019 using Distributed Ledger Technology (DLT). Further, vide circular SEBI/HO/MIRSD/CRADT/CIR/P/2022/38 dated March 29, 2022 the Operating Guidelines of the sai"
+    },
+    {
+      "a": "SEBI/HO/DDHS/RACPOD1/CIR/P/2023/0002",
+      "b": "SEBI/HO/MIRSD/CRADT/CIR/P/2022/38",
+      "a_subject": "Monitoring and Periodical reporting of the compliance with the requirements pertaining to \u2018Security and Covenant Monitoring\u2019 system hosted by Depositories",
+      "b_subject": "Operational guidelines for \u2018Security and Covenant Monitoring\u2019 using Distributed Ledger Technology (DLT)",
+      "b_chunks": 17,
+      "evidence": "nd Covenant Monitoring\u2019 using Distributed Ledger Technology (DLT). Further, vide circular SEBI/HO/MIRSD/CRADT/CIR/P/2022/38 dated March 29, 2022 the Operating Guidelines of the sai"
+    },
+    {
+      "a": "SEBI/HO/DDHS/DDHS-RACPOD1/P/CIR/2023/001",
+      "b": "SEBI/HO/DDHS/P/CIR/2022/0063",
+      "a_subject": "Limited relaxation \u2013 dispatch of physical copies of financial statements etc. \u2013 Regulation 58 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015",
+      "b_subject": "Relaxation from compliance with certain provisions of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015",
+      "b_chunks": 6,
+      "evidence": "xations granted by the Ministry of Corporate Affairs (MCA). Thereafter, vide Circular no. SEBI/HO/DDHS/P/CIR/2022/0063 dated May 13, 2022, the said relaxations were extended till D"
+    },
+    {
+      "a": "SEBI/HO/DDHS/DDHS_Div1/P/CIR/2022/0000000152",
+      "b": "SEBI/HO/GSD/TAD/CIR/P/2022/0097",
+      "a_subject": "Applicability of GST on fees remitted to SEBI - Revision in Chapter - XX of Operational Circular for issue and listing of Non-convertible Securities, Securitised Debt Instruments, Security Receipts, M",
+      "b_subject": "Levy of Goods & Services Tax (GST) on the fees payable to SEBI",
+      "b_chunks": 3,
+      "evidence": "Debt Instruments and Security Receipts) Regulations, 2008. 2. SEBI vide circular ref. no. SEBI/HO/GSD/TAD/CIR/P/2022/0097 dated July 18, 2022, w.r.t. Levy of Goods & Services Tax ("
+    },
+    {
+      "a": "SEBI/HO/DDHS/RACPOD1/CIR/P/2022/136",
+      "b": "SEBI/HO/MIRSD/CRADT/CIR/P/2022/38",
+      "a_subject": "Extension of timeline for entering the details of the existing outstanding non- convertible securities in the \u2018Security and Covenant Monitoring\u2019 system hosted by Depositories",
+      "b_subject": "Operational guidelines for \u2018Security and Covenant Monitoring\u2019 using Distributed Ledger Technology (DLT)",
+      "b_chunks": 17,
+      "evidence": "ant Monitoring\u2019 using Distributed Ledger Technology (DLT). 2. Further, SEBI vide Circular SEBI/HO/MIRSD/CRADT/CIR/P/2022/38 dated March 29, 2022, specified the Operating Guidelines"
+    }
+  ]
+}
