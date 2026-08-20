@@ -1,0 +1,74 @@
+{
+  "question": "Is the 7B timeout tail (3 of 20 rows > timeout_s=30) a property of the rows, of run position, or of neither?",
+  "answer": "Neither \u2014 it is not reproducible. Two subsequent runs of the same 20 rows (one reversed, one in the identical original order) show zero rows over timeout_s and a max of 13.81 s / 14.10 s against the original 38.20 s.",
+  "why_it_was_suspected": "The 3 slowest rows occupied run positions 18, 19, 20 consecutively (p = 1/C(20,3) = 0.00088 under a random arrangement), and the 3B probe \u2014 same rows, same order \u2014 showed no tail at all.",
+  "model": "mlx-community/Qwen2.5-7B-Instruct-4bit",
+  "timeout_s": 30.0,
+  "runs": {
+    "forward_original": {
+      "order": "forward",
+      "n": 20,
+      "p50": 12.36,
+      "mean": 16.14,
+      "max": 38.2,
+      "over_timeout": 3,
+      "implied_gate_260_min": 69.9,
+      "corr_position_latency": 0.408,
+      "corr_context_chars_latency": 0.641,
+      "rerank_s_mean": 3.068
+    },
+    "reverse": {
+      "order": "reverse",
+      "n": 20,
+      "p50": 10.54,
+      "mean": 9.99,
+      "max": 13.81,
+      "over_timeout": 0,
+      "implied_gate_260_min": 43.3,
+      "corr_position_latency": 0.028,
+      "corr_context_chars_latency": 0.8,
+      "rerank_s_mean": 1.799
+    },
+    "forward_rerun": {
+      "order": "forward2",
+      "n": 20,
+      "p50": 10.71,
+      "mean": 10.4,
+      "max": 14.1,
+      "over_timeout": 0,
+      "implied_gate_260_min": 45.1,
+      "corr_position_latency": -0.005,
+      "corr_context_chars_latency": 0.825,
+      "rerank_s_mean": 1.845
+    }
+  },
+  "per_row_positions_18_20": {
+    "calspread": {
+      "context_chars": 11958,
+      "original_s": 33.83127212524414,
+      "rerun_same_position_s": 12.826666116714478
+    },
+    "intraday": {
+      "context_chars": 8142,
+      "original_s": 36.279622077941895,
+      "rerun_same_position_s": 11.836646795272827
+    },
+    "disc_doc": {
+      "context_chars": 8142,
+      "original_s": 38.19864082336426,
+      "rerun_same_position_s": 12.0711989402771
+    }
+  },
+  "conclusion": {
+    "timeout_tail_exists": false,
+    "over_timeout_clean_runs": 0,
+    "max_query_s_clean_runs": 14.1,
+    "implied_gate_260_min": [
+      43.3,
+      45.1
+    ],
+    "superseded_estimate_min": 69.9,
+    "context_prefill_effect_real": true,
+    "context_prefill_note": "corr(context_chars, latency) RISES to +0.800 / +0.825 once the positional artifact is gone, so prefill genuinely dominates 7B latency \u2014 but its dynamic range (6.4 s to 14.1 s) never approaches timeout_s = 30. A context bound is a mean-latency lever, NOT a timeout fix, and nothing blocks 7B on latency grounds."
+  }
+}

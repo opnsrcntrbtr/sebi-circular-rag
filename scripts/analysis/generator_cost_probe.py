@@ -62,6 +62,15 @@ def main() -> None:
 
     rows = [r for r in load_golden(ROOT / "eval" / "golden" / "golden_v7.jsonl")
             if not r.get("abstain") and not r.get("as_of")][:N_ROWS + WARMUP]
+    # Order disconfounder (2026-08-20): the 7B run put its 3 slowest rows in
+    # positions 18-20 (p ~ 1/1140 by chance) while 3B, running the SAME rows in
+    # the SAME order, showed no tail at all. Row cost and run position are
+    # therefore aliased. Re-running reversed separates them: if the tail follows
+    # position it is sustained-load state, if it follows rows it is row cost.
+    order = os.environ.get("SEBI_PROBE_ORDER", "forward").lower()
+    if order == "reverse":
+        rows = rows[::-1]
+    print(f"order={order}", file=sys.stderr)
 
     recs = []
     for n, item in enumerate(rows):
@@ -102,12 +111,14 @@ def main() -> None:
                   "mean": round(statistics.mean(gen), 2)},
         "retrieve_s_mean": round(statistics.mean(r["retrieve_s"] for r in recs), 3),
         "rerank_s_mean": round(statistics.mean(r["rerank_s"] for r in recs), 3),
+        "order": order,
         "timeout_s": s.timeout_s,
         "over_timeout": sum(1 for x in q if x > s.timeout_s),
         "implied_gate_260_min": round(statistics.mean(q) * 260 / 60, 1),
         "rows": recs,
     }
-    dest = ROOT / "reports" / f"generator-cost-{model.split('/')[-1]}.json"
+    suffix = "" if order == "forward" else f"-{order}"
+    dest = ROOT / "reports" / f"generator-cost-{model.split('/')[-1]}{suffix}.json"
     dest.write_text(json.dumps(out, indent=2), encoding="utf-8")
     print(json.dumps({k: out[k] for k in
                       ("model", "n", "pipeline_load_s", "peak_rss_gb", "b3_segfault",

@@ -98,12 +98,14 @@ full gate re-derivation + re-arm.**
 |---|---|---|---|---|---|
 | 1.5B-4bit | 5.29 GB | 7.28 s | 11.88 s | 0 | 34.0 min |
 | **3B-4bit** | 7.72 GB | 11.89 s | 15.34 s | **0** | **49.4 min** |
-| 7B-4bit | 8.91 GB | 12.36 s | **38.20 s** | **3 of 20** | 69.9 min |
+| 7B-4bit | 8.91 GB | ~10.6 s | **14.10 s** | **0** | **~44 min** |
 
 - ✅ **Bug B3 retired** — no segfault at any size; 8.91 GB peak of 48 GB.
-- ✅ **Gate cost is 69.9 min at 7B, not 2–3 h.** The earlier estimate was wrong by ~2.5×.
-- ❌ **`timeout_s = 30` is breached at 7B** on 15% of rows, and it is *not* an output-length
-  effect (corr(chars, latency) = 0.154), so `max_tokens` will not fix it.
+- ✅ **Gate cost is ~44 min at 7B, not 2–3 h.** Two downward corrections: the ~3 h estimate was
+  wrong by ~2.5×, and the 69.9 min replacement was itself inflated by the artifact below.
+- ⚠️ **The 7B row of this table is a correction.** The original probe reported p50 12.36 s, max
+  **38.20 s**, 3 of 20 over `timeout_s`, 69.9 min. That tail was **irreproducible** — see the
+  retraction below. The figures above are from `…-forward2.json` (identical row order).
 **Instruction-following — SCREENED 2026-08-20** (`reports/mechanism-screen-*.json`,
 `eval/probes/screen_v1.jsonl`, n=50 stratified, seed 20260819). Endpoint is mechanism-firing per
 `2026-08-19-fast-gate-tier-prereg.md` §2.1 — not a gated metric.
@@ -128,28 +130,47 @@ others.
 - **Instruction-following is sharply nonlinear in size here: 0% → 7% → 48%.** Parameter count is
   not buying a smooth gradient, so intermediate sizes are not a compromise position.
 
-**This reframes R0.** The choice is not "3B is cheaper and adequate" — it is "3B does not work, and
-7B works but breaches `timeout_s` on 15% of rows". The timeout tail is the price of the only
-model that follows the instruction, so R0 now depends on whether that tail can be removed.
+**This reframes R0.** The choice is not "3B is cheaper and adequate" — it is "3B does not work,
+and 7B does". There is no countervailing cost: see the retraction immediately below.
 
-**Tail diagnosed 2026-08-20 — it is prefill over the context window.** Over the same 20 rows:
+**⚠️ RETRACTED 2026-08-20 — the 7B timeout tail was an artifact** (`reports/timeout-tail-disconfound.json`).
+This section previously read "7B works but breaches `timeout_s` on 15% of rows", diagnosed the tail
+as prefill, and called for a preregistered context bound. All three claims are withdrawn.
 
-| predictor | corr with latency |
-|---|---|
-| **context chars** (doc-deduped top_k=10) | **0.641** |
-| output chars | 0.154 |
+The tell: the 3 slow rows occupied run positions **18, 19, 20** consecutively (p = 1/1140), while
+the 3B probe — **same rows, same order** — showed no tail at all. Row cost and run position were
+aliased, so the forward run could not identify either.
 
-| | context chars | latency |
-|---|---|---|
-| 3 rows over `timeout_s` | 8,142 – 11,958 | 33.8 – 38.2 s |
-| 5 fastest rows | 1,924 – 4,675 | 7.2 – 10.3 s |
+| 7B run (n=20, same rows) | p50 | mean | max | >30 s | corr(pos, lat) | corr(ctx_chars, lat) | gate |
+|---|---|---|---|---|---|---|---|
+| forward — original | 12.36 | 16.14 | **38.20** | **3** | +0.408 | +0.641 | 69.9 min |
+| reverse — disconfounder | 10.54 | 9.99 | 13.81 | **0** | +0.028 | +0.800 | 43.3 min |
+| forward — re-run, identical order | 10.71 | 10.40 | 14.10 | **0** | −0.005 | +0.825 | 45.1 min |
 
-So the fix is to bound the context, not `max_tokens`. ⚠️ **But `top_k` is not the lever to
-reach for**: it was raised 5 → 10 precisely to lift `citation_recall` 0.772 → 0.888, and cutting
-it trades that back directly. A character cap on the assembled context (keeping 10 documents but
-truncating oversized chunks) is the candidate that does not obviously repay that gain — and it
-changes `citation_recall` and `context_recall`, both gated, so it needs its own preregistration
-rather than a config nudge.
+`calspread` 33.8 → **12.8 s**, `intraday` 36.3 → **11.8 s**, `disc_doc` 38.2 → **12.1 s** at the
+same positions. The tail follows neither rows nor position — it is not reproducible, and reads as
+transient external load during the original run.
+
+**What survives.** Prefill genuinely dominates 7B latency, and the evidence *strengthens* once the
+artifact is removed (corr 0.641 → **0.800 / 0.825**). But the dynamic range is 6.4 s → 14.1 s
+against a 30 s budget, so a context bound is a **mean-latency lever, not a timeout fix** — and not
+worth spending a gated metric on today.
+
+**And a per-chunk character cap was the wrong instrument regardless** (`reports/context-composition.json`,
+n=67). The chunker already bounds chunk size — corpus max **1,728 chars**, p95 1,395 — so a cap
+only bites below ~1,200, where it truncates **23% of all chunks**: an amputation, not a trim. The
+count term also dominates the size term (corr(n_contexts, lat) **0.502** vs corr(mean_chunk_chars,
+lat) **0.284**), and 48 of 67 rows already sit at the full `top_k=10` after doc_id dedup. ⚠️ `top_k`
+remains the wrong lever for a different reason: it was raised 5 → 10 precisely to lift
+`citation_recall` 0.772 → 0.888.
+
+**Invariance, for whenever a context experiment is worth running.** Truncating chunk text inside
+`_grounded_prompt` (`generate.py:380`) leaves `ans.context_ids` untouched, so `context_recall`
+(`scripts/golden_v7/score.py:51`) is invariant **by construction**, as are `recall_at_k` / `ndcg`
+(pre-rerank fusion list) and `abstention_accuracy` (`SubjectSimJudge` reads subject/section
+metadata, not chunk text). Only `citation_recall` and `citation_precision` can move. Truncating the
+`Chunk` objects instead would additionally change what B′ scores (`select_citations` re-ranks the
+same list), confounding the arm — so prompt-only is the single-variable choice.
 
 **Decision rule (preregister).** Primary = zero-cite rows on the perfect-retrieval cohort,
 **recomputed on the live index and persisted with its corpus hash** — the cohort is not a stored
@@ -159,11 +180,11 @@ p95 estimate — at n=20 the p95 equals the max by construction); `citation_prec
 `abstention_accuracy` ≥ 0.9412. Target `citation_recall` / zero-cite — **not**
 `citation_precision`, which already clears its floor at 0.194.
 
-**Sequence — updated 2026-08-20 after the screen.** The screen was run and 3B failed to fire in
-any useful sense, so 7B *is* worth its timeout problem. Next step is not the gate: it is to
-diagnose the 7B tail (3 of 20 rows over 30 s, output length ruled out) and decide whether
-`timeout_s` moves, the context shrinks, or the tail is accepted. Only then is a T-Cohort run
-against `citation_recall` / zero-cite worth its 70 min.
+**Sequence — updated 2026-08-20 after the screen and the retraction.** 3B failed to fire in any
+useful sense; 7B fires at 47.6% and carries **no** latency penalty that matters. Both blockers
+that stood in front of R0 are gone, and the remaining question is the one R0 was always about:
+does 7B move `citation_recall` / zero-cite on the cohort. **T-Cohort at 7B is the next step, and
+it costs ~44 min** — no intervening spec is required.
 
 ---
 

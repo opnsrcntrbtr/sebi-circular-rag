@@ -8,8 +8,10 @@ mlx_model = "mlx-community/Qwen2.5-1.5B-Instruct-4bit"
 # Screened 2026-08-20 (reports/mechanism-screen-*.json, n=50): citation-bracket
 # firing rate 1.5B 0.0% | 3B 7.1% | 7B 47.6%. "3B for higher groundedness" was the
 # prior note here and is WITHDRAWN — 3B is barely above zero. 7B is the only size
-# that follows the instruction, but breaches timeout_s on 15% of rows via context
-# prefill (corr 0.641), so an upgrade needs a preregistered context bound first.
+# that follows the instruction, and it does NOT breach timeout_s: the 3-row tail
+# seen in the first probe was irreproducible external load, not row cost — two
+# clean runs give max 13.8 s / 14.1 s and 0 violations
+# (reports/timeout-tail-disconfound.json). 7B is unblocked on latency grounds.
 top_k = 10                                             # increased from 5: citation_recall 0.772 → 0.888 (doc_id dedup + wider top_k)
 abstain_threshold = 0.05                               # far-domain score floor; near-domain
                                                        # abstention = subject-sim gate (SEBI_RAG_GATE)

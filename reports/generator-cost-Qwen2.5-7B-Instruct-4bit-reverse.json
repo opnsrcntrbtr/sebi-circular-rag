@@ -1,0 +1,205 @@
+{
+  "model": "mlx-community/Qwen2.5-7B-Instruct-4bit",
+  "n": 20,
+  "pipeline_load_s": 12.8,
+  "peak_rss_gb": 8.17,
+  "b3_segfault": false,
+  "query_s": {
+    "p50": 10.54,
+    "p95": 13.81,
+    "mean": 9.99,
+    "max": 13.81
+  },
+  "gen_s": {
+    "p50": 8.62,
+    "mean": 8.14
+  },
+  "retrieve_s_mean": 0.05,
+  "rerank_s_mean": 1.799,
+  "order": "reverse",
+  "timeout_s": 30.0,
+  "over_timeout": 0,
+  "implied_gate_260_min": 43.3,
+  "rows": [
+    {
+      "id": "calspread",
+      "retrieve_s": 0.044625043869018555,
+      "rerank_s": 1.9683709144592285,
+      "query_s": 12.29116702079773,
+      "gen_s": 10.278171062469482,
+      "abstained": false,
+      "chars": 443
+    },
+    {
+      "id": "otr",
+      "retrieve_s": 0.05883502960205078,
+      "rerank_s": 1.8425869941711426,
+      "query_s": 11.587958097457886,
+      "gen_s": 9.686536073684692,
+      "abstained": false,
+      "chars": 401
+    },
+    {
+      "id": "cas",
+      "retrieve_s": 0.04618215560913086,
+      "rerank_s": 1.9416730403900146,
+      "query_s": 6.461726903915405,
+      "gen_s": 4.47387170791626,
+      "abstained": false,
+      "chars": 279
+    },
+    {
+      "id": "blockdeal",
+      "retrieve_s": 0.0504608154296875,
+      "rerank_s": 1.9097328186035156,
+      "query_s": 12.079864025115967,
+      "gen_s": 10.119670391082764,
+      "abstained": false,
+      "chars": 812
+    },
+    {
+      "id": "matevents",
+      "retrieve_s": 0.04466700553894043,
+      "rerank_s": 2.208444118499756,
+      "query_s": 8.806140899658203,
+      "gen_s": 6.553029775619507,
+      "abstained": false,
+      "chars": 991
+    },
+    {
+      "id": "rta",
+      "retrieve_s": 0.06050705909729004,
+      "rerank_s": 1.7089788913726807,
+      "query_s": 11.152286052703857,
+      "gen_s": 9.382800102233887,
+      "abstained": false,
+      "chars": 712
+    },
+    {
+      "id": "ra",
+      "retrieve_s": 0.049362897872924805,
+      "rerank_s": 1.6270630359649658,
+      "query_s": 6.6332409381866455,
+      "gen_s": 4.956815004348755,
+      "abstained": false,
+      "chars": 184
+    },
+    {
+      "id": "ia",
+      "retrieve_s": 0.04693198204040527,
+      "rerank_s": 1.5510718822479248,
+      "query_s": 9.304818153381348,
+      "gen_s": 7.706814289093018,
+      "abstained": false,
+      "chars": 312
+    },
+    {
+      "id": "sse",
+      "retrieve_s": 0.05415606498718262,
+      "rerank_s": 1.758568286895752,
+      "query_s": 10.87590217590332,
+      "gen_s": 9.063177824020386,
+      "abstained": false,
+      "chars": 642
+    },
+    {
+      "id": "dt",
+      "retrieve_s": 0.04973006248474121,
+      "rerank_s": 1.7660210132598877,
+      "query_s": 10.510210752487183,
+      "gen_s": 8.694459676742554,
+      "abstained": false,
+      "chars": 918
+    },
+    {
+      "id": "pms",
+      "retrieve_s": 0.04785799980163574,
+      "rerank_s": 1.599052906036377,
+      "query_s": 6.439831018447876,
+      "gen_s": 4.792920112609863,
+      "abstained": false,
+      "chars": 480
+    },
+    {
+      "id": "invit",
+      "retrieve_s": 0.044883012771606445,
+      "rerank_s": 2.045499801635742,
+      "query_s": 10.642759323120117,
+      "gen_s": 8.552376508712769,
+      "abstained": false,
+      "chars": 815
+    },
+    {
+      "id": "reit",
+      "retrieve_s": 0.061782121658325195,
+      "rerank_s": 1.9193367958068848,
+      "query_s": 10.684327125549316,
+      "gen_s": 8.703208208084106,
+      "abstained": false,
+      "chars": 1060
+    },
+    {
+      "id": "cra",
+      "retrieve_s": 0.04817795753479004,
+      "rerank_s": 1.732985019683838,
+      "query_s": 9.979674816131592,
+      "gen_s": 8.198511838912964,
+      "abstained": false,
+      "chars": 901
+    },
+    {
+      "id": "esg",
+      "retrieve_s": 0.04973411560058594,
+      "rerank_s": 1.674997091293335,
+      "query_s": 8.724923849105835,
+      "gen_s": 7.000192642211914,
+      "abstained": false,
+      "chars": 760
+    },
+    {
+      "id": "broker",
+      "retrieve_s": 0.048271894454956055,
+      "rerank_s": 1.6351590156555176,
+      "query_s": 11.710862159729004,
+      "gen_s": 10.02743124961853,
+      "abstained": false,
+      "chars": 689
+    },
+    {
+      "id": "secc",
+      "retrieve_s": 0.054651737213134766,
+      "rerank_s": 1.5439229011535645,
+      "query_s": 10.575407266616821,
+      "gen_s": 8.976832628250122,
+      "abstained": false,
+      "chars": 716
+    },
+    {
+      "id": "depo",
+      "retrieve_s": 0.04761815071105957,
+      "rerank_s": 1.8362739086151123,
+      "query_s": 13.81130075454712,
+      "gen_s": 11.927408695220947,
+      "abstained": false,
+      "chars": 1254
+    },
+    {
+      "id": "icdr",
+      "retrieve_s": 0.04392719268798828,
+      "rerank_s": 1.7748048305511475,
+      "query_s": 7.025360107421875,
+      "gen_s": 5.206628084182739,
+      "abstained": false,
+      "chars": 519
+    },
+    {
+      "id": "surv",
+      "retrieve_s": 0.05733084678649902,
+      "rerank_s": 1.9276390075683594,
+      "query_s": 10.408252954483032,
+      "gen_s": 8.423283100128174,
+      "abstained": false,
+      "chars": 717
+    }
+  ]
+}

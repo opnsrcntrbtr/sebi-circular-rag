@@ -831,7 +831,29 @@ cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
 
-2026-08-20 — **R0 generator screen: the 3B target is falsified; only 7B follows the citation instruction, and its timeout tail is prefill.** Screen per `2026-08-19-fast-gate-tier-prereg.md` §2.1 (`eval/probes/screen_v1.jsonl`, n=50 stratified, seed 20260819, `reports/mechanism-screen-*.json`). Endpoint is mechanism-firing only — **no gated metric, no floor derived**.
+2026-08-20 — **RETRACTION: the 7B timeout tail was an artifact. 7B is unblocked on latency; the gate costs ~44 min, not 69.9.** Probe `scripts/analysis/generator_cost_probe.py` (new `SEBI_PROBE_ORDER` flag), summary `reports/timeout-tail-disconfound.json`, composition `reports/context-composition.json` via `scripts/analysis/context_composition_probe.py`.
+
+**What triggered the re-check.** The 3 rows over `timeout_s` sat at run positions **18, 19, 20** — consecutively. Under a random arrangement that is C(3,3)/C(20,3) = **1/1140**. And the 3B probe, running the **same rows in the same order**, showed no tail whatsoever (last-3 = 12/14/14 s against its own 12.2 s mid-run mean). Row cost and run position were aliased, so the diagnosis could not be read off the forward run alone.
+
+| 7B run (n=20, same rows) | p50 | mean | max | >30 s | corr(pos, lat) | corr(ctx_chars, lat) | implied gate |
+|---|---|---|---|---|---|---|---|
+| forward — original | 12.36 | 16.14 | **38.20** | **3** | +0.408 | +0.641 | 69.9 min |
+| reverse — disconfounder | 10.54 | 9.99 | 13.81 | **0** | +0.028 | +0.800 | 43.3 min |
+| forward — re-run, identical order | 10.71 | 10.40 | 14.10 | **0** | −0.005 | +0.825 | 45.1 min |
+
+Positions 18–20, same rows, same order, two runs: `calspread` 33.8 → **12.8 s**, `intraday` 36.3 → **11.8 s**, `disc_doc` 38.2 → **12.1 s**. The tail follows neither the rows nor the position — **it is not reproducible at all**, and is best explained as transient external load during the original run.
+
+**What survives, and what does not.**
+- ❌ **"7B breaches `timeout_s` on 15% of rows"** — retracted. Zero violations across two clean runs, max 14.10 s against a 30 s budget.
+- ❌ **"A preregistered context bound is needed before 7B"** — retracted. Nothing blocks 7B on latency.
+- ❌ **69.9 min gate estimate** — superseded by **43.3 / 45.1 min**. (The prior retraction of the ~3 h estimate stands; this is a second downward correction, not a reversal.)
+- ✅ **Prefill dominates 7B latency** — and the evidence is *stronger* once the artifact is removed: corr(context_chars, latency) rises 0.641 → **0.800 / 0.825**. But its dynamic range is 6.4 s → 14.1 s. A context bound is a **mean-latency lever, not a timeout fix**, and is not currently worth two gated metrics.
+
+**Why a per-chunk character cap was the wrong instrument anyway** (`reports/context-composition.json`, n=67): the chunker already bounds chunk size — corpus max **1,728 chars**, p95 1,395 — so a cap only bites below ~1,200, where it truncates **23% of all chunks**. And the count term dominates the size term: corr(n_contexts, latency) **0.502** vs corr(mean_chunk_chars, latency) **0.284**. 48 of 67 rows already sit at the full `top_k=10` after doc_id dedup.
+
+**Invariance note for any future context experiment.** Truncating chunk *text* inside `_grounded_prompt` (`generate.py:380`) leaves `ans.context_ids` unchanged, so `context_recall` (`scripts/golden_v7/score.py:51`, computed from `context_ids`) is invariant by construction — as are `recall_at_k` and `ndcg` (from the pre-rerank fusion list) and `abstention_accuracy` (`SubjectSimJudge` scores subject/section metadata, not chunk text). **Only `citation_recall` and `citation_precision` can move.** The earlier claim that a context bound "moves two gated metrics including context_recall" was wrong on which two.
+
+2026-08-20 — **R0 generator screen: the 3B target is falsified; 7B is the only size that follows the citation instruction.** Screen per `2026-08-19-fast-gate-tier-prereg.md` §2.1 (`eval/probes/screen_v1.jsonl`, n=50 stratified, seed 20260819, `reports/mechanism-screen-*.json`). Endpoint is mechanism-firing only — **no gated metric, no floor derived**.
 
 | model | answered | rows w/ bracket | resolved | firing rate |
 |---|---|---|---|---|
@@ -843,11 +865,11 @@ Validity: all three arms answered 42 / abstained 8 — identical, so only genera
 
 **Instruction-following is sharply nonlinear in size: 0% → 7% → 48%.** 3B clears the spec's binary "non-zero licenses T-Cohort" bar on a technicality while providing no working mechanism — the roadmap's 2026-08-20 revision to "3B first" is **withdrawn**. 7B is the only size that follows the instruction, and 19 of its 20 bracket-emitting rows resolve to a circular in the context window.
 
-**Timeout tail diagnosed — prefill, not generation length.** corr(context_chars, latency) = **0.641** vs corr(output_chars, latency) = 0.154 over the same 20 rows. The 3 rows breaching `timeout_s=30` carry 8,142–11,958 context chars (33.8–38.2 s); the 5 fastest carry 1,924–4,675 (7.2–10.3 s). `max_tokens` will not fix it; bounding the context will. ⚠️ **`top_k` is the wrong lever** — it was raised 5 → 10 to lift citation_recall 0.772 → 0.888. A character cap on the assembled context is the candidate, and it moves two gated metrics, so it needs a preregistration.
+⚠️ **CORRECTION, same day — the 7B timeout tail does not exist.** This entry first reported the tail as a real prefill effect and recommended a preregistered context bound. That was wrong, and the error is recorded rather than deleted. See the dedicated entry below.
 
 **No production change.** `config.toml` still `mlx_model = "…Qwen2.5-1.5B-Instruct-4bit"`; the screen ran via `SEBI_RAG_MLX_MODEL` override only.
 
-2026-08-20 — **P0 prep: generator cost measured. B3 does not fire; 7B is 2.05x, not 4-5x; but a timeout tail blocks it.** Probe `scripts/analysis/generator_cost_probe.py`, reports `reports/generator-cost-*.json`. 20 answerable non-as_of rows per model, 2 warm-up discarded, production path via `build_default_pipeline`.
+2026-08-20 — **P0 prep: generator cost measured. B3 does not fire; 7B is 2.05x, not 4-5x.** ⚠️ This entry's "timeout tail" blocker was **retracted the same day** — it was irreproducible external load, not row cost. See the disconfound entry below. Probe `scripts/analysis/generator_cost_probe.py`, reports `reports/generator-cost-*.json`. 20 answerable non-as_of rows per model, 2 warm-up discarded, production path via `build_default_pipeline`.
 
 | model | peak RSS | query p50 | query max | >30s | implied 260-row gate |
 |---|---|---|---|---|---|

@@ -61,6 +61,15 @@ from what production does — the exact class of defect the 2026-08-12 stub-vs-M
 > runtime). The original text is left as written; this is a record, not a rewrite.
 > **Re-read §4 before running this spec** — the decision to build the ladder at
 > all should be revisited against 70 min.
+>
+> **Addendum 2, same day — 69.9 min is itself superseded: the true cost is ~44 min.**
+> That figure was inflated by a 3-row latency tail which proved **irreproducible**
+> (`reports/timeout-tail-disconfound.json`): two further runs of the same 20 rows —
+> one reversed, one in the identical original order — give **0** rows over
+> `timeout_s` and 43.3 / 45.1 min. The tail followed neither the rows nor the run
+> position. At ~44 min per arm the iteration-cost argument for **T-Cohort is weaker
+> still**; §1.2's argument for **T-Screen** remains untouched, and T-Screen has
+> since been run and returned a decisive result (see `docs/status.md` 2026-08-20).
 
 ### 1.2 Both known no-ops were detectable at n≈50
 
