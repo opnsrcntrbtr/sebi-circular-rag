@@ -104,9 +104,52 @@ full gate re-derivation + re-arm.**
 - ✅ **Gate cost is 69.9 min at 7B, not 2–3 h.** The earlier estimate was wrong by ~2.5×.
 - ❌ **`timeout_s = 30` is breached at 7B** on 15% of rows, and it is *not* an output-length
   effect (corr(chars, latency) = 0.154), so `max_tokens` will not fix it.
-- **Revised target: 3B first.** Clears the timeout with margin at 1.45× cost. The open
-  question — does it follow citation instructions where 1.5B scored 0/48? — is answerable by a
-  ~50-row screen before any gate work.
+**Instruction-following — SCREENED 2026-08-20** (`reports/mechanism-screen-*.json`,
+`eval/probes/screen_v1.jsonl`, n=50 stratified, seed 20260819). Endpoint is mechanism-firing per
+`2026-08-19-fast-gate-tier-prereg.md` §2.1 — not a gated metric.
+
+| model | answered | rows w/ bracket | resolved | firing rate |
+|---|---|---|---|---|
+| 1.5B-4bit | 42 | **0** | 0 | **0.0%** |
+| 3B-4bit | 42 | 3 | 2 | **7.1%** |
+| 7B-4bit | 42 | **20** | 19 | **47.6%** |
+
+Validity: all three arms answered 42 and abstained 8 — identical, so retrieval and gating are
+unchanged and only generation differs. The 1.5B arm reproduces the 2026-08-03 result (0/48) on a
+fresh stratified sample, which validates the screen as an instrument before it is trusted on the
+others.
+
+- ❌ **The 3B target is falsified.** 7.1% is barely above zero — it clears the spec's binary
+  "non-zero licenses T-Cohort" bar on a technicality while providing no working mechanism. The
+  1.45× cost buys almost nothing.
+- ✅ **Only 7B actually follows the instruction** — 47.6% firing, and **19 of 20** bracket-emitting
+  rows produce brackets that resolve to a circular in the context window. When it cites, it cites
+  correctly.
+- **Instruction-following is sharply nonlinear in size here: 0% → 7% → 48%.** Parameter count is
+  not buying a smooth gradient, so intermediate sizes are not a compromise position.
+
+**This reframes R0.** The choice is not "3B is cheaper and adequate" — it is "3B does not work, and
+7B works but breaches `timeout_s` on 15% of rows". The timeout tail is the price of the only
+model that follows the instruction, so R0 now depends on whether that tail can be removed.
+
+**Tail diagnosed 2026-08-20 — it is prefill over the context window.** Over the same 20 rows:
+
+| predictor | corr with latency |
+|---|---|
+| **context chars** (doc-deduped top_k=10) | **0.641** |
+| output chars | 0.154 |
+
+| | context chars | latency |
+|---|---|---|
+| 3 rows over `timeout_s` | 8,142 – 11,958 | 33.8 – 38.2 s |
+| 5 fastest rows | 1,924 – 4,675 | 7.2 – 10.3 s |
+
+So the fix is to bound the context, not `max_tokens`. ⚠️ **But `top_k` is not the lever to
+reach for**: it was raised 5 → 10 precisely to lift `citation_recall` 0.772 → 0.888, and cutting
+it trades that back directly. A character cap on the assembled context (keeping 10 documents but
+truncating oversized chunks) is the candidate that does not obviously repay that gain — and it
+changes `citation_recall` and `context_recall`, both gated, so it needs its own preregistration
+rather than a config nudge.
 
 **Decision rule (preregister).** Primary = zero-cite rows on the perfect-retrieval cohort,
 **recomputed on the live index and persisted with its corpus hash** — the cohort is not a stored
@@ -116,9 +159,11 @@ p95 estimate — at n=20 the p95 equals the max by construction); `citation_prec
 `abstention_accuracy` ≥ 0.9412. Target `citation_recall` / zero-cite — **not**
 `citation_precision`, which already clears its floor at 0.194.
 
-**Sequence.** Screen 3B for mechanism-firing (~50 rows, ~10 min) *before* any gate work — the
-documented failure is total (0/48 brackets), so a screen kills or licenses the arm cheaply. Only
-if 3B fails to fire does 7B become worth its timeout problem.
+**Sequence — updated 2026-08-20 after the screen.** The screen was run and 3B failed to fire in
+any useful sense, so 7B *is* worth its timeout problem. Next step is not the gate: it is to
+diagnose the 7B tail (3 of 20 rows over 30 s, output length ruled out) and decide whether
+`timeout_s` moves, the context shrinks, or the tail is accepted. Only then is a T-Cohort run
+against `citation_recall` / zero-cite worth its 70 min.
 
 ---
 

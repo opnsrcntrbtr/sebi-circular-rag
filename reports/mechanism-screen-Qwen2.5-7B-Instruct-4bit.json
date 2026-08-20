@@ -1,0 +1,519 @@
+{
+  "spec": "docs/superpowers/specs/2026-08-19-fast-gate-tier-prereg.md \u00a72.1",
+  "endpoint": "mechanism-firing only \u2014 NOT a gated metric, no floor may be derived",
+  "model": "mlx-community/Qwen2.5-7B-Instruct-4bit",
+  "seed": 20260819,
+  "n_screen": 50,
+  "runtime_s": 535.2,
+  "n_answered": 42,
+  "n_abstained": 8,
+  "rows_with_any_bracket": 20,
+  "rows_with_resolved_bracket": 19,
+  "firing_rate_any": 0.476,
+  "firing_rate_resolved": 0.452,
+  "brackets_total": 31,
+  "verdict": "LICENSES T-Cohort \u2014 mechanism fires; says nothing about quality",
+  "rows": [
+    {
+      "id": "surv",
+      "task_type": "title_direct",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 717
+    },
+    {
+      "id": "secc",
+      "task_type": "title_direct",
+      "abstained": false,
+      "n_brackets": 3,
+      "n_resolved": 3,
+      "brackets": [
+        "SEBI/HO/MRD-PoD2/CIR/P/2024/00181",
+        "SEBI/HO/MRD/DP/CIR/P/117#3",
+        "SEBI/HO/MRD/DP/CIR/P/2016/135#preamble"
+      ],
+      "chars": 716
+    },
+    {
+      "id": "cra",
+      "task_type": "title_direct",
+      "abstained": false,
+      "n_brackets": 1,
+      "n_resolved": 1,
+      "brackets": [
+        "SEBI/HO/DDHS/DDHS-POD3/P/CIR/2024/47"
+      ],
+      "chars": 901
+    },
+    {
+      "id": "reit",
+      "task_type": "title_direct",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 1060
+    },
+    {
+      "id": "reit_reclass",
+      "task_type": "title_direct",
+      "abstained": false,
+      "n_brackets": 1,
+      "n_resolved": 1,
+      "brackets": [
+        "HO/24/13/12(1)2025-IMD-POD-2/I/157/2025"
+      ],
+      "chars": 664
+    },
+    {
+      "id": "swagat",
+      "task_type": "title_direct",
+      "abstained": false,
+      "n_brackets": 2,
+      "n_resolved": 2,
+      "brackets": [
+        "HO/19/34/14(5)2025-AFD-POD2/I/2703/2026",
+        "HO/19/34/14(5)2025-AFD-POD2/I/199/2025"
+      ],
+      "chars": 276
+    },
+    {
+      "id": "nomination",
+      "task_type": "title_direct",
+      "abstained": false,
+      "n_brackets": 4,
+      "n_resolved": 4,
+      "brackets": [
+        "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676",
+        "HO/38/13/(4)2026-MIRSD-POD/I/4298/2026",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/91",
+        "SEBI/HO/MIRSD/POD-1/P/CIR/2024/81"
+      ],
+      "chars": 625
+    },
+    {
+      "id": "para-nom",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 1,
+      "n_resolved": 1,
+      "brackets": [
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90, SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/110, SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/53, SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/71"
+      ],
+      "chars": 812
+    },
+    {
+      "id": "para-parrva",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 432
+    },
+    {
+      "id": "hn-delist",
+      "task_type": "hard_negative",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 312
+    },
+    {
+      "id": "hn-settle",
+      "task_type": "hard_negative",
+      "abstained": true,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 45
+    },
+    {
+      "id": "hn-egr",
+      "task_type": "hard_negative",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 689
+    },
+    {
+      "id": "v7-td-003",
+      "task_type": "title_direct",
+      "abstained": false,
+      "n_brackets": 1,
+      "n_resolved": 1,
+      "brackets": [
+        "CIR/MRD/DMS/40/2010"
+      ],
+      "chars": 701
+    },
+    {
+      "id": "v7-bp-006",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 1052
+    },
+    {
+      "id": "v7-bp-012",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 520
+    },
+    {
+      "id": "v7-bp-013",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 1,
+      "n_resolved": 1,
+      "brackets": [
+        "SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2024/113"
+      ],
+      "chars": 326
+    },
+    {
+      "id": "v7-bp-017",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 584
+    },
+    {
+      "id": "v7-bp-020",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 897
+    },
+    {
+      "id": "v7-bp-025",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 967
+    },
+    {
+      "id": "v7-bp-029",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 1034
+    },
+    {
+      "id": "v7-bp-030",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 1,
+      "n_resolved": 1,
+      "brackets": [
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2025/102, SEBI/HO/DDHS/DDHS_Div3/P/CIR/2021/673, SEBI/HO/DDHS-PoD-2/P/CIR/2023/115, SEBI/HO/DDHS-PoD-2/P/CIR/2024/44, SEBI/HO/DDHS/DDHS_Div3/P/CIR/2022/53"
+      ],
+      "chars": 636
+    },
+    {
+      "id": "v7-bp-036",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 655
+    },
+    {
+      "id": "v7-nt-010",
+      "task_type": "numeric_table",
+      "abstained": false,
+      "n_brackets": 1,
+      "n_resolved": 1,
+      "brackets": [
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/61"
+      ],
+      "chars": 377
+    },
+    {
+      "id": "v7-nt-018",
+      "task_type": "numeric_table",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 1037
+    },
+    {
+      "id": "v7-nt-019",
+      "task_type": "numeric_table",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 290
+    },
+    {
+      "id": "v7-nt-026",
+      "task_type": "numeric_table",
+      "abstained": false,
+      "n_brackets": 1,
+      "n_resolved": 1,
+      "brackets": [
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2025/102, SEBI/HO/DDHS-PoD-2/P/CIR/2025/99, SEBI/HO/DDHS/DDHS-PoD-2/P/CIR/2025/63, SEBI/HO/DDHS/DDHS-PoD-2/P/CIR/2025/64"
+      ],
+      "chars": 718
+    },
+    {
+      "id": "v7-nt-028",
+      "task_type": "numeric_table",
+      "abstained": false,
+      "n_brackets": 4,
+      "n_resolved": 4,
+      "brackets": [
+        "HO/49/14/14(7)2025-CFD-POD2/I/3762/2026",
+        "SEBI/HO/CFD/PoD2/CIR/P/0155",
+        "SEBI/HO/CFD/PoD2/CIR/P/2023/120",
+        "SEBI/HO/ISD/ISD/CIR/P/2021/22"
+      ],
+      "chars": 249
+    },
+    {
+      "id": "v7-nt-029",
+      "task_type": "numeric_table",
+      "abstained": false,
+      "n_brackets": 1,
+      "n_resolved": 1,
+      "brackets": [
+        "SEBI/HO/MRD/POD-III/CIR/P/2025/12"
+      ],
+      "chars": 196
+    },
+    {
+      "id": "v7-ls-005",
+      "task_type": "lineage_supersession",
+      "abstained": false,
+      "n_brackets": 1,
+      "n_resolved": 1,
+      "brackets": [
+        "HO/38/12/11(1)2026-MIRSD-POD/I/4360/2026"
+      ],
+      "chars": 464
+    },
+    {
+      "id": "v7-ls-013",
+      "task_type": "lineage_supersession",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 279
+    },
+    {
+      "id": "v7-ls-018",
+      "task_type": "lineage_supersession",
+      "abstained": false,
+      "n_brackets": 1,
+      "n_resolved": 1,
+      "brackets": [
+        "HO/19/34/11(6)2025-AFD-POD1/I/12928/2026, SEBI/HO/AFD/AFD-POD-1/P/CIR/2024/175"
+      ],
+      "chars": 453
+    },
+    {
+      "id": "v7-ls-027",
+      "task_type": "lineage_supersession",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 329
+    },
+    {
+      "id": "v7-ls-034",
+      "task_type": "lineage_supersession",
+      "abstained": false,
+      "n_brackets": 3,
+      "n_resolved": 3,
+      "brackets": [
+        "SEBI/HO/AFD-1/AFD-1-PoD/P/CIR/2024/39",
+        "SEBI/HO/AFD/PoD1/CIR/2024/2",
+        "SEBI/HO/MIRSD/MIRSDSECFATF/P/CIR/2024/78"
+      ],
+      "chars": 485
+    },
+    {
+      "id": "v7-ls-037",
+      "task_type": "lineage_supersession",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 917
+    },
+    {
+      "id": "v7-ls-038",
+      "task_type": "lineage_supersession",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 626
+    },
+    {
+      "id": "v7-mh-001",
+      "task_type": "multi_hop",
+      "abstained": false,
+      "n_brackets": 1,
+      "n_resolved": 1,
+      "brackets": [
+        "HO/42/36/12(4)2025-OIAE-IAD3"
+      ],
+      "chars": 355
+    },
+    {
+      "id": "v7-mh-004",
+      "task_type": "multi_hop",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 941
+    },
+    {
+      "id": "v7-mh-007",
+      "task_type": "multi_hop",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 479
+    },
+    {
+      "id": "v7-mh-011",
+      "task_type": "multi_hop",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 660
+    },
+    {
+      "id": "v7-rb-005",
+      "task_type": "repealed_basis",
+      "abstained": false,
+      "n_brackets": 1,
+      "n_resolved": 0,
+      "brackets": [
+        "1230, 15"
+      ],
+      "chars": 412
+    },
+    {
+      "id": "v7-rb-009",
+      "task_type": "repealed_basis",
+      "abstained": false,
+      "n_brackets": 1,
+      "n_resolved": 1,
+      "brackets": [
+        "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2025/115"
+      ],
+      "chars": 274
+    },
+    {
+      "id": "v7-rb-014",
+      "task_type": "repealed_basis",
+      "abstained": false,
+      "n_brackets": 1,
+      "n_resolved": 1,
+      "brackets": [
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/82, SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90, SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/118"
+      ],
+      "chars": 726
+    },
+    {
+      "id": "v7-rb-019",
+      "task_type": "repealed_basis",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 952
+    },
+    {
+      "id": "v7-hn-001",
+      "task_type": "hard_negative",
+      "abstained": true,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 45
+    },
+    {
+      "id": "v7-hn-008",
+      "task_type": "hard_negative",
+      "abstained": true,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 45
+    },
+    {
+      "id": "v7-hn-010",
+      "task_type": "hard_negative",
+      "abstained": true,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 45
+    },
+    {
+      "id": "v7-hn-026",
+      "task_type": "hard_negative",
+      "abstained": true,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 45
+    },
+    {
+      "id": "v7-hn-030",
+      "task_type": "hard_negative",
+      "abstained": true,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 45
+    },
+    {
+      "id": "v7-fn-001",
+      "task_type": "far_negative",
+      "abstained": true,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 45
+    },
+    {
+      "id": "v7-fn-006",
+      "task_type": "far_negative",
+      "abstained": true,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 45
+    }
+  ]
+}

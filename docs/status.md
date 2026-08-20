@@ -831,6 +831,22 @@ cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
 
+2026-08-20 — **R0 generator screen: the 3B target is falsified; only 7B follows the citation instruction, and its timeout tail is prefill.** Screen per `2026-08-19-fast-gate-tier-prereg.md` §2.1 (`eval/probes/screen_v1.jsonl`, n=50 stratified, seed 20260819, `reports/mechanism-screen-*.json`). Endpoint is mechanism-firing only — **no gated metric, no floor derived**.
+
+| model | answered | rows w/ bracket | resolved | firing rate |
+|---|---|---|---|---|
+| 1.5B-4bit | 42 | **0** | 0 | **0.0%** |
+| 3B-4bit | 42 | 3 | 2 | **7.1%** |
+| 7B-4bit | 42 | **20** | 19 | **47.6%** |
+
+Validity: all three arms answered 42 / abstained 8 — identical, so only generation differs. The 1.5B arm reproduces the 2026-08-03 result (0/48 brackets) on a fresh sample, validating the instrument before it is trusted on the others.
+
+**Instruction-following is sharply nonlinear in size: 0% → 7% → 48%.** 3B clears the spec's binary "non-zero licenses T-Cohort" bar on a technicality while providing no working mechanism — the roadmap's 2026-08-20 revision to "3B first" is **withdrawn**. 7B is the only size that follows the instruction, and 19 of its 20 bracket-emitting rows resolve to a circular in the context window.
+
+**Timeout tail diagnosed — prefill, not generation length.** corr(context_chars, latency) = **0.641** vs corr(output_chars, latency) = 0.154 over the same 20 rows. The 3 rows breaching `timeout_s=30` carry 8,142–11,958 context chars (33.8–38.2 s); the 5 fastest carry 1,924–4,675 (7.2–10.3 s). `max_tokens` will not fix it; bounding the context will. ⚠️ **`top_k` is the wrong lever** — it was raised 5 → 10 to lift citation_recall 0.772 → 0.888. A character cap on the assembled context is the candidate, and it moves two gated metrics, so it needs a preregistration.
+
+**No production change.** `config.toml` still `mlx_model = "…Qwen2.5-1.5B-Instruct-4bit"`; the screen ran via `SEBI_RAG_MLX_MODEL` override only.
+
 2026-08-20 — **P0 prep: generator cost measured. B3 does not fire; 7B is 2.05x, not 4-5x; but a timeout tail blocks it.** Probe `scripts/analysis/generator_cost_probe.py`, reports `reports/generator-cost-*.json`. 20 answerable non-as_of rows per model, 2 warm-up discarded, production path via `build_default_pipeline`.
 
 | model | peak RSS | query p50 | query max | >30s | implied 260-row gate |

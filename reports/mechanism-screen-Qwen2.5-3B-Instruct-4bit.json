@@ -1,0 +1,475 @@
+{
+  "spec": "docs/superpowers/specs/2026-08-19-fast-gate-tier-prereg.md \u00a72.1",
+  "endpoint": "mechanism-firing only \u2014 NOT a gated metric, no floor may be derived",
+  "model": "mlx-community/Qwen2.5-3B-Instruct-4bit",
+  "seed": 20260819,
+  "n_screen": 50,
+  "runtime_s": 337.9,
+  "n_answered": 42,
+  "n_abstained": 8,
+  "rows_with_any_bracket": 3,
+  "rows_with_resolved_bracket": 2,
+  "firing_rate_any": 0.071,
+  "firing_rate_resolved": 0.048,
+  "brackets_total": 4,
+  "verdict": "LICENSES T-Cohort \u2014 mechanism fires; says nothing about quality",
+  "rows": [
+    {
+      "id": "surv",
+      "task_type": "title_direct",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 383
+    },
+    {
+      "id": "secc",
+      "task_type": "title_direct",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 430
+    },
+    {
+      "id": "cra",
+      "task_type": "title_direct",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 425
+    },
+    {
+      "id": "reit",
+      "task_type": "title_direct",
+      "abstained": false,
+      "n_brackets": 1,
+      "n_resolved": 1,
+      "brackets": [
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2025/99#5. This Master Circular is issued in exercise of powers conf"
+      ],
+      "chars": 95
+    },
+    {
+      "id": "reit_reclass",
+      "task_type": "title_direct",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 516
+    },
+    {
+      "id": "swagat",
+      "task_type": "title_direct",
+      "abstained": false,
+      "n_brackets": 2,
+      "n_resolved": 2,
+      "brackets": [
+        "HO/19/34/14(5)2025-AFD-POD2/I/2703/2026",
+        "HO/19/34/14(5)2025-AFD-POD2/I/199/2025"
+      ],
+      "chars": 254
+    },
+    {
+      "id": "nomination",
+      "task_type": "title_direct",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 715
+    },
+    {
+      "id": "para-nom",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 422
+    },
+    {
+      "id": "para-parrva",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 617
+    },
+    {
+      "id": "hn-delist",
+      "task_type": "hard_negative",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 426
+    },
+    {
+      "id": "hn-settle",
+      "task_type": "hard_negative",
+      "abstained": true,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 45
+    },
+    {
+      "id": "hn-egr",
+      "task_type": "hard_negative",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 883
+    },
+    {
+      "id": "v7-td-003",
+      "task_type": "title_direct",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 459
+    },
+    {
+      "id": "v7-bp-006",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 257
+    },
+    {
+      "id": "v7-bp-012",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 722
+    },
+    {
+      "id": "v7-bp-013",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 446
+    },
+    {
+      "id": "v7-bp-017",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 454
+    },
+    {
+      "id": "v7-bp-020",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 1084
+    },
+    {
+      "id": "v7-bp-025",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 478
+    },
+    {
+      "id": "v7-bp-029",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 908
+    },
+    {
+      "id": "v7-bp-030",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 253
+    },
+    {
+      "id": "v7-bp-036",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "n_brackets": 1,
+      "n_resolved": 0,
+      "brackets": [
+        "SEBI/H/O/MIRSD/DOP2/CIR/P/2018/76#6.2.3."
+      ],
+      "chars": 971
+    },
+    {
+      "id": "v7-nt-010",
+      "task_type": "numeric_table",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 196
+    },
+    {
+      "id": "v7-nt-018",
+      "task_type": "numeric_table",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 193
+    },
+    {
+      "id": "v7-nt-019",
+      "task_type": "numeric_table",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 180
+    },
+    {
+      "id": "v7-nt-026",
+      "task_type": "numeric_table",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 297
+    },
+    {
+      "id": "v7-nt-028",
+      "task_type": "numeric_table",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 132
+    },
+    {
+      "id": "v7-nt-029",
+      "task_type": "numeric_table",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 195
+    },
+    {
+      "id": "v7-ls-005",
+      "task_type": "lineage_supersession",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 349
+    },
+    {
+      "id": "v7-ls-013",
+      "task_type": "lineage_supersession",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 446
+    },
+    {
+      "id": "v7-ls-018",
+      "task_type": "lineage_supersession",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 540
+    },
+    {
+      "id": "v7-ls-027",
+      "task_type": "lineage_supersession",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 816
+    },
+    {
+      "id": "v7-ls-034",
+      "task_type": "lineage_supersession",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 434
+    },
+    {
+      "id": "v7-ls-037",
+      "task_type": "lineage_supersession",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 927
+    },
+    {
+      "id": "v7-ls-038",
+      "task_type": "lineage_supersession",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 288
+    },
+    {
+      "id": "v7-mh-001",
+      "task_type": "multi_hop",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 875
+    },
+    {
+      "id": "v7-mh-004",
+      "task_type": "multi_hop",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 335
+    },
+    {
+      "id": "v7-mh-007",
+      "task_type": "multi_hop",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 610
+    },
+    {
+      "id": "v7-mh-011",
+      "task_type": "multi_hop",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 635
+    },
+    {
+      "id": "v7-rb-005",
+      "task_type": "repealed_basis",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 591
+    },
+    {
+      "id": "v7-rb-009",
+      "task_type": "repealed_basis",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 377
+    },
+    {
+      "id": "v7-rb-014",
+      "task_type": "repealed_basis",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 774
+    },
+    {
+      "id": "v7-rb-019",
+      "task_type": "repealed_basis",
+      "abstained": false,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 1375
+    },
+    {
+      "id": "v7-hn-001",
+      "task_type": "hard_negative",
+      "abstained": true,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 45
+    },
+    {
+      "id": "v7-hn-008",
+      "task_type": "hard_negative",
+      "abstained": true,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 45
+    },
+    {
+      "id": "v7-hn-010",
+      "task_type": "hard_negative",
+      "abstained": true,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 45
+    },
+    {
+      "id": "v7-hn-026",
+      "task_type": "hard_negative",
+      "abstained": true,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 45
+    },
+    {
+      "id": "v7-hn-030",
+      "task_type": "hard_negative",
+      "abstained": true,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 45
+    },
+    {
+      "id": "v7-fn-001",
+      "task_type": "far_negative",
+      "abstained": true,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 45
+    },
+    {
+      "id": "v7-fn-006",
+      "task_type": "far_negative",
+      "abstained": true,
+      "n_brackets": 0,
+      "n_resolved": 0,
+      "brackets": [],
+      "chars": 45
+    }
+  ]
+}
