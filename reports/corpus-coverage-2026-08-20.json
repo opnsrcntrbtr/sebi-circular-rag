@@ -1,0 +1,52 @@
+{
+  "note": "read-only; measures eval-set construction, not system quality. Exposure, NOT demonstrated harm \u2014 see the memo's 'what this does not show'.",
+  "corpus": {
+    "circulars": 730,
+    "issued_before_2022": 64,
+    "pct_before_2022": 8.8
+  },
+  "references_raw": {
+    "distinct_referenced": 1377,
+    "held": 395,
+    "absent": 982,
+    "pct_absent": 71.3,
+    "total_mentions": 8903
+  },
+  "by_document_class": {
+    "master": {
+      "mentions": 8115,
+      "unresolvable": 6805,
+      "pct": 83.9
+    },
+    "ordinary": {
+      "mentions": 788,
+      "unresolvable": 512,
+      "pct": 65.0,
+      "distinct_missing_targets": 267
+    },
+    "caveat": "master circulars rescind long schedules; their citations are bookkeeping, not substantive cross-reference. The ordinary row is the one that matters."
+  },
+  "eval_conditioning": {
+    "gold_circulars": 159,
+    "gold_in_corpus": 155,
+    "pct_in_corpus": 97.5,
+    "implication": "gold documents are corpus members by construction, so the eval can only ask questions the corpus can answer"
+  },
+  "in_eval_exposure_non_master": {
+    "ordinary_gold_docs": 87,
+    "with_dangling_citation": 36,
+    "pct": 41.4,
+    "distinct_unresolvable_targets": 85,
+    "golden_rows_resting_on_one": 42,
+    "pct_of_260": 16.2,
+    "by_stratum": {
+      "title_direct": 5,
+      "body_paraphrase": 13,
+      "hard_negative": 3,
+      "numeric_table": 1,
+      "lineage_supersession": 7,
+      "multi_hop": 7,
+      "repealed_basis": 6
+    }
+  }
+}
