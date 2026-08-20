@@ -831,6 +831,33 @@ cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
 
+2026-08-20 — **R0 REJECTED: the 7B generator buys ±0.007 on the citation metrics, because emitted citations are architecturally disconnected from the gated ones.** Full T-Gate, both arms, n=260, live index. Runs `eval/runs/tgate-2026-08-20-qwen1.5b.json` / `…-qwen7b.json`.
+
+| metric | floor | 1.5B (control) | 7B (treatment) | Δ |
+|---|---|---|---|---|
+| recall_at_k | 0.906 | 0.943 | 0.943 | 0.000 |
+| context_recall | 0.874 | 0.906 | 0.906 | 0.000 |
+| ndcg_at_10 | 0.6512 | 0.697 | 0.697 | 0.000 |
+| citation_recall | 0.8169 | 0.872 | **0.879** | **+0.007** |
+| abstention_accuracy | 0.9412 | 0.981 | 0.981 | 0.000 |
+| citation_precision | 0.1577 | 0.191 | **0.184** | **−0.007** |
+
+`floors_ok: true` on both arms. The three retrieval metrics are bit-identical — the expected signature of a generator-only change, and a validity check in its own right.
+
+**Validity.** Control reproduces `full-eval-2026-08-19.json` **exactly** (max |Δ| = 0.0000 on all six). Both arms: 730 circulars, 78,630 chunks, 260 golden items, `injection_flagged` 10. 7B load confirmed by peak RSS — the cached `model.safetensors.index.json` predicts a 3.41 GB weight difference (0.87 vs 4.28 GB); measured RSS was 6.04 vs 9.25 GB, Δ +3.21 GB — plus 2.3× wall clock (20.5 → 47.7 min). `lsof` is useless here (MLX closes the handles) and the `Fetching 9 files` log line is identical for both models, so neither discriminates.
+
+**Why the effect is ~0 — and it is structural, not statistical.** ⚠️ `answer_with_abstention` (`generate.py:551`) sets `citations` from **either** `select_citations(...)` when B′ is armed **or** `[c.id for c in contexts]` when it is not. **The model's emitted brackets are never the source of `ans.citations`.** `select_citations` (`generate.py:90`) scores `scorer.rerank(answer_text, contexts)` and never parses a bracket. B′ is armed in production (`config.toml citation_scorer_enabled = true`). Brackets feed only `faithfulness()` → `unsupported_citations` (a warning string) and the superseded-flag `_BRACKET.sub` path.
+
+So the mechanism the T-Screen measured — bracket firing 0.0% → 47.6% — **does not feed a single gated metric**. The generator can move `citation_recall` / `citation_precision` only *indirectly*, by producing answer text that shifts the cross-encoder's scores when it re-ranks contexts against that text. That indirect channel is worth ±0.007.
+
+**Verdict: reject the 7B upgrade.** 2.3× compute and 3.2 GB RSS for +0.007 `citation_recall` bought at −0.007 `citation_precision` — not a >10% measurable benefit, so it fails the §7.2 performance rule outright.
+
+**What this retroactively explains.** The 2026-08-03 finding that Qwen-1.5B emits 0/48 brackets was recorded as a blocker on citation quality. It never was one: with B′ armed, brackets do not determine citations. Option A (prompt-based selective citations) was a 100% no-op for the same structural reason, not merely because the model was too small.
+
+**What the screen actually unlocked — a different question, not this one.** 47.6% resolvable bracket firing at 7B makes bracket-*sourced* citation viable for the first time. That is an alternative to B′, not a complement, and it was never tested: R0 held B′ armed and only swapped the generator. Whether `brackets ∩ contexts` beats B′'s cross-encoder selection **at 7B** is an open, testable question — and the one the screen's result actually bears on. It is not currently on the roadmap and needs its own preregistration.
+
+⚠️ **Per-row data unavailable for this pair.** Both arms ran before the `SEBI_RAG_EVAL_ROWS` fix landed, so the CS1 label-tier decomposition (is the +0.007 concentrated in model-labelled rows?) cannot be run against them. Given the effect is ~0 and the cause is structural, re-running for the decomposition is not worth 80 min.
+
 2026-08-20 — **CS1: 69% of the golden_v7 gate rests on labels no human ever checked, and verification effort runs inversely to difficulty.** Audit `scripts/analysis/label_provenance.py`, report `reports/label-provenance-2026-08-20.json`. Read-only — **no metric produced, no floor derived**.
 
 **`adjudicated_n` does not mean what its name implies.** `review_status` is `adjudicated` for **all 260** rows, so `eval/golden/gate_v7.json`'s `adjudicated_n: 260` — and the CI gate `adjudicated_n >= 100` — count rows a human never saw. `label_tier` is the field that carries provenance:

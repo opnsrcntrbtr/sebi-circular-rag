@@ -180,11 +180,60 @@ p95 estimate — at n=20 the p95 equals the max by construction); `citation_prec
 `abstention_accuracy` ≥ 0.9412. Target `citation_recall` / zero-cite — **not**
 `citation_precision`, which already clears its floor at 0.194.
 
-**Sequence — updated 2026-08-20 after the screen and the retraction.** 3B failed to fire in any
-useful sense; 7B fires at 47.6% and carries **no** latency penalty that matters. Both blockers
-that stood in front of R0 are gone, and the remaining question is the one R0 was always about:
-does 7B move `citation_recall` / zero-cite on the cohort. **T-Cohort at 7B is the next step, and
-it costs ~44 min** — no intervening spec is required.
+**❌ R0 RUN AND REJECTED 2026-08-20.** Full T-Gate, both arms, n=260
+(`eval/runs/tgate-2026-08-20-qwen{1.5b,7b}.json`). Control reproduces
+`full-eval-2026-08-19.json` exactly; the three retrieval metrics are bit-identical across arms.
+
+| metric | floor | 1.5B | 7B | Δ |
+|---|---|---|---|---|
+| citation_recall | 0.8169 | 0.872 | **0.879** | **+0.007** |
+| citation_precision | 0.1577 | 0.191 | **0.184** | **−0.007** |
+| recall_at_k / context_recall / ndcg_at_10 / abstention_accuracy | — | — | — | **0.000** |
+
+2.3× compute and +3.2 GB RSS for +0.007 recall bought at −0.007 precision. That is not a ≥10%
+measurable benefit, so it fails the §7.2 performance rule.
+
+**⚠️ The premise of R0 was structurally wrong, and this is the durable finding.**
+`answer_with_abstention` (`generate.py:551`) sets `citations` from **either** `select_citations(...)`
+with B′ armed **or** `[c.id for c in contexts]` without it. **The model's emitted brackets are never
+the source of `ans.citations`** — `select_citations` (`generate.py:90`) scores
+`scorer.rerank(answer_text, contexts)` and never parses a bracket. B′ is armed in production.
+Brackets feed only `faithfulness()` → `unsupported_citations` and the superseded-flag `_BRACKET.sub`
+path.
+
+So the T-Screen's headline — bracket firing 0.0% → 47.6% — **does not touch a single gated metric.**
+The generator reaches the citation metrics only indirectly, by producing answer text that shifts
+the cross-encoder when it re-ranks contexts against that text. That channel is worth ±0.007.
+
+This retroactively explains two recorded results that were both attributed to model size: the
+2026-08-03 "0/48 brackets" finding was never a blocker on citation quality, and Option A was a
+100% no-op **structurally**, not merely because Qwen-1.5B is small.
+
+**What the screen actually unlocked is a different question.** 47.6% resolvable bracket firing makes
+bracket-*sourced* citation viable for the first time — an **alternative** to B′, not a complement.
+R0 never tested it: it held B′ armed and swapped only the generator. Whether `brackets ∩ contexts`
+beats B′'s cross-encoder selection **at 7B** is open, testable, and the thing the screen's result
+actually bears on. See R0′ below.
+
+---
+
+### R0′ — Bracket-sourced citations at 7B  ⟨new 2026-08-20; supersedes R0⟩
+
+**Claim.** With a generator that emits resolvable brackets on 47.6% of answered rows, the citation
+source itself becomes a live design choice. B′ was adopted when the only alternative was cite-all
+(brackets fired 0% of the time). That comparison is now stale.
+
+**Arms.** B′ cross-encoder selection (control, production today) vs `brackets ∩ context_ids`
+with B′ fallback on the 52.4% of rows that emit none. Both at 7B, so the generator is held constant
+and the *citation source* is the single variable — the inverse of R0's design.
+
+**Why it is not obviously a win.** B′ costs 4 zero-cite rows and buys +57% citation_precision
+(2026-08-13); brackets could be worse on both. And `citation_precision` sits at 0.184–0.191 against
+a 0.1577 floor — thin headroom to spend.
+
+**Preconditions.** Needs the `SEBI_RAG_EVAL_ROWS` per-row dump (landed 2026-08-20) so the arms can be
+decomposed by stratum and `label_tier`; and it must carry the CS1 confound check, since 7B's plausible
+gains sit in the 85–90% model-labelled strata. Cost ~44 min/arm. **Not yet preregistered.**
 
 ---
 

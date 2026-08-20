@@ -175,7 +175,7 @@ adjudication_pipeline: scripts/golden_v7/ (seed, mine_strata, build_pool, gate_s
 
 | Script | Purpose |
 |---|---|
-| `scripts/eval_json.py` | Production-mirrored eval via RAGPipeline. ⚠️ **Runs the real MLX generator, not a stub** — `config.toml [service] eval_generator = "mlx"`, routed through `generate.eval_generator_for` so floors and measurements can never come from different generators. Floors were re-derived under MLX on 2026-08-12 precisely because stub-derived floors describe a system that does not run (the stub overstated B′ citation failures ~2×: 34 rows vs 19). The module docstring still says "stub" and is stale. Golden-set resolution (v7 gate → v5 fallback); prints JSON for n8n |
+| `scripts/eval_json.py` | Production-mirrored eval via RAGPipeline. ⚠️ **Runs the real MLX generator, not a stub** — `config.toml [service] eval_generator = "mlx"`, routed through `generate.eval_generator_for` so floors and measurements can never come from different generators. Floors were re-derived under MLX on 2026-08-12 precisely because stub-derived floors describe a system that does not run (the stub overstated B′ citation failures ~2×: 34 rows vs 19). (The module docstring, the origin of this error, was corrected 2026-08-20.) Golden-set resolution (v7 gate → v5 fallback); prints JSON for n8n |
 | `src/sebi_rag/eval_harness.py` (module) | `run_eval()` → EvalReport (recall, MRR, nDCG, citation prec/rec, abstention acc, groundedness proxy, faithfulness, latency, chunk-level metrics) |
 | `scripts/golden_v7/score.py` | Per-row scoring shared by eval_json.py and derive_thresholds.py; `vectors()` aggregates to metric vectors |
 | `scripts/bench_retrieval.py` | Retrieval-only benchmark + TREC runfile export |

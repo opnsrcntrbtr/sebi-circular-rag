@@ -1,12 +1,19 @@
 """Emit one JSON line of retrieval/citation/abstention metrics using the
-persisted index (no LLM, no Ollama).
+persisted index.
+
+The generator is whatever `config.toml [service] eval_generator` names, routed
+through `generate.eval_generator_for` - currently "mlx", i.e. THIS RUNS A REAL
+LLM. (This docstring said "no LLM, no Ollama" until 2026-08-20; that described
+the "stub" setting, which is not what the gate uses and has not been since the
+2026-08-12 re-derivation. The claim had already propagated into
+docs/project_context.md 7.5.)
 
 Golden-set resolution (spec 2026-07-23 sec 8): SEBI_RAG_GOLDEN if set, else
 golden_v7 once `eval/golden/gate_v7.json` arms it (adjudicated_n >= 100),
 else frozen golden_v5. CI therefore keeps reporting comparable numbers on v5
 until the v7 adjudicated subset is large enough to gate on.
 
-Scoring runs through the real RAGPipeline (stub generator - no LLM), so
+Scoring runs through the real RAGPipeline, so
 abstention matches PRODUCTION by construction rather than by re-implementing
 the score floor and subject-sim gate here. `golden_v7.score.score_row` is the
 same path `derive_thresholds.py` uses to set the floors these numbers are
@@ -73,6 +80,25 @@ golden = load_golden(golden_path)
 
 scored = [score_row(pipeline, item, s.top_k) for item in golden]
 overall = vectors(scored)
+
+# Opt-in per-row dump. Aggregates below are unchanged; this only stops the
+# per-row records being discarded, so an arm's result can be decomposed by
+# stratum / label_tier after the fact instead of needing a full re-run.
+_rows_dest = os.environ.get("SEBI_RAG_EVAL_ROWS")
+if _rows_dest:
+    _by_id = {i.get("id"): i for i in golden}
+    Path(_rows_dest).parent.mkdir(parents=True, exist_ok=True)
+    Path(_rows_dest).write_text(json.dumps({
+        "generator": s.mlx_model if s.eval_generator == "mlx" else s.eval_generator,
+        "eval_generator": s.eval_generator,
+        "golden": str(golden_path),
+        "top_k": s.top_k,
+        "rows": [dict(r,
+                      task_type=_by_id.get(r.get("id"), {}).get("task_type"),
+                      label_tier=_by_id.get(r.get("id"), {}).get("label_tier"))
+                 for r in scored],
+    }, indent=2), encoding="utf-8")
+    print(f"wrote {len(scored)} per-row records to {_rows_dest}", file=sys.stderr)
 
 mean = lambda xs: round(sum(xs) / len(xs), 3) if xs else 0.0
 
