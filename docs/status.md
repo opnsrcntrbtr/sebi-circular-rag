@@ -831,6 +831,22 @@ cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
 
+2026-08-20 — **Roadmap dependencies re-derived after R0 and R2 both closed; R1 unblocked, promoted, and preregistered.** Spec `docs/superpowers/specs/2026-08-20-warrant-citation-scorer-prereg.md`. **Not run** — preregistration only, no code changed.
+
+**R1 was never actually blocked by R0.** It carried `⟨depends on R0⟩` because a warrant judge is a *prompted judgement* and 1.5B cannot follow one. What R0 was supplying was the answer to *"does a local model exist that can follow a prompted judgement?"* — and the **T-Screen answered that independently of the gate run**: 0.0% at 1.5B, 47.6% at 7B. R0 was rejected for an unrelated reason (the generator cannot move citation metrics because B′ owns selection), which does not apply to changing the scorer. Left uncorrected, the roadmap would have read "R1 is blocked forever" — wrong in the expensive direction.
+
+**R1 is promoted to the top actionable item.** R0's post-mortem establishes that with B′ armed, B′'s scoring criterion is not *a* factor in citation quality — it is the *whole* mechanism. It is the only remaining lever on `citation_recall` / `citation_precision`.
+
+**R6's tag was also wrong.** It read `⟨partly depends on R0⟩`; late chunking uses **no generator at all** (it changes the embedding procedure). Only the higher-cost *alternative* — contextual retrieval via LLM summaries — needed R0, and that was always the fallback. R6 is independent. R2's own section still read `⟨independent⟩` with no outcome recorded; the §10 rejection is now inline there.
+
+**The spec deviates from the roadmap's decision rule, deliberately and in advance.** R1's entry specified *"zero-cite as primary"*. B′ causes only **4 of the 19** zero-cite rows (demotion 6, B′ 4, reranker 3, subject_gate 3, score_floor 2, non-SEBI 1), so a *perfect* warrant judge has a **4-row ceiling** on that endpoint — and this cohort returned **p=1.000 on a 1-row change** (`superseded_penalty` 0.3→0.5). Underpowered by construction. The spec makes `citation_precision` **primary** (B′'s measured channel, +57%) and zero-cite a **guardrail** (where the NLI failure shape lives, 19→54), with a **+0.02 absolute effect-size floor** fixed in advance — the omission that led the `superseded_penalty` run to specify *"a direction and no minimum effect size"* and adopt nothing.
+
+**Design points established from code, not assumed.** `select_citations` needs **no change**: it keeps `s >= top - margin`, so a warrant judge scoring 1.0 for governing and 0.0 otherwise admits exactly the governing set at `margin=0.35`, with `min_keep` still guarding the all-zero case — the semantics both prior B′ arms were measured under are preserved bit-for-bit. `citation_scorer_for` already dispatches `"reranker"|"nli"` and raises on unknown kinds, so `"warrant"` is a third backend, not a new path. `citation_scorer_backend` is in `settings.py:78` but **not** in `config.toml`, so the arm selects it by env and production config stays untouched. ⚠️ `_judge_prompt_identify` has the right one-call closed-set shape but returns **one** excerpt where B′ needs a **set** — porting it naively reproduces the margin collapse behind 19 of 34 zero-cite rows.
+
+⚠️ **Cost premise, stated not buried.** A 7B judge call per query plausibly doubles latency against `timeout_s=30` and means two resident models. That blocks *shipping* W1, not *measuring* it; if W1 clears the decision rule and misses the budget, the outcome recorded is "criterion validated, deployment blocked".
+
+**Sequence rewritten: R1 and R0′ are rivals, not a sequence** — both change where citations come from, and running either without deciding that is wasted work. R1 recommended first (keeps the post-hoc architecture; targets the criterion the repo already concluded is wrong). R3 remains the highest-leverage *independent* item, with CS1 having raised its stakes.
+
 2026-08-20 — **R0 REJECTED: the 7B generator buys ±0.007 on the citation metrics, because emitted citations are architecturally disconnected from the gated ones.** Full T-Gate, both arms, n=260, live index. Runs `eval/runs/tgate-2026-08-20-qwen1.5b.json` / `…-qwen7b.json`.
 
 | metric | floor | 1.5B (control) | 7B (treatment) | Δ |
