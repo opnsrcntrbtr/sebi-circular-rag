@@ -188,3 +188,43 @@ The user's model settings show `thinking_budget_enabled: true` with `thinking_bu
 Run 1 allowed `max_tokens: 1024`. The model was budgeted 4× more reasoning than it was permitted to
 emit, so `finish_reason: length` was **guaranteed** — not bad luck. Any thinking-enabled call on
 this server must set `max_tokens` above the thinking budget plus the answer.
+
+---
+
+### Run 3 — VOID (server failure, not a model or design failure)
+
+`reports/dangling-dependence-2026-08-20-run3.json`. Thinking ON (`reasoning_effort: medium`,
+`max_tokens` 8192, `thinking_budget_enabled: false`). §4.4 fires: **88.8% unparseable** (87 of 98)
+against a 20% ceiling.
+
+**The cause is infrastructure, not the instrument.** 84 of the 87 failures are
+`HTTP 507 Insufficient Storage` and 3 are `HTTP 400`; only 11 rows returned an answer. This is
+oMLX's memory guard rejecting requests, **not** literal storage: the disk had 243 GB free and
+`~/.omlx/cache` held 3.4 GB of a 37 GB allowance.
+
+Failures are positional, not size-dependent — rows 1–6 succeeded, 7–28 failed, 29–33 recovered —
+and successful rows include a 20,993-char context while failed ones go down to 1,728.
+
+**Post-run isolation showed the server had entered a stuck degraded state**: after the run, the
+same real row failed 5/5 at `max_tokens` 2048 *and* 8192, and a **400-character** context with
+thinking on still returned 507. Thinking-off returned `Connection reset by peer`. Request shape is
+therefore not the trigger — the process needs a restart.
+
+⚠️ **Two prompt/format findings from run 3's setup are worth keeping regardless**, both verified
+before the run:
+1. **`guided_grammar` and thinking are mutually exclusive** on this server. The grammar constrains
+   from token 0, so the thinking block is never emitted — measured `reasoning_content` = 0 chars,
+   3 output tokens, and a flipped (wrong) answer. Grammar cannot "prevent parse failure" in a
+   thinking run; it silently disables the thinking instead.
+2. **The run-2 answer format made the model echo its own placeholder** under thinking —
+   `NEEDS: <circular>`, deterministic 2/2. Removing the angle brackets fixed it (2/2 correct).
+   Run 3 used the reworded format.
+
+**Config deltas between the working run-2 server state and the failing run-3 state**, most likely
+to matter first: `dflash_in_memory_cache` false → **true** with an 8 GB budget (newly reserved);
+`gdn_sidecar` precision **int16 → fp32** (2× sidecar state); `max_concurrent_requests` 1 → **2**
+(2× concurrent allocation); `hot_cache_max_size` 4 GB → 3 GB. All against
+`memory_guard_custom_ceiling_gb: 37.4`.
+
+**Standing result is unchanged: run 2 (§4.2, no dependence detected) remains the only valid
+measurement**, with both conservatism caveats attached. Run 3 establishes nothing either way.

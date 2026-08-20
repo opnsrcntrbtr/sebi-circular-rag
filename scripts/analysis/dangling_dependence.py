@@ -27,7 +27,7 @@ MODEL = os.environ.get("OMLX_MODEL", "Qwen3.6-35B-A3B-OptiQ-4bit")
 WINDOW = 6000            # §2: +/- 6,000 chars around each labelled quote
 CTX_CAP = 40000          # bound prefill; truncation count is reported
 GOLDEN = ROOT / "eval" / "golden" / "golden_v7.jsonl"
-DEST = ROOT / "reports" / "dangling-dependence-2026-08-20-run2.json"
+DEST = ROOT / "reports" / "dangling-dependence-2026-08-20-run3.json"
 
 PROMPT = """You are a strict auditor for a legal retrieval system.
 
@@ -46,11 +46,9 @@ If the excerpt defers to another SEBI circular for the substance of the answer -
 example "as specified in Circular X", "in terms of Circular Y" -- then it cannot, and
 you must name that circular exactly as it is written in the excerpt.
 
-Reply on one line, in exactly one of these two forms:
-SUFFICIENT
-NEEDS: <circular number exactly as written in the excerpt>
-
-Reply with nothing else."""
+Answer with the single word SUFFICIENT if the excerpt alone suffices. Otherwise
+answer with the word NEEDS, a colon, and the circular number copied from the excerpt.
+Output that one line only."""
 
 
 def call(prompt: str, retries: int = 2) -> tuple[str, str]:
@@ -64,9 +62,19 @@ def call(prompt: str, retries: int = 2) -> tuple[str, str]:
     # lands in `content` — which run 1 then parsed as if it were an answer.
     # This task is a bounded extractive classification; deliberation is not
     # required, and a single strict line is.
+    # RUN 3: thinking ON. Two findings forced this shape, both verified first:
+    #  * guided_grammar and thinking are MUTUALLY EXCLUSIVE here — the grammar
+    #    constrains from token 0, so the thinking block is never emitted
+    #    (measured: reasoning_content=0, 3 output tokens, and a flipped answer).
+    #    Deliberation is the point of run 3, so grammar is off.
+    #  * the run-2 answer format ("NEEDS: <circular ...>") makes the model echo
+    #    the placeholder literally under thinking — 'NEEDS: <circular>', 2/2
+    #    deterministic. The format is reworded to remove the angle brackets.
+    # max_tokens 8192 (server default) with thinking_budget_enabled=false.
     body = json.dumps({
-        "model": MODEL, "temperature": 0, "max_tokens": 128,
-        "chat_template_kwargs": {"enable_thinking": False},
+        "model": MODEL, "temperature": 0, "max_tokens": 8192,
+        "chat_template_kwargs": {"enable_thinking": True,
+                                 "reasoning_effort": "medium"},
         "messages": [{"role": "user", "content": prompt}],
     }).encode()
     for a in range(retries + 1):
@@ -213,11 +221,14 @@ def main() -> None:
 
     out = {
         "spec": "docs/superpowers/specs/2026-08-20-dangling-citation-dependence-prereg.md",
-        "run": 2,
+        "run": 3,
+        "run2": "reports/dangling-dependence-2026-08-20-run2.json — thinking OFF, "
+                "T=2.4% C=0.0%; run 3 repeats with deliberation enabled",
         "run1": "VOID — reports/dangling-dependence-2026-08-20-run1-VOID.json; thinking "
                 "hit finish_reason=length mid-thought, so partial reasoning landed in "
                 "`content` and was parsed as an answer",
-        "model": MODEL, "window_chars": WINDOW, "thinking": False,
+        "model": MODEL, "window_chars": WINDOW, "thinking": True,
+        "reasoning_effort": "medium", "guided_grammar": False,
         "treatment": {"dependent": t_dep, "n": t_n, "pct": T},
         "control": {"dependent": c_dep, "n": c_n, "pct": C},
         "delta_pp": round(T - C, 1),
