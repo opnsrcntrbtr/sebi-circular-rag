@@ -72,7 +72,7 @@ Ranked by (measured share of failures) × (external support) ÷ (cost). Dependen
 
 ---
 
-### R0 — Generator upgrade: 1.5B-4bit → 3B-4bit (revised 2026-08-20; was 7B/8B)  ⟨gates R1, R6⟩
+### R0 — Generator upgrade  ❌ **REJECTED 2026-08-20**  ⟨gated nothing; see the dependency re-derivation in R1⟩
 
 **Claim.** The generator is the binding constraint on every instruction-dependent mechanism.
 
@@ -237,7 +237,7 @@ gains sit in the 85–90% model-labelled strata. Cost ~44 min/arm. **Not yet pre
 
 ---
 
-### R1 — Warrant-calibrated citation scorer for B′  ⟨depends on R0⟩
+### R1 — Warrant-calibrated citation scorer for B′  ⟨UNBLOCKED + PROMOTED 2026-08-20⟩
 
 **Claim.** Replace B′'s relevance scorer with a warrant judge. Keep the post-hoc architecture.
 
@@ -251,17 +251,56 @@ worst-scoring warrant dimensions map onto the two worst strata here.
 
 **Why it failed before.** The NLI attempt substituted one wrong criterion (entailment) for
 another (relevance). A context can be the governing provision without entailing a paraphrase of
-it — the repo said exactly this. Warrant is the criterion that covers the gap, and it is a
-prompted judgement, which is why it needs R0 first.
+it — the repo said exactly this. Warrant is the criterion that covers the gap.
+
+**⚠️ Dependency re-derived 2026-08-20 — R1 is UNBLOCKED, and R0's rejection does not touch it.**
+R1 was tagged "depends on R0" because a warrant judge is a *prompted judgement* and 1.5B cannot
+follow one. What R0 was actually supplying was the answer to **"does a local model exist that can
+follow a prompted judgement?"** — and the T-Screen answered that **independently of the gate run**:
+0.0% instruction-following at 1.5B, 47.6% at 7B. That precondition is satisfied. R0 was rejected
+for a different reason entirely (swapping the *generator* cannot move citation metrics, because
+B′ owns citation selection), and that reason does not apply here.
+
+**PROMOTED — it is now the only lever on the citation metrics.** R0 established that
+`ans.citations` comes from `select_citations` and never from generated text. So B′'s scoring
+criterion is not *a* factor in citation quality; with B′ armed it is the *whole* mechanism.
+Changing what B′ scores is the only way to move `citation_recall` / `citation_precision`.
+
+**Design constraint 1 — the single-call pattern already exists.** `_judge_prompt_identify`
+(`generate.py:225`) does closed-set identification over numbered excerpts in ONE call, with a
+verifiable reply ("the reply must be one of the offered numbers", and *"naming which excerpt
+governs is harder to bluff than agreeing"*). A warrant judge should reuse that shape: one call per
+query, not one per context. Cost ≈ one extra generation, not 10.
+
+**⚠️ Design constraint 2 — but that pattern returns ONE excerpt, and B′ needs a SET.** Porting
+identify-shape naively collapses citations to a single context, which is precisely the failure
+`min_keep` exists to prevent: measured 2026-08-12, 19 of 34 zero-cite rows came from exactly that
+collapse. A warrant judge must emit a set (or be wrapped so it can), or it reintroduces a known,
+quantified regression.
+
+**⚠️ Prior: replacing B′'s scorer has failed twice.** Both NLI attempts were rejected (zero-cite
+19 → 54). The standing conclusion was *"stop pursuing attribution/NLI scorers for B′"*. R1's claim
+is that warrant is a **third** criterion rather than a third attempt at entailment — that claim is
+what the preregistration has to make falsifiable in advance, not assert.
 
 **Decision rule.** Same frozen 206-row subset, zero-cite as primary, matching the two prior
-B′ arms so results are comparable. Guardrail: precision must not fall below floor.
+B′ arms so results are comparable. Guardrail: precision must not fall below floor. Must also carry
+the CS1 label-tier split, and should use the `SEBI_RAG_EVAL_ROWS` per-row dump (landed 2026-08-20).
 
 ---
 
-### R2 — Supersession as typed temporal retrieval, not a scalar penalty  ⟨independent⟩
+### R2 — Supersession as typed temporal retrieval, not a scalar penalty  ❌ **REJECTED 2026-08-20**
 
-**Claim.** `superseded_penalty = 0.3` is a scalar approximation of a temporal-validity
+**❌ Outcome (spec `2026-08-19-supersession-confidence-tier-prereg.md` §10).** Provenance tiering
+was measured and rejected. The §0 enrichment that motivated it (4 of 6 zero-cite rows had a
+relevant circular among the 37 only-inferred ones) was a **size confound**: all 37 are master
+circulars — 24.40% of chunk mass, 4.8× mean size. The 4 exploratory rows flipped 4 → 0 while the
+197 held-out rows got *worse*; only §4's pre-registered exclusion of the exploratory rows kept
+this from being recorded as a win. **Flat `superseded_penalty = 0.3` is correct** for
+master-circular re-issues, and provenance tiering is dead as a lever. The code landed with
+`inferred_supersession_penalty=None` preserving current behaviour exactly.
+
+**Claim (as written before the run).** `superseded_penalty = 0.3` is a scalar approximation of a temporal-validity
 predicate, and it is the single largest measured cause of wrong citations.
 
 **Repo evidence.** **6 of 19** zero-cite rows are demotion-caused — more than B′ (4) or the
@@ -404,7 +443,7 @@ If those rows are demotion- or B′-caused, this buys nothing — and R2/R1 woul
 
 ---
 
-### R6 — Chunk quality: late chunking + degenerate fold  ⟨partly depends on R0⟩
+### R6 — Chunk quality: late chunking + degenerate fold  ⟨INDEPENDENT — tag corrected 2026-08-20⟩
 
 **Measured.** 6,736 chunks (**8.57%**) have bodies under 80 characters — typically a section
 heading restated. Reproduces the ~9.6% figure behind the known nominee-count wrong answer.
@@ -420,6 +459,12 @@ degenerate chunks document context they currently lack entirely.
 
 **Constraint.** bge-m3 supports 8192 tokens, so late chunking is feasible without changing the
 embedder. Still a full re-encode; **bundle with R5** if both proceed.
+
+**⚠️ Dependency tag corrected 2026-08-20.** This item read "partly depends on R0", which R0's
+rejection would have appeared to kill. It does not: **late chunking uses no generator at all** —
+it changes the *embedding procedure*. Only the higher-cost *alternative* (Anthropic-style
+contextual retrieval via LLM summaries) needed R0, and that alternative was always the fallback,
+not the proposal. R6's primary path is fully independent and unaffected.
 
 ---
 
@@ -456,21 +501,38 @@ without the held-out data golden_v7 lacks.
 
 ---
 
-## 4. Suggested sequence
+## 4. Suggested sequence — REVISED 2026-08-20 after R0 and R2 both closed
 
 ```
-R3 (eval validity)  ──┬─→ decides whether retrieval surface reopens
-R2 (temporal typing) ─┘   both independent, both cheap relative to payoff
-        │
-R0 (generator) ───────┬─→ R1 (warrant scorer)
-                      └─→ R6b (contextual retrieval, if late chunking underdelivers)
-R4 (Set-Encoder) ─────── independent
-R5 / R6 ──────────────── bundle; gate R5 on its diagnostic
+DONE   R0 (generator swap)  ❌ REJECTED — B′ owns citations; brackets are disconnected
+DONE   R2 (supersession tiering) ❌ REJECTED — size confound; flat 0.3 is correct
+
+R1 (warrant scorer for B′) ─── UNBLOCKED, PROMOTED: the ONLY lever on citation metrics
+R0′ (bracket-sourced cites) ── the alternative to B′, newly viable at 7B
+        └─ R1 and R0′ are RIVALS, not a sequence: both change where citations come from
+R3 (eval validity) ─────────── independent; can invalidate the saturation conclusion
+R4 (Set-Encoder) ───────────── independent
+R6 (late chunking) ─────────── independent (tag corrected); bundle with R5
+R7 (calibrated abstention) ─── independent
 ```
 
-**R3 and R2 first** — neither depends on R0, both are cheap, and R3 can invalidate a standing
-conclusion. R0 is the largest unlock but also the largest cost (gate re-derivation), so it
-should follow the two items that might change what you want from it.
+**The reframing.** The old sequence put R0 in the middle as the big unlock feeding R1 and R6b.
+R0 is dead, and its post-mortem is what re-ranks everything: since `ans.citations` comes from
+`select_citations` and never from generated text, **the citation metrics have exactly one
+control surface — what B′ scores.** R1 changes the criterion; R0′ replaces the mechanism. They
+are alternatives, and running either without deciding that is wasted work.
+
+**Recommended first: R1**, on two grounds. It keeps the post-hoc architecture that two
+independent sources support, and it is the only proposal aimed at the criterion the repo has
+*already concluded* is wrong (relevance, not warrant). R0′ is cheaper but strictly narrower — it
+can only ever recover what the 7B model happens to bracket, on 47.6% of rows, and it re-opens the
+precision trade B′ was adopted to win. ⚠️ Both must clear the prior that **scorer replacement has
+failed twice**.
+
+**R3 remains the highest-leverage independent item** and is unaffected by any of this — it is the
+one that can invalidate a standing conclusion rather than add an intervention. CS1 raised its
+stakes: 68.8% of the gate is model-labelled, and the strata a cross-reference stratum would target
+are 85–90% model-labelled.
 
 ---
 
