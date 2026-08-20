@@ -1,0 +1,136 @@
+{
+  "note": "read-only label audit; no metric is produced and no floor may be derived",
+  "n": 260,
+  "review_status": {
+    "adjudicated": 260
+  },
+  "label_tier": {
+    "arbitrated": 13,
+    "inherited_v5": 30,
+    "human": 38,
+    "draft_seeded": 65,
+    "model_single": 114
+  },
+  "unverified_n": 179,
+  "unverified_pct": 68.8,
+  "by_stratum": {
+    "body_paraphrase": {
+      "n": 60,
+      "unverified": 38,
+      "pct_unverified": 63.3,
+      "tiers": {
+        "human": 8,
+        "arbitrated": 3,
+        "inherited_v5": 11,
+        "draft_seeded": 9,
+        "model_single": 29
+      }
+    },
+    "far_negative": {
+      "n": 10,
+      "unverified": 8,
+      "pct_unverified": 80.0,
+      "tiers": {
+        "human": 1,
+        "arbitrated": 0,
+        "inherited_v5": 1,
+        "draft_seeded": 3,
+        "model_single": 5
+      }
+    },
+    "hard_negative": {
+      "n": 40,
+      "unverified": 27,
+      "pct_unverified": 67.5,
+      "tiers": {
+        "human": 10,
+        "arbitrated": 0,
+        "inherited_v5": 3,
+        "draft_seeded": 9,
+        "model_single": 18
+      }
+    },
+    "lineage_supersession": {
+      "n": 40,
+      "unverified": 34,
+      "pct_unverified": 85.0,
+      "tiers": {
+        "human": 6,
+        "arbitrated": 0,
+        "inherited_v5": 0,
+        "draft_seeded": 10,
+        "model_single": 24
+      }
+    },
+    "multi_hop": {
+      "n": 20,
+      "unverified": 18,
+      "pct_unverified": 90.0,
+      "tiers": {
+        "human": 2,
+        "arbitrated": 0,
+        "inherited_v5": 0,
+        "draft_seeded": 9,
+        "model_single": 9
+      }
+    },
+    "numeric_table": {
+      "n": 30,
+      "unverified": 26,
+      "pct_unverified": 86.7,
+      "tiers": {
+        "human": 4,
+        "arbitrated": 0,
+        "inherited_v5": 0,
+        "draft_seeded": 14,
+        "model_single": 12
+      }
+    },
+    "repealed_basis": {
+      "n": 20,
+      "unverified": 18,
+      "pct_unverified": 90.0,
+      "tiers": {
+        "human": 2,
+        "arbitrated": 0,
+        "inherited_v5": 0,
+        "draft_seeded": 7,
+        "model_single": 11
+      }
+    },
+    "title_direct": {
+      "n": 40,
+      "unverified": 10,
+      "pct_unverified": 25.0,
+      "tiers": {
+        "human": 5,
+        "arbitrated": 10,
+        "inherited_v5": 15,
+        "draft_seeded": 4,
+        "model_single": 6
+      }
+    }
+  },
+  "abstain_labels": {
+    "n": 41,
+    "unverified": 35,
+    "pct_unverified": 85.4,
+    "why_it_matters": "abstention_accuracy carries the gate's strictest floor (0.9412); these are the rows it can only score by correctly refusing"
+  },
+  "retrieval_confidence_join": {
+    "source": "score-floor-utility-2026-08-19.json",
+    "answerable_only": true,
+    "n": 195,
+    "human_touched": {
+      "n": 64,
+      "mean_rerank_top": 0.8656,
+      "median": 0.9954
+    },
+    "unverified": {
+      "n": 131,
+      "mean_rerank_top": 0.8672,
+      "median": 0.9646
+    },
+    "finding": "NULL \u2014 verified and unverified rows have indistinguishable retrieval confidence on answerable strata, so weak labels CANNOT be spotted from scores. Label quality is an independent axis, not a proxy for difficulty."
+  }
+}

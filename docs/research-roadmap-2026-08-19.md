@@ -266,6 +266,31 @@ under-samples the cross-reference-dependent queries that make legal retrieval ha
 are `model_single` 114 / human 38 / arbitrated 13; κ is low on `title_direct` (0.077),
 `multi_hop` (0.071), `numeric_table` (0.000); 3 rows are unjudged.
 
+**CS1 audited 2026-08-20** (`scripts/analysis/label_provenance.py`,
+`reports/label-provenance-2026-08-20.json`) — the signal is stronger than the line above suggests:
+
+- **179 of 260 rows (68.8%)** are model-labelled (`model_single` + `draft_seeded`). `review_status`
+  is `adjudicated` for **all** 260, so `adjudicated_n` and the CI gate `adjudicated_n >= 100`
+  count rows no human saw. `label_tier` is the field that carries provenance.
+- **Verification runs inversely to difficulty.** `multi_hop` and `repealed_basis` are **90%**
+  unverified (2 human labels each of 20); `numeric_table` 86.7%; `lineage_supersession` 85.0% —
+  while `title_direct`, the easiest stratum, is the best verified at 25.0%.
+- **85.4% of the abstain ground truth (35 of 41) was never human-verified**, and
+  `abstention_accuracy` carries the gate's strictest floor (0.9412).
+- **Null:** on answerable strata, `rerank_top` is indistinguishable between verified and
+  unverified rows (0.8656 vs 0.8672). Weak labels cannot be spotted from scores — label quality is
+  an independent axis, not a proxy for difficulty.
+
+**This raises the stakes on R3 and folds into R0.** The adjudicator was itself a model
+(`local_adjudicate` = Qwen3.6-35B-MLX). Evaluating a *model* against a *model-labelled* set
+measures agreement-with-the-labeller alongside correctness, and the strata where a larger
+generator should help most are the 85–90% model-labelled ones. Per the CS1 plan this is folded
+into the outcome analysis rather than specced separately: **report the R0 delta split by
+`label_tier`** — similar on human-verified and model-labelled rows means the gain is real;
+concentrated in the latter means it is partly labeller agreement. ⚠️ Blocked on a harness fix —
+`eval_json.py` discards its per-row records, so no completed gate run can be decomposed after the
+fact (staged opt-in `SEBI_RAG_EVAL_ROWS` dump; not applied while an arm is mid-flight).
+
 **Why it's cheap.** `reg_citations.py` and `reg_lineage.py` **already extract** circular→circular
 and circular→regulation edges, and `data/manifests/regulation_edges.jsonl` exists. A
 CRAwLeR-style cross-reference stratum can be mined from machinery already built and validated —

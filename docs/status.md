@@ -831,6 +831,43 @@ cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
 
+2026-08-20 — **CS1: 69% of the golden_v7 gate rests on labels no human ever checked, and verification effort runs inversely to difficulty.** Audit `scripts/analysis/label_provenance.py`, report `reports/label-provenance-2026-08-20.json`. Read-only — **no metric produced, no floor derived**.
+
+**`adjudicated_n` does not mean what its name implies.** `review_status` is `adjudicated` for **all 260** rows, so `eval/golden/gate_v7.json`'s `adjudicated_n: 260` — and the CI gate `adjudicated_n >= 100` — count rows a human never saw. `label_tier` is the field that carries provenance:
+
+| tier | n | human in the loop? |
+|---|---|---|
+| model_single | 114 (43.8%) | ❌ |
+| draft_seeded | 65 (25.0%) | ❌ |
+| human | 38 (14.6%) | ✅ |
+| inherited_v5 | 30 (11.5%) | ✅ (via golden_v5 adjudication) |
+| arbitrated | 13 (5.0%) | ✅ |
+
+**179 of 260 (68.8%) are model-labelled.**
+
+**Verification is inversely correlated with difficulty** — the opposite of where it is needed:
+
+| stratum | n | % unverified |
+|---|---|---|
+| multi_hop | 20 | **90.0%** |
+| repealed_basis | 20 | **90.0%** |
+| numeric_table | 30 | 86.7% |
+| lineage_supersession | 40 | 85.0% |
+| far_negative | 10 | 80.0% |
+| hard_negative | 40 | 67.5% |
+| body_paraphrase | 60 | 63.3% |
+| title_direct | 40 | **25.0%** |
+
+`title_direct` — where the answer is in the title — is the best-verified stratum. `multi_hop` and `repealed_basis` have **2 human labels each out of 20**.
+
+⚠️ **85.4% of the abstain ground truth (35 of 41 rows) was never human-verified**, and `abstention_accuracy` carries the gate's strictest floor (0.9412). Those 41 rows are the only ones the metric can score by correctly *refusing*.
+
+**Why this bears on R0 directly.** Every gated metric's denominator is a label (`relevant_circulars`, `abstain`). The adjudicator was a model (`local_adjudicate` = Qwen3.6-35B-MLX). When a model-labelled set is used to evaluate a model, *agreement with the labeller* and *correctness* are different quantities, and a generator upgrade can move a metric by moving the first. The strata where a larger generator should help most — multi_hop, repealed_basis, lineage_supersession — are 85–90% model-labelled. **This is a confound to test, not a proven effect**: the test is whether the 7B−1.5B delta is similar on human-verified rows and model-labelled rows, or concentrated in the latter.
+
+**Null result worth recording:** on answerable strata, retrieval confidence is *indistinguishable* between the two groups — mean `rerank_top` 0.8656 (human-touched, n=64) vs 0.8672 (unverified, n=131). Weak labels **cannot** be spotted from scores; label quality is an independent axis, not a proxy for difficulty. (The first cut of this comparison showed a gap, which was an artifact of negative strata — `far_negative` mean 0.0008 by design — being over-represented among unverified rows.)
+
+⚠️ **Harness defect found, fix staged not applied.** `scripts/eval_json.py` builds per-row records via `score_row` and then **discards them**, printing aggregates only — which is why `reports/` holds zero per-row gate artifacts and why the confound above cannot be tested against the two T-Gate arms now running without a re-run. Fix is an opt-in `SEBI_RAG_EVAL_ROWS=<path>` dump that changes no metric and leaves the `eval_generator_for` coupling untouched. **Not applied yet — that file is being executed by an in-flight measurement, and patching it mid-experiment would leave the two arms running different code.**
+
 2026-08-20 — **RETRACTION: the 7B timeout tail was an artifact. 7B is unblocked on latency; the gate costs ~44 min, not 69.9.** Probe `scripts/analysis/generator_cost_probe.py` (new `SEBI_PROBE_ORDER` flag), summary `reports/timeout-tail-disconfound.json`, composition `reports/context-composition.json` via `scripts/analysis/context_composition_probe.py`.
 
 **What triggered the re-check.** The 3 rows over `timeout_s` sat at run positions **18, 19, 20** — consecutively. Under a random arrangement that is C(3,3)/C(20,3) = **1/1140**. And the 3B probe, running the **same rows in the same order**, showed no tail whatsoever (last-3 = 12/14/14 s against its own 12.2 s mid-run mean). Row cost and run position were aliased, so the diagnosis could not be read off the forward run alone.
