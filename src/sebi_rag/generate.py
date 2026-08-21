@@ -87,14 +87,21 @@ def faithfulness(text: str, allowed_ids: set[str]) -> tuple[float, list[str]]:
 _CITATION_MARGIN_DEFAULT = 0.35  # calibrated 2026-08-04 (sweep knee: P +88%, recall 0.783 ≥ 0.75 band)
 
 
-def select_citations(answer_text: str, contexts: list["Chunk"],
-                     scorer: "Reranker",
-                     margin: float = _CITATION_MARGIN_DEFAULT,
-                     min_keep: int = 1) -> list[str]:
-    """Context ids the answer rests on. Scores each context's answer-relevance
-    via `scorer.rerank(answer_text, contexts)` (sigmoid 0-1), keeps those within
-    `margin` of the top score, and never fewer than `min_keep` (bounded by how
-    many contexts exist). Ids returned in the contexts' original order.
+def select_citations(
+    answer_text: str,
+    contexts: list["Chunk"],
+    scorer: "Reranker | Callable[[str, list[Chunk]], list[tuple[Chunk, float]]]",
+    margin: float = _CITATION_MARGIN_DEFAULT,
+    min_keep: int = 1,
+    query: str = "",
+) -> list[str]:
+    """Context ids the answer rests on. Scores each context via `scorer`,
+    keeps those within `margin` of the top score, and never fewer than
+    `min_keep`. Ids returned in the contexts' original order.
+
+    Supports two scorer types:
+      reranker  – has .rerank(answer, contexts) → list[(Chunk, float)]
+      warrant   – callable(query, answer, contexts) → list[(Chunk, float)]
 
     `min_keep` exists because the margin alone can collapse the kept set to a
     single context: the top always satisfies `s >= top - margin`, so when the
@@ -106,7 +113,12 @@ def select_citations(answer_text: str, contexts: list["Chunk"],
     """
     if not contexts:
         return []
-    scored = scorer.rerank(answer_text, contexts)
+    # Detect scorer type: reranker has .rerank(), warrant is a plain callable
+    if hasattr(scorer, "rerank"):
+        scored = scorer.rerank(answer_text, contexts)
+    else:
+        # Warrant scorer: needs query + answer + contexts
+        scored = scorer(query, answer_text, contexts)
     if not scored:
         return []
     top = scored[0][1]
@@ -142,12 +154,15 @@ def eval_generator_for(kind: str = "stub", mlx_model: str | None = None,
 
 
 def citation_scorer_for(enabled: bool, reranker, backend: str = "reranker",
-                        nli_loader=None):
+                        nli_loader=None, warrant_model: str | None = None,
+                        warrant_shared: "MLXGenerator | None" = None):
     """The single enable/disable AND backend decision for B'.
 
     Returns None when disabled; otherwise the scorer for `backend`:
       "reranker" - bge-reranker-v2-m3, i.e. query<->document *relevance*
       "nli"      - entailment scoring, i.e. does the context *support* the answer
+      "warrant"  - structured warrant scoring (relation, modality, scope, temporal,
+                   numeric specificity) via a single-call LLM judge
 
     Every pipeline builder (api.build_default_pipeline, eval_json.py,
     derive_thresholds.py) routes through this so eval and production can never
@@ -163,7 +178,145 @@ def citation_scorer_for(enabled: bool, reranker, backend: str = "reranker",
             from .attribution import NLIAttributionScorer
             nli_loader = NLIAttributionScorer.load
         return nli_loader()
+    if backend == "warrant":
+        return warrant_scorer(
+            model=warrant_model,
+            shared=warrant_shared,
+        )
     raise ValueError(f"unknown citation scorer backend: {backend!r}")
+
+
+def _warrant_prompt(query: str, answer: str, contexts: list[Chunk]) -> str:
+    """Prompt for the warrant judge: evaluate each excerpt's warrant for the answer.
+
+    Single-call structured output — one JSON array with one object per excerpt.
+    Each object has a `warrant` score (0.0-1.0) and a `reason` string.
+    """
+    ctx = "\n\n".join(
+        f"<<<SOURCE {c.id}>>>\n{c.text}\n<<<END SOURCE>>>" for c in contexts
+    )
+    return (
+        "You are a warrant judge for a SEBI regulatory QA system.\n\n"
+        f"Question: {query}\n\n"
+        f"Answer: {answer}\n\n"
+        f"Sources:\n{ctx}\n\n"
+        "For each source, rate how well it WARRANTS the answer's claims. "
+        "Warrant means the source actually supports the specific claims made in the answer, "
+        "not just that it is topically related. Consider:\n"
+        "  - relation: does the source directly support the claim?\n"
+        "  - modality: does the source use the same modality (must/may/prohibited)?\n"
+        "  - scope: is the source's scope consistent with the answer's scope?\n"
+        "  - temporal validity: is the source still in force?\n"
+        "  - numeric specificity: do numbers/percentages match?\n\n"
+        "Return a JSON array with one object per source in order:\n"
+        '[{"warrant": 0.0-1.0, "reason": "brief explanation"}, ...]\n'
+        "Use only numbers 0.0 to 1.0 for warrant scores."
+    )
+
+
+def parse_warrant_scores(text: str, n: int) -> list[float]:
+    """Parse warrant scores from the judge's JSON output.
+
+    Returns a list of n floats (0.0-1.0), one per excerpt.
+    """
+    import json
+
+    # Strip markdown code fences if present
+    cleaned = text.strip()
+    if cleaned.startswith("```"):
+        lines = cleaned.split("\n")
+        cleaned = "\n".join(l for l in lines if not l.strip().startswith("```"))
+
+    try:
+        data = json.loads(cleaned)
+    except json.JSONDecodeError:
+        return [0.0] * n
+
+    if not isinstance(data, list):
+        return [0.0] * n
+
+    scores: list[float] = []
+    for item in data[:n]:
+        if isinstance(item, dict):
+            w = item.get("warrant", 0.0)
+            try:
+                scores.append(float(w))
+            except (TypeError, ValueError):
+                scores.append(0.0)
+        else:
+            scores.append(0.0)
+
+    # Pad if fewer than n excerpts
+    while len(scores) < n:
+        scores.append(0.0)
+
+    return scores
+
+
+class WarrantJudge:
+    """Warrant judge: single-call structured output evaluating each excerpt's warrant.
+
+    Pass shared=<MLXGenerator> to reuse the already-loaded generation model.
+    Returns a list of warrant scores (0.0-1.0), one per context chunk.
+    """
+
+    def __init__(
+        self,
+        model: str = "mlx-community/Qwen2.5-1.5B-Instruct-4bit",
+        shared: "MLXGenerator | None" = None,
+        max_tokens: int = 512,
+    ) -> None:
+        if shared is not None:
+            self._model, self._tok = shared._model, shared._tok
+        else:
+            from mlx_lm import load
+
+            self._model, self._tok = load(model)
+        self.max_tokens = max_tokens
+
+    def _reply(self, user: str) -> str:
+        from mlx_lm import generate as _gen
+
+        try:
+            prompt = self._tok.apply_chat_template(
+                [{"role": "user", "content": user}],
+                add_generation_prompt=True, tokenize=False,
+            )
+        except Exception:  # noqa: BLE001
+            prompt = user
+        return _gen(self._model, self._tok, prompt=prompt,
+                    max_tokens=self.max_tokens, verbose=False)
+
+    def score(self, query: str, answer: str, contexts: list[Chunk]) -> list[float]:
+        """Score each context's warrant for the answer.
+
+        Returns a list of floats (0.0-1.0), one per context, in the same order.
+        """
+        if not contexts:
+            return []
+        prompt = _warrant_prompt(query, answer, contexts)
+        out = self._reply(prompt)
+        return parse_warrant_scores(out, len(contexts))
+
+
+def warrant_scorer(
+    query: str,
+    answer: str,
+    contexts: list[Chunk],
+    model: str = "mlx-community/Qwen2.5-1.5B-Instruct-4bit",
+    shared: "MLXGenerator | None" = None,
+) -> list[tuple[Chunk, float]]:
+    """Callable compatible with select_citations' scorer.rerank() signature.
+
+    Wraps WarrantJudge to produce (Chunk, score) pairs sorted descending.
+    The signature accepts (answer_text, contexts) — query is extracted from
+    the answer's first sentence or passed via a closure in the pipeline.
+    """
+    judge = WarrantJudge(model=model, shared=shared)
+    scores = judge.score(query, answer, contexts)
+    scored = list(zip(contexts, scores))
+    scored.sort(key=lambda x: x[1], reverse=True)
+    return scored
 
 
 @dataclass
@@ -550,7 +703,7 @@ def answer_with_abstention(
         certainty = "high"
     if citation_scorer is not None:
         citations = select_citations(text, contexts, citation_scorer,
-                                     citation_margin, citation_min_keep)
+                                     citation_margin, citation_min_keep, query=query)
     else:
         citations = [c.id for c in contexts]
     return Answer(
