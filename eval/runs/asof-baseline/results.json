@@ -110,10 +110,10 @@
   ],
   "metadata": {
     "run_name": "asof-baseline",
-    "ts": "2026-08-19T23:30:28+0530",
-    "git_commit": "a49baa45584e3bf8a65b1f5006b26f7267e6a4f3",
+    "ts": "2026-08-21T14:45:03+0530",
+    "git_commit": "05f8534b06194eb7168a8882e8fc4fc8907b91e7",
     "python": "3.12.14",
-    "platform": "macOS-26.6.1-arm64-arm-64bit",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
     "models": {
       "embedder": "BAAI/bge-m3",
       "retriever": "FAISS+BM25/RRF",
