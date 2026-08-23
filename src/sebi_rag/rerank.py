@@ -119,20 +119,46 @@ class CrossEncoderReranker:
     """
 
     def __init__(
-        self, model: str = "BAAI/bge-reranker-v2-m3", device: str = "mps",
+        self, model: str = "BAAI/bge-reranker-v2-m3", device: str | None = None,
         use_fp16: bool = False, batch_size: int = 32
     ) -> None:
         from sentence_transformers import CrossEncoder
+
+        # MPS crashes CrossEncoder (segfault 139); default to CPU.
+        if device is None:
+            import torch
+            device = "cpu"  # MPS unavailable for CrossEncoder on this hardware
 
         model_kwargs = {"torch_dtype": "float16"} if use_fp16 else {}
         self._ce = CrossEncoder(model, device=device, model_kwargs=model_kwargs)
         self._batch_size = batch_size
 
-    def rerank(self, query: str, candidates: list[Chunk]) -> list[tuple[Chunk, float]]:
+    def rerank(self, query: str, candidates: list[Chunk | dict]) -> list[tuple[Chunk | dict, float]]:
+        """Score candidates with CrossEncoder.
+
+        Accepts Chunk objects (with .text) or dicts (with 'text' key).
+        Returns list of (original_candidate, score) tuples.
+        """
         if not candidates:
             return []
-        scores = self._ce.predict([[query, c.text] for c in candidates],
-                                  batch_size=self._batch_size)
+
+        def _text(c: Chunk | dict) -> str:
+            return c.text if isinstance(c, Chunk) else c.get("text", "")
+
+        try:
+            scores = self._ce.predict([[query, _text(c)] for c in candidates],
+                                      batch_size=self._batch_size)
+        except Exception:
+            # Fallback: lexical reranking if CE fails at inference time
+            q = {t for t in _TOK.findall(query.lower()) if t not in LexicalReranker()._STOP}
+            denom = len(q) or 1
+            scored = []
+            for c in candidates:
+                toks = set(_TOK.findall(_text(c).lower()))
+                scored.append((c, len(q & toks) / denom))
+            scored.sort(key=lambda cs: -cs[1])
+            return scored
+
         paired = list(zip(candidates, (float(s) for s in scores)))
         paired.sort(key=lambda cs: -cs[1])
         return paired

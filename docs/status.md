@@ -1,7 +1,7 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-08-17.
+> Last updated: 2026-08-22.
 
 ## Current Snapshot
 
@@ -13,6 +13,8 @@
 | **Gate** | `gate_v7.json` derived 2026-08-13T15:47Z (MLX generator, B' ON). Floors: recall_at_k 0.906, context_recall 0.874, ndcg_at_10 0.6512, citation_recall **0.8169**, abstention_accuracy 0.9412, citation_precision **0.1577**. Full end-to-end eval saved to `eval/runs/full-eval-2026-08-15.json` (asof-baseline: 13/13 passed, 1.0 accuracy). B' ON (`citation_scorer_enabled=true`), margin=0.35 (MLX-parallel sweep knee: P +5.4% vs mechanical, recall 0.8721 on adjudicated answerable n=219). Prior stub-derived floors (citation_recall 0.7233, citation_precision 0.1896) described a generator production does not use; MLX precision 0.186 sat *below* that old floor. Gate requires B' ON (`citation_scorer_enabled=true`) |
 | **Frozen sets** | `golden_v5` (n=56), `golden_v6` (n=56) |
 | **Epochs** | E1 `4083518f` (4 runs), E2 `913e762c` (20), E3 `8971de0f` (1), E4 `5f626dd9` (10, **current**). Registry `eval/epochs/epochs.jsonl`; 4 unframed runs excluded (ft-traces, iv11-splade-only-*, pool-sweep). `rescore_runs.py` raises `IncomparableFramesError` on cross-frame pairs |
+| **Epoch E5** `2026-08-22` — Benchmark with reranking: recall@10=0.9560 (CrossEncoder bge-reranker-v2-m3, top-n=50) |
+
 | **Frame E4/golden_v7** | baseline `eval/runs/E4-baseline-golden` — **recall_at_10 0.9560**, n_scored 216, n_unjudged 3, latency 0.063 s. qrels `eval/qrels/golden_v7.qrels` (239 lines, 41 abstain excluded), `golden_sha256 d87e5f3a…`. Intervention re-runs on E4: **iv2 DONE (exact no-op)**, **iv8 DONE (rejected)**; **iv11 REJECTED on preregistered confirmation** (probes n=25: nDCG@10 Δ −0.0068, p=0.865); **iv9/iv10 DONE (both null)** — all five iv arms resolved, none adoptable; see §iv-series FINAL VERDICT |
 | **TREC artifacts** | 26 archived runs back-converted to valid 6-field TREC (`run.chunk.trec`, `run.doc.trec`, `docids.tsv`); original `run.trec` retained. Circular ids percent-encode whitespace (3 of 728 are `SEBI/IMD/MC No.N/…`). `make trec-parity` proves `recall@10`/`RR`/`nDCG@10` match `ir_measures` to 1e-9 |
 | **Unjudged rows** | `v7-ls-038/039/040` — answerable, no `relevant_circulars`. Excluded from retrieval metrics as unjudged (TREC convention), not scored 0; `validate_golden` reports them `severity=warning`. Pre-existing, from the abstain-validation flip |
@@ -24,6 +26,7 @@
 | **Source tree** | 35 Python modules in `src/sebi_rag/` (api, api_spaces, pipeline, retrieve, rerank, embeddings, segment, lineage, generate, generate_spaces, corpus, corpus_spaces, eval, eval_harness, benchmark, splade, splade_encoder, hyde, context_headers, paraphrase_rescue, reg_citations, reg_lineage, regulations, master_meta, settings, stats, ui, expand, verify_master, eval_asof, device, ingest_pdf, metadata, attribution, measure); 39 top-level scripts in `scripts/` (incl. bench_retrieval.py, measure.py, hybrid_gate_sweep.py) plus `scripts/analysis/` and `scripts/golden_v7/` |
 | **Golden-v7 pipeline** | 14 scripts in `scripts/golden_v7/` (adjudicate_draft, agreement, backfill_escalations, build_pool, derive_thresholds, gate_select, gemini_adjudicate, local_adjudicate, make_packet, mine_strata, relabel_repooled, remap_doc_ids, score, seed_v7) |
 | **V7 annotations** | `eval/golden/v7_annotations/` — votes.jsonl (207 claude records), pools.jsonl (4.2 MB), arbitration_queue.jsonl (65 KB), external_sample.json, gemini/ (21 dirs), qwen/ (150 files), candidates/, packet_human/ |
+| **E5 benchmark** | `eval/runs/baseline_retrieval_nocer/results.json` — baseline (no rerank) recall@10=0.9468; `eval/runs/baseline_retrieval_rerank_t50/results.json` — with reranking recall@10=0.9560 (+0.9% absolute) |
 | **Documentation** | 3 ADRs (adr-001 architecture review, adr-002 certainty architecture, adr-003 ANE declined), project_context.md, scraping_plan.md, n8n_automation_plan.md, USAGE.md |
 | **Measure pipeline** | `scripts/bench_metrics.py` — 6 metrics: parsing_latency, supersession_precision, temporal_accuracy, retrieval_recall, context_precision, mrr. CLI: `make measure` or `python scripts/bench_metrics.py --smoke`. 37 unit tests in `tests/test_measure.py`. |
 

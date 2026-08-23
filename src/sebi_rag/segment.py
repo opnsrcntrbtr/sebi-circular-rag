@@ -134,7 +134,10 @@ def hierarchical_chunk(
         para_idx += 1
 
     heading = re.compile(r"^\s*(\d+(\.\d+)*)[.)]\s+\S")
-    for para in _paragraphs(text, max_chars):
+    paras = _paragraphs(text, max_chars)
+    i = 0
+    while i < len(paras):
+        para = paras[i]
         first_line = para.splitlines()[0]
         m = heading.match(first_line)
         if m:
@@ -150,6 +153,11 @@ def hierarchical_chunk(
                 if is_child and buf.strip() == section_head:
                     carry = f"{carry}\n{buf.strip()}".strip() if carry else buf.strip()
                 else:
+                    # When flushing the preamble, include the next paragraph
+                    # (first content paragraph) so retrievers see actual context.
+                    if section_name == "preamble" and i + 1 < len(paras):
+                        buf = f"{buf}\n\n{paras[i + 1]}"
+                        i += 1
                     flush(section_name, buf)
                 buf = ""
             section_name = first_line.strip()[:60]
@@ -171,5 +179,6 @@ def hierarchical_chunk(
             buf = buf[-overlap_chars:] + "\n" + para
         else:
             buf = (buf + "\n" + para) if buf else para
+        i += 1
     flush(section_name, buf)
     return chunks

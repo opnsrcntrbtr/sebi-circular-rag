@@ -1,26 +1,31 @@
 {
   "metrics": {
     "run_name": "baseline-retrieval",
-    "n": 1,
-    "n_scored": 1,
-    "n_unjudged": 0,
-    "unjudged_ids": [],
-    "recall_at_10": 1.0,
-    "avg_retrieval_latency_s": 0.0012371540069580078
+    "n": 260,
+    "n_scored": 216,
+    "n_unjudged": 3,
+    "unjudged_ids": [
+      "v7-ls-038",
+      "v7-ls-039",
+      "v7-ls-040"
+    ],
+    "recall_at_10": 0.9467592592592593,
+    "avg_retrieval_latency_s": 0.0548599674151494
   },
   "metadata": {
     "run_name": "baseline-retrieval",
-    "ts": "2026-08-22T21:16:31+0530",
+    "ts": "2026-08-22T21:16:42+0530",
     "git_commit": "1a4e3825b5cf65fc6701b69a7c3ef294d6e86efb",
     "python": "3.12.14",
     "platform": "macOS-26.6.2-arm64-arm-64bit",
     "models": {
-      "embedder": "HashEmbedder",
-      "reranker": "LexicalReranker"
+      "embedder": "BAAI/bge-m3",
+      "retriever": "FAISS+BM25/RRF",
+      "reranker": "BAAI/bge-reranker-v2-m3"
     },
     "params": {
       "top_n": 50,
-      "smoke": true,
+      "smoke": false,
       "hyde": false,
       "splade": false,
       "expand_sparse": true,
@@ -34,6 +39,6 @@
     },
     "corpus_sha256": "1584adcec619e9d33745d4af315a4743571698dc1dcefabbd327c7d94bd485c8",
     "index_fingerprint": "7c1412ab84faeab964ef2f0e51a356b7f22c6d3ec738bd517fd8d6836688a4d7",
-    "golden_sha256": "1584adcec619e9d33745d4af315a4743571698dc1dcefabbd327c7d94bd485c8"
+    "golden_sha256": "d87e5f3ac29a54dc2464f164f8261619cc655d6c2584831f8ce501608a59520a"
   }
 }

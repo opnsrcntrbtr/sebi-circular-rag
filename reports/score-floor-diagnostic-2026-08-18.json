@@ -1,5 +1,5 @@
 {
-  "gate": 0.42,
+  "gate": 0.05,
   "index_dir": "/Users/ianpinto/sebi_circular_sota_rag/SEBI circular RAG/data/index",
   "n_chunks": 78630,
   "rows": [
@@ -61,7 +61,7 @@
       "dense_rank_200": 19,
       "ce_top": 0.3577,
       "ce_relevant_best": 0.3577,
-      "class": "CE_MISMATCH"
+      "class": "NOW_PASSES"
     },
     {
       "id": "para-freeze",
@@ -256,7 +256,7 @@
       "dense_rank_200": 1,
       "ce_top": 0.1024,
       "ce_relevant_best": 0.0631,
-      "class": "CE_MISMATCH"
+      "class": "NOW_PASSES"
     },
     {
       "id": "para-mfborrow",

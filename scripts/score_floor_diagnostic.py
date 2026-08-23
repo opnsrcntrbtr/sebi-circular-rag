@@ -39,7 +39,7 @@ for _k, _v in {
     "PYTORCH_ENABLE_MPS_FALLBACK": "1",
     "HF_HUB_DISABLE_XET": "1",
 }.items():
-    os.environ.setdefault(_k, _v)
+    os.environ.setdefault(_k, str(_v))
 
 from sebi_rag.embeddings import BGEM3Embedder
 from sebi_rag.eval_harness import load_golden
@@ -62,7 +62,7 @@ def main() -> None:
     print(f"loading index from {s.index_dir} ...", file=sys.stderr)
     emb = BGEM3Embedder(device="mps")
     retr = HybridRetriever.load(s.index_dir, emb)
-    reranker = CrossEncoderReranker(device="mps")
+    reranker = CrossEncoderReranker(device="cpu")  # MPS crashes CE; CPU for reliable scores
     golden = load_golden(ROOT / "eval" / "golden" / "golden_v7.jsonl")
     rows = {r["id"]: r for r in golden}
 

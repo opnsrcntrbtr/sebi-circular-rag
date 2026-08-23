@@ -6,11 +6,11 @@
     "n_unjudged": 0,
     "unjudged_ids": [],
     "recall_at_10": 1.0,
-    "avg_retrieval_latency_s": 0.0012371540069580078
+    "avg_retrieval_latency_s": 0.0015821456909179688
   },
   "metadata": {
     "run_name": "baseline-retrieval",
-    "ts": "2026-08-22T21:16:31+0530",
+    "ts": "2026-08-22T21:29:42+0530",
     "git_commit": "1a4e3825b5cf65fc6701b69a7c3ef294d6e86efb",
     "python": "3.12.14",
     "platform": "macOS-26.6.2-arm64-arm-64bit",
@@ -19,12 +19,12 @@
       "reranker": "LexicalReranker"
     },
     "params": {
-      "top_n": 50,
+      "top_n": 20,
       "smoke": true,
       "hyde": false,
       "splade": false,
       "expand_sparse": true,
-      "rerank": false
+      "rerank": true
     },
     "env": {
       "TOKENIZERS_PARALLELISM": "false",
