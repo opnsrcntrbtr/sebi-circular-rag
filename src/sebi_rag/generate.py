@@ -7,6 +7,7 @@ tests.
 """
 from __future__ import annotations
 
+import functools
 import re
 from dataclasses import dataclass, field
 from typing import Protocol
@@ -155,7 +156,8 @@ def eval_generator_for(kind: str = "stub", mlx_model: str | None = None,
 
 def citation_scorer_for(enabled: bool, reranker, backend: str = "reranker",
                         nli_loader=None, warrant_model: str | None = None,
-                        warrant_shared: "MLXGenerator | None" = None):
+                        warrant_shared: "MLXGenerator | None" = None,
+                        warrant_max_tokens: int | None = None):
     """The single enable/disable AND backend decision for B'.
 
     Returns None when disabled; otherwise the scorer for `backend`:
@@ -179,10 +181,20 @@ def citation_scorer_for(enabled: bool, reranker, backend: str = "reranker",
             nli_loader = NLIAttributionScorer.load
         return nli_loader()
     if backend == "warrant":
-        return warrant_scorer(
-            model=warrant_model,
-            shared=warrant_shared,
-        )
+        # select_citations calls a warrant scorer as scorer(query, answer, contexts)
+        # (see its "Warrant scorer" branch) — warrant_scorer's positional signature
+        # is (query, answer, contexts, model=..., shared=...), so binding model/shared
+        # via partial (not calling eagerly) is what makes it fit that call shape.
+        # Omit kwargs the caller didn't set rather than passing None through, so
+        # warrant_scorer's/WarrantJudge's own defaults still apply.
+        kwargs = {}
+        if warrant_model is not None:
+            kwargs["model"] = warrant_model
+        if warrant_shared is not None:
+            kwargs["shared"] = warrant_shared
+        if warrant_max_tokens is not None:
+            kwargs["max_tokens"] = warrant_max_tokens
+        return functools.partial(warrant_scorer, **kwargs)
     raise ValueError(f"unknown citation scorer backend: {backend!r}")
 
 
@@ -305,14 +317,21 @@ def warrant_scorer(
     contexts: list[Chunk],
     model: str = "mlx-community/Qwen2.5-1.5B-Instruct-4bit",
     shared: "MLXGenerator | None" = None,
+    max_tokens: int = 512,
 ) -> list[tuple[Chunk, float]]:
     """Callable compatible with select_citations' scorer.rerank() signature.
 
     Wraps WarrantJudge to produce (Chunk, score) pairs sorted descending.
     The signature accepts (answer_text, contexts) — query is extracted from
     the answer's first sentence or passed via a closure in the pipeline.
+
+    `max_tokens` defaults to WarrantJudge's own default (512), which measured
+    2026-08-23 at 38.1% parseable replies on 10-context rows — the judge's
+    JSON array gets cut off mid-"reason"-string before the last object closes.
+    1024 measured 97.6% on the same rows (see the degeneracy-probe amendment
+    prereg); callers scoring full-width (top_k=10) context windows should pass it.
     """
-    judge = WarrantJudge(model=model, shared=shared)
+    judge = WarrantJudge(model=model, shared=shared, max_tokens=max_tokens)
     scores = judge.score(query, answer, contexts)
     scored = list(zip(contexts, scores))
     scored.sort(key=lambda x: x[1], reverse=True)

@@ -175,6 +175,128 @@ def test_citation_scorer_for_rejects_an_unknown_backend():
     else:
         raise AssertionError("expected ValueError on unknown backend")
 
+
+# --- citation_scorer_for: the warrant backend ----------------------------------
+# warrant_scorer's positional signature is (query, answer, contexts, model=,
+# shared=). citation_scorer_for must hand select_citations something callable
+# as scorer(query, answer, contexts) — calling warrant_scorer eagerly with only
+# model=/shared= (no query/answer/contexts) raises TypeError immediately, before
+# any query runs. These pin the fix (partial application) in place.
+
+def test_citation_scorer_for_selects_the_warrant_backend(monkeypatch):
+    import sebi_rag.generate as generate
+
+    calls = []
+
+    def _fake_warrant_scorer(query, answer, contexts, model=None, shared=None):
+        calls.append((query, answer, contexts, model, shared))
+        return [(c, 1.0) for c in contexts]
+
+    monkeypatch.setattr(generate, "warrant_scorer", _fake_warrant_scorer)
+
+    scorer = generate.citation_scorer_for(
+        True, _FakeReranker({}), backend="warrant",
+        warrant_model="fake-model", warrant_shared="fake-shared")
+
+    assert not hasattr(scorer, "rerank"), \
+        "select_citations must route a warrant scorer through its callable branch"
+    ctx = [_chunk("A")]
+    assert scorer("q", "a", ctx) == [(ctx[0], 1.0)]
+    assert calls == [("q", "a", ctx, "fake-model", "fake-shared")]
+
+
+def test_citation_scorer_for_warrant_omits_unset_kwargs(monkeypatch):
+    """warrant_model/warrant_shared default to None. Forwarding None explicitly
+    would override warrant_scorer's own default model string (and WarrantJudge's
+    load(None) would crash) — unset kwargs must not be passed through at all."""
+    import sebi_rag.generate as generate
+
+    calls = []
+
+    def _fake_warrant_scorer(query, answer, contexts, model="default-model", shared=None):
+        calls.append((model, shared))
+        return []
+
+    monkeypatch.setattr(generate, "warrant_scorer", _fake_warrant_scorer)
+
+    scorer = generate.citation_scorer_for(True, _FakeReranker({}), backend="warrant")
+    scorer("q", "a", [_chunk("A")])
+    assert calls == [("default-model", None)]
+
+
+def test_warrant_scorer_forwards_max_tokens_to_the_judge(monkeypatch):
+    """2026-08-23 measured WarrantJudge's max_tokens=512 default giving 38.1%
+    parseable replies on 10-context rows (JSON truncated mid-reason-string) vs
+    97.6% at 1024. Without a way to override it, a cohort run has no way to use
+    the value the degeneracy-probe amendment validated."""
+    import sebi_rag.generate as generate
+
+    captured = {}
+
+    class _FakeJudge:
+        def __init__(self, model=None, shared=None, max_tokens=512):
+            captured["max_tokens"] = max_tokens
+
+        def score(self, query, answer, contexts):
+            return [1.0 for _ in contexts]
+
+    monkeypatch.setattr(generate, "WarrantJudge", _FakeJudge)
+    generate.warrant_scorer("q", "a", [_chunk("A")], max_tokens=1024)
+    assert captured["max_tokens"] == 1024
+
+
+def test_citation_scorer_for_forwards_warrant_max_tokens(monkeypatch):
+    import sebi_rag.generate as generate
+
+    calls = []
+
+    def _fake_warrant_scorer(query, answer, contexts, model=None, shared=None,
+                             max_tokens=512):
+        calls.append(max_tokens)
+        return []
+
+    monkeypatch.setattr(generate, "warrant_scorer", _fake_warrant_scorer)
+    scorer = generate.citation_scorer_for(True, _FakeReranker({}), backend="warrant",
+                                          warrant_max_tokens=1024)
+    scorer("q", "a", [_chunk("A")])
+    assert calls == [1024]
+
+
+def test_citation_scorer_for_warrant_max_tokens_defaults_unset(monkeypatch):
+    """Omitted, not forwarded as None — warrant_scorer's own default applies."""
+    import sebi_rag.generate as generate
+
+    calls = []
+
+    def _fake_warrant_scorer(query, answer, contexts, model=None, shared=None,
+                             max_tokens=512):
+        calls.append(max_tokens)
+        return []
+
+    monkeypatch.setattr(generate, "warrant_scorer", _fake_warrant_scorer)
+    scorer = generate.citation_scorer_for(True, _FakeReranker({}), backend="warrant")
+    scorer("q", "a", [_chunk("A")])
+    assert calls == [512]
+
+
+def test_select_citations_routes_through_the_warrant_backend(monkeypatch):
+    """End-to-end: citation_scorer_for's warrant branch plugs into
+    select_citations' scorer(query, answer, contexts) callable branch with
+    margin/min_keep semantics unchanged."""
+    import sebi_rag.generate as generate
+
+    def _fake_warrant_scorer(query, answer, contexts, model=None, shared=None):
+        scores = {"A": 0.9, "B": 0.85, "C": 0.2}
+        scored = [(c, scores[c.id]) for c in contexts]
+        scored.sort(key=lambda cs: -cs[1])
+        return scored
+
+    monkeypatch.setattr(generate, "warrant_scorer", _fake_warrant_scorer)
+    scorer = generate.citation_scorer_for(True, _FakeReranker({}), backend="warrant")
+    ctx = [_chunk("A"), _chunk("B"), _chunk("C")]
+    assert generate.select_citations("ans", ctx, scorer, margin=0.1, query="q") == ["A", "B"]
+
+
 def test_margin_045_keeps_more_than_035():
     """Looser margin (0.45) keeps more contexts than tight margin (0.35)."""
     ctx = [_chunk("A"), _chunk("B"), _chunk("C"), _chunk("D")]

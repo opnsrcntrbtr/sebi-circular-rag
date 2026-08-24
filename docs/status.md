@@ -1,7 +1,7 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-08-22.
+> Last updated: 2026-08-23.
 
 ## Current Snapshot
 
@@ -833,6 +833,46 @@ adopting iv11: the sole surviving exploratory result failed on data that did not
 cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
+
+2026-08-23 — **R1 §4/§6 cohort run: REJECTED. W1 reproduces the NLI failure shape the spec explicitly warned about — zero-cite 16→47 — despite a real, substantial precision gain.** Spec `docs/superpowers/specs/2026-08-20-warrant-citation-scorer-prereg.md` §§4-6, amendment `2026-08-23-warrant-degeneracy-max-tokens-prereg.md` (max_tokens=1024). Script `scripts/analysis/warrant_scorer_cohort.py` (3-phase: generate answers once with control citations, judge re-scores the identical (answer, contexts) pair at 7B, report combines and applies §6 mechanically). Report `reports/warrant-scorer-cohort-2026-08-23.json`. Perfect-retrieval cohort recomputed on the live index: **201 of 204** eligible rows (matches R2's recompute on this same index exactly).
+
+| metric | control (CE reranker) | W1 (warrant judge) | Δ | §6 rule |
+|---|---|---|---|---|
+| citation_precision (PRIMARY) | 0.1856 | **0.2982** | **+0.1126** | ✅ clears +0.02 floor |
+| zero_cite (GUARDRAIL) | 16 | **47** | **+31** | ❌ 6.2: zero tolerance on increase |
+| citation_recall (GUARDRAIL) | 0.9055 | **0.7438** | −0.1617 | ❌ 6.3: below armed floor 0.8169 |
+| context_recall | 0.9453 | 0.9453 | 0.0000 | unaffected (retrieval/rerank untouched) |
+
+**Per §6: "If 1 holds but 2 or 3 fails → REJECT. Recorded as rejected, not as 'promising, needs tuning.'"** Both guardrails failed. This is the same failure shape as the two rejected NLI arms (2026-08-12: zero-cite 19→54) — the R1 spec's own §1.3 named this as the single most likely way a warrant judge fails, and it happened anyway despite the criterion being genuinely different from entailment. The judge is far more conservative than the cross-encoder: it drives citation_precision up by refusing to cite roughly 3x as many rows as the control refuses.
+
+**CS1 confirmatory split by `label_tier`: the effect is real, not a labelling artifact.** zero_cite rose in **every** tier (arbitrated 0→1, draft_seeded 4→17, human 3→8, inherited_v5 2→3, model_single 7→18) and citation_precision rose in every tier too (e.g. human 0.1907→0.3383, model_single 0.1835→0.3008). Full breakdown in the report. Nothing here suggests the rejection is an artifact of the 68.8% model-labelled rows CS1 flagged — the harm and the gain both generalize.
+
+**R1 is REJECTED.** Per §5 ("Rejected in advance: Tuning `margin` in the same arm — two variables, uninterpretable result"), the natural next move — loosen `margin`/`min_keep` to recover recall — is explicitly not permitted inside this arm; it would need its own preregistration and is a different, weaker claim (tuning a threshold, not testing whether warrant is a better criterion). **Three scorer-replacement attempts for B′ (NLI ×2, warrant ×1) have now failed on the same guardrail.** Per the roadmap's own framing (`docs/research-roadmap-2026-08-19.md` §4), R1 and R0′ (bracket-sourced citations, viable at 7B) were the only two levers on the citation metrics; R0′ remains untried. Absent a fourth scorer-replacement idea, the citation metrics likely stay where they are (control: precision 0.1856/recall 0.9055, both already clearing `gate_v7.json`'s floors) and the roadmap's independent items (R3 corpus expansion, R4 Set-Encoder reranker, R6 late chunking, R7 conformal abstention) are where remaining leverage is.
+
+**Not shipped:** nothing — `citation_scorer_backend` config.toml default remains `"reranker"`, this arm never touched it. **Shipped:** the `max_tokens` threading fix (`warrant_scorer`, `citation_scorer_for`) and the cohort script, both useful regardless of R1's outcome for any future scorer-replacement arm.
+
+2026-08-23 — **R1 §3.3 retry PASSES: `max_tokens` 512→1024 fixes the truncation, 97.6% parseable (41/42) vs the 80% floor. Arm proceeds to the §4/§6 cohort run.** Preregistered as an amendment (`docs/superpowers/specs/2026-08-23-warrant-degeneracy-max-tokens-prereg.md`) rather than re-run under the original R1 spec, per that spec's own §8. Single variable changed (`max_tokens` only, same prompt/model/screen); reused the unaffected 1.5B answer pass from the first run (`reports/warrant-degeneracy-answers.json`) rather than regenerating it. Report `reports/warrant-degeneracy-probe-Qwen2.5-7B-Instruct-4bit-mt1024.json`.
+
+The one residual failure (`v7-ls-034`) is a **different** failure mode from the truncation this arm targeted — an invalid `\'` escape sequence mid-reply (not a valid JSON escape), at 2257 chars, well inside the 1024-token budget. Not truncation; not chased further, since 41/42 already clears the floor with margin and the decision rule (§3 of the amendment) doesn't require zero failures.
+
+**Next per the R1 spec (unchanged by this amendment):** §4/§6 cohort run — citation_precision primary (+0.02 absolute floor), zero-cite and citation_recall as guardrails, confirmatory split by `label_tier` (CS1) — on the perfect-retrieval cohort **recomputed on the live index** (§4 there: "not a stored artifact... recompute, never quote"). Not started under this entry.
+
+2026-08-23 — **R1 §3.3 degeneracy probe: ABANDONED before the cohort run — 38.1% parseable, floor is 80%. Root cause is `max_tokens=512` truncation, not a reasoning failure.** Probe `scripts/analysis/warrant_degeneracy_probe.py`, spec `docs/superpowers/specs/2026-08-20-warrant-citation-scorer-prereg.md` §3.3, report `reports/warrant-degeneracy-probe-Qwen2.5-7B-Instruct-4bit.json`. Frozen 50-row `screen_v1.jsonl` (same set as R0's T-Screen); production 1.5B answers (42 answered / 8 abstained — reproduces R0's exact split, validating the harness), 7B warrant judge, two-phase run so the 1.5B and 7B models were never resident together.
+
+| metric | value |
+|---|---|
+| n judged (answered, contexts present) | 42 |
+| parseable | **16 (38.1%)** |
+| floor (§3.3) | 80% |
+| verdict | **ABANDON — does not proceed to §4/§6 cohort** |
+
+**Blocking bug found and fixed first.** `citation_scorer_for(backend="warrant")` called `warrant_scorer(model=…, shared=…)` eagerly — `warrant_scorer` requires `query`/`answer`/`contexts` positionally first, so every invocation raised `TypeError` before any query ran. Zero references to "warrant" existed anywhere under `tests/` before this — the backend had never been successfully invoked since it landed (`05214bc`, 2026-08-22). Fixed via `functools.partial` binding (`generate.py`), matching `select_citations`' `scorer(query, answer, contexts)` call shape, and omitting `model=`/`shared=` when unset rather than forwarding `None` (which would have overridden `warrant_scorer`'s own default and crashed `WarrantJudge`'s `load(None)`). 3 regression tests added (`test_selective_citations.py`); 93/93 on the generate/attribution/gate/pipeline slice pass, no regressions.
+
+**Diagnosis (reproduced on 2 failing rows, full replies inspected).** Every inspected failure is `json.JSONDecodeError: Unterminated string` on the **last** object of a 10-context reply — the model produces well-formed, substantive, on-rubric JSON and is cut off mid-`"reason"`-string by `WarrantJudge`'s `max_tokens=512` default. 24 of 26 failures have `n_contexts=10` (full `top_k`); reply lengths at failure (1748–2629 chars) straddle several successful shorter-context replies, consistent with a fixed token budget, not a per-row reasoning failure. This is an implementation bug (output budget too small for a 10-object JSON array with a free-text field per object), not evidence against the warrant-scoring hypothesis in §1.
+
+**Per §8, this preregistration does not license a prompt/config change and re-run reported as the same arm** (*"Re-running with a different warrant prompt and reporting that instead... a second prompt is a new preregistration"*). Recorded as this preregistration's §3.3 result: **ABANDONED**. Raising `max_tokens`, or dropping/shortening the `reason` field (`parse_warrant_scores` never reads it — only `item["warrant"]`), are plausible fixes, but per the project's standing rule against tuning to an observed failure (the `superseded_penalty` lesson), either requires a **new preregistration** before it can be run and its result reported.
+
+**Shipped:** the `citation_scorer_for` warrant-branch bugfix + tests — production-neutral, `citation_scorer_backend` still defaults to `"reranker"` and `config.toml` is untouched. **Not shipped:** any change to `WarrantJudge`, `_warrant_prompt`, or `max_tokens`. Per §8, this probe result may not be quoted as a floor-derivation or gate result.
 
 2026-08-20 — **R3 VOID: the cross-reference stratum is not minable at this corpus size; 73.8% of cross-references point outside the corpus.** Miner `scripts/analysis/mine_crossref_stratum.py`, report `reports/crossref-mining-2026-08-20.json`, outcome recorded in the spec's §10. Mining stage only — **no query generated, no arm scored, no metric produced**.
 

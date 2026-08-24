@@ -1,0 +1,934 @@
+{
+  "generator_model": "MLXGenerator",
+  "runtime_s": 237.2,
+  "rows": [
+    {
+      "id": "cra",
+      "task_type": "title_direct",
+      "query": "Master circular for credit rating agencies",
+      "abstained": false,
+      "answer_text": "The Master Circular for Credit Rating Agencies is a compilation of various circulars issued by the Securities and Exchange Board of India (SEBI) up to March 31, 2018, which are operational as on the date of this circular. It is a compilation of all the existing/ applicable circulars issued by the Market Intermediaries Regulation and Supervision Department of SEBI to Credit Rating Agencies.",
+      "context_ids": [
+        "SEBI/HO/MIRSD/DOP2/CIR/P/2018/76#preamble#0",
+        "SEBI/HO/DDHS/DDHS-POD2/P/CIR/2025/101#preamble#0",
+        "SEBI/HO/DDHS/DDHS-POD2/P/CIR/2023/111#preamble#0",
+        "SEBI/HO/DDHS/DDHS-POD3/P/CIR/2024/47#preamble#0",
+        "SEBI/HO/DDHS/DDHS-PoD-3/P/CIR/2024/160#10. This circular is issued with the approval of competent a#14",
+        "SEBI/HO/DDHS/DDHS-RACPOD2/P/CIR/2023/6#5.3.1. Issuer Rating/ Corporate Credit Rating indicates the #74"
+      ]
+    },
+    {
+      "id": "hn-delist",
+      "task_type": "hard_negative",
+      "query": "What is the reverse book building process for voluntarily delisting equity shares from an exchange?",
+      "abstained": false,
+      "answer_text": "The reverse book building process for voluntarily delisting equity shares from an exchange involves the following steps:\n\n1. **Counter Offer**: The listed entity offers to sell its shares at a higher price than the current market price. This price is specified in the circular.\n\n2. **Counter Offer Price**: The counter offer price is the price at which the listed entity is willing to sell its shares. This price is specified in the circular.\n\n3. **Book Value per Equity Share**: The book value per equity share is the value of the shares as per the book value calculation. This is specified in the circular.\n\n4. **Counter Offer Price Submission**: The counter offer price is submitted by the listed entity to the registrar.\n\n5. **Counter Offer Date**: The date on which the counter offer is submitted is specified in the circular.\n\n6. **Counter Offer Price Confirmation**: The counter offer price is confirmed by the registrar.\n\n7. **Counter Offer Date Confirmation**: The date on which the counter offer is confirmed is",
+      "context_ids": [
+        "HO/49/14/14(2)2026-CFD-POD2/I/4518/2026#4) / Indirect acquisition (Reg. 5) /#379",
+        "HO/49/14/14(7)2025-CFD-POD2/I/3762/2026#4.9. decision on voluntary delisting by the listed entity fr#949",
+        "SEBI/HO/CFD/PoD-1/P/CIR/2024/0154#4) / Indirect acquisition (Reg. 5) /#294",
+        "SEBI/HO/CFD/PoD-1/P/CIR/2023/29#4) / Indirect acquisition (Reg. 5) /#35",
+        "SEBI/HO/CFD/PoD-2/P/CIR/2023/00094#2. Public#118",
+        "SEBI/HO/CFD/PoD2/CIR/P/2023/120#4.9. decision on voluntary delisting by the listed entity fr#879",
+        "SEBI/HO/CFD/PoD2/CIR/P/0155#4.9. decision on voluntary delisting by the listed entity fr#931",
+        "SEBI/HO/CFD/DIL1/CIR/P/2021/0585#preamble#0",
+        "SEBI/HO/CFD/PoD-1/P/CIR/2023/157#9.2.7. Delisting of Equity Shares;#104",
+        "SEBI/HO/CFD/DIL2/P/CIR/2022/75#5. Stock Exchanges shall accept the ASBA applications in the#5"
+      ]
+    },
+    {
+      "id": "hn-egr",
+      "task_type": "hard_negative",
+      "query": "What is the framework for trading electronic gold receipts on stock exchanges?",
+      "abstained": false,
+      "answer_text": "The framework for trading electronic gold receipts (EGR) on stock exchanges in India is structured into three tranches. In tranche 1, physical gold is converted into EGR. In tranche 2, EGR is traded on stock exchanges. In tranche 3, EGR can be converted into physical gold. Additionally, stock exchanges may launch contracts with different denominations for trading and/or conversion of EGR into gold.",
+      "context_ids": [
+        "SEBI/HO/CDMRD/DMP/P/CIR/2022/36#2. The framework, inter-alia, states that the entire transac#2",
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/87#1.3. The stock exchange/s desirous of trading in electronic #16",
+        "SEBI/HO/CDMRD/CDMRD_DRM/P/CIR/2022/50#3.1. The Stock Exchanges shall collect/adjust mark to market#19",
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2023/82#1.3. The stock exchange/s desirous of trading in electronic #15"
+      ]
+    },
+    {
+      "id": "hn-settle",
+      "task_type": "hard_negative",
+      "query": "How does SEBI's settlement proceedings mechanism work for resolving enforcement actions without admission of guilt?",
+      "abstained": true,
+      "answer_text": "I don't know based on the available evidence.",
+      "context_ids": [
+        "SEBI/HO/DDHS/DDHS-RACPOD1/P/CIR/2023/57#2. Accordingly, a LPCC shall adopt the following dispute res#2",
+        "HO/49/14/14(7)2025-CFD-POD2/I/3762/2026#2. Details of fines / penalties /punishment/ award/ compound#657",
+        "SEBI/HO/DDHS/PoD1/P/CIR/2023/119#8. Mode of Settlement55:#820",
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#2. Cyber Security \uf0b7 Standing Committee on Technology of#552",
+        "HO/38/12/11(1)2025-MIRSD-POD/I/73/2025#5. It may be noted that contravention of the provisions of t#7",
+        "SEBI/HO/MRD/MRD-PoD-3/P/CIR/2023/190#12. This circular is available on SEBI website at www.sebi.g#27",
+        "SEBI/HO/MRD/MRD-PoD-3/2024/088#1. Member (I) On admission, transfer and surrender of member#72",
+        "SEBI/HO/CFD/PoD2/CIR/P/0155#2. Details of fines / penalties /punishment/ award/ compound#642",
+        "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#2. Provide confirmation w.r.t. compliance of the guidelines #2306",
+        "SEBI/HO/MRD/MRD-PoD-2/P/CIR/2024/63#4. Grievance redressal mechanism:#13"
+      ]
+    },
+    {
+      "id": "nomination",
+      "task_type": "title_direct",
+      "query": "Modified norms for nomination in demat accounts and mutual fund folios",
+      "abstained": false,
+      "answer_text": "The modified norms for nomination in demat accounts and mutual fund folios, as per the circular SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676, include the following changes:\n\n1. **Choice of Nomination**: Depository Participants and Mutual Fund Administrators (AMCs) and Regulatory Transfer Agents (RTAs) are encouraged to send a communication on a fortnightly basis by email and SMS to demat account holders and mutual fund unit holders who have not provided a \"choice of nomination\". The communication should provide guidance on how to update the \"choice of nomination\".\n\n2. **Nominator's Share**: The sentence \"Any odd lot after division / fraction of %, shall be transferred to the first nominee mentioned in the nomination form\" is inserted into the explanation for the column \"Share of nominee (%)\".\n\n3. **Identity Number**: The sentence \"However, in case of NRI / OCI / PIO,",
+      "context_ids": [
+        "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#3. Accordingly, after considering these representations and #6",
+        "HO/38/13/(4)2026-MIRSD-POD/I/4298/2026#20.14.3. In case of demat accounts, Depository Participants #196",
+        "SEBI/HO/OIAE/OIAE_IAD-3/P/ON/2025/0027#9. Nomination Form for demat accounts and Mutual Fund (MF) f#20",
+        "SEBI/HO/OIAE/OIAE_IAD-3/P/ON/2025/01650#1. In order to revise and revamp the norms for nomination fo#5",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/91#19.14.3. In case of demat accounts, Depository Participants #184",
+        "SEBI/HO/MIRSD/POD-1/P/CIR/2023/193#1. SEBI, vide circular nos. SEBI/HO/MIRSD/POD-1/CIR/2023/158#1",
+        "SEBI/HO/MIRSD/POD-1/P/CIR/2024/81#6. In case of demat accounts, Depository Participants and in#11"
+      ]
+    },
+    {
+      "id": "para-nom",
+      "task_type": "body_paraphrase",
+      "query": "If I open a new single-holder trading account, must I name someone to inherit the holdings, or can I opt out with a declaration?",
+      "abstained": false,
+      "answer_text": "Yes, if you open a new single-holder trading account, you must provide a nomination to inherit the holdings. However, you can opt out of the nomination by submitting a declaration form.",
+      "context_ids": [
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#22.2. In line with Section 72 of Companies Act, 2013 on nomi#434",
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#3. Depositories are further advised to place before their re#82",
+        "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#4.1. For all single accounts / folios opened on or after the#7",
+        "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/110#21. Nomination for Eligible Trading Accounts29#240",
+        "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/53#21. Nomination for Eligible Trading Accounts28#237",
+        "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/71#21. Nomination for Eligible Trading Accounts28#270",
+        "SEBI/HO/MRD/MRD-PoD-2/P/CIR/2023/166#3. Depositories are further advised to place before their re#89",
+        "SEBI/HO/MRD/DP/CIR/P/118#30. If the rights and obligations of the parties hereto are #105",
+        "SEBI/HO/MRD2/DDAP/CIR/P/2021/18#30. If the rights and obligations of the parties hereto are #106",
+        "SEBI/HO/MRD/DP/CIR/P/2016/134#31. If the rights and obligations of the parties hereto are #94"
+      ]
+    },
+    {
+      "id": "para-parrva",
+      "task_type": "body_paraphrase",
+      "query": "Which credit rating agency was recognised to validate performance claims of intermediaries, and which exchange runs its data centre?",
+      "abstained": false,
+      "answer_text": "The credit rating agency that was recognised to validate performance claims of intermediaries is a CRA, as specified in the circular. The exchange that runs its data centre is not mentioned in the available information.",
+      "context_ids": [
+        "HO/38/14/(4)2026-MIRSD-POD/I/10557/2026#1. SEBI, vide circular no. SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/202#1",
+        "SEBI/HO/MIRSD/DOP2/CIR/P/2018/76#6.3.1. All intermediaries, recognised stock exchanges, recog#185",
+        "SEBI/HO/MIRSD/MIRSD-POD/P/CIR/2025/51#2. A CRA may be recognized as a PaRRVA, in terms of Regulati#2",
+        "SEBI/HO/MIRSD/DOP1/CIR/P/2018/80#5.2.8. Credit Rating Agency (CRA)#40",
+        "CIR/MRD/DRMNP/11/2013#2. Initiation of spread trade on day one#51",
+        "SEBI/HO/DDHS/DDHS-RACPOD2/P/CIR/2023/6#10. Circular No. Transfer of business by SEBI registered#511",
+        "SEBI/HO/DDHS/DDHS-POD2/P/CIR/2025/101#24.4. Such submissions shall be sent by CRAs to DTs on the s#332",
+        "CIR/DNPD/1/2012#2. Initiation of spread trade on day one#52",
+        "CIR/DNPD/7/2010#2. Initiation of spread trade on day one#27",
+        "SEBI/HO/DDHS/DDHS-POD3/P/CIR/2024/47#8.4.2. Summary of discussions with the issuer, its managemen#118"
+      ]
+    },
+    {
+      "id": "reit",
+      "task_type": "title_direct",
+      "query": "Master circular for Real Estate Investment Trusts (REITs)",
+      "abstained": false,
+      "answer_text": "The Master Circular for Real Estate Investment Trusts (REITs) is a document that consolidates the provisions of all applicable circulars issued by the Securities and Exchange Board of India (SEBI) for Real Estate Investment Trusts. This circular is designed to provide stakeholders with an access to all the relevant circulars at one place, ensuring transparency and facilitating compliance with regulatory requirements. The circular's provisions are incorporated from the circulars issued till the specified date, which varies depending on the circular. For instance, the circular issued on March 28, 2025, incorporates provisions from May 15, 2024, while the circular issued on August 6, 2024, incorporates provisions from May 15, 2024. This document is essential for the effective regulation of Real Estate Investment Trusts in India.",
+      "context_ids": [
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2025/99#1. For effective regulation of Real Estate Investment Trusts#1",
+        "SEBI/HO/OIAE/OIAE_IAD-1/P/CIR/2023/0000000163#12. Real Estate Investment Trusts (REITs)#11",
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2023/116#1. For effective regulation of Real Estate Investment Trusts#1",
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2024/43#1. For effective regulation of Real Estate Investment Trusts#1",
+        "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2021/674#1. For effective regulation of Real Estate Investment Trusts#1",
+        "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2022/52#1. For effective regulation of Real Estate Investment Trusts#1",
+        "SEBI/HO/DDHS/DDHS-PoD-2/P/CIR/2025/43#preamble#0",
+        "SEBI/HO/DDHS/DDHS-PoD-2/P/CIR/2024/108#preamble#0",
+        "SEBI/HO/DDHS/DDHS-PoD-2/P/CIR/2024/115#preamble#0",
+        "SEBI/HO/DDHS/DDHS-PoD-2/P/CIR/2025/88#preamble#0"
+      ]
+    },
+    {
+      "id": "reit_reclass",
+      "task_type": "title_direct",
+      "query": "Reclassification of REITs as equity related instruments",
+      "abstained": false,
+      "answer_text": "With a view to facilitate enhanced participation by Mutual Funds and Specialized Investment Funds (SIFs), the SEBI has amended the SEBI (Mutual Funds) Regulations, 1996, to reclassify Real Estate Investment Trusts (REITs) as equity-related instruments. This reclassification is effective from January 1, 2026, and impacts investments made by Mutual Funds and SIFs in REITs. Existing investments in REITs held by debt schemes of Mutual Funds and investment strategies of SIFs as on December 31, 2025, are grandfathered, but AMCs are encouraged to divest REITs from respective portfolios of debt schemes considering the market conditions, liquidity, and interest of investors. The reclassification also includes the inclusion of REITs in the list of scrips for the purpose of preparation of financial information under the Real Estate Investment Trust Regulations.",
+      "context_ids": [
+        "HO/24/13/12(1)2025-IMD-POD-2/I/157/2025#1. With a view to facilitate enhanced participation by Mutua#1",
+        "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#7. HO /24/13/12(1)2025-IMD- November 28, 2025 Reclassificati#1193",
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2025/99#3.3.6. For the purpose of preparation of financial informati#134",
+        "SEBI/HO/AFD/AFD-POD-3/P/CIR/2024/152#2. The procedure specified under Para 17 of Part C of Master#6",
+        "HO/24/13/15(2)2026-IMD-RAC4/I/5764/2026#2. To accommodate the continuously evolving landscape of mut#3",
+        "SEBI/HO/MRD/MRD-PoD-3/P/CIR/2023/134#2. Based on the feedback received from market participants, #2",
+        "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2023/74#8. Any other disclosure as directed by the Board.#58",
+        "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90#8. Any other disclosure as directed by the Board.#75",
+        "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2025/26#2. Equity Ex- Minimum investment An open Daily or any#27",
+        "SEBI/HO/IMD/IMD-POD-1/P/CIR/2023/38#2.7.3. For equity, equity-related instruments and Mutual Fun#119"
+      ]
+    },
+    {
+      "id": "secc",
+      "task_type": "title_direct",
+      "query": "Master circular for stock exchanges and clearing corporations",
+      "abstained": false,
+      "answer_text": "The Master Circular for Stock Exchanges and Clearing Corporations is a compilation of all the existing/applicable circulars issued by the Market Regulation Department of SEBI pertaining to Stock Exchanges and Clearing Corporations. Efforts have been made to incorporate the provisions of existing circulars issued by other Departments of SEBI relevant to Stock Exchanges and Clearing Corporations.",
+      "context_ids": [
+        "SEBI/HO/MRD/DP/CIR/P/117#3. The Master Circular is a compilation of all the existing/#3",
+        "SEBI/HO/MRD-PoD2/CIR/P/2024/00181#6. This Master Circular is issued in exercise of powers conf#8",
+        "SEBI/HO/MRD/DP/CIR/P/2016/135#preamble#0",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#96.3. The stock exchanges and clearing corporations shall ta#1511",
+        "3/CIR/P/2023/58#1. Stock Exchanges, Clearing Corporations and Depositories (#1",
+        "SEBI/HO/DDHS/DDHS-PoD/P/CIR/2025/0000000137#7. The Stock Exchanges and Clearing Corporations are directe#918",
+        "SEBI/HO/DDHS/PoD1/P/CIR/2023/119#7. The Stock Exchanges and Clearing Corporations are directe#819",
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/87#1. All Recognised Stock Exchanges and Clearing Corporations #1",
+        "SEBI/HO/MRD/TPD/P/CIR/2024/167#preamble#0",
+        "SEBI/HO/MRD/TPD-1/P/CIR/2025/79#preamble#0"
+      ]
+    },
+    {
+      "id": "surv",
+      "task_type": "title_direct",
+      "query": "Master circular on surveillance of the securities market",
+      "abstained": false,
+      "answer_text": "The Master Circular on Surveillance of the Securities Market has been issued by the Securities and Exchange Board of India (SEBI) from time to time to ensure effective surveillance of the securities market. It has been issued in exercise of the powers conferred under Section 11(1) of the Securities and Exchange Board of India Act, 1992 to protect the interests of investors in securities and to promote the development of, and to regulate, the securities market.",
+      "context_ids": [
+        "HO/43/15/12(3)2025-ISD-POD2/I/11734/2026#1. For effective surveillance of the securities market, the #5",
+        "HO/49/14/14(7)2025-CFD-POD2/I/3762/2026#8. This Master Circular is issued in exercise of the powers #8",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#59.2.7. In order to strengthen the surveillance mechanism re#1012",
+        "SEBI/HO/IMD/IMD-POD-1/P/CIR/2025/104#preamble#3",
+        "CIR/MRD/DMS/40/2010#preamble#0",
+        "SEBI/HO/DDHS/PoD1/P/CIR/2023/119#3. For effective regulation of the corporate bond market and#3",
+        "SEBI/HO/ISD/ISD-PoD-2/P/CIR/2024/126#1. Securities and Exchange Board of India (SEBI) has been is#5",
+        "SEBI/HO/ISD/ISD-PoD-2/P/CIR/2023/039#1. Securities and Exchange Board of India (SEBI) has been is#5",
+        "SEBI/HO/ISD/ISD-PoD-2/P/CIR/2024/99#4. This Master Circular is issued in exercise of powers conf#8",
+        "SEBI/HO/ISD/ISD/CIR/P/2021/22#1. Securities and Exchange Board of India (SEBI) from time t#5"
+      ]
+    },
+    {
+      "id": "swagat",
+      "task_type": "title_direct",
+      "query": "Single Window Automatic and Generalised Access for Trusted Foreign Investors (SWAGAT)",
+      "abstained": false,
+      "answer_text": "The provisions of this circular shall come into force with effect from June 01, 2026.",
+      "context_ids": [
+        "HO/19/34/14(5)2025-AFD-POD2/I/2703/2026#5. The provisions of this circular shall come into force wit#12",
+        "HO/19/34/14(5)2025-AFD-POD2/I/199/2025#5. The provisions of this circular shall come into force wit#11",
+        "HO/19/34/11(6)2025-AFD-POD1/I/12928/2026#3.1.1. In terms of Regulation 10(a) of AIF Regulations, AIFs#68",
+        "SEBI/HO/MIRSD/DOP1/CIR/P/2018/87#2011. change in control through single window.#1499",
+        "HO/38/13/(4)2026-MIRSD-POD/I/4298/2026#17.2. In order to further facilitate the investors to get ri#157",
+        "SEBI/HO/AFD/AFD-PoD-3/P/CIR/2024/156#1. Foreign Portfolio Investors (\u201cFPIs\u201d)#1",
+        "HO/38/13/11(2)2026-MIRSD-POD/I/3750/2026#2. In order to further facilitate the investors to get right#2",
+        "SEBI/HO/DDHS/DDHS-PoD-1/P/CIR/2024/141#6.3. Eligibility of investors to avail the Liquidity Window #9",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/97#6. RTAs/listed companies shall have focussed teams to attend#6",
+        "SEBI/HO/MRD2/DDAP/CIR/P/2021/18#5. The MII shall ensure that the trusted machine is the only#1252"
+      ]
+    },
+    {
+      "id": "v7-bp-006",
+      "task_type": "body_paraphrase",
+      "query": "If a mutual fund employee gets approval to buy or sell a stock, how long is that approval good for before they need to ask again?",
+      "abstained": false,
+      "answer_text": "The approval for a mutual fund employee to buy or sell a security is valid for **seven calendar days** from the date of approval. If the transaction is not effected within this period, the employee must obtain approval again from the Compliance Officer.",
+      "context_ids": [
+        "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#7.6.3. General#385",
+        "SEBI/IMD/MC No.1/189241/2010#3. Investments in government securities, Money Market#73",
+        "CIR/IMD/DF/18/2014#3. Investments in government securities, Money Market#88",
+        "SEBI/HO/IMD/DF2/CIR/P/2020/156#3. Investments in government securities, money market#145",
+        "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2023/74#3. Investments in government securities, overnight schemes#214",
+        "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90#3. Investments in government securities, overnight schemes#244",
+        "CIR/IMD/DF/14/2013#3. Investments in government securities, Money Market#85",
+        "SEBI/IMD/MC No.3/10554/2012#3. Investments in government securities, Money Market#80",
+        "SEBI/HO/IMD/DF3/CIR/P/2016/84#3. Investments in government securities, Money Market#99",
+        "SEBI/HO/IMD/DF5/CIR/P/2018/109#3. Investments in government securities, money market#110"
+      ]
+    },
+    {
+      "id": "v7-bp-012",
+      "task_type": "body_paraphrase",
+      "query": "When a portfolio manager reports investment performance, do idle cash and money parked in liquid funds count toward the returns calculation?",
+      "abstained": false,
+      "answer_text": "Yes, idle cash and money parked in liquid funds count toward the returns calculation. This is specified in the circulars under the following sections:\n\n- **Circular SEBI/HO/IMD/IMD-POD-1/P/CIR/2025/104** (Master Circular for Portfolio Managers)\n- **Circular SEBI/HO/IMD/IMD-POD-1/P/CIR/2023/38** (Master Circular for Portfolio Managers)\n- **Circular SEBI/HO/IMD/IMD-POD-1/P/CIR/2024/80** (Master Circular for Portfolio Managers)\n- **Circular SEBI/HO/IMD/IMD-RAC-3/P/CIR/2025/125** (Format of \u2018Disclosure Document\u2019 for Portfolio Managers)\n- **Circular SEBI/HO/AFD/PoD1/P/CIR/2\n\nNote: this answer cites circular(s) that are no longer in force \u2014 SEBI/HO/IMD/IMD-POD-1/P/CIR/2023/38 has been superseded by SEBI/HO/IMD/IMD-POD-1/P/CIR/2025/104; SEBI/HO/IMD/IMD-POD-1/P/CIR/2024/80 has been superseded by SEBI/HO/IMD/IMD-POD-1/P/CIR/2025/104. Refer to the superseding circular(s) for current requirements.",
+      "context_ids": [
+        "SEBI/HO/IMD/IMD-POD-1/P/CIR/2025/104#1. Considered all cash holdings and investments in#530",
+        "SEBI/HO/IMD/IMD-POD-1/P/CIR/2023/38#4.5.3.1. Consider all cash holdings and investments in liqui#183",
+        "SEBI/HO/IMD/IMD-POD-1/P/CIR/2024/80#1. Considered all cash holdings and investments in#560",
+        "HO/19/34/11(6)2025-AFD-POD1/I/12928/2026#7.2.7. Idle cash and cash equivalents shall not be included #139",
+        "SEBI/HO/IMD/IMD-RAC-3/P/CIR/2025/125#6. Risk factors#55",
+        "SEBI/HO/AFD/PoD1/P/CIR/2023/130#5.2.7. Idle cash and cash equivalents shall not be included #79",
+        "SEBI/HO/AFD-1/AFD-1-PoD/P/CIR/2024/39#5.2.7. Idle cash and cash equivalents shall not be included #76",
+        "SEBI/HO/IMD/IMD-PoD-2/P/CIR/2022/172#2.10. Portfolio Manager shall present the Extended Internal #12",
+        "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#14.2.3. 348In case of Overnight funds, Liquid funds and Mone#834",
+        "SEBI/HO/IMD/DF3/CIR/P/2016/84#3. The lower of (1) and (2) above shall be used for calculat#244"
+      ]
+    },
+    {
+      "id": "v7-bp-013",
+      "task_type": "body_paraphrase",
+      "query": "Under SEBI's cybersecurity framework, what kind of cyberattack on a regulated entity would count as a 'critical' severity incident?",
+      "abstained": false,
+      "answer_text": "A 'critical' severity incident under SEBI's cybersecurity framework would count as a cyberattack that results in **unauthorized access, denial of service, or disruption** to **critical assets**. Critical assets include **business critical systems**, **internet facing applications/systems**, **systems containing sensitive data**, **sensitive personal data**, **sensitive financial data**, **Personally Identifiable Information (PII)** data, **etc**.",
+      "context_ids": [
+        "SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2024/113#3. The parameters for classification of the incidents are as#1133",
+        "SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2025/119#6.4. RS.CO.S2 guidelines (Page 124-125): \u201cIf the cyber-attac#36",
+        "SEBI/HO/MIRSD/TPD/P/CIR/2022/96#51. All Cyber-attacks, threats, cyber-incidents and breaches#3",
+        "SEBI/HO/MIRSD/TPD/P/CIR/2022/95#51. All Cyber-attacks, threats, cyber-incidents and breaches#3",
+        "SEBI/HO/MIRSD/POD-1/P/CIR/2023/70#4. Cyber Security and Cyber Resilience Framework Audit to be#349",
+        "SEBI/HO/MIRSD/POD-1/P/CIR/2024/37#4. Cyber Security and Cyber Resilience Framework Audit to be#375",
+        "SEBI/HO/MIRSD/SECFATF/P/CIR/2023/169#51. All Cyber-attacks, threats, cyber-incidents and breaches#203",
+        "SEBI/HO/MRD/MRD-PoD-2/P/CIR/2023/166#2. SEBI \uf0b7 Immediate after occurrence of outage. Through#639",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/91#4. Cyber Security and Cyber Resilience Framework Audit to be#362",
+        "SEBI/HO/IMD/IMD-POD-1/P/CIR/2024/80#51. All cyber-attacks, threats, cyber-incidents, and breache#370"
+      ]
+    },
+    {
+      "id": "v7-bp-017",
+      "task_type": "body_paraphrase",
+      "query": "If a broker pays SEBI fees directly via RTGS or NEFT instead of a cheque, does SEBI need to be separately told about that payment?",
+      "abstained": false,
+      "answer_text": "Yes, if a broker pays SEBI fees directly via RTGS or NEFT instead of a cheque, SEBI needs to be separately told about that payment. This is because the Master Circular for Stock Brokers issued on March 06, 2017, states that SEBI has been receiving direct credit of amounts from various intermediaries/other entities. To account for such direct credit in the SEBI account, intermediaries/other entities are required to provide the information as mentioned in Annexure 26 to SEBI once the payment is made. This information should be emailed to the respective department(s) as well as to Treasury & Accounts division at tad@sebi.gov.in.",
+      "context_ids": [
+        "SEBI/HO/MIRSD/DOP2/CIR/P/2018/0000000063#preamble#3",
+        "HO/38/13/(4)2026-MIRSD-POD/I/4298/2026#40. Digital mode of payment48#322",
+        "HO/38/12/11(2)2026-MIRSD-POD/I/4300/2026#17. Terms of fees and billing:#190",
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#6. Complaints received and redressed#404",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#89.1. SEBI had notified the SEBI (Payment of Fees and Mode o#1461",
+        "SEBI/HO/MRD/MRD-POD-2/P/CIR/2023/41#3. In pursuance thereof, it has been decided to introduce th#3",
+        "HO/43/15/12(3)2025-ISD-POD2/I/11734/2026#4.2.4. As per Regulation 4(2) of SEBI (IPEF) Regulations, 20#71",
+        "SEBI/HO/MIRSD/DOP2/CIR/P/2018/76#1.2.1. SEBI has notified the SEBI (Payment of Fees and Mode #7",
+        "SEBI/HO/LAD1/LAD1_DoP3/P/CIR/2023/88#2. It has been decided to do away with the acceptance of dem#2",
+        "SEBI/HO/MIRSD/DOP1/CIR/P/2018/80#10.1. SEBI has notified the SEBI (Payment of Fees and Mode o#136"
+      ]
+    },
+    {
+      "id": "v7-bp-020",
+      "task_type": "body_paraphrase",
+      "query": "SEBI made it easier to get 'accredited investor' status recently \u2014 what changed to simplify the process?",
+      "abstained": false,
+      "answer_text": "In recent years, SEBI has simplified the process for obtaining 'accredited investor' status by introducing the concept of 'accredited investor' in the SEBI (Investment Advisers) Regulations, 2013. This amendment to the Regulations introduced the framework for accreditation of investors, which has been further simplified by SEBI vide Circular No. SEBI/HO/IMD/IMD-I/DF9/P/CIR/2021/620 dated August 26, 2021. This circular specifies the modalities for the implementation of the framework for accreditation of investors. Additionally, SEBI vide Circular No. SEBI/HO/AFD/PoD1/CIR/2023/189 dated December 18, 2023, has simplified the requirements for grant of accreditation to investors. These changes aim to provide flexibility and facilitate ease of accreditation of investors.\n\nNote: this answer cites circular(s) that are no longer in force \u2014 SEBI/HO/AFD/PoD1/CIR/2023/189 has been superseded by SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/94, HO/38/12/11(2)2026-MIRSD-POD/I/4300/2026, HO/19/34/11(6)2025-AFD-POD1/I/12928/2026, SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/50, SEBI/HO/AFD-1/AFD-1-PoD/P/CIR/2024/39. Refer to the superseding circular(s) for current requirements.",
+      "context_ids": [
+        "HO/19/34/11(9)2025-AFD-POD1/I/2286/2026#1. Accredited investor framework was introduced by way of am#1",
+        "HO/38/12/11(2)2026-MIRSD-POD/I/4300/2026#23. Simplification of requirements for grant of accreditatio#151",
+        "HO/38/13/(4)2026-MIRSD-POD/I/4298/2026#22.1. SEBI has streamlined the process of appointing nominee#214",
+        "SEBI/HO/AFD/PoD1/CIR/2023/189#1. SEBI vide Circular No. SEBI/HO/IMD/IMD-I/DF9/P/CIR/2021/6#1",
+        "DOF1/P/CIR/2021/694#1. The amendment to SEBI (Investment Advisers) Regulations, #1",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/94#22. Simplification of requirements for grant of accreditatio#144",
+        "SEBI/HO/MRD/MRD-PoD-2/P/CIR/2023/166#7. This Master Circular is available on the SEBI website at #41",
+        "SEBI/HO/DDHS/DDHSPOD1/P/CIR/2025/72#1.2. In order to simplify the process of yield to price comp#2",
+        "SEBI/HO/MRD/DP/CIR/P/118#16. Copy of the Board Resolution Not applicable.#49",
+        "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/50#19. Simplification of requirements for grant of accreditatio#126"
+      ]
+    },
+    {
+      "id": "v7-bp-025",
+      "task_type": "body_paraphrase",
+      "query": "If a foreign bank wants to register as a Foreign Portfolio Investor in India, what makes it count as being 'appropriately regulated' back home?",
+      "abstained": false,
+      "answer_text": "If a foreign bank wants to register as a Foreign Portfolio Investor in India, it would be considered 'appropriately regulated' if it is regulated by the unified financial sector regulator in its home jurisdiction or by a banking sector regulator in its home jurisdiction.",
+      "context_ids": [
+        "SEBI/HO/AFD/AFD-PoD-2/P/CIR/2024/70#2. Guidance for certain specific entities#69",
+        "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#22.2.1. AMCs may provide management and advisory services in#1165",
+        "SEBI/HO/AFD-2/CIR/P/2022/175#2. Guidance for certain specific entities#63",
+        "SEBI/HO/AFD/AFD-PoD-3/P/CIR/2024/121#15. Whether FVCI is regulated by an appropriate#24",
+        "HO/19/34/14(5)2025-AFD-POD2/I/2703/2026#3.2. Under Para 2 of Part A, after sub-para (v), the followi#7",
+        "SEBI/HO/AFD/AFD-POD-2/P/CIR/2024/89#2.2. After sub-para 1(ii)(d) of Part A, the following sub-pa#12",
+        "SEBI/HO/MRD/DP/CIR/P/2016/134#16. Copy of the Board Resolution Not applicable.#34",
+        "SEBI/HO/MRD/DP/CIR/P/118#16. Copy of the Board Resolution Not applicable.#40",
+        "SEBI/HO/IMD/IMD-RAC-3/P/CIR/2025/125#21. \u201cForeign Portfolio Investors\u201d or \u201cFPI\u201d means a person re#33",
+        "SEBI/HO/MRD2/DDAP/CIR/P/2021/18#16. Copy of the Board Resolution Not applicable.#43"
+      ]
+    },
+    {
+      "id": "v7-bp-029",
+      "task_type": "body_paraphrase",
+      "query": "What happens to money that REIT unitholders never claim \u2014 does it eventually go to an investor protection fund, and can they still get it back later?",
+      "abstained": false,
+      "answer_text": "Yes, the unclaimed amount paid by the REIT to the unitholder will eventually be transferred to the investor protection fund (IPF) of the Investment Protection Fund (IPF) of the Stock Exchange. The REIT will indemnify the Board against any future dispute that may arise with respect to the unclaimed amount of the unitholder, including on account of a fraudulent claim or misrepresentation by the unitholder. However, this does not preclude the Board from taking any action for the fraud or misrepresentation in this regard.",
+      "context_ids": [
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2025/99#7. Indemnity: The amount refunded from IPEF to the REIT for #713",
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2025/102#23.5. In order to define the manner of handling the unclaime#525",
+        "SEBI/HO/DDHS/DDHS-RAC-1/P/CIR/2023/177#7. Indemnity: The amount refunded from IPEF to the REIT for #51",
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2024/43#7. Indemnity: The amount refunded from IPEF to the REIT for #652",
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2024/44#23.5. In order to define the manner of handling the unclaime#473",
+        "SEBI/HO/DDHS/DDHS-RAC-1/P/CIR/2023/178#5. In order to define the manner of handling the unclaimed a#5",
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/71#6.2. In case the claim amount is more than the coverage limi#37",
+        "SEBI/HO/MRD2/DDAP/CIR/P/2021/18#2. Investor Protection fund (IPF), Investor Service fund (IS#989",
+        "SEBI/HO/MRD/MRD-PoD-3/P/CIR/2023/81#7. Processing, \uf0d8 The claim forms from clients received 1. Al#30"
+      ]
+    },
+    {
+      "id": "v7-bp-030",
+      "task_type": "body_paraphrase",
+      "query": "In an InvIT's public offering, what's the maximum share of units that can go to big institutional investors versus everyday investors?",
+      "abstained": false,
+      "answer_text": "In an InvIT's public offering, the maximum share of units that can go to big institutional investors is not more than 75%, while the minimum share for everyday investors is not less than 25%.",
+      "context_ids": [
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2025/102#2.3.1. In an issue made through the book building process or#31",
+        "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2021/673#2.3.1. In an issue made through the book building process or#23",
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2023/115#2.3.1. In an issue made through the book building process or#30",
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2024/44#2.3.1. In an issue made through the book building process or#31",
+        "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2022/53#2.3.1. In an issue made through the book building process or#24",
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2023/174#7. Sale of units held by Sponsor(s) / i. Sponsor(s) / Invest#6",
+        "SEBI/HO/DDHS/DDHS-PoD/P/CIR/2024/10#3.1. Paragraph 7.9.1 of the SEBI Master Circular for InvITs #4",
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2025/99#2.9.13. The identity of Institutional Investors except ancho#72",
+        "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2021/674#2.9.10. The identity of Institutional Investors except ancho#57",
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2024/43#2.9.13. The identity of Institutional Investors except ancho#72"
+      ]
+    },
+    {
+      "id": "v7-bp-036",
+      "task_type": "body_paraphrase",
+      "query": "If a SEBI-registered intermediary's staff use chat apps or messenger tools for work, do those chat logs need to be preserved as official records?",
+      "abstained": false,
+      "answer_text": "Yes, according to the Master Circular for Credit Rating Agencies issued by SEBI, if a SEBI-registered intermediary's staff use chat apps or messenger tools for work, those chat logs need to be preserved as official records. This is to ensure that any unverified information obtained from client, industry, any trade, or other sources is not circulated without verification. The circular explicitly states that Logs for any usage of such Blogs/Chat forums/Messenger sites (called by any nomenclature) shall be treated as records and the same should be maintained as specified by the respective Regulations which govern the concerned intermediary. This requirement is to prevent the circulation of unauthenticated news by SEBI-registered Market Intermediaries through various modes of communication.",
+      "context_ids": [
+        "SEBI/HO/MIRSD/DOP2/CIR/P/2018/76#6.2.3. In view of the above facts, SEBI registered Credit Ra#183",
+        "SEBI/HO/MIRSD/DOP1/CIR/P/2018/80#7.1.4. Logs for any usage of such Blogs/Chat forums/Messenge#100",
+        "HO/38/12/11(1)2026-MIRSD-POD/I/4360/2026#13.2. In view of the above facts, SEBI Registered Market Int#136",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#85.3.4. Logs for any usage of such Blogs/Chat forums/Messeng#1378",
+        "HO/38/13/(4)2026-MIRSD-POD/I/4298/2026#34. Prevention of circulation of unauthenticated news by SEB#293",
+        "HO/38/12/11(2)2026-MIRSD-POD/I/4300/2026#12. Unauthenticated news circulated by SEBI Registered Marke#123",
+        "SEBI/HO/MIRSD/DOP2/CIR/P/2018/0000000063#8. Potential risks posed where the outsourced activities of #77",
+        "HO/43/15/12(3)2025-ISD-POD2/I/11734/2026#2.3.4. Logs for any usage of such social media platforms/ in#28",
+        "SEBI/HO/CFD/PoD-1/P/CIR/2024/072#11.1.4. Logs for any usage of such Blogs/Chat forums/Messeng#83",
+        "SEBI/HO/CFD/PoD-1/P/CIR/2023/157#12.1.4. Logs for any usage of such Blogs/Chat forums/Messeng#121"
+      ]
+    },
+    {
+      "id": "v7-fn-001",
+      "task_type": "far_negative",
+      "query": "What is the ideal fermentation schedule for a beginner sourdough loaf?",
+      "abstained": true,
+      "answer_text": "I don't know based on the available evidence.",
+      "context_ids": [
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/57#2. Based on representations received from market participant#2",
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2023/136#3.2.2. Once the initial slab limit is breached in any contra#237",
+        "SEBI/HO/CDMRD/DMP/P/CIR/2022/64#3.2.2. Once the initial slab limit is breached in any contra#236",
+        "SEBI/HO/CDMRD/DMP/P/CIR/2021/589#3.2.2. Once the initial slab limit is breached in any contra#227",
+        "SEBI/HO/CDMRD/DNPMP/CIR/P/2020/118#10.1.3. The minimum duration of staggered delivery period sh#404",
+        "HO/49/14/14(6)2025-CFD-PoD1/I/2771/2026#1.7.5. The AIR should at a minimum, cover the aspects descri#61",
+        "CIR/MRD/DRMNP/11/2013#2. Initiation of spread trade on day one#62",
+        "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#1.2.3. What is the likely impact of key risk events, in term#1661",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/105#18. What is covered under \u2018public media\u2019?#24",
+        "SEBI/HO/CFD/PoD-1/P/CIR/2023/157#5.2.1. clearly defines what activities are going to be outso#566"
+      ]
+    },
+    {
+      "id": "v7-fn-006",
+      "task_type": "far_negative",
+      "query": "What chemical processes cause thermal runaway in an EV lithium-ion battery?",
+      "abstained": true,
+      "answer_text": "I don't know based on the available evidence.",
+      "context_ids": [
+        "HO/49/14/14(7)2025-CFD-POD2/I/3762/2026#2. Company & Sector Specific (i.e., No. of Question 1 of#908",
+        "SEBI/HO/CFD/PoD2/CIR/P/0155#2. Company & Sector Specific (i.e., No. of Question 1 of#892",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#3.5.5. Check for preventing loop or runaway situations \u2013 The#1792",
+        "SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2024/113#4. RE shall proactively assess and take necessary actions wi#897",
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#22. A participant shall ensure that good corporate policies #719",
+        "SEBI/HO/CFD/PoD2/CIR/P/2023/120#3. For each respective category of waste generated (plastic,#824",
+        "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/110#3.5.5. Check for preventing loop or runaway situations \u2013 The#932",
+        "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/71#3.5.5. Check for preventing loop or runaway situations \u2013 The#920",
+        "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/53#3.5.5. Check for preventing loop or runaway situations \u2013 The#920",
+        "HO/47/16/14(1)2026-MRD-POD1/I/18580/2026#22) Standardized Stress Testing for Commodity Derivatives#2"
+      ]
+    },
+    {
+      "id": "v7-hn-001",
+      "task_type": "hard_negative",
+      "query": "What loan-to-value ratio must NBFCs maintain when lending against gold jewellery?",
+      "abstained": true,
+      "answer_text": "I don't know based on the available evidence.",
+      "context_ids": [
+        "HO/17/11/18(1)2025-DDHS-POD1/I/342/2025#5. This Circular is available at www.sebi.gov.in under the l#8",
+        "SEBI/HO/DDHS/PoD1/P/CIR/2023/119#4.7. Segment-wise gross NPA:#121",
+        "HO/24/13/15(2)2026-IMD-RAC4/I/5764/2026#4) Additionally, AMCs need to ensure the following requireme#53",
+        "SEBI/HO/DDHS/DDHS-PoD-1/P/CIR/2025/0000000103#2. Accordingly, formats for statements/ reports as per Annex#256",
+        "SEBI/HO/DDHS/DDHS-PoD/P/CIR/2025/0000000137#4.7. Segment-wise gross NPA:#150",
+        "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90#8. Any other disclosure as directed by the Board.#97",
+        "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#4.2.13. Investment in GDS, GMS and ETCD having gold as the u#146",
+        "SEBI/HO/CDMRD/CDMRD_DRM/P/CIR/2022/50#2. Liquid Assets#14",
+        "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2023/74#8. Any other disclosure as directed by the Board.#80",
+        "SEBI/HO/CDMRD/DMP/P/CIR/2021/589#4.4.2. Investment limits: Participation of mutual funds in E#288"
+      ]
+    },
+    {
+      "id": "v7-hn-008",
+      "task_type": "hard_negative",
+      "query": "Is a small private company exempt from the minimum board meeting gap requirement under the Companies Act?",
+      "abstained": true,
+      "answer_text": "I don't know based on the available evidence.",
+      "context_ids": [
+        "HO/49/14/14(7)2025-CFD-POD2/I/3762/2026#2. Section 96(1) of the Companies Act, 2013 specifies that t#85",
+        "SEBI/HO/CFD/PoD2/CIR/P/2023/120#10. Section 96(1) of the Companies Act, 2013 specifies that #75",
+        "SEBI/HO/CFD/PoD2/CIR/P/0155#10. Section 96(1) of the Companies Act, 2013 specifies that #77",
+        "HO/49/14/14(6)2025-CFD-PoD1/I/2771/2026#1.1.1. An NPO desirous of registration on SSE, in terms of R#20",
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#7. This Master Circular is available on the SEBI website at #36",
+        "SEBI/HO/DDHS/DDHS-PoD-1/P/CIR/2025/0000000103#4. Stakeholders Relationship#187",
+        "SEBI/HO/CFD/PoD-1/P/CIR/2022/120#1. Vide notification dated July 25, 2022, Securities and Exc#2",
+        "HO/49/11/11(106)2025-CFD-RAC-DIL3/I/1796/2026#9.4. Board has been empowered to specify circumstances under#26",
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2025/102#4. Stakeholders Relationship Committee#752",
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2025/99#4. Stakeholders Relationship Committee#663"
+      ]
+    },
+    {
+      "id": "v7-hn-010",
+      "task_type": "hard_negative",
+      "query": "At what rate is tax deducted at source on dividends paid by an Indian company to a resident shareholder?",
+      "abstained": true,
+      "answer_text": "I don't know based on the available evidence.",
+      "context_ids": [
+        "SEBI/HO/IMD/IMD-RAC-3/P/CIR/2025/125#8. Taxation#69",
+        "SEBI/HO/MRD/MRD-PoD-3/P/CIR/2024/139#4.8.6. The MIIs shall submit to SEBI on a quarterly basis an#27",
+        "SEBI/HO/CFD/PoD-1/P/CIR/2023/157#3. Disseminate complete information to investors to enable i#255",
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#15. INDORE#170",
+        "SEBI/HO/AFD/AFD-PoD-2/P/CIR/2024/70#2. Monitoring of Investment Limit at individual level#130",
+        "HO/19/34/11(6)2025-AFD-POD1/I/12928/2026#20.7.1. In terms of Rule 6(a) of NDI Rules, a person residen#362",
+        "SEBI/HO/AFD/AFD-POD-1/P/CIR/2024/135#8.2.1. For every scheme of AIFs where 50 percent or more of #22",
+        "SEBI/HO/AFD-2/CIR/P/2022/175#2. Monitoring of Investment Limit at individual level#110",
+        "SEBI/HO/MRD/DP/CIR/P/118#12. Whether the Indian company that has total foreign invest#616",
+        "CIR/MRD/DP/11/2014#31. If the rights and obligations of the parties hereto are #101"
+      ]
+    },
+    {
+      "id": "v7-hn-026",
+      "task_type": "hard_negative",
+      "query": "Do de minimis exemptions exist for small target companies under India's merger control thresholds?",
+      "abstained": true,
+      "answer_text": "I don't know based on the available evidence.",
+      "context_ids": [
+        "HO/49/14/14(7)2025-CFD-POD2/I/3762/2026#1.1. Acquisition (including agreement to acquire):#922",
+        "SEBI/HO/CFD/CFD-PoD-2/P/CIR/2025/135#6. It is further clarified that the exemption threshold of R#8",
+        "SEBI/HO/AFD/AFD-PoD-3/P/CIR/2024/130#1. Processing of FVCI application by DDPs#23",
+        "HO/49/11/11(106)2025-CFD-RAC-DIL3/I/1796/2026#9.4.2. Outbreak of pandemic situations like COVID-19 etc.#28",
+        "SEBI/HO/CFD/PoD2/CIR/P/2023/120#1.1. Acquisition (including agreement to acquire):#854",
+        "SEBI/HO/CFD/PoD2/CIR/P/0155#1.1. Acquisition (including agreement to acquire):#905",
+        "SEBI/HO/CFD/CFD-PoD-1/P/CIR/2023/123#1.1. Acquisition (including agreement to acquire):#10",
+        "HO/43/15/12(3)2025-ISD-POD2/I/11734/2026#1.1.1. Merger, demerger, amalgamation, capital reduction/con#18",
+        "SEBI/HO/CFD/PoD-1/P/CIR/2023/31#3. Further, exemptions were granted when the following condi#77",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#12. Transfer of business by SEBI registered intermediaries t#152"
+      ]
+    },
+    {
+      "id": "v7-hn-030",
+      "task_type": "hard_negative",
+      "query": "Who approves the remuneration of an interim resolution professional appointed under the IBC?",
+      "abstained": true,
+      "answer_text": "I don't know based on the available evidence.",
+      "context_ids": [
+        "SEBI/HO/DDHS-PoD-1/P/CIR/2025/117#2.8.1. For the purpose of availing the services of an indepe#65",
+        "SEBI/HO/DDHS/P/CIR/2023/50#2.8.1. For the purpose of availing the services of an indepe#64",
+        "SEBI/HO/DDHS-PoD1/P/CIR/2023/109#2.8.1. For the purpose of availing the services of an indepe#66",
+        "SEBI/HO/DDHS-PoD3/P/CIR/2024/46#2.8.1. For the purpose of availing the services of an indepe#66",
+        "HO/38/12/11(2)2026-MIRSD-POD/I/4300/2026#1. Guidelines for Investment Advisers1#67",
+        "HO/38/12/11(1)2026-MIRSD-POD/I/4360/2026#1. Guidelines for Research Analysts1#57",
+        "SEBI/HO/MRD/DP/CIR/P/118#1. Investor Grievance Resolution Panel (IGRP)/ Arbitration M#585",
+        "HO/19/34/11(6)2025-AFD-POD1/I/12928/2026#17.3.3. Investment Committees set up to approve the investme#310",
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2023/136#14.1.3. With a view to streamline and make more effective th#585",
+        "SEBI/HO/OIAE/IGRD/CIR/P/2023/156#5.4. Complaints against a company under resolution under the#74"
+      ]
+    },
+    {
+      "id": "v7-ls-005",
+      "task_type": "lineage_supersession",
+      "query": "Under the current RTA master circular, on what basis must data provided pursuant to regulatory mandates by data sources in the Indian securities market be made available to users?",
+      "abstained": false,
+      "answer_text": "As per the current RTA master circular, data provided by various data sources in the Indian securities market pursuant to regulatory mandates for reporting and disclosure in public domain should be made available to users 'free of charge' both for 'viewing' the data as also for download in the format as specified by regulatory mandate for reporting, as well as their usage for the value addition purposes.",
+      "context_ids": [
+        "HO/38/13/(4)2026-MIRSD-POD/I/4298/2026#39. Approach to securities market data access and terms of u#321",
+        "HO/38/12/11(1)2026-MIRSD-POD/I/4360/2026#17.1. Research Analysts are advised to make note of the foll#155",
+        "HO/38/12/11(2)2026-MIRSD-POD/I/4300/2026#17.1. IAs are advised to make note of the following:#144",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#91.1. In order to further enhance the quantum as well as the#1471",
+        "SEBI/HO/DEPA-II/DEPA-II_SRG/P/CIR/2024/178#1. Vide SEBI Circular No. SEBI/HO/DEPA-III/DEPA-III_SSU/P/CI#1",
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#6. Complaints received and redressed#407",
+        "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/49#13.1. Research Analysts are advised to make note of the foll#89",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/95#17.1. Research Analysts are advised to make note of the foll#150",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/94#17.1. IAs are advised to make note of the following:#138",
+        "SEBI/HO/MIRSD-PoD-2/P/CIR/2023/89#15.1. IAs are advised to make note of the following:#99"
+      ]
+    },
+    {
+      "id": "v7-ls-013",
+      "task_type": "lineage_supersession",
+      "query": "Under the current Cybersecurity and Cyber Resilience Framework (CSCRF) applicable to SEBI regulated entities, into what categories are regulated entities classified for compliance purposes, alongside Market Infrastructure Institutions and Qualified REs?",
+      "abstained": false,
+      "answer_text": "Under the current Cybersecurity and Cyber Resilience Framework (CSCRF) applicable to SEBI regulated entities, regulated entities are classified into the following five broad categories:\n\n1. Market Infrastructure Institutions (MIIs)\n2. Qualified REs\n3. Mid-size REs\n4. Small-size REs\n5. Self-certification REs",
+      "context_ids": [
+        "HO/38/12/11(2)2026-MIRSD-POD/I/4300/2026#27. Cybersecurity and Cyber Resilience Framework (CSCRF)#159",
+        "SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2024/113#2. Thresholds for REs\u2019 categorization:#309",
+        "HO/38/12/11(1)2026-MIRSD-POD/I/4360/2026#24. Cybersecurity and Cyber Resilience Framework (CSCRF)#174",
+        "SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2025/60#2.1.1. Stockbrokers fulfilling any one of the following para#3",
+        "SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2025/119#7.2. Merchant Bankers (MBs)#51",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/95#22. Cybersecurity and Cyber Resilience Framework (CSCRF)#163",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/94#25. Cybersecurity and Cyber Resilience Framework (CSCRF)#148",
+        "SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2025/45#1. Recognising the need for robust cybersecurity measures an#1"
+      ]
+    },
+    {
+      "id": "v7-ls-018",
+      "task_type": "lineage_supersession",
+      "query": "Under the current master circular for Alternative Investment Funds, in what circumstance is an AIF scheme not required to maintain investors' pro-rata rights in a particular investment?",
+      "abstained": false,
+      "answer_text": "An AIF scheme is not required to maintain investors' pro-rata rights in a particular investment under the current master circular for Alternative Investment Funds if the investor has been excused or excluded from participating in the investment, or if the investor has defaulted on providing their pro-rata contribution for the investment.",
+      "context_ids": [
+        "HO/19/34/11(6)2025-AFD-POD1/I/12928/2026#19.1.2. In this regard, it is specified that the requirement#333",
+        "SEBI/HO/AFD/AFD-POD-1/P/CIR/2024/175#3.2. an investor has defaulted on providing his/her pro-rata#5",
+        "SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/128#9. In terms of Regulation 19G(6) of AIF Regulations, the inv#27",
+        "SEBI/HO/AFD/PoD1/P/CIR/2023/130#11.2.2. As per para 11.1.1 of this Master Circular, with res#159",
+        "SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/126#2.8. Investors of a CIV scheme shall have rights in the inve#15",
+        "SEBI/HO/AFD-1/AFD-1-PoD/P/CIR/2024/39#11.1.2. For the purpose of maintaining continuing interest u#148",
+        "SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/29#1. Securities and Exchange Board of India (Alternative Inves#1",
+        "SEBI/HO/AFD/PoD-I/P/CIR/2024/026#2.3.4. If the AIF / manager successfully arranges bid for a #7",
+        "SEBI/HO/AFD/RAC/CIR/2022/088#7. Whether there are any clauses in the placement If yes, al#39"
+      ]
+    },
+    {
+      "id": "v7-ls-027",
+      "task_type": "lineage_supersession",
+      "query": "As the rules stood in January 2024, what authentication requirement applied to user accounts accessing critical applications under SEBI's cybersecurity advisory for regulated entities?",
+      "abstained": false,
+      "answer_text": "Under SEBI's cybersecurity advisory for regulated entities, the authentication requirement that applied to user accounts accessing critical applications was the implementation of **multi-factor authentication (MFA)**. This was done to ensure that user accounts accessing critical systems were protected against unauthorized access.",
+      "context_ids": [
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#6. Password Policy/ Authentication Mechanisms:#2047",
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#15. INDORE#167",
+        "SEBI/HO/ITD/ITD_VAPT/P/CIR/2023/032#6. Password Policy/ Authentication Mechanisms:#14",
+        "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/110#6. Password Policy/ Authentication Mechanisms:#1189",
+        "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/53#6. Password Policy/ Authentication Mechanisms:#1175",
+        "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/71#6. Password Policy/ Authentication Mechanisms:#1165",
+        "SEBI/HO/MRD/MRD-PoD-2/P/CIR/2023/166#12. Details of actions taken for mitigation and any preventi#262",
+        "SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2024/113#1. Access Controls, Password Policy/ Authentication Mechanis#725",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/91#4. Cyber Security and Cyber Resilience Framework Audit to be#365",
+        "SEBI/HO/ITD/ITD_VAPT/P/CIR/2023/033#6.2.5. Secure User Management:#117"
+      ]
+    },
+    {
+      "id": "v7-ls-034",
+      "task_type": "lineage_supersession",
+      "query": "As the rules stood in March 2024, under the foreign-investment framework for AIFs, an investor's beneficial owner must not be a person named on which international sanctions list?",
+      "abstained": false,
+      "answer_text": "As per the rules in March 2024, under the foreign-investment framework for AIFs, an investor's beneficial owner must not be a person named on the \"ISIL (Da'esh) & Al-Qaida Sanctions List\" or the list issued by the United Nations Security Council Resolutions 1718.",
+      "context_ids": [
+        "HO/19/34/11(6)2025-AFD-POD1/I/12928/2026#3.1.1. In terms of Regulation 10(a) of AIF Regulations, AIFs#68",
+        "SEBI/HO/AFD-1/AFD-1-PoD/P/CIR/2024/39#4.1.2. The investor, or its beneficial owner as determined i#58",
+        "SEBI/HO/AFD/PoD1/CIR/2024/2#2. In view of the amendments to the Prevention of Money-Laun#2",
+        "SEBI/HO/AFD-1/PoD/P/CIR/2022/171#2.1. At the time of on-boarding investors, the manager of an#3",
+        "SEBI/HO/AFD/PoD1/P/CIR/2023/130#4.1.2. The investor, or its underlying investors contributin#60",
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#8. International Financial Services Centre in India - India #194",
+        "SEBI/HO/AFD/AFD-POD-1/P/CIR/2024/135#8.1. In terms of Rule 6(a) of NDI Rules, a person resident o#20",
+        "SEBI/HO/MIRSD/MIRSDSECFATF/P/CIR/2024/78#64. An updated list of individuals and entities which are su#95",
+        "SEBI/HO/AFD/AFD-PoD-2/P/CIR/2024/70#4. Identification and verification of Beneficial Owners#102",
+        "SEBI/HO/MRD/MRD-PoD-2/P/CIR/2023/166#8. International Financial Services Centre in India - India #295"
+      ]
+    },
+    {
+      "id": "v7-ls-037",
+      "task_type": "lineage_supersession",
+      "query": "As the rules stood in June 2025, what cash-flow metric must InvITs and their HoldCos/SPVs compute under the disclosure and continuous-compliance framework, abbreviated NDCF?",
+      "abstained": false,
+      "answer_text": "As per the rules standing in June 2025, InvITs and their HoldCos/SPVs must compute the cash-flow metric **Net Distributable Cash Flow** (NDCF) under the disclosure and continuous-compliance framework. This metric is defined by the InvIT/Investment Manager and is disclosed in the offer document.",
+      "context_ids": [
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2025/102#3.19. The framework for computation of NDCF by InvITs and it#168",
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2025/99#3.19. The framework for computation of NDCF by REITs and its#166",
+        "HO/17/11/17(5)2026-DDHS-POD2/I/18791/2026#2.1. Under Para 3.19 of Chapter 3 of Master Circular for Inf#3",
+        "SEBI/HO/DDHS/DDHS-PoD/P/CIR/2023/184#5. This Circular is available on the website of the Securiti#5",
+        "SEBI/HO/DDHS/DDHS-PoD-2/P/CIR/2025/63#3.19. The framework for computation of NDCF by InvITs and it#61",
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2024/44#3.18. The framework for computation of NDCF by InvITs and it#145",
+        "SEBI/HO/DDHS/DDHS-PoD-2/P/CIR/2025/64#3.19. The framework for computation of NDCF by REITs and its#57",
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2024/43#3.18. The framework for computation of NDCF by REITs and its#142",
+        "SEBI/HO/DDHS/DDHS-PoD/P/CIR/2023/185#5. This Circular is available on the website of the Securiti#5",
+        "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2022/53#4.6.1. Statement of Net Distributable Cash Flows (NDCFs):#163"
+      ]
+    },
+    {
+      "id": "v7-ls-038",
+      "task_type": "lineage_supersession",
+      "query": "As the rules stood in June 2024, had the deadline for stock brokers to submit their annual audited accounts under SEBI's enhanced-supervision monitoring criteria been revised to October 31st?",
+      "abstained": false,
+      "answer_text": "Yes, as per the revised timeline specified in the circular dated December 10, 2024, the deadline for stock brokers to submit their annual audited accounts under SEBI's enhanced-supervision monitoring criteria was October 31st. This was a step towards ease of doing business by providing more time to stock brokers who were yet to carry out the required system changes.",
+      "context_ids": [
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#15.8.1.1. Monitoring criteria for Stock Brokers#245",
+        "HO/38/11/(1)2026-MIRSD-POD/I/7656/2026#1. SEBI has specified provisions pertaining to enhanced supe#1",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/132#4. Accordingly, it has been decided that stock brokers who a#4",
+        "SEBI/HO/MRD/MRD-PoD-3/P/CIR/2025/58#2. As per paragraphs 3.3.1 and 6.2 of the aforesaid circular#2",
+        "SEBI/HO/MIRSD/MIRSD-PoD1/P/CIR/2024/95#2. As a step towards ease of doing business, it has been dec#2",
+        "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/110#6. Client Nodal MFOS Account For subscription/ redemption of#160",
+        "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/71#5. Client Securities under Hold funded securities in respect#194",
+        "SEBI/HO/MIRSD/DOP1/CIR/P/2018/87#6.1.1. Monitoring criteria for Stock Brokers#406",
+        "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/53#15. Enhanced Supervision of Stock Brokers / Depository Parti#134"
+      ]
+    },
+    {
+      "id": "v7-mh-001",
+      "task_type": "multi_hop",
+      "query": "Under SEBI's January 2025 circular on nomination facilities, assets of a deceased joint holder are transmitted to survivors via name deletion \u2014 per the December 2025 deferment circular, has implementation of that January 2025 circular's provisions now been pushed to an unspecified future date?",
+      "abstained": false,
+      "answer_text": "Yes, the implementation of the January 2025 circular on nomination facilities has been pushed to an unspecified future date as per the December 2025 deferment circular.",
+      "context_ids": [
+        "HO/42/36/12(4)2025-OIAE-IAD3#5. In view of the foregoing, it has been decided to defer th#9",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/108#2. SEBI has received various representations from stock brok#2",
+        "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#15. This circular supersedes all the earlier circulars issue#25",
+        "SEBI/HO/AFD/AFD-POD-3/P/CIR/2025/71#preamble#0",
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#31. If the rights and obligations of the parties hereto are #645",
+        "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2025/110#6. Further, the Depositories, after consultation with deposi#10",
+        "SEBI/HO/OIAE/OIAE_IAD-3/P/ON/2025/0027#2.1. Clause 2.1.1: In case of joint accounts / holdings, upo#7",
+        "SEBI/HO/OIAE/OIAE_IAD-3/P/ON/2025/01650#2.1.1. In case of joint accounts / holdings, upon demise of #7",
+        "SEBI/HO/MRD/MRD-PoD-2/P/CIR/2023/166#10. For cases where the value of securities is up to#114",
+        "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/110#2.4. The provisions of the circular stated at clause 3.C.II,#6"
+      ]
+    },
+    {
+      "id": "v7-mh-004",
+      "task_type": "multi_hop",
+      "query": "Which SEBI standing committee developed the revised four-level industry classification framework for the Centralized Database of corporate bonds, and is that framework now consolidated within the Master Circular for issue and listing of Non-convertible Securities (as updated July 2023)?",
+      "abstained": false,
+      "answer_text": "The revised four-level industry classification framework for the Centralized Database of corporate bonds was developed by the Market Data Advisory Committee (MDAC), a standing committee constituted by SEBI, comprising of representatives from stock exchanges, depositories, and other market participants. This committee examined existing industry classification structures across sectors and developed a harmonized four-level framework for adoption by all stakeholders and relevant processes/ purposes in the Indian securities market. This framework is now consolidated within the Master Circular for issue and listing of Non-convertible Securities, as updated on July 7, 2023.",
+      "context_ids": [
+        "SEBI/HO/DDHS/DDHS-POD-2/P/CIR/2025/100#28.1. The Market Data Advisory Committee (MDAC), a standing #304",
+        "SEBI/HO/DDHS/DDHS-POD2/P/CIR/2025/101#38.1. The Market Data Advisory Committee (MDAC), a standing #485",
+        "SEBI/HO/DDHS/PoD1/P/CIR/2023/119#preamble#0",
+        "SEBI/HO/DDHS/DDHS-PoD/P/CIR/2025/0000000137#2. In order to facilitate transparency and informed decision#344",
+        "SEBI/HO/DDHS/DDHS-RACPOD1/P/CIR/2023/172#7.2. Clause 3.1(b) of Chapter XII of the NCS Master Circular#18",
+        "SEBI/HO/DDHS/POD1/P/CIR/2023/194#5.2.1. Listed debt securities, listed municipal debt securit#3",
+        "SEBI/HO/MIRSD/DOP2/CIR/P/2018/0000000063#8. Non-cooperation by the issuer with respect to furnishing #31",
+        "SEBI/HO/DDHS/DDHSPOD1/P/CIR/2025/72#1.1. Chapter XXII of the SEBI Master Circular for issue and #1",
+        "SEBI/HO/DDHS/P/CIR/2021/031#2. The Market Data Advisory Committee (MDAC), a standing com#2",
+        "SEBI/HO/DDHS/DDHS-POD2/P/CIR/2023/111#37.1. The Market Data Advisory Committee (MDAC), a standing #465"
+      ]
+    },
+    {
+      "id": "v7-mh-007",
+      "task_type": "multi_hop",
+      "query": "Under the January 2025 nomination-revamp circular's rule of survivorship, assets of a deceased joint holder are transmitted to survivors via name deletion \u2014 per the February 2025 clarification circular, was an additional option added allowing transmission into a different existing or new account/folio?",
+      "abstained": false,
+      "answer_text": "Yes, the additional option was added allowing transmission into a different existing or new account/folio. This option was introduced to provide flexibility to the surviving account holders in case the deceased's account was closed or the deceased's securities were transferred to another account.",
+      "context_ids": [
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#3. Depositories are further advised to place before their re#89",
+        "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2025/32#8.2. The DigiLocker Nominee herself can initiate the transmi#23",
+        "HO/38/13/11(14)2026-MIRSD-POD/I/17111/2026#3. That I/We are the legal heir(s) of the deceased as per th#47",
+        "SEBI/HO/OIAE/OIAE_IAD-3/P/ON/2025/0027#2.1. Clause 2.1.1: In case of joint accounts / holdings, upo#7",
+        "SEBI/HO/OIAE/OIAE_IAD-3/P/ON/2025/01650#3.4. Upon transmission of joint account / folio, the nominee#35",
+        "SEBI/HO/MRD/MRD-PoD-2/P/CIR/2023/166#10. For cases where the value of securities is up to#114",
+        "SEBI/HO/OIAE/OIAE_IAD-3/P/CIR/2026/12676#4. Signature:#33",
+        "SEBI/HO/MRD2/DDAP/CIR/P/2021/18#30. If the rights and obligations of the parties hereto are #106",
+        "HO/38/13/(4)2026-MIRSD-POD/I/4298/2026#21.5. For transmission of securities to the surviving joint #210",
+        "SEBI/HO/MIRSD/MIRSD_RTAMB/P/CIR/2022/65#7. For transmission of securities to the surviving joint hol#10"
+      ]
+    },
+    {
+      "id": "v7-mh-011",
+      "task_type": "multi_hop",
+      "query": "Per SEBI's December 2024 circular on pro-rata and pari-passu rights of AIF investors, by what date was the Standard Setting Forum for AIFs (SFA) required to publish its implementation standards for permissible differential rights, and does the AIF Master Circular (last updated June 16, 2026) still specify this same publication deadline?",
+      "abstained": false,
+      "answer_text": "The Standard Setting Forum for AIFs (SFA) was required to publish its implementation standards for permissible differential rights by January 15, 2025. The AIF Master Circular, last updated on June 16, 2026, still specifies this same publication deadline.",
+      "context_ids": [
+        "HO/19/34/11(6)2025-AFD-POD1/I/12928/2026#19.2.7. Vide SEBI Circular No.: SEBI/HO/AFD/AFD-POD-1/P/CIR/#347",
+        "HO/19/19/11(2)2026-AFD-RAC2/I/17617/2026#10. The SEBI Master Circular for AIFs dated June 03, 2026 ha#33",
+        "HO/19/28/(1)2026-AFD-SEC3/I/6176/2026#3. Clause 15.1.4 of the Master Circular for AIFs dated May 0#3",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/46#2. In this regard, the implementation standards were to be i#2",
+        "SEBI/HO/AFD/AFD-POD-1/P/CIR/2024/175#14. The implementation standards formulated by SFA shall be #20",
+        "SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/29#3. In terms of para 17.1. of the aforesaid SEBI circular, a #3",
+        "HO/24/13/17(1)2026-IMD-POD-1/I/16895/2026#1. SEBI, vide Circular No. SEBI/HO/IMD/IMD-I POD-1/P/CIR/202#1",
+        "SEBI/HO/AFD-1/AFD-1-PoD/P/CIR/2024/39#15.4.1. The pilot Standard Setting Forum for AIFs (\u2018SFA\u2019), i#209",
+        "SEBI/HO/AFD/PoD1/P/CIR/2023/130#1.2. In case of any queries and clarifications, users may re#17",
+        "SEBI/HO/AFD/PoD/CIR/2024/5#8.1. The pilot Standard Setting Forum for AIFs (\u2018SFA\u2019), in c#17"
+      ]
+    },
+    {
+      "id": "v7-nt-010",
+      "task_type": "numeric_table",
+      "query": "What minimum average daily turnover must underlying agricultural commodity futures have over the previous twelve months to be eligible as an options underlying?",
+      "abstained": false,
+      "answer_text": "The minimum average daily turnover for agricultural and agri-processed commodities as an options underlying must be at least INR 200 crore over the previous twelve months.",
+      "context_ids": [
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/61#2. Based on representations received from market participant#2",
+        "SEBI/HO/MRD/MRD-PoD-2/P/CIR/2024/116#4.1.3. Average daily turnover (futures + options premium) of#20",
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2023/136#6.1.2. Eligibility criteria for selection of underlying Comm#303",
+        "SEBI/HO/CDMRD/DMP/P/CIR/2021/589#6.1.2. Eligibility criteria for selection of underlying Comm#313",
+        "CDMRD/DMP/CIR/P/2018/126#2.9.1. Eligibility criteria for selection of underlying Comm#148",
+        "SEBI/HO/CDMRD/DMP/P/CIR/2022/64#6.1.2. Eligibility criteria for selection of underlying Comm#324",
+        "SEBI/HO/CDMRD/DNPMP/CIR/P/2020/118#6.1.2. Eligibility criteria for selection of underlying Comm#298",
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/69#10.1.2. \u201cApproval for futures contracts: Approval for future#7",
+        "CIR/MRD/DRMNP/11/2013#7. Unpaid Premium#116",
+        "CIR/DNPD/1/2012#7. Unpaid Premium#116"
+      ]
+    },
+    {
+      "id": "v7-nt-018",
+      "task_type": "numeric_table",
+      "query": "If subscriptions to a mutual fund's minimum-number-of-investors limit exceed the prescribed 25% threshold, within how many weeks of NFO closure must the excess amount be refunded?",
+      "abstained": false,
+      "answer_text": "Based on the available sources, if subscriptions to a mutual fund's minimum-number-of-investors limit exceed the prescribed 25% threshold, within **6 weeks** of the NFO closure must the excess amount be refunded. This is applicable to both close-ended schemes and interval schemes.",
+      "context_ids": [
+        "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#7.19.2. Applicability for a Close ended scheme/Interval sche#483",
+        "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2023/74#1961. However, superannuation benefits and Gratuity paid at #251",
+        "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90#1961. However, superannuation benefits and Gratuity paid at #291",
+        "SEBI/HO/IMD/DF5/CIR/P/2018/109#2. 163If the shares and/or debentures and/or bonds and/or#127",
+        "SEBI/IMD/MC No.1/189241/2010#2. If such shares and/or debentures and/or bonds and/or#88",
+        "SEBI/IMD/MC No.3/10554/2012#2. If such shares and/or debentures and/or bonds and/or#96",
+        "SEBI/HO/IMD/DF2/CIR/P/2020/156#2. 172If the shares and/or debentures and/or bonds and/or#162",
+        "CIR/IMD/DF/18/2014#2. If such shares and/or debentures and/or bonds and/or#104",
+        "SEBI/HO/IMD/DF3/CIR/P/2016/84#2. If such shares and/or debentures and/or bonds and/or#115",
+        "CIR/IMD/DF/14/2013#2. If such shares and/or debentures and/or bonds and/or#101"
+      ]
+    },
+    {
+      "id": "v7-nt-019",
+      "task_type": "numeric_table",
+      "query": "If a trading member's client-code-modified turnover as a percentage of total turnover exceeds 5% in a month, what penalty percentage applies, versus when it is 5% or below?",
+      "abstained": false,
+      "answer_text": "If a trading member's client-code-modified turnover as a percentage of total turnover exceeds 5%, the penalty percentage is **1%**. If it is **5% or below**, the penalty percentage is **2%**.",
+      "context_ids": [
+        "CIR/MRD/DRMNP/11/2013#3. Market Lot/Multiplier#315",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#38.3.1. The Stock Exchanges shall levy a penalty from tradin#603",
+        "CDMRD/DMP/CIR/P/2018/126#2.6.4. If Exchange wishes to allow trading members to modify#137",
+        "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/71#37. Modification of Client Codes of Non-institutional Trades#356",
+        "SEBI/HO/CDMRD/DNPMP/CIR/P/2020/118#1.5.4. If stock exchange wishes to allow trading members to #140",
+        "CIR/DNPD/1/2012#3. Market Lot/Multiplier#317",
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2023/136#1.5.4. If stock exchange wishes to allow its members to modi#149",
+        "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/110#37. Modification of Client Codes of Non-institutional Trades#326",
+        "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/53#37. Modification of Client Codes of Non-institutional Trades#323",
+        "SEBI/HO/CDMRD/DMP/P/CIR/2021/589#1.5.4. If stock exchange wishes to allow trading members to #140"
+      ]
+    },
+    {
+      "id": "v7-nt-026",
+      "task_type": "numeric_table",
+      "query": "Over what preceding period must an InvIT disclose any securities-law settlement orders involving its sponsor or investment manager in a follow-on offer document?",
+      "abstained": false,
+      "answer_text": "Based on the available sources, the preceding period for an InvIT to disclose any securities-law settlement orders involving its sponsor or investment manager in a follow-on offer document is three years immediately preceding the date of filing of the follow-on offer document.",
+      "context_ids": [
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2025/102#3.32. If the InvIT or its sponsor, sponsor group, investment#205",
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2025/99#3.32. If the REIT or its sponsor, sponsor group, manager or #203",
+        "SEBI/HO/DDHS/DDHS-PoD-2/P/CIR/2025/63#3.32. If the InvIT or its sponsor, sponsor group, investment#95",
+        "SEBI/HO/DDHS/DDHS-PoD-2/P/CIR/2025/64#3.32. If the REIT or its sponsor, sponsor group, manager or #94",
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2024/44#6. Allotment of units under Institutional#438",
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2023/174#7. Sale of units held by Sponsor(s) / i. Sponsor(s) / Invest#7",
+        "SEBI/HO/DDHS-PoD-2/P/CIR/2023/115#7. Sale of units held by Sponsor(s) / i. Sponsor(s) / Invest#426",
+        "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2021/673#3.15. An offer document/placement memorandum of InvIT shall #118",
+        "SEBI/HO/DDHS/DDHS_Div3/P/CIR/2022/53#3.15. An offer document/placement memorandum of InvIT shall #119",
+        "SEBI/HO/DDHS/DDHS-PoD-2/P/CIR/2025/44#5. Further, based on the request of industry associations an#8"
+      ]
+    },
+    {
+      "id": "v7-nt-028",
+      "task_type": "numeric_table",
+      "query": "What minimum percentage of non-promoter shareholding must a listed entity ensure is held in dematerialized form?",
+      "abstained": false,
+      "answer_text": "The listed entity must ensure that at least 50% of its non-promoter shareholding is held in dematerialized form. This requirement is applicable to all listed entities, and the government holding in the non-promoter category may be excluded when computing the shareholding.",
+      "context_ids": [
+        "HO/49/14/14(7)2025-CFD-POD2/I/3762/2026#7. Holding of specified securities in dematerialized form:#30",
+        "SEBI/HO/CFD/PoD2/CIR/P/0155#7. Holding of specified securities in dematerialized form:#29",
+        "SEBI/HO/CFD/PoD2/CIR/P/2023/120#7. Holding of specified securities in dematerialized form:#27",
+        "SEBI/HO/CFD/POD-2/P/CIR/2023/93#3. Conditions for schemes of arrangement involving unlisted #30",
+        "SEBI/HO/ISD/ISD/CIR/P/2021/22#1.1.1. The securities of all companies shall be traded in th#16",
+        "SEBI/HO/ISD/ISD-PoD-2/P/CIR/2023/039#1.1. Securities of companies shall be traded in the normal s#14",
+        "SEBI/HO/CFD/CFD-PoD-2/P/CIR/2025/35#3) Details of promoter and promoter group with shareholding #20",
+        "SEBI/HO/CFD/DIL1/CIR/P/2021/0000000665#3. Conditions for schemes of arrangement involving unlisted #19",
+        "HO/38/13/(4)2026-MIRSD-POD/I/4298/2026#13.1.4. Endorsement;#120",
+        "SEBI/HO/CFD/DIL1/CIR/P/2020/249#3. Conditions for schemes of arrangement involving unlisted #19"
+      ]
+    },
+    {
+      "id": "v7-nt-029",
+      "task_type": "numeric_table",
+      "query": "In the external evaluation of MII Statutory Committee performance, what weightage is assigned to 'Roles, Responsibilities and Duties of Statutory Committees'?",
+      "abstained": false,
+      "answer_text": "The weightage assigned to 'Roles, Responsibilities and Duties of Statutory Committees' in the external evaluation of MII Statutory Committee performance is 40%.",
+      "context_ids": [
+        "SEBI/HO/MRD/POD-III/CIR/P/2025/12#5. The minimum criteria for the independent external evaluat#11",
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#6. Investment a. The Committee may include the MD, NIDs (oth#491",
+        "SEBI/HO/MRD/MRD-PoD-3/2024/088#6. If certain activities of the MII are not covered under th#26",
+        "SEBI/HO/MRD2/DDAP/CIR/P/2021/18#4. Performance review of Public Interest Directors (PIDs)175#1199",
+        "SEBI/HO/CDMRD/DMP/P/CIR/2022/64#15.3.3. MIIs shall adhere to the following:#682",
+        "SEBI/HO/CDMRD/DNPMP/CIR/P/2020/118#14.3.3. MIIs shall adhere to the following:#612",
+        "SEBI/HO/CDMRD/DMP/P/CIR/2021/589#14.3.3. MIIs shall adhere to the following:#626",
+        "SEBI/HO/MRD/DP/CIR/P/118#2. Further, while the aforementioned annexure provides for t#688"
+      ]
+    },
+    {
+      "id": "v7-rb-005",
+      "task_type": "repealed_basis",
+      "query": "What regulation authorizes SEBI's Regulatory Framework for Sponsors of a Mutual Fund, and is that regulation still in force?",
+      "abstained": false,
+      "answer_text": "The regulation that authorizes SEBI's Regulatory Framework for Sponsors of a Mutual Fund is Section 11(1) of the Securities and Exchange Board of India Act, 1992, read with the provisions of Regulation 77 of SEBI (Mutual Funds) Regulations, 1996. This regulation is still in force.",
+      "context_ids": [
+        "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#44. SE BI/HO/IMD/IMD-PoD- July 07, 2023 Regulatory Framework#1230",
+        "SEBI/HO/IMD/IMD-PoD-2/P/CIR/2023/118#5. This circular is issued in exercise of powers conferred u#15",
+        "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90#1.1.3.3. Filing of Final SID#44",
+        "CIR/IMD/DF/14/2013#8. Any other disclosure as directed by the Board.#76",
+        "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2023/74#5.1.6. Mutual funds/AMCs may disclose additional information#198",
+        "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2025/26#2.1.3. The font size of the sponsor\u2019s or Mutual Fund\u2019s brand#21",
+        "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/144#1. In order to strengthen the regulatory framework in relati#1",
+        "SEBI/HO/IMD/DF3/CIR/P/2016/84#8. Any other disclosure as directed by the Board.#90",
+        "SEBI/IMD/MC No.1/189241/2010#6.1.2.1. The AMC shall constitute an in-house valuation comm#64",
+        "SEBI/HO/IMD/DF2/CIR/P/2020/156#5.1.4. The format for disclosure for monthly and half yearly#132"
+      ]
+    },
+    {
+      "id": "v7-rb-009",
+      "task_type": "repealed_basis",
+      "query": "What is the minimum subscription amount that must be brought in by a distributor for an AMC to pay transaction charges, and is the regulation underpinning this Mutual Fund transaction-charges rule still in force?",
+      "abstained": false,
+      "answer_text": "The minimum subscription amount that must be brought in by a distributor for an AMC to pay transaction charges is INR 10,000/-.\n\nThe regulation underpinning the Mutual Fund transaction-charges rule, as specified in the Circular No. CIR/IMD/DF/13/2011 dated August 22, 2011, is still in force.",
+      "context_ids": [
+        "SEBI/HO/IMD/DF3/CIR/P/2016/84#3. The lower of (1) and (2) above shall be used for calculat#198",
+        "SEBI/HO/IMD/DF5/CIR/P/2018/109#3. The lower of (1) and (2) above shall be used for calculat#218",
+        "CIR/IMD/DF/18/2014#3. The lower of (1) and (2) above shall be used for calculat#185",
+        "SEBI/HO/IMD/DF2/CIR/P/2020/156#3. The lower of (1) and (2) above shall be used for calculat#268",
+        "SEBI/IMD/MC No.3/10554/2012#2010. However, those mutual funds which voluntarily propose #172",
+        "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2025/115#1. Paragraph 10.5 read with paragraph 10.4.1.b of SEBI Maste#1",
+        "CIR/IMD/DF/14/2013#3. The lower of (1) and (2) above shall be used for calculat#180",
+        "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90#3. The lower of (1) and (2) above shall be used for calculat#413",
+        "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2023/74#3. The lower of (1) and (2) above shall be used for calculat#373",
+        "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#7.6.1. The guidelines enumerated below specify the minimum r#378"
+      ]
+    },
+    {
+      "id": "v7-rb-014",
+      "task_type": "repealed_basis",
+      "query": "Under which original 2020 circular was the 'margin pledge' mechanism for client collateral first mandated, and is the stock-broker regulation underlying the June 2025 update to this margin-pledge framework still in force?",
+      "abstained": false,
+      "answer_text": "The 'margin pledge' mechanism for client collateral was first mandated under the circular dated February 25, 2020, which is referenced in the Master Circular dated June 3, 2025. This regulation is still in force as of August 18, 2025.",
+      "context_ids": [
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/82#1. SEBI, vide circular SEBI/HO/MIRSD/DOP/CIR/P/2020/28 dated#1",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#42.1. TM / CM shall, inter alia, accept collateral from clie#671",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/118#preamble#0",
+        "SEBI/HO/MRD2/DDAP/CIR/P/2021/18#5. Listing permission from Stock#658",
+        "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/110#41. Margin obligation to be given by way of Pledge/ Re-pledg#347",
+        "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/53#41. Margin obligation to be given by way of Pledge/ Re-pledg#344",
+        "SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2023/71#41. Margin obligation to be given by way of Pledge/ Re-pledg#378",
+        "SEBI/HO/MIRSD/MIRSD_DPIEA/P/CIR/2022/83#4. Client Securities Margin Pledge For Margin obligations to#7"
+      ]
+    },
+    {
+      "id": "v7-rb-019",
+      "task_type": "repealed_basis",
+      "query": "Whose bank account may be used for payment of a Mutual Fund investment made in the name of a minor through a guardian, and is the Mutual Funds regulation underpinning this rule still in force?",
+      "abstained": false,
+      "answer_text": "The rule underpinning the payment of a Mutual Fund investment made in the name of a minor through a guardian is outlined in the SEBI Circular No. SEBI/HO/IMD/IMD-PoD-2/P/CIR/2023/40 dated March 23, 2023. This circular states that payment for investment by any mode shall be accepted from the bank account of the minor, parent or legal guardian of the minor, or from a joint account of the minor with parent or legal guardian. For existing folios, the AMCs shall insist upon a Change of Pay-out Bank mandate before redemption is processed. This rule is still in force as of March 20, 2026.",
+      "context_ids": [
+        "HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#15.13.1. Payment for investment by any mode shall be accepte#894",
+        "SEBI/HO/IMD/POD-II/CIR/P/2023/0069#1. In partial modification to the above SEBI circular, it ha#1",
+        "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90#3. Class C: CRV <10625#662",
+        "SEBI/HO/IMD/IMD-PoD-1/P/CIR/2023/74#3. Class C: CRV <10605#588",
+        "SEBI/HO/IMD/DF2/CIR/P/2020/156#2. MF scheme evaluation and defining its#421",
+        "SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#7. This Master Circular is available on the SEBI website at #51",
+        "CIR/MRD/DP/13/2013#4.17. Operation of minor\u2019s demat account74#109",
+        "SEBI/HO/MRD/MRD-PoD-2/P/CIR/2023/166#7. This Master Circular is available on the SEBI website at #56",
+        "CIR/MRD/DP/10/2012#4.17. Operation of minor\u2019s demat account68#104",
+        "CIR/MRD/DP/41/2010#4.14. Operation of minor\u2019s demat account63#94"
+      ]
+    },
+    {
+      "id": "v7-td-003",
+      "task_type": "title_direct",
+      "query": "What is covered in SEBI's 2010 master circular for stock exchanges and depositories?",
+      "abstained": false,
+      "answer_text": "The 2010 master circular for stock exchanges and depositories covers the following:\n\n- Annual System Audit for Stock Exchanges and Depositories\n- Power of Attorney\n- Allotment of Codes to Stock Exchanges\n- Subsidiary Management by Stock Exchanges\n- Governance of Recognized Stock Exchanges\n- Oversight of Members\n- Arbitration in Recognized Stock Exchanges and Stock Exchanges/Trading Platforms for SMEs\n- Market Makers\n- Beneficial Owner (BO) Accounts\n- Depository Services\n- Depository Services for Stock Exchanges\n- Depository Services for Stock Exchanges with National Terminals\n- Depository Services for Stock Exchanges with Own Platforms\n- Depository Services for Stock Exchanges without Own Platforms\n- Depository Services for Stock Exchanges with Own Platforms and National Terminals\n- Depository Services for Stock Exchanges with Own Platforms and Own Platforms\n- Depository Services for Stock Exchanges with Own Platforms and Own",
+      "context_ids": [
+        "CIR/MRD/DMS/40/2010#preamble#0",
+        "CIR/MRD/DP/42/2010#preamble#0",
+        "CIR/MRD/DSA/10/2010#2. This Master Circular consolidates the circulars/direction#2",
+        "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90#21. SEBI/MIRSD/MASTER CIR-04/2010 Master Circular on Oversig#2366",
+        "CIR/MRD/DSA/SE/43/2010#preamble#0",
+        "SEBI/HO/DDHS/PoD1/P/CIR/2023/119#7.1. Disseminate the provisions of this circular on their we#9",
+        "SEBI/HO/DDHS/DDHS-PoD/P/CIR/2025/0000000137#7.3. put in place necessary systems and infrastructure for i#10",
+        "CIR/MRD/DP/41/2010#preamble#0",
+        "CIR/MRD/DP/11/2010#preamble#0",
+        "SEBI/HO/MRD/DP/CIR/P/2016/134#12. Any other Item#221"
+      ]
+    }
+  ]
+}

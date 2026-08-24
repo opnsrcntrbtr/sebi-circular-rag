@@ -1,0 +1,443 @@
+{
+  "spec": "docs/superpowers/specs/2026-08-23-warrant-degeneracy-max-tokens-prereg.md",
+  "endpoint": "parseable-reply rate on the frozen 50-row screen \u2014 gates whether the cohort run happens; not itself a gated metric",
+  "judge_model": "mlx-community/Qwen2.5-7B-Instruct-4bit",
+  "max_tokens": 1024,
+  "answer_generator": "MLXGenerator",
+  "n_screen": 50,
+  "n_judged": 42,
+  "n_abstained_or_missing_context": 8,
+  "n_parseable": 41,
+  "parseable_rate": 0.976,
+  "floor": 0.8,
+  "verdict": "PROCEED to \u00a74/\u00a76 cohort run",
+  "runtime_s": 739.4,
+  "rows": [
+    {
+      "id": "cra",
+      "task_type": "title_direct",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 6,
+      "reply_chars": 1131,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim by providing the exact title and date of the Master Circular for Credit Rating Agencies, and the purpose of compiling the circu"
+    },
+    {
+      "id": "hn-delist",
+      "task_type": "hard_negative",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 2628,
+      "reply_head": "[\n    {\"warrant\": 0.8, \"reason\": \"The source provides a detailed structure of the reverse book building process for voluntary delisting, which directly supports the claims in the answer. However, the "
+    },
+    {
+      "id": "hn-egr",
+      "task_type": "hard_negative",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 4,
+      "reply_chars": 699,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim about the three tranches of the EGR framework and the trading of EGRs on stock exchanges.\"},\n    {\"warrant\": 0.0, \"reason\": \"Th"
+    },
+    {
+      "id": "hn-settle",
+      "task_type": "hard_negative",
+      "abstained": true,
+      "parseable": null
+    },
+    {
+      "id": "nomination",
+      "task_type": "title_direct",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 7,
+      "reply_chars": 2030,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim by providing the exact text for the communication to be sent to demat account holders and mutual fund unit holders who have not"
+    },
+    {
+      "id": "para-nom",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 2052,
+      "reply_head": "[\n  {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim that nomination is mandatory, but an opt-out declaration is allowed. It also provides the specific forms and formats for submissi"
+    },
+    {
+      "id": "para-parrva",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 2303,
+      "reply_head": "[\n    {\"warrant\": 0.8, \"reason\": \"The source directly supports the claim that a Credit Rating Agency (CRA) may be recognized as a PaRRVA. It also mentions that such a CRA will engage with a recognized"
+    },
+    {
+      "id": "reit",
+      "task_type": "title_direct",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 1950,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim by providing the specific date (July 11, 2025) for which the provisions are incorporated in the Master Circular for REITs.\"},\n "
+    },
+    {
+      "id": "reit_reclass",
+      "task_type": "title_direct",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 2316,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim by providing the exact date (January 1, 2026) and the reclassification of REITs as equity-related instruments for Mutual Funds "
+    },
+    {
+      "id": "secc",
+      "task_type": "title_direct",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 2610,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim by defining the Master Circular as a compilation of all existing/applicable circulars issued by SEBI's Market Regulation Depart"
+    },
+    {
+      "id": "surv",
+      "task_type": "title_direct",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 3143,
+      "reply_head": "[\n    {\"warrant\": 0.8, \"reason\": \"The source directly supports the claim by stating that SEBI has been issuing various circulars for effective surveillance of the securities market. It also mentions t"
+    },
+    {
+      "id": "swagat",
+      "task_type": "title_direct",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 2225,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim by stating the provisions of the circular shall come into force with effect from June 01, 2026.\"},\n    {\"warrant\": 1.0, \"reason"
+    },
+    {
+      "id": "v7-bp-006",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 1812,
+      "reply_head": "[\n  {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim that the approval is valid for 7 calendar days. The text is verbatim and matches the answer's claim exactly.\"},\n  {\"warrant\": 1.0"
+    },
+    {
+      "id": "v7-bp-012",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 3072,
+      "reply_head": "[\n    {\"warrant\": 0.8, \"reason\": \"The source directly supports the claim that idle cash and money parked in liquid funds count toward the returns calculation. It specifies that all cash holdings and i"
+    },
+    {
+      "id": "v7-bp-013",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 1808,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim by listing examples of critical incidents, such as unauthorized access, denial of service, and disruption to critical assets.\"}"
+    },
+    {
+      "id": "v7-bp-017",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 2606,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim by stating that intermediaries/other entities are required to provide the information as mentioned in Annexure 26 to SEBI once "
+    },
+    {
+      "id": "v7-bp-020",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 2506,
+      "reply_head": "[\n    {\"warrant\": 0.8, \"reason\": \"The source directly supports the claim by mentioning the introduction of the accredited investor framework and the simplification of requirements for accreditation, w"
+    },
+    {
+      "id": "v7-bp-025",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 2419,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim that a foreign bank would be considered 'appropriately regulated' if it is regulated by the unified financial sector regulator "
+    },
+    {
+      "id": "v7-bp-029",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 9,
+      "reply_chars": 3030,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim that the unclaimed amount paid by the REIT to the unitholder will be transferred to the investor protection fund (IPF) of the S"
+    },
+    {
+      "id": "v7-bp-030",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 2392,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim by specifying the exact percentages for the allocation of units to institutional investors and other investors in an InvIT's pu"
+    },
+    {
+      "id": "v7-bp-036",
+      "task_type": "body_paraphrase",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 2972,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim that chat logs need to be preserved as official records. It explicitly states that logs for usage of Blogs/Chat forums/Messenge"
+    },
+    {
+      "id": "v7-fn-001",
+      "task_type": "far_negative",
+      "abstained": true,
+      "parseable": null
+    },
+    {
+      "id": "v7-fn-006",
+      "task_type": "far_negative",
+      "abstained": true,
+      "parseable": null
+    },
+    {
+      "id": "v7-hn-001",
+      "task_type": "hard_negative",
+      "abstained": true,
+      "parseable": null
+    },
+    {
+      "id": "v7-hn-008",
+      "task_type": "hard_negative",
+      "abstained": true,
+      "parseable": null
+    },
+    {
+      "id": "v7-hn-010",
+      "task_type": "hard_negative",
+      "abstained": true,
+      "parseable": null
+    },
+    {
+      "id": "v7-hn-026",
+      "task_type": "hard_negative",
+      "abstained": true,
+      "parseable": null
+    },
+    {
+      "id": "v7-hn-030",
+      "task_type": "hard_negative",
+      "abstained": true,
+      "parseable": null
+    },
+    {
+      "id": "v7-ls-005",
+      "task_type": "lineage_supersession",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 2883,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim that data should be made available free of charge for viewing, downloading, and value addition purposes. The language and scope"
+    },
+    {
+      "id": "v7-ls-013",
+      "task_type": "lineage_supersession",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 8,
+      "reply_chars": 3062,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim by listing the five categories of SEBI regulated entities: Market Infrastructure Institutions (MIIs), Qualified REs, Mid-size R"
+    },
+    {
+      "id": "v7-ls-018",
+      "task_type": "lineage_supersession",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 9,
+      "reply_chars": 2122,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim by specifying the exact circumstances under which pro-rata rights are not required. It matches the modality, scope, and tempora"
+    },
+    {
+      "id": "v7-ls-027",
+      "task_type": "lineage_supersession",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 2752,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim by explicitly stating that multi-factor authentication (MFA) should be enabled for all users accessing critical systems. The so"
+    },
+    {
+      "id": "v7-ls-034",
+      "task_type": "lineage_supersession",
+      "abstained": false,
+      "parseable": false,
+      "n_contexts": 10,
+      "reply_chars": 2257,
+      "reply_head": "[\n    {\"warrant\": 0.8, \"reason\": \"The source directly supports the claim by mentioning the 'ISIL (Da\\'esh) & Al-Qaida Sanctions List' as one of the lists that must not be on. However, it does not expl"
+    },
+    {
+      "id": "v7-ls-037",
+      "task_type": "lineage_supersession",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 2002,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim by defining the metric as Net Distributable Cash Flow (NDCF) and providing the framework for its computation at HoldCo/SPV leve"
+    },
+    {
+      "id": "v7-ls-038",
+      "task_type": "lineage_supersession",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 9,
+      "reply_chars": 1962,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim by specifying the new deadline of October 31st for annual audited accounts as per the circular dated December 10, 2024.\"},\n    "
+    },
+    {
+      "id": "v7-mh-001",
+      "task_type": "multi_hop",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 3589,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly states that the timeline for implementation of the January 2025 circular has been deferred to a further date to be notified separately.\"},\n    {\"w"
+    },
+    {
+      "id": "v7-mh-004",
+      "task_type": "multi_hop",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 3522,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim that the Market Data Advisory Committee (MDAC) developed the revised four-level industry classification framework. It also ment"
+    },
+    {
+      "id": "v7-mh-007",
+      "task_type": "multi_hop",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 1977,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim by stating that the regulated entity shall provide the option to surviving joint holder(s) to transmit the assets held, into an"
+    },
+    {
+      "id": "v7-mh-011",
+      "task_type": "multi_hop",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 2508,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly states the deadline for the SFA to publish implementation standards for permissible differential rights, which is January 15, 2025. It also mentio"
+    },
+    {
+      "id": "v7-nt-010",
+      "task_type": "numeric_table",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 3069,
+      "reply_head": "```json\n[\n    {\"warrant\": 0.8, \"reason\": \"The source directly supports the claim with the specific number of INR 200 crore for agricultural and agri-processed commodities. However, it is noted that th"
+    },
+    {
+      "id": "v7-nt-018",
+      "task_type": "numeric_table",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 2202,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim that the excess amount must be refunded within 6 weeks of the NFO closure. The source is still in force and uses the same modal"
+    },
+    {
+      "id": "v7-nt-019",
+      "task_type": "numeric_table",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 2412,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim with the exact penalty structure and the specific percentages. The source is still in force as it is a circular from SEBI. The "
+    },
+    {
+      "id": "v7-nt-026",
+      "task_type": "numeric_table",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 3101,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim by specifying the 'past three years immediately preceding the date of filing of the follow-on offer document' for disclosure of"
+    },
+    {
+      "id": "v7-nt-028",
+      "task_type": "numeric_table",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 3793,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim that at least 50% of non-promoter holding must be held in dematerialized form. The source is from a SEBI master circular and us"
+    },
+    {
+      "id": "v7-nt-029",
+      "task_type": "numeric_table",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 8,
+      "reply_chars": 1647,
+      "reply_head": "[{\"warrant\": 1.0, \"reason\": \"The source directly states the weightage assigned to 'Roles, Responsibilities and Duties of Statutory Committees' in the external evaluation of MII Statutory Committee per"
+    },
+    {
+      "id": "v7-rb-005",
+      "task_type": "repealed_basis",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 2294,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim by referencing Section 11(1) of the Securities and Exchange Board of India Act, 1992, and Regulation 77 of SEBI (Mutual Funds) "
+    },
+    {
+      "id": "v7-rb-009",
+      "task_type": "repealed_basis",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 2862,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim that the minimum subscription amount for transaction charges is INR 10,000. It also confirms that the regulation underpinning t"
+    },
+    {
+      "id": "v7-rb-014",
+      "task_type": "repealed_basis",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 8,
+      "reply_chars": 1782,
+      "reply_head": "[\n    {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim that the 'margin pledge' mechanism was first mandated under the circular dated February 25, 2020. It also confirms that the reg"
+    },
+    {
+      "id": "v7-rb-019",
+      "task_type": "repealed_basis",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 1954,
+      "reply_head": "[\n  {\"warrant\": 1.0, \"reason\": \"The source directly supports the claim that the rule is still in force as of March 20, 2026, and provides the relevant SEBI Circular No. and date.\"},\n  {\"warrant\": 1.0,"
+    },
+    {
+      "id": "v7-td-003",
+      "task_type": "title_direct",
+      "abstained": false,
+      "parseable": true,
+      "n_contexts": 10,
+      "reply_chars": 2585,
+      "reply_head": "[\n  {\"warrant\": 0.8, \"reason\": \"The source directly supports the claims made in the answer. It lists the sections covered in the 2010 master circular for stock exchanges and depositories.\"},\n  {\"warra"
+    }
+  ]
+}
