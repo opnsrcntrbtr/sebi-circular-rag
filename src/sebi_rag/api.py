@@ -142,10 +142,15 @@ def build_default_pipeline() -> RAGPipeline:
             load_records(s.corpus_path), load_regulations(regs_path))
     from .generate import citation_scorer_for
     from .paraphrase_rescue import query_rewriter_for
+    from .rerank import retrieval_reranker_for
     ce = CrossEncoderReranker(**ck)
+    # ADR-004: reranker_model chooses what orders the RETRIEVAL pool only.
+    # citation_scorer_for below is always built against `ce` directly, so a
+    # non-default reranker_model never silently changes citation scoring too.
+    retrieval_reranker = retrieval_reranker_for(s.reranker_model, ce)
     return RAGPipeline(
         retriever=retriever,
-        reranker=ce,
+        reranker=retrieval_reranker,
         generator=generator,
         lineage=lineage,
         abstain_threshold=s.abstain_threshold,

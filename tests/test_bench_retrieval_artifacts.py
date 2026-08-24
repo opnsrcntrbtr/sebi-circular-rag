@@ -40,6 +40,17 @@ def test_bench_retrieval_can_bench_an_alternate_index():
         "loads the hardcoded production index, ignoring --index-dir")
 
 
+def test_bench_retrieval_exposes_and_records_the_reranker_choice():
+    """ADR-004: benchmarking jina-reranker-v3-mlx against the production
+    cross-encoder needs a way to bench *which reranker orders the pool* — the
+    reranker was previously hardcoded, so no arm could measure an alternative
+    without editing the script."""
+    src = SCRIPT.read_text(encoding="utf-8")
+    assert '"--reranker"' in src, "cannot choose an alternate reranker"
+    assert "JinaMLXReranker" in src, "jina candidate not wired in"
+    assert re.search(r'"reranker":\s*', src), "reranker choice not recorded in run metadata"
+
+
 def test_bench_retrieval_exposes_and_records_the_iv2_expansion_arm():
     # iv2 is otherwise unmeasurable: glossary expansion is unconditional in
     # HybridRetriever, so the control arm needs a flag AND that flag must land

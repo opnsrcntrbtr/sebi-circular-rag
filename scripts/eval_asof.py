@@ -35,7 +35,7 @@ from sebi_rag.eval_asof import (  # noqa: E402
 from sebi_rag.generate import ExtractiveStubGenerator  # noqa: E402
 from sebi_rag.lineage import Lineage, load_records  # noqa: E402
 from sebi_rag.pipeline import RAGPipeline  # noqa: E402
-from sebi_rag.rerank import CrossEncoderReranker  # noqa: E402
+from sebi_rag.rerank import CrossEncoderReranker, retrieval_reranker_for  # noqa: E402
 from sebi_rag.retrieve import HybridRetriever  # noqa: E402
 from sebi_rag.settings import Settings  # noqa: E402
 
@@ -45,12 +45,16 @@ ck = _compute_kwargs(s)
 emb = BGEM3Embedder(**ck)
 retr = HybridRetriever.load(s.index_dir, emb)
 rer = CrossEncoderReranker(**ck)
+# ADR-004: must be the same shared reranker_model decision api.py uses, or
+# this silently keeps testing bge-reranker-v2-m3 after production switches —
+# caught 2026-08-24 when a post-adoption run's own metadata still said bge.
+retrieval_reranker = retrieval_reranker_for(s.reranker_model, rer)
 lin = Lineage.load(Path(s.index_dir) / "lineage.json")
 recs = load_records(s.corpus_path)
 dates = {r["circular_number"]: r.get("issue_date", "") for r in recs}
 
 pipeline = RAGPipeline(
-    retriever=retr, reranker=rer, generator=ExtractiveStubGenerator(),
+    retriever=retr, reranker=retrieval_reranker, generator=ExtractiveStubGenerator(),
     abstain_threshold=s.abstain_threshold, lineage=lin,
 )
 
@@ -70,7 +74,8 @@ report = build_report(selector_results, pipeline_results, run_metadata(
     run_name=f"asof-{run_name}",
     models={"embedder": "BAAI/bge-m3",
             "retriever": "FAISS+BM25/RRF",
-            "reranker": "BAAI/bge-reranker-v2-m3",
+            "reranker": ("jinaai/jina-reranker-v3-mlx" if s.reranker_model == "jina"
+                        else "BAAI/bge-reranker-v2-m3"),
             "generator": "ExtractiveStubGenerator"},
     params={"abstain_threshold": s.abstain_threshold},
     started_at=started,

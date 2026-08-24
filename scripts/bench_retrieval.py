@@ -83,6 +83,11 @@ def main() -> None:
     # describes a stage the user never sees.
     ap.add_argument("--rerank", action="store_true",
                     help="measure the cross-encoder reranked order, as production serves it")
+    # ADR-004: the reranker was hardcoded to CrossEncoderReranker, so no arm
+    # could bench an alternative without editing this script.
+    ap.add_argument("--reranker", choices=["crossencoder", "jina"], default="crossencoder",
+                    help="which reranker orders the pool (--rerank must also be set "
+                         "for this to affect the measured order)")
     args = ap.parse_args()
 
     started = time.time()
@@ -126,9 +131,17 @@ def main() -> None:
         index_dir = Path(args.index_dir) if args.index_dir else ROOT / "data" / "index"
         retr = HybridRetriever.load(index_dir, emb)
         lin = build_lineage(load_records(ROOT / "data" / "corpus" / "circulars.jsonl"))
+        if args.reranker == "jina":
+            from sebi_rag.rerank import JinaMLXReranker
+
+            reranker = JinaMLXReranker()
+            reranker_name = "jinaai/jina-reranker-v3-mlx"
+        else:
+            reranker = CrossEncoderReranker(**ck)
+            reranker_name = "BAAI/bge-reranker-v2-m3"
         pipeline = RAGPipeline(
             retriever=retr,
-            reranker=CrossEncoderReranker(**ck),
+            reranker=reranker,
             generator=ExtractiveStubGenerator(),
             lineage=lin,
         )
@@ -138,7 +151,7 @@ def main() -> None:
         models = {
             "embedder": "BAAI/bge-m3",
             "retriever": "FAISS+BM25/RRF",
-            "reranker": "BAAI/bge-reranker-v2-m3",
+            "reranker": reranker_name,
         }
 
     if args.no_expand:

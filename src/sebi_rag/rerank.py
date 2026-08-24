@@ -112,6 +112,80 @@ class Qwen3MLXReranker:
         return scored
 
 
+# --- jina-reranker-v3-mlx — ADR-004 benchmark candidate (2026-08-24) ---------
+# Listwise reranker: causal self-attention across the WHOLE candidate set in one
+# forward pass ("last but not late interaction", arXiv:2509.25085), vs
+# CrossEncoderReranker's pointwise (query, doc) scoring. Official MLX port,
+# BEIR nDCG@10 61.85 vs bge-reranker-v2-m3's 56.51 in the paper's own benchmark
+# (same 0.6B weight class) — a hypothesis this ADR's benchmark tests on SEBI
+# data, not evidence on its own. CC BY-NC 4.0 (weights and the vendor's
+# reference inference code) — non-commercial use only.
+
+class JinaMLXReranker:
+    """jina-reranker-v3-mlx wrapped to this project's Reranker protocol.
+
+    The vendor ships model weights alongside their own inference module
+    (rerank.py, not a standard mlx_lm-loadable causal LM — it adds an MLP
+    projector and custom listwise prompt formatting) rather than a pip
+    package. This loads that module dynamically from the downloaded snapshot,
+    the same way any trust_remote_code model's code is treated as a model
+    asset rather than vendored source — no copy of Jina's code lives in this
+    repo.
+
+    Benchmark candidate only (ADR-004); production baseline remains
+    CrossEncoderReranker until benchmark evidence says otherwise (D1/D2's
+    bar: >=10% measurable benefit, no recall regression).
+    """
+
+    def __init__(self, model_id: str = "jinaai/jina-reranker-v3-mlx") -> None:
+        import importlib.util
+
+        from huggingface_hub import snapshot_download
+
+        snapshot_dir = snapshot_download(model_id)
+        spec = importlib.util.spec_from_file_location(
+            "_jina_reranker_v3_mlx", f"{snapshot_dir}/rerank.py")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        self._reranker = module.MLXReranker(
+            model_path=snapshot_dir,
+            projector_path=f"{snapshot_dir}/projector.safetensors")
+
+    def rerank(self, query: str, candidates: list[Chunk]) -> list[tuple[Chunk, float]]:
+        if not candidates:
+            return []
+        docs = [c.text for c in candidates]
+        results = self._reranker.rerank(query, docs)
+        # The vendor's results are pre-sorted and carry 'index' into `docs` —
+        # map back by index rather than assuming position, since a listwise
+        # reranker's output order IS the ranking, not the input order.
+        by_index = {r["index"]: float(r["relevance_score"]) for r in results}
+        scored = [(c, by_index.get(i, 0.0)) for i, c in enumerate(candidates)]
+        scored.sort(key=lambda cs: -cs[1])
+        return scored
+
+
+def retrieval_reranker_for(model: str, bge_reranker: "Reranker",
+                           jina_loader=None) -> "Reranker":
+    """ADR-004: the single decision for which model orders the RETRIEVAL pool
+    (pipeline.reranker). Every pipeline builder routes through this so eval and
+    production can never disagree about which reranker produced an ordering —
+    the same guarantee citation_scorer_for gives for citation scoring.
+
+    Deliberately separate from citation_scorer_for: R1 (2026-08-23) showed the
+    citation-scoring role can fail independently of retrieval-reranking
+    quality, so citation_scorer_for is always built against `bge_reranker`
+    directly and is never routed through this function's choice.
+    """
+    if model == "bge":
+        return bge_reranker
+    if model == "jina":
+        if jina_loader is None:
+            jina_loader = JinaMLXReranker
+        return jina_loader()
+    raise ValueError(f"unknown reranker model: {model!r}")
+
+
 class CrossEncoderReranker:
     """Production reranker: bge-reranker-v2-m3 via sentence-transformers
     CrossEncoder on MPS (validated Step 10). NOTE: FlagReranker is incompatible

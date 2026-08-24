@@ -488,8 +488,11 @@ def run_retrieval_benchmark(
     top_n: int = 50,
     run_name: str = "offline-smoke",
 ) -> dict[str, Any]:
+    from .eval import ndcg_at_k
+
     rankings: dict[str, list[tuple[str, float]]] = {}
     recall10: list[float] = []
+    ndcg10: list[float] = []
     latencies: list[float] = []
     unjudged: list[str] = []
     for item in golden:
@@ -507,6 +510,11 @@ def run_retrieval_benchmark(
             docs = _unique(_doc(c.id) for c, _ in retrieved)
             hit = len(set(docs[:10]) & relevant)
             recall10.append(hit / len(relevant))
+            # Same deduped, doc-level ranking recall used — a reranker changes
+            # ORDER within top-10, which recall@10 (set membership) cannot see
+            # (ADR-004; the iv-series already learned recall@10 can mask a
+            # reranker's whole effect).
+            ndcg10.append(ndcg_at_k(docs, relevant, 10))
     mean = lambda xs: sum(xs) / len(xs) if xs else 0.0
     return {
         "run_name": run_name,
@@ -515,6 +523,7 @@ def run_retrieval_benchmark(
         "n_unjudged": len(unjudged),
         "unjudged_ids": unjudged,
         "recall_at_10": mean(recall10),
+        "ndcg_at_10": mean(ndcg10),
         "avg_retrieval_latency_s": mean(latencies),
         "rankings": rankings,
     }

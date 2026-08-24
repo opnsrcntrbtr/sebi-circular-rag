@@ -43,7 +43,7 @@ from sebi_rag.generate import SubjectSimJudge, citation_scorer_for, eval_generat
 from sebi_rag.ingest_pdf import injection_scan  # noqa: E402
 from sebi_rag.lineage import build_lineage, load_records  # noqa: E402
 from sebi_rag.pipeline import RAGPipeline  # noqa: E402
-from sebi_rag.rerank import CrossEncoderReranker  # noqa: E402
+from sebi_rag.rerank import CrossEncoderReranker, retrieval_reranker_for  # noqa: E402
 from sebi_rag.retrieve import HybridRetriever  # noqa: E402
 from sebi_rag.settings import Settings  # noqa: E402
 
@@ -60,6 +60,12 @@ lin = build_lineage(recs)
 emb = BGEM3Embedder(device="mps")
 retr = HybridRetriever.load(s.index_dir, emb)
 rer = CrossEncoderReranker(device="mps")
+# ADR-004: which model orders the RETRIEVAL pool must be the same shared
+# decision api.py's build_default_pipeline() uses, or this script silently
+# measures a configuration production no longer serves. citation_scorer_for
+# below is always built against `rer` (bge) directly regardless — citation
+# scoring is deliberately unaffected by reranker_model (Arm 1/Arm 2 decoupling).
+retrieval_reranker = retrieval_reranker_for(s.reranker_model, rer)
 _sect = os.environ.get("SEBI_RAG_SECT_THRESHOLD", "0.60")
 judge = SubjectSimJudge(
     emb, threshold=float(os.environ.get("SEBI_RAG_SUBJ_THRESHOLD", "0.42")),
@@ -68,7 +74,7 @@ judge = SubjectSimJudge(
 # HybridRetriever.build() and would re-embed the whole corpus instead of
 # using the persisted index.
 pipeline = RAGPipeline(
-    retriever=retr, reranker=rer,
+    retriever=retr, reranker=retrieval_reranker,
     generator=eval_generator_for(s.eval_generator, s.mlx_model),
     abstain_threshold=s.abstain_threshold, lineage=lin, judge=judge,
     citation_scorer=citation_scorer_for(s.citation_scorer_enabled, rer,

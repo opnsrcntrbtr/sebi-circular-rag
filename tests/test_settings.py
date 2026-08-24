@@ -7,7 +7,8 @@ ENV_KEYS = ["SEBI_RAG_GENERATOR", "SEBI_RAG_TOP_K", "SEBI_RAG_RATE_PER_MIN",
             "SEBI_RAG_TIMEOUT_S", "SEBI_RAG_MLX_MODEL",
             "SEBI_RAG_DEVICE", "SEBI_RAG_USE_FP16", "SEBI_RAG_ENCODE_BATCH_SIZE",
             "SEBI_RAG_EMBED_BACKEND", "SEBI_RAG_RERANK_BACKEND",
-            "SEBI_RAG_CITATION_SCORER_ENABLED", "SEBI_RAG_CITATION_MARGIN"]
+            "SEBI_RAG_CITATION_SCORER_ENABLED", "SEBI_RAG_CITATION_MARGIN",
+            "SEBI_RAG_RERANKER_MODEL"]
 
 
 def _clear(monkeypatch):
@@ -37,6 +38,23 @@ def test_citation_scorer_enabled_env_on(monkeypatch, tmp_path):
     monkeypatch.setenv("SEBI_RAG_CITATION_MARGIN", "0.2")
     s = Settings.load()
     assert s.citation_scorer_enabled is True and s.citation_margin == 0.2
+
+
+def test_reranker_model_defaults_to_bge(monkeypatch, tmp_path):
+    """ADR-001 D1/D2: bge-reranker-v2-m3 remains the baseline reranker unless
+    explicitly switched — a new candidate must never become the silent default."""
+    _clear(monkeypatch)
+    monkeypatch.setenv("SEBI_RAG_CONFIG", str(tmp_path / "none.toml"))
+    s = Settings.load()
+    assert s.reranker_model == "bge"
+
+
+def test_reranker_model_env_override(monkeypatch, tmp_path):
+    _clear(monkeypatch)
+    monkeypatch.setenv("SEBI_RAG_CONFIG", str(tmp_path / "none.toml"))
+    monkeypatch.setenv("SEBI_RAG_RERANKER_MODEL", "jina")
+    s = Settings.load()
+    assert s.reranker_model == "jina"
 
 
 def test_env_overrides(monkeypatch, tmp_path):

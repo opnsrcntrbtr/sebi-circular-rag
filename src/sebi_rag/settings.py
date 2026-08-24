@@ -76,6 +76,15 @@ class Settings:
     citation_margin: float = 0.35       # margin for select_citations (sigmoid scale; calibrated 2026-08-04)
     citation_min_keep: int = 1          # floor on kept citations (B' collapse guard)
     citation_scorer_backend: str = "reranker"  # reranker | nli (see attribution.py)
+    # ADR-004: which model orders the RETRIEVAL pool (pipeline.reranker). Never
+    # affects citation scoring — citation_scorer_for(backend="reranker") is
+    # always built against CrossEncoderReranker regardless of this setting
+    # (Arm 1/Arm 2 decoupling; R1 showed the citation-scoring role fails
+    # independently of retrieval-reranking quality). "jina" also requires
+    # abstain_threshold to be calibrated for its score scale — see
+    # reports/jina-abstain-threshold-calibration-2026-08-24.json; the two
+    # settings are coupled and must be changed together.
+    reranker_model: str = "bge"  # bge | jina
     eval_generator: str = "stub"        # stub | mlx — generator the gate is derived AND measured under
     paraphrase_rescue: bool = False     # rewrite + re-rank below the score floor (prereg 2026-08-19)
     spaces: SpacesSettings | None = None  # populated only by load_spaces()
@@ -109,6 +118,7 @@ class Settings:
             citation_margin=float(_get("citation_margin", 0.35, "SEBI_RAG_", svc)),
             citation_min_keep=int(_get("citation_min_keep", 1, "SEBI_RAG_", svc)),
             citation_scorer_backend=str(_get("citation_scorer_backend", "reranker", "SEBI_RAG_", svc)),
+            reranker_model=str(_get("reranker_model", "bge", "SEBI_RAG_", svc)),
             eval_generator=str(_get("eval_generator", "stub", "SEBI_RAG_", svc)),
             paraphrase_rescue=_as_bool(_get("paraphrase_rescue", False, "SEBI_RAG_", svc)),
         )

@@ -19,7 +19,7 @@ from sebi_rag.embeddings import HashEmbedder
 from sebi_rag.generate import ExtractiveStubGenerator
 from sebi_rag.pipeline import RAGPipeline
 from sebi_rag.rerank import LexicalReranker
-from sebi_rag.segment import CircularMeta, hierarchical_chunk
+from sebi_rag.segment import Chunk, CircularMeta, hierarchical_chunk
 
 
 class TestReadTrecRun:
@@ -97,6 +97,46 @@ class TestPerQueryRecall:
         scores = per_query_recall(read_trec_run(p), golden)
         replayed = sum(scores.values()) / len(scores)
         assert replayed == pytest.approx(result["recall_at_10"])
+
+
+class TestRetrievalBenchmarkNdcg:
+    """ADR-004: a reranker swap changes ORDER within top-10, which recall@10
+    (set membership only) cannot see — the iv-series already learned this the
+    hard way ("recall@10 is ceiling-limited... was masking all effects").
+    `bench_retrieval.py --rerank` needs ndcg_at_10 to be a meaningful A/B."""
+
+    class _FixedOrderReranker:
+        """Always returns the SAME doc order regardless of query — deterministic,
+        so ndcg_at_10 is hand-computable rather than depending on real ranking."""
+
+        def rerank(self, query, candidates):
+            order = {"B/2": 0, "A/1": 1}  # relevant doc (A/1) placed SECOND
+            return sorted(((c, 1.0) for c in candidates),
+                         key=lambda cs: order.get(cs[0].doc_id, 99))
+
+    def test_ndcg_at_10_is_lower_than_recall_when_the_relevant_doc_is_not_first(self):
+        chunks = [
+            Chunk(id="A/1#s#0", doc_id="A/1", section="s",
+                 text="nomination of a beneficiary for demat accounts"),
+            Chunk(id="B/2#s#0", doc_id="B/2", section="s",
+                 text="periodic reporting requirements for stock brokers"),
+        ]
+        pipeline = RAGPipeline.build(
+            chunks=chunks, embedder=HashEmbedder(dim=8),
+            reranker=self._FixedOrderReranker(), generator=ExtractiveStubGenerator(),
+        )
+        golden = [{"id": "q", "query": "x", "relevant_circulars": ["A/1"], "abstain": False}]
+
+        result = run_retrieval_benchmark(pipeline, golden, run_name="t")
+
+        # relevant doc is within top-10 (rank 2 of 2) -> recall@10 is perfect...
+        assert result["recall_at_10"] == pytest.approx(1.0)
+        # ...but it isn't first, so nDCG@10 (rank-sensitive) must show the cost
+        # recall@10 cannot: DCG = 1/log2(3), IDCG = 1/log2(2).
+        import math
+        expected = (1.0 / math.log2(3)) / (1.0 / math.log2(2))
+        assert result["ndcg_at_10"] == pytest.approx(expected)
+        assert result["ndcg_at_10"] < result["recall_at_10"]
 
 
 class TestFrameGuard:

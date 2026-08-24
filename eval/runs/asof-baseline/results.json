@@ -51,7 +51,7 @@
       "id": "asof-p1",
       "mode": "pipeline",
       "passed": true,
-      "detail": "citations=['SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/136#4. Based on representation from the AIF industry requesting #5', 'SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/128#8.3. Existing Angel Funds shall disclose such methodology in#26', 'SEBI/HO/AFD-1/AFD-1-PoD/P/CIR/2024/39#2. Annexure B - Information with respect to disclosures in t#426', 'SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90#2005. Further, in this regard, circulars issued by SEBI from#318']"
+      "detail": "citations=['SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/136#4. Based on representation from the AIF industry requesting #5', 'SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/128#8.3. Existing Angel Funds shall disclose such methodology in#26', 'SEBI/HO/AFD-1/AFD-1-PoD/P/CIR/2024/39#2. Annexure B - Information with respect to disclosures in t#425', 'SEBI/HO/IMD/IMD-PoD-1/P/CIR/2024/90#2005. Further, in this regard, circulars issued by SEBI from#318']"
     },
     {
       "id": "asof-p2",
@@ -63,19 +63,19 @@
       "id": "asof-p3",
       "mode": "pipeline",
       "passed": true,
-      "detail": "citations=['SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/130#8. This circular is available on SEBI website at www.sebi.go#8', 'SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#31. If the rights and obligations of the parties hereto are #645', 'SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/91#20.3. The format of the form to be filed by nominee/claimant#189', 'SEBI/HO/MIRSD/POD-1/P/CIR/2024/37#20.3. The format of the form to be filed by nominee/claimant#182', 'SEBI/HO/MIRSD/POD-1/P/CIR/2023/70#20.3. The format of the form to be filed by nominee/claimant#176']"
+      "detail": "citations=['SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/130#7. This circular is issued in exercise of powers conferred u#7', 'SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#31. If the rights and obligations of the parties hereto are #645', 'SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/91#3) DD / MM / YYYY#634', 'SEBI/HO/OIAE/OIAE_IAD-3/P/ON/2025/01650#2.4. The nominees(s) shall receive the assets of deceased so#15', 'CIR/MRD/DP/6/2015#31. If the rights and obligations of the parties hereto are #66']"
     },
     {
       "id": "asof-p4",
       "mode": "pipeline",
       "passed": true,
-      "detail": "citations=['HO/38/13/(4)2026-MIRSD-POD/I/4298/2026#22.1. SEBI has streamlined the process of appointing nominee#214', 'SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#31. If the rights and obligations of the parties hereto are #645', 'SEBI/HO/DDHS/DDHS-PoD-1/P/CIR/2025/0000000103#13. Claim by legal heir/ successor/ nominee: The aforementio#386', 'SEBI/HO/OIAE/OIAE_IAD-3/P/ON/2025/01650#2.5. Legal heir(s) of nominee shall not be eligible to inher#16', 'CIR/MRD/DP/6/2015#31. If the rights and obligations of the parties hereto are #66']"
+      "detail": "citations=['HO/38/13/(4)2026-MIRSD-POD/I/4298/2026#22.5. The procedural requirements for transmission of securi#218', 'SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168#31. If the rights and obligations of the parties hereto are #645', 'SEBI/HO/OIAE/OIAE_IAD-3/P/ON/2025/01650#2.4. The nominees(s) shall receive the assets of deceased so#15', 'CIR/MRD/DP/6/2015#31. If the rights and obligations of the parties hereto are #66', 'SEBI/HO/MIRSD/MIRSD-PoD-1/P/CIR/2024/164#7. This circular is issued in exercise of powers conferred u#8']"
     },
     {
       "id": "asof-p5",
       "mode": "pipeline",
       "passed": true,
-      "detail": "citations=['SEBI/HO/MRD/MRD-RAC-2/P/CIR/2022/141#1. Securities and Exchange Board of India (Issue of Capital #1', 'SEBI/HO/CFD/CFD-PoD-1/P/CIR/2025/129#preamble#0', 'SEBI/HO/CFD/PoD-1/P/CIR/2025/33#preamble#0', 'SEBI/HO/CFD/PoD-1/P/CIR/2024/0060#2. In addition to the Self-Regulatory Organization under the#2']"
+      "detail": "citations=['SEBI/HO/MRD/MRD-RAC-2/P/CIR/2022/141#1. Securities and Exchange Board of India (Issue of Capital #1', 'SEBI/HO/CFD/PoD-1/P/CIR/2025/33#preamble#0', 'SEBI/HO/CFD/CFD-PoD-1/P/CIR/2025/129#2. Based on the recommendations of Social Stock Exchange Adv#2', 'SEBI/HO/CFD/PoD-1/P/CIR/2024/0060#1. In terms of Regulation 292A(f) of the Securities and Exch#1']"
     },
     {
       "id": "asof-p6",
@@ -87,41 +87,41 @@
       "id": "asof-p7",
       "mode": "pipeline",
       "passed": true,
-      "detail": "citations=['SEBI/HO/ITD-1/ITD_VIAP/P/CIR/2025/131#5. This circular is available on SEBI website at www.sebi.go#5', 'SEBI/HO/ITD-1/ITD_VIAP/P/CIR/2025/111#6.1. All newly developed/procured digital solutions shall co#39', 'SEBI/HO/MIRSD/SECFATF/P/CIR/2025/74#1. The Hon\u2019ble Supreme Court in its judgement dated April 30#6']"
+      "detail": "citations=['SEBI/HO/ITD-1/ITD_VIAP/P/CIR/2025/131#preamble#0', 'SEBI/HO/ITD-1/ITD_VIAP/P/CIR/2025/111#1.1. The compliance with this circular shall be reviewed and#25', 'SEBI/HO/MIRSD/SECFATF/P/CIR/2025/74#1. All intermediaries registered with SEBI under Section 12 #1']"
     },
     {
       "id": "asof-p8",
       "mode": "pipeline",
       "passed": true,
-      "detail": "citations=['HO/38/12/11(1)2026-MIRSD-POD/I/4360/2026#27. Rights of Persons with Disabilities Act, 2016 and rules #180', 'HO/38/12/11(2)2026-MIRSD-POD/I/4300/2026#29. Rights of Persons with Disabilities Act, 2016 and rules #163', 'HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#15.21.1. AMCs/MFs shall comply with the guidelines for digit#927', 'HO/38/13/(4)2026-MIRSD-POD/I/4298/2026#45.1. The Hon\u2019ble Supreme Court in its judgement dated April#339', 'HO/13/19/13(2)2025-ITD-1_VIAP/I/187/2025#6. This circular is available on SEBI website at www.sebi.go#8']"
+      "detail": "citations=['HO/38/12/11(2)2026-MIRSD-POD/I/4300/2026#29. Rights of Persons with Disabilities Act, 2016 and rules #163', 'HO/38/12/11(1)2026-MIRSD-POD/I/4360/2026#27. Rights of Persons with Disabilities Act, 2016 and rules #180', 'HO/24/13/11(1)2026-IMD-POD-1/I/7602/2026#15.21.1. AMCs/MFs shall comply with the guidelines for digit#927', 'HO/13/19/13(2)2025-ITD-1_VIAP/I/187/2025#3. REs are required to carry out the following compliance:#3', 'HO/38/13/(4)2026-MIRSD-POD/I/4298/2026#45.1. The Hon\u2019ble Supreme Court in its judgement dated April#339']"
     },
     {
       "id": "asof-p9",
       "mode": "pipeline",
       "passed": true,
-      "detail": "citations=['SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/126#1. With an objective to enhance ease of doing business for A#1', 'SEBI/HO/AFD-1/AFD-1-PoD/P/CIR/2024/39#28. Whether it is disclosed that co-investment by#365', 'SEBI/HO/AFD/PoD1/CIR/2024/027#2. Accordingly, in terms of provisos to Regulation 16(1)(c) #2']"
+      "detail": "citations=['SEBI/HO/AFD/AFD-POD-1/P/CIR/2025/126#2.1. Managers of AIFs shall make co-investment for an invest#3', 'SEBI/HO/AFD-1/AFD-1-PoD/P/CIR/2024/39#30. Whether it is disclosed that co-investment by#464', 'SEBI/HO/AFD/PoD1/CIR/2024/027#2. Accordingly, in terms of provisos to Regulation 16(1)(c) #2']"
     },
     {
       "id": "asof-p10",
       "mode": "pipeline",
       "passed": true,
-      "detail": "citations=['HO/19/34/11(6)2025-AFD-POD1/I/12928/2026#5.3.3. AIFs shall furnish the sale/divestment details of the#115']"
+      "detail": "citations=['HO/19/34/11(6)2025-AFD-POD1/I/12928/2026#8. This Master Circular is available on SEBI website at www.#8']"
     }
   ],
   "metadata": {
     "run_name": "asof-baseline",
-    "ts": "2026-08-22T05:27:15+0530",
-    "git_commit": "05214bcc3b38542227a4a167dadbf59f94002868",
+    "ts": "2026-08-24T05:35:58+0530",
+    "git_commit": "5c75745ecba71e3992e7e179e0364e1c7029b198",
     "python": "3.12.14",
     "platform": "macOS-26.6.2-arm64-arm-64bit",
     "models": {
       "embedder": "BAAI/bge-m3",
       "retriever": "FAISS+BM25/RRF",
-      "reranker": "BAAI/bge-reranker-v2-m3",
+      "reranker": "jinaai/jina-reranker-v3-mlx",
       "generator": "ExtractiveStubGenerator"
     },
     "params": {
-      "abstain_threshold": 0.05
+      "abstain_threshold": 0.12
     },
     "env": {
       "TOKENIZERS_PARALLELISM": "false",
@@ -130,7 +130,7 @@
       "HF_HUB_DISABLE_XET": "1"
     },
     "corpus_sha256": "1584adcec619e9d33745d4af315a4743571698dc1dcefabbd327c7d94bd485c8",
-    "index_fingerprint": "2dc7248c6e884b2e9be866b5bff4f5dc9b9c3cf9f6643f14c6407abcfa903779",
+    "index_fingerprint": "7c1412ab84faeab964ef2f0e51a356b7f22c6d3ec738bd517fd8d6836688a4d7",
     "golden_sha256": "00999d421a2414693f2c1a27272a40530c062a8eae55fefe78a04d44aff026bb"
   }
 }

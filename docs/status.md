@@ -1,7 +1,7 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-08-23.
+> Last updated: 2026-08-24.
 
 ## Current Snapshot
 
@@ -833,6 +833,59 @@ adopting iv11: the sole surviving exploratory result failed on data that did not
 cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
+
+2026-08-24 — **CORRECTION to the ADR-004 adoption entry below: the reported `eval-asof: 13/13, unchanged from the prior bge baseline` had silently never tested Jina.** Caught during a verification pass (`superpowers:verification-before-completion`), not by inspection at the time. `scripts/eval_asof.py` builds its own `RAGPipeline` directly (same reason `eval_json.py` does — reuses the persisted index) and had `CrossEncoderReranker` hardcoded for `pipeline.reranker`, bypassing `retrieval_reranker_for` entirely — the exact bug already found and fixed in `eval_json.py` earlier the same night, just not checked for in this second script. The run's own metadata proved it: `"reranker": "BAAI/bge-reranker-v2-m3"` in `eval/runs/asof-baseline/results.json`, even though it ran *after* `config.toml` already had `reranker_model = "jina"`. The "13/13, accuracy 1.0" number was real, but it was evidence about bge-reranker-v2-m3 + the Jina-calibrated `abstain_threshold=0.12` applied to bge's much higher score distribution (where 0.12 is a trivially low bar) — not evidence Jina's abstention behavior was fine.
+
+**Fixed and re-verified for real.** Same `retrieval_reranker_for` fix applied to `eval_asof.py`; its metadata reporting corrected to name the actual reranker rather than a hardcoded string; coupling test added (`tests/test_rerank_jina_v3.py`, mirroring the `eval_json.py` one). Full suite re-confirmed green (882 passed, same 4 pre-existing unrelated failures). Re-ran `eval-asof`: metadata now genuinely shows `"reranker": "jinaai/jina-reranker-v3-mlx"` (confirmed also by the "Fetching 18 files" log line, matching Jina's exact repo file count) — **13/13, accuracy 1.0, same result, now actually evidence for it.**
+
+**What this does and doesn't change.** The full `eval_json.py` gate run reported below (`floors_ok: true`) is unaffected — it was fixed *before* it ran, and its own log independently shows the same "Fetching 18 files" confirmation, so that evidence stands as originally reported. Only the `eval-asof` claim needed correction. No other regression-suite claim in the entry below has an equivalent unverified gap — `make test`, `validate-corpus`, and the full gate run route through code paths that were checked.
+
+2026-08-24 — **ADR-004 ADOPTED: jina-reranker-v3-mlx is now the production retrieval reranker, by explicit owner override of the preregistered ≥10% bar. Full regression suite green, `floors_ok: true`.** ADR revision `docs/adr-004-reranker-candidate-reassessment-2026-08.md` §Owner override; prereg addendum `docs/superpowers/specs/2026-08-24-jina-reranker-v3-prereg.md` §6. The 2026-08-24 Arm 1 REJECT entry immediately below is left as-is — this adoption does not retroactively change what was measured or what the preregistered rule said about it.
+
+**Owner rationale (recorded in full in the ADR):** the Arm 1 result was positive on both metrics with no regression, just below a self-imposed discipline bar rather than negative or ambiguous; the candidate's claims were verified against primary sources (arXiv:2509.25085, `jinaai/jina-reranker-v3-mlx` model card/file listing) before adoption, not after. New criterion in force for reranker candidates going forward: positive delta on recall@10 or nDCG@10, no regression on either — recorded in the ADR, this status entry only reports the consequence.
+
+**Score-scale recalibration, required before shipping (not optional).** jina-reranker-v3's scores are not bge-reranker-v2-m3's: median top-score 0.45 vs 0.98, min -0.058 vs 0.0001 (can go negative; bge never does — measured on this same golden_v7 cohort, `eval/runs/reranker-jina-v3-{control,treatment}`). The old `abstain_threshold=0.05` was calibrated for bge's distribution and would have barely fired on Jina's (its own p10 is 0.19). Swept fresh via `scripts/analysis/jina_abstain_threshold_calibration.py` (`reports/jina-abstain-threshold-calibration-2026-08-24.json`, rerank_top computed exactly as `answer_with_abstention` sees it — retrieve → jina.rerank → demote_superseded). ⚠️ The script's automatic "knee" picker was wrong on first use — it optimized for catching all 41 true abstentions and landed on 0.355, costing 101 of 219 false abstentions (46%); caught and rejected before shipping, not after. Owner picked from the real curve instead: **0.12**, catching 25 of 41 true abstentions at a cost of 1 of 219 false abstentions (bge's 0.05: 29/41 at 2/204 — Jina's abstain/answerable populations separate less cleanly on this signal, so this trades catch rate for an even lower false-abstention cost).
+
+**Infrastructure fix found and closed while wiring adoption: `eval_json.py` was NOT routing through the shared reranker seam.** It constructs its own `RAGPipeline` directly (to reuse the persisted index) and had `CrossEncoderReranker` hardcoded for `pipeline.reranker` — meaning it would have silently kept measuring bge-reranker-v2-m3 even after production switched to Jina, exactly the "eval and production can disagree" failure `citation_scorer_for`/`eval_generator_for` already exist to prevent. Fixed via the same `retrieval_reranker_for` seam `api.py` uses; `derive_thresholds.py` deliberately left untouched — it fixes the floor-derivation baseline on bge on purpose, so `gate_v7.json`'s floors keep meaning what they said. Coupling test added (`tests/test_rerank_jina_v3.py`), mirroring `test_eval_generator.py`'s existing pattern for the same class of bug on the generator seam.
+
+**Full regression validation, all green, in this order:**
+1. `make test`: 881 passed (up from 866 at session start), same 4 pre-existing `test_segment.py`/`test_export_integration.py` failures confirmed via `git stash` to predate all of tonight's work.
+2. `validate-corpus`: 730 records, 0 violations.
+3. `eval-asof`: 13/13, accuracy 1.0 — unchanged from the prior bge baseline.
+4. Full `eval_json.py` (n=260, real MLX generator) against `eval/golden/gate_v7.json`'s **existing, unchanged** floors:
+
+| metric | floor | prior (bge) | now (jina, thr=0.12) |
+|---|---|---|---|
+| recall_at_k | 0.906 | 0.943 | 0.934 |
+| context_recall | 0.874 | 0.916 | **0.947** |
+| ndcg_at_10 | 0.6512 | 0.697 | 0.688 |
+| citation_recall | 0.8169 | 0.881 | **0.881** (identical) |
+| citation_precision | 0.1577 | 0.192 | 0.181 |
+| abstention_accuracy | 0.9412 | 0.962–0.981 | 0.954 |
+
+`floors_ok: true`. `citation_recall` matching production exactly (0.881 = 0.881) confirms the Arm 1/Arm 2 decoupling: citation scoring is provably untouched by the reranker swap, since it's still scored by the same bge-reranker-v2-m3 instance either way. The small `recall_at_k` dip (0.943→0.934) is not reranker-caused — `score_row`'s `recall_at_k` is pre-rerank fusion-list recall (documented 2026-08-13 as independent of reranking), and this run's chunk count (78,578) matches the pre-existing, already-flagged corpus/chunking drift from this morning's `a89a2f5` commit, unrelated to this work.
+
+**⚠️ What this validation does NOT claim.** `gate_v7.json`'s floors were derived under bge-reranker-v2-m3 as the retrieval reranker; this run clears those floors under Jina, which is meaningful evidence of no regression (especially since Arm 1 already showed Jina's retrieval quality is higher, not lower, on the same axis) but is not the same claim as "the gate was re-derived and re-armed under Jina." Re-deriving tighter, Jina-specific floors via `derive_thresholds.py` remains a separate, not-yet-done future step if wanted — this adoption did not do it and does not claim to have.
+
+**Config shipped:** `config.toml [service] reranker_model = "jina"`, `abstain_threshold = 0.12` (coupled, documented inline — reverting one without the other is wrong). `citation_margin` untouched.
+
+2026-08-24 — **ADR-004 Arm 1: jina-reranker-v3-mlx REJECTED — real, consistent gain on both metrics, neither clears the preregistered 10% bar.** ADR `docs/adr-004-reranker-candidate-reassessment-2026-08.md`, prereg `docs/superpowers/specs/2026-08-24-jina-reranker-v3-prereg.md`. `scripts/bench_retrieval.py --rerank --reranker {crossencoder,jina}` on golden_v7 (n=260, 216 scored, 3 unjudged), same index/pool/golden set for both arms.
+
+| metric | control (bge-reranker-v2-m3) | treatment (jina-reranker-v3-mlx) | Δ absolute | Δ relative | §3 rule (needs ≥10%) |
+|---|---|---|---|---|---|
+| recall_at_10 | 0.9560 | **0.9792** | +0.0231 | **+2.42%** | ❌ below bar |
+| ndcg_at_10 | 0.7191 | **0.7677** | +0.0486 | **+6.76%** | ❌ below bar |
+| avg_retrieval_latency_s | 2.42 | 5.34 | +2.92 | +121% | not gated, reported |
+
+**Both metrics moved in the right direction, by a real margin, with no regression on either — and neither clears the fixed bar.** Per §3/§4 ("If neither metric clears 10% → REJECT, recorded as rejected, not as 'promising, needs tuning'... Lowering the 10% bar because the measured gain is close but under it" is explicitly not permitted), this is recorded as **REJECTED**, not adopted, not revisited at a lower threshold. `ndcg_at_10` (rank-sensitive) moved further than `recall_at_10` (set-membership only) — consistent with the iv-series' 2026-08-12 finding that recall@10 is the less sensitive metric for reranker-only changes — but 6.76% is still well short of 10%. Latency roughly doubled (MLX listwise forward pass over the full pool vs the CPU cross-encoder's pointwise batched scoring); not a factor in the rejection since neither quality metric passed regardless.
+
+**Arm 2 (exploratory citation-scorer check) not run**, per the prereg's own rule: it was gated on Arm 1 passing, to avoid building a measurement for a question Arm 1's result made moot.
+
+**Infrastructure added, useful independent of this outcome:** `JinaMLXReranker` (`rerank.py`, dynamically loads the vendor's own MLX inference module from the downloaded snapshot rather than vendoring it — treated as a model asset, like weights); `bench_retrieval.py --reranker {crossencoder,jina}` (previously hardcoded to the cross-encoder, no arm could bench an alternative); `run_retrieval_benchmark` now reports `ndcg_at_10` alongside `recall_at_10` (previously absent from this path entirely — `eval.py`'s `ndcg_at_k` existed but was never wired in here, so no prior `bench_retrieval.py --rerank` run could see reranker-only ordering effects, only set-membership ones). 3 new tests for the reranker wrapper, 1 for the CLI flag, 1 for the ndcg addition — 874 passed (up from 866), same 4 pre-existing unrelated `test_segment.py`/`test_export_integration.py` failures (confirmed via `git stash` to predate this work, from the same-day `a89a2f5` chunking commit).
+
+**Not shipped:** `config.toml citation_scorer_backend`/reranker config untouched — nothing was ever close enough to adoption to need the guardrail suite (`eval-asof`/`validate-corpus`) beyond the standard test-suite check already run as part of TDD.
+
+**D2's candidate list stands:** Set-Encoder (R4, `docs/research-roadmap-2026-08-19.md`) remains the one architecturally-motivated, permissively-licensed reranker candidate not yet tried — unlike Jina and Qwen3-Reranker (both now rejected), it would require an implementation, not just a benchmark run.
 
 2026-08-23 — **R1 §4/§6 cohort run: REJECTED. W1 reproduces the NLI failure shape the spec explicitly warned about — zero-cite 16→47 — despite a real, substantial precision gain.** Spec `docs/superpowers/specs/2026-08-20-warrant-citation-scorer-prereg.md` §§4-6, amendment `2026-08-23-warrant-degeneracy-max-tokens-prereg.md` (max_tokens=1024). Script `scripts/analysis/warrant_scorer_cohort.py` (3-phase: generate answers once with control citations, judge re-scores the identical (answer, contexts) pair at 7B, report combines and applies §6 mechanically). Report `reports/warrant-scorer-cohort-2026-08-23.json`. Perfect-retrieval cohort recomputed on the live index: **201 of 204** eligible rows (matches R2's recompute on this same index exactly).
 

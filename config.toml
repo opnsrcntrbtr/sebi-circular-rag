@@ -13,7 +13,26 @@ mlx_model = "mlx-community/Qwen2.5-1.5B-Instruct-4bit"
 # clean runs give max 13.8 s / 14.1 s and 0 violations
 # (reports/timeout-tail-disconfound.json). 7B is unblocked on latency grounds.
 top_k = 10                                             # increased from 5: citation_recall 0.772 → 0.888 (doc_id dedup + wider top_k)
-abstain_threshold = 0.05                               # far-domain score floor; near-domain
+# ADR-004 (2026-08-24): reranker_model="jina" orders the RETRIEVAL pool only —
+# citation scoring stays on bge-reranker-v2-m3 regardless (citation_margin
+# below is untouched by this). jina-reranker-v3-mlx measured on golden_v7:
+# recall@10 +2.42%, nDCG@10 +6.76% vs bge-reranker-v2-m3, both positive, no
+# regression — owner-approved acceptance criterion (below the originally
+# preregistered ≥10% bar; see ADR-004 §Owner override and
+# docs/superpowers/specs/2026-08-24-jina-reranker-v3-prereg.md §Addendum).
+reranker_model = "jina"                                # bge | jina
+# COUPLED to reranker_model — changing one without the other is wrong.
+# jina-reranker-v3's score scale is NOT bge's: median top-score 0.45 (bge:
+# 0.98), can go negative (bge: never), so the OLD 0.05 floor barely fires
+# (Jina's own p10 is 0.19). Recalibrated via
+# scripts/analysis/jina_abstain_threshold_calibration.py against golden_v7
+# (reports/jina-abstain-threshold-calibration-2026-08-24.json): 0.12 catches
+# 25 of 41 true abstentions at a cost of 1 of 219 false abstentions (bge's
+# 0.05 catches 29/41 at a cost of 2/204 — Jina's abstain/answerable
+# populations separate less cleanly, so this trades a lower catch rate for an
+# even lower false-abstention cost, per owner decision 2026-08-24). Revert to
+# 0.05 if reranker_model reverts to "bge".
+abstain_threshold = 0.12                               # jina score floor; near-domain
                                                        # abstention = subject-sim gate (SEBI_RAG_GATE)
 superseded_penalty = 0.3                               # demote superseded chunks in rerank
 rate_per_min = 60                                      # per key/IP
@@ -25,7 +44,9 @@ timeout_s = 30                                         # /query budget -> 504
 use_fp16 = false                                       # fp16 on mps/cuda (never bf16); flipped by eval gate
 encode_batch_size = 32                                 # embed/rerank batch size (MPS prefers larger)
 embed_backend = "torch"                                # torch | mlx  (mlx = eval-gated, Phase 2)
-rerank_backend = "torch"                               # torch | mlx  (mlx = eval-gated, Phase 2)
+rerank_backend = "torch"                               # torch | mlx  (mlx = eval-gated, Phase 2) — NOT the reranker_model
+                                                       # choice above; this is a dead placeholder for a future
+                                                       # MLX-native COMPUTE path for the same bge model.
 
 # Generator the gate is BOTH derived and measured under (derive_thresholds.py +
 # eval_json.py route through generate.eval_generator_for). "mlx" = production
