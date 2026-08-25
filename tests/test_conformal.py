@@ -99,3 +99,57 @@ def test_calibration_result_is_a_plain_dataclass():
     r = CalibrationResult(threshold=1.0, target_alpha=0.05, certified_risk_bound=0.05,
                           held_out_risk_estimate=0.02, n=10, method="test")
     assert r.threshold == 1.0 and r.n == 10
+
+
+from sebi_rag.conformal import calibrate_score_floor, calibrate_subject_gate  # noqa: E402
+
+
+def test_calibrate_score_floor_extracts_rerank_top_and_wrong_if_answered():
+    rows = [
+        {"rerank_top": 0.9, "wrong_if_answered": False},
+        {"rerank_top": 0.8, "wrong_if_answered": True},
+        {"rerank_top": 0.3, "wrong_if_answered": True},
+        {"rerank_top": 0.1, "wrong_if_answered": False},
+    ]
+    result = calibrate_score_floor(rows, alpha=0.5)
+    expected = jackknife_plus_quantile(
+        [0.9, 0.8, 0.3, 0.1], [False, True, True, False], alpha=0.5)
+    assert result.threshold == expected.threshold
+    assert result.n == 4
+
+
+def test_calibrate_subject_gate_returns_a_real_scale_threshold():
+    # All rows answerable (would be false abstentions if excluded). Subject_sim values
+    # 0.9, 0.5, 0.3, 0.1 -- calibrate_subject_gate must return a threshold ON THE ORIGINAL
+    # subject_sim scale (positive, in a plausible [0,1]-ish range), not a raw negated value.
+    rows = [
+        {"subject_sim": 0.9, "answerable": True},
+        {"subject_sim": 0.5, "answerable": True},
+        {"subject_sim": 0.3, "answerable": True},
+        {"subject_sim": 0.1, "answerable": True},
+    ]
+    result = calibrate_subject_gate(rows, alpha=0.5)
+    # Every row is a false-abstention risk if excluded (all answerable=True), so ANY
+    # exclusion contributes to risk -- the calibrated threshold must be low enough to
+    # exclude nothing (n=4, alpha=0.5 > floor 1/5=0.2, so some slack exists, but with
+    # every row "wrong", the returned threshold must sit at or below the minimum
+    # subject_sim value to keep the (admitted_wrong+1)/(n+1) bound satisfied for the
+    # smallest achievable excluded-count).
+    assert result.threshold <= 0.5  # sanity: not a huge, nonsensical value
+    assert isinstance(result.threshold, float)
+
+
+def test_calibrate_subject_gate_direction_is_correct_on_a_worked_example():
+    # 5 rows, subject_sim = [0.9, 0.7, 0.5, 0.3, 0.1], all answerable=True (every
+    # exclusion is a false abstention). alpha=0.5, n=5, floor=1/6=0.1667.
+    # Negated scores fed to crc_threshold: [-0.9,-0.7,-0.5,-0.3,-0.1], wrong=[T,T,T,T,T].
+    # risk(lambda) = (admitted_wrong+1)/6 <= 0.5 -> admitted_wrong <= 2.
+    # Candidates ascending: -0.9,-0.7,-0.5,-0.3,-0.1, then max+1=0.9.
+    # At lambda=-0.9: admitted = scores>=-0.9 = all 5 -> admitted_wrong=5, risk=1.0>0.5. Fail.
+    # At lambda=-0.7: admitted = scores in {-0.7,-0.5,-0.3,-0.1} (4) -> risk=5/6>0.5. Fail.
+    # At lambda=-0.5: admitted = 3 rows -> risk=4/6=0.667>0.5. Fail.
+    # At lambda=-0.3: admitted = 2 rows -> risk=3/6=0.5<=0.5. PASS. lambda=-0.3.
+    # real threshold tau = -lambda = 0.3.
+    rows = [{"subject_sim": s, "answerable": True} for s in [0.9, 0.7, 0.5, 0.3, 0.1]]
+    result = calibrate_subject_gate(rows, alpha=0.5)
+    assert result.threshold == pytest.approx(0.3)

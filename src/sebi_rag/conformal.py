@@ -105,3 +105,56 @@ def jackknife_plus_quantile(scores: list[float], wrong: list[bool],
         method=("CRC (arXiv:2208.02814) + leave-one-out data reuse "
                 "(Barber et al. 2021, arXiv:1905.02928)"),
     )
+
+
+def calibrate_score_floor(rows: list[dict], alpha: float) -> CalibrationResult:
+    """Calibrate the score-floor threshold (Settings.abstain_threshold).
+
+    rows: dicts with 'rerank_top' (float, the cross-encoder/reranker top score) and
+    'wrong_if_answered' (bool) -- True if this row's gold label is abstain=True (any
+    answer at all is wrong), OR the row is gold-answerable but its actual production
+    citations missed every relevant document (zero_cite). See design doc Sec 2.3.
+
+    Risk controlled: false-answer rate among admitted (answered) rows. Direct
+    application of jackknife_plus_quantile -- raising the floor only ever removes
+    answered rows, so risk is non-increasing in the threshold already.
+    """
+    scores = [r["rerank_top"] for r in rows]
+    wrong = [r["wrong_if_answered"] for r in rows]
+    return jackknife_plus_quantile(scores, wrong, alpha)
+
+
+def calibrate_subject_gate(rows: list[dict], alpha: float) -> CalibrationResult:
+    """Calibrate the subject-gate threshold (SEBI_RAG_SUBJ_THRESHOLD).
+
+    rows: dicts with 'subject_sim' (float, SubjectSimJudge's score) and 'answerable'
+    (bool, the gold label -- True means this row should NOT be abstained). Caller must
+    restrict `rows` to those where subject_sim was actually computed (i.e. the row
+    passed the score-floor and non-SEBI-domain gates first -- see
+    generate.py:answer_with_abstention, which short-circuits before the judge runs).
+
+    Risk controlled: false-abstention rate among rows the subject gate would exclude
+    (subject_sim below the threshold). This risk is the OPPOSITE monotonicity of the
+    score-floor's: raising the score-floor threshold only removes answered rows (risk
+    non-increasing in the threshold), but raising the subject-gate threshold excludes
+    MORE rows, so false-abstention risk is non-decreasing in the threshold -- the
+    opposite direction jackknife_plus_quantile assumes.
+
+    Fixed by negating the score axis: call jackknife_plus_quantile with
+    scores = [-subject_sim, ...] and wrong = answerable. Its internal "admitted" test
+    becomes -subject_sim[i] >= lambda, i.e. subject_sim[i] <= -lambda; writing
+    tau = -lambda, that is subject_sim[i] <= tau, i.e. EXCLUDED at the real threshold
+    tau -- exactly the set whose false-abstention risk we want to control. Searching
+    for the smallest lambda therefore finds the LARGEST tau that still certifies the
+    risk bound (as strict as the risk budget allows, not stricter). The returned
+    threshold is negated back to the original subject_sim scale before returning.
+    """
+    scores = [-r["subject_sim"] for r in rows]
+    wrong = [r["answerable"] for r in rows]
+    result = jackknife_plus_quantile(scores, wrong, alpha)
+    return CalibrationResult(
+        threshold=-result.threshold, target_alpha=result.target_alpha,
+        certified_risk_bound=result.certified_risk_bound,
+        held_out_risk_estimate=result.held_out_risk_estimate, n=result.n,
+        method=result.method,
+    )
