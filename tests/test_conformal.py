@@ -51,6 +51,20 @@ def test_crc_threshold_rejects_empty_input():
         crc_threshold([], [], alpha=0.5)
 
 
+def test_crc_threshold_rejects_alpha_exactly_at_the_floor():
+    # Boundary case surfaced by real-data smoke testing (n=19 -> floor=1/20=0.05
+    # exactly equals ALPHA_PRIMARY). alpha == floor is rejected too, not just
+    # alpha < floor -- only the degenerate "admit nothing" threshold would satisfy
+    # it at equality, which this function refuses to return silently.
+    n = 19
+    scores = [float(i) for i in range(n)]
+    wrong = [True] * n
+    floor = 1.0 / (n + 1)
+    assert floor == pytest.approx(0.05)
+    with pytest.raises(ValueError, match="degenerate"):
+        crc_threshold(scores, wrong, alpha=floor)
+
+
 from sebi_rag.conformal import CalibrationResult, jackknife_plus_quantile  # noqa: E402
 
 

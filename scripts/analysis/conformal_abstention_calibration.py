@@ -112,12 +112,54 @@ def phase_generate() -> None:
     print(f"wrote {GENERATE_DUMP} (n={out['n']}, {out['runtime_s']}s)", file=sys.stderr)
 
 
+def phase_calibrate() -> None:
+    if not GENERATE_DUMP.exists():
+        raise SystemExit(f"{GENERATE_DUMP} missing -- run --phase generate first")
+    from sebi_rag.conformal import calibrate_score_floor, calibrate_subject_gate
+
+    dump = json.loads(GENERATE_DUMP.read_text())
+    rows = dump["rows"]
+
+    score_floor_rows = [
+        {"rerank_top": r["rerank_top"], "wrong_if_answered": r["wrong_if_answered"]}
+        for r in rows if r["wrong_if_answered"] is not None
+    ]
+    subject_gate_rows = [
+        {"subject_sim": r["subject_sim"], "answerable": r["answerable"]}
+        for r in rows if r["subject_sim"] is not None
+    ]
+    print(f"score_floor calibration set: {len(score_floor_rows)} of {len(rows)} rows "
+          f"(excludes rows where wrong_if_answered could not be determined)", file=sys.stderr)
+    print(f"subject_gate calibration set: {len(subject_gate_rows)} of {len(rows)} rows "
+          f"(excludes rows where subject_sim was never computed)", file=sys.stderr)
+
+    results = {}
+    for alpha in (ALPHA_PRIMARY, ALPHA_SECONDARY):
+        key = f"alpha_{alpha}"
+        sf = calibrate_score_floor(score_floor_rows, alpha)
+        sg = calibrate_subject_gate(subject_gate_rows, alpha)
+        results[key] = {
+            "alpha": alpha,
+            "score_floor": vars(sf),
+            "subject_gate": vars(sg),
+        }
+        print(f"alpha={alpha}: score_floor threshold={sf.threshold:.4f} "
+              f"(held-out risk {sf.held_out_risk_estimate:.4f}), "
+              f"subject_gate threshold={sg.threshold:.4f} "
+              f"(held-out risk {sg.held_out_risk_estimate:.4f})", file=sys.stderr)
+
+    CALIBRATE_DUMP.write_text(json.dumps(
+        {"score_floor_n": len(score_floor_rows), "subject_gate_n": len(subject_gate_rows),
+         "results": results}, indent=2), encoding="utf-8")
+    print(f"wrote {CALIBRATE_DUMP}", file=sys.stderr)
+
+
 def main() -> None:
     import argparse
     ap = argparse.ArgumentParser()
     ap.add_argument("--phase", choices=["generate", "calibrate", "report"], required=True)
     args = ap.parse_args()
-    {"generate": phase_generate}[args.phase]()
+    {"generate": phase_generate, "calibrate": phase_calibrate}[args.phase]()
 
 
 if __name__ == "__main__":

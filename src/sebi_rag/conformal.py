@@ -33,8 +33,13 @@ def crc_threshold(scores: list[float], wrong: list[bool], alpha: float) -> float
     certifies the risk bound.
 
     Raises ValueError if `scores`/`wrong` is empty, or if alpha is at or below this
-    sample's finite-sample floor 1/(n+1) -- no threshold can certify a bound that tight
-    at this sample size, since even admitting nothing leaves risk = 1/(n+1).
+    sample's finite-sample floor 1/(n+1). At alpha == floor exactly, the degenerate
+    "admit nothing" threshold (max(scores)+1) technically satisfies the bound at
+    equality -- but for an abstention gate, "admit nothing" means "abstain on every
+    row", which is not a usable calibration result. This function refuses to return
+    that silently: raising is the conservative choice for this application (loud
+    failure over a threshold that would abstain on everything), not a claim that no
+    threshold mathematically exists.
     """
     n = len(scores)
     if n == 0:
@@ -43,8 +48,10 @@ def crc_threshold(scores: list[float], wrong: list[bool], alpha: float) -> float
     if alpha <= floor:
         raise ValueError(
             f"alpha={alpha} is at or below this sample's finite-sample floor "
-            f"1/(n+1)={floor:.4f} (n={n}) -- no threshold can certify a risk bound "
-            f"this tight at this sample size (CRC, arXiv:2208.02814, Thm 1)."
+            f"1/(n+1)={floor:.4f} (n={n}) -- CRC, arXiv:2208.02814, Thm 1) means "
+            f"only the degenerate 'admit nothing' threshold could certify this bound "
+            f"at this sample size, which this function refuses to return silently "
+            f"for an abstention gate. Increase alpha or the sample size."
         )
     candidates = sorted(set(scores)) + [max(scores) + 1.0]
     for lam in candidates:
