@@ -11,6 +11,8 @@ pre-computed (score, correctness) pairs.
 """
 from __future__ import annotations
 
+from dataclasses import dataclass
+
 
 def crc_threshold(scores: list[float], wrong: list[bool], alpha: float) -> float:
     """Conformal Risk Control threshold for a monotone 0/1 loss.
@@ -55,4 +57,51 @@ def crc_threshold(scores: list[float], wrong: list[bool], alpha: float) -> float
     raise AssertionError(
         "no threshold satisfied the risk bound despite the floor check -- "
         "this indicates a bug in crc_threshold, not a data problem"
+    )
+
+
+@dataclass
+class CalibrationResult:
+    threshold: float
+    target_alpha: float
+    certified_risk_bound: float
+    held_out_risk_estimate: float
+    n: int
+    method: str
+
+
+def jackknife_plus_quantile(scores: list[float], wrong: list[bool],
+                            alpha: float) -> CalibrationResult:
+    """Leave-one-out data reuse (in the spirit of Barber et al. 2021, arXiv:1905.02928)
+    wrapped around crc_threshold (Angelopoulos et al. 2024, arXiv:2208.02814).
+
+    Not a literal instantiation of Barber et al.'s regression-interval construction --
+    there is no fitted predictive model here, `scores`/`wrong` are pre-computed external
+    signals (e.g. a reranker's score and a citation-correctness label). What is reused
+    from their paper is the DATA-REUSE PHILOSOPHY: rather than a single calibration/test
+    split (which would fragment an already-small dataset's boundary cases), every row is
+    held out exactly once to get an honest out-of-sample check of the FINAL threshold's
+    performance, without permanently spending any row purely on evaluation.
+
+    Returns a CalibrationResult whose `threshold` is crc_threshold() fit on ALL n rows
+    (the deployable value), and whose `held_out_risk_estimate` is the mean, over i in
+    1..n, of whether row i's own admission decision -- at the threshold fit on the OTHER
+    n-1 rows -- was a loss event (wrong[i] AND scores[i] >= that leave-one-out threshold).
+    That estimate never evaluates a row against a threshold that row helped fit.
+    """
+    n = len(scores)
+    threshold = crc_threshold(scores, wrong, alpha)
+    loo_losses = []
+    for i in range(n):
+        other_scores = scores[:i] + scores[i + 1:]
+        other_wrong = wrong[:i] + wrong[i + 1:]
+        loo_threshold = crc_threshold(other_scores, other_wrong, alpha)
+        admitted = scores[i] >= loo_threshold
+        loo_losses.append(1.0 if (admitted and wrong[i]) else 0.0)
+    held_out_risk = sum(loo_losses) / n
+    return CalibrationResult(
+        threshold=threshold, target_alpha=alpha, certified_risk_bound=alpha,
+        held_out_risk_estimate=held_out_risk, n=n,
+        method=("CRC (arXiv:2208.02814) + leave-one-out data reuse "
+                "(Barber et al. 2021, arXiv:1905.02928)"),
     )

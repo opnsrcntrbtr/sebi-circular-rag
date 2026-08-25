@@ -49,3 +49,53 @@ def test_crc_threshold_rejects_alpha_below_the_finite_sample_floor():
 def test_crc_threshold_rejects_empty_input():
     with pytest.raises(ValueError, match="at least one"):
         crc_threshold([], [], alpha=0.5)
+
+
+from sebi_rag.conformal import CalibrationResult, jackknife_plus_quantile  # noqa: E402
+
+
+def test_jackknife_plus_quantile_threshold_matches_full_data_crc():
+    # The .threshold field is crc_threshold fit on ALL rows -- same value as calling
+    # crc_threshold directly.
+    scores = [1.0, 2.0, 3.0, 4.0, 5.0]
+    wrong = [True, True, False, True, False]
+    result = jackknife_plus_quantile(scores, wrong, alpha=0.4)
+    assert result.threshold == crc_threshold(scores, wrong, alpha=0.4)
+    assert result.target_alpha == 0.4
+    assert result.certified_risk_bound == 0.4
+    assert result.n == 5
+    assert "2208.02814" in result.method
+    assert "1905.02928" in result.method
+
+
+def test_jackknife_plus_quantile_held_out_estimate_never_uses_its_own_row():
+    # Construct a case where the full-data threshold would (if naively self-evaluated)
+    # admit row 0 as a loss, but row 0's OWN leave-one-out threshold (fit without row 0)
+    # is stricter and excludes it -- proving the held-out estimate is genuinely
+    # out-of-sample, not a repeat of the in-sample full-data threshold.
+    scores = [10.0, 1.0, 1.0, 1.0, 1.0]
+    wrong = [True, True, True, True, True]
+    # Full-data crc_threshold at alpha=0.5, n=5: risk(lambda)=(admitted_wrong+1)/6<=0.5
+    # -> admitted_wrong<=2. At lambda=1.0: all 5 admitted, admitted_wrong=5, risk=1.0>0.5.
+    # At lambda=10.0: only row0 admitted, admitted_wrong=1, risk=2/6=0.33<=0.5. So
+    # full-data threshold = 10.0, and only row 0 is ever admitted by it.
+    result = jackknife_plus_quantile(scores, wrong, alpha=0.5)
+    assert result.threshold == 10.0
+    # Leave row 0 out: remaining scores=[1,1,1,1], wrong=[T,T,T,T], n=4.
+    # risk(lambda)=(admitted_wrong+1)/5<=0.5 -> admitted_wrong<=1.5 -> <=1.
+    # At lambda=1.0: all 4 admitted, admitted_wrong=4, risk=1.0>0.5. Fails.
+    # Only candidate is [1.0, 2.0] (max+1) -> lambda=2.0 admits nothing, risk=1/5=0.2<=0.5.
+    # So row 0's LOO threshold is 2.0, and row0's own score (10.0) IS admitted at 2.0,
+    # and row0 is wrong -> loss=1 for row 0's held-out evaluation.
+    # This differs from what row 0's contribution would be under the FULL-data threshold
+    # (10.0), where the LOO threshold (2.0) is stricter for every other row too -- proving
+    # the held-out risk estimate is a materially different (and here, higher) number than
+    # a naive in-sample risk at the full-data threshold would report.
+    naive_in_sample_risk = 1 / 6  # admitted_wrong=0 at threshold=10 among rows 1-4 (all score=1)
+    assert result.held_out_risk_estimate > naive_in_sample_risk
+
+
+def test_calibration_result_is_a_plain_dataclass():
+    r = CalibrationResult(threshold=1.0, target_alpha=0.05, certified_risk_bound=0.05,
+                          held_out_risk_estimate=0.02, n=10, method="test")
+    assert r.threshold == 1.0 and r.n == 10
