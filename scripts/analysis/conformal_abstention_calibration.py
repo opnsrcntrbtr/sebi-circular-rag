@@ -154,12 +154,156 @@ def phase_calibrate() -> None:
     print(f"wrote {CALIBRATE_DUMP}", file=sys.stderr)
 
 
+def _control_summary(rows: list[dict]) -> dict:
+    """Current production behaviour, exactly as shipped -- no LOO recalibration, the
+    fixed thresholds applied as-is (abstain_threshold and SEBI_RAG_SUBJ_THRESHOLD's
+    production defaults). This is what the decision rule compares the calibrated arm
+    against (design doc Sec 2.2's fairness note: the comparison is intentionally
+    asymmetric, in the direction that makes adoption HARDER, not easier)."""
+    n = len(rows)
+    correct = sum(1 for r in rows if r["abstained"] == r["abstain_gold"])
+    false_answers = sum(
+        1 for r in rows
+        if not r["abstained"] and r["wrong_if_answered"] is True
+    )
+    return {
+        "n": n,
+        "abstention_accuracy": round(correct / n, 4) if n else 0.0,
+        "false_answer_count": false_answers,
+        "false_answer_rate": round(false_answers / n, 4) if n else 0.0,
+    }
+
+
+def _simulated_summary(rows: list[dict], score_floor_threshold: float,
+                       subject_gate_threshold: float) -> dict:
+    """Re-simulates each row's abstention decision under the CALIBRATED thresholds,
+    reusing the already-dumped rerank_top/subject_sim (no pipeline re-run needed --
+    these are pure threshold comparisons against fixed, already-computed scores).
+
+    Mirrors generate.py:answer_with_abstention's gate ORDER exactly (score_floor first,
+    then subject_gate, both must pass to answer) but does NOT re-derive non_sebi_domain
+    or the HYBRID_THRESHOLD override -- those are untouched by this arm (design doc
+    Sec 1), so a row that hit either in production keeps that same outcome here; only
+    rows whose production abstention_reason was "score_floor" or "subject_gate" (or
+    that answered with both signals passing) are re-decided against the new thresholds.
+    """
+    n = len(rows)
+    correct, false_answers = 0, 0
+    for r in rows:
+        if r["abstention_reason"] in ("no_context", "non_sebi_domain"):
+            simulated_abstained = True  # untouched by this arm
+        elif r["rerank_top"] is None or r["rerank_top"] < score_floor_threshold:
+            simulated_abstained = True
+        elif r["subject_sim"] is not None and r["subject_sim"] < subject_gate_threshold:
+            simulated_abstained = True
+        else:
+            simulated_abstained = False
+        if simulated_abstained == r["abstain_gold"]:
+            correct += 1
+        if not simulated_abstained and r["wrong_if_answered"] is True:
+            false_answers += 1
+    return {
+        "n": n,
+        "abstention_accuracy": round(correct / n, 4) if n else 0.0,
+        "false_answer_count": false_answers,
+        "false_answer_rate": round(false_answers / n, 4) if n else 0.0,
+    }
+
+
+def phase_report() -> None:
+    if not GENERATE_DUMP.exists() or not CALIBRATE_DUMP.exists():
+        raise SystemExit("both --phase generate and --phase calibrate must run first")
+    gen = json.loads(GENERATE_DUMP.read_text())
+    cal = json.loads(CALIBRATE_DUMP.read_text())
+    gate_floors = json.loads(GATE.read_text())["floors"]
+
+    rows = gen["rows"]
+    control = _control_summary(rows)
+
+    primary = cal["results"][f"alpha_{ALPHA_PRIMARY}"]
+    sf_threshold = primary["score_floor"]["threshold"]
+    sg_threshold = primary["subject_gate"]["threshold"]
+    calibrated = _simulated_summary(rows, sf_threshold, sg_threshold)
+
+    # design doc Sec 3 CONFIRMATORY (diagnostic only, not a second adoption path per
+    # Sec 8): do the three documented subject_gate false abstentions flip under the
+    # calibrated subject threshold?
+    watch_ids = {"v7-nt-013", "v7-nt-025", "v7-ls-029"}
+    by_id = {r["id"]: r for r in rows}
+    row_flips = {}
+    for rid in watch_ids:
+        r = by_id.get(rid)
+        if r is None:
+            row_flips[rid] = "not_in_golden_v7_rows_dump"
+            continue
+        if r["subject_sim"] is None:
+            row_flips[rid] = "subject_sim_never_computed_in_production"
+            continue
+        was_abstained = r["abstained"]
+        now_abstained = (
+            r["abstention_reason"] in ("no_context", "non_sebi_domain")
+            or r["rerank_top"] is None or r["rerank_top"] < sf_threshold
+            or r["subject_sim"] < sg_threshold
+        )
+        row_flips[rid] = {
+            "was_abstained": was_abstained, "now_abstained": now_abstained,
+            "flipped_to_answered": was_abstained and not now_abstained,
+        }
+
+    accuracy_gain = calibrated["abstention_accuracy"] - control["abstention_accuracy"]
+    false_answer_increased = calibrated["false_answer_count"] > control["false_answer_count"]
+
+    verdict, reasons = "REJECT", []
+    if accuracy_gain >= ABSTENTION_ACCURACY_EFFECT_FLOOR and not false_answer_increased:
+        verdict = "PROCEED to Sec 7 full-gate confirmation"
+    else:
+        if accuracy_gain < ABSTENTION_ACCURACY_EFFECT_FLOOR:
+            reasons.append(
+                f"6.1: abstention_accuracy gained {accuracy_gain:.4f}, "
+                f"needs >= {ABSTENTION_ACCURACY_EFFECT_FLOOR}")
+        if false_answer_increased:
+            reasons.append(
+                f"6.2: false_answer_count rose {control['false_answer_count']} -> "
+                f"{calibrated['false_answer_count']} (zero tolerance on increase)")
+        if accuracy_gain < ABSTENTION_ACCURACY_EFFECT_FLOOR and not false_answer_increased:
+            # design doc Sec 6: "if 1 fails, still report the certified risk bound as
+            # the qualitative deliverable" -- distinct from an adoption pass.
+            verdict = "REJECT (primary null; certified risk bound reported per Sec 6)"
+
+    out = {
+        "spec": "docs/superpowers/specs/2026-08-26-conformal-abstention-calibration-design.md Sec 6",
+        "run_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
+        "n": len(rows), "alpha_primary": ALPHA_PRIMARY, "alpha_secondary": ALPHA_SECONDARY,
+        "effect_floor_abstention_accuracy": ABSTENTION_ACCURACY_EFFECT_FLOOR,
+        "control": control, "calibrated": calibrated,
+        "accuracy_gain": round(accuracy_gain, 4),
+        "certified_risk_bounds_alpha_0_05": {
+            "score_floor": primary["score_floor"],
+            "subject_gate": primary["subject_gate"],
+        },
+        "certified_risk_bounds_alpha_0_10": cal["results"][f"alpha_{ALPHA_SECONDARY}"],
+        "gate_floors_reference": gate_floors,
+        "confirmatory_row_flips": row_flips,
+        "verdict": verdict, "rule_failures": reasons,
+    }
+    DEST.write_text(json.dumps(out, indent=2), encoding="utf-8")
+    print(json.dumps({k: out[k] for k in
+                      ("n", "control", "calibrated", "accuracy_gain", "verdict", "rule_failures")},
+                     indent=2))
+    print(f"\nwrote {DEST}", file=sys.stderr)
+    print("\nNOTE: this verdict covers Sec 6 only. Sec 3's other gate floors "
+          "(citation_recall, citation_precision, recall_at_k, context_recall, ndcg_at_10) "
+          "must still be checked against a full eval_json_full run before Sec 7 "
+          "confirmation -- this report does not run that eval.", file=sys.stderr)
+
+
 def main() -> None:
     import argparse
     ap = argparse.ArgumentParser()
     ap.add_argument("--phase", choices=["generate", "calibrate", "report"], required=True)
     args = ap.parse_args()
-    {"generate": phase_generate, "calibrate": phase_calibrate}[args.phase]()
+    {"generate": phase_generate, "calibrate": phase_calibrate,
+     "report": phase_report}[args.phase]()
 
 
 if __name__ == "__main__":
