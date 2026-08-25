@@ -1,0 +1,44 @@
+{
+  "score_floor_n": 254,
+  "subject_gate_n": 228,
+  "results": {
+    "alpha_0.05": {
+      "alpha": 0.05,
+      "score_floor": {
+        "threshold": 0.2692,
+        "target_alpha": 0.05,
+        "certified_risk_bound": 0.05,
+        "held_out_risk_estimate": 0.047244094488188976,
+        "n": 254,
+        "method": "CRC (arXiv:2208.02814) + leave-one-out data reuse (Barber et al. 2021, arXiv:1905.02928)"
+      },
+      "subject_gate": {
+        "threshold": 0.4482,
+        "target_alpha": 0.05,
+        "certified_risk_bound": 0.05,
+        "held_out_risk_estimate": 0.043859649122807015,
+        "n": 228,
+        "method": "CRC (arXiv:2208.02814) + leave-one-out data reuse (Barber et al. 2021, arXiv:1905.02928)"
+      }
+    },
+    "alpha_0.1": {
+      "alpha": 0.1,
+      "score_floor": {
+        "threshold": 0.1638,
+        "target_alpha": 0.1,
+        "certified_risk_bound": 0.1,
+        "held_out_risk_estimate": 0.0984251968503937,
+        "n": 254,
+        "method": "CRC (arXiv:2208.02814) + leave-one-out data reuse (Barber et al. 2021, arXiv:1905.02928)"
+      },
+      "subject_gate": {
+        "threshold": 0.4776,
+        "target_alpha": 0.1,
+        "certified_risk_bound": 0.1,
+        "held_out_risk_estimate": 0.09210526315789473,
+        "n": 228,
+        "method": "CRC (arXiv:2208.02814) + leave-one-out data reuse (Barber et al. 2021, arXiv:1905.02928)"
+      }
+    }
+  }
+}
