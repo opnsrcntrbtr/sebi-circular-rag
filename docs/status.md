@@ -1,7 +1,7 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-08-24.
+> Last updated: 2026-08-26.
 
 ## Current Snapshot
 
@@ -833,6 +833,35 @@ adopting iv11: the sole surviving exploratory result failed on data that did not
 cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
+
+2026-08-26 — **R7 conformal abstention calibration REJECTED — decisively, on accuracy, not on a narrow guardrail.** Design + prereg `docs/superpowers/specs/2026-08-26-conformal-abstention-calibration-design.md`, plan `docs/superpowers/plans/2026-08-26-conformal-abstention-calibration.md`, script `scripts/analysis/conformal_abstention_calibration.py`, reports `reports/conformal-calibration-{generate,calibrate,report-2026-08-26}.json`. Replaced the hand-fit `abstain_threshold`/`SEBI_RAG_SUBJ_THRESHOLD` gate thresholds with Conformal Risk Control (Angelopoulos et al. 2024, arXiv:2208.02814) + leave-one-out data reuse (Barber et al. 2021, arXiv:1905.02928) over the full golden_v7 (n=260), targeting a 5% false-answer-rate risk bound.
+
+| metric | production (fixed) | calibrated (honest LOO) | delta |
+|---|---|---|---|
+| abstention_accuracy | 0.9654 | **0.7154** | **−0.2500** |
+| false_answer_count | 21 | **10** | −11 |
+
+Calibrated score-floor threshold **0.2692** vs production's Jina-recalibrated **0.12** — more than
+double. Applied honestly (LOO held-out risk estimates 0.0472/0.0439, close to the 0.05 target,
+confirming the calibration mechanism itself is correct), it turns a large fraction of genuinely
+answerable rows into false abstentions: −25pp accuracy to buy an 11-row reduction in wrong answers.
+Confirmatory check: none of the three documented `subject_gate` false abstentions
+(`v7-nt-013`, `v7-nt-025`, `v7-ls-029`) flip to answered under the calibrated threshold. **Establishes**
+that production's hand-fit thresholds, whatever their overfitting risk in principle, sit at a
+materially more permissive and load-bearing point on the risk/coverage trade-off than a
+5%-false-answer-risk target selects — this is evidence about the *operating point*, not evidence the
+calibration method was implemented wrong. Shipped inert: `src/sebi_rag/conformal.py` (reusable CRC
++ LOO library for any future arm needing this on a different signal), 12 new tests. `config.toml`
+untouched. 893 tests pass (881 + 12 new), no regressions. Executed in an isolated worktree
+(`superpowers:using-git-worktrees`) on branch `worktree-conformal-abstention-calibration`.
+
+This closes the three-candidate sweep from this session (R6 late chunking, R5 tables at ingest, R7
+calibrated abstention) — all three gated out or rejected on their own preconditions/decision rules
+before or after reaching a design doc, none adopted. ⚠️ R6/R5's own dated entries and the
+`docs/research-roadmap-2026-08-19.md` updates recording them were written earlier in the same
+session but, at the time this entry was committed, exist only as **uncommitted changes in the main
+checkout** (not on this branch — this file was branched from `208b814`, before that work). Anyone
+reconciling this branch with `main` should expect a merge on this section, not a fast-forward.
 
 2026-08-24 — **CORRECTION to the ADR-004 adoption entry below: the reported `eval-asof: 13/13, unchanged from the prior bge baseline` had silently never tested Jina.** Caught during a verification pass (`superpowers:verification-before-completion`), not by inspection at the time. `scripts/eval_asof.py` builds its own `RAGPipeline` directly (same reason `eval_json.py` does — reuses the persisted index) and had `CrossEncoderReranker` hardcoded for `pipeline.reranker`, bypassing `retrieval_reranker_for` entirely — the exact bug already found and fixed in `eval_json.py` earlier the same night, just not checked for in this second script. The run's own metadata proved it: `"reranker": "BAAI/bge-reranker-v2-m3"` in `eval/runs/asof-baseline/results.json`, even though it ran *after* `config.toml` already had `reranker_model = "jina"`. The "13/13, accuracy 1.0" number was real, but it was evidence about bge-reranker-v2-m3 + the Jina-calibrated `abstain_threshold=0.12` applied to bge's much higher score distribution (where 0.12 is a trivially low bar) — not evidence Jina's abstention behavior was fine.
 
