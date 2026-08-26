@@ -40,7 +40,12 @@ Evaluate Tier 1 Pi extensions (pi-green-loop, pi-lens, pi-hashline-edit-pro) aga
   - pi-lens: +150 tokens (2.5%) ✅
   - pi-hashline-edit-pro: +200 tokens (3.3%) ⚠️ slightly over target
 - **Combined Tier 1**: +400 tokens (6.6%) ❌ exceeds target
-- **Revised recommendation**: Install pi-green-loop alone (0.8%) as Phase 1; defer others until impact measured
+- **pi-green-loop evaluation results**:
+  - Runs pytest directly: ~26.5s vs `make test` ~50s (47% faster, bypasses Makefile overhead)
+  - Does NOT scope tests to affected files for this project — runs full 905-item suite
+  - `--affected` flag requires additional config to map source→test files
+  - Verdict: marginal benefit (47% faster full suite) vs no actual test scoping
+- **Revised recommendation**: pi-green-loop provides marginal benefit; consider if 23.5s saving per test run justifies the token overhead
 
 ## Evaluation Phases
 ### Phase 1: Install & Smoke Test (Days 1-2)
