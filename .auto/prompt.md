@@ -48,11 +48,23 @@ Evaluate Tier 1 Pi extensions (pi-green-loop, pi-lens, pi-hashline-edit-pro) aga
 - **Revised recommendation**: pi-green-loop provides marginal benefit; consider if 23.5s saving per test run justifies the token overhead
 
 ## Evaluation Phases
-### Phase 1: Install & Smoke Test (Days 1-2)
-1. Install pi-green-loop only (0.8% overhead, within target)
-2. Verify test scoping works for partial changes
-3. Run `make test` — must pass
-4. Measure improvement in partial-change test feedback time
+### Phase 1: Install & Smoke Test (Days 1-2) — ✅ COMPLETE
+1. ✅ Installed pi-green-loop only (0.8% overhead, within target)
+2. ❌ Test scoping does NOT work for this project (requires source→test config)
+3. ✅ `make test` passes (pre-existing failures unchanged)
+4. ✅ Measured: 26.5s vs 50s (47% faster, but full suite run)
+
+## Phase 2: 1-Week Usage Evaluation (Days 3-9)
+1. Keep pi-green-loop installed
+2. Track: how often is `pi-green-loop check` used vs `make test`?
+3. Track: actual time saved across all test runs in the week
+4. Day 9: Review usage frequency and total time saved
+5. Decision: Keep or discard based on real-world utility
+
+## Phase 3: Re-evaluate Tier 1 Extensions (Day 10)
+1. If pi-green-loop kept: check remaining token budget for pi-lens (2.5%)
+2. If pi-green-loop discarded: revert installation
+3. Re-assess pi-lens and pi-hashline-edit-pro based on lessons learned
 
 ### Phase 2: Goal Outcome Quality (Days 3-4)
 1. Fix a regression in `generate.py` — measure time to fix + test pass rate

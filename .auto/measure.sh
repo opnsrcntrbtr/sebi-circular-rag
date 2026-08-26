@@ -107,3 +107,9 @@ echo "Full test time: ${FULL_TEST_MS}ms"
 echo "Green-loop time: ${GREEN_LOOP_MS}ms"
 echo "LSP lookup time: ${LSP_TIME_MS}ms"
 echo "Edit success rate: ${EDIT_RATE}% (target: >95%)"
+
+# ─── Weekly Usage Tracking ───
+# Append usage data to a log file for weekly review
+USAGE_LOG=".auto/usage_log.jsonl"
+TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+echo "{\"ts\": \"$TIMESTAMP\", \"green_loop_time_ms\": $GREEN_LOOP_MS, \"full_test_time_ms\": $FULL_TEST_MS, \"lsp_time_ms\": $LSP_TIME_MS}" >> "$USAGE_LOG" 2>/dev/null || true
