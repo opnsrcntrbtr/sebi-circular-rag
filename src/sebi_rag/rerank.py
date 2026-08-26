@@ -236,3 +236,56 @@ class CrossEncoderReranker:
         paired = list(zip(candidates, (float(s) for s in scores)))
         paired.sort(key=lambda cs: -cs[1])
         return paired
+
+
+# --- Set-Encoder (lightning-ir) — benchmark candidate (2026-08-26 spec) -----
+# Listwise cross-encoder with permutation-invariant inter-passage attention
+# (Schlatt et al., ECIR 2025, arXiv:2404.06912). Apache 2.0. HF checkpoint
+# webis/set-encoder-base (0.1B params, electra-base-discriminator backbone),
+# via the vendor's own inference package `lightning-ir`
+# (github.com/webis-de/lightning-ir), a normal pip dependency (not a
+# trust_remote_code snapshot like JinaMLXReranker). Report-only per
+# docs/superpowers/specs/2026-08-26-set-encoder-prereg.md — NOT wired into
+# retrieval_reranker_for/config.toml; benchmark candidate only, matching
+# what ADR-004 tested Jina/bge for.
+
+class SetEncoderReranker:
+    """webis/set-encoder-base via lightning-ir, wrapped to this project's
+    Reranker protocol. Benchmark candidate only (2026-08-26 spec); production
+    baseline remains whatever retrieval_reranker_for/config.toml selects
+    until benchmark evidence says otherwise (same "benchmark candidate only"
+    framing JinaMLXReranker carries for ADR-004).
+    """
+
+    def __init__(self, model: str = "webis/set-encoder-base", device: str | None = None) -> None:
+        from lightning_ir import CrossEncoderModule
+
+        # Matches CrossEncoderReranker's own documented reason (MPS crashes
+        # CrossEncoder-family models on this hardware, segfault 139): default
+        # to CPU unless the caller explicitly opts into another device. MPS
+        # was not empirically verified stable for lightning-ir specifically —
+        # see the prereg doc's environment-verification note — so CPU stays
+        # the safe default here too.
+        if device is None:
+            device = "cpu"
+        self._module = CrossEncoderModule(model)
+        self._module = self._module.to(device)
+        self._module.eval()
+
+    def rerank(self, query: str, candidates: list[Chunk]) -> list[tuple[Chunk, float]]:
+        """Score candidates with lightning-ir's CrossEncoderModule.score.
+
+        Mirrors CrossEncoderReranker's pairing/sorting idiom: pair each
+        candidate with its score, sort descending, return the pairs.
+        """
+        if not candidates:
+            return []
+        import torch
+
+        docs = [c.text for c in candidates]
+        with torch.no_grad():
+            output = self._module.score(query, docs)
+        scores = output.scores.detach().to("cpu").float().tolist()
+        paired = list(zip(candidates, scores))
+        paired.sort(key=lambda cs: -cs[1])
+        return paired
