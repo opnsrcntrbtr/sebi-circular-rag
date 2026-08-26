@@ -148,6 +148,15 @@ def build_default_pipeline() -> RAGPipeline:
     # citation_scorer_for below is always built against `ce` directly, so a
     # non-default reranker_model never silently changes citation scoring too.
     retrieval_reranker = retrieval_reranker_for(s.reranker_model, ce)
+    # 2026-08-25 prereg (jina B' scorer): if reranker_model already selected
+    # jina for retrieval AND citation_scorer_backend also selects "jina", reuse
+    # that already-resident instance rather than loading a second MLX model —
+    # citation_scorer_for's default jina_loader would otherwise instantiate a
+    # fresh JinaMLXReranker (correct in isolation, wasteful here since one is
+    # already live as `retrieval_reranker`).
+    jina_loader = None
+    if (s.citation_scorer_backend == "jina" and s.reranker_model == "jina"):
+        jina_loader = lambda: retrieval_reranker  # noqa: E731
     return RAGPipeline(
         retriever=retriever,
         reranker=retrieval_reranker,
@@ -158,7 +167,8 @@ def build_default_pipeline() -> RAGPipeline:
         judge=judge,
         regulatory_index=regulatory_index,
         citation_scorer=citation_scorer_for(s.citation_scorer_enabled, ce,
-                                            s.citation_scorer_backend),
+                                            s.citation_scorer_backend,
+                                            jina_loader=jina_loader),
         citation_margin=s.citation_margin,
         citation_min_keep=s.citation_min_keep,
         query_rewriter=query_rewriter_for(s.paraphrase_rescue, s.mlx_model),

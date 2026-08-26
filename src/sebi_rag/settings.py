@@ -75,7 +75,7 @@ class Settings:
     citation_scorer_enabled: bool = False # B': post-hoc answer-relevance filter (off until gate re-armed)
     citation_margin: float = 0.35       # margin for select_citations (sigmoid scale; calibrated 2026-08-04)
     citation_min_keep: int = 1          # floor on kept citations (B' collapse guard)
-    citation_scorer_backend: str = "reranker"  # reranker | nli (see attribution.py)
+    citation_scorer_backend: str = "reranker"  # reranker | nli | warrant | jina
     # ADR-004: which model orders the RETRIEVAL pool (pipeline.reranker). Never
     # affects citation scoring — citation_scorer_for(backend="reranker") is
     # always built against CrossEncoderReranker regardless of this setting

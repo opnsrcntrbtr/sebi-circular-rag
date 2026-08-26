@@ -159,6 +159,39 @@ def test_citation_scorer_for_defaults_to_the_reranker_backend():
     assert citation_scorer_for(True, reranker) is reranker
 
 
+# --- citation_scorer_for: the jina backend --------------------------------
+# jina-reranker-v3-mlx (ADR-004) already implements the Reranker protocol
+# select_citations consumes, so unlike "nli"/"warrant" this backend needs no
+# new call shape in select_citations — only a third scorer instance. Mirrors
+# the "nli" tests exactly: lazy-loaded via an injected loader so no model/
+# network is touched by these offline tests.
+
+def test_citation_scorer_for_selects_the_jina_backend():
+    reranker = _FakeReranker({})
+    sentinel = object()
+    got = citation_scorer_for(True, reranker, backend="jina",
+                              jina_loader=lambda: sentinel)
+    assert got is sentinel
+
+
+def test_citation_scorer_for_jina_backend_ignores_the_bge_reranker_arg():
+    """The `reranker` positional is the bge instance used by backend="reranker";
+    backend="jina" must not silently fall back to it if jina_loader is unused."""
+    bge = _FakeReranker({})
+    sentinel = object()
+    got = citation_scorer_for(True, bge, backend="jina",
+                              jina_loader=lambda: sentinel)
+    assert got is sentinel and got is not bge
+
+
+def test_citation_scorer_for_disabled_beats_jina_backend_choice():
+    reranker = _FakeReranker({})
+    called = []
+    got = citation_scorer_for(False, reranker, backend="jina",
+                              jina_loader=lambda: called.append(1))
+    assert got is None and not called, "must not load a model just to discard it"
+
+
 def test_citation_scorer_for_disabled_beats_backend_choice():
     reranker = _FakeReranker({})
     called = []

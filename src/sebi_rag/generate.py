@@ -155,16 +155,25 @@ def eval_generator_for(kind: str = "stub", mlx_model: str | None = None,
 
 
 def citation_scorer_for(enabled: bool, reranker, backend: str = "reranker",
-                        nli_loader=None, warrant_model: str | None = None,
+                        nli_loader=None, jina_loader=None,
+                        warrant_model: str | None = None,
                         warrant_shared: "MLXGenerator | None" = None,
                         warrant_max_tokens: int | None = None):
     """The single enable/disable AND backend decision for B'.
 
     Returns None when disabled; otherwise the scorer for `backend`:
-      "reranker" - bge-reranker-v2-m3, i.e. query<->document *relevance*
+      "reranker" - bge-reranker-v2-m3, i.e. query<->document pointwise *relevance*
       "nli"      - entailment scoring, i.e. does the context *support* the answer
       "warrant"  - structured warrant scoring (relation, modality, scope, temporal,
                    numeric specificity) via a single-call LLM judge
+      "jina"     - jina-reranker-v3-mlx, i.e. listwise inter-passage *relevance*
+                   (2026-08-25 prereg: docs/superpowers/specs/
+                   2026-08-25-jina-citation-scorer-prereg.md). Already implements
+                   the Reranker protocol select_citations consumes (same as
+                   "reranker"), so this needs no new call shape — only a third
+                   scorer instance, lazy-loaded like "nli" so callers can inject a
+                   fake in tests or reuse an already-resident retrieval instance
+                   in production (see api.build_default_pipeline).
 
     Every pipeline builder (api.build_default_pipeline, eval_json.py,
     derive_thresholds.py) routes through this so eval and production can never
@@ -180,6 +189,11 @@ def citation_scorer_for(enabled: bool, reranker, backend: str = "reranker",
             from .attribution import NLIAttributionScorer
             nli_loader = NLIAttributionScorer.load
         return nli_loader()
+    if backend == "jina":
+        if jina_loader is None:
+            from .rerank import JinaMLXReranker
+            jina_loader = JinaMLXReranker
+        return jina_loader()
     if backend == "warrant":
         # select_citations calls a warrant scorer as scorer(query, answer, contexts)
         # (see its "Warrant scorer" branch) — warrant_scorer's positional signature
