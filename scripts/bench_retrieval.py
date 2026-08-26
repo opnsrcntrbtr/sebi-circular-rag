@@ -88,6 +88,8 @@ def main() -> None:
     ap.add_argument("--reranker", choices=["crossencoder", "jina"], default="crossencoder",
                     help="which reranker orders the pool (--rerank must also be set "
                          "for this to affect the measured order)")
+    ap.add_argument("--run-name", dest="run_name", default="baseline-retrieval",
+                    help="TREC/metadata run name (default unchanged: baseline-retrieval)")
     args = ap.parse_args()
 
     started = time.time()
@@ -247,21 +249,26 @@ def main() -> None:
         pipeline.retriever = _RerankedRetriever(pipeline.retriever, pipeline.reranker)  # pyright: ignore[reportAttributeAccessIssue]
 
     result = run_retrieval_benchmark(
-        pipeline, golden, top_n=args.top_n, run_name="baseline-retrieval"
+        pipeline, golden, top_n=args.top_n, run_name=args.run_name
     )
-    write_trec_run(out / "run.trec", "baseline-retrieval", result["rankings"])
+    write_trec_run(out / "run.trec", args.run_name, result["rankings"])
     # Valid 6-field TREC alongside the legacy file, which embeds headings in the
     # doc id and cannot be read by trec_eval / ir_measures.
-    write_run_chunk(out / "run.chunk.trec", "baseline-retrieval", result["rankings"])
-    write_run_doc(out / "run.doc.trec", "baseline-retrieval", result["rankings"])
+    write_run_chunk(out / "run.chunk.trec", args.run_name, result["rankings"])
+    write_run_doc(out / "run.doc.trec", args.run_name, result["rankings"])
     write_docids(out / "docids.tsv", result["rankings"])
     result_no_rankings = {k: v for k, v in result.items() if k != "rankings"}
+    # F2 (2026-08-26 retrieval-param-sweep code review): metadata.models.reranker
+    # already carries the full model id; this mirrors it in the metrics block
+    # itself so a reader doesn't have to cross-reference metadata to see which
+    # reranker produced these numbers.
+    result_no_rankings["selected_reranker"] = args.reranker
     meta = run_metadata(
         root=ROOT,
         corpus_path=corpus_path,
         index_dir=index_dir,
         golden_path=args.golden if not args.smoke else corpus_path,
-        run_name="baseline-retrieval",
+        run_name=args.run_name,
         models=models,
         params={"top_n": args.top_n, "smoke": args.smoke, "hyde": args.hyde,
                 "splade": args.splade, "expand_sparse": not args.no_expand,

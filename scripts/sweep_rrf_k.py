@@ -1,97 +1,196 @@
-"""Sweep RRF k_const values on the golden set. No index rebuild needed."""
-import json, math, os, sys, time
+"""Sweep RRF k_const values on a golden set. No index rebuild needed.
+
+Turn 1 of docs/superpowers/specs/2026-08-26-retrieval-param-sweep-prereg.md.
+Writes per-query recall/ndcg vectors (doc-level PRIMARY, chunk-level diagnostic)
+to --out/results.json, plus a paired_delta (stats.py) of each candidate k_const
+against --baseline-k, so adoption follows the prereg's fixed decision rule
+(>=1pp on recall_at_10 or ndcg_at_10 AND PairedResult.significant) rather than
+raw deltas.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import sys
+import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(ROOT / "scripts" / "analysis"))
 for k, v in {"TOKENIZERS_PARALLELISM": "false", "OMP_NUM_THREADS": "1",
              "PYTORCH_ENABLE_MPS_FALLBACK": "1", "HF_HUB_DISABLE_XET": "1"}.items():
     os.environ.setdefault(k, v)
 
-import numpy as np  # noqa: E402
 from sebi_rag.embeddings import BGEM3Embedder  # noqa: E402
-from sebi_rag.lineage import Lineage  # noqa: E402
 from sebi_rag.retrieve import HybridRetriever, rrf_fuse  # noqa: E402
 from sebi_rag.benchmark import resolve_chunk_spans  # noqa: E402
+from sebi_rag.eval_harness import _unique  # noqa: E402
+from sebi_rag.stats import paired_delta  # noqa: E402
+# Shared with pool_depth_sweep.py / expansion_sweep.py / reranker_interaction_check.py
+# — was duplicated inline here before, now single-sourced from _metrics.py.
+from _metrics import recall_at_k, ndcg_at_k, mrr, mean_or_none  # noqa: E402,F401
 
 
-def recall_at_k(ranked_ids, relevant, k):
-    if not relevant: return 0.0
-    hit = len(set(ranked_ids[:k]) & relevant)
-    return hit / len(relevant)
+def parse_args() -> argparse.Namespace:
+    ap = argparse.ArgumentParser(description=__doc__)
+    # golden_v6 (not v7) is intentional: prereg §1 Turn 1 runs on golden_v6, n=56.
+    ap.add_argument("--golden", default=str(ROOT / "eval" / "golden" / "golden_v6.jsonl"))
+    ap.add_argument("--out", default=str(ROOT / "eval" / "runs" / "iteration_1_rrf_tuning"))
+    ap.add_argument("--index-dir", default=str(ROOT / "data" / "index"))
+    ap.add_argument("--k-values", default="40,50,60,70,80",
+                     help="comma-separated k_const candidates (baseline is added automatically)")
+    ap.add_argument("--baseline-k", type=int, default=60)
+    ap.add_argument("--full-grid", action="store_true",
+                     help="also sweep 20-100 step 5 (superset) instead of just --k-values")
+    return ap.parse_args()
 
 
-def mrr(ranked_ids, relevant):
-    for i, cid in enumerate(ranked_ids):
-        if cid in relevant: return 1.0 / (i + 1)
-    return 0.0
+def run_one_k(golden, retriever, k_const: int, expand_sparse: bool = True):
+    """Retrieve+refuse at a single k_const. Returns per-query score dicts."""
+    chunk_recall, chunk_ndcg, doc_recall, doc_ndcg = {}, {}, {}, {}
+    t0 = time.perf_counter()
+    for item in golden:
+        if item.get("abstain"):
+            continue
+        qid = item["id"]
+        query = item["query"]
+        relevant_docs = set(item.get("relevant_circulars", []))
+        if not relevant_docs:
+            continue  # answerable-but-unjudged: excluded, matches per_query_recall convention
+
+        dense = retriever.dense.search(query, 50)
+        sparse_query = retriever.expand_query_fn(query) if (
+            expand_sparse and hasattr(retriever, "expand_query_fn")
+        ) else query
+        sparse = retriever.sparse.search(sparse_query, 50)
+        ranked = rrf_fuse([dense, sparse], k_const=k_const, top_n=50)
+
+        ranked_chunk_ids = [retriever.chunks[i].id for i, _ in ranked]
+        # Dedupe to distinct circulars BEFORE slicing top-10, matching
+        # benchmark.py:run_retrieval_benchmark / per_query_recall's convention
+        # (_unique(_doc(...))) — without this, multiple chunks from the same
+        # circular double-count in DCG and push doc_ndcg above 1.0.
+        ranked_doc_ids = _unique(retriever.chunks[i].doc_id for i, _ in ranked)
+
+        doc_recall[qid] = recall_at_k(ranked_doc_ids, relevant_docs, 10)
+        doc_ndcg[qid] = ndcg_at_k(ranked_doc_ids, relevant_docs, 10)
+
+        gold_chunks = set(resolve_chunk_spans(item, retriever.chunks))
+        if gold_chunks:
+            top = ranked_chunk_ids[:10]
+            chunk_recall[qid] = len(set(top) & gold_chunks) / len(gold_chunks)
+            chunk_ndcg[qid] = ndcg_at_k(ranked_chunk_ids, gold_chunks, 10)
+    elapsed = time.perf_counter() - t0
+    return {
+        "doc_recall": doc_recall, "doc_ndcg": doc_ndcg,
+        "chunk_recall": chunk_recall, "chunk_ndcg": chunk_ndcg,
+        "elapsed_s": elapsed,
+    }
 
 
-def ndcg_at_k(ranked_ids, relevant, k):
-    dcg = sum(1.0 / math.log2(i + 2) for i, cid in enumerate(ranked_ids[:k]) if cid in relevant)
-    ideal = sum(1.0 / math.log2(i + 2) for i in range(min(k, len(relevant))))
-    return dcg / ideal if ideal else 0.0
+def main() -> None:
+    args = parse_args()
+    golden_path = Path(args.golden)
+    with golden_path.open() as f:
+        golden = [json.loads(line) for line in f]
 
-
-def main():
-    k_const_range = list(range(20, 101, 5))
-    golden_path = ROOT / "eval" / "golden" / "golden_v7.jsonl"
-    golden = [json.loads(l) for l in open(golden_path)]
+    candidates = sorted({int(x) for x in args.k_values.split(",")} | {args.baseline_k})
+    if args.full_grid:
+        candidates = sorted(set(candidates) | set(range(20, 101, 5)))
 
     embedder = BGEM3Embedder()
-    retriever = HybridRetriever.load(Path("data/index"), embedder)
+    retriever = HybridRetriever.load(Path(args.index_dir), embedder)
+    print(f"Loaded: {len(retriever.chunks)} chunks, {len(golden)} golden items "
+          f"({sum(1 for g in golden if not g.get('abstain'))} scorable) from {golden_path.name}",
+          file=sys.stderr)
 
-    print(f"Loaded: {len(retriever.chunks)} chunks, {len(golden)} golden items", file=sys.stderr)
+    def fmt(x: float | None) -> str:
+        return f"{x:.4f}" if x is not None else "n/a"
 
-    results = {}
-    for k_const in k_const_range:
-        t0 = time.perf_counter()
-        chunk_recalls, chunk_mrrs, chunk_ndcgs = [], [], []
-        doc_recalls, doc_mrrs, doc_ndcgs = [], [], []
+    runs: dict[int, dict] = {}
+    for k_const in candidates:
+        r = run_one_k(golden, retriever, k_const)
+        runs[k_const] = r
+        print(f"k={k_const:3d}  doc_recall@10={fmt(mean_or_none(r['doc_recall']))}  "
+              f"doc_ndcg@10={fmt(mean_or_none(r['doc_ndcg']))}  "
+              f"chunk_recall@10={fmt(mean_or_none(r['chunk_recall']))}  "
+              f"chunk_ndcg@10={fmt(mean_or_none(r['chunk_ndcg']))}  time={r['elapsed_s']:.1f}s",
+              file=sys.stderr)
 
-        for item in golden:
-            query = item["query"]
-            relevant_docs = set(item.get("relevant_circulars", []))
+    baseline = runs[args.baseline_k]
+    comparisons = {}
+    for k_const in candidates:
+        if k_const == args.baseline_k:
+            continue
+        cand = runs[k_const]
+        recall_cmp = paired_delta(baseline["doc_recall"], cand["doc_recall"])
+        ndcg_cmp = paired_delta(baseline["doc_ndcg"], cand["doc_ndcg"])
+        adopted = (
+            (abs(recall_cmp.delta) >= 0.01 and recall_cmp.significant)
+            or (abs(ndcg_cmp.delta) >= 0.01 and ndcg_cmp.significant)
+        )
+        comparisons[k_const] = {
+            "recall_at_10": {
+                "delta": recall_cmp.delta, "ci_lo": recall_cmp.ci_lo, "ci_hi": recall_cmp.ci_hi,
+                "p_value": recall_cmp.p_value, "significant": recall_cmp.significant,
+                "n": recall_cmp.n,
+            },
+            "ndcg_at_10": {
+                "delta": ndcg_cmp.delta, "ci_lo": ndcg_cmp.ci_lo, "ci_hi": ndcg_cmp.ci_hi,
+                "p_value": ndcg_cmp.p_value, "significant": ndcg_cmp.significant,
+                "n": ndcg_cmp.n,
+            },
+            "adopted_per_prereg_decision_rule": adopted,
+        }
+        flag = "ADOPT-CANDIDATE" if adopted else "null"
+        print(f"k={k_const:3d} vs baseline k={args.baseline_k}: "
+              f"recall_at_10 Δ={recall_cmp.delta:+.4f} p={recall_cmp.p_value:.4f} sig={recall_cmp.significant} | "
+              f"ndcg_at_10 Δ={ndcg_cmp.delta:+.4f} p={ndcg_cmp.p_value:.4f} sig={ndcg_cmp.significant} | {flag}",
+              file=sys.stderr)
 
-            # Retrieve from both legs
-            dense = retriever.dense.search(query, 50)
-            sparse = retriever.sparse.search(retriever.expand_query_fn(query), 50) if hasattr(retriever, 'expand_query_fn') else retriever.sparse.search(query, 50)
+    best_k = max(candidates, key=lambda k: mean_or_none(runs[k]["doc_recall"]) or 0.0)
+    any_adopted = any(c["adopted_per_prereg_decision_rule"] for c in comparisons.values())
 
-            # Re-fuse with different k_const
-            ranked = rrf_fuse([dense, sparse], k_const=k_const, top_n=50)
+    out_dir = Path(args.out)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out = {
+        "turn": 1,
+        "variable": "rrf_k_const",
+        "golden_file": str(golden_path),
+        "n_golden": len(golden),
+        "n_scorable": sum(1 for g in golden if not g.get("abstain")),
+        "baseline_k": args.baseline_k,
+        "candidates": candidates,
+        "aggregate": {
+            str(k): {
+                "doc_recall_at_10": mean_or_none(runs[k]["doc_recall"]),
+                "doc_ndcg_at_10": mean_or_none(runs[k]["doc_ndcg"]),
+                "chunk_recall_at_10": mean_or_none(runs[k]["chunk_recall"]),
+                "chunk_ndcg_at_10": mean_or_none(runs[k]["chunk_ndcg"]),
+                "elapsed_s": runs[k]["elapsed_s"],
+            }
+            for k in candidates
+        },
+        "per_query": {
+            str(k): {
+                "doc_recall": runs[k]["doc_recall"],
+                "doc_ndcg": runs[k]["doc_ndcg"],
+                "chunk_recall": runs[k]["chunk_recall"],
+                "chunk_ndcg": runs[k]["chunk_ndcg"],
+            }
+            for k in candidates
+        },
+        "paired_vs_baseline": {str(k): v for k, v in comparisons.items()},
+        "best_k_by_raw_doc_recall": best_k,
+        "any_candidate_adopted_per_decision_rule": any_adopted,
+        "verdict": "ADOPT" if any_adopted else "NULL - baseline k_const carries forward unchanged",
+    }
+    (out_dir / "results.json").write_text(json.dumps(out, indent=2))
+    print(f"\nWrote {out_dir / 'results.json'}", file=sys.stderr)
+    print(f"Verdict: {out['verdict']}", file=sys.stderr)
 
-            # Map chunk indices to doc_ids
-            ranked_chunk_ids = [retriever.chunks[i].chunk_id for i, _ in ranked]
-            ranked_doc_ids = [retriever.chunks[i].doc_id for i, _ in ranked]
-
-            # Document-level recall
-            doc_recalls.append(recall_at_k(ranked_doc_ids, relevant_docs, 10))
-            doc_mrrs.append(mrr(ranked_doc_ids, relevant_docs))
-            doc_ndcgs.append(ndcg_at_k(ranked_doc_ids, relevant_docs, 10))
-
-            # Chunk-level recall (using resolve_chunk_spans like eval_harness)
-            gold_chunks = set(resolve_chunk_spans(item, retriever.chunks))
-            if gold_chunks:
-                top = ranked_chunk_ids[:10]
-                chunk_recalls.append(len(set(top) & gold_chunks) / len(gold_chunks))
-                chunk_mrrs.append(next((1.0 / r for r, cid in enumerate(ranked_chunk_ids, 1) if cid in gold_chunks), 0.0))
-                chunk_ndcgs.append(ndcg_at_k(ranked_chunk_ids, gold_chunks, 10))
-
-        elapsed = time.perf_counter() - t0
-        avg_cr = np.mean(chunk_recalls) if chunk_recalls else 0.0
-        avg_cm = np.mean(chunk_mrrs) if chunk_mrrs else 0.0
-        avg_cn = np.mean(chunk_ndcgs) if chunk_ndcgs else 0.0
-        avg_dr = np.mean(doc_recalls) if doc_recalls else 0.0
-        avg_dm = np.mean(doc_mrrs) if doc_mrrs else 0.0
-        avg_dn = np.mean(doc_ndcgs) if doc_ndcgs else 0.0
-        results[k_const] = (avg_cr, avg_cm, avg_cn, avg_dr, avg_dm, avg_dn, elapsed)
-        print(f"k={k_const:3d}  chunk_r@10={avg_cr:.4f}  chunk_mrr={avg_cm:.4f}  chunk_ndcg@10={avg_cn:.4f}  doc_r@10={avg_dr:.4f}  doc_mrr={avg_dm:.4f}  time={elapsed:.1f}s")
-
-    # Find best by chunk recall
-    best_k = max(results, key=lambda k: results[k][0])
-    br, bm, bn, dr, dm, dn, bt = results[best_k]
-    baseline_cr = 0.7160
-    print(f"\nBest k_const={best_k}: chunk_recall@10={br:.4f} (+{br-baseline_cr:+.4f}), chunk_mrr={bm:.4f}, chunk_ndcg@10={bn:.4f}", file=sys.stderr)
 
 if __name__ == "__main__":
     main()
