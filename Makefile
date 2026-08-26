@@ -135,6 +135,9 @@ golden-v7-gate:
 golden-validate:
 	$(ENV) $(PY) scripts/golden_v7/validate_golden.py
 
+corpus-validate:
+	$(ENV) $(PY) scripts/corpus_integrity.py
+
 validate-corpus:
 	$(ENV) $(PY) scripts/validate_corpus.py data/corpus/circulars.jsonl
 

@@ -93,6 +93,22 @@ fi
 echo "METRIC golden_validate_time_ms=$GOLDEN_MS"
 echo "METRIC golden_validate_status=$GOLDEN_STATUS"
 
+# ─── Corpus Integrity Check ───
+CORPUS_START=$(date +%s%N)
+python scripts/corpus_integrity.py > /dev/null 2>&1
+CORPUS_EXIT=$?
+CORPUS_END=$(date +%s%N)
+CORPUS_MS=$(( (CORPUS_END - CORPUS_START) / 1000000 ))
+
+if [ $CORPUS_EXIT -eq 0 ]; then
+  CORPUS_STATUS="pass"
+else
+  CORPUS_STATUS="fail"
+fi
+
+echo "METRIC corpus_validate_time_ms=$CORPUS_MS"
+echo "METRIC corpus_validate_status=$CORPUS_STATUS"
+
 # ─── Edit Success Rate ───
 # Test hashline edit stability (simulated)
 EDIT_SUCCESS=0
