@@ -154,4 +154,59 @@ Among `T`s meeting all of the above, prefer the one maximizing rescued_targets(T
 
 ## 5. Recorded outcome
 
-_Filled in after the run below._
+**NULL (Global Constraints significance bar) — anticipated per the §2 Power Note, not a deviation.**
+Full run: `scripts/hybrid_gate_sweep.py` (rewritten), golden_v7 n=260,
+`reports/hybrid-gate-cohort-2026-08-26.json`.
+
+**Target set did not reproduce as expected — reported as measured, not forced to fit.** Of the 3
+preregistered targets, only 2 (`v7-nt-013`, `v7-nt-025`) are still `subject_gate` false abstentions
+under jina. **`v7-ls-029` is no longer false-abstaining** — `subject_sim` is now 0.4500 (was 0.4073
+under bge) and `section_sim` is now 0.6320 (clears the 0.60 tier outright). Mechanism: `subject_sim`/
+`section_sim` are computed over the *post-rerank* top-5 context window (`generate.py:537-555`); ADR-004
+swapped the pool ordering from bge to jina (2026-08-24), which changed which chunks land in that
+window for this query — a different, higher-scoring subject line/section heading now enters the
+top-5. This is a **side effect of the already-adopted reranker swap incidentally fixing 1 of the 3
+original targets**, not an effect of anything run in this task. Separately, jina's different ordering
+also surfaced **3 new** `subject_gate` false abstentions not in the original 2026-08-13 list —
+`v7-bp-040` (subj 0.4126, sect 0.5148, top 0.3144), `v7-nt-004` (subj 0.4070, sect 0.5333, top
+0.1506), `v7-nt-016` (subj 0.3982, sect 0.4877, top 0.1322) — plus 1 unrelated `score_floor` false
+abstention, `hn-takeover` (top 0.1018 < 0.12 floor, out of scope per §4/brief). Net: the false-
+abstention set is **neither identical to nor a strict superset of** the 3 preregistered targets — it
+is a different 5-row `subject_gate` composition with 2 rows in common. Recorded as measured.
+
+**Guardrail baseline is not clean, independent of this experiment.** 3 of 41 gold-abstain rows
+(`hn-settle` subj 0.5512, `v7-hn-003` subj 0.4896, `v7-hn-018` subj 0.4508) already pass the
+*current, non-hybrid* subject gate outright — a pre-existing false-positive condition this task did
+not introduce and is out of scope to fix here (not in the Task 1 brief). They are excluded from the
+"new guardrail false positive" counts below (they were already broken before any `T` was applied).
+
+**T-grid sweep** (guardrail false positives measured over the 16 score-floor-cleared, at-risk rows
+of the 41-row cohort):
+
+| T | rescued (of 2 remaining targets) | new guardrail FPs | eligible (Step 1) | Δ abstention_accuracy | p | significant |
+|---|---|---|---|---|---|---|
+| 0.30 | 3 (incl. v7-bp-040) | 1 (`v7-hn-011`) | NO | +0.0077 | 0.6208 | False |
+| 0.35 | 2 | 1 (`v7-hn-011`) | NO | +0.0038 | 1.0000 | False |
+| 0.40 | 2 (`v7-nt-013`, `v7-nt-025`) | 0 | **YES** | +0.0077 | 0.4872 | False |
+| 0.45 | 1 (`v7-nt-025`) | 0 | YES | +0.0038 | 1.0000 | False |
+| 0.50 | 0 | 0 | YES | 0.0000 | 1.0000 | False |
+| 0.55 | 0 | 0 | YES | 0.0000 | 1.0000 | False |
+
+`v7-hn-011` (gold-abstain, correctly abstaining today: subj 0.4185, sect 0.4103, rerank_top 0.3546)
+is exactly the guardrail casualty the Step-1 safety filter exists to catch — it disqualifies T=0.30
+and T=0.35 outright, regardless of their 2–3x rescue count, per §3 Step 1 (no trade permitted).
+
+**Best eligible candidate: T=0.40** — rescues both remaining targets (`v7-nt-013`, `v7-nt-025`),
+zero new guardrail false positives, `Δ abstention_accuracy = +0.0077` (2/260). Per §2's Power Note,
+predicted in advance: this cannot and does not clear the Global Constraints significance bar
+(p=0.4872, not significant) — the achievable-p floor for a ≤3-discordant-pair effect on n=260 was
+disclosed before running as unable to reach p<0.05 even in the best case, and that is exactly what
+happened.
+
+**Verdict: NULL, per §3 Step 3's "NULL (Global Constraints bar, disclosed low-power outcome)"
+branch.** T=0.40 is a safe, targeted rescue (0 guardrail cost) but does not meet the preregistered
+significance bar, and per §4 that bar is not lowered because the candidate is close. No `config.toml`
+change ships. Recorded as a disclosed descriptive finding for the record: **if** a hybrid gate is
+adopted in a future, separately-approved change, T=0.40 is the recommended starting point (not T=0.30
+or 0.35, which cost a genuine false answer on `v7-hn-011`) — but this task's own decision rule does
+not authorize adoption today.
