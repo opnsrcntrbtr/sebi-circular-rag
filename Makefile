@@ -138,6 +138,9 @@ golden-validate:
 corpus-validate:
 	$(ENV) $(PY) scripts/corpus_integrity.py
 
+regression-check:
+	$(ENV) $(PY) scripts/regression_detector.py || true
+
 validate-corpus:
 	$(ENV) $(PY) scripts/validate_corpus.py data/corpus/circulars.jsonl
 

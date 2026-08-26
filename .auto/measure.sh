@@ -109,6 +109,24 @@ fi
 echo "METRIC corpus_validate_time_ms=$CORPUS_MS"
 echo "METRIC corpus_validate_status=$CORPUS_STATUS"
 
+# ─── Regression Detector ───
+REG_START=$(date +%s%N)
+python scripts/regression_detector.py > /dev/null 2>&1
+REG_EXIT=$?
+REG_END=$(date +%s%N)
+REG_MS=$(( (REG_END - REG_START) / 1000000 ))
+
+if [ $REG_EXIT -eq 0 ]; then
+  REG_STATUS="clean"
+elif [ $REG_EXIT -eq 1 ]; then
+  REG_STATUS="regression"
+else
+  REG_STATUS="error"
+fi
+
+echo "METRIC regression_check_time_ms=$REG_MS"
+echo "METRIC regression_check_status=$REG_STATUS"
+
 # ─── Edit Success Rate ───
 # Test hashline edit stability (simulated)
 EDIT_SUCCESS=0
