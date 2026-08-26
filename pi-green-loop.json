@@ -1,0 +1,10 @@
+{
+  "timeoutMs": 300000,
+  "checks": [
+    {
+      "name": "pytest",
+      "kind": "test",
+      "command": "pytest"
+    }
+  ]
+}

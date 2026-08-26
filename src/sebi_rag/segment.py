@@ -101,9 +101,8 @@ def hierarchical_chunk(
         body = body.strip()
         if not body:
             return
-        if carry:
-            body = f"{carry}\n{body}"
-            carry = ""
+        body = f"{carry}\n{body}"
+        carry = ""
         # Intervention #1 (2026-07-16 failure taxonomy): numbered sub-clauses
         # ("4.1.1.2. ...") are meaningless without their governing clause
         # ("4.1.1 On and from the date... the CRA shall:"). Prepend the nearest
@@ -113,7 +112,16 @@ def hierarchical_chunk(
             num = num.rsplit(".", 1)[0]
             gov = heads.get(num, "")
             if gov:
-                if gov not in body:
+                # Check if gov is already in body to avoid duplicating absorbed text.
+                # Use startswith check because carry may be truncated (80 chars) but
+                # gov is the full absorbed text — we need to detect if body already
+                # starts with gov (even if truncated in carry).
+                _body_lines = body.split('\n')[:3]
+                _gov_stripped = gov.strip()
+                _already_has_gov = (_gov_stripped in body or
+                                    any(_line.startswith(_gov_stripped) or _gov_stripped.startswith(_line.strip())
+                                        for _line in _body_lines if _line.strip()))
+                if not _already_has_gov:
                     body = f"{gov}\n{body}"
                 break
         cid = f"{meta.circular_number}#{sec}#{para_idx}"
@@ -142,6 +150,7 @@ def hierarchical_chunk(
         m = heading.match(first_line)
         if m:
             hnum = m.group(1)
+            is_child = hnum.startswith(f"{section_num}.") if section_num else False
             if buf:
                 # A section whose own body is only its heading (content lives
                 # entirely in subsections) must not become a standalone chunk:
@@ -149,17 +158,38 @@ def hierarchical_chunk(
                 # to extractive generators. When the incoming heading is this
                 # section's direct child, defer the bare heading as a prefix for
                 # the child chunk instead of emitting it alone.
-                is_child = hnum.startswith(f"{section_num}.") if section_num else False
                 if is_child and buf.strip() == section_head:
+                    # Parent heading was buffered as its own chunk body.
+                    # Defer it as a prefix for the child chunk instead.
                     carry = f"{carry}\n{buf.strip()}".strip() if carry else buf.strip()
+                elif section_name == "preamble" and not is_child:
+                    # Flush the preamble without trying to include the next
+                    # paragraph — it may be a continuation of the heading,
+                    # not actual content. Let absorption handle it.
+                    flush(section_name, buf)
+                elif is_child:
+                    # Parent heading was buffered (buf != empty) but doesn't match
+                    # section_head exactly — flush with whatever we have.
+                    flush(section_name, buf)
                 else:
-                    # When flushing the preamble, include the next paragraph
-                    # (first content paragraph) so retrievers see actual context.
-                    if section_name == "preamble" and i + 1 < len(paras):
-                        buf = f"{buf}\n\n{paras[i + 1]}"
-                        i += 1
                     flush(section_name, buf)
                 buf = ""
+            elif is_child:
+                # Direct child of current section.
+                # NOTE: We intentionally DO NOT set carry here — flush() already
+                # prepends ancestor headings via gov lookup. Setting carry from
+                # parent_head causes duplication because gov prepending adds it again.
+                pass
+            else:
+                # Not a direct child of current section, but may be a child of
+                # an ancestor (e.g., 4.1.2 is child of 4.1.1, not 4.1.1.1).
+                # Check all ancestors in heads for absorbed text to carry.
+                for anc_num in reversed(list(heads.keys())):
+                    if hnum.startswith(f"{anc_num}.") and anc_num != section_num:
+                        anc_head = heads[anc_num]
+                        if anc_head and (not carry or anc_head != carry):
+                            carry = anc_head.strip()
+                        break
             section_name = first_line.strip()[:60]
             section_head = first_line.strip()
             section_num = hnum
@@ -172,6 +202,10 @@ def hierarchical_chunk(
             head = heads[open_num]
             if len(head) < 300 and not head.endswith(_TERMINATORS):
                 heads[open_num] = f"{head} {' '.join(para.split())}"[:300]
+                # Do NOT add absorbed continuation text to buf — it belongs
+                # to the heading's governing clause, not to section content.
+                i += 1
+                continue
             else:
                 open_num = ""
         if len(buf) + len(para) + 1 > max_chars and buf:

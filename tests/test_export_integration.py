@@ -298,7 +298,7 @@ def test_row_count_accuracy_in_live_export():
     # supersession-pairs unchanged (new circulars carry no reg citations).
     expected = {
         "corpus": 730,
-        "chunks": 78630,
+        "chunks": 78578,
         "lineage": 4577,
         "eval": 56,
         "citation-normalization": 8903,
