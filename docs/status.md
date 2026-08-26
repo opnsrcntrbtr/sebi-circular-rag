@@ -834,6 +834,33 @@ cycle is the gate fix, not an accepted intervention.
 
 ## Last Updated
 
+2026-08-26 — **R7 conformal abstention calibration REJECTED — decisively, on accuracy, not on a narrow guardrail.** Design + prereg `docs/superpowers/specs/2026-08-26-conformal-abstention-calibration-design.md`, plan `docs/superpowers/plans/2026-08-26-conformal-abstention-calibration.md`, script `scripts/analysis/conformal_abstention_calibration.py`, reports `reports/conformal-calibration-{generate,calibrate,report-2026-08-26}.json`. Replaced the hand-fit `abstain_threshold`/`SEBI_RAG_SUBJ_THRESHOLD` gate thresholds with Conformal Risk Control (Angelopoulos et al. 2024, arXiv:2208.02814) + leave-one-out data reuse (Barber et al. 2021, arXiv:1905.02928) over the full golden_v7 (n=260), targeting a 5% false-answer-rate risk bound.
+
+| metric | production (fixed) | calibrated (honest LOO) | delta |
+|---|---|---|---|
+| abstention_accuracy | 0.9654 | **0.7154** | **−0.2500** |
+| false_answer_count | 21 | **10** | −11 |
+
+Calibrated score-floor threshold **0.2692** vs production's Jina-recalibrated **0.12** — more than
+double. Applied honestly (LOO held-out risk estimates 0.0472/0.0439, close to the 0.05 target,
+confirming the calibration mechanism itself is correct), it turns a large fraction of genuinely
+answerable rows into false abstentions: −25pp accuracy to buy an 11-row reduction in wrong answers.
+Confirmatory check: none of the three documented `subject_gate` false abstentions
+(`v7-nt-013`, `v7-nt-025`, `v7-ls-029`) flip to answered under the calibrated threshold. **Establishes**
+that production's hand-fit thresholds, whatever their overfitting risk in principle, sit at a
+materially more permissive and load-bearing point on the risk/coverage trade-off than a
+5%-false-answer-risk target selects — this is evidence about the *operating point*, not evidence the
+calibration method was implemented wrong. Shipped inert: `src/sebi_rag/conformal.py` (reusable CRC
++ LOO library for any future arm needing this on a different signal), 12 new tests. `config.toml`
+untouched. 893 tests pass (881 + 12 new), no regressions. Executed in an isolated worktree
+(`superpowers:using-git-worktrees`) on branch `worktree-conformal-abstention-calibration`, merged
+back to `main` after both branches' documentation was reconciled below.
+
+This closes the three-candidate sweep from this session (R6 late chunking, R5 tables at ingest, R7
+calibrated abstention) — all three gated out or rejected on their own preconditions/decision rules
+before or after reaching a design doc, none adopted. See each item's own dated entry immediately
+below.
+
 2026-08-26 — **GATE (throwaway, not preregistered): R5 (table-aware ingestion) is knocked out by its own preregistered precondition — zero of the `numeric_table` zero-cite rows are table-fragmentation-caused.** `scratchpad/r5_numeric_table_gate.py`, `reports/r5-numeric-table-gate-2026-08-26.json`. The 2026-08-19 roadmap doc gated R5 explicitly: *"attribute the numeric_table zero-cite rows to fragmentation before paying [~50-100min re-ingest+re-chunk+re-encode]. If those rows are demotion- or B′-caused, this buys nothing."* Ran the check on the full `numeric_table` stratum (30 rows, all eligible): only **2 are zero-cite** — `v7-nt-013` and `v7-nt-025`. Both were already diagnosed in the 2026-08-13 "5 false abstentions" entry as `subject_gate` false abstentions (subject_sim 0.3108 / 0.4105, both below the 0.42 threshold), unrelated to table fragmentation and unrelated to B′/reranker/demotion — an even more upstream cause (the abstention gate itself) than the roadmap's own gate anticipated, and one an ingest-time table fix categorically cannot touch. ⚠️ Correction to my own script's output: it labeled both rows `"in_context_window_not_cited (B'/reranker/demotion)"` — technically true that the relevant chunk reached `context_ids`, but the actual cause is the subject-sim gate vetoing before citation selection ever runs, not B′/reranker choosing wrong. The documented fix path for both (`Hybrid gate — cross-encoder OR`) was already known and is unrelated to R5. **R5 does not proceed** — full-corpus-reingest cost buys nothing on the metric it was gated against. No design doc, no spec, nothing shipped.
 
 2026-08-26 — **SPIKE (throwaway, not preregistered): R6 late chunking is not viable via bge-m3 as currently used — mean pooling underperforms the production CLS pooling by ~8pp even before any late-chunking-specific benefit is applied.** `scratchpad/late_chunking_pooling_spike.py`. Late chunking (arXiv:2409.04701) *requires* mean-pooling per-chunk token spans from a whole-document forward pass. Checked, not assumed: `FlagEmbedding`'s `BGEM3FlagModel` (= `M3Embedder`, what `embeddings.py`'s `BGEM3Embedder` wraps) defaults to `pooling_method="cls"` — `last_hidden_state[:, 0]`, a single global token, not a per-token space late chunking can operate on. `pooling_method="mean"` is a supported constructor kwarg, so a fixed-pool spike was run: production retriever's top-50 pool (CLS-selected, no re-embed) re-scored by a second bge-m3 instance with `pooling_method="mean"` on the identical chunks. n=5 smoke: CLS 5/5 vs mean 3/5. n=40 (39 fair-comparison rows, gold doc confirmed in the CLS pool): **CLS-pooled recall@10 in-pool 36/39 (92.3%) vs mean-pooled 33/39 (84.6%)**. Directionally consistent at both sizes.

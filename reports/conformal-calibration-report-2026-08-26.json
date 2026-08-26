@@ -1,0 +1,87 @@
+{
+  "spec": "docs/superpowers/specs/2026-08-26-conformal-abstention-calibration-design.md Sec 6",
+  "run_at": "2026-08-26T02:21:51",
+  "n": 260,
+  "alpha_primary": 0.05,
+  "alpha_secondary": 0.1,
+  "effect_floor_abstention_accuracy": 0.01,
+  "control": {
+    "n": 260,
+    "abstention_accuracy": 0.9654,
+    "false_answer_count": 21,
+    "false_answer_rate": 0.0808
+  },
+  "calibrated": {
+    "n": 260,
+    "abstention_accuracy": 0.7154,
+    "false_answer_count": 10,
+    "false_answer_rate": 0.0385
+  },
+  "accuracy_gain": -0.25,
+  "certified_risk_bounds_alpha_0_05": {
+    "score_floor": {
+      "threshold": 0.2692,
+      "target_alpha": 0.05,
+      "certified_risk_bound": 0.05,
+      "held_out_risk_estimate": 0.047244094488188976,
+      "n": 254,
+      "method": "CRC (arXiv:2208.02814) + leave-one-out data reuse (Barber et al. 2021, arXiv:1905.02928)"
+    },
+    "subject_gate": {
+      "threshold": 0.4482,
+      "target_alpha": 0.05,
+      "certified_risk_bound": 0.05,
+      "held_out_risk_estimate": 0.043859649122807015,
+      "n": 228,
+      "method": "CRC (arXiv:2208.02814) + leave-one-out data reuse (Barber et al. 2021, arXiv:1905.02928)"
+    }
+  },
+  "certified_risk_bounds_alpha_0_10": {
+    "alpha": 0.1,
+    "score_floor": {
+      "threshold": 0.1638,
+      "target_alpha": 0.1,
+      "certified_risk_bound": 0.1,
+      "held_out_risk_estimate": 0.0984251968503937,
+      "n": 254,
+      "method": "CRC (arXiv:2208.02814) + leave-one-out data reuse (Barber et al. 2021, arXiv:1905.02928)"
+    },
+    "subject_gate": {
+      "threshold": 0.4776,
+      "target_alpha": 0.1,
+      "certified_risk_bound": 0.1,
+      "held_out_risk_estimate": 0.09210526315789473,
+      "n": 228,
+      "method": "CRC (arXiv:2208.02814) + leave-one-out data reuse (Barber et al. 2021, arXiv:1905.02928)"
+    }
+  },
+  "gate_floors_reference": {
+    "recall_at_k": 0.906,
+    "context_recall": 0.874,
+    "ndcg_at_10": 0.6512,
+    "citation_recall": 0.8169,
+    "abstention_accuracy": 0.9412,
+    "citation_precision": 0.1577
+  },
+  "confirmatory_row_flips": {
+    "v7-nt-025": {
+      "was_abstained": true,
+      "now_abstained": true,
+      "flipped_to_answered": false
+    },
+    "v7-ls-029": {
+      "was_abstained": false,
+      "now_abstained": false,
+      "flipped_to_answered": false
+    },
+    "v7-nt-013": {
+      "was_abstained": true,
+      "now_abstained": true,
+      "flipped_to_answered": false
+    }
+  },
+  "verdict": "REJECT (primary null; certified risk bound reported per Sec 6)",
+  "rule_failures": [
+    "6.1: abstention_accuracy gained -0.2500, needs >= 0.01"
+  ]
+}
