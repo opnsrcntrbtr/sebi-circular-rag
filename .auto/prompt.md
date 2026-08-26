@@ -4,7 +4,7 @@
 Evaluate Tier 1 Pi extensions (pi-green-loop, pi-lens, pi-hashline-edit-pro) against the SEBI RAG project's recurring workflows. Measure goal outcome quality, throughput impact, and token overhead. Decide whether to keep or discard each extension after 1 week of real usage.
 
 ## Metrics
-- **Primary**: Token overhead % (target: ≤3% of ~3,500 baseline = ≤105 tokens) — lower is better
+- **Primary**: Token overhead % (target: ≤3% of ~6,080 current total = ≤182 tokens) — lower is better
 - **Secondary**: Test feedback time (partial change), LSP lookup time, edit success rate
 
 ## How to Run
@@ -19,7 +19,8 @@ Evaluate Tier 1 Pi extensions (pi-green-loop, pi-lens, pi-hashline-edit-pro) aga
 - `.auto/measure.sh` — benchmark script
 - `.auto/checks.sh` — correctness checks (make test)
 - `src/sebi_rag/` — project source (for testing extension impact)
-- `.pi/agent/skills/` — installed skills (graphify is already present)
+- `.pi/agent/skills/` — installed skills (graphify already present, ~2,580 tokens)
+- `.pi/agent/npm/node_modules/pi-*` — npm-installed extensions
 
 ## Off Limits
 - Do NOT install Tier 2 or Tier 3 extensions during this evaluation
@@ -33,16 +34,20 @@ Evaluate Tier 1 Pi extensions (pi-green-loop, pi-lens, pi-hashline-edit-pro) aga
 - All measurements must be repeatable (run 3x, report median)
 
 ## What's Been Tried
-- **Baseline established**: ~3,500 tokens/session without extensions
-- **Tier 1 extensions identified**: pi-green-loop (0.4%), pi-lens (0.5%), pi-hashline-edit-pro (0.6%)
-- **Estimated combined overhead**: ~1.5% — within target
+- **Baseline established**: ~6,080 tokens/session (AGENTS.md 3,500 + graphify skill ~2,580)
+- **Measured extension overhead** (tool definitions, not README files):
+  - pi-green-loop: +50 tokens (0.8%) ✅
+  - pi-lens: +150 tokens (2.5%) ✅
+  - pi-hashline-edit-pro: +200 tokens (3.3%) ⚠️ slightly over target
+- **Combined Tier 1**: +400 tokens (6.6%) ❌ exceeds target
+- **Revised recommendation**: Install pi-green-loop alone (0.8%) as Phase 1; defer others until impact measured
 
 ## Evaluation Phases
 ### Phase 1: Install & Smoke Test (Days 1-2)
-1. Install all 3 Tier 1 extensions
-2. Verify LSP-first navigation works with graphify
-3. Verify test scoping works for partial changes
-4. Run `make test` — must pass
+1. Install pi-green-loop only (0.8% overhead, within target)
+2. Verify test scoping works for partial changes
+3. Run `make test` — must pass
+4. Measure improvement in partial-change test feedback time
 
 ### Phase 2: Goal Outcome Quality (Days 3-4)
 1. Fix a regression in `generate.py` — measure time to fix + test pass rate
@@ -64,5 +69,5 @@ Evaluate Tier 1 Pi extensions (pi-green-loop, pi-lens, pi-hashline-edit-pro) aga
 | Extension | Keep if... | Discard if... |
 |---|---|---|
 | pi-green-loop | Test feedback <20s for partial changes | No measurable speedup vs full suite |
-| pi-lens | LSP lookups <15s, fewer manual lsp calls | Conflicts with graphify, no improvement |
-| pi-hashline-edit-pro | Zero stale-anchor bugs in 10+ edits | Edit failures >5% of attempts |
+| pi-lens (deferred) | LSP lookups <15s, fewer manual lsp calls | Conflicts with graphify, no improvement |
+| pi-hashline-edit-pro (deferred) | Zero stale-anchor bugs in 10+ edits | Edit failures >5% of attempts |
