@@ -132,6 +132,9 @@ golden-v7-packet-ingest:
 golden-v7-gate:
 	$(ENV) $(PY) scripts/golden_v7/derive_thresholds.py
 
+golden-validate:
+	$(ENV) $(PY) scripts/golden_v7/validate_golden.py
+
 validate-corpus:
 	$(ENV) $(PY) scripts/validate_corpus.py data/corpus/circulars.jsonl
 

@@ -76,6 +76,23 @@ LSP_TIME_MS=$(( (LSP_END - LSP_START) / 1000000 ))
 
 echo "METRIC lsp_lookup_time_ms=$LSP_TIME_MS"
 
+# ─── Golden-set Validator ───
+# Pre-commit check: gate_v7.json armed + golden set integrity
+GOLDEN_START=$(date +%s%N)
+python scripts/golden_v7/validate_golden.py > /dev/null 2>&1
+GOLDEN_EXIT=$?
+GOLDEN_END=$(date +%s%N)
+GOLDEN_MS=$(( (GOLDEN_END - GOLDEN_START) / 1000000 ))
+
+if [ $GOLDEN_EXIT -eq 0 ]; then
+  GOLDEN_STATUS="pass"
+else
+  GOLDEN_STATUS="fail"
+fi
+
+echo "METRIC golden_validate_time_ms=$GOLDEN_MS"
+echo "METRIC golden_validate_status=$GOLDEN_STATUS"
+
 # ─── Edit Success Rate ───
 # Test hashline edit stability (simulated)
 EDIT_SUCCESS=0

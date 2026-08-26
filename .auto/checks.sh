@@ -23,7 +23,7 @@ python3 -c "
 import sys
 sys.path.insert(0, 'src')
 from sebi_rag.segment import CircularMeta
-meta = CircularMeta(title='test', date='2024-01-01')
+meta = CircularMeta(circular_number='test-001', issue_date='2024-01-01')
 # Verify no extra fields beyond expected
 fields = [k for k in dir(meta) if not k.startswith('_')]
 print(f'CircularMeta fields: {len(fields)}')
