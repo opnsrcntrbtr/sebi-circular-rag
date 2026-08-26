@@ -416,10 +416,26 @@ is what makes it worth doing first among the independent items.
 
 ---
 
-### R4 — Reranker architecture: inter-passage attention  ⟨independent⟩
+### R4 — Reranker architecture: inter-passage attention  ✅ **RETRIEVAL: ADOPTED 2026-08-24 (ADR-004)** / ❌ **CITATION SCORING: REJECTED 2026-08-25**
 
 **Claim.** The reranker lever was declared exhausted on the strength of *combiner* experiments,
 never an architecture change.
+
+**⚠️ Outcome, split by role — the claim was right for one role and wrong for the other.**
+ADR-004 adopted `jina-reranker-v3-mlx` (listwise, inter-passage self-attention) for
+`pipeline.reranker` — the retrieval-pool ordering role — measured on golden_v7: recall@10 +2.42%,
+nDCG@10 +6.76%, no regression. **That adoption stands.**
+
+The same model was then tried as B′'s citation-selection scorer (`docs/superpowers/specs/
+2026-08-25-jina-citation-scorer-prereg.md`) — a *different* role, scoring `(answer_text, contexts)`
+rather than `(query, contexts)`. **REJECTED**: citation_precision +0.1436 (real, large — clears the
+prior R1 warrant arm's own +0.02 floor by 7×), but zero_cite rose 15→24 on the same cohort R1 and
+the original NLI arm were measured on (zero tolerance rule). Checked, not assumed: only 4 of the 13
+newly-zero-cite rows are `min_keep` margin-collapse; the other 9 kept ≥2 citations and still missed
+every relevant doc — the dominant cause is jina ranking the correct document *below* others when the
+query is generated answer text, not the user's question. Inter-passage attention transfers to
+retrieval ordering on this corpus; it does not transfer to citation attribution. See status.md
+2026-08-25 and the prereg's §10 OUTCOME for the full breakdown.
 
 **Repo evidence.** Reranker ordering causes 3 of 19 zero-cite rows. The 2026-08-13 work tested
 RRF variants and rank-caps — all within ±1 of baseline, non-monotonic in the cap parameter. That
@@ -443,7 +459,16 @@ approximating.
 
 ---
 
-### R5 — Tables at ingest  ⟨gated on a diagnostic⟩
+### R5 — Tables at ingest  ❌ **GATED OUT 2026-08-26 — its own precondition failed**
+
+**⚠️ Gate result (`scratchpad/r5_numeric_table_gate.py`, status.md 2026-08-26).** This entry's
+own stated gate — *"attribute the numeric_table zero-cite rows to fragmentation before paying"* —
+was run before any design work. All 30 `numeric_table` golden_v7 rows are eligible; only **2** are
+zero-cite (`v7-nt-013`, `v7-nt-025`), and **both were already diagnosed** (2026-08-13, "5 false
+abstentions") as `subject_gate` false abstentions unrelated to tables. **Zero rows are
+fragmentation-caused.** The ~50-100min re-ingest + re-chunk + re-encode cost buys nothing on the
+metric this section gated itself against. Not proceeding. Left below as the original proposal, for
+the record.
 
 **Measured on this corpus (2026-08-19, `scratchpad/table_frag_probe.py`).**
 
@@ -467,7 +492,19 @@ If those rows are demotion- or B′-caused, this buys nothing — and R2/R1 woul
 
 ---
 
-### R6 — Chunk quality: late chunking + degenerate fold  ⟨INDEPENDENT — tag corrected 2026-08-20⟩
+### R6 — Chunk quality: late chunking + degenerate fold  ⚠️ **BLOCKED 2026-08-26 — literal late chunking not viable via bge-m3 as used**
+
+**⚠️ Spike finding (throwaway, not preregistered — `scratchpad/late_chunking_pooling_spike.py`,
+status.md 2026-08-26).** Late chunking requires mean-pooling; `BGEM3Embedder`'s underlying
+`FlagEmbedding.BGEM3FlagModel` defaults to CLS pooling (a single global token, not a per-token
+space to late-chunk over). A fixed-pool spike (same 50-chunk pool, same texts, only the pooling
+mode changed) measured mean pooling **~8pp below** the production CLS path (n=40: 92.3% vs 84.6%
+in-pool recall@10) — a real deficit any late-chunking benefit would have to overcome, present
+*before* any document-level context is added. Not decisive at this sample size (`iv-series-
+verdicts-unpowered` applies), but directionally consistent at n=5 and n=40. **Two untested paths
+if revisited:** mean-pool bge-m3's trained ColBERT per-token head instead of raw hidden states, or
+swap to a long-context embedder natively trained with mean pooling (e.g. jina-embeddings-v3, what
+the original paper validated on) — a materially bigger change than R6 as originally scoped.
 
 **Measured.** 6,736 chunks (**8.57%**) have bodies under 80 characters — typically a section
 heading restated. Reproduces the ~9.6% figure behind the known nominee-count wrong answer.
