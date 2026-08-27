@@ -4,8 +4,9 @@ ENV  := HF_HUB_DISABLE_XET=1 TOKENIZERS_PARALLELISM=false OMP_NUM_THREADS=1 PYTO
 PORT ?= 8000
 MAX  ?= 25
 MAX_MASTER ?= 200
+SPACE_REPO ?= opnsrcntrbtrian/sebi-circular-rag-demo
 
-.PHONY: help test annotate index reindex calibrate bench-rerank bench-retrieval rescore trec-parity qrels benchmark-export export-datasets eval-asof serve scrape ops scrape-master verify-master scrape-regs reg-edges audit-regs measure phoenix
+.PHONY: help test annotate index reindex calibrate bench-rerank bench-retrieval rescore trec-parity qrels benchmark-export export-datasets eval-asof serve scrape ops scrape-master verify-master scrape-regs reg-edges audit-regs measure phoenix deploy-space
 
 help:
 	@echo "test       run offline test suite"
@@ -29,6 +30,7 @@ help:
 	@echo "audit-regs     precision audit of regulation edges (sample + CI)"
 	@echo "measure      run automated metric collection"
 	@echo "phoenix    start Arize Phoenix telemetry server (localhost:6006)"
+	@echo "deploy-space   push app.py/src/sebi_rag to the HF Space (SPACE_REPO=$(SPACE_REPO)); needs HF auth (hf auth login or HF_TOKEN)"
 
 
 measure:
@@ -150,3 +152,11 @@ telemetry:
 ## telemetry: Run the self-optimization telemetry engine
 phoenix:
 	@bash scripts/start_phoenix.sh
+
+# Manual trigger for the same sync the deploy-space GitHub Action runs on
+# every main push touching app.py/src/sebi_rag/ (.github/workflows/deploy-space.yml).
+# 402 Payment Required notes from create_repo/request_space_hardware are
+# expected on a free HF account and non-fatal — the repo already exists;
+# see README-spaces.md.
+deploy-space:
+	$(PY) scripts/deploy_space.py --repo $(SPACE_REPO)

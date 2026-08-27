@@ -1,0 +1,58 @@
+name: Deploy HF Space
+
+# Keeps opnsrcntrbtrian/sebi-circular-rag-demo in sync with main. Before this
+# workflow existed, deployment was a manual, un-scheduled step: the fix in
+# b34454b (2026-08-16) sat un-deployed for 11 days while 84ea79e (2026-08-27)
+# diagnosed the live Space's stale behavior as a still-open bug. See
+# scripts/deploy_space.py and README-spaces.md § Deploying.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "app.py"
+      - "src/sebi_rag/**"
+      - "config.toml"
+      - "requirements-spaces.txt"
+      - "README-spaces.md"
+      - ".github/workflows/deploy-space.yml"
+  workflow_dispatch: {}  # manual re-run from the Actions tab if needed
+
+concurrency:
+  group: deploy-space
+  cancel-in-progress: false  # let an in-flight deploy finish; don't interleave uploads
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Zero extra dependencies: catches a broken app.py before it reaches
+      # the Space, without installing the full ML stack (torch/faiss/etc.)
+      # that app.py's own imports pull in only at Space runtime.
+      - name: Syntax-check deployed files
+        run: python -m compileall -q app.py src/sebi_rag
+
+      - name: Install huggingface_hub
+        run: pip install -U huggingface_hub
+
+      - name: Deploy to HF Space
+        env:
+          # HfApi() reads HF_TOKEN from the environment automatically
+          # (huggingface_hub.utils._auth.get_token). Add this secret at
+          # https://github.com/opnsrcntrbtr/sebi-circular-rag/settings/secrets/actions
+          # — a write-scoped token from https://huggingface.co/settings/tokens
+          # for the opnsrcntrbtrian account. Until it's set, this step fails
+          # with an auth error and no partial upload happens.
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python scripts/deploy_space.py --repo opnsrcntrbtrian/sebi-circular-rag-demo
+
+      # This job only guarantees the Space's files match main — it does not
+      # wait for the rebuild or exercise the running app. Per AGENTS.md
+      # "Browser Verification", behavior changes still need a live check
+      # before being called done.

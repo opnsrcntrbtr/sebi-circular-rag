@@ -77,12 +77,31 @@ temporary stopgap.
 
 ## Deploying
 
-1. Locally: `make reindex` then
+**Code changes deploy automatically.** `.github/workflows/deploy-space.yml`
+runs `scripts/deploy_space.py` on every push to `main` that touches `app.py`,
+`src/sebi_rag/**`, `config.toml`, `requirements-spaces.txt` or this file —
+requires a write-scoped `HF_TOKEN` repo secret (huggingface.co/settings/tokens,
+for the `opnsrcntrbtrian` account). Without it the workflow fails loudly at
+the deploy step rather than silently skipping.
+
+For a manual/local push: `make deploy-space` (`SPACE_REPO=` to override the
+target). Both paths run the same script, which uploads `app.py`,
+`src/sebi_rag/`, `config.toml`, `requirements-spaces.txt` (as
+`requirements.txt`) and this file (as `README.md`) via `HfApi.upload_folder`.
+
+`create_repo`/`request_space_hardware` inside that script routinely return
+`402 Payment Required` on a free account when the Space already exists —
+**this is expected and non-fatal**, not a deploy blocker: both calls are
+wrapped in `try/except` and the actual upload does not depend on either
+succeeding (confirmed working end-to-end via `.superpowers/sdd/task-5-report.md`,
+2026-07-13). Only the initial *creation* of a new paid-tier Space needs PRO.
+
+One-time index setup (not part of the automated deploy):
+1. `make reindex` then
    `python scripts/upload_spaces_index.py --repo <you>/sebi-circulars-index`.
-2. Set `[spaces] index_repo` (and optionally `external_space`) in `config.toml`.
-3. Create a Gradio-SDK Space; push this repo (or `app.py`, `src/`,
-   `config.toml`, `requirements-spaces.txt` renamed to `requirements.txt`,
-   and this file as `README.md`).
+2. Set `[spaces] index_repo` (and optionally `external_space`) in
+   `config.toml` — this is one of the files the deploy workflow watches, so
+   committing the change ships it.
 
 First query builds the pipeline (model downloads + index fetch): expect a
 few minutes cold, seconds warm for retrieval, longer when the CPU fallback
