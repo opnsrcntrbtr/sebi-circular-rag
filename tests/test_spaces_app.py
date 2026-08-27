@@ -208,3 +208,72 @@ def test_get_chunk_text_builds_once_and_caches(app_module):
     assert result2 == {"c1": "text one", "c2": "text two"}
 
     app_module._chunk_text.clear()  # don't leak state into other tests
+
+
+# ---------------------------------------------------------------------------
+# _format_latency / _faithfulness_badge — human-readable metadata formatting.
+# Regression: the UI previously showed raw "21621 ms" / unexplained "1.00".
+# ---------------------------------------------------------------------------
+
+
+def test_format_latency_under_1000ms_shows_milliseconds(app_module):
+    assert app_module._format_latency(850) == "850ms"
+    assert app_module._format_latency(0) == "0ms"
+
+
+def test_format_latency_1000ms_and_over_shows_seconds(app_module):
+    assert app_module._format_latency(1000) == "1.0s"
+    assert app_module._format_latency(21621) == "21.6s"
+
+
+def test_faithfulness_badge_tiers(app_module):
+    assert app_module._faithfulness_badge(1.0).startswith("✅")
+    assert app_module._faithfulness_badge(0.9).startswith("✅")
+    assert app_module._faithfulness_badge(0.8).startswith("⚠️")
+    assert app_module._faithfulness_badge(0.7).startswith("⚠️")
+    assert app_module._faithfulness_badge(0.5).startswith("❌")
+    assert "0.85" in app_module._faithfulness_badge(0.85)
+
+
+# ---------------------------------------------------------------------------
+# _hidden_meta / _loading_meta / _visible_meta — the metadata badge row.
+# These were the dead-component bug: loading_text/latency_badge/
+# faithfulness_badge/certainty_badge were declared, permanently
+# visible=False, and never appeared in any yield tuple or outputs list.
+# Length parity across all three mirrors the _blank_previews/_preview_updates
+# guard for the exact same class of arity-mismatch bug.
+# ---------------------------------------------------------------------------
+
+
+def test_meta_helpers_return_four_tuples(app_module):
+    assert len(app_module._hidden_meta()) == 4
+    assert len(app_module._loading_meta("loading…")) == 4
+    assert len(app_module._visible_meta(1000, 0.9, "🟢 High")) == 4
+
+
+def test_hidden_meta_all_hidden(app_module):
+    updates = app_module._hidden_meta()
+    assert all(u["visible"] is False for u in updates)
+
+
+def test_loading_meta_shows_message_badges_still_hidden(app_module):
+    loading, latency, faithfulness, certainty = app_module._loading_meta("⏳ Building…")
+    assert loading["visible"] is True
+    assert loading["value"] == "⏳ Building…"
+    assert latency["visible"] is False
+    assert faithfulness["visible"] is False
+    assert certainty["visible"] is False
+
+
+def test_visible_meta_shows_formatted_badges_loading_hidden(app_module):
+    loading, latency, faithfulness, certainty = app_module._visible_meta(
+        21621, 1.0, "🟢 High"
+    )
+    assert loading["visible"] is False
+    assert latency["visible"] is True
+    assert latency["value"] == "⏱️ 21.6s"
+    assert faithfulness["visible"] is True
+    assert "1.00" in faithfulness["value"]
+    assert certainty["visible"] is True
+    assert certainty["value"] == "🟢 High"
+

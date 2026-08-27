@@ -1,14 +1,16 @@
 """Hugging Face Spaces entrypoint — SEBI Circular RAG demo (CPU-only).
 
 Redesigned UI with:
-- Multi-turn chat history via gr.Chatbot
-- Streaming answer output (typing effect)
-- Metadata bar with latency/faithfulness/certainty badges above the answer
+- Multi-turn chat history via gr.Chatbot; the answer streams directly into
+  the chat bubble (single answer surface — no separate duplicate block)
+- Metadata bar with latency/faithfulness/certainty badges above the answer,
+  populated after each query (hidden otherwise)
 - Example query chips below the question input
-- Loading spinner during cold-start pipeline build
-- Superseded document highlighting (red row tint + ⚠️ icon) in citations table
+- Loading message shown while the pipeline builds on a cold start
+- Superseded document highlighting (⚠️ icon) in the citations table
 - Expandable document preview per citation (markdown accordion)
-- Confidence gauge (color-coded: green/yellow/red text badges)
+- Confidence gauge (color-coded: 🟢/🟡/🔴 certainty badge)
+- "Clear conversation" resets chat, citations and metadata in one click
 
 The pipeline is built lazily on the first query: it downloads the prebuilt
 FAISS/BM25 index from [spaces].index_repo and the corpus from the published
@@ -39,6 +41,8 @@ _chunk_text: dict[str, str] = {}  # chunk_id -> full text; built once, shared ac
 _lock = threading.Lock()
 
 MAX_PREVIEWS = 10  # matches the Top K Citations slider's maximum
+
+_EMPTY_CITATIONS_COLUMNS = ["Circular", "Status", "Superseded By", "id"]
 
 
 @spaces.GPU
@@ -94,6 +98,42 @@ def _certainty_badge(certainty: str) -> str:
     colors = {"high": "🟢", "medium": "🟡", "low": "🔴"}
     icon = colors.get(certainty, "⚪")
     return f"{icon} {certainty.capitalize()}"
+
+
+def _format_latency(ms: float) -> str:
+    """Human-readable latency: '850ms' or '1.2s', not a raw millisecond count."""
+    return f"{ms:.0f}ms" if ms < 1000 else f"{ms / 1000:.1f}s"
+
+
+def _faithfulness_badge(faithfulness: float) -> str:
+    icon = "✅" if faithfulness >= 0.9 else "⚠️" if faithfulness >= 0.7 else "❌"
+    return f"{icon} Faithfulness: {faithfulness:.2f}"
+
+
+def _hidden_meta() -> tuple:
+    """loading_text, latency_badge, faithfulness_badge, certainty_badge — all hidden.
+
+    Length/order must match _loading_meta and _visible_meta — this is the same
+    arity-parity bug class _blank_previews/_preview_updates guards against.
+    """
+    hidden = gr.update(visible=False)
+    return hidden, hidden, hidden, hidden
+
+
+def _loading_meta(message: str) -> tuple:
+    """Cold-start/processing message visible; badges stay hidden until real data exists."""
+    hidden = gr.update(visible=False)
+    return gr.update(visible=True, value=message), hidden, hidden, hidden
+
+
+def _visible_meta(latency_ms: float, faithfulness: float, certainty_str: str) -> tuple:
+    hidden = gr.update(visible=False)
+    return (
+        hidden,  # loading_text — done loading
+        gr.update(visible=True, value=f"⏱️ {_format_latency(latency_ms)}"),
+        gr.update(visible=True, value=_faithfulness_badge(faithfulness)),
+        gr.update(visible=True, value=certainty_str),
+    )
 
 
 def _build_citations_markdown(rows: list[dict]) -> str:
@@ -203,14 +243,11 @@ def run_query_stream(
     chat_history: list | None,
 ):
     """Generator that streams the answer while updating chat history."""
-    empty_df = pd.DataFrame(
-        columns=["Circular", "Status", "Superseded By", "id"]
-    )
+    empty_df = pd.DataFrame(columns=_EMPTY_CITATIONS_COLUMNS)
 
     if not question.strip():
         yield (
             _append_message(_to_gradio5_history(chat_history), "assistant", "Please enter a question."),
-            "",  # streaming answer
             _empty_citations_md(),
             empty_df,
             "",  # latency
@@ -219,6 +256,7 @@ def run_query_stream(
             "",  # superseded warnings
             "",  # unsupported citations
             *_blank_previews(),
+            *_hidden_meta(),
         )
         return
 
@@ -227,8 +265,9 @@ def run_query_stream(
     except ValueError:
         yield (
             _append_message(_to_gradio5_history(chat_history), "assistant", "**Error:** 'As of date' must be YYYY-MM-DD (e.g. 2025-01-10)."),
-            "", _empty_citations_md(), empty_df, "", "", "⚪ Error", "", "",
+            _empty_citations_md(), empty_df, "", "", "⚪ Error", "", "",
             *_blank_previews(),
+            *_hidden_meta(),
         )
         return
 
@@ -236,6 +275,16 @@ def run_query_stream(
     current_history = _append_message(_to_gradio5_history(chat_history), "user", question)
 
     try:
+        # Yield before the (blocking) pipeline build so a cold start shows a
+        # real message instead of a blank box with just a corner timer.
+        yield (
+            current_history,
+            _empty_citations_md(), empty_df, "", "", "⚪ Processing…", "", "",
+            *_blank_previews(),
+            *_loading_meta("⏳ Building the retrieval pipeline (first query only) — "
+                           "this can take a few minutes. Subsequent queries are fast."),
+        )
+
         pipeline = get_pipeline(mode)  # type: ignore[assignment]
         chunk_text = _get_chunk_text(pipeline)
         t0 = time.perf_counter()
@@ -254,13 +303,14 @@ def run_query_stream(
                 + answer_text
             )
 
-        # Yield streaming chunks
+        # Yield streaming chunks straight into the chat bubble itself — this
+        # is the only answer surface now, so the typing effect has to live
+        # here rather than in a separate (now-removed) answer_output block.
         chunk_size = 20
         for i in range(0, len(answer_text), chunk_size):
             partial = answer_text[: i + chunk_size]
             yield (
-                current_history,  # chat history with user msg only during streaming
-                partial,  # streaming answer text
+                _append_message(current_history, "assistant", partial),
                 _empty_citations_md(),
                 empty_df,
                 "",  # latency (shown at end)
@@ -269,6 +319,7 @@ def run_query_stream(
                 "",  # superseded (shown at end)
                 "",  # unsupported (shown at end)
                 *_blank_previews(),
+                *_hidden_meta(),
             )
 
         # Final yield with all data
@@ -300,28 +351,32 @@ def run_query_stream(
         answer_content = ans.text if not ans.abstained else f"⚠️ *Abstained: {ans.abstention_reason}*"
         final_history = _append_message(current_history, "assistant", answer_content)
 
+        certainty_badge_str = _certainty_badge(ans.certainty) + (
+            f" — {ans.abstention_reason}" if ans.abstained else ""
+        )
+
         yield (
             final_history,  # complete chat history
-            answer_text,  # full answer text (also shown in chat)
             citations_md,  # markdown citations table
             pd.DataFrame(citation_rows) if citation_rows else empty_df,  # dataframe for metadata access
             latency,
             f"{ans.faithfulness:.2f}",
-            _certainty_badge(ans.certainty) + (f" — {ans.abstention_reason}" if ans.abstained else ""),
+            certainty_badge_str,
             json.dumps(ans.superseded, indent=2) if ans.superseded else "None",
             ", ".join(ans.unsupported_citations or []) or "None",
             *_preview_updates(citation_rows, chunk_text),
+            *_visible_meta(latency_ms, ans.faithfulness, certainty_badge_str),
         )
 
     except Exception as exc:  # noqa: BLE001 — surface, don't crash the Space
         error_msg = f"**Error:** {exc}"
         yield (
             _append_message(current_history, "assistant", error_msg),
-            error_msg,
             _empty_citations_md(),
             empty_df,
             "", "", "⚪ Error", "", "",
             *_blank_previews(),
+            *_hidden_meta(),
         )
 
 
@@ -349,7 +404,12 @@ def build_ui():
         # Chat history (multi-turn)
         chatbot = gr.Chatbot(
             label="Conversation",
+            placeholder=(
+                "### 👋 Ask a question about SEBI circulars\n"
+                "Or click one of the examples below to get started."
+            ),
         )
+        clear_btn = gr.Button("🗑️ Clear conversation", size="sm", variant="secondary")
 
         # Question input + example queries
         with gr.Row():
@@ -416,14 +476,17 @@ def build_ui():
             visible=False,
         )
 
-        # Metadata bar (horizontal badges above answer)
+        # Metadata bar (horizontal badges above the answer) — hidden until a
+        # query completes; see _hidden_meta/_loading_meta/_visible_meta.
         with gr.Row():
-            latency_badge = gr.Markdown(value="", visible=False, elem_classes="meta-badge")
-            faithfulness_badge = gr.Markdown(value="", visible=False, elem_classes="meta-badge")
-            certainty_badge = gr.Markdown(value="", visible=False, elem_classes="meta-badge")
+            latency_badge = gr.Markdown(value="", visible=False)
+            faithfulness_badge = gr.Markdown(value="", visible=False)
+            certainty_badge = gr.Markdown(value="", visible=False)
 
-        # Answer output (streaming)
-        answer_output = gr.Markdown(label="Answer", elem_classes="answer-output")
+        # The Chatbot above is the single answer surface — no separate
+        # duplicate block. (Previously a second answer_output Markdown here
+        # rendered the identical text a second time with no visual
+        # distinction from the chat bubble.)
 
         # Citations section
         gr.Markdown("### 📚 Citations")
@@ -462,33 +525,47 @@ def build_ui():
         # Chat history state
         chat_history_state = gr.State(value=[])
 
+        _submit_outputs = [
+            chatbot,       # updated chat history (answer streams in here)
+            citations_md,  # markdown citations table
+            citations_df,  # hidden dataframe
+            latency_out,   # latency (Detailed Metadata)
+            faithfulness_out,
+            certainty_out,
+            superseded_out,
+            unsupported_out,
+            *preview_components,  # per-citation preview accordions
+            loading_text, latency_badge, faithfulness_badge, certainty_badge,
+        ]
+
         # Wire up submit
         submit_btn.click(
             fn=_on_submit,
             inputs=[question_input, top_k, mode, as_of_input, chat_history_state],
-            outputs=[
-                chatbot,       # updated chat history
-                answer_output, # streaming answer text
-                citations_md,  # markdown citations table
-                citations_df,  # hidden dataframe
-                latency_out,   # latency badge
-                faithfulness_out,
-                certainty_out,
-                superseded_out,
-                unsupported_out,
-                *preview_components,  # per-citation preview accordions
-            ],
+            outputs=_submit_outputs,
         )
 
         # Allow Enter key to submit
         question_input.submit(
             fn=_on_submit,
             inputs=[question_input, top_k, mode, as_of_input, chat_history_state],
+            outputs=_submit_outputs,
+        )
+
+        # Clear conversation: reset chat, citations and metadata back to
+        # their initial empty states without a page reload.
+        clear_btn.click(
+            fn=lambda: (
+                [], [],  # chatbot, chat_history_state
+                _empty_citations_md(), pd.DataFrame(columns=_EMPTY_CITATIONS_COLUMNS),
+                "", "", "", "None", "None",
+                *_blank_previews(), *_hidden_meta(),
+            ),
             outputs=[
-                chatbot, answer_output, citations_md, citations_df,
-                latency_out, faithfulness_out, certainty_out,
-                superseded_out, unsupported_out,
+                chatbot, chat_history_state, citations_md, citations_df,
+                latency_out, faithfulness_out, certainty_out, superseded_out, unsupported_out,
                 *preview_components,
+                loading_text, latency_badge, faithfulness_badge, certainty_badge,
             ],
         )
 
