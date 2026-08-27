@@ -211,6 +211,48 @@ def test_get_chunk_text_builds_once_and_caches(app_module):
 
 
 # ---------------------------------------------------------------------------
+# _cycle_messages_until_done — the cycling-status-message mechanism behind
+# the loading indicator. get_pipeline()/pipeline.query() are single blocking
+# calls with no progress callback, so this runs the blocking work on a
+# worker thread and yields cycling messages every `interval`s until it
+# resolves. Fully offline: no real pipeline, just concurrent.futures.Future.
+# ---------------------------------------------------------------------------
+
+
+def test_cycle_messages_stops_immediately_on_already_done_future(app_module):
+    import concurrent.futures
+
+    future: concurrent.futures.Future = concurrent.futures.Future()
+    future.set_result("done")
+    messages = list(app_module._cycle_messages_until_done(future, ["a", "b"], interval=0.05))
+    assert messages == []  # already resolved — no cycling needed
+
+
+def test_cycle_messages_cycles_while_future_pending(app_module):
+    import concurrent.futures
+    import time
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=1) as ex:
+        future = ex.submit(time.sleep, 0.17)
+        messages = list(
+            app_module._cycle_messages_until_done(future, ["a", "b"], interval=0.05)
+        )
+    # ~0.17s / 0.05s interval => at least 2 cycles observed before it resolved
+    assert len(messages) >= 2
+    # cycles through the list in order, wrapping around
+    assert messages == ["a", "b", "a"][: len(messages)]
+
+
+def test_cycle_messages_propagates_exception_from_future(app_module):
+    import concurrent.futures
+
+    future: concurrent.futures.Future = concurrent.futures.Future()
+    future.set_exception(ValueError("boom"))
+    with pytest.raises(ValueError, match="boom"):
+        list(app_module._cycle_messages_until_done(future, ["a"], interval=0.05))
+
+
+# ---------------------------------------------------------------------------
 # _format_latency / _faithfulness_badge — human-readable metadata formatting.
 # Regression: the UI previously showed raw "21621 ms" / unexplained "1.00".
 # ---------------------------------------------------------------------------

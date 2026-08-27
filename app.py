@@ -20,6 +20,7 @@ ExtractiveStubGenerator so no LLM runs.
 """
 import spaces
 
+import concurrent.futures
 import dataclasses
 import json
 import sys
@@ -43,6 +44,30 @@ _lock = threading.Lock()
 MAX_PREVIEWS = 10  # matches the Top K Citations slider's maximum
 
 _EMPTY_CITATIONS_COLUMNS = ["Circular", "Status", "Superseded By", "id"]
+
+# Runs get_pipeline()/pipeline.query() off the main generator thread so
+# run_query_stream can keep yielding cycling status messages while either
+# blocking call is in flight (a Python generator can only yield *between*
+# statements, never during one). Module-level and reused across requests.
+_executor = concurrent.futures.ThreadPoolExecutor(max_workers=4)
+
+# Neither get_pipeline() nor pipeline.query() exposes real stage callbacks
+# (both are single opaque blocking calls — see src/sebi_rag/pipeline.py),
+# so these cycle on a timer as a perceived-progress cue, not as a readout of
+# actual backend state. Real instrumentation would mean threading a callback
+# through pipeline.query()'s retrieve/rerank/generate stages — out of scope
+# here; this is app.py-only.
+_BUILD_STAGE_MESSAGES = [
+    "⏳ Downloading the prebuilt index (first query only)…",
+    "⏳ Loading embedding & reranker models…",
+    "⏳ Almost ready — finishing pipeline setup…",
+]
+_QUERY_STAGE_MESSAGES = [
+    "🔍 Retrieving relevant circulars…",
+    "📊 Reranking candidates…",
+    "🧭 Checking supersession & abstention gate…",
+    "✍️ Drafting the answer…",
+]
 
 
 @spaces.GPU
@@ -134,6 +159,23 @@ def _visible_meta(latency_ms: float, faithfulness: float, certainty_str: str) ->
         gr.update(visible=True, value=_faithfulness_badge(faithfulness)),
         gr.update(visible=True, value=certainty_str),
     )
+
+
+def _cycle_messages_until_done(future: "concurrent.futures.Future", messages: list[str], interval: float = 2.0):
+    """Yield `messages` (cycling) roughly every `interval`s until `future`
+    resolves. A cheap wait-with-heartbeat: future.result(timeout=interval)
+    blocks for at most `interval`s, so this checks in periodically without
+    a separate poll loop or sleep. Caller retrieves future.result() after
+    the loop — it's guaranteed done by then.
+    """
+    i = 0
+    while True:
+        try:
+            future.result(timeout=interval)
+            return
+        except concurrent.futures.TimeoutError:
+            yield messages[i % len(messages)]
+            i += 1
 
 
 def _build_citations_markdown(rows: list[dict]) -> str:
@@ -275,24 +317,37 @@ def run_query_stream(
     current_history = _append_message(_to_gradio5_history(chat_history), "user", question)
 
     try:
-        # Yield before the (blocking) pipeline build so a cold start shows a
-        # real message instead of a blank box with just a corner timer.
-        yield (
-            current_history,
-            _empty_citations_md(), empty_df, "", "", "⚪ Processing…", "", "",
-            *_blank_previews(),
-            *_loading_meta("⏳ Building the retrieval pipeline (first query only) — "
-                           "this can take a few minutes. Subsequent queries are fast."),
-        )
-
-        pipeline = get_pipeline(mode)  # type: ignore[assignment]
+        # get_pipeline()/pipeline.query() are single blocking calls with no
+        # internal progress callback (see _BUILD_STAGE_MESSAGES/
+        # _QUERY_STAGE_MESSAGES docstring above), so both run on a worker
+        # thread while this generator keeps yielding cycling status
+        # messages — a generator can only yield *between* statements, never
+        # during a blocking one. On a warm cache, get_pipeline() typically
+        # resolves before the first cycle check, so nothing cycles for
+        # already-fast requests.
+        pipeline_future = _executor.submit(get_pipeline, mode)
+        for msg in _cycle_messages_until_done(pipeline_future, _BUILD_STAGE_MESSAGES):
+            yield (
+                current_history,
+                _empty_citations_md(), empty_df, "", "", "⚪ Processing…", "", "",
+                *_blank_previews(),
+                *_loading_meta(msg),
+            )
+        pipeline = pipeline_future.result()  # type: ignore[assignment]
         chunk_text = _get_chunk_text(pipeline)
-        t0 = time.perf_counter()
 
-        # Stream the answer by generating it fully, then yielding chunks
-        ans, _retrieved = pipeline.query(  # type: ignore[attr-defined]
-            question, top_k=int(top_k), advisory=False, as_of=as_of,
+        t0 = time.perf_counter()
+        query_future = _executor.submit(
+            pipeline.query, question, top_k=int(top_k), advisory=False, as_of=as_of,  # type: ignore[attr-defined]
         )
+        for msg in _cycle_messages_until_done(query_future, _QUERY_STAGE_MESSAGES):
+            yield (
+                current_history,
+                _empty_citations_md(), empty_df, "", "", "⚪ Processing…", "", "",
+                *_blank_previews(),
+                *_loading_meta(msg),
+            )
+        ans, _retrieved = query_future.result()
         latency_ms = (time.perf_counter() - t0) * 1000
         # Build streaming chunks (yield every ~20 chars for typing effect)
         answer_text = ans.text
@@ -401,13 +456,23 @@ def build_ui():
             "CPU-only demo; the first query builds the pipeline and may take a few minutes."
         )
 
-        # Chat history (multi-turn)
+        # Chat history (multi-turn). height= gives it its own bounded,
+        # internally-scrolling area — without one, Gradio's autoscroll
+        # (default True) has no scroll container of its own to act on and
+        # instead scrolls the WHOLE PAGE to document.scrollHeight on every
+        # component update anywhere in the app (confirmed live: expanding
+        # an unrelated citation-preview accordion mid-page still jumped
+        # scroll to the page's bottom edge, not to the accordion itself).
+        # autoscroll=False turns that off entirely now that a bounded
+        # height makes it unnecessary for keeping messages in view.
         chatbot = gr.Chatbot(
             label="Conversation",
             placeholder=(
                 "### 👋 Ask a question about SEBI circulars\n"
                 "Or click one of the examples below to get started."
             ),
+            height=450,
+            autoscroll=False,
         )
         clear_btn = gr.Button("🗑️ Clear conversation", size="sm", variant="secondary")
 
@@ -425,6 +490,17 @@ def build_ui():
                 )
             with gr.Column(scale=1):
                 submit_btn = gr.Button("Submit Query", variant="primary", scale=1)
+
+        # Loading/status message + metadata badge row — placed immediately
+        # below Submit so it's visible without scrolling (previously sat
+        # below Settings + example chips, off-screen until manually
+        # scrolled to). Hidden by default; see _hidden_meta/_loading_meta/
+        # _visible_meta.
+        loading_text = gr.Markdown(value="", visible=False)
+        with gr.Row():
+            latency_badge = gr.Markdown(value="", visible=False)
+            faithfulness_badge = gr.Markdown(value="", visible=False)
+            certainty_badge = gr.Markdown(value="", visible=False)
 
         # Example queries (clickable chips)
         gr.Markdown("### Try an example:")
@@ -469,19 +545,6 @@ def build_ui():
                          "force then — leave blank to use current law. "
                          "(Typed YYYY-MM-DD also accepted.)",
                 )
-
-        # Loading spinner (shown during cold-start pipeline build)
-        loading_text = gr.Markdown(
-            value="",  # empty by default, shown during first query
-            visible=False,
-        )
-
-        # Metadata bar (horizontal badges above the answer) — hidden until a
-        # query completes; see _hidden_meta/_loading_meta/_visible_meta.
-        with gr.Row():
-            latency_badge = gr.Markdown(value="", visible=False)
-            faithfulness_badge = gr.Markdown(value="", visible=False)
-            certainty_badge = gr.Markdown(value="", visible=False)
 
         # The Chatbot above is the single answer surface — no separate
         # duplicate block. (Previously a second answer_output Markdown here
