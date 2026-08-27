@@ -50,9 +50,11 @@ published `config.json` records `"transformers_version": "4.41.2"` and does not 
 `scoring_strategy` key (nor `_bert_pool`, `use_adapter`, `adapter_config`,
 `pretrained_adapter_name_or_path` — all attributes `lightning_ir`'s `MonoConfig.__init__` /
 `LightningIRConfig.__init__` set as Python instance attributes, with defaults, but never persist to
-`config.json` when they equal the default). Under this project's pinned `transformers>=5.6.0`
-(installed: 5.14.1), the dynamically-composed config class for a custom `model_type` +
-`backbone_model_type` pair (`SetEncoderElectraConfig`) is built through
+`config.json` when they equal the default). `transformers` is not a direct dependency of this
+project -- it is pulled in transitively via `sentence-transformers>=5.6.0` (`pyproject.toml`), and
+resolves to `5.14.1` in `uv.lock` (not an explicit/direct pin). Under that resolved 5.14.1, the
+dynamically-composed config class for a custom `model_type` + `backbone_model_type` pair
+(`SetEncoderElectraConfig`) is built through
 `transformers.integrations.heterogeneity.configuration_utils` — a mechanism that reconstructs the
 object from the raw JSON dict without re-running `MonoConfig.__init__`'s Python-level default
 assignments, so any attribute set only inside `__init__` (not serialized to `config.json`) is
@@ -60,8 +62,9 @@ simply absent on the resulting object. Patching the five known-missing config at
 defaults (a narrow experiment, not shipped) gets the model itself to construct, but the identical
 class of bug recurs one layer down in tokenizer loading:
 `lightning_ir/base/tokenizer.py:104: BackboneTokenizer = BackboneTokenizers[1]` assumes
-`transformers.TOKENIZER_MAPPING[...]` returns a `(slow_cls, fast_cls)` tuple; under transformers
-5.14.1 it returns a single class, raising `TypeError: type 'BertTokenizer' is not subscriptable`.
+`transformers.TOKENIZER_MAPPING[...]` returns a `(slow_cls, fast_cls)` tuple; under the resolved
+transformers 5.14.1 it returns a single class, raising `TypeError: type 'BertTokenizer' is not
+subscriptable`.
 Two independent subsystems (config composition, tokenizer registry) both break — this is a
 structural `lightning-ir` × `transformers 5.x` incompatibility, not a single missing kwarg.
 
@@ -73,13 +76,15 @@ cut a newer release addressing this).
 **Why no monkeypatch ships:** the config-attribute gap alone is patchable (five class-level
 defaults), but the tokenizer-registry break requires patching `transformers`' own internal
 `TOKENIZER_MAPPING` lookup protocol, which is functionality this project does not own and a
-different `transformers` major version could change again without notice. Shipping a chain of
-version-pinned monkeypatches into `rerank.py` to work around an upstream library's incompatibility
-with this project's own pinned `transformers` version — for a report-only, non-adopted benchmark
+different resolved `transformers` major version could change again without notice. Shipping a chain
+of version-pinned monkeypatches into `rerank.py` to work around an upstream library's incompatibility
+with the `transformers` version this project resolves transitively (via `sentence-transformers`,
+locked at 5.14.1 in `uv.lock` — not a direct/explicit pin) — for a report-only, non-adopted benchmark
 candidate — was judged disproportionate and fragile; `SetEncoderReranker` is implemented correctly
 against the documented/verified API contract instead, so it is ready to run unmodified once
-`lightning-ir` ships a `transformers`-5.x-compatible release (or this project's `transformers` pin
-changes, itself a separate, unrelated decision).
+`lightning-ir` ships a `transformers`-5.x-compatible release (or this project's `sentence-transformers`
+version changes and pulls in a different transitive `transformers` resolution, itself a separate,
+unrelated decision).
 
 **This changes the preregistered outcome space, decided here before any golden_v7 query is
 scored:** §3 below adds a third outcome branch, BLOCKED, alongside the usual ADOPT/NULL, for exactly
@@ -166,17 +171,21 @@ regardless of outcome (ADOPT, NULL, or BLOCKED). Wiring a new pool-ordering rera
 **BLOCKED (environment) — anticipated and disclosed in §0, not a deviation.**
 
 `SetEncoderReranker` could not construct `lightning_ir.CrossEncoderModule("webis/set-encoder-base")`
-under this project's pinned `transformers==5.14.1`, on either `lightning-ir==0.0.6` (PyPI) or
-`lightning-ir@03e8def` (GitHub main, same version tag) — verified via both a direct API probe and
-the real `bench_retrieval.py --reranker set-encoder --rerank` code path (§0). No golden_v7 query was
-scored by either arm; `recall_at_10`/`ndcg_at_10`/paired-delta are **not measured, not estimated,
-not reported** — there is no result to report per §3 Step 0, and none is fabricated to fill the gap.
+under `transformers==5.14.1` (not a direct/explicit pin — resolved transitively via
+`sentence-transformers>=5.6.0` and locked at that version in `uv.lock`), on either
+`lightning-ir==0.0.6` (PyPI) or `lightning-ir@03e8def` (GitHub main, same version tag) — verified via
+both a direct API probe and the real `bench_retrieval.py --reranker set-encoder --rerank` code path
+(§0). No golden_v7 query was scored by either arm; `recall_at_10`/`ndcg_at_10`/paired-delta are **not
+measured, not estimated, not reported** — there is no result to report per §3 Step 0, and none is
+fabricated to fill the gap.
 
 **Recommendation:** do not adopt Set-Encoder now. Re-attempt this benchmark if/when `lightning-ir`
 publishes a release compatible with `transformers>=5.x` (tracked upstream, not in this project), or
-if a project decision separately downgrades the pinned `transformers` version (its own, unrelated
-tradeoff against `sentence-transformers>=5.6.0` and the rest of the stack — not something this task
-is authorized to do). `SetEncoderReranker` and `bench_retrieval.py --reranker set-encoder` are
+if a project decision separately changes `sentence-transformers` (or otherwise constrains
+`transformers` directly) such that the transitively-resolved `transformers` version drops below 5.x
+(its own, unrelated tradeoff against `sentence-transformers>=5.6.0` and the rest of the stack — not
+something this task is authorized to do). `SetEncoderReranker` and `bench_retrieval.py --reranker
+set-encoder` are
 implemented and committed against the verified-correct API contract (§0), so re-running requires no
 further code changes once the environment blocker lifts — only `pip install lightning-ir` (or
 `uv pip install -e '.[rerank-experimental]'`) into a compatible environment.

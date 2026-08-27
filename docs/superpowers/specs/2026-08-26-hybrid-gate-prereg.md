@@ -210,3 +210,69 @@ change ships. Recorded as a disclosed descriptive finding for the record: **if**
 adopted in a future, separately-approved change, T=0.40 is the recommended starting point (not T=0.30
 or 0.35, which cost a genuine false answer on `v7-hn-011`) — but this task's own decision rule does
 not authorize adoption today.
+
+## 6. CORRECTION (2026-08-27, final whole-branch review) — the run above used `top_k=5`, not prod's `top_k=10`
+
+**Bug, named plainly:** `scripts/hybrid_gate_sweep.py` called `pipeline.query(item["query"], top_k=5)`
+with `top_k` hardcoded, instead of the `settings.top_k` the script's own `build_pipeline()` already
+had in hand (`Settings.load().top_k` resolves to **10** in this environment, confirmed both before
+and after the fix). `rerank_top` is unaffected by `top_k` (`generate.py:685`,
+`reranked[0][1]`, computed before any slicing) — the T-grid mechanics and the eligibility/significance
+machinery are sound either way. But `contexts` is sliced to `top_k` at `generate.py:694`, and both
+gate signals scored in §5 above — `subject_sim` (`judge.score`) and `section_sim`
+(`judge.section_score`) — are **maxima over `contexts`** (`generate.py:715-723`), hence monotonically
+non-decreasing in `top_k`. Every `subject_sim`/`section_sim` reported in §5 above was measured at
+`top_k=5` and is therefore a **lower bound** on its true production (`top_k=10`) value.
+
+**Re-run, identical method** (same golden_v7 n=260, same `T_GRID`, same decision rule, same
+`abstain_threshold=0.12`, same `reranker=JinaMLXReranker()` — only the `top_k` bug fixed):
+
+- **Targets: unchanged.** `v7-nt-013`, `v7-nt-025` still reproduce as `subject_gate` false
+  abstentions; `v7-ls-029` still does not (its `subject_sim`/`section_sim` happen to be identical at
+  `top_k=5` and `top_k=10` — 0.4500/0.6320 — because the maximizing chunk for this query was already
+  inside the top-5 window).
+- **The 3 "additional" false abstentions §5 reported (`v7-bp-040`, `v7-nt-004`, `v7-nt-016`) do not
+  reproduce at `top_k=10` — the false-abstention set is exactly the 2 known targets, not a 5-row
+  composition.** This is exactly the outcome the review predicted from the monotonicity argument: all
+  three were within 0.024 of the 0.42 threshold under the buggy `top_k=5` measurement, and the wider
+  `top_k=10` window lifted all three over the bar: `v7-bp-040` subject_sim 0.4126→**0.4469**,
+  `v7-nt-004` 0.4070→**0.4444**, `v7-nt-016` 0.3982→**0.4637**. §5's "5-row composition sharing only
+  2 rows with the original 3" finding is **superseded** by this correction — it was an artifact of the
+  `top_k` bug, not a real effect of ADR-004's reranker swap.
+- **Guardrail baseline is dirtier than §5 reported.** §5 found 3 gold-abstain rows already passing the
+  current non-hybrid gate (`hn-settle`, `v7-hn-003`, `v7-hn-018`). At `top_k=10` there are **6**: the
+  same 3 plus `v7-hn-010` (subj 0.4240), `v7-hn-027` (subj 0.5405), `v7-hn-030` (subj 0.4301) — again
+  consistent with the monotonicity argument (wider context window, more existing gold-abstain rows'
+  `subject_sim` maxima cross 0.42). This does not change the T-sweep mechanics (the sweep's
+  `new_guardrail_fps` check already excludes rows failing the *current* gate, at both `top_k`
+  values), but it is a materially worse baseline-integrity finding, disclosed here rather than
+  left at the stale, lower `top_k=5` count.
+- **T-grid sweep, corrected** (guardrail false positives measured over the 16 score-floor-cleared
+  at-risk rows, same as §5; rescue counts now out of 2 targets, not 3, since `v7-bp-040` is no longer
+  a false abstention at any `top_k`):
+
+  | T | rescued (of 2 targets) | new guardrail FPs | eligible (Step 1) | Δ abstention_accuracy | p | significant |
+  |---|---|---|---|---|---|---|
+  | 0.30 | 2 | 1 (`v7-hn-011`) | NO | +0.0038 | 1.0000 | False |
+  | 0.35 | 2 | 1 (`v7-hn-011`) | NO | +0.0038 | 1.0000 | False |
+  | 0.40 | 2 (`v7-nt-013`, `v7-nt-025`) | 0 | **YES** | +0.0077 | 0.4872 | False |
+  | 0.45 | 1 (`v7-nt-025`) | 0 | YES | +0.0038 | 1.0000 | False |
+  | 0.50 | 0 | 0 | YES | 0.0000 | 1.0000 | False |
+  | 0.55 | 0 | 0 | YES | 0.0000 | 1.0000 | False |
+
+  `v7-hn-011` is still the guardrail casualty disqualifying T=0.30/0.35, unchanged from §5.
+
+**Verdict, corrected: unchanged in substance — still NULL (Global Constraints significance bar),
+T=0.40 still the best eligible/safe candidate, with the identical Δ abstention_accuracy = +0.0077
+and p = 0.4872 §5 reported** (T=0.40's own arithmetic was already correct in §5 — 2 targets rescued,
+0 guardrail cost, both before and after the fix — since `v7-bp-040` was never one of the 2 targets
+T=0.40 could rescue in the first place, only 0.30/0.35 changed). **What changed is descriptive, not
+the recommendation:** the false-abstention composition is smaller (2 rows, not 5) and the pre-existing
+guardrail baseline is dirtier (6 rows, not 3) than §5 reported. Neither changes T=0.40's status as the
+recommended-but-not-adopted starting point, and no `config.toml` change ships from this correction
+either.
+
+Corrected raw output: `reports/hybrid-gate-cohort-2026-08-26.json` (overwritten in place by the
+corrected run). The original buggy (`top_k=5`) run is preserved for audit at
+`reports/hybrid-gate-cohort-2026-08-26-topk5-buggy.json`. Script fix:
+`scripts/hybrid_gate_sweep.py` now calls `pipeline.query(item["query"], top_k=settings.top_k)`.

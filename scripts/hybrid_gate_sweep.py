@@ -85,11 +85,11 @@ def build_pipeline() -> tuple[RAGPipeline, Settings]:
     return pipeline, s
 
 
-def run_rows(pipeline: RAGPipeline, golden: list[dict]) -> list[dict]:
+def run_rows(pipeline: RAGPipeline, golden: list[dict], top_k: int) -> list[dict]:
     """Run every golden_v7 row once; collect gate signals + gold label."""
     rows = []
     for i, item in enumerate(golden, 1):
-        ans, _ = pipeline.query(item["query"], top_k=5)
+        ans, _ = pipeline.query(item["query"], top_k=top_k)
         conf = ans.confidence or {}
         rows.append({
             "id": item.get("id", "?"),
@@ -139,8 +139,9 @@ def main() -> None:
     pipeline, settings = build_pipeline()
     print(f"abstain_threshold (Settings.load()) = {settings.abstain_threshold}", file=sys.stderr)
     print(f"reranker_model = {settings.reranker_model}", file=sys.stderr)
+    print(f"top_k (Settings.load()) = {settings.top_k}", file=sys.stderr)
     print(f"Running {len(golden)} golden_v7 rows through the pipeline...", file=sys.stderr)
-    rows = run_rows(pipeline, golden)
+    rows = run_rows(pipeline, golden, settings.top_k)
 
     by_id = {r["id"]: r for r in rows}
 
@@ -187,7 +188,8 @@ def main() -> None:
         rescued = [r for r in subject_gate_false_abstentions
                    if not current_gate_passes(r) and hybrid_gate_passes(r, t)]
         new_guardrail_fps = [r for r in guardrail_at_risk
-                             if not current_gate_passes(r) and hybrid_gate_passes(r, t)]
+                             if r["abstention_reason"] == "subject_gate"
+                             and not current_gate_passes(r) and hybrid_gate_passes(r, t)]
         eligible = len(new_guardrail_fps) == 0
 
         # Full-golden_v7 paired abstention-accuracy vectors (current-prod vs hybrid@T)
@@ -226,7 +228,8 @@ def main() -> None:
         })
         flag = "ADOPTED" if adopted else ("eligible-but-not-significant" if eligible and rescued
                                           else "disqualified" if not eligible else "no-rescue")
-        print(f"T={t:.2f}  rescued={len(rescued)}/3  new_guardrail_fps={len(new_guardrail_fps)}  "
+        print(f"T={t:.2f}  rescued={len(rescued)}/{len(subject_gate_false_abstentions)}  "
+              f"new_guardrail_fps={len(new_guardrail_fps)}  "
               f"acc_delta={cmp.delta:+.4f}  p={cmp.p_value:.4f}  sig={cmp.significant}  [{flag}]",
               file=sys.stderr)
 

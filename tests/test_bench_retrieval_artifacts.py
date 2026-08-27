@@ -51,6 +51,18 @@ def test_bench_retrieval_exposes_and_records_the_reranker_choice():
     assert re.search(r'"reranker":\s*', src), "reranker choice not recorded in run metadata"
 
 
+def test_bench_retrieval_exposes_and_records_the_set_encoder_arm():
+    """2026-08-26 Set-Encoder spec: benchmarking webis/set-encoder-base (via
+    lightning-ir) needed a third --reranker choice alongside crossencoder/jina
+    so a future run can measure it once the lightning-ir/transformers-5.x
+    incompatibility (docs/superpowers/specs/2026-08-26-set-encoder-prereg.md
+    §0) is resolved upstream, without editing this script again."""
+    src = SCRIPT.read_text(encoding="utf-8")
+    assert '"set-encoder"' in src, "set-encoder choice not wired into --reranker"
+    assert "SetEncoderReranker" in src, "set-encoder candidate not wired in"
+    assert re.search(r'"reranker":\s*', src), "reranker choice not recorded in run metadata"
+
+
 def test_bench_retrieval_exposes_and_records_the_iv2_expansion_arm():
     # iv2 is otherwise unmeasurable: glossary expansion is unconditional in
     # HybridRetriever, so the control arm needs a flag AND that flag must land
