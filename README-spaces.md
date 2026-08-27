@@ -79,10 +79,16 @@ temporary stopgap.
 
 **Code changes deploy automatically.** `.github/workflows/deploy-space.yml`
 runs `scripts/deploy_space.py` on every push to `main` that touches `app.py`,
-`src/sebi_rag/**`, `config.toml`, `requirements-spaces.txt` or this file —
-requires a write-scoped `HF_TOKEN` repo secret (huggingface.co/settings/tokens,
-for the `opnsrcntrbtrian` account). Without it the workflow fails loudly at
-the deploy step rather than silently skipping.
+`src/sebi_rag/**`, `config.toml`, `requirements-spaces.txt` or this file.
+
+Requires an `HF_TOKEN` secret on the GitHub `space-deploy` environment
+(Settings → Environments → New environment → `space-deploy` → Environment
+secrets) — not a bare repo secret, so it isn't exposed outside this job.
+Use a **fine-grained** token from huggingface.co/settings/tokens scoped to
+write-only on `spaces/opnsrcntrbtrian/sebi-circular-rag-demo` (not the whole
+account), with an expiration date set — HF has no automatic rotation, so
+put the expiry on your own calendar. Until the environment + secret exist,
+the workflow fails loudly at the deploy step rather than silently skipping.
 
 For a manual/local push: `make deploy-space` (`SPACE_REPO=` to override the
 target). Both paths run the same script, which uploads `app.py`,
