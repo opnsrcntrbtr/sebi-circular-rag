@@ -396,10 +396,18 @@ def build_ui():
                          "(citations + metadata, no LLM).",
                 )
             with gr.Row():
-                as_of_input = gr.Textbox(
+                # type="string" is required: DateTime's default type ("timestamp")
+                # returns a float, which _parse_as_of's date.fromisoformat() can't
+                # parse. include_time=False keeps it date-only (a time-of-day has
+                # no meaning for an as-of-date query). See tests/test_app_asof.py
+                # for the regression guard on this exact config.
+                as_of_input = gr.DateTime(
                     label="As of date (optional)",
-                    placeholder="YYYY-MM-DD — answer per the law in force on this date",
-                    max_lines=1,
+                    include_time=False,
+                    type="string",
+                    info="Pick a date to score retrieval against the law in "
+                         "force then — leave blank to use current law. "
+                         "(Typed YYYY-MM-DD also accepted.)",
                 )
 
         # Loading spinner (shown during cold-start pipeline build)

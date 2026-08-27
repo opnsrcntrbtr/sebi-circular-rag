@@ -39,3 +39,20 @@ def test_run_query_rejects_bad_as_of_before_building_pipeline(app_module):
     # Must error out on the date BEFORE get_pipeline() (no index download).
     out = list(app_module.run_query_stream("what are the norms?", 3, "rag", "not-a-date", []))
     assert out[0][0][-1] == {"role": "assistant", "content": "**Error:** 'As of date' must be YYYY-MM-DD (e.g. 2025-01-10)."}
+
+
+def test_as_of_widget_is_date_only_string_typed_datetime(app_module):
+    # Regression guard: gr.DateTime defaults to type="timestamp" (a float),
+    # which _parse_as_of's date.fromisoformat() cannot parse — this must stay
+    # type="string" or the calendar picker silently breaks every as-of query.
+    # include_time=False keeps it date-only (no meaning for an as-of date).
+    import gradio as gr
+
+    as_of_components = [
+        c for c in app_module.demo.blocks.values()
+        if isinstance(c, gr.DateTime) and c.label == "As of date (optional)"
+    ]
+    assert len(as_of_components) == 1
+    as_of = as_of_components[0]
+    assert as_of.type == "string"
+    assert as_of.include_time is False
