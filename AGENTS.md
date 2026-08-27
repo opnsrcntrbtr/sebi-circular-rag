@@ -1,6 +1,7 @@
 # AGENTS.md
 
-This file mirrors the workspace guidance in `CLAUDE.md` for non-Claude agents and models.
+Canonical project guidance for all coding agents working in this repo. `CLAUDE.md` is a thin
+`@AGENTS.md` import stub plus any Claude-Code-only notes — edit this file, not that one.
 
 ## Project
 
@@ -14,18 +15,11 @@ Local-first, Apple Silicon RAG over Indian SEBI Circulars. FastAPI service + Gra
 
 ## Refusal Criteria (Explicit Triggers)
 
-When any of these conditions apply, refuse or abstain — do not guess:
-
-| Trigger | Response |
-|---------|----------|
-| Insufficient retrieved evidence for a legal/regulatory question | "I don't know based on the available evidence." |
-| Request to redesign the architecture without explicit instruction | "Not without explicit request. Current architecture is validated — 867 tests passing." |
-| Request to review files not provided | "I can only review files you provide. Please supply the diff or file contents." |
-| Request to fabricate citations, legal interpretations, or data | Refuse outright. No fabrication of SEBI circulars, regulations, or metrics. |
-| Retrieval confidence below an abstention gate (score floor 0.05 on `rerank_top`, or subject-sim gate 0.42) | Return the evidence only; do not generate a conclusion. |
-| Task outside coding agent scope (e.g., infrastructure ops, non-code changes) | Decline and suggest the appropriate owner or tool. |
-
 **Golden rule**: When in doubt, say "I don't know based on the available evidence." — never guess.
+
+Full trigger table and the two abstention-gate thresholds (score floor vs. groundedness —
+routinely confused, see the ⚠️ note there) live in `.claude/rules/refusal-criteria.md`. Read
+it before citing a specific threshold value; do not restate the numbers here.
 
 ## Quick Reference (inline — no file read needed)
 
@@ -129,25 +123,19 @@ Optimize only validated stages. Recommend changes expected to produce measurable
 
 ## Tool Usage Conventions
 
-### LSP-First (symbol-aware over text search)
-- **Rename/refactor:** Always use `lsp references` before renaming any exported symbol. Text grep misses cross-file callsites, re-exports, and dynamic dispatch targets.
-- **Pre-edit check:** Run `lsp diagnostics` on the target file before editing to surface existing type errors or unused imports.
-- **Code actions:** Prefer `lsp code_actions` for import fixes, quick-fixes, and server-known refactors over hand edits.
-- **Definition/type:** Use `lsp definition` / `lsp type_definition` for navigation; never guess symbol locations.
-
-### Subagent Parallelism
-- **Multi-file changes:** Dispatch parallel `scout` agents for independent file discovery (e.g., find all callers of a symbol, locate test files).
-- **Independent tasks:** Use `task` with parallel subagents for truly independent work slices — no serialization unless data dependency exists.
-- **No overhead:** Each task must skip formatters, linters, and project-wide test suites. Validate once at the end.
+### Symbol-aware over text search
+Prefer your runtime's symbol-aware navigation/refactor tools (definitions, references,
+diagnostics, code actions) over grep-based renames when one is available — text search misses
+cross-file callsites, re-exports, and dynamic dispatch targets. Claude Code: use its LSP tool
+where present; otherwise Grep is the fallback, not the default.
 
 ### Browser Verification
-- **Gradio UI changes:** Verify via `browser` tool before yielding app changes. Open the Gradio UI, exercise changed paths, confirm visual output.
+- **Gradio UI changes:** Verify via a browser automation tool before yielding app changes. Open the Gradio UI, exercise changed paths, confirm visual output.
 - **Never yield app changes** without browser verification of the actual surface — screenshots or aria snapshots as proof.
 
-### Hub Dev Server Lifecycle
-- **FastAPI/Gradio:** Use `hub start` for long-running services (dev server, watcher, debugger). Never use raw `bash` for persistent processes.
-- **Pattern:** `hub start name="api" application="make" args=["serve"] ready={log: "Uvicorn running", port: 8000, timeout: 30}`
-- **Teardown:** `hub stop api` before killing terminal; `hub restart api` for config changes.
+### Agent-specific tool surfaces
+Some runtimes in this workspace additionally expose `lsp`/`scout`/`hub` primitives (oh-my-pi).
+Claude Code does not — see `docs/oh-my-pi-tooling.md` only if your runtime provides that surface.
 
 ## Environment
 
@@ -212,68 +200,8 @@ Rules:
 4. **TDD/BDD Alignment**: Documentation metrics must map directly to active BDD feature files or unit test baselines. Do not document unverified or loose conceptual ideas as active states.
 
 ## 🧠 Self-Optimization Plugin (Telemetry Engine)
-*Trigger: Use when running complex coding sessions that benefit from hardware-aware parameter optimization.*
+*Trigger: Use when running complex coding sessions that benefit from hardware-aware parameter
+optimization, or when asked about the turn-based self-critique/correction pass.*
 
-**Purpose:** Sustainable meta-optimization loop between hardware (Mac M4 48GB), oMLX inference server (Qwen3.6-35B on 127.0.0.1:8001), and coding output quality.
-
-**Location:** `scripts/telemetry_engine.py`
-**Storage:** `~/.omp/telemetry_history.json`
-**Full reference:** `docs/telemetry_plugin.md` (on-demand read, not injected per turn)
-
-### Commands
-| Command | Description |
-|---|---|
-| `python scripts/telemetry_engine.py status` | Show hardware state, safety margin, oMLX connectivity |
-| `python scripts/telemetry_engine.py record --quality 5` | Record run outcome (1-5 scale) |
-| `python scripts/telemetry_engine.py record --success` | Shortcut for quality=5 |
-| `python scripts/telemetry_engine.py record --fail` | Shortcut for quality=1 |
-| `python scripts/telemetry_engine.py suggest "Complex Coding"` | Get optimized parameters from historical data |
-| `python scripts/telemetry_engine.py history --top 10` | Show recent telemetry entries |
-
-### Safety Logic
-- **Soft limit:** 3.3 GB RAM headroom (free_ram >= 3.3 GB)
-- If violated: flags run as "Unstable", recommends reducing oMLX Hot Cache or Context Window
-- Only safe runs (is_safe=true) are used for parameter optimization
-
-### Integration Workflow
-1. Before complex coding session: run `suggest "Complex Coding"` to get optimal params
-2. After session: run `record --quality N` (or `--success`/`--fail`)
-3. Review: run `history --top 20` to see trends over time
-
-### Parameter Defaults (used when no history exists)
-- Complex Coding: temperature=0.2, min_p=0.05, context_window=8192
-- Simple Query: temperature=0.1, min_p=0.1, context_window=4096
-
-
-### Turn-Based Optimization (Auto-Run After Every Turn)
-*Trigger: Runs automatically at the conclusion of EVERY conversational turn.*
-
-**Lifecycle:** Execute after generating initial internal draft, prior to rendering final output.
-
-**Threshold-Gated Optimization (NEW):**
-- Only triggers when current score drops below rolling baseline by DRIFT_MARGIN (default: 1.0)
-- Baseline computed from last BASELINE_WINDOW (default: 10) turns
-- Prevents unnecessary optimization when output quality is stable
-
-**Workflow (4 hidden steps):**
-1. **State Analysis:** Inspect prompt complexity, code/schema presence, multi-file scope
-2. **Draft Generation:** Produce optimal structural candidate response
-3. **Self-Critique Matrix:** Score draft against three criteria:
-   - Conciseness (0-10): penalize filler phrases, long sentences
-   - Technical Fidelity (0-10): flag outdated patterns, syntax errors
-   - Instruction Adherence (0-10): verify response matches prompt requirements
-4. **Degradation Check:** Compare scores against baseline (avg - DRIFT_MARGIN)
-   - If degraded: apply Correction Pass + record to telemetry
-   - If not degraded: skip optimization (return "Fully Optimized")
-
-**Output Schema (rendered above primary response):**
-```
-[⚙️ Plugin Optimizations: Fully Optimized]          ← no degradation detected
-[⚙️ Plugin Optimizations: Degraded X→Y, corrected]  ← degradation detected + fixed
-```
-
-**CLI Access:** `python scripts/telemetry_engine.py optimize --prompt "..." --draft "..." [--json]`
-
-
-
-
+Full protocol (architecture, CLI commands, safety logic, Turn-Based Optimization lifecycle,
+output schema) lives in `docs/telemetry_plugin.md` — read it on demand, not injected per turn.

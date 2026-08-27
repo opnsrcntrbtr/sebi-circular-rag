@@ -64,7 +64,7 @@ stages:
   - name: generation
     desc: Local LLM. Default MLX-LM Qwen2.5-1.5B-Instruct-4bit (Apple-Silicon native). Ollama optional via SEBI_RAG_GENERATOR (deterministic: temperature 0, fixed seed)
     details:
-      - Abstention gate — TWO SEPARATE SIGNALS ON TWO SCALES, routinely confused: score floor `abstain_threshold = 0.05` on the cross-encoder `rerank_top` (`config.toml [service]`), and the groundedness gate `subject_sim >= 0.42` / `section_sim >= 0.60` (SubjectSimJudge). Below either → abstain ("I don't know based on the available evidence."); never generate unsupported legal conclusions. ⚠️ 0.4 is the `RAGPipeline` dataclass default (`pipeline.py:41`), NOT production — `Settings.load()` supplies 0.05. Comparing one gate against the other's threshold produced a misclassified diagnostic on 2026-08-18; see `.claude/rules/refusal-criteria.md`.
+      - Abstention gate — TWO SEPARATE SIGNALS ON TWO SCALES, routinely confused: score floor `abstain_threshold = 0.12` on the cross-encoder `rerank_top` (`config.toml [service]`, recalibrated for jina-reranker-v3-mlx per ADR-004, 2026-08-24), and the groundedness gate `subject_sim >= 0.42` / `section_sim >= 0.60` (SubjectSimJudge). Below either → abstain ("I don't know based on the available evidence."); never generate unsupported legal conclusions. ⚠️ 0.4 is the `RAGPipeline` dataclass default (`pipeline.py:41`), NOT production — `Settings.load()` supplies 0.12. Comparing one gate against the other's threshold produced a misclassified diagnostic on 2026-08-18; see `.claude/rules/refusal-criteria.md`.
       - ADR-002 certainty architecture: SubjectSimJudge (two-tier groundedness — max cosine(query, subject line) threshold 0.42, section-heading tier at 0.60); MLXJudge (deterministic groundedness judge on MLX, modes: identify/provisions)
       - Confidence bands: high (subject_sim ≥ 0.65 + faithfulness 1.0), medium (passed all gates), low (abstained)
       - Advisory mode: `advisory=True` returns clearly-labelled low-confidence draft answer on gate failure (never authoritative)
@@ -134,16 +134,18 @@ Real stack calibration over 728 circulars / 78,585 chunks (golden_v7). ⚠️ Th
 ```yaml
 params:
   top_k: 10 (default, configurable via SEBI_RAG_TOP_K)
-  abstain_threshold: 0.05 (cross-encoder; configurable via SEBI_RAG_ABSTAIN_THRESHOLD)
+  abstain_threshold: 0.12 (cross-encoder; configurable via SEBI_RAG_ABSTAIN_THRESHOLD)
   subject_sim_threshold: 0.42 (two-tier: subject_sim >= 0.42 OR section_sim >= 0.60)
   section_threshold: 0.60 (configurable via SEBI_RAG_SECT_THRESHOLD)
 index_path: data/index/ (reload 0.34s). Re-run after corpus growth.
 thresholds_are_model_dependent: |
-  abstain_threshold is a raw cross-encoder score, so it is meaningful ONLY for
-  bge-reranker-v2-m3. subject_sim / section_sim are cosines in bge-m3 embedding space.
-  Swapping either model changes the SCALE these numbers live on, not just the optimum —
-  0.05 does not transfer to a different reranker. Re-calibrate via scripts/calibrate.py
-  before carrying any of these across a model change.
+  abstain_threshold is a raw cross-encoder score, so it is meaningful ONLY for the
+  reranker it was calibrated against — currently jina-reranker-v3-mlx (0.12, recalibrated
+  2026-08-24 per ADR-004 via scripts/analysis/jina_abstain_threshold_calibration.py; the
+  prior bge-reranker-v2-m3 value was 0.05). subject_sim / section_sim are cosines in
+  bge-m3 embedding space. Swapping either model changes the SCALE these numbers live on,
+  not just the optimum — the current value does not transfer to a different reranker.
+  Re-calibrate via scripts/calibrate.py before carrying any of these across a model change.
 ```
 
 ### 7.4 Golden-Set Architecture
@@ -353,7 +355,7 @@ reproducibility:
 
 ```yaml
 prerequisites:
-  P1: "Labelled SEBI evaluation set — COMPLETED (golden_v7, n=260, adjudicated_n=260, gate armed). Calibrated: top_k=10, abstain_threshold=0.05"
+  P1: "Labelled SEBI evaluation set — COMPLETED (golden_v7, n=260, adjudicated_n=260, gate armed). Calibrated: top_k=10, abstain_threshold=0.12 (jina-reranker-v3-mlx, ADR-004; was 0.05 under bge-reranker-v2-m3)"
   P2: "Metadata lineage extraction — COMPLETED (lineage.py, 5 edges, answer-layer warnings wired)"
 ```
 
