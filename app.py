@@ -35,7 +35,10 @@ from sebi_rag.settings import Settings  # noqa: E402
 
 _settings = Settings.load_spaces()
 _pipelines: dict[str, RAGPipeline] = {}
+_chunk_text: dict[str, str] = {}  # chunk_id -> full text; built once, shared across modes
 _lock = threading.Lock()
+
+MAX_PREVIEWS = 10  # matches the Top K Citations slider's maximum
 
 
 @spaces.GPU
@@ -59,6 +62,22 @@ def get_pipeline(mode: str):
         return _pipelines[mode if mode == "retrieval_only" else "rag"]
 
 
+def _get_chunk_text(pipeline) -> dict[str, str]:
+    """Build {chunk_id: text} once from retriever.chunks (~78.5k rows) and cache it.
+
+    Previously this map was rebuilt from scratch on every query; both modes
+    share the same retriever (see get_pipeline), so one process-wide cache is
+    correct and avoids the O(corpus) scan per request.
+    """
+    global _chunk_text
+    with _lock:
+        if not _chunk_text:
+            retriever = getattr(pipeline, "retriever", None)
+            for c in getattr(retriever, "chunks", ()) or ():
+                _chunk_text.setdefault(c.id, c.text)
+        return _chunk_text
+
+
 def _parse_as_of(raw: str) -> str | None:
     """Normalise the optional as-of date field: empty -> None, else strict
     ISO YYYY-MM-DD (ValueError propagates for anything else)."""
@@ -78,20 +97,22 @@ def _certainty_badge(certainty: str) -> str:
 
 
 def _build_citations_markdown(rows: list[dict]) -> str:
-    """Build a citations markdown table.
+    """Build a citations markdown table (Circular / Status / Superseded By).
 
-    Preview column shows the circular reference ID.
+    Chunk-text previews render separately, one gr.Accordion per row (see
+    _preview_updates) — Gradio markdown tables don't support nested HTML, so
+    <details> accordions or long free text inside a cell corrupts the table.
     """
     if not rows:
         return "*No citations retrieved.*"
 
     lines = [
-        "| # | Circular | Status | Superseded By | Preview |",
-        "|---|----------|--------|---------------|---------|",
+        "| # | Circular | Status | Superseded By |",
+        "|---|----------|--------|----------------|",
     ]
 
     for i, row in enumerate(rows, 1):
-        circular = row.get("Circular", "")
+        circular = row.get("Circular", "").replace("\\", "\\\\").replace("|", "\\|")
         status = row.get("Status", "")
         superseded_by = row.get("Superseded By", "-")
 
@@ -99,18 +120,51 @@ def _build_citations_markdown(rows: list[dict]) -> str:
         is_superseded = "superseded" in status.lower() or "repealed" in status.lower()
         icon = "⚠️" if is_superseded else ""
 
-        # Preview column: show the circular reference ID
-        preview = circular
-
-        lines.append(
-            f"| {i} | {circular} {icon} | {status} | {superseded_by} | {preview} |"
-        )
+        lines.append(f"| {i} | {circular} {icon} | {status} | {superseded_by} |")
 
     return "\n".join(lines)
 
 
 def _empty_citations_md() -> str:
     return "*No citations retrieved.*"
+
+
+def _truncate_preview(text: str, limit: int = 800) -> str:
+    """Truncate chunk text for display; append an ellipsis if cut."""
+    if len(text) > limit:
+        return text[:limit] + "…"
+    return text
+
+
+def _blank_previews() -> list:
+    """Hide every preview accordion. Length must equal _preview_updates'."""
+    updates: list = []
+    for _ in range(MAX_PREVIEWS):
+        updates.append(gr.update(visible=False))
+        updates.append(gr.update(value=""))
+    return updates
+
+
+def _preview_updates(rows: list[dict], chunk_text: dict[str, str]) -> list:
+    """Build accordion(visible, label) + markdown(value) updates for up to
+    MAX_PREVIEWS citation rows. Extra rows beyond MAX_PREVIEWS are silently
+    dropped (the accordion pool is fixed-size); missing chunk IDs fall back
+    to a placeholder instead of raising.
+    """
+    updates: list = []
+    for i in range(MAX_PREVIEWS):
+        if i < len(rows):
+            row = rows[i]
+            circular = row.get("Circular", "")
+            text = chunk_text.get(row.get("id", ""), "*Preview unavailable.*")
+            if text != "*Preview unavailable.*":
+                text = _truncate_preview(text)
+            updates.append(gr.update(visible=True, label=f"📄 [{i + 1}] {circular}"))
+            updates.append(gr.update(value=text))
+        else:
+            updates.append(gr.update(visible=False))
+            updates.append(gr.update(value=""))
+    return updates
 
 
 def _to_gradio5_history(history):
@@ -164,6 +218,7 @@ def run_query_stream(
             "⚪ N/A",  # certainty
             "",  # superseded warnings
             "",  # unsupported citations
+            *_blank_previews(),
         )
         return
 
@@ -173,6 +228,7 @@ def run_query_stream(
         yield (
             _append_message(_to_gradio5_history(chat_history), "assistant", "**Error:** 'As of date' must be YYYY-MM-DD (e.g. 2025-01-10)."),
             "", _empty_citations_md(), empty_df, "", "", "⚪ Error", "", "",
+            *_blank_previews(),
         )
         return
 
@@ -181,6 +237,7 @@ def run_query_stream(
 
     try:
         pipeline = get_pipeline(mode)  # type: ignore[assignment]
+        chunk_text = _get_chunk_text(pipeline)
         t0 = time.perf_counter()
 
         # Stream the answer by generating it fully, then yielding chunks
@@ -211,6 +268,7 @@ def run_query_stream(
                 "⚪ Processing…",  # certainty during streaming
                 "",  # superseded (shown at end)
                 "",  # unsupported (shown at end)
+                *_blank_previews(),
             )
 
         # Final yield with all data
@@ -245,13 +303,14 @@ def run_query_stream(
         yield (
             final_history,  # complete chat history
             answer_text,  # full answer text (also shown in chat)
-            citations_md,  # markdown citations table with previews
+            citations_md,  # markdown citations table
             pd.DataFrame(citation_rows) if citation_rows else empty_df,  # dataframe for metadata access
             latency,
             f"{ans.faithfulness:.2f}",
             _certainty_badge(ans.certainty) + (f" — {ans.abstention_reason}" if ans.abstained else ""),
             json.dumps(ans.superseded, indent=2) if ans.superseded else "None",
             ", ".join(ans.unsupported_citations or []) or "None",
+            *_preview_updates(citation_rows, chunk_text),
         )
 
     except Exception as exc:  # noqa: BLE001 — surface, don't crash the Space
@@ -262,6 +321,7 @@ def run_query_stream(
             _empty_citations_md(),
             empty_df,
             "", "", "⚪ Error", "", "",
+            *_blank_previews(),
         )
 
 
@@ -359,7 +419,18 @@ def build_ui():
 
         # Citations section
         gr.Markdown("### 📚 Citations")
-        citations_md = gr.Markdown(value=_empty_citations_md(), label="Citations (click to expand)")
+        citations_md = gr.Markdown(value=_empty_citations_md(), label="Citations")
+
+        # Fixed pool of preview accordions, one per possible citation row (up
+        # to MAX_PREVIEWS). Gradio components are declared once at UI-build
+        # time, not per-request, so unused rows are hidden via visible=False
+        # rather than the pool being resized.
+        preview_components: list = []
+        for _ in range(MAX_PREVIEWS):
+            with gr.Accordion(visible=False, open=False) as acc:
+                md = gr.Markdown()
+            preview_components.append(acc)
+            preview_components.append(md)
 
         # Hidden dataframe for programmatic access
         citations_df = gr.Dataframe(
@@ -390,13 +461,14 @@ def build_ui():
             outputs=[
                 chatbot,       # updated chat history
                 answer_output, # streaming answer text
-                citations_md,  # markdown citations with previews
+                citations_md,  # markdown citations table
                 citations_df,  # hidden dataframe
                 latency_out,   # latency badge
                 faithfulness_out,
                 certainty_out,
                 superseded_out,
                 unsupported_out,
+                *preview_components,  # per-citation preview accordions
             ],
         )
 
@@ -408,6 +480,7 @@ def build_ui():
                 chatbot, answer_output, citations_md, citations_df,
                 latency_out, faithfulness_out, certainty_out,
                 superseded_out, unsupported_out,
+                *preview_components,
             ],
         )
 
