@@ -85,7 +85,7 @@ def main() -> None:
                     help="measure the cross-encoder reranked order, as production serves it")
     # ADR-004: the reranker was hardcoded to CrossEncoderReranker, so no arm
     # could bench an alternative without editing this script.
-    ap.add_argument("--reranker", choices=["crossencoder", "jina"], default="crossencoder",
+    ap.add_argument("--reranker", choices=["crossencoder", "jina", "set-encoder"], default="crossencoder",
                     help="which reranker orders the pool (--rerank must also be set "
                          "for this to affect the measured order)")
     ap.add_argument("--run-name", dest="run_name", default="baseline-retrieval",
@@ -138,6 +138,11 @@ def main() -> None:
 
             reranker = JinaMLXReranker()
             reranker_name = "jinaai/jina-reranker-v3-mlx"
+        elif args.reranker == "set-encoder":
+            from sebi_rag.rerank import SetEncoderReranker
+
+            reranker = SetEncoderReranker()
+            reranker_name = "webis/set-encoder-base"
         else:
             reranker = CrossEncoderReranker(**ck)
             reranker_name = "BAAI/bge-reranker-v2-m3"

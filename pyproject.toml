@@ -33,6 +33,15 @@ spaces = [
     "transformers>=4.45.0",
     "accelerate>=1.0.0",
 ]
+# Set-Encoder reranker benchmark candidate (2026-08-26 spec, rerank.py:SetEncoderReranker).
+# Heavy vendor inference package for webis/set-encoder-base; not used by the production
+# pipeline (retrieval_reranker_for/config.toml never route to it), so it stays optional.
+# KNOWN ISSUE (verified 2026-08-27): lightning-ir 0.0.6 (PyPI and GitHub main) fails to
+# load webis/set-encoder-base under transformers, which this project resolves transitively
+# via sentence-transformers>=5.6.0 (not a direct/explicit pin) -- locked at 5.14.1 in
+# uv.lock -- see docs/superpowers/specs/2026-08-26-set-encoder-prereg.md for the traceback
+# and root cause.
+rerank-experimental = ["lightning-ir>=0.0.6"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
