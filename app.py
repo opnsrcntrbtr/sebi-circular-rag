@@ -77,11 +77,10 @@ def _certainty_badge(certainty: str) -> str:
     return f"{icon} {certainty.capitalize()}"
 
 
-def _build_citations_markdown(rows: list[dict], chunks_map: dict[str, str]) -> str:
-    """Build a citations table with inline truncated previews.
+def _build_citations_markdown(rows: list[dict]) -> str:
+    """Build a citations markdown table.
 
-    Gradio markdown tables don't support nested HTML (<details> escapes the cell),
-    so we show truncated preview text directly instead of an accordion.
+    Preview column shows the circular reference ID.
     """
     if not rows:
         return "*No citations retrieved.*"
@@ -100,17 +99,11 @@ def _build_citations_markdown(rows: list[dict], chunks_map: dict[str, str]) -> s
         is_superseded = "superseded" in status.lower() or "repealed" in status.lower()
         icon = "⚠️" if is_superseded else ""
 
-        # Inline truncated preview (no <details> — Gradio tables don't nest HTML)
-        # Strip newlines — they break markdown table rendering
-        chunk_id = row.get("id", "")
-        text = chunks_map.get(chunk_id, "*Preview unavailable.*")
-        if len(text) > 200:
-            text = text[:200] + "… (truncated)"
-        # Escape backslashes first, then pipes — order matters to avoid double-escaping
-        text = text.replace("\\", "\\\\").replace("|", "\\|").replace("\n", " ").replace("\r", "")
+        # Preview column: show the circular reference ID
+        preview = circular
 
         lines.append(
-            f"| {i} | {circular} {icon} | {status} | {superseded_by} | {text} |"
+            f"| {i} | {circular} {icon} | {status} | {superseded_by} | {preview} |"
         )
 
     return "\n".join(lines)
@@ -226,17 +219,8 @@ def run_query_stream(
         # Build citations with document preview
         from sebi_rag.api import _citation_meta
 
-        # Map chunk IDs to their text for inline previews (all chunks, not just first 5)
-        chunks_map: dict[str, str] = {}
-        retriever = getattr(pipeline, "retriever", None)  # type: ignore[attr-defined]
-        if retriever is not None and hasattr(retriever, "chunks"):
-            for c in retriever.chunks:  # type: ignore[attr-defined]
-                if c.id not in chunks_map:
-                    chunks_map[c.id] = c.text[:800] + ("…" if len(c.text) > 800 else "")
-            import logging; _log = logging.getLogger("app")
-            _log.debug(f"chunks_map: {len(chunks_map)} keys. ans.citations={ans.citations[:3]}")
-        # Build citation rows with chunk IDs for preview lookup
         seen_circulars: set[str] = set()
+        # Build citation rows
         citation_rows = []
         for cit_id, m in zip(ans.citations, _citation_meta(ans.citations, pipeline.lineage)):  # type: ignore[attr-defined]
             if m.circular not in seen_circulars:
@@ -248,7 +232,7 @@ def run_query_stream(
                     "Superseded By": ", ".join(m.superseded_by) or "-",
                 })
 
-        citations_md = _build_citations_markdown(citation_rows, chunks_map) if citation_rows else _empty_citations_md()
+        citations_md = _build_citations_markdown(citation_rows) if citation_rows else _empty_citations_md()
 
         certainty_str = ans.certainty
         if ans.abstained:
