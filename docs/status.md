@@ -1284,3 +1284,35 @@ frozen_snapshot:
 ```
 `data/corpus/` and `data/index/` are gitignored (data artifacts, not code) — this snapshot record is the durable pointer to their state. `golden_v7.jsonl` and `eval/golden/v7_annotations/` are deliberately **not** touched or re-run in this phase — they stay the fixed measurement target for the intervention. Next: Phase 0 (structural-pairs-only kill switch, gated on numeric_table/multi_hop/lineage_supersession stratum lift, not aggregate recall).
 
+2026-08-28 — **Phase 0 of the bge-m3 SEBI fine-tuning intervention: structural-pairs kill switch. GATE VERDICT: PROCEED.** Plan: `.claude/plans/deep-analyse-and-research-bright-dawn.md`. Pipeline: `scripts/finetune/{holdout_split,mine_structural_pairs,train_lora,merge_adapter,eval_phase0}.py`.
+
+```yaml
+pairs_mined:
+  by_template: {subject_body: 3496, heading_section: 3546, citation_context: 3661, lineage_pair: 1697}
+  total: 12400  # each with 5 hard negatives (rank 2-200, doc-excluded)
+holdout: {gold_circulars: 159, held_out: 48, minable: 111, row_split: {held_out: 76, in_corpus: 131, mixed: 9}}
+training:
+  device: mps, epochs: 1, steps: 775, runtime_s: 15700
+  lora: {r: 16, alpha: 32, dropout: 0.1, target_modules: [query,key,value,dense], trainable_pct: 1.25}
+  loss_trajectory: [9.70, 6.97, 4.73, 4.05, 3.82, 3.62, 3.53, 3.33, 3.21, 3.28]  # healthy, plateaus ~epoch 0.32
+merge: {output: models/bge-m3-sebi-v1, size_mb: 2182, embedding_delta_l2: 0.75}
+eval:
+  golden_v7_n_scored: 216  # matches holdout row-classification count exactly (consistency check passed)
+  overall: {delta_recall_10: -0.0046, delta_ndcg_10: -0.0171}
+  gate_strata:
+    numeric_table:        {n: 30, delta_recall_10: +0.0333}
+    multi_hop:             {n: 20, delta_recall_10: +0.0500}
+    lineage_supersession:  {n: 37, delta_recall_10: -0.0270}
+  holdout_subset: {held_out: {n: 76, delta_recall_10: +0.0329}, in_corpus: {n: 131, delta_recall_10: -0.0267}}
+```
+
+**Verdict mechanics:** preregistered asymmetric gate — proceed unless numeric_table, multi_hop, AND lineage_supersession are ALL flat-or-negative on recall@10. 2 of 3 positive (numeric_table, multi_hop) clears it.
+
+**Honest picture, not just the headline:** aggregate recall and ndcg both slightly negative; ndcg improved on only 2/7 strata (multi_hop +6.17pp, title_direct +1.07pp) while recall improved on more — the fine-tuned model finds the right document more often in some strata without ranking it higher once found. `held_out` subset (docs never seen in training, n=76) improved recall while `in_corpus` (n=131) regressed — the opposite of a memorization signature, mildly reassuring, but at n=20–40/stratum this is a directional screen per `iv-series-verdicts-unpowered`, not a significance test. The preregistered rule is the verdict; this paragraph is not a post-hoc argument for a different one.
+
+**One real bug found and fixed mid-phase (`d16982a`):** the negative-mining margin filter (reject candidates scoring >95% of the positive's own base-model score) dropped 82% of mined pairs — root cause was that the UNTRAINED base model often scores structural positives modestly (median cosine 0.54), so the filter mistook a merely-weak positive for a false-negative risk, and the ~18% surviving rows were biased toward cases the base model already handled well. Fixed by dropping the filter (rank-window + doc-exclusion only, matching FlagEmbedding's own convention); recovered to 99.9% (12,400/12,414).
+
+**Provenance check passed:** each eval run's own `results.json` metadata confirms control resolved `BAAI/bge-m3` and treatment resolved the merged model's absolute path — no embedding-space-mismatch confound between query encoder and index.
+
+**Next: user decision, not automatic.** Phase 1 (LLM-synthesized queries via `Qwen3.8-27B-oQ4e-mtp`, targeting the weak strata) is the natural next step given PROCEED, but per the plan this is the user's call — Phase 0's honest-prior section flagged real headroom limits (recall@10 already 0.943 vs floor 0.906) and this verdict, while real, is not an overwhelming one.
+
