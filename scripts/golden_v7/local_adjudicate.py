@@ -5,24 +5,39 @@ since 2026-07-26, replacing the Gemini leg (ON HOLD: its free tier allows
 Same blind protocol as the gemini leg - build_prompt, parse_reply, the
 cache, and the votes.jsonl rewrite are imported from gemini_adjudicate.py,
 which stays the protocol's home. What is different here is only transport
-and identity: replies come from an Anthropic-compatible server on localhost
-(oMLX serving Qwen3.6-35B-A3B-MLX-4bit), votes carry annotator "qwen", and
-each cache entry records the exact local model id. Qwen is a second model
-family (Alibaba, not Anthropic), so spec sec7's independence requirement
-holds exactly as it would have with Gemini.
+and identity: replies come from an OpenAI-compatible server on localhost
+(oMLX serving the pinned model, see GOLDEN_LOCAL_MODEL below), votes carry
+annotator "qwen", and each cache entry records the exact local model id.
+Qwen is a second model family (Alibaba, not Anthropic), so spec sec7's
+independence requirement holds exactly as it would have with Gemini.
 
 Blindness is structural: the annotator model only ever sees the lettered
 prompt over HTTP - never the repo, never claude's votes.
 
-Env (all defaulted): GOLDEN_LOCAL_BASE_URL (http://127.0.0.1:8001),
-GOLDEN_LOCAL_MODEL (Qwen3.6-35B-A3B-MLX-4bit), GOLDEN_LOCAL_AUTH_TOKEN
-(falls back to ANTHROPIC_AUTH_TOKEN - the oMLX launch command sets it),
-GOLDEN_LOCAL_MAX_TOKENS (4096: Qwen thinking spends output tokens before
-the answer, so a tight cap truncates mid-think and every row parse-fails),
-GOLDEN_LOCAL_TIMEOUT_S (600: the first call may load ~20 GB of weights).
+⚠️ MIXED-MODEL CACHE (as of 2026-08-28): DEFAULT_MODEL was repointed from
+Qwen3.6-35B-A3B-MLX-4bit to Qwen3.8-27B-oQ4e-mtp (the server's actual pinned
+model - the 35B id is no longer served and every call under it was 404ing).
+The 150 rows already cached under eval/golden/v7_annotations/qwen/ are all
+stamped model="Qwen3.6-35B-A3B-MLX-4bit" and adjudicate()'s cache key is the
+row id alone (gemini_adjudicate.py) - no model component. Left as-is by
+deliberate decision: re-running the leg reuses those 150 answers verbatim
+while any new rows come from the 27B, producing a genuinely mixed-model
+leg. The recorded `model` field on every cache entry is what makes that mix
+auditable - do not treat this leg as single-model without checking it.
+
+Env (all defaulted): GOLDEN_LOCAL_BASE_URL (http://127.0.0.1:8001, direct to
+oMLX - no proxy hop), GOLDEN_LOCAL_MODEL (Qwen3.8-27B-oQ4e-mtp),
+GOLDEN_LOCAL_AUTH_TOKEN (falls back to ANTHROPIC_AUTH_TOKEN; optional -
+oMLX's skip_api_key_verification is on, so an unset token is not an error,
+only a header that gets omitted), GOLDEN_LOCAL_MAX_TOKENS (4096: Qwen
+thinking spends output tokens before the answer, so a tight cap truncates
+mid-think and every row parse-fails), GOLDEN_LOCAL_TIMEOUT_S (600: the
+first call may load ~20 GB of weights).
 
 NOTE: oMLX runs on port 8001 (moved from 8000 on 2026-07-26 precisely so it
-never collides with `make serve`, which binds 8000).
+never collides with `make serve`, which binds 8000). Talks OpenAI
+`/v1/chat/completions` directly - the earlier :8787 Anthropic-proxy hop is
+gone along with the Anthropic Messages transport it required.
 
 Pilot (measure agreement vs claude BEFORE spending the full pass - the
 5-row gemini probe caught a prompt-protocol bug exactly this way):
@@ -61,8 +76,8 @@ from golden_v7.gemini_adjudicate import (  # noqa: E402
 )
 
 ANNOTATOR = "qwen"
-DEFAULT_BASE_URL = "http://127.0.0.1:8787"  # headroom proxy → oMLX at :8001
-DEFAULT_MODEL = "Qwen3.6-35B-A3B-MLX-4bit"
+DEFAULT_BASE_URL = "http://127.0.0.1:8001"  # oMLX, direct - no proxy hop
+DEFAULT_MODEL = "Qwen3.8-27B-oQ4e-mtp"  # the server's actual pinned model
 DEFAULT_CACHE_DIR = ROOT / "eval" / "golden" / "v7_annotations" / "qwen"
 
 _MAX_ATTEMPTS = 4
@@ -84,39 +99,39 @@ def _strip_thinking(text: str) -> str:
 
 
 def _extract_text(payload: dict) -> str:
-    """Anthropic Messages response -> reply text: concatenates `text`
-    content blocks, skipping `thinking` blocks if the server surfaces
-    reasoning that way instead of inline tags."""
-    return "".join(b.get("text", "") for b in payload.get("content", [])
-                   if b.get("type") == "text").strip()
+    """OpenAI chat-completions response -> reply text: the first choice's
+    message content. oMLX serves /v1/chat/completions, not the Anthropic
+    Messages shape this leg used before the 2026-08-28 transport swap."""
+    choices = payload.get("choices") or []
+    if not choices:
+        return ""
+    return (choices[0].get("message", {}).get("content") or "").strip()
 
 
 def _post_local(prompt: str) -> str:
-    """One blind-protocol call to the oMLX server. Sends both auth header
-    styles (x-api-key and Bearer) - Anthropic clients use either, and which
-    one oMLX checks is configuration-dependent. Retries transport errors
-    and 5xx with linear backoff: the first call after server start triggers
-    the model load (~20 GB), and a second client hitting the server mid-load
-    can see transient failures. No daily-quota concept exists locally."""
+    """One blind-protocol call to the oMLX server's OpenAI-compatible
+    endpoint. Auth is optional: oMLX's skip_api_key_verification is on, so
+    a Bearer header is sent only if a token is configured - its absence is
+    not an error, unlike the earlier Anthropic-proxy transport. Retries
+    transport errors and 5xx with linear backoff: the first call after
+    server start triggers the model load (~20 GB), and a second client
+    hitting the server mid-load can see transient failures. No daily-quota
+    concept exists locally."""
     token = (os.environ.get("GOLDEN_LOCAL_AUTH_TOKEN")
              or os.environ.get("ANTHROPIC_AUTH_TOKEN"))
-    if not token:
-        raise RuntimeError(
-            "no oMLX token: set GOLDEN_LOCAL_AUTH_TOKEN (or launch inside a "
-            "session that sets ANTHROPIC_AUTH_TOKEN)")
     base = os.environ.get("GOLDEN_LOCAL_BASE_URL", DEFAULT_BASE_URL).rstrip("/")
     timeout = float(os.environ.get("GOLDEN_LOCAL_TIMEOUT_S", "600"))
     max_tokens = int(os.environ.get("GOLDEN_LOCAL_MAX_TOKENS", "4096"))
+    headers = {"Authorization": f"Bearer {token}"} if token else {}
 
     last: Exception | None = None
     for attempt in range(_MAX_ATTEMPTS):
         try:
             resp = httpx.post(
-                f"{base}/v1/messages",
-                headers={"x-api-key": token,
-                         "Authorization": f"Bearer {token}",
-                         "anthropic-version": "2023-06-01"},
+                f"{base}/v1/chat/completions",
+                headers=headers,
                 json={"model": _current_model(), "max_tokens": max_tokens,
+                      "temperature": 0.6,
                       "messages": [{"role": "user", "content": prompt}]},
                 timeout=timeout)
             if _should_retry(resp.status_code) and attempt < _MAX_ATTEMPTS - 1:
