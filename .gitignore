@@ -11,10 +11,20 @@ env/
 data/raw/
 data/index/
 data/index_ar/
+data/index-ft/
 data/corpus/
 dist/
 logs/
 .env
+
+# bge-m3 SEBI fine-tuning intervention (.claude/plans/deep-analyse-and-
+# research-bright-dawn.md): mined pairs and the merged model are large,
+# regenerable data artifacts. holdout_docs.json is the one exception - it's
+# small and is the contamination-boundary audit trail other scripts assert
+# against, so it stays tracked even though the rest of data/finetune/ is not.
+data/finetune/*
+!data/finetune/holdout_docs.json
+models/
 
 # OS
 .DS_Store
