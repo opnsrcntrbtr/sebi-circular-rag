@@ -225,7 +225,6 @@ def test_call_omlx_sends_pinned_sampling_params(monkeypatch):
 
     monkeypatch.setattr(sq.httpx, "post", _fake_post)
     monkeypatch.delenv("SYNTH_AUTH_TOKEN", raising=False)
-    monkeypatch.delenv("ANTHROPIC_AUTH_TOKEN", raising=False)
 
     sq.call_omlx("prompt", "http://x", "model-x", timeout_s=10)
 
@@ -245,7 +244,26 @@ def test_call_omlx_no_token_sends_no_auth_header(monkeypatch):
 
     monkeypatch.setattr(sq.httpx, "post", _fake_post)
     monkeypatch.delenv("SYNTH_AUTH_TOKEN", raising=False)
-    monkeypatch.delenv("ANTHROPIC_AUTH_TOKEN", raising=False)
+
+    sq.call_omlx("p", "http://x", "m", timeout_s=10)
+    assert "Authorization" not in seen["headers"]
+
+
+def test_call_omlx_never_reads_anthropic_auth_token(monkeypatch):
+    """Security-relevant: base_url is CLI-configurable here (unlike
+    local_adjudicate.py's fixed local target), so falling back to a
+    broader credential would risk sending it to whatever host --base-url
+    happens to point at. SYNTH_AUTH_TOKEN is the only credential this
+    script will ever attach, even when ANTHROPIC_AUTH_TOKEN is set."""
+    seen = {}
+
+    def _fake_post(url, headers, json, timeout):
+        seen["headers"] = headers
+        return _FakeResponse(200, _ok_payload())
+
+    monkeypatch.setattr(sq.httpx, "post", _fake_post)
+    monkeypatch.delenv("SYNTH_AUTH_TOKEN", raising=False)
+    monkeypatch.setenv("ANTHROPIC_AUTH_TOKEN", "should-never-be-sent")
 
     sq.call_omlx("p", "http://x", "m", timeout_s=10)
     assert "Authorization" not in seen["headers"]

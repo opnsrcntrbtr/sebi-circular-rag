@@ -285,8 +285,15 @@ def _should_retry(status: int) -> bool:
 def call_omlx(prompt: str, base_url: str, model: str, timeout_s: float) -> str:
     """Optional auth (skip_api_key_verification is on for this server -
     same transport this session verified live and used for local_
-    adjudicate.py's Phase -2 repoint)."""
-    token = os.environ.get("SYNTH_AUTH_TOKEN") or os.environ.get("ANTHROPIC_AUTH_TOKEN")
+    adjudicate.py's Phase -2 repoint). SYNTH_AUTH_TOKEN only - deliberately
+    NO ANTHROPIC_AUTH_TOKEN fallback (unlike local_adjudicate.py's, a
+    historical vestige of when that script spoke Anthropic's own /v1/
+    messages protocol). base_url is a CLI-configurable value here; falling
+    back to that env var would risk sending a real credential to whatever
+    host --base-url happens to point at if it's ever misconfigured away
+    from loopback. This script only ever needs to talk to its own local
+    oMLX server, which doesn't need it either way."""
+    token = os.environ.get("SYNTH_AUTH_TOKEN")
     headers = {"Authorization": f"Bearer {token}"} if token else {}
     last: Exception | None = None
     for attempt in range(_MAX_ATTEMPTS):
