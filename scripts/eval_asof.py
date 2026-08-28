@@ -26,7 +26,7 @@ for k, v in {"TOKENIZERS_PARALLELISM": "false", "OMP_NUM_THREADS": "1",
              "PYTORCH_ENABLE_MPS_FALLBACK": "1", "HF_HUB_DISABLE_XET": "1"}.items():
     os.environ.setdefault(k, v)
 
-from sebi_rag.api import _compute_kwargs  # noqa: E402
+from sebi_rag.api import _compute_kwargs, _embed_kwargs  # noqa: E402
 from sebi_rag.benchmark import run_metadata  # noqa: E402
 from sebi_rag.embeddings import BGEM3Embedder  # noqa: E402
 from sebi_rag.eval_asof import (  # noqa: E402
@@ -42,7 +42,7 @@ from sebi_rag.settings import Settings  # noqa: E402
 started = time.time()
 s = Settings.load()
 ck = _compute_kwargs(s)
-emb = BGEM3Embedder(**ck)
+emb = BGEM3Embedder(**_embed_kwargs(s))
 retr = HybridRetriever.load(s.index_dir, emb)
 rer = CrossEncoderReranker(**ck)
 # ADR-004: must be the same shared reranker_model decision api.py uses, or

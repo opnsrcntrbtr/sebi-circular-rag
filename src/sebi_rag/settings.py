@@ -71,6 +71,7 @@ class Settings:
     use_fp16: bool = False             # fp16 on mps/cuda; flipped True by eval gate
     encode_batch_size: int = 32        # embed/rerank batch size
     embed_backend: str = "torch"       # torch | mlx (mlx = eval-gated, Phase 2)
+    embed_model: str = "BAAI/bge-m3"   # HF id or local dir (fine-tuned SEBI variant, eval-gated)
     rerank_backend: str = "torch"      # torch | mlx (mlx = eval-gated, Phase 2)
     citation_scorer_enabled: bool = False # B': post-hoc answer-relevance filter (off until gate re-armed)
     citation_margin: float = 0.35       # margin for select_citations (sigmoid scale; calibrated 2026-08-04)
@@ -114,6 +115,7 @@ class Settings:
             encode_batch_size=int(_get("encode_batch_size", 32, "SEBI_RAG_", svc)),
             rerank_backend=str(_get("rerank_backend", "torch", "SEBI_RAG_", svc)),
             embed_backend=str(_get("embed_backend", "torch", "SEBI_RAG_", svc)),
+            embed_model=str(_get("embed_model", "BAAI/bge-m3", "SEBI_RAG_", svc)),
             citation_scorer_enabled=_as_bool(_get("citation_scorer_enabled", False, "SEBI_RAG_", svc)),
             citation_margin=float(_get("citation_margin", 0.35, "SEBI_RAG_", svc)),
             citation_min_keep=int(_get("citation_min_keep", 1, "SEBI_RAG_", svc)),

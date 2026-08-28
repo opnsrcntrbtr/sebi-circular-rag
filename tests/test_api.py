@@ -215,6 +215,33 @@ def test_embedder_reranker_accept_compute_kwargs():
         assert {"device", "use_fp16", "batch_size"} <= params
 
 
+def test_embed_kwargs_adds_model_path_without_touching_compute_kwargs():
+    """_embed_kwargs is _compute_kwargs + model_path, and must never mutate
+    or widen _compute_kwargs's own return value - that dict is shared
+    verbatim with CrossEncoderReranker(**ck) at every call site, which has
+    no model_path parameter and would TypeError on an unexpected kwarg."""
+    from sebi_rag.api import _compute_kwargs, _embed_kwargs
+    from sebi_rag.settings import Settings
+    s = Settings(corpus_path="c", index_dir="i", device="cpu",
+                 use_fp16=False, encode_batch_size=16, embed_model="/tmp/ft")
+
+    ck = _compute_kwargs(s)
+    ek = _embed_kwargs(s)
+
+    assert ck == {"device": "cpu", "use_fp16": False, "batch_size": 16}
+    assert ek == {"device": "cpu", "use_fp16": False, "batch_size": 16,
+                  "model_path": "/tmp/ft"}
+    assert "model_path" not in ck
+
+
+def test_embedder_accepts_embed_kwargs_reranker_rejects_model_path():
+    import inspect
+    from sebi_rag.embeddings import BGEM3Embedder
+    from sebi_rag.rerank import CrossEncoderReranker
+    assert "model_path" in inspect.signature(BGEM3Embedder.__init__).parameters
+    assert "model_path" not in inspect.signature(CrossEncoderReranker.__init__).parameters
+
+
 @pytest.mark.integration
 def test_bge_fp16_encode_is_normalized():
     from sebi_rag.embeddings import BGEM3Embedder

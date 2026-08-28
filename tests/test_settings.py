@@ -106,6 +106,7 @@ def test_compute_defaults(monkeypatch, tmp_path):
     assert s.use_fp16 is False              # fp32 until the eval gate flips it
     assert s.encode_batch_size == 32
     assert s.embed_backend == "torch" and s.rerank_backend == "torch"
+    assert s.embed_model == "BAAI/bge-m3"
 
 
 def test_compute_from_file(monkeypatch, tmp_path):
@@ -113,12 +114,14 @@ def test_compute_from_file(monkeypatch, tmp_path):
     cfg = tmp_path / "c.toml"
     cfg.write_text(
         "[service]\ndevice = \"cpu\"\nuse_fp16 = true\n"
-        "encode_batch_size = 64\nembed_backend = \"mlx\"\n",
+        "encode_batch_size = 64\nembed_backend = \"mlx\"\n"
+        "embed_model = \"/tmp/bge-m3-sebi-v1\"\n",
         encoding="utf-8")
     monkeypatch.setenv("SEBI_RAG_CONFIG", str(cfg))
     s = Settings.load()
     assert s.device == "cpu" and s.use_fp16 is True
     assert s.encode_batch_size == 64 and s.embed_backend == "mlx"
+    assert s.embed_model == "/tmp/bge-m3-sebi-v1"
 
 
 def test_compute_env_overrides(monkeypatch, tmp_path):
@@ -127,5 +130,7 @@ def test_compute_env_overrides(monkeypatch, tmp_path):
     monkeypatch.setenv("SEBI_RAG_USE_FP16", "true")
     monkeypatch.setenv("SEBI_RAG_DEVICE", "mps")
     monkeypatch.setenv("SEBI_RAG_ENCODE_BATCH_SIZE", "16")
+    monkeypatch.setenv("SEBI_RAG_EMBED_MODEL", "/tmp/bge-m3-sebi-v1")
     s = Settings.load()
     assert s.use_fp16 is True and s.device == "mps" and s.encode_batch_size == 16
+    assert s.embed_model == "/tmp/bge-m3-sebi-v1"  # env beats built-in default
