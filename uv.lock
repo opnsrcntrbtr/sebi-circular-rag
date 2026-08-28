@@ -1707,6 +1707,10 @@ dev = [
 eval = [
     { name = "ir-measures" },
 ]
+finetune = [
+    { name = "datasets" },
+    { name = "peft" },
+]
 rerank-experimental = [
     { name = "lightning-ir" },
 ]
@@ -1721,6 +1725,7 @@ spaces = [
 requires-dist = [
     { name = "accelerate", marker = "extra == 'spaces'", specifier = ">=1.0.0" },
     { name = "bm25s", specifier = ">=0.3.9" },
+    { name = "datasets", marker = "extra == 'finetune'", specifier = ">=3.0.0" },
     { name = "datasets", marker = "extra == 'spaces'", specifier = ">=3.0.0" },
     { name = "faiss-cpu", specifier = ">=1.14.3" },
     { name = "fastapi", specifier = ">=0.139.0" },
@@ -1736,6 +1741,7 @@ requires-dist = [
     { name = "mlx-lm", specifier = ">=0.31.3" },
     { name = "numpy", specifier = ">=2.5.1" },
     { name = "pdfplumber", specifier = ">=0.11.10" },
+    { name = "peft", marker = "extra == 'finetune'", specifier = ">=0.19.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=9.1.1" },
     { name = "reportlab", marker = "extra == 'dev'", specifier = ">=5.0.0" },
     { name = "scipy", specifier = ">=1.18.0" },
@@ -1744,7 +1750,7 @@ requires-dist = [
     { name = "transformers", marker = "extra == 'spaces'", specifier = ">=4.45.0" },
     { name = "uvicorn", specifier = ">=0.51.0" },
 ]
-provides-extras = ["dev", "eval", "spaces", "rerank-experimental"]
+provides-extras = ["dev", "eval", "finetune", "spaces", "rerank-experimental"]
 
 [[package]]
 name = "semantic-version"
