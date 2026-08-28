@@ -26,6 +26,14 @@ dev = ["pytest>=9.1.1", "reportlab>=5.0.0", "httpx>=0.28.1"]
 # Standard IR scoring, used only to prove metric parity. pytrec_eval is a C
 # extension, so this stays optional and the parity test skips without it.
 eval = ["ir_measures>=0.3.7"]
+# bge-m3 SEBI-domain LoRA fine-tuning (.claude/plans/deep-analyse-and-research-
+# bright-dawn.md). peft was already present transitively (0.19.1, verified
+# installed) but train_lora.py imports it directly now, so it gets an
+# explicit pin rather than riding an implicit transitive dependency a future
+# bump could drop. datasets is duplicated from [spaces] deliberately - the
+# Apple-Silicon finetune path must not pull in the CPU Spaces demo extras
+# (accelerate, gradio_client, transformers) it doesn't need.
+finetune = ["peft>=0.19.0", "datasets>=3.0.0"]
 # HF Spaces demo extras (CPU path); local Apple-Silicon workflow doesn't need them
 spaces = [
     "datasets>=3.0.0",
