@@ -1,14 +1,14 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-08-27.
+> Last updated: 2026-08-28.
 
 ## Current Snapshot
 
 | Metric | Value |
 |---|---|
-| **Corpus** | 730 SEBI circular records, 78,630 chunks (corpus JSONL ~39 MB; index chunks.jsonl ~320 MB) |
-| **Index** | ~985 MB at `data/index/` — dense.faiss (307 MB), bm25/ (33 MB), chunks.jsonl (312 MB), embeddings.npy (307 MB), lineage.json (2.1 MB), manifest.json, meta.json; splade.npz absent (eval-only, not rebuilt by `make reindex`) |
+| **Corpus** | 1,490 SEBI circular records, 87,959 chunks (corpus JSONL ~43 MB; index chunks.jsonl ~313 MB) — grown from 730/78,630 via bounded historical scrape 2026-08-28, see dated entry below |
+| **Index** | ~1.0 GB at `data/index/` — dense.faiss (344 MB), bm25/, chunks.jsonl (313 MB), embeddings.npy (344 MB), lineage.json (2.1 MB), manifest.json, meta.json; splade.npz absent (eval-only, not rebuilt by `make reindex`) |
 | **Reporting set** | `eval/golden/golden_v7.jsonl` (n=260); **adjudicated_n = 260** |
 | **Gate** | `gate_v7.json` derived 2026-08-13T15:47Z (MLX generator, B' ON). Floors: recall_at_k 0.906, context_recall 0.874, ndcg_at_10 0.6512, citation_recall **0.8169**, abstention_accuracy 0.9412, citation_precision **0.1577**. Full end-to-end eval saved to `eval/runs/full-eval-2026-08-15.json` (asof-baseline: 13/13 passed, 1.0 accuracy). B' ON (`citation_scorer_enabled=true`), margin=0.35 (MLX-parallel sweep knee: P +5.4% vs mechanical, recall 0.8721 on adjudicated answerable n=219). Prior stub-derived floors (citation_recall 0.7233, citation_precision 0.1896) described a generator production does not use; MLX precision 0.186 sat *below* that old floor. Gate requires B' ON (`citation_scorer_enabled=true`) |
 | **Frozen sets** | `golden_v5` (n=56), `golden_v6` (n=56) |
@@ -1257,4 +1257,30 @@ Lowering subject threshold to 0.40 is net zero (rescues 2, releases 2). Relaxing
 1. `tests/test_gate.py` - 2 boundary tests (`test_subject_sim_exactly_at_threshold_passes`, `test_section_score_exactly_at_threshold_passes`) passed Python tuples to numpy `@` (matmul) - now pass 1-D float arrays.
 2. `tests/test_export_integration.py` - expected row counts 728/78585 -> 730/78630 (two 2026-08-14 DDHS circulars ingested after the 2026-08-14 expansion; index rebuilt 2026-08-17, chunks.jsonl = 78,630 lines). lineage/eval/citation-normalization/supersession-pairs unchanged.
 Skips (not failures): `test_trec_parity.py` ([eval] extra not installed), `test_measure.py:111` (torch segfault after full-suite MPS depletion).
+
+2026-08-28 — **Phase −1 of the bge-m3 SEBI fine-tuning intervention: bounded corpus scrape + freeze.** Plan: `.claude/plans/deep-analyse-and-research-bright-dawn.md`. Three batches, `make validate-corpus` PASS after each (0 violations throughout):
+```yaml
+batch_1_recent_window: {max: 250, from: null, to: null, ingested: 5, skipped: 248, failed: 0}
+batch_2_2010_2021:      {max: 500, from: 2010-01-01, to: 2021-12-31, ingested: 467, skipped: 19, failed: 6}
+batch_3_2010_2016:      {max: 300, from: 2010-01-01, to: 2016-12-31, ingested: 288, skipped: 5, failed: 7}
+corpus: {before: 730, after: 1490, chunks_before: 78630, chunks_after: 87959}
+year_distribution_after: {2010-2016: ~217 (was ~25, was the sparse era), 2017-2021: 484 (was ~35), 2022-2026: 673}
+```
+Batch 1 (no date bound) hit near-saturation on the recent window — 730-doc baseline already covered 2022-2026 densely (91% of records). Root cause of the low yield was found via a corpus year-histogram, not guessed. Batches 2-3 retargeted the genuinely sparse 2010-2021 window via `--from`/`--to` and lifted yield to 76-96%. All 13 scrape failures across batches are the same benign pattern — "No SEBI circular number found" on non-circular pages (COVID-19 notifications, filing notices) or pre-2013 numbering formats the extraction regex doesn't match — not corpus corruption, no `repair_corpus_text.py` needed.
+
+**Operational note:** batch 1's first attempt stalled silently for 20+ min — a TCP connection stuck in `SYN_SENT` with zero log output despite a 60s per-attempt timeout in `scrape_sebi.py:fetch()`; fresh `curl` calls to the same IP succeeded instantly, so this was a one-off hang, not a systemic block. Killed and restarted; resumed cleanly via the script's own checksum dedupe. No code change needed, but worth knowing before assuming a quiet scrape log means trouble.
+
+`make reindex` run once after all three batches (annotate: 1490 records, 4645 supersedes edges, up from 4536; index build: 87,959 chunks encoded in 1975s, `docs_reused=0`). Post-build sanity: chunk-count parity (`len(HybridRetriever.load(...).chunks) == 87959`, exact match with the build log), and a live `retrieve()` call for the `golden_v7` `surv` query returns the correct gold circular (`HO/43/15/12(3)2025-ISD-POD2/I/11734/2026`) at rank 1.
+
+**Frozen snapshot — every later phase of the fine-tuning plan pins this id:**
+```yaml
+frozen_snapshot:
+  git_sha: 6303aa1bb4400c0f146ca183f6d4b371b91b0577
+  branch: finetune/local-adjudicate-27b
+  dir_fingerprint(data/index): df7228a5a34fe0e3bfdf1bd0b0aa881d9ab3f1682bb1d74bf73d7d684f551db6
+  corpus_records: 1490
+  chunks: 87959
+  date: 2026-08-28
+```
+`data/corpus/` and `data/index/` are gitignored (data artifacts, not code) — this snapshot record is the durable pointer to their state. `golden_v7.jsonl` and `eval/golden/v7_annotations/` are deliberately **not** touched or re-run in this phase — they stay the fixed measurement target for the intervention. Next: Phase 0 (structural-pairs-only kill switch, gated on numeric_table/multi_hop/lineage_supersession stratum lift, not aggregate recall).
 
