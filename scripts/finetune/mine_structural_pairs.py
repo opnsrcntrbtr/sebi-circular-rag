@@ -37,17 +37,28 @@ a query source and as a positive target - a pair citing a held-out doc as
 its positive would leak eval-relevant text into training just as much as
 one built FROM a held-out doc.
 
-Hard negatives (NVIDIA recipe, adapted): batch-embed every query and every
-positive against the FROZEN base bge-m3 index (data/index, pre-fine-tune -
-this step must run before training, using the base model's own retrieval
-geometry), batch-search FAISS for the top ~250 per query, then for each
-query keep candidates that are (a) not from the positive's own document,
-(b) ranked 2-200 (skip the top-2 - too likely to BE the positive's
-paraphrase), and (c) scoring at or below 95% of the positive's own score -
-a margin/denoise filter: a "negative" that scores almost as well as the
-true positive is a likely false negative, not a hard negative. Both scores
-come from the same IndexFlatIP cosine space (embeddings.py's L2-normalize),
-so the two are directly comparable in one pass - no per-query round trip.
+Hard negatives (FlagEmbedding hn_mine.py's range_for_sampling convention):
+batch-embed every query against the FROZEN base bge-m3 index (data/index,
+pre-fine-tune - this step must run before training, using the base model's
+own retrieval geometry), batch-search FAISS for the top ~250 per query,
+then for each query keep candidates that are (a) not from the positive's
+own document and (b) ranked 2-200 (skip the top-2 - too likely to BE the
+positive's paraphrase). One batched embed + one batched FAISS call for the
+whole set, not a per-query round trip.
+
+An earlier version also rejected candidates scoring above 95% of the
+POSITIVE's own score (an NVIDIA-recipe-style denoise filter, borrowed from
+a setting where queries are LLM-synthesized FROM their positive and so are
+naturally strong matches under any embedder). Measured on this corpus's
+structural pairs (scripts/finetune/_diag_negatives.py) that premise didn't
+hold: positive<->query cosine under the UNTRAINED base model is often
+modest (median 0.54, some as low as 0.23) precisely because the base model
+hasn't learned the relationship yet - that IS what fine-tuning is for. The
+filter rejected ~85% of otherwise-valid candidates as "suspiciously close
+to the positive" when the real story was a weak positive, and the ~18%
+that survived were biased toward cases the base model already handled
+well - the opposite of useful training signal. Dropped; see
+mine_hard_negatives's own docstring.
 
 Usage:
     PYTHONPATH=src .venv/bin/python scripts/finetune/mine_structural_pairs.py
@@ -67,8 +78,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
-
-import numpy as np  # noqa: E402
 
 from export_datasets import build_citation_pairs, build_supersession_pairs  # noqa: E402
 from sebi_rag.ingest_pdf import normalize_circular_number  # noqa: E402
@@ -303,39 +312,46 @@ def mine_lineage_pairs(corpus_records: list[dict], lineage: dict,
 
 def mine_hard_negatives(rows: list[dict], retriever, embedder, *,
                         k: int = 250, rank_lo: int = 2, rank_hi: int = 200,
-                        margin: float = 0.95, n_neg: int = 5) -> list[dict]:
+                        n_neg: int = 5) -> list[dict]:
     """One batched embed + one batched FAISS search for the whole set - not
     a per-query round trip. Mutates nothing; returns new dicts with `neg`
     populated (rows a query can't find 5 valid negatives for are dropped,
-    never silently padded with weak ones)."""
+    never silently padded with weak ones).
+
+    Rank window (2-200) + doc-exclusion only - matches FlagEmbedding's own
+    hn_mine.py range_for_sampling convention, cited as this design's source.
+    An earlier version also rejected any candidate scoring above 95% of the
+    POSITIVE's own score (an NVIDIA-recipe-style denoise filter, borrowed
+    from a setting where queries are LLM-synthesized FROM their positive and
+    so are naturally strong matches under any embedder). On this corpus's
+    structural pairs that premise doesn't hold: query<->positive similarity
+    under the UNTRAINED base model is often modest (median cosine 0.54,
+    some as low as 0.23 - measured via scripts/finetune/_diag_negatives.py)
+    precisely because the base model hasn't learned the relationship yet -
+    that's what fine-tuning is for. The relative filter rejected ~85% of
+    otherwise-valid candidates as "suspiciously close to the positive" when
+    the real story was a weak positive, not a false negative - and the
+    ~18% of rows that survived were biased toward cases the base model
+    ALREADY handled well, the opposite of useful training signal."""
     if not rows:
         return []
     queries = [r["query"] for r in rows]
-    positives = [r["positive"] for r in rows]
     doc_ids = [r["source_doc"] for r in rows]
 
     q_vecs = embedder.encode(queries).astype("float32")
-    p_vecs = embedder.encode(positives).astype("float32")
-    positive_scores = np.sum(q_vecs * p_vecs, axis=1)  # both L2-normalized -> cosine
-
     k = min(k, retriever.dense.index.ntotal)
-    scores, idx = retriever.dense.index.search(q_vecs, k)  # one batched call
+    _, idx = retriever.dense.index.search(q_vecs, k)  # one batched call
 
     out = []
     for i, r in enumerate(rows):
-        cand_idx = idx[i]
-        cand_scores = scores[i]
-        threshold = margin * positive_scores[i]
         picked: list[str] = []
-        for rank, (ci, sc) in enumerate(zip(cand_idx, cand_scores)):
+        for rank, ci in enumerate(idx[i]):
             if ci == -1 or rank < rank_lo or rank > rank_hi:
                 continue
             chunk = retriever.chunks[ci]
             if chunk.doc_id == doc_ids[i]:
                 continue
-            if sc > threshold:
-                continue
-            picked.append(chunk.text)
+            picked.append(_strip_context_header(chunk.text, chunk.doc_id))
             if len(picked) == n_neg:
                 break
         if len(picked) == n_neg:

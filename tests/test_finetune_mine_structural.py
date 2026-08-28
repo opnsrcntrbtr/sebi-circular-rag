@@ -1,7 +1,7 @@
 """Offline tests for scripts/finetune/mine_structural_pairs.py's pure
-transforms. Hard-negative mining (mine_hard_negatives) needs a real
-embedder/FAISS index so it is exercised via a fake retriever object here,
-not the production BGEM3Embedder - matches the offline-first convention
+transforms. Hard-negative mining (mine_hard_negatives) needs a real FAISS
+index so it is exercised via a fake retriever object here, not the
+production BGEM3Embedder - matches the offline-first convention
 (HashEmbedder) used across the rest of this test suite.
 """
 from __future__ import annotations
@@ -296,8 +296,11 @@ class _FakeChunk:
 
 class _FakeDenseIndex:
     """Deterministic stand-in for faiss.IndexFlatIP.search: returns a fixed
-    ranking + scores independent of the query vector, so tests can assert
-    exact margin/window behavior without a real embedder."""
+    ranking independent of the query vector, so tests can assert exact
+    rank-window/doc-exclusion behavior without a real embedder. Scores are
+    kept in the returned tuple (matching the real API shape) but
+    mine_hard_negatives no longer reads them - see its docstring for why
+    the old score-relative margin filter was dropped."""
 
     def __init__(self, ranking: list[tuple[int, float]]):
         self._idx = np.array([[i for i, _ in ranking]])
@@ -322,15 +325,10 @@ class _FakeRetriever:
 
 
 class _FakeEmbedder:
-    """Deterministic unit vectors keyed by text hash - cosine of a text with
-    itself is always 1.0, letting tests control positive_scores precisely
-    via the ranking's own declared scores instead of real semantics."""
+    """mine_hard_negatives only uses embed() to build the FAISS query
+    vectors now (no positive scoring) - content doesn't matter, only shape."""
 
     def encode(self, texts):
-        # Every row identical unit vector: dot products are then driven
-        # entirely by the FakeDenseIndex's declared scores, not by these
-        # vectors - mine_hard_negatives only uses embed() for positive_score
-        # (query . positive) and for the FAISS call's query vectors.
         return np.ones((len(texts), 4), dtype="float32") / 2.0
 
 
@@ -344,24 +342,6 @@ def test_mine_hard_negatives_excludes_own_document():
                               k=2, rank_lo=0, rank_hi=1, n_neg=1)
     assert len(out) == 1
     assert out[0]["neg"] == ["neg text"]
-
-
-def test_mine_hard_negatives_applies_margin_filter():
-    """A candidate scoring above 95% of the positive's own score is a
-    likely false negative and must be rejected, even if it's otherwise a
-    valid, different-document candidate in the rank window."""
-    chunks = [_FakeChunk("OTHER1", "too close to positive"),
-              _FakeChunk("OTHER2", "safely below margin")]
-    # FakeEmbedder makes positive_score = 1.0 (identical unit vectors) ->
-    # threshold = 0.95. Candidate 0 scores 0.99 (above threshold, rejected);
-    # candidate 1 scores 0.40 (kept).
-    ranking = [(0, 0.99), (1, 0.40)]
-    retriever = _FakeRetriever(chunks, ranking)
-    rows = [{"query": "q", "positive": "p", "template": "t", "source_doc": "SRC"}]
-    out = mine_hard_negatives(rows, retriever, _FakeEmbedder(),
-                              k=2, rank_lo=0, rank_hi=1, n_neg=1)
-    assert len(out) == 1
-    assert out[0]["neg"] == ["safely below margin"]
 
 
 def test_mine_hard_negatives_respects_rank_window():
@@ -390,3 +370,18 @@ def test_mine_hard_negatives_drops_rows_with_too_few_negatives():
 
 def test_mine_hard_negatives_empty_rows_returns_empty():
     assert mine_hard_negatives([], _FakeRetriever([], []), _FakeEmbedder()) == []
+
+
+def test_mine_hard_negatives_strips_context_header_from_candidate_text():
+    """Negative candidates come straight from retriever.chunks[ci].text -
+    the same production Chunk field carrying segment.py's F1/ADR-001
+    "{doc_id} | {subject} | {section}\\n{body}" header. Left unstripped it
+    doesn't create a false-positive shortcut the way a leaky POSITIVE
+    would, but it's still noise that shouldn't be trained on."""
+    chunks = [_FakeChunk("OTHER", "OTHER | Some subject | s1\nreal negative body")]
+    ranking = [(0, 0.5)]
+    retriever = _FakeRetriever(chunks, ranking)
+    rows = [{"query": "q", "positive": "p", "template": "t", "source_doc": "SRC"}]
+    out = mine_hard_negatives(rows, retriever, _FakeEmbedder(),
+                              k=1, rank_lo=0, rank_hi=0, n_neg=1)
+    assert out[0]["neg"] == ["real negative body"]
