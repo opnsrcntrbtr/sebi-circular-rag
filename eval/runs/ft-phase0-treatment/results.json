@@ -1,0 +1,46 @@
+{
+  "metrics": {
+    "run_name": "ft-phase0-treatment",
+    "n": 260,
+    "n_scored": 216,
+    "n_unjudged": 3,
+    "unjudged_ids": [
+      "v7-ls-038",
+      "v7-ls-039",
+      "v7-ls-040"
+    ],
+    "recall_at_10": 0.8981481481481481,
+    "ndcg_at_10": 0.6382609388655417,
+    "avg_retrieval_latency_s": 0.040506638013399564,
+    "selected_reranker": "crossencoder"
+  },
+  "metadata": {
+    "run_name": "ft-phase0-treatment",
+    "ts": "2026-08-28T23:33:10+0530",
+    "git_commit": "1d93fd134b636e09702faa7c2e5078da3611ea41",
+    "python": "3.12.14",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "models": {
+      "embedder": "/Users/ianpinto/sebi_circular_sota_rag/SEBI circular RAG/models/bge-m3-sebi-v1",
+      "retriever": "FAISS+BM25/RRF",
+      "reranker": "BAAI/bge-reranker-v2-m3"
+    },
+    "params": {
+      "top_n": 50,
+      "smoke": false,
+      "hyde": false,
+      "splade": false,
+      "expand_sparse": true,
+      "rerank": false
+    },
+    "env": {
+      "TOKENIZERS_PARALLELISM": "false",
+      "OMP_NUM_THREADS": "1",
+      "PYTORCH_ENABLE_MPS_FALLBACK": "1",
+      "HF_HUB_DISABLE_XET": "1"
+    },
+    "corpus_sha256": "09277e8490a42f860beae1ab2e0915c8bfc76497e39b8f88a4b5a6a176b8c4d5",
+    "index_fingerprint": "62e3d95c9dccaab93ffa25fe8352aefde2129938c705846b2cec310cda6c6c4d",
+    "golden_sha256": "d87e5f3ac29a54dc2464f164f8261619cc655d6c2584831f8ce501608a59520a"
+  }
+}

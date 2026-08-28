@@ -1,0 +1,46 @@
+{
+  "metrics": {
+    "run_name": "ft-phase0-control",
+    "n": 260,
+    "n_scored": 216,
+    "n_unjudged": 3,
+    "unjudged_ids": [
+      "v7-ls-038",
+      "v7-ls-039",
+      "v7-ls-040"
+    ],
+    "recall_at_10": 0.9027777777777778,
+    "ndcg_at_10": 0.6553313037359803,
+    "avg_retrieval_latency_s": 0.04373296957749587,
+    "selected_reranker": "crossencoder"
+  },
+  "metadata": {
+    "run_name": "ft-phase0-control",
+    "ts": "2026-08-28T23:32:22+0530",
+    "git_commit": "1d93fd134b636e09702faa7c2e5078da3611ea41",
+    "python": "3.12.14",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "models": {
+      "embedder": "BAAI/bge-m3",
+      "retriever": "FAISS+BM25/RRF",
+      "reranker": "BAAI/bge-reranker-v2-m3"
+    },
+    "params": {
+      "top_n": 50,
+      "smoke": false,
+      "hyde": false,
+      "splade": false,
+      "expand_sparse": true,
+      "rerank": false
+    },
+    "env": {
+      "TOKENIZERS_PARALLELISM": "false",
+      "OMP_NUM_THREADS": "1",
+      "PYTORCH_ENABLE_MPS_FALLBACK": "1",
+      "HF_HUB_DISABLE_XET": "1"
+    },
+    "corpus_sha256": "09277e8490a42f860beae1ab2e0915c8bfc76497e39b8f88a4b5a6a176b8c4d5",
+    "index_fingerprint": "df7228a5a34fe0e3bfdf1bd0b0aa881d9ab3f1682bb1d74bf73d7d684f551db6",
+    "golden_sha256": "d87e5f3ac29a54dc2464f164f8261619cc655d6c2584831f8ce501608a59520a"
+  }
+}

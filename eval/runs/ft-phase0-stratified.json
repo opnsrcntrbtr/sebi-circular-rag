@@ -1,0 +1,117 @@
+{
+  "overall": {
+    "n": 216,
+    "control_recall": 0.8981,
+    "treatment_recall": 0.8935,
+    "delta_recall": -0.0046,
+    "control_ndcg": 0.6524,
+    "treatment_ndcg": 0.6353,
+    "delta_ndcg": -0.0171
+  },
+  "by_stratum": {
+    "body_paraphrase": {
+      "n": 60,
+      "control_recall": 0.8333,
+      "treatment_recall": 0.7833,
+      "delta_recall": -0.05,
+      "control_ndcg": 0.512,
+      "treatment_ndcg": 0.4585,
+      "delta_ndcg": -0.0535
+    },
+    "hard_negative": {
+      "n": 9,
+      "control_recall": 0.5556,
+      "treatment_recall": 0.5556,
+      "delta_recall": 0.0,
+      "control_ndcg": 0.5,
+      "treatment_ndcg": 0.4239,
+      "delta_ndcg": -0.0761
+    },
+    "lineage_supersession": {
+      "n": 37,
+      "control_recall": 0.8919,
+      "treatment_recall": 0.8649,
+      "delta_recall": -0.027,
+      "control_ndcg": 0.5224,
+      "treatment_ndcg": 0.5042,
+      "delta_ndcg": -0.0183
+    },
+    "multi_hop": {
+      "n": 20,
+      "control_recall": 0.95,
+      "treatment_recall": 1.0,
+      "delta_recall": 0.05,
+      "control_ndcg": 0.8119,
+      "treatment_ndcg": 0.8736,
+      "delta_ndcg": 0.0617
+    },
+    "numeric_table": {
+      "n": 30,
+      "control_recall": 0.9333,
+      "treatment_recall": 0.9667,
+      "delta_recall": 0.0333,
+      "control_ndcg": 0.6024,
+      "treatment_ndcg": 0.582,
+      "delta_ndcg": -0.0205
+    },
+    "repealed_basis": {
+      "n": 20,
+      "control_recall": 0.95,
+      "treatment_recall": 1.0,
+      "delta_recall": 0.05,
+      "control_ndcg": 0.846,
+      "treatment_ndcg": 0.8376,
+      "delta_ndcg": -0.0083
+    },
+    "title_direct": {
+      "n": 40,
+      "control_recall": 1.0,
+      "treatment_recall": 1.0,
+      "delta_recall": 0.0,
+      "control_ndcg": 0.8785,
+      "treatment_ndcg": 0.8892,
+      "delta_ndcg": 0.0107
+    }
+  },
+  "by_holdout_subset": {
+    "held_out": {
+      "n": 76,
+      "control_recall": 0.875,
+      "treatment_recall": 0.9079,
+      "delta_recall": 0.0329,
+      "control_ndcg": 0.6061,
+      "treatment_ndcg": 0.5866,
+      "delta_ndcg": -0.0195
+    },
+    "in_corpus": {
+      "n": 131,
+      "control_recall": 0.9122,
+      "treatment_recall": 0.8855,
+      "delta_recall": -0.0267,
+      "control_ndcg": 0.6723,
+      "treatment_ndcg": 0.6542,
+      "delta_ndcg": -0.0181
+    },
+    "mixed": {
+      "n": 9,
+      "control_recall": 0.8889,
+      "treatment_recall": 0.8889,
+      "delta_recall": 0.0,
+      "control_ndcg": 0.7543,
+      "treatment_ndcg": 0.772,
+      "delta_ndcg": 0.0178
+    }
+  },
+  "gate": {
+    "verdict": "PROCEED",
+    "positive_strata": [
+      "numeric_table",
+      "multi_hop"
+    ],
+    "gate_strata": [
+      "numeric_table",
+      "multi_hop",
+      "lineage_supersession"
+    ]
+  }
+}
