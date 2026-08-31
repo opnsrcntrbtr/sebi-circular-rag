@@ -197,7 +197,8 @@ def numeric_table_candidates(chunks_by_doc: dict[str, list[dict]],
                     or _has_boilerplate(body)):
                 continue
             pool.append({"source_id": c["id"], "prompt_body": body,
-                        "positive": body, "source_doc": doc_id})
+                        "positive": body, "source_doc": doc_id,
+                        "positive_doc": doc_id})
     rng.shuffle(pool)
     return pool
 
@@ -207,7 +208,14 @@ def multi_hop_candidates(corpus_records: list[dict], chunks_by_doc: dict[str, li
     """Reuses build_citation_pairs verbatim - same source as Phase 0's
     citation_context template, but here BOTH the citing context AND the
     cited doc's body (not just its subject line) go to the LLM, so it can
-    write a genuinely two-passage question."""
+    write a genuinely two-passage question.
+
+    source_doc vs positive_doc: source_doc is the CITING document
+    (provenance - which doc's citation motivated this pair), positive_doc
+    is the document the `positive` text actually comes from (the CITED
+    doc). They differ here, unlike the other two generators where they're
+    the same doc - a round-trip filter or a doc-exclusion check for hard
+    negatives must key on positive_doc, not source_doc."""
     rng = random.Random(seed)
     by_norm = {normalize_circular_number(r["circular_number"]): r for r in corpus_records}
     raw_pairs = build_citation_pairs(corpus_records)
@@ -235,7 +243,7 @@ def multi_hop_candidates(corpus_records: list[dict], chunks_by_doc: dict[str, li
                        f"Passage B (cited):\n{target_body}\n")
         pool.append({"source_id": f"{source}->{target_id}#{p['raw_reference']}",
                     "prompt_body": prompt_body, "positive": target_body,
-                    "source_doc": source})
+                    "source_doc": source, "positive_doc": target_id})
     rng.shuffle(pool)
     return pool
 
@@ -272,7 +280,7 @@ def lineage_supersession_candidates(corpus_records: list[dict],
             continue
         prompt_body = f"Current passage:\n{a_body}\n\nEarlier passage:\n{b_body}\n"
         pool.append({"source_id": f"{a}<-{b}", "prompt_body": prompt_body,
-                    "positive": a_body, "source_doc": a})
+                    "positive": a_body, "source_doc": a, "positive_doc": a})
     rng.shuffle(pool)
     return pool
 
@@ -391,6 +399,7 @@ def synthesize_stratum(stratum: str, candidates: list[dict], target: int,
             continue
         rows.append({"query": query, "positive": cand["positive"],
                     "template": stratum, "source_doc": cand["source_doc"],
+                    "positive_doc": cand["positive_doc"],
                     "model": cached["model"]})
 
     print(f"[{stratum}] calls={n_calls} cached={n_cached} "

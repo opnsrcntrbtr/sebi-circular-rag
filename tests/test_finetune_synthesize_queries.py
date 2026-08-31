@@ -109,6 +109,12 @@ def test_multi_hop_candidates_builds_both_passages():
     assert "Passage B (cited)" in cands[0]["prompt_body"]
     assert cands[0]["positive"] in cands[0]["prompt_body"]
     assert cands[0]["source_doc"] == "SEBI/HO/CFD/2023/1"
+    # source_doc (citing) and positive_doc (cited, where `positive` text
+    # actually lives) MUST differ here - a round-trip filter or hard-
+    # negative doc-exclusion keying on source_doc for multi_hop rows would
+    # silently check against the wrong document.
+    assert cands[0]["positive_doc"] == "SEBI/HO/CFD/2023/2"
+    assert cands[0]["positive_doc"] != cands[0]["source_doc"]
 
 
 def test_multi_hop_candidates_skips_when_cited_doc_has_no_usable_chunks():
@@ -188,6 +194,7 @@ def test_lineage_supersession_candidates_current_is_positive():
     assert "Current passage" in cands[0]["prompt_body"]
     assert "Earlier passage" in cands[0]["prompt_body"]
     assert cands[0]["source_doc"] == "NEW/1"
+    assert cands[0]["positive_doc"] == "NEW/1"  # same doc here, unlike multi_hop
 
 
 def test_lineage_supersession_candidates_skips_boilerplate_positive():
@@ -390,7 +397,7 @@ def test_synthesize_stratum_uses_cache_when_present(tmp_path, monkeypatch):
         raise AssertionError("call_omlx must not be called for a cached row")
     monkeypatch.setattr(sq, "call_omlx", _boom)
 
-    cands = [{"source_id": "A#1", "prompt_body": "p", "positive": "pos", "source_doc": "A"}]
+    cands = [{"source_id": "A#1", "prompt_body": "p", "positive": "pos", "source_doc": "A", "positive_doc": "A"}]
     rows = sq.synthesize_stratum("numeric_table", cands, target=1,
                                  base_url="http://x", model="m",
                                  cache_dir=cache_dir, timeout_s=10)
@@ -404,7 +411,7 @@ def test_synthesize_stratum_stops_at_target(tmp_path, monkeypatch):
     monkeypatch.setattr(sq, "call_omlx", _fake_call)
 
     cands = [{"source_id": f"A#{i}", "prompt_body": "p", "positive": "pos",
-             "source_doc": "A"} for i in range(10)]
+             "source_doc": "A", "positive_doc": "A"} for i in range(10)]
     rows = sq.synthesize_stratum("numeric_table", cands, target=3,
                                  base_url="http://x", model="m",
                                  cache_dir=tmp_path / "cache", timeout_s=10)
@@ -423,7 +430,7 @@ def test_synthesize_stratum_drops_leak_filtered_and_parse_failed(tmp_path, monke
     monkeypatch.setattr(sq, "call_omlx", _fake_call)
 
     cands = [{"source_id": f"A#{i}", "prompt_body": "p", "positive": "pos",
-             "source_doc": "A"} for i in range(3)]
+             "source_doc": "A", "positive_doc": "A"} for i in range(3)]
     rows = sq.synthesize_stratum("numeric_table", cands, target=3,
                                  base_url="http://x", model="m",
                                  cache_dir=tmp_path / "cache", timeout_s=10)
@@ -439,7 +446,7 @@ def test_synthesize_stratum_never_reads_a_model_emitted_type_field(tmp_path, mon
         return '{"query": "a clean question", "type": "multi_hop"}'
     monkeypatch.setattr(sq, "call_omlx", _fake_call)
 
-    cands = [{"source_id": "A#1", "prompt_body": "p", "positive": "pos", "source_doc": "A"}]
+    cands = [{"source_id": "A#1", "prompt_body": "p", "positive": "pos", "source_doc": "A", "positive_doc": "A"}]
     rows = sq.synthesize_stratum("numeric_table", cands, target=1,
                                  base_url="http://x", model="m",
                                  cache_dir=tmp_path / "cache", timeout_s=10)
