@@ -344,6 +344,39 @@ def test_mine_hard_negatives_excludes_own_document():
     assert out[0]["neg"] == ["neg text"]
 
 
+def test_mine_hard_negatives_doc_key_defaults_to_source_doc():
+    """Backward-compat: every mine_structural_pairs.py template has
+    positive == source_doc's own document, so the default must keep
+    excluding by source_doc exactly as before."""
+    chunks = [_FakeChunk("SAME", "self text"), _FakeChunk("OTHER", "neg text")]
+    ranking = [(0, 0.9), (1, 0.5)]
+    retriever = _FakeRetriever(chunks, ranking)
+    rows = [{"query": "q", "positive": "p", "template": "t", "source_doc": "SAME"}]
+    out = mine_hard_negatives(rows, retriever, _FakeEmbedder(),
+                              k=2, rank_lo=0, rank_hi=1, n_neg=1)
+    assert out[0]["neg"] == ["neg text"]  # SAME excluded via source_doc
+
+
+def test_mine_hard_negatives_doc_key_overrides_exclusion_field():
+    """Phase 1's multi_hop rows: source_doc is the CITING document, but the
+    positive is drawn from positive_doc (the CITED one) - a caller over
+    synthesized rows must be able to exclude by positive_doc instead."""
+    chunks = [_FakeChunk("CITED_DOC", "would leak the positive's own doc"),
+              _FakeChunk("OTHER", "genuinely different doc")]
+    ranking = [(0, 0.9), (1, 0.5)]
+    retriever = _FakeRetriever(chunks, ranking)
+    # source_doc (citing) differs from positive_doc (cited, where the
+    # positive text actually lives)
+    rows = [{"query": "q", "positive": "p", "template": "multi_hop",
+            "source_doc": "CITING_DOC", "positive_doc": "CITED_DOC"}]
+    out = mine_hard_negatives(rows, retriever, _FakeEmbedder(),
+                              k=2, rank_lo=0, rank_hi=1, n_neg=1,
+                              doc_key="positive_doc")
+    # CITED_DOC excluded (matches positive_doc); CITING_DOC would NOT have
+    # been excluded if doc_key had wrongly stayed "source_doc"
+    assert out[0]["neg"] == ["genuinely different doc"]
+
+
 def test_mine_hard_negatives_respects_rank_window():
     chunks = [_FakeChunk("A", "rank0 too close to top"),
               _FakeChunk("B", "rank1 in window"),

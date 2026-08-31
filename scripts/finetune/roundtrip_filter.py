@@ -1,15 +1,11 @@
 """Phase 1 (bge-m3 SEBI fine-tuning, .claude/plans/deep-analyse-and-research-
-bright-dawn.md): Promptagator round-trip consistency filter
-(arXiv:2209.11755) for LLM-synthesized queries.
+bright-dawn.md): quality-filters LLM-synthesized queries and produces the
+final, trainable pairs_synth.jsonl - the Phase 1 counterpart to
+mine_structural_pairs.py's positives+negatives-in-one-script shape.
 
-A synthesized query is kept only if retrieving with it against the FROZEN
-BASE index (data/index, the pre-fine-tune bge-m3 - this must run before
-training, on the same corpus snapshot every other phase pins) returns the
-query's own source document in the top-k. Reported at +2.5 nDCG average,
-improving 8/11 BEIR datasets. Zero LLM cost - this is why Phase 1 specs no
-second annotator leg for quality control.
-
-Two filters, applied in this order (cheap first):
+Three stages, applied in this order (cheap first, all against the FROZEN
+BASE index data/index - the pre-fine-tune bge-m3 - this must run before
+training, on the same corpus snapshot every other phase pins):
 
 1. Boilerplate positives. Post-hoc cleanup for a real defect found via
    spot-check on the completed real run: multi_hop/lineage_supersession
@@ -20,20 +16,36 @@ Two filters, applied in this order (cheap first):
    the ~313/6263 affected rows - cheaper, and this filter is about to run
    anyway.
 
-2. Round-trip retrieval consistency (the actual Promptagator filter).
+2. Round-trip retrieval consistency - Promptagator (arXiv:2209.11755). A
+   synthesized query is kept only if retrieving with it returns its own
+   source document in the top-k. Reported at +2.5 nDCG average, improving
+   8/11 BEIR datasets. Zero LLM cost - this is why Phase 1 specs no second
+   annotator leg for quality control.
 
-positive_doc resolution: rows from a run predating the positive_doc field
-(the real Phase 1 run's raw output does) don't carry it, and source_id
-(which would let it be recovered by parsing) isn't persisted in the output
-row either - only used internally for caching during synthesis. Resolved
-here via a reverse lookup (chunk text -> doc_id) built from the corpus
-itself, which works uniformly regardless of when a row was generated,
-rather than trusting a per-row id that may not exist.
+3. Hard-negative mining, reusing mine_structural_pairs.mine_hard_negatives
+   against the SAME already-loaded retriever/embedder (no second model
+   load) - with doc_key="positive_doc", not the default "source_doc". That
+   parameter exists specifically for this call: synthesize_queries.py's
+   source_doc is the CITING document for multi_hop rows, but positive is
+   drawn from positive_doc (the CITED one) - same-document exclusion must
+   key on the latter or a same-doc-as-positive chunk could slip through
+   as a "negative".
+
+positive_doc resolution (stage 2): rows from a run predating the
+positive_doc field (the real Phase 1 run's raw output does) don't carry
+it, and source_id (which would let it be recovered by parsing) isn't
+persisted in the output row either - only used internally for caching
+during synthesis. Resolved here via a reverse lookup (chunk text ->
+doc_id) built from the corpus itself, which works uniformly regardless of
+when a row was generated, rather than trusting a per-row id that may not
+exist.
 
 Usage:
     PYTHONPATH=src .venv/bin/python scripts/finetune/roundtrip_filter.py
 Output:
-    data/finetune/pairs_synth.jsonl
+    data/finetune/pairs_synth.jsonl (query, positive, neg, template,
+    source_doc, positive_doc, model - trainable by train_lora.py exactly
+    like pairs_structural.jsonl)
 """
 from __future__ import annotations
 
@@ -49,6 +61,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from finetune.mine_structural_pairs import (  # noqa: E402
     _strip_context_header,
     load_chunks_by_doc,
+    mine_hard_negatives,
 )
 from finetune.synthesize_queries import _has_boilerplate  # noqa: E402
 
@@ -130,6 +143,7 @@ def main() -> None:
                     help="FROZEN base index - must predate any fine-tuning")
     ap.add_argument("--out", default=str(DEFAULT_OUT))
     ap.add_argument("--top-k", type=int, default=DEFAULT_TOP_K)
+    ap.add_argument("--n-negatives", type=int, default=5)
     args = ap.parse_args()
 
     rows = load_rows(Path(args.raw))
@@ -156,12 +170,23 @@ def main() -> None:
         print("WARNING: round-trip filter retained ~100% of rows - a filter "
              "retaining everything is not filtering (plan verification step 5)")
 
+    # Hard-negative mining, same frozen base retriever/embedder already
+    # loaded above (no second model load) - doc_key="positive_doc" is the
+    # reason mine_hard_negatives grew that parameter: source_doc is the
+    # CITING document for multi_hop rows, not the document the positive
+    # text lives in, and same-document exclusion must key on the latter.
+    final = mine_hard_negatives(kept, retriever, embedder,
+                                n_neg=args.n_negatives, doc_key="positive_doc")
+    print(f"hard-negative mining: {len(final)}/{len(kept)} rows reached "
+         f"{args.n_negatives} valid negatives "
+         f"(dropped {len(kept) - len(final)})")
+
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with out_path.open("w", encoding="utf-8") as f:
-        for r in kept:
+        for r in final:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
-    print(f"kept: {len(kept)} -> {out_path}")
+    print(f"final: {len(final)} -> {out_path}")
 
 
 if __name__ == "__main__":

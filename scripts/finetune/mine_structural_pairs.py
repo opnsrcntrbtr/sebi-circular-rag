@@ -312,11 +312,21 @@ def mine_lineage_pairs(corpus_records: list[dict], lineage: dict,
 
 def mine_hard_negatives(rows: list[dict], retriever, embedder, *,
                         k: int = 250, rank_lo: int = 2, rank_hi: int = 200,
-                        n_neg: int = 5) -> list[dict]:
+                        n_neg: int = 5, doc_key: str = "source_doc") -> list[dict]:
     """One batched embed + one batched FAISS search for the whole set - not
     a per-query round trip. Mutates nothing; returns new dicts with `neg`
     populated (rows a query can't find 5 valid negatives for are dropped,
     never silently padded with weak ones).
+
+    doc_key names the field holding "the document the positive text
+    actually belongs to", for the same-document exclusion below. Defaults
+    to "source_doc" (correct for every mine_structural_pairs.py template -
+    positive and source_doc are always the same document there). Phase 1's
+    multi_hop rows are the reason this is a parameter, not hardcoded:
+    synthesize_queries.py's source_doc is the CITING document, but the
+    positive is drawn from the CITED one (positive_doc) - callers over
+    synthesized rows must pass doc_key="positive_doc" or same-document
+    negatives would silently slip through unexcluded.
 
     Rank window (2-200) + doc-exclusion only - matches FlagEmbedding's own
     hn_mine.py range_for_sampling convention, cited as this design's source.
@@ -336,7 +346,7 @@ def mine_hard_negatives(rows: list[dict], retriever, embedder, *,
     if not rows:
         return []
     queries = [r["query"] for r in rows]
-    doc_ids = [r["source_doc"] for r in rows]
+    doc_ids = [r[doc_key] for r in rows]
 
     q_vecs = embedder.encode(queries).astype("float32")
     k = min(k, retriever.dense.index.ntotal)
