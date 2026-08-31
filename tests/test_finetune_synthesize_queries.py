@@ -53,6 +53,41 @@ def test_numeric_table_candidates_below_length_floor_excluded():
     assert sq.numeric_table_candidates(chunks_by_doc, minable={"A"}, seed=1) == []
 
 
+def test_numeric_table_candidates_excludes_boilerplate_trailing_chunk():
+    """A chunk that trails into a signature block or closing 'available on
+    the website' boilerplate must not become a positive, even if it also
+    happens to contain a qualifying number - broader than mine_structural_
+    pairs._is_signoff_boilerplate (which only checks the opening), found
+    via post-hoc inspection of the real Phase 1 run (up to 11.5% of
+    multi_hop positives were affected)."""
+    chunks_by_doc = {"A": [{"id": "A#1", "doc_id": "A", "section": "A/1",
+                           "text": "not exceeding 10%. " + LONG +
+                           " Yours faithfully, A Manager"}]}
+    assert sq.numeric_table_candidates(chunks_by_doc, minable={"A"}, seed=1) == []
+
+
+# ---------------------------------------------------------------------------
+# _has_boilerplate - broader than mine_structural_pairs._is_signoff_boilerplate
+# ---------------------------------------------------------------------------
+
+def test_has_boilerplate_detects_signature_anywhere_not_just_at_start():
+    """Unlike _is_signoff_boilerplate (which only checks the OPENING, so it
+    doesn't reject substantive text that merely mentions a title
+    mid-paragraph), candidate positives here are picked by random.choice
+    across a whole document's chunks - a chunk that TRAILS into a
+    signature or closing "available on the website" line must be excluded
+    just as much as one that opens with it."""
+    assert sq._has_boilerplate("1. Substantive content here.\nYours faithfully,\nA Manager")
+    assert sq._has_boilerplate("Some text. A copy of this circular is available on "
+                               "the SEBI website for reference.")
+
+
+def test_has_boilerplate_false_for_clean_substantive_text():
+    assert not sq._has_boilerplate(
+        "The compliance officer shall report to the General Manager within "
+        "seven days of any material event under this circular.")
+
+
 # ---------------------------------------------------------------------------
 # multi_hop_candidates (wraps export_datasets.build_citation_pairs)
 # ---------------------------------------------------------------------------
@@ -85,6 +120,38 @@ def test_multi_hop_candidates_skips_when_cited_doc_has_no_usable_chunks():
     minable = {"SEBI/HO/CFD/2023/1", "SEBI/HO/CFD/2023/2"}
     cands = sq.multi_hop_candidates(corpus, {}, minable, seed=1)
     assert cands == []
+
+
+def test_multi_hop_candidates_skips_boilerplate_chunk_falls_back_to_clean_one():
+    corpus = [
+        {"circular_number": "SEBI/HO/CFD/2023/1", "subject": "Citing",
+         "text": "This refers to SEBI/HO/CFD/2023/2 for details."},
+        {"circular_number": "SEBI/HO/CFD/2023/2", "subject": "Cited", "text": "x"},
+    ]
+    chunks_by_doc = {"SEBI/HO/CFD/2023/2": [
+        {"id": "c2#1", "doc_id": "SEBI/HO/CFD/2023/2", "section": "s/1",
+         "text": LONG + " Yours faithfully, A Manager"},  # boilerplate - skipped
+        {"id": "c2#2", "doc_id": "SEBI/HO/CFD/2023/2", "section": "s/2",
+         "text": "clean substantive body " + LONG},        # falls back to this
+    ]}
+    minable = {"SEBI/HO/CFD/2023/1", "SEBI/HO/CFD/2023/2"}
+    cands = sq.multi_hop_candidates(corpus, chunks_by_doc, minable, seed=1)
+    assert len(cands) == 1
+    assert "Yours faithfully" not in cands[0]["positive"]
+    assert cands[0]["positive"].startswith("clean substantive body")
+
+
+def test_multi_hop_candidates_skips_when_target_is_entirely_boilerplate():
+    corpus = [
+        {"circular_number": "SEBI/HO/CFD/2023/1", "subject": "Citing",
+         "text": "This refers to SEBI/HO/CFD/2023/2 for details."},
+        {"circular_number": "SEBI/HO/CFD/2023/2", "subject": "Cited", "text": "x"},
+    ]
+    chunks_by_doc = {"SEBI/HO/CFD/2023/2": [
+        {"id": "c2#1", "doc_id": "SEBI/HO/CFD/2023/2", "section": "s/1",
+         "text": LONG + " Yours faithfully, A Manager"}]}
+    minable = {"SEBI/HO/CFD/2023/1", "SEBI/HO/CFD/2023/2"}
+    assert sq.multi_hop_candidates(corpus, chunks_by_doc, minable, seed=1) == []
 
 
 def test_multi_hop_candidates_skips_held_out_target():
@@ -121,6 +188,27 @@ def test_lineage_supersession_candidates_current_is_positive():
     assert "Current passage" in cands[0]["prompt_body"]
     assert "Earlier passage" in cands[0]["prompt_body"]
     assert cands[0]["source_doc"] == "NEW/1"
+
+
+def test_lineage_supersession_candidates_skips_boilerplate_positive():
+    corpus = [
+        {"circular_number": "NEW/1", "subject": "New rule", "issuing_department": "CFD"},
+        {"circular_number": "OLD/1", "subject": "Old rule", "issuing_department": "CFD"},
+    ]
+    lineage = {"supersedes": {"NEW/1": ["OLD/1"]}, "amends": {},
+              "superseded_by": {}, "amended_by": {}}
+    chunks_by_doc = {
+        "NEW/1": [{"id": "n#1", "doc_id": "NEW/1", "section": "s/1",
+                   "text": LONG + " Yours faithfully, A Manager"},
+                 {"id": "n#2", "doc_id": "NEW/1", "section": "s/2",
+                   "text": "clean new body " + LONG}],
+        "OLD/1": [{"id": "o#1", "doc_id": "OLD/1", "section": "s/1", "text": "old body " + LONG}],
+    }
+    cands = sq.lineage_supersession_candidates(
+        corpus, chunks_by_doc, lineage, minable={"NEW/1", "OLD/1"}, seed=1)
+    assert len(cands) == 1
+    assert "Yours faithfully" not in cands[0]["positive"]
+    assert cands[0]["positive"].startswith("clean new body")
 
 
 def test_lineage_supersession_candidates_drops_unrelated_label():

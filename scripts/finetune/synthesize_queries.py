@@ -122,6 +122,27 @@ NUMERIC_RE = re.compile(
     re.IGNORECASE,
 )
 
+BOILERPLATE_RE = re.compile(
+    r"Yours (faithfully|sincerely)|available on (the )?SEBI website",
+    re.IGNORECASE,
+)
+
+
+def _has_boilerplate(text: str) -> bool:
+    """Broader than mine_structural_pairs._is_signoff_boilerplate (which
+    only checks the OPENING of a chunk, by design, so it doesn't reject
+    substantive text that merely mentions a title mid-paragraph). Positives
+    here are picked by random.choice from a document's chunks rather than
+    scanned one-by-one for a heading match, so a chunk that TRAILS into a
+    signature block or closing "available on the website" boilerplate
+    (rather than opening with one) needs to be excluded from the candidate
+    pool too, not just chunks that open with it. Measured on the real
+    corpus (post-hoc, after the first synthesis run surfaced this): up to
+    11.5% of multi_hop positives, 2.1% of lineage_supersession, 1.3% of
+    numeric_table matched this broader pattern."""
+    return bool(BOILERPLATE_RE.search(text))
+
+
 PREAMBLES = {
     "numeric_table": (
         "You are indexing Indian securities regulations (SEBI circulars) for "
@@ -172,7 +193,8 @@ def numeric_table_candidates(chunks_by_doc: dict[str, list[dict]],
             continue
         for c in chunks:
             body = _strip_context_header(c["text"], doc_id)
-            if len(body) < MIN_CHUNK_CHARS or not NUMERIC_RE.search(body):
+            if (len(body) < MIN_CHUNK_CHARS or not NUMERIC_RE.search(body)
+                    or _has_boilerplate(body)):
                 continue
             pool.append({"source_id": c["id"], "prompt_body": body,
                         "positive": body, "source_doc": doc_id})
@@ -200,11 +222,14 @@ def multi_hop_candidates(corpus_records: list[dict], chunks_by_doc: dict[str, li
             continue
         target_chunks = [c for c in chunks_by_doc.get(target_id, [])
                          if not c["section"].endswith("/preamble")]
-        if not target_chunks:
-            continue
-        target_chunk = rng.choice(target_chunks)
-        target_body = _strip_context_header(target_chunk["text"], target_id)
-        if len(target_body) < MIN_CHUNK_CHARS:
+        rng.shuffle(target_chunks)
+        target_body = None
+        for tc in target_chunks:
+            body = _strip_context_header(tc["text"], target_id)
+            if len(body) >= MIN_CHUNK_CHARS and not _has_boilerplate(body):
+                target_body = body
+                break
+        if target_body is None:
             continue
         prompt_body = (f"Passage A (citing):\n{p['context_window']}\n\n"
                        f"Passage B (cited):\n{target_body}\n")
@@ -235,9 +260,15 @@ def lineage_supersession_candidates(corpus_records: list[dict],
         b_chunks = [c for c in chunks_by_doc.get(b, []) if not c["section"].endswith("/preamble")]
         if not a_chunks or not b_chunks:
             continue
-        a_body = _strip_context_header(rng.choice(a_chunks)["text"], a)
-        b_body = _strip_context_header(rng.choice(b_chunks)["text"], b)
-        if len(a_body) < MIN_CHUNK_CHARS or len(b_body) < MIN_CHUNK_CHARS:
+        rng.shuffle(a_chunks)
+        rng.shuffle(b_chunks)
+        a_body = next((body for c in a_chunks
+                      if len(body := _strip_context_header(c["text"], a)) >= MIN_CHUNK_CHARS
+                      and not _has_boilerplate(body)), None)
+        b_body = next((body for c in b_chunks
+                      if len(body := _strip_context_header(c["text"], b)) >= MIN_CHUNK_CHARS
+                      and not _has_boilerplate(body)), None)
+        if a_body is None or b_body is None:
             continue
         prompt_body = f"Current passage:\n{a_body}\n\nEarlier passage:\n{b_body}\n"
         pool.append({"source_id": f"{a}<-{b}", "prompt_body": prompt_body,
