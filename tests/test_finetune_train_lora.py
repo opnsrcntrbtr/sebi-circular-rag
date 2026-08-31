@@ -14,6 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from finetune.train_lora import (  # noqa: E402
     build_dataset,
     check_trainable_ratio,
+    find_latest_checkpoint,
     load_pairs,
 )
 
@@ -138,3 +139,36 @@ def test_check_trainable_ratio_raises_when_too_broad():
 def test_check_trainable_ratio_boundary_at_exactly_10_percent_passes():
     check_trainable_ratio(trainable=10_000_000, total=100_000_000,
                          target_modules=["x"], r=16, max_fraction=0.1)
+
+
+# ---------------------------------------------------------------------------
+# find_latest_checkpoint - the reason a multi-hour run can survive an
+# interrupted background process instead of losing everything
+# ---------------------------------------------------------------------------
+
+def test_find_latest_checkpoint_none_when_dir_missing(tmp_path):
+    assert find_latest_checkpoint(tmp_path / "does_not_exist") is None
+
+
+def test_find_latest_checkpoint_none_when_no_checkpoints(tmp_path):
+    (tmp_path / "some_other_file.txt").write_text("x")
+    assert find_latest_checkpoint(tmp_path) is None
+
+
+def test_find_latest_checkpoint_picks_highest_step_by_int_not_lexical_order(tmp_path):
+    """checkpoint-9 must beat checkpoint-10 by INTEGER value, not string
+    comparison ("9" > "10" lexically, which would silently resume from the
+    wrong, earlier checkpoint after enough steps that step numbers grow
+    past a single digit)."""
+    (tmp_path / "checkpoint-9").mkdir()
+    (tmp_path / "checkpoint-10").mkdir()
+    (tmp_path / "checkpoint-2").mkdir()
+    result = find_latest_checkpoint(tmp_path)
+    assert result.name == "checkpoint-10"
+
+
+def test_find_latest_checkpoint_ignores_files_matching_the_glob_pattern(tmp_path):
+    (tmp_path / "checkpoint-5").mkdir()
+    (tmp_path / "checkpoint-99").write_text("not a directory")  # file, not dir
+    result = find_latest_checkpoint(tmp_path)
+    assert result.name == "checkpoint-5"

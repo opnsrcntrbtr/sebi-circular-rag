@@ -12,6 +12,7 @@ data/raw/
 data/index/
 data/index_ar/
 data/index-ft/
+data/index-ft-*/
 data/corpus/
 dist/
 logs/

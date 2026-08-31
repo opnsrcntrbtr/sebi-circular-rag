@@ -104,6 +104,27 @@ def build_dataset(rows: list[dict], n_negatives: int):
     return datasets.Dataset.from_dict(cols)
 
 
+def find_latest_checkpoint(trainer_state_dir: Path) -> Path | None:
+    """None if trainer_state_dir doesn't exist or has no checkpoint-N dirs.
+    Otherwise the highest-N checkpoint - HF Trainer's own checkpoint-N
+    naming makes step order == lexical-after-int-parse order, not
+    filesystem mtime, which could be misleading across a resume-then-
+    resume-again sequence."""
+    if not trainer_state_dir.exists():
+        return None
+    checkpoints = [p for p in trainer_state_dir.glob("checkpoint-*") if p.is_dir()]
+    if not checkpoints:
+        return None
+
+    def _step(p: Path) -> int:
+        try:
+            return int(p.name.removeprefix("checkpoint-"))
+        except ValueError:
+            return -1
+
+    return max(checkpoints, key=_step)
+
+
 def check_trainable_ratio(trainable: int, total: int, target_modules: list[str],
                           r: int, max_fraction: float = 0.1) -> None:
     """Pure guard, factored out of apply_lora so it's testable without a
@@ -163,6 +184,19 @@ def main() -> None:
     ap.add_argument("--gradient-checkpointing", action="store_true", default=True)
     ap.add_argument("--no-gradient-checkpointing", dest="gradient_checkpointing",
                     action="store_false")
+    ap.add_argument("--save-steps", type=int, default=100,
+                    help="checkpoint interval - the whole point is surviving "
+                         "an interrupted multi-hour run without losing "
+                         "everything; adapter-only checkpoints are ~100MB "
+                         "(measured), not the 2.27GB full base model")
+    ap.add_argument("--save-total-limit", type=int, default=3,
+                    help="keep only the N most recent checkpoints, bounding "
+                         "disk usage on a long run")
+    ap.add_argument("--resume", action="store_true",
+                    help="resume from the latest checkpoint under "
+                         "<output-dir>/trainer_state/ if one exists; a "
+                         "no-op (fresh start) if none is found, so this is "
+                         "safe to pass unconditionally on every (re)launch")
     args = ap.parse_args()
 
     import datasets  # noqa: F401 - import-order guard: fail fast if missing,
@@ -218,11 +252,27 @@ def main() -> None:
                             # unhelpful once stdout is redirected to a log
                             # file (as every run in this pipeline is) - one
                             # line per logging_steps is more legible there
-        save_strategy="no",  # we save the adapter ourselves, once, at the end
+        save_strategy="steps", save_steps=args.save_steps,
+        save_total_limit=args.save_total_limit,
+        # checkpointing exists because this session watched two
+        # multi-hour background runs die to the whole Claude Code process
+        # exiting across a session boundary (not this script's fault, but
+        # a real, demonstrated risk) - save_strategy="no" (this script's
+        # first version) has no recovery path for a run this long
     )
     trainer = SentenceTransformerTrainer(
         model=model, args=training_args, train_dataset=ds, loss=loss)
-    train_result = trainer.train()
+
+    resume_from = None
+    if args.resume:
+        found = find_latest_checkpoint(Path(training_args.output_dir))
+        if found:
+            print(f"resuming from checkpoint: {found}")
+            resume_from = str(found)
+        else:
+            print("--resume passed but no checkpoint found - starting fresh")
+
+    train_result = trainer.train(resume_from_checkpoint=resume_from)
     print(f"final train metrics: {train_result.metrics}")
 
     out = Path(args.output_dir)
