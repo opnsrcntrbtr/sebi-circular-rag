@@ -1316,3 +1316,29 @@ eval:
 
 **Next: user decision, not automatic.** Phase 1 (LLM-synthesized queries via `Qwen3.8-27B-oQ4e-mtp`, targeting the weak strata) is the natural next step given PROCEED, but per the plan this is the user's call — Phase 0's honest-prior section flagged real headroom limits (recall@10 already 0.943 vs floor 0.906) and this verdict, while real, is not an overwhelming one.
 
+2026-08-29/30 — **Phase 1 (LLM synthesis + round-trip filter) complete.** User approved proceeding given the PROCEED verdict. Pipeline: `scripts/finetune/{synthesize_queries,roundtrip_filter}.py`.
+
+```yaml
+synthesis:
+  model: Qwen3.8-27B-oQ4e-mtp, endpoint: http://127.0.0.1:8001/v1/chat/completions
+  raw_synthesized: 6263  # numeric_table 3500, multi_hop 2200, lineage_supersession 563
+  candidate_pools: {numeric_table: 8342, multi_hop: 2202, lineage_supersession: 563}
+  parse_failures: 1, leak_filtered: 2  # essentially zero waste
+  wall_clock: ~9h serial, with one recovered interruption (see below)
+filtering:
+  boilerplate_dropped: 313  # 11.5% multi_hop / 2.1% lineage_supersession / 1.3% numeric_table
+  roundtrip_failed: 680     # 11.4% of the 5950 post-boilerplate rows - healthy, non-trivial
+  roundtrip_no_doc_resolved: 0
+  hard_neg_mining_dropped: 0  # 5270/5270 reached 5 valid negatives
+final: {total: 5270, numeric_table: 3135, multi_hop: 1680, lineage_supersession: 455}
+```
+
+**Two real defects found and fixed mid-phase, not silently worked around:**
+1. **Credential exposure** (`d818e0d`): `synthesize_queries.py`'s oMLX auth copied `local_adjudicate.py`'s `ANTHROPIC_AUTH_TOKEN` fallback, but this script's `--base-url` is CLI-configurable (unlike that script's fixed local target) — a misconfigured base-url could have sent that credential to an arbitrary host. Dropped the fallback; `SYNTH_AUTH_TOKEN` only.
+2. **Wrong doc-exclusion key** (`88d9c24`, `05b084f`): `multi_hop_candidates` set `source_doc` to the CITING document but drew `positive` from the CITED document — any consumer keying on `source_doc` as "the positive's own document" (round-trip filter, hard-negative doc-exclusion) silently checked the wrong document for every multi_hop row. Added an explicit `positive_doc` field; `mine_hard_negatives` gained a `doc_key` parameter (default `"source_doc"`, backward-compatible) so Phase 1 can pass `doc_key="positive_doc"`.
+3. **Boilerplate positives** (`4d3a3d8`): candidate selection could pick a chunk trailing into a signature block or "available on the SEBI website" closing line as a training positive — one sample leaked a person's name into a query. Found via spot-check on the real completed run, not caught by Phase 0's `_is_signoff_boilerplate` (which only checks chunk openings, correct for its own use case but not this one). Fixed going forward in the generators and applied as a cleanup filter to the already-generated raw output.
+
+**Operational note — recurring background-process interruptions:** the ~9h synthesis run was interrupted twice by the underlying Claude Code process exiting (not a script bug — confirmed via `ps`/`lsof`; the oMLX server itself tested healthy throughout via direct `curl` probes). Both times, resuming was a non-event: `synthesize_queries.py`'s on-disk cache (keyed by `(stratum, source_id, model)`) meant a fresh relaunch skipped every already-answered chunk and picked up exactly where it left off, with zero data loss and zero wasted oMLX time. This is the resumability the plan's risk table named upfront (`8h serial run interrupted` → `On-disk cache ... resumable`), and it held up in practice, including through interruptions the plan didn't specifically anticipate (whole-process exit, not just a network blip).
+
+**Next:** Phase 2 (train_lora.py on `pairs_structural.jsonl` + `pairs_synth.jsonl` combined, ~17,670 pairs total) is the natural next step, but it's another long MPS commitment (Phase 0's 12,400-pair run took ~4h21m; this is ~1.4x the volume) — user go-ahead required before starting, not automatic. ⚠️ Stop oMLX or unpin the 27B before training (plan's explicit warning — memory guard).
+
