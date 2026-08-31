@@ -1342,3 +1342,41 @@ final: {total: 5270, numeric_table: 3135, multi_hop: 1680, lineage_supersession:
 
 **Next:** Phase 2 (train_lora.py on `pairs_structural.jsonl` + `pairs_synth.jsonl` combined, ~17,670 pairs total) is the natural next step, but it's another long MPS commitment (Phase 0's 12,400-pair run took ~4h21m; this is ~1.4x the volume) — user go-ahead required before starting, not automatic. ⚠️ Stop oMLX or unpin the 27B before training (plan's explicit warning — memory guard).
 
+2026-08-31/09-01 — **Phase 2 (train + merge + intermediate eval) complete. Honest result: WORSE than Phase 0, not better.** User decisions before starting: version Phase 0's artifacts (renamed to `-phase0` suffix: `models/bge-m3-sebi-v1[-adapter]-phase0/`, `data/index-ft-phase0/`), 1 epoch, intermediate eval gate before any publish decision, publishing deferred (local only).
+
+```yaml
+training:
+  pairs: 17670  # 12400 structural + 5270 synthesized
+  epochs: 1, runtime_s: 21623 (~6h00m), device: mps
+  checkpointing_added: true  # save_strategy steps (every 100), --resume flag -
+                              # this session's synthesis phase was killed twice
+                              # by session-boundary process exits; training had
+                              # no recovery path before this fix (commit 3e30064)
+  train_loss_mean: 3.268  # Phase 0 comparison: 4.186 (not directly comparable -
+                            # different data mix, same order of magnitude)
+merge: {output: models/bge-m3-sebi-v1, size_mb: 2182}
+eval:
+  golden_v7_n_scored: 216
+  gate_verdict: PROCEED  # mechanical: multi_hop still positive, 1/3 not 2/3
+```
+
+**Three-way comparison, Δ recall@10 vs unchanged base bge-m3:**
+
+| Stratum | Phase 0 | Phase 2 |
+|---|---|---|
+| numeric_table (gate) | +0.0333 | **0.0000** (flat) |
+| multi_hop (gate) | +0.0500 | **+0.0250** (weaker) |
+| lineage_supersession (gate) | -0.0270 | **-0.0270** (unchanged) |
+| aggregate recall | -0.0046 | **-0.0162** (worse) |
+| aggregate ndcg | -0.0171 | **-0.0197** (worse) |
+| held_out subset recall | **+0.0329** | **-0.0263** (sign flipped) |
+| body_paraphrase recall (non-gate) | -0.0500 | **-0.0833** (worse) |
+
+**Every gate stratum is flat-or-weaker than Phase 0; the held-out-generalization signal that was mildly reassuring in Phase 0 (better on docs never seen in training) reversed sign in Phase 2.** The mechanical PROCEED verdict survives only because multi_hop stayed barely positive - reporting this as a pass would misrepresent what the comparison actually shows. Adding Phase 1's LLM-synthesized pairs did not improve on Phase 0's structural-only result; on this measurement it made things somewhat worse, despite the synthesized data passing round-trip filtering (11.4% rejection rate) and hard-negative mining (100% retention) cleanly.
+
+**Plausible explanations, not verified:** more training steps (1105 vs 775) with the same 1-epoch/LR-schedule shape may have pushed slightly past the point of useful adaptation on this corpus size; the LLM-synthesized queries, while individually plausible on spot-check, may carry systematically different lexical/phrasing patterns than golden_v7's real queries in a way structural mining doesn't; the round-trip filter validates retrievability under the untrained base model, which doesn't guarantee the pair is a *clean* training signal once the model starts adapting.
+
+**No publishing occurred** (deferred per user decision) - `models/bge-m3-sebi-v1/` and `data/index-ft/` are Phase 2's outputs, live locally only, gitignored. Given this result, the artifacts worth keeping for any future comparison are Phase 0's (`-phase0` suffixed) alongside these Phase 2 ones - neither has been adopted into production config (`config.toml`'s `embed_model` default is untouched, still `BAAI/bge-m3`).
+
+**Recommendation, not yet a decision:** if a single candidate must be chosen going forward, Phase 0 (structural-only) is the stronger result on every axis measured here. The next intervention worth considering, per the plan's own honest-prior section, is investigating the chunking defects already documented (`nominee-count-chunker-bug`) rather than further LLM-data expansion - fine-tuning has now been tried twice on this corpus without a clean win.
+
