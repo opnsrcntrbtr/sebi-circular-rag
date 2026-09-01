@@ -1,14 +1,14 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-08-27.
+> Last updated: 2026-08-28.
 
 ## Current Snapshot
 
 | Metric | Value |
 |---|---|
-| **Corpus** | 730 SEBI circular records, 78,630 chunks (corpus JSONL ~39 MB; index chunks.jsonl ~320 MB) |
-| **Index** | ~985 MB at `data/index/` — dense.faiss (307 MB), bm25/ (33 MB), chunks.jsonl (312 MB), embeddings.npy (307 MB), lineage.json (2.1 MB), manifest.json, meta.json; splade.npz absent (eval-only, not rebuilt by `make reindex`) |
+| **Corpus** | 1,490 SEBI circular records, 85,131 chunks (corpus JSONL ~43 MB; index chunks.jsonl ~313 MB) — grown from 730/78,630 via bounded historical scrape 2026-08-28; chunk count moved 87,959->85,131 via the 2026-09-01 table-row-shredding chunker fix (see dated entries below) |
+| **Index** | ~1.0 GB at `data/index/` — dense.faiss, bm25/, chunks.jsonl, embeddings.npy, lineage.json (2.1 MB), manifest.json, meta.json; splade.npz absent (eval-only, not rebuilt by `make reindex`) |
 | **Reporting set** | `eval/golden/golden_v7.jsonl` (n=260); **adjudicated_n = 260** |
 | **Gate** | `gate_v7.json` derived 2026-08-13T15:47Z (MLX generator, B' ON). Floors: recall_at_k 0.906, context_recall 0.874, ndcg_at_10 0.6512, citation_recall **0.8169**, abstention_accuracy 0.9412, citation_precision **0.1577**. Full end-to-end eval saved to `eval/runs/full-eval-2026-08-15.json` (asof-baseline: 13/13 passed, 1.0 accuracy). B' ON (`citation_scorer_enabled=true`), margin=0.35 (MLX-parallel sweep knee: P +5.4% vs mechanical, recall 0.8721 on adjudicated answerable n=219). Prior stub-derived floors (citation_recall 0.7233, citation_precision 0.1896) described a generator production does not use; MLX precision 0.186 sat *below* that old floor. Gate requires B' ON (`citation_scorer_enabled=true`) |
 | **Frozen sets** | `golden_v5` (n=56), `golden_v6` (n=56) |
@@ -1257,4 +1257,195 @@ Lowering subject threshold to 0.40 is net zero (rescues 2, releases 2). Relaxing
 1. `tests/test_gate.py` - 2 boundary tests (`test_subject_sim_exactly_at_threshold_passes`, `test_section_score_exactly_at_threshold_passes`) passed Python tuples to numpy `@` (matmul) - now pass 1-D float arrays.
 2. `tests/test_export_integration.py` - expected row counts 728/78585 -> 730/78630 (two 2026-08-14 DDHS circulars ingested after the 2026-08-14 expansion; index rebuilt 2026-08-17, chunks.jsonl = 78,630 lines). lineage/eval/citation-normalization/supersession-pairs unchanged.
 Skips (not failures): `test_trec_parity.py` ([eval] extra not installed), `test_measure.py:111` (torch segfault after full-suite MPS depletion).
+
+2026-08-28 — **Phase −1 of the bge-m3 SEBI fine-tuning intervention: bounded corpus scrape + freeze.** Plan: `.claude/plans/deep-analyse-and-research-bright-dawn.md`. Three batches, `make validate-corpus` PASS after each (0 violations throughout):
+```yaml
+batch_1_recent_window: {max: 250, from: null, to: null, ingested: 5, skipped: 248, failed: 0}
+batch_2_2010_2021:      {max: 500, from: 2010-01-01, to: 2021-12-31, ingested: 467, skipped: 19, failed: 6}
+batch_3_2010_2016:      {max: 300, from: 2010-01-01, to: 2016-12-31, ingested: 288, skipped: 5, failed: 7}
+corpus: {before: 730, after: 1490, chunks_before: 78630, chunks_after: 87959}
+year_distribution_after: {2010-2016: ~217 (was ~25, was the sparse era), 2017-2021: 484 (was ~35), 2022-2026: 673}
+```
+Batch 1 (no date bound) hit near-saturation on the recent window — 730-doc baseline already covered 2022-2026 densely (91% of records). Root cause of the low yield was found via a corpus year-histogram, not guessed. Batches 2-3 retargeted the genuinely sparse 2010-2021 window via `--from`/`--to` and lifted yield to 76-96%. All 13 scrape failures across batches are the same benign pattern — "No SEBI circular number found" on non-circular pages (COVID-19 notifications, filing notices) or pre-2013 numbering formats the extraction regex doesn't match — not corpus corruption, no `repair_corpus_text.py` needed.
+
+**Operational note:** batch 1's first attempt stalled silently for 20+ min — a TCP connection stuck in `SYN_SENT` with zero log output despite a 60s per-attempt timeout in `scrape_sebi.py:fetch()`; fresh `curl` calls to the same IP succeeded instantly, so this was a one-off hang, not a systemic block. Killed and restarted; resumed cleanly via the script's own checksum dedupe. No code change needed, but worth knowing before assuming a quiet scrape log means trouble.
+
+`make reindex` run once after all three batches (annotate: 1490 records, 4645 supersedes edges, up from 4536; index build: 87,959 chunks encoded in 1975s, `docs_reused=0`). Post-build sanity: chunk-count parity (`len(HybridRetriever.load(...).chunks) == 87959`, exact match with the build log), and a live `retrieve()` call for the `golden_v7` `surv` query returns the correct gold circular (`HO/43/15/12(3)2025-ISD-POD2/I/11734/2026`) at rank 1.
+
+**Frozen snapshot — every later phase of the fine-tuning plan pins this id:**
+```yaml
+frozen_snapshot:
+  git_sha: 6303aa1bb4400c0f146ca183f6d4b371b91b0577
+  branch: finetune/local-adjudicate-27b
+  dir_fingerprint(data/index): df7228a5a34fe0e3bfdf1bd0b0aa881d9ab3f1682bb1d74bf73d7d684f551db6
+  corpus_records: 1490
+  chunks: 87959
+  date: 2026-08-28
+```
+`data/corpus/` and `data/index/` are gitignored (data artifacts, not code) — this snapshot record is the durable pointer to their state. `golden_v7.jsonl` and `eval/golden/v7_annotations/` are deliberately **not** touched or re-run in this phase — they stay the fixed measurement target for the intervention. Next: Phase 0 (structural-pairs-only kill switch, gated on numeric_table/multi_hop/lineage_supersession stratum lift, not aggregate recall).
+
+2026-08-28 — **Phase 0 of the bge-m3 SEBI fine-tuning intervention: structural-pairs kill switch. GATE VERDICT: PROCEED.** Plan: `.claude/plans/deep-analyse-and-research-bright-dawn.md`. Pipeline: `scripts/finetune/{holdout_split,mine_structural_pairs,train_lora,merge_adapter,eval_phase0}.py`.
+
+```yaml
+pairs_mined:
+  by_template: {subject_body: 3496, heading_section: 3546, citation_context: 3661, lineage_pair: 1697}
+  total: 12400  # each with 5 hard negatives (rank 2-200, doc-excluded)
+holdout: {gold_circulars: 159, held_out: 48, minable: 111, row_split: {held_out: 76, in_corpus: 131, mixed: 9}}
+training:
+  device: mps, epochs: 1, steps: 775, runtime_s: 15700
+  lora: {r: 16, alpha: 32, dropout: 0.1, target_modules: [query,key,value,dense], trainable_pct: 1.25}
+  loss_trajectory: [9.70, 6.97, 4.73, 4.05, 3.82, 3.62, 3.53, 3.33, 3.21, 3.28]  # healthy, plateaus ~epoch 0.32
+merge: {output: models/bge-m3-sebi-v1, size_mb: 2182, embedding_delta_l2: 0.75}
+eval:
+  golden_v7_n_scored: 216  # matches holdout row-classification count exactly (consistency check passed)
+  overall: {delta_recall_10: -0.0046, delta_ndcg_10: -0.0171}
+  gate_strata:
+    numeric_table:        {n: 30, delta_recall_10: +0.0333}
+    multi_hop:             {n: 20, delta_recall_10: +0.0500}
+    lineage_supersession:  {n: 37, delta_recall_10: -0.0270}
+  holdout_subset: {held_out: {n: 76, delta_recall_10: +0.0329}, in_corpus: {n: 131, delta_recall_10: -0.0267}}
+```
+
+**Verdict mechanics:** preregistered asymmetric gate — proceed unless numeric_table, multi_hop, AND lineage_supersession are ALL flat-or-negative on recall@10. 2 of 3 positive (numeric_table, multi_hop) clears it.
+
+**Honest picture, not just the headline:** aggregate recall and ndcg both slightly negative; ndcg improved on only 2/7 strata (multi_hop +6.17pp, title_direct +1.07pp) while recall improved on more — the fine-tuned model finds the right document more often in some strata without ranking it higher once found. `held_out` subset (docs never seen in training, n=76) improved recall while `in_corpus` (n=131) regressed — the opposite of a memorization signature, mildly reassuring, but at n=20–40/stratum this is a directional screen per `iv-series-verdicts-unpowered`, not a significance test. The preregistered rule is the verdict; this paragraph is not a post-hoc argument for a different one.
+
+**One real bug found and fixed mid-phase (`d16982a`):** the negative-mining margin filter (reject candidates scoring >95% of the positive's own base-model score) dropped 82% of mined pairs — root cause was that the UNTRAINED base model often scores structural positives modestly (median cosine 0.54), so the filter mistook a merely-weak positive for a false-negative risk, and the ~18% surviving rows were biased toward cases the base model already handled well. Fixed by dropping the filter (rank-window + doc-exclusion only, matching FlagEmbedding's own convention); recovered to 99.9% (12,400/12,414).
+
+**Provenance check passed:** each eval run's own `results.json` metadata confirms control resolved `BAAI/bge-m3` and treatment resolved the merged model's absolute path — no embedding-space-mismatch confound between query encoder and index.
+
+**Next: user decision, not automatic.** Phase 1 (LLM-synthesized queries via `Qwen3.8-27B-oQ4e-mtp`, targeting the weak strata) is the natural next step given PROCEED, but per the plan this is the user's call — Phase 0's honest-prior section flagged real headroom limits (recall@10 already 0.943 vs floor 0.906) and this verdict, while real, is not an overwhelming one.
+
+2026-08-29/30 — **Phase 1 (LLM synthesis + round-trip filter) complete.** User approved proceeding given the PROCEED verdict. Pipeline: `scripts/finetune/{synthesize_queries,roundtrip_filter}.py`.
+
+```yaml
+synthesis:
+  model: Qwen3.8-27B-oQ4e-mtp, endpoint: http://127.0.0.1:8001/v1/chat/completions
+  raw_synthesized: 6263  # numeric_table 3500, multi_hop 2200, lineage_supersession 563
+  candidate_pools: {numeric_table: 8342, multi_hop: 2202, lineage_supersession: 563}
+  parse_failures: 1, leak_filtered: 2  # essentially zero waste
+  wall_clock: ~9h serial, with one recovered interruption (see below)
+filtering:
+  boilerplate_dropped: 313  # 11.5% multi_hop / 2.1% lineage_supersession / 1.3% numeric_table
+  roundtrip_failed: 680     # 11.4% of the 5950 post-boilerplate rows - healthy, non-trivial
+  roundtrip_no_doc_resolved: 0
+  hard_neg_mining_dropped: 0  # 5270/5270 reached 5 valid negatives
+final: {total: 5270, numeric_table: 3135, multi_hop: 1680, lineage_supersession: 455}
+```
+
+**Two real defects found and fixed mid-phase, not silently worked around:**
+1. **Credential exposure** (`d818e0d`): `synthesize_queries.py`'s oMLX auth copied `local_adjudicate.py`'s `ANTHROPIC_AUTH_TOKEN` fallback, but this script's `--base-url` is CLI-configurable (unlike that script's fixed local target) — a misconfigured base-url could have sent that credential to an arbitrary host. Dropped the fallback; `SYNTH_AUTH_TOKEN` only.
+2. **Wrong doc-exclusion key** (`88d9c24`, `05b084f`): `multi_hop_candidates` set `source_doc` to the CITING document but drew `positive` from the CITED document — any consumer keying on `source_doc` as "the positive's own document" (round-trip filter, hard-negative doc-exclusion) silently checked the wrong document for every multi_hop row. Added an explicit `positive_doc` field; `mine_hard_negatives` gained a `doc_key` parameter (default `"source_doc"`, backward-compatible) so Phase 1 can pass `doc_key="positive_doc"`.
+3. **Boilerplate positives** (`4d3a3d8`): candidate selection could pick a chunk trailing into a signature block or "available on the SEBI website" closing line as a training positive — one sample leaked a person's name into a query. Found via spot-check on the real completed run, not caught by Phase 0's `_is_signoff_boilerplate` (which only checks chunk openings, correct for its own use case but not this one). Fixed going forward in the generators and applied as a cleanup filter to the already-generated raw output.
+
+**Operational note — recurring background-process interruptions:** the ~9h synthesis run was interrupted twice by the underlying Claude Code process exiting (not a script bug — confirmed via `ps`/`lsof`; the oMLX server itself tested healthy throughout via direct `curl` probes). Both times, resuming was a non-event: `synthesize_queries.py`'s on-disk cache (keyed by `(stratum, source_id, model)`) meant a fresh relaunch skipped every already-answered chunk and picked up exactly where it left off, with zero data loss and zero wasted oMLX time. This is the resumability the plan's risk table named upfront (`8h serial run interrupted` → `On-disk cache ... resumable`), and it held up in practice, including through interruptions the plan didn't specifically anticipate (whole-process exit, not just a network blip).
+
+**Next:** Phase 2 (train_lora.py on `pairs_structural.jsonl` + `pairs_synth.jsonl` combined, ~17,670 pairs total) is the natural next step, but it's another long MPS commitment (Phase 0's 12,400-pair run took ~4h21m; this is ~1.4x the volume) — user go-ahead required before starting, not automatic. ⚠️ Stop oMLX or unpin the 27B before training (plan's explicit warning — memory guard).
+
+2026-08-31/09-01 — **Phase 2 (train + merge + intermediate eval) complete. Honest result: WORSE than Phase 0, not better.** User decisions before starting: version Phase 0's artifacts (renamed to `-phase0` suffix: `models/bge-m3-sebi-v1[-adapter]-phase0/`, `data/index-ft-phase0/`), 1 epoch, intermediate eval gate before any publish decision, publishing deferred (local only).
+
+```yaml
+training:
+  pairs: 17670  # 12400 structural + 5270 synthesized
+  epochs: 1, runtime_s: 21623 (~6h00m), device: mps
+  checkpointing_added: true  # save_strategy steps (every 100), --resume flag -
+                              # this session's synthesis phase was killed twice
+                              # by session-boundary process exits; training had
+                              # no recovery path before this fix (commit 3e30064)
+  train_loss_mean: 3.268  # Phase 0 comparison: 4.186 (not directly comparable -
+                            # different data mix, same order of magnitude)
+merge: {output: models/bge-m3-sebi-v1, size_mb: 2182}
+eval:
+  golden_v7_n_scored: 216
+  gate_verdict: PROCEED  # mechanical: multi_hop still positive, 1/3 not 2/3
+```
+
+**Three-way comparison, Δ recall@10 vs unchanged base bge-m3:**
+
+| Stratum | Phase 0 | Phase 2 |
+|---|---|---|
+| numeric_table (gate) | +0.0333 | **0.0000** (flat) |
+| multi_hop (gate) | +0.0500 | **+0.0250** (weaker) |
+| lineage_supersession (gate) | -0.0270 | **-0.0270** (unchanged) |
+| aggregate recall | -0.0046 | **-0.0162** (worse) |
+| aggregate ndcg | -0.0171 | **-0.0197** (worse) |
+| held_out subset recall | **+0.0329** | **-0.0263** (sign flipped) |
+| body_paraphrase recall (non-gate) | -0.0500 | **-0.0833** (worse) |
+
+**Every gate stratum is flat-or-weaker than Phase 0; the held-out-generalization signal that was mildly reassuring in Phase 0 (better on docs never seen in training) reversed sign in Phase 2.** The mechanical PROCEED verdict survives only because multi_hop stayed barely positive - reporting this as a pass would misrepresent what the comparison actually shows. Adding Phase 1's LLM-synthesized pairs did not improve on Phase 0's structural-only result; on this measurement it made things somewhat worse, despite the synthesized data passing round-trip filtering (11.4% rejection rate) and hard-negative mining (100% retention) cleanly.
+
+**Plausible explanations, not verified:** more training steps (1105 vs 775) with the same 1-epoch/LR-schedule shape may have pushed slightly past the point of useful adaptation on this corpus size; the LLM-synthesized queries, while individually plausible on spot-check, may carry systematically different lexical/phrasing patterns than golden_v7's real queries in a way structural mining doesn't; the round-trip filter validates retrievability under the untrained base model, which doesn't guarantee the pair is a *clean* training signal once the model starts adapting.
+
+**No publishing occurred** (deferred per user decision) - `models/bge-m3-sebi-v1/` and `data/index-ft/` are Phase 2's outputs, live locally only, gitignored. Given this result, the artifacts worth keeping for any future comparison are Phase 0's (`-phase0` suffixed) alongside these Phase 2 ones - neither has been adopted into production config (`config.toml`'s `embed_model` default is untouched, still `BAAI/bge-m3`).
+
+**Recommendation, not yet a decision:** if a single candidate must be chosen going forward, Phase 0 (structural-only) is the stronger result on every axis measured here. The next intervention worth considering, per the plan's own honest-prior section, is investigating the chunking defects already documented (`nominee-count-chunker-bug`) rather than further LLM-data expansion - fine-tuning has now been tried twice on this corpus without a clean win.
+
+2026-09-01 — **Post-hoc re-analysis: the "Phase 2 regression" above was noise, not signal. Intervention closed as NULL.** User asked to investigate the chunking defects named above and dig into the Phase 2 regression. Neither survived measurement. Full findings in `.claude/plans/deep-analyse-and-research-bright-dawn.md`'s post-hoc verdict section.
+
+```yaml
+bge_m3_finetune:
+  verdict: NULL
+  adopt: false
+  published: false
+  embed_model_in_production: BAAI/bge-m3  # unchanged
+reanalysis:
+  method: paired sign-flip test, 20000 iterations, project's own recall_at_k/ndcg_at_k
+  n_scored: 216
+  comparisons:
+    phase0_minus_control: {delta_ndcg_10: -0.0171, p: 0.226, queries_moved: 101, delta_recall_10: -0.0046, p: 0.886, queries_moved: 14}
+    phase2_minus_control: {delta_ndcg_10: -0.0197, p: 0.134, queries_moved: 94,  delta_recall_10: -0.0162, p: 0.344, queries_moved: 11}
+    phase2_minus_phase0:  {delta_ndcg_10: -0.0026, p: 0.795, queries_moved: 79,  delta_recall_10: -0.0116, p: 0.509, queries_moved: 9}
+  gate_strata_query_equivalents:
+    numeric_table:        {n: 30, phase0: "+1.00 (1 query)", phase2: "+0.00"}
+    multi_hop:             {n: 20, phase0: "+1.00 (2 queries)", phase2: "+0.50 (1 query)"}
+    lineage_supersession:  {n: 37, phase0: "-1.00 (3 queries)", phase2: "-1.00 (3 queries)"}
+  control_run_identity: ft-phase0-control and ft-phase2-control are byte-identical in qid/docid/rank/score
+power:
+  paired_diff_sd: {ndcg_10: 0.2063, recall_10: 0.2405}
+  n_required_80pct_power_2pp_delta: {ndcg_10: 834, recall_10: 1134}
+  current_n: 216  # can only resolve a ~4pp ndcg swing; every intervention tried here is 1-2pp
+chunking:
+  nominee_bug: {status: FIXED, commit: 38c68e7, date: 2026-07-13, tests: "tests/test_segment.py, 9 passed"}
+  live_defect_found: table_row_shredding
+  table_row_shredding: {n_chunks: 4391, pct_of_corpus: 4.99, affected_docs: 386, worst_doc: "SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2024/113 (227 chunks)"}
+  stratum_enrichment: NONE  # numeric_table gold docs shred at 4.23%, BELOW the 4.99% corpus rate - disproved hypothesis
+```
+
+**Reading order matters: ndcg carries the signal, recall does not.** recall@10 is saturated on golden_v7 — only 9–14 of 216 queries ever change across any comparison — so its p-values mean "unmeasurable," not "equal." ndcg@10 moves on ~45% of queries and is the metric that actually discriminates. On ndcg, Phase 2 vs Phase 0 is Δ=-0.0026, p=0.795: indistinguishable. The "Phase 2 regressed" narrative in the 2026-08-31/09-01 entry above, and every stratum-dilution/held-out-generalization story built on it, is **withdrawn** — it read 9 flipped queries out of 216 as a trend. What does survive: both fine-tuned arms sit nominally below control on ndcg, not significant individually, but consistently the wrong direction — "do not adopt" is the right call, just not for the reason originally given.
+
+**The Phase 0 PROCEED gate rested on two queries moving.** `numeric_table` +3.3pp = 1 query; `multi_hop` +5.0pp = 2 queries (n=30, n=20). The plan preregistered this as "a directional screen, not a significance test" citing `iv-series-verdicts-unpowered` — then the mechanical verdict was reported as a finding anyway, and ~8h of synthesis plus ~6h of training were spent on it. Second occurrence of this exact failure mode in this repo.
+
+**Chunking: the specific defect named in the honest prior was already fixed, but a different one is live.** The nominee-class bug (bare parent-heading chunks) was fixed by `38c68e7` on 2026-07-13; regression tests pass; the fix is visibly working on the live corpus (7,640 chunks show correct heading-fold). What's actually live is **table-row shredding**: PDF-flattened table rows (`"2. Brent Crude Oil BBL 400,000"`, `"48. 119"`) are indistinguishable from section headings under `segment.py:144`'s regex and get emitted as one-chunk-per-row, destroying row↔header association. 4,391 chunks (4.99%), concentrated in 386 documents. Tested and disproved the obvious hypothesis that this explains the weak `numeric_table` stratum — that stratum's gold docs shred *below* the corpus rate (4.23% vs 4.99%). Likely cost is at generation time (wrong answers from shredded tables), which no current retrieval eval measures.
+
+**Root-cause finding: golden_v7 (n=216) cannot resolve the effects this repo keeps trying to measure.** Observed paired-diff SD on ndcg@10 is 0.2063; detecting a 2pp delta at 80% power needs n≈834, a 1pp delta needs n≈3,338. Every retrieval intervention attempted here (this one, and the `iv-series` runs) lives in the 1–2pp range — structurally invisible at the current set size. This, not any specific model or chunking choice, is the common root cause behind both nulls.
+
+**Corrected memories:** `nominee-count-chunker-bug` rewritten to state fixed-by-`38c68e7` and name the table-row defect instead; new memory `golden-v7-underpowered` records the power table so this mistake isn't repeated.
+
+**Next (approved 2026-09-01):** (B) fix table-row shredding in `segment.py` — add a table-run discriminator, not a weaker heading regex; full reindex + `make validate-corpus` required; judge on chunk-quality inspection, not golden_v7 (per the power finding above, golden_v7 could not detect the effect even if it moved a retrieval metric). (C) write `docs/superpowers/specs/2026-09-01-golden-set-power.md` scoping a larger, properly-powered golden set before funding any further retrieval intervention. Branch `finetune/local-adjudicate-27b` (Phases -2/-1 are good work, Phase 0/1/2 produced the null) — merge decision deferred, not made in this session.
+
+2026-09-01 (same day) — **Workstream B landed: table-row-shredding chunker fix implemented, reindexed, verified. Partial fix, reported honestly — not a full elimination.**
+
+```yaml
+chunker_fix:
+  commit_scope: src/sebi_rag/segment.py (_merge_table_rows, _TABLE_ROW, _is_table_row_candidate)
+  tests: tests/test_segment.py, 13 passed (9 original + 4 new)
+  full_suite: 1070 passed, 1 skipped, 3 deselected  # was 1070/1/3 pre-fix too - net zero regressions
+  reindex: {mode: incremental, docs_total: 1490, docs_reused: 1230, chunks_encoded: 61250, runtime_s: 3916}
+  validate_corpus: {records: 1490, violations: 0}
+table_row_population:
+  before: {n_chunks: 4391, pct: 4.99, affected_docs: 386, total_corpus_chunks: 87959}
+  after:  {n_chunks: 3777, pct: 4.44, affected_docs: 326, total_corpus_chunks: 85131}
+  reduction: {chunks: -614, pct_of_population: -14.0, overall_corpus_chunks: -2828}
+export_datasets_fixture_updated: {file: tests/test_export_integration.py, chunks: "87959 -> 85131", other_configs_unchanged: true}
+```
+
+**What actually got fixed, verified by direct inspection, not just the count:** clean single-column "N. label value" tables now merge correctly into one chunk instead of one-per-row. Confirmed on two real examples: a commodity list (`SEBI/HO/MRD/MRD-PoD-1/P/CIR/2023/136` — "1. Aluminum MT 25,000 / 2. Brent Crude Oil BBL 400,000 / 3. Copper MT 7,000 / ..." is now one chunk) and a stock-exchange list (`SEBI/HO/MRD/MRD-PoD-1/P/CIR/2024/168` — "5. France - Euronext Paris / 6. Germany - Frankfurt Stock Exchange / 7. Canada - Toronto Stock Exchange" is now one chunk). The worst-affected document (`SEBI/HO/ITD-1/ITD_CSC_EXT/P/CIR/2024/113`) dropped from 227 to 163 shredded chunks (-28%, better than the corpus-wide -14%).
+
+**What did NOT get fixed — two harder patterns, found and diagnosed, not addressed:**
+1. **TOC entries with wrapped titles.** `SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90`'s TOC interleaves numbered entries with non-numbered title-continuation lines (`"5. Merger/ Amalgamation of Trading Members 12\nAdmission of Limited Liability Partnerships as Members of Stock\n6. 12\nExchanges\n7. Single registration..."`) — the discriminator requires 3+ *consecutive* candidate lines with nothing between them, and this layout genuinely has something between them, so the run breaks by design. Correct behavior for the discriminator as specced; the underlying PDF layout is messier than the clean case.
+2. **Financial-statement row-label tables.** `"1. Total income from operations"` still emits as a standalone chunk in some documents — the row's *value* sits on a separate, non-numbered line rather than on the same line as the label, so it never forms a same-line "N. label value" candidate to begin with.
+
+**Root cause of both misses is the same:** the discriminator (per the approved plan, deliberately conservative — "add a table-run discriminator, do not weaken the heading regex") only catches back-to-back numbered lines with nothing interleaved. Genuinely interleaved or split-across-lines table layouts need a different, harder detector. **Not attempted in this session** — scoping that is a decision for next time, not something to silently expand into.
+
+**No retrieval metric was measured for this fix** — per the plan's own expectation-setting (Finding 3: no stratum enrichment; Finding 4: golden_v7 can't resolve effects this small anyway), this was judged on chunk-quality inspection only, as specced.
 

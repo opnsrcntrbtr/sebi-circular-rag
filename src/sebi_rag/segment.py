@@ -13,6 +13,18 @@ from typing import Any
 # and must not absorb the next physical line (wrapped-clause folding).
 _TERMINATORS = (":", ";", ".", "–", "-")
 
+# Table-row shredding fix (2026-09-01, memory/nominee-count-chunker-bug.md's
+# "live defect" postscript): a PDF-flattened table row ("2. Brent Crude Oil
+# BBL 400,000") matches the heading regex below exactly as well as a real
+# numbered heading, so without this guard each row opens its own section and
+# is flushed as a one-line chunk, destroying row<->column-header association.
+_TABLE_ROW = re.compile(r"^\s*(\d+(?:\.\d+)*)[.)]\s*(.*)$")
+_TABLE_ROW_MAX_TRAILING_CHARS = 60  # a real section title this short but
+                                     # this is only diagnostic combined with
+                                     # the run-length + terminator checks below
+_MIN_TABLE_RUN = 3  # a single short heading can be genuine; 3+ back-to-back
+                    # with nothing else between them is not prose structure
+
 
 @dataclass(frozen=True)
 class CircularMeta:
@@ -73,6 +85,62 @@ def _paragraphs(text: str, max_chars: int) -> list[str]:
             for line in block.split("\n"):
                 add(line)
     return units
+
+
+def _table_row_depth(line: str) -> int | None:
+    """Nesting depth of a numbered line ("2.1.3" -> 2), or None if it isn't
+    one at all."""
+    m = _TABLE_ROW.match(line)
+    return m.group(1).count(".") if m else None
+
+
+def _is_table_row_candidate(line: str) -> bool:
+    """A numbered line whose own trailing text is short and does NOT end in
+    a clause terminator. Genuine section titles this short almost always end
+    in ':' ("6. Nomination process:") or, as full sentences, in '.' — a bare
+    table cell value ("2. Brent Crude Oil BBL 400,000", "48. 119") typically
+    has neither, which is what lets this distinguish the two without
+    weakening the heading regex itself."""
+    m = _TABLE_ROW.match(line)
+    if not m:
+        return False
+    rest = m.group(2).strip()
+    return len(rest) < _TABLE_ROW_MAX_TRAILING_CHARS and not rest.endswith(_TERMINATORS)
+
+
+def _merge_table_rows(paras: list[str]) -> list[str]:
+    """Collapse a run of >=3 consecutive single-line, same-depth table-row
+    candidates into one paragraph, so hierarchical_chunk's heading-detection
+    loop treats the whole run as one section instead of one chunk per row.
+
+    Deliberately conservative: a genuine heading run is broken by body prose
+    between headings (this only fires on rows with NOTHING between them), by
+    a depth change, or by a terminator-ending line (a real heading awaiting a
+    body) - the nominee-bug fixture's "5." / "5.1." / "5.2." / "6." sequence
+    hits none of these (every line ends in ':' or '.') and is untouched.
+    """
+    out: list[str] = []
+    i, n = 0, len(paras)
+    while i < n:
+        para = paras[i]
+        lines = para.splitlines()
+        if len(lines) == 1 and _is_table_row_candidate(lines[0]):
+            depth = _table_row_depth(lines[0])
+            j = i + 1
+            while (
+                j < n
+                and len(paras[j].splitlines()) == 1
+                and _is_table_row_candidate(paras[j].splitlines()[0])
+                and _table_row_depth(paras[j].splitlines()[0]) == depth
+            ):
+                j += 1
+            if j - i >= _MIN_TABLE_RUN:
+                out.append("\n".join(paras[i:j]))
+                i = j
+                continue
+        out.append(para)
+        i += 1
+    return out
 
 
 def hierarchical_chunk(
@@ -142,7 +210,7 @@ def hierarchical_chunk(
         para_idx += 1
 
     heading = re.compile(r"^\s*(\d+(\.\d+)*)[.)]\s+\S")
-    paras = _paragraphs(text, max_chars)
+    paras = _merge_table_rows(_paragraphs(text, max_chars))
     i = 0
     while i < len(paras):
         para = paras[i]

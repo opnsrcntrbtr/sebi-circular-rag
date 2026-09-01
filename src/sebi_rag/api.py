@@ -84,12 +84,28 @@ class QueryResponse(BaseModel):
 
 
 def _compute_kwargs(s: Settings) -> dict:
-    """Resolve device/fp16/batch for the torch embedder + reranker."""
+    """Resolve device/fp16/batch for the torch embedder + reranker.
+
+    Shared verbatim between BGEM3Embedder(**ck) and CrossEncoderReranker(**ck)
+    at every call site (api.py, build_index.py, bench_metrics.py,
+    bench_retrieval.py, eval_asof.py) - do NOT add embedder-only keys here
+    (e.g. model_path); CrossEncoderReranker has no such parameter and every
+    call site would break. Use _embed_kwargs() for the embedder-only dict."""
     from .device import pick_device, should_use_fp16
     device = pick_device(s.device)
     return {"device": device,
             "use_fp16": should_use_fp16(device, s.use_fp16),
             "batch_size": s.encode_batch_size}
+
+
+def _embed_kwargs(s: Settings) -> dict:
+    """_compute_kwargs() plus model_path - BGEM3Embedder-only, never spread
+    into CrossEncoderReranker. model_path defaults to BAAI/bge-m3
+    (Settings.embed_model); BGEM3Embedder already treats a local path
+    (starting with /, ., or ~) as a merged fine-tuned model dir and skips
+    snapshot_download for it (embeddings.py:60) - no other wiring needed to
+    point production at a SEBI-tuned variant."""
+    return {**_compute_kwargs(s), "model_path": s.embed_model}
 
 
 def build_default_pipeline() -> RAGPipeline:
@@ -112,7 +128,7 @@ def build_default_pipeline() -> RAGPipeline:
         generator = MLXGenerator(s.mlx_model)
 
     ck = _compute_kwargs(s)
-    embedder = BGEM3Embedder(**ck)
+    embedder = BGEM3Embedder(**_embed_kwargs(s))
     judge = None
     if os.environ.get("SEBI_RAG_GATE", "on").lower() not in ("off", "0"):
         from .generate import SubjectSimJudge

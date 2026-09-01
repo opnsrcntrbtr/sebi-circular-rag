@@ -2,8 +2,11 @@
 external annotation leg that replaces the quota-blocked Gemini leg as
 primary. The blind protocol itself lives in gemini_adjudicate.py and is
 already covered there; these tests pin what is NEW here: the "qwen"
-annotator identity, model provenance in cache entries, Anthropic-response
-extraction, thinking-block stripping, and the pilot comparison path.
+annotator identity, model provenance in cache entries, OpenAI
+chat-completions response extraction, thinking-block stripping, the
+pilot comparison path, and the transport (auth-optional, retry-on-5xx,
+OpenAI request body) since the 2026-08-28 swap off the Anthropic-proxy
+transport onto oMLX's /v1/chat/completions directly.
 """
 from __future__ import annotations
 
@@ -11,10 +14,14 @@ import json
 import sys
 from pathlib import Path
 
+import httpx
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+from golden_v7 import local_adjudicate  # noqa: E402
 from golden_v7.local_adjudicate import (  # noqa: E402
     ANNOTATOR,
     _extract_text,
+    _post_local,
     _strip_thinking,
     pilot,
 )
@@ -65,20 +72,19 @@ def test_adjudicate_default_annotator_stays_gemini(tmp_path):
 
 
 # ---------------------------------------------------------------------------
-# (b) Anthropic Messages response extraction + thinking-strip
+# (b) OpenAI chat-completions response extraction + thinking-strip
 # ---------------------------------------------------------------------------
 
-def test_extract_text_joins_text_blocks_and_skips_thinking_blocks():
-    payload = {"content": [
-        {"type": "thinking", "thinking": "let me reason about this"},
-        {"type": "text", "text": "B, C\n"},
-        {"type": "text", "text": "EXPECTED: twenty per cent"},
+def test_extract_text_reads_first_choice_message_content():
+    payload = {"choices": [
+        {"message": {"role": "assistant",
+                     "content": "B, C\nEXPECTED: twenty per cent"}},
     ]}
     assert _extract_text(payload) == "B, C\nEXPECTED: twenty per cent"
 
 
-def test_extract_text_empty_content_returns_empty_string():
-    assert _extract_text({"content": []}) == ""
+def test_extract_text_empty_choices_returns_empty_string():
+    assert _extract_text({"choices": []}) == ""
     assert _extract_text({}) == ""
 
 
@@ -96,7 +102,120 @@ def test_strip_thinking_leaves_plain_replies_untouched():
 
 
 # ---------------------------------------------------------------------------
-# (c) pilot - measured agreement before the full run, no votes.jsonl writes
+# (c) transport: OpenAI request body, optional auth, retry-on-5xx
+#     (2026-08-28 swap off the Anthropic-proxy transport onto oMLX's
+#     /v1/chat/completions directly - skip_api_key_verification means an
+#     unset token must NOT raise, unlike the old hard RuntimeError)
+# ---------------------------------------------------------------------------
+
+class _FakeResponse:
+    def __init__(self, status_code: int, payload: dict, text: str = ""):
+        self.status_code = status_code
+        self._payload = payload
+        self.text = text or json.dumps(payload)
+
+    def json(self):
+        return self._payload
+
+    def raise_for_status(self):
+        if self.status_code >= 400:
+            raise httpx.HTTPStatusError("boom", request=None, response=self)
+
+
+def _ok_payload(text="A\nEXPECTED: x"):
+    return {"choices": [{"message": {"role": "assistant", "content": text}}]}
+
+
+def test_post_local_sends_openai_body_to_chat_completions(monkeypatch):
+    seen = {}
+
+    def _fake_post(url, headers, json, timeout):  # noqa: A002 - mirror httpx kwarg
+        seen["url"] = url
+        seen["headers"] = headers
+        seen["json"] = json
+        return _FakeResponse(200, _ok_payload())
+
+    monkeypatch.setattr(local_adjudicate.httpx, "post", _fake_post)
+    monkeypatch.setattr(local_adjudicate, "_current_model", lambda: "Qwen3.8-27B-oQ4e-mtp")
+    monkeypatch.delenv("GOLDEN_LOCAL_AUTH_TOKEN", raising=False)
+    monkeypatch.delenv("ANTHROPIC_AUTH_TOKEN", raising=False)
+
+    out = _post_local("prompt text")
+
+    assert out == "A\nEXPECTED: x"
+    assert seen["url"] == "http://127.0.0.1:8001/v1/chat/completions"
+    assert seen["json"]["model"] == "Qwen3.8-27B-oQ4e-mtp"
+    assert seen["json"]["messages"] == [{"role": "user", "content": "prompt text"}]
+
+
+def test_post_local_without_token_succeeds_and_sends_no_auth_header(monkeypatch):
+    """oMLX's skip_api_key_verification is on: an unset token is not an
+    error, it just means no Authorization header goes out."""
+    seen = {}
+
+    def _fake_post(url, headers, json, timeout):
+        seen["headers"] = headers
+        return _FakeResponse(200, _ok_payload())
+
+    monkeypatch.setattr(local_adjudicate.httpx, "post", _fake_post)
+    monkeypatch.delenv("GOLDEN_LOCAL_AUTH_TOKEN", raising=False)
+    monkeypatch.delenv("ANTHROPIC_AUTH_TOKEN", raising=False)
+
+    out = _post_local("prompt text")
+
+    assert out == "A\nEXPECTED: x"
+    assert "Authorization" not in seen["headers"]
+
+
+def test_post_local_with_token_sends_bearer_header(monkeypatch):
+    seen = {}
+
+    def _fake_post(url, headers, json, timeout):
+        seen["headers"] = headers
+        return _FakeResponse(200, _ok_payload())
+
+    monkeypatch.setattr(local_adjudicate.httpx, "post", _fake_post)
+    monkeypatch.setenv("GOLDEN_LOCAL_AUTH_TOKEN", "tok-123")
+
+    _post_local("prompt text")
+
+    assert seen["headers"]["Authorization"] == "Bearer tok-123"
+
+
+def test_post_local_retries_on_5xx_then_succeeds(monkeypatch):
+    calls = {"n": 0}
+
+    def _fake_post(url, headers, json, timeout):
+        calls["n"] += 1
+        if calls["n"] < 2:
+            return _FakeResponse(503, {}, text="service unavailable")
+        return _FakeResponse(200, _ok_payload("B\nEXPECTED: y"))
+
+    monkeypatch.setattr(local_adjudicate.httpx, "post", _fake_post)
+    monkeypatch.setattr(local_adjudicate.time, "sleep", lambda s: None)
+    monkeypatch.delenv("GOLDEN_LOCAL_AUTH_TOKEN", raising=False)
+    monkeypatch.delenv("ANTHROPIC_AUTH_TOKEN", raising=False)
+
+    out = _post_local("prompt text")
+
+    assert out == "B\nEXPECTED: y"
+    assert calls["n"] == 2
+
+
+def test_post_local_strips_thinking_from_openai_content(monkeypatch):
+    def _fake_post(url, headers, json, timeout):
+        return _FakeResponse(200, _ok_payload(
+            "<think>reasoning here</think>\nC\nEXPECTED: z"))
+
+    monkeypatch.setattr(local_adjudicate.httpx, "post", _fake_post)
+    monkeypatch.delenv("GOLDEN_LOCAL_AUTH_TOKEN", raising=False)
+    monkeypatch.delenv("ANTHROPIC_AUTH_TOKEN", raising=False)
+
+    assert _post_local("prompt text") == "C\nEXPECTED: z"
+
+
+# ---------------------------------------------------------------------------
+# (d) pilot - measured agreement before the full run, no votes.jsonl writes
 # ---------------------------------------------------------------------------
 
 def test_pilot_compares_against_claude_and_never_writes_votes(tmp_path):

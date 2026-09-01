@@ -73,10 +73,11 @@ def smoke_pipeline() -> RAGPipeline:
 def real_pipeline() -> RAGPipeline:
     """Build the full pipeline with real models."""
     from sebi_rag.settings import Settings
-    from sebi_rag.api import _compute_kwargs
+    from sebi_rag.api import _compute_kwargs, _embed_kwargs
 
-    ck = _compute_kwargs(Settings.load())
-    embedder = BGEM3Embedder(**ck)
+    settings = Settings.load()
+    ck = _compute_kwargs(settings)
+    embedder = BGEM3Embedder(**_embed_kwargs(settings))
     retriever = HybridRetriever.load(INDEX, embedder)
     reranker = CrossEncoderReranker(**ck)
     generator = ExtractiveStubGenerator()

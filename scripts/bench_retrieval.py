@@ -125,11 +125,12 @@ def main() -> None:
         # metric, not scored 0); only corruption blocks measurement.
         if any(getattr(i, "severity", "error") == "error" for i in issues):
             raise SystemExit(1)
-        from sebi_rag.api import _compute_kwargs
+        from sebi_rag.api import _compute_kwargs, _embed_kwargs
         from sebi_rag.settings import Settings
 
-        ck = _compute_kwargs(Settings.load())
-        emb = BGEM3Embedder(**ck)
+        _settings = Settings.load()
+        ck = _compute_kwargs(_settings)
+        emb = BGEM3Embedder(**_embed_kwargs(_settings))
         index_dir = Path(args.index_dir) if args.index_dir else ROOT / "data" / "index"
         retr = HybridRetriever.load(index_dir, emb)
         lin = build_lineage(load_records(ROOT / "data" / "corpus" / "circulars.jsonl"))
@@ -156,7 +157,7 @@ def main() -> None:
         # index_dir already resolved above from --index-dir; do not reset it
         # here or the metadata would credit the production index for an arm.
         models = {
-            "embedder": "BAAI/bge-m3",
+            "embedder": _settings.embed_model,
             "retriever": "FAISS+BM25/RRF",
             "reranker": reranker_name,
         }

@@ -183,3 +183,93 @@ def test_absorption_respects_300_char_cap():
             break
     else:
         raise AssertionError("7.1.1.2 provision text missing from all chunks")
+
+
+# --- table-row shredding fix (2026-09-01) ------------------------------------
+# PDF-flattened table rows ("2. Brent Crude Oil BBL 400,000") match the same
+# heading regex as a real numbered section and, without _merge_table_rows,
+# each row was flushed as its own one-line chunk, destroying row<->header
+# association. See memory/nominee-count-chunker-bug.md's live-defect update.
+_TABLE_TEXT = (
+    _FILLER + "\n"
+    "9. Total income from operations 1234\n"
+    "10. Brent Crude Oil BBL 400,000\n"
+    "11. Canada - Toronto Stock Exchange\n"
+    "12. Unique Client Code 59\n"
+    "13. Age of member 47"
+)
+
+
+def test_flattened_table_rows_merge_into_one_chunk():
+    chunks = hierarchical_chunk(_TABLE_TEXT, _META)
+    rows = ["Total income from operations", "Brent Crude Oil BBL 400,000",
+            "Canada - Toronto Stock Exchange", "Unique Client Code 59",
+            "Age of member 47"]
+    hosts = {c.id for c in chunks if any(r in c.text for r in rows)}
+    assert len(hosts) == 1, (
+        f"table rows scattered across {len(hosts)} chunks instead of merged "
+        f"into one: {[c.text for c in chunks if c.id in hosts]!r}"
+    )
+
+
+def test_flattened_table_row_not_emitted_as_lone_chunk():
+    chunks = hierarchical_chunk(_TABLE_TEXT, _META)
+    for c in chunks:
+        assert _body(c) != "10. Brent Crude Oil BBL 400,000", (
+            f"table row emitted as a standalone degenerate chunk: {c.text!r}"
+        )
+
+
+# A genuine short-heading run broken by real prose between each heading must
+# NOT be swept up by the table-row merge - only a run with nothing between
+# consecutive headings is table-shaped.
+_SHORT_HEADINGS_WITH_PROSE = (
+    _FILLER + "\n"
+    "1. Preamble:\n"
+    "This circular explains conduct requirements for market participants "
+    "operating in India across regulated segments under applicable law.\n"
+    "2. Applicability:\n"
+    "This circular applies to all registered stock brokers, depository "
+    "participants, and other intermediaries under SEBI's framework.\n"
+    "3. Effective date:\n"
+    "This circular takes immediate effect from the date of issuance and "
+    "remains applicable until further notice or amendment."
+)
+
+
+def test_genuine_short_heading_run_with_prose_still_splits():
+    chunks = hierarchical_chunk(_SHORT_HEADINGS_WITH_PROSE, _META)
+    for heading, body_snippet in (
+        ("Preamble", "conduct requirements"),
+        ("Applicability", "registered stock brokers"),
+        ("Effective date", "immediate effect"),
+    ):
+        assert any(heading in c.text and body_snippet in c.text for c in chunks), (
+            f"section {heading!r} lost its own prose body (wrongly merged?)"
+        )
+    # and no chunk should hold more than one of the three prose bodies -
+    # merging headings that DO have real, separate bodies would be the
+    # opposite failure mode.
+    for c in chunks:
+        hit = sum(s in c.text for s in
+                  ("conduct requirements", "registered stock brokers",
+                   "immediate effect"))
+        assert hit <= 1, f"multiple sections wrongly merged into one chunk: {c.text!r}"
+
+
+# A short numeric TOC/index run ("48. 119") must be absorbed with its
+# neighbours, not emitted as an isolated one-line chunk.
+_TOC_TEXT = _FILLER + "\n" + "\n".join(
+    f"{n}. {v}" for n, v in ((46, 12), (47, 39), (48, 119), (49, 205))
+)
+
+
+def test_toc_numeric_run_absorbed_not_emitted_alone():
+    chunks = hierarchical_chunk(_TOC_TEXT, _META)
+    for c in chunks:
+        assert _body(c) != "48. 119", (
+            f"TOC row emitted as a standalone degenerate chunk: {c.text!r}"
+        )
+    assert any("48. 119" in c.text and "46. 12" in c.text for c in chunks), (
+        "TOC run was not merged with its neighbouring rows"
+    )

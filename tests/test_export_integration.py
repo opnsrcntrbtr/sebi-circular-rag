@@ -296,13 +296,29 @@ def test_row_count_accuracy_in_live_export():
     # 2026-08-14 DDHS circulars (HO/17/11/(2)2026, HO/17/11/17(5)2026) ingested
     # after the 2026-08-14 expansion. lineage/eval/citation-normalization/
     # supersession-pairs unchanged (new circulars carry no reg citations).
+    #
+    # Updated 2026-08-28: bounded historical scrape for the bge-m3 SEBI
+    # fine-tuning intervention (Phase -1, .claude/plans/deep-analyse-and-
+    # research-bright-dawn.md) — corpus grew by +760 circulars (+9,381
+    # chunks), targeting the previously-thin 2010-2021 window via --from/--to
+    # (see docs/status.md 2026-08-28 entry for the per-batch breakdown and
+    # the frozen snapshot id). eval unchanged (golden_v7 deliberately not
+    # re-derived, stays the intervention's fixed measurement target).
+    #
+    # Updated 2026-09-01: table-row-shredding chunker fix (Workstream B of the
+    # same intervention's post-hoc verdict, segment.py's _merge_table_rows) —
+    # chunks 87959 -> 85131 (-2,828). PDF-flattened table rows that matched
+    # the heading regex were merging into fewer, larger chunks instead of one
+    # chunk per row; corpus/lineage/eval/citation-normalization/
+    # supersession-pairs are untouched (chunk boundaries only, no document- or
+    # citation-level change). See memory/nominee-count-chunker-bug.md.
     expected = {
-        "corpus": 730,
-        "chunks": 78578,
-        "lineage": 4577,
+        "corpus": 1490,
+        "chunks": 85131,
+        "lineage": 4752,
         "eval": 56,
-        "citation-normalization": 8903,
-        "supersession-pairs": 2769,
+        "citation-normalization": 9926,
+        "supersession-pairs": 8781,
     }
 
     # Report every drift in one run: a re-annotation usually moves several
