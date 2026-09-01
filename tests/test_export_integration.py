@@ -304,9 +304,17 @@ def test_row_count_accuracy_in_live_export():
     # (see docs/status.md 2026-08-28 entry for the per-batch breakdown and
     # the frozen snapshot id). eval unchanged (golden_v7 deliberately not
     # re-derived, stays the intervention's fixed measurement target).
+    #
+    # Updated 2026-09-01: table-row-shredding chunker fix (Workstream B of the
+    # same intervention's post-hoc verdict, segment.py's _merge_table_rows) —
+    # chunks 87959 -> 85131 (-2,828). PDF-flattened table rows that matched
+    # the heading regex were merging into fewer, larger chunks instead of one
+    # chunk per row; corpus/lineage/eval/citation-normalization/
+    # supersession-pairs are untouched (chunk boundaries only, no document- or
+    # citation-level change). See memory/nominee-count-chunker-bug.md.
     expected = {
         "corpus": 1490,
-        "chunks": 87959,
+        "chunks": 85131,
         "lineage": 4752,
         "eval": 56,
         "citation-normalization": 9926,
