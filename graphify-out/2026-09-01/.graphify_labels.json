@@ -186,12 +186,8 @@
   "184": "main",
   "185": "test_parse_reply_unknown_letter_fails_the_whole_reply_closed",
   "186": "integration",
-  "187": "stats.py",
   "188": "__init__.py",
-  "189": "test_benchmark.py",
   "190": "measure_mrr",
   "194": "load_golden",
-  "197": "main",
-  "198": "normalize_circular_number",
-  "199": "discover_new.py"
+  "198": "normalize_circular_number"
 }
