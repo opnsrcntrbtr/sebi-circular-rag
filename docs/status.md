@@ -1380,6 +1380,49 @@ eval:
 
 **Recommendation, not yet a decision:** if a single candidate must be chosen going forward, Phase 0 (structural-only) is the stronger result on every axis measured here. The next intervention worth considering, per the plan's own honest-prior section, is investigating the chunking defects already documented (`nominee-count-chunker-bug`) rather than further LLM-data expansion - fine-tuning has now been tried twice on this corpus without a clean win.
 
+2026-09-01 — **Branch merge triage: `finetune/local-adjudicate-27b` merged to main whole (this entry's own history is now part of main). Two branches initially flagged as "real unmerged work" turned out fully superseded on verification — recorded here so the next reader doesn't re-merge them.**
+
+```yaml
+branch_triage:
+  merged: {branch: finetune/local-adjudicate-27b, mode: whole (no squash), commit: 2f3555a}
+  confirmed_redundant_pending_deletion:
+    - backup/pre-filter-20260806       # zero unique commits vs autoresearch/...
+    - worktree-reranker-constraint-analysis  # superseded by docs/adr-004-reranker-candidate-reassessment-2026-08.md
+    - main-backup-060826 (remote)      # pure ancestor of main
+    - main-backup-230726 (remote)      # pure ancestor of main
+    - eval/gate-production-parity      # see correction below
+  left_alone: autoresearch/review-exsiting-...  # 70 commits, core work already squash-merged
+                                                  # via PR #2 (4911564); not deleted, no user ask
+  superseded_no_action: origin/spaces  # 1 commit ahead of local spaces; content superseded
+                                         # by main's own later evolution, nothing to pull
+```
+
+**Correction, found during execution, not during planning:** the branch-triage plan (this session,
+`.claude/plans/deep-analyse-and-research-bright-dawn.md`) initially flagged `eval/gate-production-
+parity` (25 commits, a hybrid abstention gate: cross-encoder OR override for `subject_gate`) as
+genuine unmerged work needing "merge + re-derive thresholds under jina." That premise was wrong —
+built on a `grep` run against the wrong checked-out branch earlier in the session (working tree was
+on `finetune/local-adjudicate-27b`, not `main`, when the "hybrid_gate absent from main" check ran).
+Re-verified properly with `git grep <ref>` before merging anything: **main already has the hybrid
+gate mechanism** (`rerank_top`/`subject_sim`/`HYBRID_THRESHOLD`/the OR-override, `generate.py:728`),
+built independently and more rigorously on **2026-08-27** (see that dated entry above) — swept under
+the *correct* jina reranker, found **NULL**, and explicitly not shipped. The branch itself predates
+jina entirely (no jina/warrant citation-scorer backends) and diffs 1.97M deletions against main's
+current `generate.py`/`pipeline.py`/tests. **Not merged.** Reclassified alongside the other
+confirmed-redundant branches for deletion, per user decision.
+
+Same pattern, smaller scale, for `origin/spaces`'s one commit ahead of local `spaces`
+("Surface regulatory basis status..."): touches core pipeline files (`api.py`, `pipeline.py`,
+`ui.py`), not Spaces-only as first assumed, but main's versions are strictly more evolved and
+`reg_lineage.py`/`regulations.py` are byte-identical — fully superseded, nothing pulled.
+
+**Takeaway for future branch triage on this repo:** always `git grep <ref> --` against the actual
+ref being compared, never against the working tree's currently-checked-out branch — this is the
+second time in one session a wrong-branch grep produced a false "X is missing from main" claim
+(the first was `hybrid_gate`/`context_recall` in this same triage, caught before merging; the
+`sweep_citation_margin_capture.py`/`.auto/research_report.md` checks for `autoresearch/...` were
+done correctly with explicit refs and held up).
+
 2026-09-01 — **Post-hoc re-analysis: the "Phase 2 regression" above was noise, not signal. Intervention closed as NULL.** User asked to investigate the chunking defects named above and dig into the Phase 2 regression. Neither survived measurement. Full findings in `.claude/plans/deep-analyse-and-research-bright-dawn.md`'s post-hoc verdict section.
 
 ```yaml
