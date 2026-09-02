@@ -1,12 +1,13 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-09-02.
+> Last updated: 2026-09-03.
 
 ## Current Snapshot
 
 | Metric | Value |
 |---|---|
+| **bge-m3 SEBI fine-tune** | **CLOSED — NULL, not adopted** (Phases −2/−1/0/1/2 all complete; branch merged whole `2f3555a1` 2026-09-01). `embed_model` stays `BAAI/bge-m3`. Δndcg@10 vs control not significant on any arm; golden_v7 n=216 cannot resolve <4pp anyway. See 2026-09-01 re-analysis + 2026-09-03 closing entries below |
 | **Corpus** | 1,490 SEBI circular records, 85,131 chunks (corpus JSONL ~43 MB; index chunks.jsonl ~313 MB) — grown from 730/78,630 via bounded historical scrape 2026-08-28; chunk count moved 87,959->85,131 via the 2026-09-01 table-row-shredding chunker fix (see dated entries below) |
 | **Index** | ~1.0 GB at `data/index/` — dense.faiss, bm25/, chunks.jsonl, embeddings.npy, lineage.json (2.1 MB), manifest.json, meta.json; splade.npz absent (eval-only, not rebuilt by `make reindex`) |
 | **Reporting set** | `eval/golden/golden_v7.jsonl` (n=260); **adjudicated_n = 260** |
@@ -1464,7 +1465,7 @@ chunking:
 
 **Corrected memories:** `nominee-count-chunker-bug` rewritten to state fixed-by-`38c68e7` and name the table-row defect instead; new memory `golden-v7-underpowered` records the power table so this mistake isn't repeated.
 
-**Next (approved 2026-09-01):** (B) fix table-row shredding in `segment.py` — add a table-run discriminator, not a weaker heading regex; full reindex + `make validate-corpus` required; judge on chunk-quality inspection, not golden_v7 (per the power finding above, golden_v7 could not detect the effect even if it moved a retrieval metric). (C) write `docs/superpowers/specs/2026-09-01-golden-set-power.md` scoping a larger, properly-powered golden set before funding any further retrieval intervention. Branch `finetune/local-adjudicate-27b` (Phases -2/-1 are good work, Phase 0/1/2 produced the null) — merge decision deferred, not made in this session.
+**Next (approved 2026-09-01):** (B) fix table-row shredding in `segment.py` — add a table-run discriminator, not a weaker heading regex; full reindex + `make validate-corpus` required; judge on chunk-quality inspection, not golden_v7 (per the power finding above, golden_v7 could not detect the effect even if it moved a retrieval metric). (C) write `docs/superpowers/specs/2026-09-01-golden-set-power.md` scoping a larger, properly-powered golden set before funding any further retrieval intervention. Branch `finetune/local-adjudicate-27b` (Phases -2/-1 are good work, Phase 0/1/2 produced the null) — merge decision deferred, not made in this session. ⚠️ Superseded same day — the merge was made: whole-branch merge `2f3555a1`, see the branch-triage entry above and the 2026-09-03 closing entry below.
 
 2026-09-01 (same day) — **Workstream B landed: table-row-shredding chunker fix implemented, reindexed, verified. Partial fix, reported honestly — not a full elimination.**
 
@@ -1663,3 +1664,20 @@ adopted: true  # live in data/index/ (meta.json chunker_version confirmed 2026-0
 
 **HF Spaces re-synced, user-confirmed.** Held for explicit go-ahead (this publishes to an external, outward-facing service) — user confirmed via `AskUserQuestion`, then `scripts/upload_spaces_index.py --repo opnsrcntrbtrian/sebi-circulars-index` ran (6 LFS files, ~1.0GB, ~4m16s). Verified via `hf_hub_download` of the remote `meta.json`: `{"n": 83752, "dim": 1024, "embed_model": "BAAI/bge-m3", "chunker_version": "2026-09-03-toc-long-title-merge"}` — matches the local index exactly. Closes the two-paths drift `.claude/rules/two-paths.md` warns about, same as the 2026-09-01 and 2026-09-02 entries.
 
+
+2026-09-03 — **bge-m3 SEBI fine-tune: final disposition recorded, question closed.** Written to stop
+this being re-asked (handoff item repeatedly re-delivered since 2026-08-28); no decision remains open —
+the NULL verdict and non-adoption were already settled 2026-09-01, this entry only makes it findable.
+
+```yaml
+bge_m3_finetune_final_disposition:
+  status: CLOSED
+  verdict: NULL
+  phases_complete: [-2, -1, 0, 1, 2]      # Phase 1 = LLM synthesis + round-trip filter, ran 2026-08-29/30
+  adopt: false
+  published: false
+  embed_model_in_production: BAAI/bge-m3   # verified src/sebi_rag/settings.py:74, no config.toml override
+  branch: {name: finetune/local-adjudicate-27b, merged_to_main: true, commit: 2f3555a1, mode: whole}
+  artifacts: local-only, gitignored        # models/bge-m3-sebi-v1[-adapter][-phase0], data/index-ft[-phase0]
+  reopen_gate: "not before docs/superpowers/specs/2026-09-01-golden-set-power.md is funded (n≈834 for 80% power at 2pp ndcg)"
+```
