@@ -29,6 +29,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from sebi_rag.eval import ndcg_at_k, recall_at_k  # noqa: E402
 from sebi_rag.eval_harness import load_golden  # noqa: E402
+from sebi_rag.stats import paired_delta  # noqa: E402
 
 DEFAULT_GOLDEN = ROOT / "eval" / "golden" / "golden_v7.jsonl"
 DEFAULT_HOLDOUT = ROOT / "data" / "finetune" / "holdout_docs.json"
@@ -114,19 +115,68 @@ def compare(control: dict[str, dict], treatment: dict[str, dict],
     }
 
 
-def gate_verdict(by_stratum: dict) -> tuple[str, list[str]]:
-    """Preregistered asymmetric directional screen (n=20-40/stratum is a
-    directional signal, not a significance test - iv-series-verdicts-
-    unpowered applies): PROCEED unless numeric_table, multi_hop, AND
-    lineage_supersession are ALL flat-or-negative on recall@10. Any one of
-    the three showing a positive lift is enough to proceed to Phase 1."""
-    positive = []
+def gate_verdict(
+    control_scored: dict[str, dict],
+    treatment_scored: dict[str, dict],
+    *,
+    confidence: float = 0.95,
+    n_resamples: int = 20000,
+    seed: int = 0,
+) -> tuple[str, dict[str, dict]]:
+    """Statistical replacement for the original asymmetric directional
+    screen (2026-08-28), which PROCEEDed on ANY ONE of the three gate strata
+    showing a positive point-estimate delta_recall, on n=20-40/stratum -
+    exactly the failure mode `docs/status.md`'s 2026-09-01 post-hoc entry
+    diagnoses: the original Phase 0 PROCEED verdict rested on one query
+    moving in numeric_table (n=30) and two in multi_hop (n=20). A directional
+    screen at that n is close to a coin flip, not a gate.
+
+    This version runs `paired_delta` (Fisher randomization, the same tool
+    the post-hoc reanalysis used) per gate stratum on recall@10 and only
+    calls a stratum PROCEED-worthy when the effect clears statistical
+    significance (`PairedResult.significant`: p < alpha AND the CI excludes
+    zero), not merely a positive sign. At golden_v7's current n this will
+    usually report every stratum as inconclusive - correctly, per
+    `docs/superpowers/specs/2026-09-01-golden-set-power.md`: n=20-40/stratum
+    cannot resolve a 1-2pp real effect at 80% power. Silence here is the
+    honest answer, not a bug to work around with a looser gate.
+    """
+    common = sorted(set(control_scored) & set(treatment_scored))
+    by_stratum: dict[str, dict] = {}
+    positive_significant: list[str] = []
+    negative_significant: list[str] = []
+
     for stratum in GATE_STRATA:
-        stats = by_stratum.get(stratum)
-        if stats and stats["delta_recall"] > 0:
-            positive.append(stratum)
-    verdict = "PROCEED" if positive else "STOP (structural pairs show no signal)"
-    return verdict, positive
+        ids = [rid for rid in common if control_scored[rid]["task_type"] == stratum]
+        if len(ids) < 2:  # paired_delta needs >=1 pair; 2 to make a p-value meaningful
+            by_stratum[stratum] = {"n": len(ids), "verdict": "insufficient_data"}
+            continue
+        a = {rid: control_scored[rid]["recall"] for rid in ids}
+        b = {rid: treatment_scored[rid]["recall"] for rid in ids}
+        res = paired_delta(a, b, confidence=confidence, n_resamples=n_resamples, seed=seed)
+        if res.significant and res.delta > 0:
+            verdict = "significant_positive"
+            positive_significant.append(stratum)
+        elif res.significant and res.delta < 0:
+            verdict = "significant_negative"
+            negative_significant.append(stratum)
+        else:
+            verdict = "inconclusive"
+        by_stratum[stratum] = {
+            "n": res.n, "delta_recall": round(res.delta, 4),
+            "p_value": round(res.p_value, 4),
+            "ci": [round(res.ci_lo, 4), round(res.ci_hi, 4)],
+            "verdict": verdict,
+        }
+
+    if negative_significant:
+        overall = f"STOP (significant regression: {', '.join(negative_significant)})"
+    elif positive_significant:
+        overall = f"PROCEED (significant lift: {', '.join(positive_significant)})"
+    else:
+        overall = ("INCONCLUSIVE (no gate stratum reached significance at "
+                   f"{confidence:.0%} confidence - see golden-v7-underpowered)")
+    return overall, by_stratum
 
 
 def main() -> None:
@@ -148,9 +198,9 @@ def main() -> None:
     treatment_scored = score_run(treatment_ranked, golden, args.k)
 
     result = compare(control_scored, treatment_scored, holdout)
-    verdict, positive_strata = gate_verdict(result["by_stratum"])
-    result["gate"] = {"verdict": verdict, "positive_strata": positive_strata,
-                      "gate_strata": list(GATE_STRATA)}
+    verdict, gate_strata_detail = gate_verdict(control_scored, treatment_scored)
+    result["gate"] = {"verdict": verdict, "gate_strata": list(GATE_STRATA),
+                      "by_stratum": gate_strata_detail}
 
     print(json.dumps(result, indent=2))
     if args.out:

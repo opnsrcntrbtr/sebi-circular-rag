@@ -77,16 +77,30 @@ PASSAGE_MAX_LEN = 512
 
 def load_pairs(paths: list[Path], n_negatives: int) -> list[dict]:
     rows = []
+    total = 0
+    dropped = 0
     for path in paths:
         for line in path.read_text(encoding="utf-8").splitlines():
             if not line.strip():
                 continue
+            total += 1
             r = json.loads(line)
             if len(r["neg"]) < n_negatives:
-                continue  # defensive; mine_structural_pairs.py already
-                          # guarantees >=5, but a hand-edited/foreign file
-                          # might not
+                dropped += 1  # defensive; mine_structural_pairs.py already
+                continue      # guarantees >=5, but a hand-edited/foreign file
+                              # might not. F-05 fix: this repo already shipped
+                              # one silent large-scale drop of exactly this
+                              # shape (d16982a, negative-mining margin filter,
+                              # 82% dropped and unnoticed) - report it here
+                              # instead of repeating that mistake one script
+                              # downstream. Matches mine_structural_pairs.py's
+                              # own "dropped N for insufficient negatives"
+                              # reporting convention.
             rows.append(r)
+    if dropped:
+        pct = 100 * dropped / total
+        print(f"load_pairs: dropped {dropped}/{total} rows ({pct:.1f}%) "
+             f"with fewer than {n_negatives} negatives")
     return rows
 
 

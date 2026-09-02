@@ -124,37 +124,72 @@ def test_compare_groups_by_holdout_subset_and_leaves_unclassified_rows_separate(
 
 
 # ---------------------------------------------------------------------------
-# gate_verdict - the asymmetric directional screen
+# gate_verdict - significance-gated (F-04 fix: replaces the OR-of-3
+# directional screen that PROCEEDed on a single stratum's positive sign)
 # ---------------------------------------------------------------------------
 
-def test_gate_verdict_proceeds_if_any_one_gate_stratum_is_positive():
-    by_stratum = {
-        "numeric_table": {"delta_recall": -0.05},
-        "multi_hop": {"delta_recall": 0.02},  # the one positive stratum
-        "lineage_supersession": {"delta_recall": 0.0},
-    }
-    verdict, positive = gate_verdict(by_stratum)
-    assert verdict == "PROCEED"
-    assert positive == ["multi_hop"]
+def _rows(task_type, control_vals, treatment_vals):
+    """{row_id: {...}} for control/treatment given parallel recall lists.
+    Row ids are namespaced by task_type so callers can merge multiple
+    strata's dicts without id collisions."""
+    control = {f"{task_type}_r{i}": {"recall": v, "ndcg": v, "task_type": task_type}
+              for i, v in enumerate(control_vals)}
+    treatment = {f"{task_type}_r{i}": {"recall": v, "ndcg": v, "task_type": task_type}
+                for i, v in enumerate(treatment_vals)}
+    return control, treatment
 
 
-def test_gate_verdict_stops_if_all_gate_strata_flat_or_negative():
-    by_stratum = {
-        "numeric_table": {"delta_recall": 0.0},
-        "multi_hop": {"delta_recall": -0.01},
-        "lineage_supersession": {"delta_recall": -0.02},
-    }
-    verdict, positive = gate_verdict(by_stratum)
+def test_gate_verdict_proceeds_only_on_a_significant_positive_stratum():
+    """A clean, large, consistent lift in one stratum (n=12, treatment
+    strictly above control on every row) must clear significance and
+    PROCEED - the gate is not required to be uselessly conservative, only
+    to require real evidence instead of a bare sign."""
+    control, treatment = _rows("multi_hop", [0.2] * 12, [0.9] * 12)
+    verdict, by_stratum = gate_verdict(control, treatment)
+    assert verdict.startswith("PROCEED")
+    assert by_stratum["multi_hop"]["verdict"] == "significant_positive"
+
+
+def test_gate_verdict_stops_on_a_significant_regression():
+    control, treatment = _rows("lineage_supersession", [0.9] * 12, [0.2] * 12)
+    verdict, by_stratum = gate_verdict(control, treatment)
     assert verdict.startswith("STOP")
-    assert positive == []
+    assert by_stratum["lineage_supersession"]["verdict"] == "significant_negative"
 
 
-def test_gate_verdict_missing_stratum_from_data_counts_as_not_positive():
-    """A gate stratum entirely absent from the golden set (shouldn't
-    happen given golden_v7's fixed composition, but defensively) must not
-    crash or be silently treated as positive."""
-    verdict, positive = gate_verdict({"numeric_table": {"delta_recall": -0.1}})
+def test_gate_verdict_reports_inconclusive_on_noisy_small_n():
+    """This is the exact shape of the original Phase 0 data (n=20-40,
+    one or two rows moving): a directional-only screen would PROCEED here;
+    the significance-gated version must not - it should report inconclusive
+    instead of manufacturing a verdict from noise."""
+    control, treatment = _rows(
+        "numeric_table",
+        [1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0],
+        [1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0][:-1] + [1.0],  # 1 row flips
+    )
+    verdict, by_stratum = gate_verdict(control, treatment)
+    assert by_stratum["numeric_table"]["verdict"] == "inconclusive"
+    assert verdict.startswith("INCONCLUSIVE")
+
+
+def test_gate_verdict_stratum_with_too_few_rows_is_insufficient_data_not_a_crash():
+    control, treatment = _rows("lineage_supersession", [1.0], [1.0])
+    verdict, by_stratum = gate_verdict(control, treatment)
+    assert by_stratum["lineage_supersession"]["verdict"] == "insufficient_data"
+    assert by_stratum["numeric_table"]["verdict"] == "insufficient_data"
+    assert verdict.startswith("INCONCLUSIVE")
+
+
+def test_gate_verdict_regression_wins_over_a_different_strata_positive():
+    """A significant regression in one gate stratum stops the whole gate
+    even if another gate stratum is significantly positive - asymmetric by
+    design, same spirit as the original screen, now evidence-gated."""
+    c1, t1 = _rows("multi_hop", [0.2] * 12, [0.9] * 12)
+    c2, t2 = _rows("lineage_supersession", [0.9] * 12, [0.2] * 12)
+    verdict, by_stratum = gate_verdict({**c1, **c2}, {**t1, **t2})
     assert verdict.startswith("STOP")
+    assert by_stratum["multi_hop"]["verdict"] == "significant_positive"
+    assert by_stratum["lineage_supersession"]["verdict"] == "significant_negative"
 
 
 def test_gate_strata_matches_the_three_named_in_the_plan():

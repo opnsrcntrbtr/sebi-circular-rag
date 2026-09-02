@@ -61,6 +61,27 @@ def test_load_pairs_skips_blank_lines(tmp_path):
     assert len(load_pairs([path], n_negatives=4)) == 1
 
 
+def test_load_pairs_reports_drop_count(tmp_path, capsys):
+    """F-05 fix: a dropped row must never be silent - this repo already
+    shipped one large-scale silent drop of this exact shape (d16982a)."""
+    path = tmp_path / "pairs.jsonl"
+    path.write_text(
+        json.dumps(_row(q="keep", n_negs=5)) + "\n"
+        + json.dumps(_row(q="drop", n_negs=2)) + "\n",
+        encoding="utf-8")
+    rows = load_pairs([path], n_negatives=4)
+    assert [r["query"] for r in rows] == ["keep"]
+    out = capsys.readouterr().out
+    assert "dropped 1/2 rows" in out
+
+
+def test_load_pairs_silent_when_nothing_dropped(tmp_path, capsys):
+    path = tmp_path / "pairs.jsonl"
+    path.write_text(json.dumps(_row()) + "\n", encoding="utf-8")
+    load_pairs([path], n_negatives=4)
+    assert capsys.readouterr().out == ""
+
+
 # ---------------------------------------------------------------------------
 # build_dataset - column order is significant (MNRL reads roles
 # positionally: anchor, positive, then negative_1..negative_n)
