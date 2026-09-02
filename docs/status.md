@@ -1550,5 +1550,43 @@ floors:
 
 **Every floor dropped — this is not a regression finding.** The old and new numbers were never measuring the same system: old floors are a bootstrap lower bound fit to bge-reranker-v2-m3 + 730 circulars, new floors are the same fit under jina-reranker-v3-mlx + 1,490 circulars. Per the Rule in `refusal-criteria.md`, comparing production metrics against the *old* table from here on would itself be the category error the rule warns about — the new table is now the sole authoritative gate. No production metric was re-measured against the new floors in this entry; that is the natural next step for whoever next runs `eval_json.py`/`make eval-asof` against golden_v7.
 
-`.claude/rules/refusal-criteria.md` updated in place: floors table replaced, both prior ⚠️ staleness notes (reranker-only, and the implicit corpus-size gap) resolved and folded into the entry's "Rule" section, which now also names corpus size as a floor-invalidating axis alongside generator/embedder/reranker/B′ margin.
+`.claude/rules/refusal-criteria.md` updated in place: floors table replaced, both prior ⚠️ staleness notes (reranker-only, and the implicit corpus-size gap) resolved and folded into the entry's "Rule" section, which now also names corpus size as a floor-invalidating axis alongside generator/embedder/reranker/B′ margin. (`.claude/` is gitignored — local tooling state, not committed.)
+
+2026-09-02 (same day) — **HF Spaces prebuilt index re-synced.** `segment.py`'s `CHUNKER_VERSION` moved to `2026-09-01-table-row-merge` on 2026-09-01 but the Spaces demo's index is a manual snapshot (`scripts/upload_spaces_index.py`) that does not track local reindexes (`.claude/rules/two-paths.md`) — the public demo had been serving pre-fix, row-shredded chunks since that date. Re-uploaded the now-stamped `data/index/` (dense.faiss, chunks.jsonl, meta.json, lineage.json) to `opnsrcntrbtrian/sebi-circulars-index` (HF dataset repo already configured as `[spaces] index_repo` in `config.toml` — no config change needed). Verified post-upload: `hf_hub_download` of the remote `meta.json` returns `{"n": 85131, "dim": 1024, "embed_model": "BAAI/bge-m3", "chunker_version": "2026-09-01-table-row-merge"}` — the Spaces demo now loads the table-row-merged chunks and the F-01/F-02/F-03 identity stamps on its next cold start.
+
+2026-09-02 (same day) — **Residual chunker patterns: scoped, not implemented — per the 2026-09-01 entry's own instruction not to silently expand this.** Re-examined both patterns named as unfixed by the table-row-merge fix, against real corpus text, to ground a future detector design.
+
+**1. TOC entries with wrapped titles** (`SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90`). Real extracted text:
+```
+3.
+Broker with SEBI
+Additional requirements for processing applications of Stock Brokers for
+4. Registration/ Prior approval for sale of membership/ Change of name/ 11
+Trade name
+5. Merger/ Amalgamation of Trading Members 12
+Admission of Limited Liability Partnerships as Members of Stock
+6. 12
+Exchanges
+```
+Two distinct sub-layouts appear in the same TOC: a number alone on its line with its title below (`3.` / `Broker with SEBI`), and a number with a title *fragment* + page number on the same line, whose title continues on the line above or below (`6. 12` / `Exchanges`, itself continuing the *previous* row's wrapped title). `_is_table_row_candidate` requires 3+ consecutive same-line, same-depth numbered candidates with nothing interleaved — this layout interleaves title-continuation prose between almost every numbered line, so the run breaks after 1-2 by design.
+
+**2. Financial-statement row-label tables**, confirmed in 3 docs (`SEBI/HO/CFD/PoD2/CIR/P/0155`, `HO/49/14/14(7)2025-CFD-POD2/I/3762/2026`, `SEBI/HO/CFD/PoD2/CIR/P/2023/120` — same LODR-mandated results-format table reused verbatim). Real extracted text:
+```
+1. Total income from operations
+Net Profit / (Loss) for the period
+2. (before Tax, Exceptional and/ or
+Extraordinary items#)
+...
+Total Comprehensive Income for the
+period [Comprising Profit / (Loss) for
+5.
+the p[eriod...]
+```
+This is a genuine multi-column table (Sl.No | Particulars | 5 numeric columns) PDF-flattened in a way that interleaves the Sl.No and Particulars columns per visual line, not per logical row — row 5's number sits alone on its own line, separated from its label by two lines of row 4's wrapped label. No same-line "N. label" candidate ever forms for row 5, so `_is_table_row_candidate` never fires on it at all, regardless of run length.
+
+**Root cause is shared, and named already in the 2026-09-01 entry**: both misses are genuinely interleaved or split-across-lines layouts, which the deliberately-conservative "back-to-back numbered lines, nothing between them" discriminator cannot see by construction — weakening it further risks exactly the false-positive-on-real-headings failure mode the 2026-09-01 fix was designed to avoid (the nominee-bug fixture's "5." / "5.1." / "5.2." sequence must stay untouched).
+
+**Rough prevalence** (crude regex proxy, not a validated count — presented as a scoping signal only): 198 of 1,490 corpus docs contain a bare `"N.\n"` line (TOC-candidate surface, generously over-inclusive of ordinary headings), 49 contain an `"Sl."`/`"No."` label paired with numbered lines (finstat-table-candidate surface). Neither number is the actual defect count — both need the same kind of direct-inspection verification the 2026-09-01 entry did for the shipped fix before any number here is trustworthy.
+
+**Not implemented.** A next detector for either pattern needs to reconstruct row-boundary structure from layout (indentation/column position or a lookahead that tolerates interleaved continuation lines), not just extend the existing single-line-run discriminator — genuinely new logic, not a parameter tweak, in a module two parallel code paths both import (`.claude/rules/two-paths.md`) and whose output shape 85,131 chunks already depend on (`.claude/rules/circular-meta.md`'s sibling constraint on `hierarchical_chunk`). Per the 2026-09-01 entry: scoping recorded here so the next session doesn't re-diagnose from scratch; committing to a specific detector design, implementing it, and re-validating (full reindex + `make validate-corpus` + direct chunk inspection, golden_v7 cannot detect this per the power finding) remains a decision for whoever picks this up next, not something to do inline with a scoping pass.
 
