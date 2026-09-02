@@ -1661,5 +1661,5 @@ direct_inspection_verified:
 adopted: true  # live in data/index/ (meta.json chunker_version confirmed 2026-09-03-toc-long-title-merge); NOT yet re-synced to HF Spaces - held pending user confirmation before publishing to the public demo
 ```
 
-**Not yet re-synced to HF Spaces.** Both prior chunker fixes (2026-09-01, 2026-09-02) closed with `scripts/upload_spaces_index.py` same-day to avoid reopening the two-paths drift `.claude/rules/two-paths.md` warns about — this one is paused before that step specifically because it publishes to an external, outward-facing service, pending explicit user go-ahead.
+**HF Spaces re-synced, user-confirmed.** Held for explicit go-ahead (this publishes to an external, outward-facing service) — user confirmed via `AskUserQuestion`, then `scripts/upload_spaces_index.py --repo opnsrcntrbtrian/sebi-circulars-index` ran (6 LFS files, ~1.0GB, ~4m16s). Verified via `hf_hub_download` of the remote `meta.json`: `{"n": 83752, "dim": 1024, "embed_model": "BAAI/bge-m3", "chunker_version": "2026-09-03-toc-long-title-merge"}` — matches the local index exactly. Closes the two-paths drift `.claude/rules/two-paths.md` warns about, same as the 2026-09-01 and 2026-09-02 entries.
 
