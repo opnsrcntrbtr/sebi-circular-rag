@@ -58,7 +58,7 @@ make qrels       # Generate QRELS for TREC evaluation
 
 ## Recommended Usage
 
-For a full installation and operator walkthrough, see [docs/USAGE.md](docs/USAGE.md). The Gradio UI demo is captured in [docs/assets/demo.webp](docs/assets/demo.webp).
+For a full installation and operator walkthrough, see [docs/USAGE.md](docs/USAGE.md). A Gradio UI demo is accessible on Hugging Face Spaces link [https://huggingface.co/spaces/opnsrcntrbtrian/sebi-circular-rag-demo] and a mac only local demo video is captured in [docs/assets/demo.webp](docs/assets/demo.webp).
 
 ## Published Datasets
 
