@@ -1,7 +1,7 @@
 # Project Context — SEBI Circular RAG
 
 > Authoritative architecture record. Consult before requesting any information.
-> Governed by `SEBI_RAG_Claude_Desktop_Engineering_Handbook.md`. Last updated: 2026-09-02 (corpus growth to 1,490 circulars; reranker moved to jina-reranker-v3-mlx (ADR-004); gate floors re-derived — see `.claude/rules/refusal-criteria.md`, the authoritative floor table).
+> Governed by `SEBI_RAG_Claude_Desktop_Engineering_Handbook.md`. Last updated: 2026-09-02 (corpus growth to 1,490 circulars; reranker moved to jina-reranker-v3-mlx (ADR-004); gate floors re-derived — see `eval/golden/gate_v7.json`).
 
 ## 1. Purpose
 
