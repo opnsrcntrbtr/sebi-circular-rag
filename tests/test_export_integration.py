@@ -312,9 +312,17 @@ def test_row_count_accuracy_in_live_export():
     # chunk per row; corpus/lineage/eval/citation-normalization/
     # supersession-pairs are untouched (chunk boundaries only, no document- or
     # citation-level change). See memory/nominee-count-chunker-bug.md.
+    #
+    # Updated 2026-09-02: gapped-table-row fix (docs/status.md's 2026-09-02
+    # scoping + fix entries, segment.py's _merge_table_rows gap tolerance) —
+    # chunks 85131 -> 84188 (-943). Table/TOC rows separated by up to 2 short
+    # filler lines (a row's own wrapped label, or the lead-in to the next)
+    # now merge across that gap instead of each staying a standalone chunk;
+    # corpus/lineage/eval/citation-normalization/supersession-pairs untouched
+    # (chunk boundaries only, same as the 2026-09-01 entry above).
     expected = {
         "corpus": 1490,
-        "chunks": 85131,
+        "chunks": 84188,
         "lineage": 4752,
         "eval": 56,
         "citation-normalization": 9926,
