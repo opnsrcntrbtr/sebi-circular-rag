@@ -71,3 +71,21 @@ def test_incremental_falls_back_to_full_without_cache(tmp_path):
     r, stats = HybridRetriever.build_incremental(_corpus_v1(), emb, tmp_path)
     assert stats["mode"] == "full"
     assert stats["chunks_encoded"] == len(r.chunks) == emb.encoded
+
+
+def test_incremental_falls_back_to_full_on_embed_model_change(tmp_path):
+    """F-01 fix: an embed_model swap must never reuse cached rows encoded by
+    a different model — that would silently straddle two embedding spaces
+    in one FAISS index. Detected via meta.json's stamped identity."""
+    chunks = _corpus_v1()
+    HybridRetriever.build(chunks, HashEmbedder(dim=128)).save(tmp_path)
+
+    other = CountingEmbedder()  # HashEmbedder(dim=256) -> model_id "hash:256"
+    r2, stats = HybridRetriever.build_incremental(chunks, other, tmp_path)
+
+    assert stats["mode"] == "full (embed_model changed)"
+    assert stats["docs_reused"] == 0
+    assert stats["old_embed_model"] == "hash:128"
+    assert stats["new_embed_model"] == "hash:256"
+    assert other.encoded == len(chunks)  # every chunk re-encoded, none reused
+    assert r2.dense.embedder.dim == 256

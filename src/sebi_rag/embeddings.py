@@ -36,6 +36,7 @@ class HashEmbedder:
 
     def __init__(self, dim: int = 256) -> None:
         self.dim = dim
+        self.model_id = f"hash:{dim}"  # index-identity stamp (F-01/F-02 fix)
 
     def encode(self, texts: list[str]) -> np.ndarray:
         out = np.zeros((len(texts), self.dim), dtype="float32")
@@ -55,6 +56,13 @@ class BGEM3Embedder:
                  use_fp16: bool = False, batch_size: int = 32) -> None:
         from FlagEmbedding import BGEM3FlagModel
         from huggingface_hub import snapshot_download
+
+        # Index-identity stamp (F-01/F-02 fix): the setting's own value, e.g.
+        # "BAAI/bge-m3" or "models/bge-m3-sebi-v1" — captured BEFORE
+        # snapshot_download below rewrites the local variable to a resolved
+        # cache path, so two Settings pointing at the same HF id always agree
+        # regardless of which local cache dir it happens to resolve to.
+        self.model_id = model_path
 
         # Pre-fetch without the 2.3 GB onnx variant we never use (Step 10).
         if "/" in model_path and not model_path.startswith(("/", ".", "~")):
