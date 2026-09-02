@@ -1534,3 +1534,21 @@ adopted: false  # code-quality/process fixes on a NULL'd intervention; embed_mod
 
 All 8 findings from the 2026-09-02 caveman-review are now addressed (2 critical fixed same-day, 3 risk fixed here, 2 nits and 1 open question left as-is — cosmetic/process items, not code defects).
 
+2026-09-02 (same day) — **`gate_v7.json` re-derived: stale on two axes (reranker + corpus), now current.** The armed floors were last derived 2026-08-13 under bge-reranker-v2-m3 against the 730-circular corpus. Since then the reranker moved to jina-reranker-v3-mlx (ADR-004, 2026-08-24) and the corpus grew to 1,490 circulars (2026-08-28 bounded scrape) — `.claude/rules/refusal-criteria.md` had documented the reranker staleness as a standing ⚠️ and forbidden reporting pass/fail against the old table until re-derived. Preceded by stamping `data/index/meta.json` with `embed_model`/`chunker_version` (`make reindex`, incremental, 0 chunks re-encoded — corpus unchanged since 2026-09-01, `make validate-corpus`: 1490 records, 0 violations) so the F-01/F-02/F-03 interlocks shipped earlier today are live on the index this eval ran against.
+
+```yaml
+gate_rederivation:
+  command: make golden-v7-gate  # scripts/golden_v7/derive_thresholds.py
+  runtime: ~23 min  # 1.5B MLX generator (Qwen2.5-1.5B-Instruct-4bit, production config), not the 7B arm
+  adjudicated_n: 260  # unchanged
+  stack: {embedder: BAAI/bge-m3, reranker: jina-reranker-v3-mlx, generator: Qwen2.5-1.5B-Instruct-4bit (MLX), b_prime_margin: 0.35, corpus: 1490 circulars}
+floors:
+  old: {derived_at: "2026-08-13T15:47:25", recall_at_k: 0.906,  context_recall: 0.874,  ndcg_at_10: 0.6512, citation_recall: 0.8169, abstention_accuracy: 0.9412, citation_precision: 0.1577}
+  new: {derived_at: "2026-09-02T19:56:21", recall_at_k: 0.8397, context_recall: 0.8192, ndcg_at_10: 0.5934, citation_recall: 0.7347, abstention_accuracy: 0.9373, citation_precision: 0.1466}
+  delta: {recall_at_k: -0.0663, context_recall: -0.0548, ndcg_at_10: -0.0578, citation_recall: -0.0822, abstention_accuracy: -0.0039, citation_precision: -0.0111}
+```
+
+**Every floor dropped — this is not a regression finding.** The old and new numbers were never measuring the same system: old floors are a bootstrap lower bound fit to bge-reranker-v2-m3 + 730 circulars, new floors are the same fit under jina-reranker-v3-mlx + 1,490 circulars. Per the Rule in `refusal-criteria.md`, comparing production metrics against the *old* table from here on would itself be the category error the rule warns about — the new table is now the sole authoritative gate. No production metric was re-measured against the new floors in this entry; that is the natural next step for whoever next runs `eval_json.py`/`make eval-asof` against golden_v7.
+
+`.claude/rules/refusal-criteria.md` updated in place: floors table replaced, both prior ⚠️ staleness notes (reranker-only, and the implicit corpus-size gap) resolved and folded into the entry's "Rule" section, which now also names corpus size as a floor-invalidating axis alongside generator/embedder/reranker/B′ margin.
+
