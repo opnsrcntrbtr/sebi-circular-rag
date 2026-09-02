@@ -353,3 +353,68 @@ def test_table_run_does_not_bridge_a_three_line_gap():
         "run bridged the 3-line gap it should not tolerate: "
         f"{[c.text for c in chunks if c.id in first_half | second_half]!r}"
     )
+
+
+# --- TOC long-title rows (2026-09-03) ----------------------------------------
+# docs/status.md's 2026-09-02 scoping entry named a real TOC layout
+# (SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90) where rows 1, 2, 4, 11 stay
+# unmerged even after the gapped-table-row fix: their trailing "title +
+# page number" text (e.g. "Registration of Brokers - Verification of
+# antecedents of the applicant 10") exceeds _TABLE_ROW_MAX_TRAILING_CHARS
+# (60, sized for short table CELL values, not TOC titles), so they never
+# qualify as _is_table_row_candidate at all - the gap tolerance never gets
+# a chance to bridge them because the run never starts/continues past them.
+#
+# Corpus measurement (not guessed): relaxing the trailing-length cap
+# unconditionally matches 2,365 lines corpus-wide, including real body
+# prose broken mid-sentence ("2.The remaining collateral of Client-3 (Rs 13
+# crore)... (Rs 2") - a real false-positive risk. Scoping it to a bounded
+# window after a literal "TABLE OF CONTENTS" marker paragraph (the actual
+# structural cause of this layout) cuts that to 468 hits across 35 docs,
+# and the two false positives found by manual inspection sit >6,000
+# paragraphs past their nearest marker - nowhere near any reasonable
+# window. See _is_toc_row_candidate / _toc_region_indices in segment.py.
+_TOC_LONG_TITLE_TEXT = _FILLER + "\n" + (
+    "TABLE OF CONTENTS\n"
+    "1. Registration of Brokers - Verification of antecedents of the applicant 10\n"
+    "2. Conversion of individual membership into corporate membership 10\n"
+    "3. Merger of Trading Members and other allied registration formalities 12\n"
+)
+
+
+def test_toc_long_title_rows_merge_within_marked_toc_region():
+    chunks = hierarchical_chunk(_TOC_LONG_TITLE_TEXT, _META)
+    rows = ["Registration of Brokers", "corporate membership",
+            "allied registration formalities"]
+    hosts = {c.id for c in chunks if any(r in c.text for r in rows)}
+    assert len(hosts) == 1, (
+        f"TOC long-title rows scattered across {len(hosts)} chunks instead of "
+        f"merged into one: {[c.text for c in chunks if c.id in hosts]!r}"
+    )
+    for c in chunks:
+        assert "Registration of Brokers" not in c.text or len(c.text) > len(
+            "1. Registration of Brokers - Verification of antecedents of the applicant 10"
+        ), f"TOC row emitted as a standalone degenerate chunk: {c.text!r}"
+
+
+# The same long-title-plus-page-number shape, but with no "TABLE OF
+# CONTENTS" marker anywhere in the document, must NOT merge - this is the
+# false-positive guardrail the corpus scan above was measuring against.
+# Body prose that happens to end in a bare number ("...applicant 10") stays
+# split exactly as it does today.
+_LONG_TRAILING_NUMBER_NO_TOC_TEXT = _FILLER + "\n" + (
+    "1. Registration of Brokers - Verification of antecedents of the applicant 10\n"
+    "2. Conversion of individual membership into corporate membership 10\n"
+    "3. Merger of Trading Members and other allied registration formalities 12\n"
+)
+
+
+def test_long_trailing_number_rows_do_not_merge_without_toc_marker():
+    chunks = hierarchical_chunk(_LONG_TRAILING_NUMBER_NO_TOC_TEXT, _META)
+    rows = ["Registration of Brokers", "corporate membership",
+            "allied registration formalities"]
+    hosts = {c.id for c in chunks if any(r in c.text for r in rows)}
+    assert len(hosts) == 3, (
+        "rows with no TOC marker in the document wrongly merged as if they "
+        f"were a TOC run: {[c.text for c in chunks if c.id in hosts]!r}"
+    )

@@ -1634,3 +1634,32 @@ design_approved: true  # gap-tolerance approach (vs. e.g. a layout/column-positi
 3. HF Spaces index re-sync (`scripts/upload_spaces_index.py`) once the local index is validated — the two-paths drift this session's earlier entry already fixed once today will otherwise silently reopen at the new `chunker_version`.
 4. The TOC-wrapped-title pattern (scoping entry's item 1) remains unaddressed — a different layout shape (title continuation interleaved *between* numbered lines, not a same-depth run with short fixed-length gaps) that this fix does not target.
 
+2026-09-03 — **Full test suite re-verified after the 2026-09-02 UI-sync session: 1092 passed, 1 skipped, 3 deselected.** No regressions from the Gradio UI/state-sync work recorded in that session's handoff. Working tree was clean going in.
+
+2026-09-03 — **TOC-wrapped-title pattern (item 4 above, scoping entry's item 1): fixed via `superpowers:test-driven-development`, not deferred further.** Measured first, per `superpowers:advisor` pushback on the initial framing: the 2026-09-02 gap-merge fix already closed rows 5–10 of the named example (`SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90`'s TOC) — only rows whose trailing "title + page number" text exceeds `_TABLE_ROW_MAX_TRAILING_CHARS` (60, sized for table *cell* values) still failed to qualify as a candidate at all, so the gap tolerance never got a chance to run on them.
+
+```yaml
+toc_long_title_fix:
+  design: "relax the trailing-length cap to 120 chars for numbered lines ending in a bare page number, but ONLY inside a window of _TOC_WINDOW=200 paragraphs after a literal 'TABLE OF CONTENTS'/'CONTENTS'/'INDEX' marker paragraph - the structural cause of the layout, not a global length-cap increase"
+  new_helpers: ["_is_toc_row_candidate() in segment.py - depth-0 only (no dot in the number), rest must end in a bare 1-3 digit page number, still excludes terminator-ending lines", "_toc_region_indices() - marks paragraph indices within the window of a TOC marker"]
+  false_positive_evidence: "unconditionally relaxing the cap corpus-wide matches 2,365 lines including real body prose broken mid-sentence ('2.The remaining collateral of Client-3 (Rs 13 crore)... (Rs 2'); scoping to the marker window cuts this to 468 hits across 35 docs, and the two confirmed false positives sit >6,000 paragraphs past their nearest marker - the window (200 paras) excludes them by a wide margin"
+  chunker_version: "2026-09-02-table-row-gap-merge -> 2026-09-03-toc-long-title-merge"
+  tdd: "RED first (2 new tests against the old code, confirmed failing for the expected reason) then GREEN"
+  tests_added: [test_segment.py::test_toc_long_title_rows_merge_within_marked_toc_region, test_segment.py::test_long_trailing_number_rows_do_not_merge_without_toc_marker]
+  test_segment_suite: 17 passed  # up from 15
+  full_suite: 1094 passed, 1 skipped, 3 deselected  # up from 1092
+  reindex: {mode: incremental, docs_total: 1490, docs_reused: 1470, chunks_encoded: 12225, runtime_s: 242}
+  validate_corpus: {records: 1490, violations: 0}
+  chunk_count: {before: 84188, after: 83752, delta: -436}
+direct_inspection_verified:
+  toc_doc: "SEBI/HO/MIRSD/MIRSD-PoD/P/CIR/2025/90 - rows 1-12 of the TOC (previously rows 1, 2, 4, 11, 12 standalone; rows 5-10 already merged by the 2026-09-02 fix) now one chunk, read directly off data/index/chunks.jsonl post-reindex"
+  false_positive_guardrail: "the 'remaining collateral of Client-3' false-positive-risk line (found during the corpus scan, far outside any TOC marker window) stayed split across its normal standalone chunks in the persisted index, exactly as designed"
+  blast_radius_full_inspection: "advisor caught that the initial direct-inspection pass covered 1 of the 19 docs actually changed (docs_reused: 1470 of 1490). Diffed old-vs-new hierarchical_chunk() output for all 19 (in-memory, no reindex needed) and inspected every newly-merged paragraph: all 19 are genuine TOC/index entries (numbered titles with page numbers or dotted '...' leaders, 'II. ADMINISTRATION...'-style section markers) - zero false positives found across the full changed set, not just the one named in the scoping entry"
+  merged_chunk_length: "max merged-chunk length 2,514 chars (~600-700 tokens) vs. bge-m3's 8,192-token window - well within headroom; p99 chunk length across the whole corpus is unchanged (1457 -> 1458 chars), confirming this is a rare outlier, not systemic bloat. No length ceiling added to the merged run - the existing max_chars flush in hierarchical_chunk already caps how much of a merged run rides in one chunk without a separator, and this document's TOC did not hit it."
+  toc_window_value: "_TOC_WINDOW=200 was checked against the corpus's longest real TOC (192 paragraphs marker-to-last-row, the same doc above) - fits with an 8-paragraph margin. Widening to 300 was tried and reverted: it changes 11 more chunks corpus-wide (83752 -> 83741) that were never inspected, so kept at 200 pending a future pass that inspects those specifically, per superpowers:advisor's blast-radius standard applied above."
+  stale_fixture: "tests/test_export_integration.py's hardcoded chunk count (84188, updated in the 2026-09-02 entry) updated to 83752 - this fixture is `-m integration`, deselected by default `make test`, so it does not run in the 1094-passed count above; verified separately: 6 passed"
+adopted: true  # live in data/index/ (meta.json chunker_version confirmed 2026-09-03-toc-long-title-merge); NOT yet re-synced to HF Spaces - held pending user confirmation before publishing to the public demo
+```
+
+**Not yet re-synced to HF Spaces.** Both prior chunker fixes (2026-09-01, 2026-09-02) closed with `scripts/upload_spaces_index.py` same-day to avoid reopening the two-paths drift `.claude/rules/two-paths.md` warns about — this one is paused before that step specifically because it publishes to an external, outward-facing service, pending explicit user go-ahead.
+

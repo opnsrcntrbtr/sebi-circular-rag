@@ -320,9 +320,17 @@ def test_row_count_accuracy_in_live_export():
     # now merge across that gap instead of each staying a standalone chunk;
     # corpus/lineage/eval/citation-normalization/supersession-pairs untouched
     # (chunk boundaries only, same as the 2026-09-01 entry above).
+    #
+    # Updated 2026-09-03: TOC long-title-row fix (docs/status.md's 2026-09-03
+    # entry, segment.py's _is_toc_row_candidate + _toc_region_indices) —
+    # chunks 84188 -> 83752 (-436). TOC rows whose trailing "title + page
+    # number" text exceeds the table-cell-sized 60-char cap now merge too, but
+    # only inside a bounded window after a literal "TABLE OF CONTENTS" marker
+    # paragraph; corpus/lineage/eval/citation-normalization/supersession-pairs
+    # untouched (chunk boundaries only, same as the two entries above).
     expected = {
         "corpus": 1490,
-        "chunks": 84188,
+        "chunks": 83752,
         "lineage": 4752,
         "eval": 56,
         "citation-normalization": 9926,
