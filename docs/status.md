@@ -1492,3 +1492,45 @@ export_datasets_fixture_updated: {file: tests/test_export_integration.py, chunks
 
 **No retrieval metric was measured for this fix** — per the plan's own expectation-setting (Finding 3: no stratum enrichment; Finding 4: golden_v7 can't resolve effects this small anyway), this was judged on chunk-quality inspection only, as specced.
 
+2026-09-02 — **Two critical findings from a caveman-review of the fine-tune arc (ff81dd7..HEAD) fixed: index now stamps and enforces embed_model identity.** Review found neither `HybridRetriever.build_incremental()`/`save()`/`load()` nor `api.py`'s pipeline builder recorded or checked which model encoded an index — an `embed_model` swap (armed since `ff81dd7` added the setting, no interlock added with it) followed by `make reindex` (defaults to incremental, no `--full`) would silently straddle a single FAISS index across two embedding spaces; query-time load had the same gap independently.
+
+```yaml
+fix:
+  embeddings.py: {BGEM3Embedder: "self.model_id = model_path, captured before snapshot_download rewrites it", HashEmbedder: "self.model_id = f\"hash:{dim}\""}
+  retrieve.py:
+    save(): "meta.json now includes embed_model: _embedder_identity(embedder)"
+    load(): "raises RuntimeError on a recorded/current embed_model mismatch; skipped when either side has no identity (old index, hand-rolled test Embedder)"
+    build_incremental(): "falls back to a full rebuild (mode: 'full (embed_model changed)') instead of reusing cached rows on a mismatch"
+  tests_added: [test_persistence.py::test_meta_json_stamps_embed_model, test_persistence.py::test_load_refuses_mismatched_embed_model, test_incremental_index.py::test_incremental_falls_back_to_full_on_embed_model_change]
+  full_suite: 1073 passed, 1 skipped, 3 deselected  # was 1070/1/3 pre-fix
+  backward_compat: "data/index/meta.json has no embed_model key yet (built before this fix) - load() treats a missing key as unknown, not a mismatch, so the live index keeps loading unchanged; the next make reindex stamps it"
+```
+
+Remaining findings from the same review (chunker fix crossing the two-paths boundary into `corpus_spaces.py`, the OR-of-3 `gate_verdict()` in `eval_phase0.py`, silent pair-drop in `train_lora.py:load_pairs`, and two nits) are unaddressed — user asked to act on the two critical ones only.
+
+2026-09-02 (same day) — **The three remaining risk-level findings from the same caveman-review fixed: chunker-boundary drift is now detectable, the fine-tune gate is now significance-gated, and negative-mining pair drops are no longer silent.**
+
+```yaml
+fix_F03_chunker_boundary:
+  segment.py: "new CHUNKER_VERSION = \"2026-09-01-table-row-merge\" module constant, bumped whenever hierarchical_chunk()'s output changes"
+  retrieve.py: "meta.json now also stamps chunker_version; load() WARNS (not raises - stale chunking is drift, not embedding-space corruption) on a mismatch"
+  two_paths_md: "documents that segment.py is shared (corpus_spaces.py imports hierarchical_chunk directly) and names the concrete risk: the HF Spaces prebuilt index (scripts/upload_spaces_index.py) is a manual snapshot that silently outlives local segment.py changes until this warning surfaces the drift"
+  tests_added: [test_persistence.py::test_meta_json_stamps_chunker_version, test_persistence.py::test_load_warns_but_still_loads_on_chunker_version_drift]
+
+fix_F04_gate_significance:
+  problem: "eval_phase0.py's gate_verdict() PROCEEDed on ANY ONE of 3 gate strata showing a positive point-estimate delta_recall at n=20-40/stratum - the exact mechanism the 2026-09-01 post-hoc entry above diagnosed as having produced a false PROCEED (1-2 queries moving)"
+  fix: "gate_verdict() now takes the raw per-row scored dicts and runs stats.py's paired_delta (Fisher randomization, the same tool the post-hoc reanalysis used) per gate stratum; PROCEED requires a stratum's PairedResult.significant AND positive delta, not just a positive sign. STOP if any stratum is significantly negative. Otherwise INCONCLUSIVE."
+  expected_effect: "at golden_v7's current n (per golden-v7-underpowered), most future Phase-0-shaped runs will report INCONCLUSIVE rather than a manufactured PROCEED/STOP - this is the correct, honest behavior per docs/superpowers/specs/2026-09-01-golden-set-power.md, not a regression"
+  tests_rewritten: "tests/test_finetune_eval_phase0.py's 3 old gate_verdict tests replaced with 5 new ones (significant lift, significant regression, inconclusive-on-noisy-small-n reproducing the original Phase 0 shape, insufficient_data guard, regression-wins-over-another-strata's-positive)"
+
+fix_F05_silent_pair_drop:
+  problem: "train_lora.py:load_pairs() silently `continue`d on rows with fewer than n_negatives negatives - same defect class as d16982a's 82% silent drop, one script downstream"
+  fix: "load_pairs() now counts and prints 'dropped N/M rows (X%) with fewer than K negatives' whenever any row is dropped; silent (no print) when nothing is dropped. Return type/signature unchanged - matches mine_structural_pairs.py's own existing drop-reporting convention rather than inventing a new one"
+  tests_added: [test_finetune_train_lora.py::test_load_pairs_reports_drop_count, test_finetune_train_lora.py::test_load_pairs_silent_when_nothing_dropped]
+
+full_suite: 1079 passed, 1 skipped, 3 deselected  # was 1073/1/3 after the F-01/F-02 fixes
+adopted: false  # code-quality/process fixes on a NULL'd intervention; embed_model production default still BAAI/bge-m3
+```
+
+All 8 findings from the 2026-09-02 caveman-review are now addressed (2 critical fixed same-day, 3 risk fixed here, 2 nits and 1 open question left as-is — cosmetic/process items, not code defects).
+
