@@ -286,3 +286,44 @@ def test_citation_meta_defaults_when_circular_absent_from_index():
     out = _citation_meta(["SEBI/HO/NOT/IN/INDEX/9"], None, _API_INDEX)
     assert out[0].regulatory_basis_status == "unknown"
     assert out[0].regulations == []
+
+
+def test_citation_meta_preview_empty_when_chunk_text_not_supplied():
+    out = _citation_meta(["SEBI/HO/Z/P/CIR/2021/1#0"], None, _API_INDEX)
+    assert out[0].chunk_id == ""
+    assert out[0].preview == ""
+
+
+def test_citation_meta_fills_preview_from_chunk_text():
+    chunk_text = {"SEBI/HO/Z/P/CIR/2021/1#0": "The relevant excerpt text."}
+    out = _citation_meta(["SEBI/HO/Z/P/CIR/2021/1#0"], None, _API_INDEX, chunk_text)
+    assert out[0].chunk_id == "SEBI/HO/Z/P/CIR/2021/1#0"
+    assert out[0].preview == "The relevant excerpt text."
+
+
+def test_citation_meta_preview_truncated_with_ellipsis():
+    from sebi_rag.api import PREVIEW_CHARS
+
+    long_text = "x" * (PREVIEW_CHARS + 50)
+    chunk_text = {"SEBI/HO/Z/P/CIR/2021/1#0": long_text}
+    out = _citation_meta(["SEBI/HO/Z/P/CIR/2021/1#0"], None, _API_INDEX, chunk_text)
+    assert len(out[0].preview) == PREVIEW_CHARS + 1  # + ellipsis char
+    assert out[0].preview.endswith("…")
+
+
+def test_citation_meta_dedupe_keeps_first_chunk_id_per_circular():
+    """Regression guard for the zip-misalignment class of bug: with two
+    chunks cited from circular A and one from B, B's meta must carry B's own
+    chunk id/text — never A's (see app.py:389's un-ported zip bug)."""
+    chunk_text = {
+        "A#1": "first chunk of A",
+        "A#2": "second chunk of A",
+        "B#1": "first chunk of B",
+    }
+    out = _citation_meta(["A#1", "A#2", "B#1"], None, None, chunk_text)
+    assert len(out) == 2
+    by_circular = {m.circular: m for m in out}
+    assert by_circular["A"].chunk_id == "A#1"
+    assert by_circular["A"].preview == "first chunk of A"
+    assert by_circular["B"].chunk_id == "B#1"
+    assert by_circular["B"].preview == "first chunk of B"

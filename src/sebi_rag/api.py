@@ -33,6 +33,8 @@ from .settings import Settings
 ROOT = Path(__file__).resolve().parents[2]
 CORPUS = ROOT / "data" / "corpus" / "circulars.jsonl"  # convenience for tests/scripts
 
+PREVIEW_CHARS = 800  # server-side truncation for CitationMeta.preview; mirrors app.py
+
 
 class QueryRequest(BaseModel):
     question: str
@@ -64,6 +66,8 @@ class CitationMeta(BaseModel):
     superseded_by: list[str] = []
     regulatory_basis_status: str = "unknown"  # current|repealed_basis|mixed|unknown
     regulations: list[RegulationRef] = []
+    chunk_id: str = ""                # the citation's own chunk id (for UI previews)
+    preview: str = ""                 # truncated chunk text; "" if not requested
 
 
 class QueryResponse(BaseModel):
@@ -191,8 +195,23 @@ def build_default_pipeline() -> RAGPipeline:
     )
 
 
+def _truncate_preview(text: str, limit: int = PREVIEW_CHARS) -> str:
+    """Truncate chunk text for a response payload; append an ellipsis if cut."""
+    if len(text) > limit:
+        return text[:limit] + "…"
+    return text
+
+
 def _citation_meta(citations: list[str], lineage: Lineage | None,
-                   regulatory_index: dict[str, dict] | None = None) -> list[CitationMeta]:
+                   regulatory_index: dict[str, dict] | None = None,
+                   chunk_text: dict[str, str] | None = None) -> list[CitationMeta]:
+    """Build one CitationMeta per unique circular (first-seen chunk wins).
+
+    chunk_id/preview are set here, at the point the citation `c` that produced
+    this meta is still in hand — NOT by zipping citations against the (shorter,
+    deduped-by-circular) output list, which misaligns rows by index once a
+    query cites two chunks from the same circular.
+    """
     seen, out = set(), []
     for c in citations:
         cn = c.split("#", 1)[0]
@@ -211,6 +230,11 @@ def _citation_meta(citations: list[str], lineage: Lineage | None,
         if entry is not None:
             meta.regulatory_basis_status = entry["regulatory_basis_status"]
             meta.regulations = [RegulationRef(**r) for r in entry["regulations"]]
+        if chunk_text is not None:
+            text = chunk_text.get(c)
+            if text is not None:
+                meta.chunk_id = c
+                meta.preview = _truncate_preview(text)
         out.append(meta)
     return out
 
@@ -225,6 +249,7 @@ def create_app(
     hits: dict[str, deque] = defaultdict(deque)
     _request_count: int = 0
     _executor = ThreadPoolExecutor(max_workers=2)
+    _chunk_text: dict[str, str] = {}  # chunk_id -> text, for CitationMeta.preview; built lazily
 
     @app.on_event("shutdown")
     def _shutdown() -> None:
@@ -240,6 +265,14 @@ def create_app(
             state["retrieval_only"] = dataclasses.replace(
                 state["rag"], generator=ExtractiveStubGenerator())
         return state[mode if mode == "retrieval_only" else "rag"]
+
+    def get_chunk_text(p: RAGPipeline) -> dict[str, str]:
+        """Build {chunk_id: text} once from retriever.chunks (~78.5k rows) and
+        cache it process-wide; both modes share the same retriever (see pipe())."""
+        if not _chunk_text:
+            for c in getattr(p.retriever, "chunks", ()) or ():
+                _chunk_text.setdefault(c.id, c.text)
+        return _chunk_text
 
     def guard(request: Request, x_api_key: str | None = Header(default=None)) -> None:
         nonlocal _request_count
@@ -292,7 +325,8 @@ def create_app(
         return QueryResponse(
             answer=ans.text,
             citations=ans.citations,
-            citations_meta=_citation_meta(ans.citations, p.lineage, p.regulatory_index),
+            citations_meta=_citation_meta(ans.citations, p.lineage, p.regulatory_index,
+                                          get_chunk_text(p)),
             abstained=ans.abstained,
             superseded=ans.superseded,
             faithfulness=ans.faithfulness,

@@ -7,6 +7,14 @@ import pytest
 
 from sebi_rag import ui
 
+# Output arity: chatbot, citations_md, citations_df, latency, faithfulness,
+# certainty, superseded, unsupported, confidence, draft (10) +
+# MAX_PREVIEWS*2 preview components (20) + loading/latency/faithfulness/
+# certainty badges (4) + retrieved (1) = 35. Every yield in
+# submit_query_stream must produce a tuple of this length — a mismatch here
+# is exactly the arity-parity bug class the app.py-side comments warn about.
+_EXPECTED_ARITY = 10 + ui.MAX_PREVIEWS * 2 + 4 + 1
+
 
 def test_parse_as_of_empty_is_none():
     assert ui._parse_as_of("") is None
@@ -34,7 +42,8 @@ class _Resp:
 
 _CANNED = {
     "answer": "The nomination norms are X.",
-    "citations_meta": [{"circular": "SEBI/2025/9", "status": "in_force", "superseded_by": []}],
+    "citations_meta": [{"circular": "SEBI/2025/9", "status": "in_force", "superseded_by": [],
+                        "chunk_id": "SEBI/2025/9#0", "preview": "Nomination text excerpt."}],
     "latency_ms": 12.5,
     "faithfulness": 0.91,
     "certainty": "high",
@@ -57,11 +66,15 @@ def test_submit_query_malformed_as_of_short_circuits(monkeypatch):
 
     monkeypatch.setattr(ui.httpx, "post", _boom)
     out = list(ui.submit_query_stream("q", "http://x/query", "", 3, "rag", "10-01-2025", False, []))
-    assert out[0][0] == [["q", ""], ["", "**Error:** 'As of date' must be YYYY-MM-DD."]]
+    assert out[0][0] == [
+        {"role": "user", "content": "q"},
+        {"role": "assistant", "content": "**Error:** 'As of date' must be YYYY-MM-DD."},
+    ]
     assert called["n"] == 0
+    assert len(out[0]) == _EXPECTED_ARITY
 
 
-def test_submit_query_sends_new_fields_and_returns_ten(monkeypatch):
+def test_submit_query_sends_new_fields_and_returns_correct_arity(monkeypatch):
     seen = {}
 
     def _fake_post(url, json, headers, timeout):  # noqa: A002 - mirror httpx kwarg
@@ -75,31 +88,65 @@ def test_submit_query_sends_new_fields_and_returns_ten(monkeypatch):
     assert seen["as_of"] == "2025-01-10"
     assert seen["top_k"] == 5
     final = out[-1]
-    assert len(final) == 12
-    assert final[1] == "The nomination norms are X."  # no banner in rag mode
+    assert len(final) == _EXPECTED_ARITY
+    assert final[0][-1] == {"role": "assistant", "content": "The nomination norms are X."}
 
 
 def test_submit_query_retrieval_only_prepends_banner(monkeypatch):
     monkeypatch.setattr(ui.httpx, "post", lambda *a, **k: _Resp(_CANNED))
     out = list(ui.submit_query_stream("q", "http://x/query", "", 3, "retrieval_only", "", False, []))
     final = out[-1]
-    assert final[1].startswith("**Retrieval-only mode**")
-    assert "The nomination norms are X." in final[1]
+    answer = final[0][-1]["content"]
+    assert answer.startswith("**Retrieval-only mode**")
+    assert "The nomination norms are X." in answer
 
 
 def test_submit_query_surfaces_confidence_and_retrieved(monkeypatch):
     monkeypatch.setattr(ui.httpx, "post", lambda *a, **k: _Resp(_CANNED))
     out = list(ui.submit_query_stream("q", "http://x/query", "", 3, "rag", "", False, []))
     final = out[-1]
-    confidence_json, draft_md, retrieved_json = final[9], final[10], final[11]
+    # confidence, draft = final[8], final[9]; retrieved is the trailing element
+    confidence_json, draft_md, retrieved_json = final[8], final[9], final[-1]
     assert json.loads(confidence_json) == {"score": 0.8}
     assert draft_md == ""  # empty draft renders nothing
     assert json.loads(retrieved_json) == ["SEBI/2025/9#0"]
 
 
+def test_submit_query_all_yields_share_arity(monkeypatch):
+    """Every yielded tuple — loading, streaming chunks, final — must match
+    the output list arity wired up in build_ui(); a short tuple silently
+    misassigns every downstream component."""
+    monkeypatch.setattr(ui.httpx, "post", lambda *a, **k: _Resp(_CANNED))
+    out = list(ui.submit_query_stream("q", "http://x/query", "", 3, "rag", "", False, []))
+    assert len(out) > 1  # at least a streaming chunk + final yield
+    for tup in out:
+        assert len(tup) == _EXPECTED_ARITY
+
+
+def test_submit_query_preview_matches_own_circular(monkeypatch):
+    """Regression guard for the zip-misalignment class of bug (app.py:389):
+    a citation's preview accordion must show its own chunk's text, not a
+    different citation's, when multiple circulars are cited."""
+    payload = dict(_CANNED)
+    payload["citations_meta"] = [
+        {"circular": "A", "status": "in_force", "superseded_by": [],
+         "chunk_id": "A#1", "preview": "first chunk of A"},
+        {"circular": "B", "status": "in_force", "superseded_by": [],
+         "chunk_id": "B#1", "preview": "first chunk of B"},
+    ]
+    monkeypatch.setattr(ui.httpx, "post", lambda *a, **k: _Resp(payload))
+    out = list(ui.submit_query_stream("q", "http://x/query", "", 3, "rag", "", False, []))
+    final = out[-1]
+    preview_updates = final[10 : 10 + ui.MAX_PREVIEWS * 2]
+    # accordion 0's markdown value (index 1) is circular A's text; accordion 1's is B's
+    assert preview_updates[1]["value"] == "first chunk of A"
+    assert preview_updates[3]["value"] == "first chunk of B"
+
+
 def test_build_ui_constructs():
     demo = ui.build_ui()
     assert demo is not None
+
 
 # --- _certainty_badge --------------------------------------------------------
 
@@ -130,8 +177,6 @@ def test_build_citations_markdown_single_row():
     out = ui._build_citations_markdown(rows)
     assert "| 1 | SEBI/HO/X/2026/1 " in out
     assert "| in_force |" in out
-    assert "<details>" in out
-    assert "SEBI/HO/X/2026/1" in out
 
 
 def test_build_citations_markdown_superseded_highlight():
@@ -154,8 +199,6 @@ def test_build_citations_markdown_multiple_rows():
     out = ui._build_citations_markdown(rows)
     assert "| 1 | SEBI/HO/X/2026/1 " in out
     assert "| 2 | SEBI/HO/X/2025/1 ⚠️ |" in out
-    # Two <details> blocks for two rows
-    assert out.count("<details>") == 2
 
 
 # --- _validate_api_url (SSRF guard) ------------------------------------------
@@ -231,7 +274,55 @@ def test_validate_api_url_allows_public():
     ui._validate_api_url("http://example.com:8000")
 
 
-# --- _empty_outputs_md -------------------------------------------------------
+def test_validate_api_url_error_is_yielded_not_raised(monkeypatch):
+    """_validate_api_url runs inside submit_query_stream's try block — a
+    ValueError must surface as a yielded error message, not escape as a raw
+    traceback (previously it sat outside the try)."""
+    called = {"n": 0}
 
-def test_empty_outputs_md_returns_blank():
-    assert ui._empty_outputs_md() == ""
+    def _boom(*a, **k):
+        called["n"] += 1
+        raise AssertionError("httpx.post must not be called when the URL is SSRF-blocked")
+
+    monkeypatch.setattr(ui.httpx, "post", _boom)
+    out = list(ui.submit_query_stream("q", "http://10.0.0.1:8000/query", "", 3, "rag", "", False, []))
+    assert called["n"] == 0
+    final = out[-1]
+    assert "Request Failed" in final[0][-1]["content"]
+    assert len(final) == _EXPECTED_ARITY
+
+
+# --- _to_gradio5_history / _append_message -----------------------------------
+
+def test_to_gradio5_history_empty():
+    assert ui._to_gradio5_history(None) == []
+    assert ui._to_gradio5_history([]) == []
+
+
+def test_to_gradio5_history_converts_pairs():
+    out = ui._to_gradio5_history([["hello", "hi there"]])
+    assert out == [
+        {"role": "user", "content": "hello"},
+        {"role": "assistant", "content": "hi there"},
+    ]
+
+
+def test_to_gradio5_history_passthrough_dicts():
+    dicts = [{"role": "user", "content": "hello"}]
+    assert ui._to_gradio5_history(dicts) == dicts
+
+
+def test_append_message():
+    out = ui._append_message([{"role": "user", "content": "q"}], "assistant", "a")
+    assert out == [
+        {"role": "user", "content": "q"},
+        {"role": "assistant", "content": "a"},
+    ]
+
+
+# --- _blank_previews / _preview_updates arity --------------------------------
+
+def test_blank_and_preview_updates_share_arity():
+    rows = [{"Circular": "SEBI/X/1", "Preview": "text"}]
+    assert len(ui._blank_previews()) == len(ui._preview_updates(rows))
+    assert len(ui._blank_previews()) == ui.MAX_PREVIEWS * 2
