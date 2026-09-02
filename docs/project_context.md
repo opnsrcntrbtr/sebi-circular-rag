@@ -1,7 +1,7 @@
 # Project Context — SEBI Circular RAG
 
 > Authoritative architecture record. Consult before requesting any information.
-> Governed by `SEBI_RAG_Claude_Desktop_Engineering_Handbook.md`. Last updated: 2026-08-16 (corpus growth to 728 circulars / 78,585 chunks; gate floors re-derived).
+> Governed by `SEBI_RAG_Claude_Desktop_Engineering_Handbook.md`. Last updated: 2026-09-02 (corpus growth to 1,490 circulars; reranker moved to jina-reranker-v3-mlx (ADR-004); gate floors re-derived — see `eval/golden/gate_v7.json`).
 
 ## 1. Purpose
 
@@ -193,9 +193,18 @@ adjudication_pipeline: scripts/golden_v7/ (seed, mine_strata, build_pool, gate_s
 ### 7.6 Current Baseline Numbers (golden_v7, full set, n=260)
 
 ⚠️ **These are BASELINE observations under one specific generator, not properties of the system.**
-Source of truth is the newest dated run in `eval/runs/`, not this block — it has drifted before.
+Source of truth is the newest dated run in `eval/runs/`, not this block — it has drifted before,
+and did again between this update and the last one (below).
+
+**2026-08-13-derived floors above are now stale — do not cite them.** The bge-reranker-v2-m3 /
+730-circular-corpus stack they describe no longer runs in production. `.claude/rules/refusal-criteria.md`
+is the authoritative floor table (re-derived 2026-09-02 under jina-reranker-v3-mlx + the
+1,490-circular corpus; `eval/golden/gate_v7.json` is the machine-readable source it's built from).
+No production metric has been re-measured against the new floors as of this entry — that
+re-measurement, once run, belongs in this section, not the numbers below:
 
 ```yaml
+# STALE — 2026-08-13 stack (bge-reranker-v2-m3, 730 circulars). Kept for historical comparison only.
 generator: mlx-community/Qwen2.5-1.5B-Instruct-4bit   # the arm these numbers describe
 recall_at_k: 0.943 observed (floor 0.906)
 context_recall: 0.916 observed (floor 0.874)
@@ -219,6 +228,11 @@ full_seed_build: ~507s (22,273 chunks at 209 circulars)
 incremental_reindex: ~5s (no-op, all docs reused)
 index_reload: 0.34s
 disk_embeddings_npy: 307 MB (78,585 chunks); scales to ~2 GB at 500k chunks
+# 2026-09-02: corpus at 1,490 circulars; index at 85,131 chunks (chunker_version
+# 2026-09-01-table-row-merge) before today's gap-tolerance chunker fix; a full
+# (non-incremental) reindex under chunker_version 2026-09-02-table-row-gap-merge
+# was in progress at last check (87,959 chunks and climbing) — see docs/status.md's
+# 2026-09-02 gap-tolerance entry for validation status before citing a final count.
 ```
 
 

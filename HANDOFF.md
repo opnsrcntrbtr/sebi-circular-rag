@@ -1,39 +1,31 @@
-# Session Handoff - 2026-08-22
+# Session Handoff — 2026-09-02
 
 ## current_task
-Benchmark completed: baseline (no rerank) recall@10=0.9468, with CrossEncoder rerank recall@10=0.9560 (+0.9% improvement).
+Gap-tolerant table-row merge shipped (GREEN, TDD) on `docs/rederive-gate-v7-2026-09-02` to fix the financial-statement row-label pattern scoped earlier today (`docs/status.md`'s "Residual chunker patterns" entry). Full corpus reindex launched immediately after GREEN and is running in the background (not yet finished at handoff time).
 
 ## blockers
-None.
+None — the reindex is expected work, not a stall. Do not treat "index still shows old chunker_version" as a bug until the running `make reindex` (see next_steps #1) has had time to finish; check with `ps -p <pid>` / the reindex log before assuming it died.
 
 ## next_steps
-
+- Confirm `make reindex` finished and `make validate-corpus` passes (0 violations) — chunk count should move off both 85,131 (pre-fix) and 87,959 (mid-run snapshot) to a final settled number.
+- Directly inspect the LODR results-format table's chunking post-fix (`SEBI/HO/CFD/PoD2/CIR/P/0155` or either of its two sibling docs named in `docs/status.md`) — don't trust the synthetic fixtures alone.
+- Re-sync the HF Spaces prebuilt index (`scripts/upload_spaces_index.py`) once validated — it's a manual snapshot that will otherwise keep serving the pre-fix `chunker_version`.
+- Commit the `segment.py` / `test_segment.py` diff (currently uncommitted on this branch) once reindex + validation are clean.
+- TOC-wrapped-title pattern (scoping entry's item 1) is still unaddressed — different layout shape, out of scope for this fix.
 
 ## metrics
-Gate passes: citation_recall 0.881 (floor 0.8169), citation_precision 0.192 (floor 0.1577), abstention_accuracy 0.981 (floor 0.934).
-Benchmark: baseline recall@10=0.9468 (no rerank, top-n=50), with rerank recall@10=0.9560 (top-n=50, CrossEncoder bge-reranker-v2-m3 on CPU).
-
+No golden_v7 re-measurement this entry — golden_v7 cannot detect chunk-boundary changes of this size (see `golden-v7-underpowered` memory); validation is `make validate-corpus` + direct chunk inspection, not the gate. Gate floors themselves unchanged from the 2026-09-02 re-derivation already on this branch (recall_at_k 0.8397, context_recall 0.8192, ndcg_at_10 0.5934, citation_recall 0.7347, abstention_accuracy 0.9373, citation_precision 0.1466 — `.claude/rules/refusal-criteria.md`).
 
 ## decisions
-- CE scoring verified on CPU: `para-mfborrow` = 0.5716, `para-pricedata` = 0.5893 (healthy scores).
-- Chunking fix: chunks now include first content paragraph with preamble metadata, resolving terminology mismatch for CE scoring.
-- Previously flagged bugs (`AttributeError: 'dict' object has no attribute 'text'`, discarded reranker output) confirmed resolved in current codebase.
-- Diagnostic classification: NOW_PASSES / CE_MISMATCH (in pool, ce_top < 0.42) / RECALL_DEEP (reachable at dense k=200, not in top-50 pool) / RECALL_ABSENT (in index, unreachable at k=200) / DOC_MISSING.
-- 15/19 flipping to pass on rebuilt index means corpus expansion + rebuild resolved most; remaining 4 are CE scoring problem, not recall — now resolved.
-- T-Gate 260 35B run aborted (grammar/server conflict); 7B/1.5B comparison inconclusive for 35B.
+- Gap-tolerance approach (tolerate ≤2 short filler lines between same-depth table-row candidates) approved over a layout/column-position reconstruction — smaller, targeted change; TOC pattern deliberately left for a future, different fix.
+- `_TABLE_ROW_FILLER_MAX_CHARS = 80` and `_MAX_TABLE_GAP = 2` were set from real corpus measurement (LODR table filler lines ≤78 chars; the 3-line gap on the same table's row-4→row-5 transition is deliberately NOT bridged), not arbitrary tuning.
+- Full (non-incremental) reindex required this time — unlike the earlier 2026-09-02 chunker-stamping reindex, this change moves chunk boundaries, not just metadata.
 
 ## files_touched
-- `scripts/score_floor_diagnostic.py` - new: re-runs the 19 rows, classifies each
-- `reports/score-floor-diagnostic-2026-08-18.json` - new: full per-row results
-- `eval/runs/tgate-2026-08-20-qwen7b.json` - T-Gate 260 7B results
-- `eval/runs/tgate-2026-08-20-qwen1.5b.json` - T-Gate 260 1.5B results
-- `src/sebi_rag/segment.py` - chunking fix: include first content paragraph with preamble metadata
-- `eval/runs/baseline_retrieval_nocer/results.json` - baseline benchmark (no rerank), recall@10=0.9468
-- `eval/runs/baseline_retrieval_rerank_t50/results.json` - benchmark with reranking, recall@10=0.9560
-
-- `src/sebi_rag/rerank.py` - verified CrossEncoderReranker handles both Chunk objects and dicts
-- `src/sebi_rag/pipeline.py` - verified reranker output correctly assigned to results
-- `src/sebi_rag/api_spaces.py` - verified CrossEncoderReranker(device="cpu")
+- `src/sebi_rag/segment.py` — new `_is_table_row_filler()`, gap-tolerant `_merge_table_rows()`, `CHUNKER_VERSION` bumped to `2026-09-02-table-row-gap-merge` (uncommitted)
+- `tests/test_segment.py` — 2 new tests (`test_gapped_table_rows_merge_across_short_fillers`, `test_table_run_does_not_bridge_a_three_line_gap`); 15/15 passing (uncommitted)
+- `docs/status.md` — new dated entry for this fix + validation checklist
+- `data/index/` — reindex in progress at handoff time (not committed; gitignored build artifact)
 
 ## config_changes
 None.

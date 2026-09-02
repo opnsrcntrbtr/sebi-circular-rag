@@ -273,3 +273,83 @@ def test_toc_numeric_run_absorbed_not_emitted_alone():
     assert any("48. 119" in c.text and "46. 12" in c.text for c in chunks), (
         "TOC run was not merged with its neighbouring rows"
     )
+
+
+# --- gapped table rows (2026-09-02) ------------------------------------------
+# Real PDF-flattened financial-statement tables (docs/status.md 2026-09-02
+# scoping entry, SEBI/HO/CFD/PoD2/CIR/P/0155's LODR results-format table)
+# interleave a row's own wrapped label between its number and the next row's
+# number ("20. Total income from operations\nNet profit for the period\n21.
+# before tax...") - the 2026-09-01 fix requires candidates to be strictly
+# adjacent, so every row here still ends up a standalone chunk despite being
+# genuine table rows. Tolerating up to 2 short, non-heading filler lines
+# between same-depth candidates (but not more, and not real prose) closes
+# this without touching the per-line candidate predicate that keeps real
+# headings safe (see test_genuine_short_heading_run_with_prose_still_splits
+# and test_nominee_regression_corpus_unchanged_behaviour below, unaffected).
+_GAPPED_TABLE_TEXT = _FILLER + "\n" + (
+    "20. Total income from operations\n"
+    "Net profit for the period\n"
+    "21. before tax and exceptional items\n"
+    "Extraordinary items note\n"
+    "Continued figures for the year\n"
+    "22. after tax and exceptional items"
+)
+
+
+def test_gapped_table_rows_merge_across_short_fillers():
+    chunks = hierarchical_chunk(_GAPPED_TABLE_TEXT, _META)
+    rows = ["Total income from operations", "before tax and exceptional items",
+            "after tax and exceptional items"]
+    hosts = {c.id for c in chunks if any(r in c.text for r in rows)}
+    assert len(hosts) == 1, (
+        f"gapped table rows scattered across {len(hosts)} chunks instead of "
+        f"merged into one: {[c.text for c in chunks if c.id in hosts]!r}"
+    )
+    for c in chunks:
+        assert _body(c) != "20. Total income from operations", (
+            f"table row emitted as a standalone chunk despite a mergeable gap: {c.text!r}"
+        )
+
+
+# A gap of 3+ filler lines is NOT tolerated - the run must break there rather
+# than reach further than the design's stated limit (docs/status.md's
+# 2026-09-02 entry documents this exact limitation on the real financial
+# table, where the row-4->row-5 transition has 3 fillers).
+_OVER_GAPPED_TABLE_TEXT = _FILLER + "\n" + (
+    "30. First row label\n"
+    "one gap line\n"
+    "31. Second row label\n"
+    "another gap line\n"
+    "yet another gap line\n"
+    "32. Third row label\n"
+    "gap line one\n"
+    "gap line two\n"
+    "gap line three\n"
+    "33. Fourth row label\n"
+    "one gap line\n"
+    "34. Fifth row label\n"
+    "another gap line\n"
+    "yet another gap line\n"
+    "35. Sixth row label"
+)
+
+
+def test_table_run_does_not_bridge_a_three_line_gap():
+    chunks = hierarchical_chunk(_OVER_GAPPED_TABLE_TEXT, _META)
+    first_half = {c.id for c in chunks
+                  if any(s in c.text for s in ("First row label", "Second row label", "Third row label"))}
+    second_half = {c.id for c in chunks
+                   if any(s in c.text for s in ("Fourth row label", "Fifth row label", "Sixth row label"))}
+    assert len(first_half) == 1, (
+        f"rows 30-32 (no gap between them) should merge into one chunk, got "
+        f"{len(first_half)}: {[c.text for c in chunks if c.id in first_half]!r}"
+    )
+    assert len(second_half) == 1, (
+        f"rows 33-35 (no gap between them) should merge into one chunk, got "
+        f"{len(second_half)}: {[c.text for c in chunks if c.id in second_half]!r}"
+    )
+    assert first_half.isdisjoint(second_half), (
+        "run bridged the 3-line gap it should not tolerate: "
+        f"{[c.text for c in chunks if c.id in first_half | second_half]!r}"
+    )
