@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import logging
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
@@ -15,8 +16,10 @@ import numpy as np
 
 from .embeddings import Embedder
 from .expand import expand_query
-from .segment import Chunk
+from .segment import CHUNKER_VERSION, Chunk
 from .splade import SpladeIndex
+
+log = logging.getLogger(__name__)
 
 
 def _doc_checksum(texts: list[str]) -> str:
@@ -27,6 +30,15 @@ def _doc_checksum(texts: list[str]) -> str:
         h.update(t.encode("utf-8"))
         h.update(b"\x00")
     return h.hexdigest()
+
+
+def _embedder_identity(embedder: Embedder) -> str | None:
+    """The embedder's own identity stamp (BGEM3Embedder/HashEmbedder set
+    `.model_id`), or None for an embedder that doesn't declare one. None is
+    treated as "unknown, don't gate on it" everywhere this is used — an old
+    index or a hand-rolled Embedder without the attribute must not be treated
+    as a mismatch."""
+    return getattr(embedder, "model_id", None)
 
 
 class DenseIndex:
@@ -112,11 +124,29 @@ class HybridRetriever:
         bge-m3 encode is ~99% of a full build). Falls back to a full build when
         no embeddings cache exists yet."""
         d = Path(path)
-        emb_f, man_f = d / "embeddings.npy", d / "manifest.json"
+        emb_f, man_f, meta_f = d / "embeddings.npy", d / "manifest.json", d / "meta.json"
         if not (emb_f.exists() and man_f.exists()):
             r = cls.build(chunks, embedder)
             stats = {"mode": "full", "docs_total": len({c.doc_id for c in chunks}),
                      "docs_reused": 0, "chunks_encoded": len(chunks)}
+            return r, stats
+
+        # F-01 fix: an embed_model swap must never reuse cached rows encoded
+        # by a different model — that silently straddles two embedding
+        # spaces in one FAISS index. Fall back to a full rebuild instead of
+        # refusing outright, matching the no-cache-yet fallback above; only
+        # gated when BOTH sides declare an identity (see _embedder_identity).
+        old_embed_model = None
+        if meta_f.exists():
+            old_embed_model = json.loads(meta_f.read_text(encoding="utf-8")).get("embed_model")
+        new_identity = _embedder_identity(embedder)
+        if old_embed_model is not None and new_identity is not None \
+                and old_embed_model != new_identity:
+            r = cls.build(chunks, embedder)
+            stats = {"mode": "full (embed_model changed)",
+                     "docs_total": len({c.doc_id for c in chunks}),
+                     "docs_reused": 0, "chunks_encoded": len(chunks),
+                     "old_embed_model": old_embed_model, "new_embed_model": new_identity}
             return r, stats
 
         old_vecs = np.load(emb_f)
@@ -208,7 +238,9 @@ class HybridRetriever:
             for c in self.chunks:
                 f.write(json.dumps(asdict(c), ensure_ascii=False) + "\n")
         (d / "meta.json").write_text(
-            json.dumps({"n": len(self.chunks), "dim": self.dense.embedder.dim}),
+            json.dumps({"n": len(self.chunks), "dim": self.dense.embedder.dim,
+                        "embed_model": _embedder_identity(self.dense.embedder),
+                        "chunker_version": CHUNKER_VERSION}),
             encoding="utf-8",
         )
         if self.vecs is not None:  # F3: embeddings cache + per-doc manifest
@@ -233,6 +265,42 @@ class HybridRetriever:
     @classmethod
     def load(cls, path: str | Path, embedder: Embedder) -> "HybridRetriever":
         d = Path(path)
+        # F-02 fix: refuse to load an index built by a different embed_model
+        # than the one about to query it — a base/fine-tuned bge-m3 mismatch
+        # is silent corruption (both are dim=1024, same FAISS metric), not a
+        # crash, without this check. Skipped when either side doesn't declare
+        # an identity (older index, or a hand-rolled test Embedder).
+        meta_f = d / "meta.json"
+        if meta_f.exists():
+            meta = json.loads(meta_f.read_text(encoding="utf-8"))
+            recorded = meta.get("embed_model")
+            current = _embedder_identity(embedder)
+            # F-03 fix: chunker drift is a WARNING, not a RuntimeError, unlike
+            # the embed_model check below — a stale chunker version means the
+            # served chunks predate a segment.py fix (e.g. table-row
+            # shredding), not a corrupted embedding space; the index is still
+            # valid to serve, just worth knowing about. The concrete risk
+            # this catches: the HF Spaces prebuilt index
+            # (scripts/upload_spaces_index.py) is a manual snapshot that
+            # silently outlives local segment.py changes otherwise.
+            recorded_chunker = meta.get("chunker_version")
+            if recorded_chunker is not None and recorded_chunker != CHUNKER_VERSION:
+                log.warning(
+                    "Index at %s was built with chunker_version=%r, but the "
+                    "installed segment.py is %r. Chunk boundaries may be "
+                    "stale (e.g. missing a later table-row-shredding fix). "
+                    "Rebuild with `make reindex` (and re-run "
+                    "scripts/upload_spaces_index.py for the Spaces demo) "
+                    "when convenient.",
+                    d, recorded_chunker, CHUNKER_VERSION,
+                )
+            if recorded is not None and current is not None and recorded != current:
+                raise RuntimeError(
+                    f"Index at {d} was built with embed_model={recorded!r}, "
+                    f"but the embedder passed to load() is {current!r}. "
+                    "Rebuild the index (make index / --full) after an "
+                    "embed_model change, or point at the matching index_dir."
+                )
         chunks = [
             Chunk(**json.loads(line))
             for line in (d / "chunks.jsonl").read_text(encoding="utf-8").splitlines()
