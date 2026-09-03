@@ -1,0 +1,1509 @@
+{
+  "derived_at": "2026-09-03T03:59:53",
+  "pre_expansion_corpus_n": 730,
+  "eligible_rows": 214,
+  "mean_fusion_top10_post_expansion_count": 0.985981308411215,
+  "mean_context_top10_post_expansion_count": 0.9158878504672897,
+  "gold_survival_rate_fusion": 0.9112149532710281,
+  "gold_survival_rate_context": 0.9112149532710281,
+  "per_row": [
+    {
+      "id": "surv",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "icdr",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "depo",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "secc",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "broker",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "esg",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "cra",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "reit",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "invit",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "pms",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "dt",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "sse",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "ia",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 4,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "ra",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "rta",
+      "fusion_top10_post_expansion": 4,
+      "context_top10_post_expansion": 3,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "matevents",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "blockdeal",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 3,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "cas",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "otr",
+      "fusion_top10_post_expansion": 3,
+      "context_top10_post_expansion": 4,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "calspread",
+      "fusion_top10_post_expansion": 4,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "intraday",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "disc_doc",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "pms_transfer",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "reit_reclass",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "sif",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "pledge",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "swagat",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "aif_co",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "nomination",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "pricedata",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "para-nom",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "para-pricedata",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "para-mfmaster",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "para-aifmaster",
+      "fusion_top10_post_expansion": 5,
+      "context_top10_post_expansion": 4,
+      "gold_survives_fusion_top10": false,
+      "gold_survives_context_top10": false
+    },
+    {
+      "id": "para-mfborrow",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": false,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "para-freeze",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": false,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "para-cas",
+      "fusion_top10_post_expansion": 4,
+      "context_top10_post_expansion": 4,
+      "gold_survives_fusion_top10": false,
+      "gold_survives_context_top10": false
+    },
+    {
+      "id": "para-otr",
+      "fusion_top10_post_expansion": 3,
+      "context_top10_post_expansion": 3,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "para-parrva",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "para-glitch",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "para-block",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "para-poslimit",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "para-mii",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "para-window",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "para-esg",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "hn-buyback",
+      "fusion_top10_post_expansion": 3,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": false,
+      "gold_survives_context_top10": false
+    },
+    {
+      "id": "hn-takeover",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "hn-esop",
+      "fusion_top10_post_expansion": 3,
+      "context_top10_post_expansion": 3,
+      "gold_survives_fusion_top10": false,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "hn-muni",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "hn-egr",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "hn-fvci",
+      "fusion_top10_post_expansion": 4,
+      "context_top10_post_expansion": 5,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "hn-ipef",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-td-001",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-td-002",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-td-003",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-td-004",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-td-005",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-td-006",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-td-007",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-td-008",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-td-009",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-td-010",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-001",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-002",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-003",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-004",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-005",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-006",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-007",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-008",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 3,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-009",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-010",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-011",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-012",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-013",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-014",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": false,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-015",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-016",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-017",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": false,
+      "gold_survives_context_top10": false
+    },
+    {
+      "id": "v7-bp-018",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": false
+    },
+    {
+      "id": "v7-bp-019",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-020",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 4,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-021",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": false,
+      "gold_survives_context_top10": false
+    },
+    {
+      "id": "v7-bp-022",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-023",
+      "fusion_top10_post_expansion": 6,
+      "context_top10_post_expansion": 4,
+      "gold_survives_fusion_top10": false,
+      "gold_survives_context_top10": false
+    },
+    {
+      "id": "v7-bp-024",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": false,
+      "gold_survives_context_top10": false
+    },
+    {
+      "id": "v7-bp-025",
+      "fusion_top10_post_expansion": 6,
+      "context_top10_post_expansion": 5,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-026",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-027",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-028",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 3,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-029",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-030",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-031",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-032",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": false,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-033",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 3,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-034",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-035",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-036",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": false
+    },
+    {
+      "id": "v7-bp-037",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": false,
+      "gold_survives_context_top10": false
+    },
+    {
+      "id": "v7-bp-038",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-039",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-040",
+      "fusion_top10_post_expansion": 4,
+      "context_top10_post_expansion": 4,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": false
+    },
+    {
+      "id": "v7-bp-041",
+      "fusion_top10_post_expansion": 3,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-042",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-043",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-044",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-bp-045",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-001",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-002",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-003",
+      "fusion_top10_post_expansion": 4,
+      "context_top10_post_expansion": 4,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-004",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-005",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-006",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": false,
+      "gold_survives_context_top10": false
+    },
+    {
+      "id": "v7-nt-007",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-008",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-009",
+      "fusion_top10_post_expansion": 3,
+      "context_top10_post_expansion": 4,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-010",
+      "fusion_top10_post_expansion": 4,
+      "context_top10_post_expansion": 3,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-011",
+      "fusion_top10_post_expansion": 3,
+      "context_top10_post_expansion": 4,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-012",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-013",
+      "fusion_top10_post_expansion": 3,
+      "context_top10_post_expansion": 3,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-014",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-015",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-016",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-017",
+      "fusion_top10_post_expansion": 3,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-018",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-019",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": false,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-020",
+      "fusion_top10_post_expansion": 4,
+      "context_top10_post_expansion": 4,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-021",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-022",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 3,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-023",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-024",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-025",
+      "fusion_top10_post_expansion": 4,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-026",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-027",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-028",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-029",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-nt-030",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-001",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-002",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-003",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-004",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-005",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": false
+    },
+    {
+      "id": "v7-ls-006",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-007",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-008",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": false,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-009",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-010",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-011",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-012",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-013",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-014",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-015",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-016",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-017",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": false
+    },
+    {
+      "id": "v7-ls-018",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-019",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-020",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": false,
+      "gold_survives_context_top10": false
+    },
+    {
+      "id": "v7-ls-021",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-022",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-023",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-024",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": false,
+      "gold_survives_context_top10": false
+    },
+    {
+      "id": "v7-ls-025",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-026",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-027",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-028",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-029",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-030",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-031",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-032",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-033",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-034",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-035",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-036",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-ls-037",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-mh-001",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-mh-002",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-mh-003",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-mh-004",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-mh-005",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-mh-006",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-mh-007",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-mh-008",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-mh-009",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-mh-010",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-mh-011",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-mh-012",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-mh-013",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-mh-014",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-mh-015",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-mh-016",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-mh-017",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-mh-018",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-mh-019",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-mh-020",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": false
+    },
+    {
+      "id": "v7-rb-001",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-rb-002",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-rb-003",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-rb-004",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-rb-005",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-rb-006",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-rb-007",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": false,
+      "gold_survives_context_top10": false
+    },
+    {
+      "id": "v7-rb-008",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-rb-009",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": false
+    },
+    {
+      "id": "v7-rb-010",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-rb-011",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-rb-012",
+      "fusion_top10_post_expansion": 2,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-rb-013",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-rb-014",
+      "fusion_top10_post_expansion": 3,
+      "context_top10_post_expansion": 3,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-rb-015",
+      "fusion_top10_post_expansion": 0,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-rb-016",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 2,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-rb-017",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-rb-018",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 0,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-rb-019",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    },
+    {
+      "id": "v7-rb-020",
+      "fusion_top10_post_expansion": 1,
+      "context_top10_post_expansion": 1,
+      "gold_survives_fusion_top10": true,
+      "gold_survives_context_top10": true
+    }
+  ]
+}

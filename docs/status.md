@@ -11,7 +11,7 @@
 | **Corpus** | 1,490 SEBI circular records, 85,131 chunks (corpus JSONL ~43 MB; index chunks.jsonl ~313 MB) — grown from 730/78,630 via bounded historical scrape 2026-08-28; chunk count moved 87,959->85,131 via the 2026-09-01 table-row-shredding chunker fix (see dated entries below) |
 | **Index** | ~1.0 GB at `data/index/` — dense.faiss, bm25/, chunks.jsonl, embeddings.npy, lineage.json (2.1 MB), manifest.json, meta.json; splade.npz absent (eval-only, not rebuilt by `make reindex`) |
 | **Reporting set** | `eval/golden/golden_v7.jsonl` (n=260); **adjudicated_n = 260** |
-| **Gate** | `gate_v7.json` derived 2026-08-13T15:47Z (MLX generator, B' ON). Floors: recall_at_k 0.906, context_recall 0.874, ndcg_at_10 0.6512, citation_recall **0.8169**, abstention_accuracy 0.9412, citation_precision **0.1577**. Full end-to-end eval saved to `eval/runs/full-eval-2026-08-15.json` (asof-baseline: 13/13 passed, 1.0 accuracy). B' ON (`citation_scorer_enabled=true`), margin=0.35 (MLX-parallel sweep knee: P +5.4% vs mechanical, recall 0.8721 on adjudicated answerable n=219). Prior stub-derived floors (citation_recall 0.7233, citation_precision 0.1896) described a generator production does not use; MLX precision 0.186 sat *below* that old floor. Gate requires B' ON (`citation_scorer_enabled=true`) |
+| **Gate** | ⚠️ Floor values live in `eval/golden/gate_v7.json` — read it, don't copy numbers here (this row drifted stale once already, see 2026-08-19 sweep below, and again after the 2026-09-02 re-derivation until this 2026-09-03 correction). As of the 2026-09-02T19:56Z derivation the armed floors are recall_at_k 0.8397, context_recall 0.8192, ndcg_at_10 0.5934, citation_recall 0.7347, abstention_accuracy 0.9373, citation_precision 0.1466 — derived under jina-reranker-v3-mlx + 1,490-circular corpus, chunker `2026-09-01-table-row-merge`. **Stale again as of this correction**: `data/index/meta.json` is now at chunker `2026-09-03-toc-long-title-merge` / 83,752 chunks, two versions past what the armed gate measured; no production metric has been measured against these floors yet. B' ON (`citation_scorer_enabled=true`), margin=0.35 (MLX-parallel sweep knee: P +5.4% vs mechanical, recall 0.8721 on adjudicated answerable n=219). See 2026-09-02 gate re-derivation entry below for full stack and delta table |
 | **Frozen sets** | `golden_v5` (n=56), `golden_v6` (n=56) |
 | **Epochs** | E1 `4083518f` (4 runs), E2 `913e762c` (20), E3 `8971de0f` (1), E4 `5f626dd9` (10, **current**). Registry `eval/epochs/epochs.jsonl`; 4 unframed runs excluded (ft-traces, iv11-splade-only-*, pool-sweep). `rescore_runs.py` raises `IncomparableFramesError` on cross-frame pairs |
 | **Epoch E5** `2026-08-22` — Benchmark with reranking: recall@10=0.9560 (CrossEncoder bge-reranker-v2-m3, top-n=50) |
@@ -1553,6 +1553,32 @@ floors:
 
 `.claude/rules/refusal-criteria.md` updated in place: floors table replaced, both prior ⚠️ staleness notes (reranker-only, and the implicit corpus-size gap) resolved and folded into the entry's "Rule" section, which now also names corpus size as a floor-invalidating axis alongside generator/embedder/reranker/B′ margin. (`.claude/` is gitignored — local tooling state, not committed.)
 
+2026-09-03 — **CORRECTION to the entry above: `stack.reranker: jina-reranker-v3-mlx` is factually
+wrong.** `scripts/golden_v7/derive_thresholds.py` passes `reranker=rer` — the raw
+`CrossEncoderReranker` (defaults to `BAAI/bge-reranker-v2-m3`) — directly to `RAGPipeline`,
+never through `retrieval_reranker_for(s.reranker_model, rer)`. This is **deliberate**, documented
+at `docs/status.md:907` (2026-08-24, same night as the `eval_json.py`/`eval_asof.py` fix for the
+identical bug) and enforced by `tests/test_rerank_jina_v3.py`'s coupling tests, which explicitly
+exclude `derive_thresholds.py`: "it fixes the floor-derivation baseline on bge on purpose, so
+`gate_v7.json`'s floors keep meaning what they said." The design is a fixed, reranker-independent
+quality bar — an anti-Goodhart choice so a future reranker swap can't silently lower the bar it
+gets measured against. Confirmed structurally impossible for the 2026-09-02 re-derivation to have
+used jina; confirmed directly via `retrieval_reranker_for('jina', bge) is not bge`.
+
+**Correcting the delta narrative**: the 2026-09-02 floor movement (recall_at_k −6.6pp, ndcg@10
+−5.8pp, citation_recall −8.2pp, etc.) is attributable to **corpus growth (730→1,490 circulars)
+alone** — the reranker channel never actually changed in that derivation. "Both axes moved" in the
+entry above should read "the corpus axis moved; the reranker channel in `derive_thresholds.py`
+did not move and is not meant to." `eval_json.py`/production genuinely run jina (`api.py:170`
+confirmed) — only the *floor-deriving* script stays fixed on bge, by design.
+
+**Discovered while investigating the 2026-09-03 `abstention_accuracy` gate failure**
+(`docs/superpowers/specs/2026-09-03-architecture-review-w1-diagnostics.md`): a diagnostic script
+built on `derive_thresholds.py`'s pattern (same `reranker=rer` line, copied without noticing the
+exclusion) measured abstention_accuracy=0.9654 under bge, against `eval_json.py`'s 0.919 under
+jina — same corpus, same index, same day. That is the bge/jina delta measured directly, not
+run-to-run noise. See the diagnostics doc for the full jina-side per-row mismatch breakdown.
+
 2026-09-02 (same day) — **HF Spaces prebuilt index re-synced.** `segment.py`'s `CHUNKER_VERSION` moved to `2026-09-01-table-row-merge` on 2026-09-01 but the Spaces demo's index is a manual snapshot (`scripts/upload_spaces_index.py`) that does not track local reindexes (`.claude/rules/two-paths.md`) — the public demo had been serving pre-fix, row-shredded chunks since that date. Re-uploaded the now-stamped `data/index/` (dense.faiss, chunks.jsonl, meta.json, lineage.json) to `opnsrcntrbtrian/sebi-circulars-index` (HF dataset repo already configured as `[spaces] index_repo` in `config.toml` — no config change needed). Verified post-upload: `hf_hub_download` of the remote `meta.json` returns `{"n": 85131, "dim": 1024, "embed_model": "BAAI/bge-m3", "chunker_version": "2026-09-01-table-row-merge"}` — the Spaces demo now loads the table-row-merged chunks and the F-01/F-02/F-03 identity stamps on its next cold start.
 
 2026-09-02 (same day) — **Residual chunker patterns: scoped, not implemented — per the 2026-09-01 entry's own instruction not to silently expand this.** Re-examined both patterns named as unfixed by the table-row-merge fix, against real corpus text, to ground a future detector design.
@@ -1681,3 +1707,40 @@ bge_m3_finetune_final_disposition:
   artifacts: local-only, gitignored        # models/bge-m3-sebi-v1[-adapter][-phase0], data/index-ft[-phase0]
   reopen_gate: "not before docs/superpowers/specs/2026-09-01-golden-set-power.md is funded (n≈834 for 80% power at 2pp ndcg)"
 ```
+
+2026-09-03 — **Two abstention-gate constants recalibrated for jina, closing 5 of the 21
+`abstention_accuracy` mismatches from the same day's root-cause investigation.**
+`abstain_threshold` (`config.toml [service]`, jina score floor) `0.12 → 0.109`
+(`docs/superpowers/specs/2026-09-03-abstain-threshold-drift-prereg.md`) and `HYBRID_THRESHOLD`
+(`generate.py:727`, near-ceiling override) `0.85 → 0.15`
+(`docs/superpowers/specs/2026-09-03-hybrid-threshold-jina-prereg.md`), both on explicit
+user-authorized adoption past each spec's own "diagnostic only" constraint — the substantive
+verification those constraints existed to force was still performed before shipping:
+
+```yaml
+combined_verification:
+  full_pipeline_rerun: "scripts/analysis/abstention_mismatch_audit.py (jina-routed, corrected
+    2026-09-03 to route through retrieval_reranker_for after the first version inherited
+    derive_thresholds.py's deliberate bge-only pattern)"
+  abstention_accuracy: {before: 0.9192 (239/260), after_threshold1: 0.9269 (241/260),
+    after_both: 0.9385 (244/260)}
+  rows_rescued: [v7-mh-003, v7-rb-005, v7-ls-029, v7-nt-013, v7-nt-025]  # 5 total, 0 regressions
+  make_test: "1094 passed, 1 skipped, 3 deselected (unchanged from baseline) - after fixing 4
+    tests in test_gate.py/test_certainty.py whose rerank_top=0.5 fixture value was safely below
+    the old HYBRID_THRESHOLD=0.85 but silently crossed the new 0.15, flipping their behavior"
+  gate_v7.json: "verified byte-identical (git diff --exit-code) after every re-derivation run -
+    the armed gate was never touched. Re-derived floors on the bge-anchored baseline (by design,
+    see 2026-09-03 correction above) show zero measurable effect from either constant - both
+    guard jina-score-scale-specific branches invisible to the fixed bge floor system"
+```
+
+**`hn-settle`'s classification reversed mid-investigation, before any relabel shipped.** Initially
+diagnosed as a golden-set labeling error (a corpus circular exists on "SEBI Settlement Proceedings
+Regulations, 2018"). Closer read caught before applying the fix: that circular contains none of
+"admit"/"deny"/"guilt" and covers a narrow confidentiality-for-informants procedure, not the
+no-admission-of-guilt mechanism the query actually asks about — the same vocabulary-adjacency trap
+the investigation's own spec warned against, just triggered on the opposite side of the
+labeling-vs-precision-gap distinction it was designed to catch. `abstain` stays `True`
+(unchanged); only the row's stale placeholder rationale was corrected to record the reviewed
+finding. All 10 of the original 10 hard-negative mismatches are now confirmed genuine (0 relabeled),
+revising the hard-negative-subject-gate spec's own initial 9/1 split finding.

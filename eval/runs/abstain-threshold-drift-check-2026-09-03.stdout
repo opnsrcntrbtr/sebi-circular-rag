@@ -1,0 +1,19 @@
+{
+  "reranker": "jinaai/jina-reranker-v3-mlx",
+  "superseded_penalty": 0.3,
+  "n_rows": 260,
+  "score_distribution": {
+    "min": -0.04202747941017151,
+    "max": 0.6562187075614929
+  },
+  "recommended_threshold": 0.399,
+  "recommended_at": {
+    "thr": 0.399,
+    "true_abstentions_caught": 41,
+    "n_gold_abstain": 41,
+    "false_abstentions": 145,
+    "n_gold_answerable": 219
+  },
+  "current_bge_threshold_for_reference": 0.12,
+  "runtime_s": 1140.5
+}
