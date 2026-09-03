@@ -84,3 +84,54 @@ introducing new false answers elsewhere in the mismatch set.
   no way to isolate which change caused it.
 - Reporting a rescued 2-row result as proof `abstention_accuracy` clears its gate floor overall —
   the other two mechanisms (18 of the 21 mismatches) are untouched by this spec.
+
+## Result (2026-09-03)
+
+**No new run needed** — the full per-row `confidence` dump from
+`reports/abstention-mismatch-audit-jina-2026-09-03.json` (all 260 rows, not just the 21
+mismatches) already contains everything Option A's sweep needs.
+
+**Population is much smaller than expected.** Filtered to rows that actually reach
+`SubjectSimJudge` (subject_sim not `None`) and come back ungrounded (`subject_sim < 0.42` AND
+`section_sim < 0.60`): **only 3 of 260 rows**, not the broader population the sweep design
+envisioned:
+
+| id | expected_abstain | rerank_top | subject_sim | section_sim |
+|---|---|---|---|---|
+| v7-nt-013 | False | 0.5202 | 0.3974 | 0.4247 |
+| v7-nt-025 | False | 0.4846 | 0.4105 | 0.5451 |
+| v7-ls-029 | False | 0.1646 | 0.4073 | 0.4484 |
+
+**All 3 are answerable rows — zero genuine hard negatives reach this branch at all.** Cross-checked
+against every `hard_negative`-stratum row in the set (18 total, including the 9 diagnosed in
+`2026-09-03-hard-negative-subject-gate-prereg.md`): **100% are `grounded=True`** — every hard
+negative that reaches the judge clears the OR-gate via `subject_sim` alone (0.432–0.6560 range,
+all ≥0.42) and is answered, never falling through to the ungrounded/subject_gate branch at all.
+The two failure mechanisms are **structurally disjoint**: hard negatives fail via
+false-groundedness (spec 2's territory), never via this override's branch; only answerable rows
+land in the population `HYBRID_THRESHOLD` was meant to rescue.
+
+**Option A vs. B, given n=3 with zero negative-class examples**: a "clean separating value" in the
+sense Option A envisioned (a value that separates confidently-answerable from genuinely-adversarial
+cases) can't be established the way the sweep intended, because there is no adversarial example in
+this population to separate *from*. But the practical question §2 actually asks — does a candidate
+threshold rescue the target rows without flipping any currently-correct row — is answerable
+directly: since none of the 3 rows is a genuine hard negative, and no other row in the full 260-row
+set falls in this branch, **any `HYBRID_THRESHOLD` between roughly 0.17 and 0.52 rescues 1-2 of the
+3 with zero observed cost, and a threshold ≤0.1646 (e.g. 0.15) rescues all 3 with zero observed
+cost** on this golden set. This satisfies the letter of §3 Rule 1 (a value clears the held-out
+check) while being closer in spirit to Option B (there was never a real trade-off to make in this
+data) than to a precision-tuned Option A recalibration.
+
+**Disposition: CANDIDATE FOR ADOPTION, held for confirmation — not applied.** Consistent with how
+the other two specs in this investigation were left (diagnosis/candidate, not silently applied),
+this is not patched into `generate.py` without asking, even though §4 only conditionally prohibits
+it (the held-out check *was* run and passes). Recommended candidate: `HYBRID_THRESHOLD = 0.15`,
+rescuing all 3 currently-misclassified rows in this branch. **The explicit caveat required by §3.4
+applies in full and is stronger than originally anticipated**: n=3 is not just underpowered for a
+*statistically confirmed* accuracy gain (as §3.4 already flagged) — the *absence of a negative
+example* in golden_v7's 260 rows is not evidence no such case exists in production traffic. A query
+that is genuinely near-domain-but-wrong-regulator *and* happens to score a high `rerank_top` (the
+exact combination this branch is designed to protect against) could exist in real traffic without
+appearing anywhere in this golden set. Lowering `HYBRID_THRESHOLD` this far is a directional, not a
+validated, fix.

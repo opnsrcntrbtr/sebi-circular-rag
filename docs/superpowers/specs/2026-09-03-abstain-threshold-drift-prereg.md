@@ -70,3 +70,44 @@ corpus-driven score drift and this spec's hypothesis is rejected.
 - Widening scope to also address the hard_negative subject-gate mechanism or `HYBRID_THRESHOLD` —
   those are separate specs (`2026-09-03-hard-negative-subject-gate-prereg.md`,
   `2026-09-03-hybrid-threshold-jina-prereg.md`) with independent decision rules.
+
+## Result (2026-09-03)
+
+**Executed.** `scripts/analysis/jina_abstain_threshold_calibration.py` re-run against the live
+1,490-circular index, unchanged code. Its `DEST` is hardcoded to the original 2026-08-24 report
+path — backed up before running, restored after (`git diff --exit-code` clean on that file
+post-run); the fresh output landed at
+`reports/jina-abstain-threshold-calibration-2026-09-03.json`.
+
+**Step 1 — score_distribution.** Old: `{min: -0.0324, max: 0.6701}`. New: `{min: -0.0420, max:
+0.6562}`. The extremes barely moved (≤0.014). Read naively via Step 1 alone, this would suggest
+"no material shift" — but Step 2's cost comparison shows otherwise, so the drift is in the
+*interior* of the distribution (mid-range density near the 0.10–0.15 band), not the tails. A
+min/max-only check would have wrongly rejected the hypothesis; the full curve comparison in Step 2
+is what actually reveals it.
+
+**Step 2 — cost at threshold≈0.12.** Old (calibration time, matches the documented "1 of 219"):
+25/41 true abstentions caught, **1** false abstention. New, at the nearest observed candidate
+(0.121): 29/41 caught, **7** false abstentions. The whole trade-off curve degraded, not just this
+one point — at every catch-rate level in the 20-30 range, the new curve's false-abstention cost is
+4-9x the old curve's cost at the same catch rate (e.g. ~24 caught cost 1 old vs. 4 new; ~29 caught
+cost 16 old vs. 7 new — new is *worse* at low catch rates, *better* at the specific 29-catch point,
+consistent with densification/reshuffling near the boundary rather than a uniform shift in either
+direction). **Material shift confirmed** — Decision rule §3.2 applies, not §3.1.
+
+**Step 3 — search for a candidate meeting both conditions.** The raw `recommended_threshold` field
+(0.399, "catch all 41/41 at min cost among ties") uses a different optimization philosophy than
+production's actual chosen operating point and isn't directly comparable — production explicitly
+trades catch-rate for lower false-abstention cost (`config.toml`'s own comment). Searching the
+fresh curve directly for a point satisfying both §3.2 conditions: **thr≈0.109–0.112** gives 26/41
+caught, 4-5 false abstentions — satisfies (a) 4 < the current pipeline's 8, AND (b) 26 ≥ the
+25/41 reference catch rate.
+
+**Disposition: CANDIDATE FOR ADOPTION, not adopted here.** `abstain_threshold` unchanged in
+`config.toml` (0.12), per §4's explicit prohibition on changing it from this spec's execution. A
+threshold near **0.11** is the concrete candidate for a follow-up adoption spec, which per §4 must
+independently: re-verify against the full pipeline (not just this standalone retrieval+rerank
+calibration path — `rescue_pool`'s paraphrase-rescue mechanism sits between retrieval and the
+abstain check in production and is not exercised by this calibration script), re-derive the gate,
+and run the browser/API smoke test `AGENTS.md`'s Tool Usage Conventions requires before any
+config.toml change ships.

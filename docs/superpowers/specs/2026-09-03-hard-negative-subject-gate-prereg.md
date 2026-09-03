@@ -79,3 +79,63 @@ cause entirely).
 - Treating a coincidental vocabulary overlap in the surfaced contexts as proof of (B) without
   reading whether the *topic*, not just wording, is genuinely adjacent — the 2026-07-30 fix's own
   root cause was exactly this kind of surface-level false signal in the other direction.
+
+## Result (2026-09-03)
+
+**Step 1 — hand-read of all 10 rows' `query` + `rationale` fields.** A **mixed split**, reported
+per §3.3 (not collapsed toward the majority):
+
+**9 of 10 are (B) — clean, unambiguous genuine hard negatives.** Every one of these 9 rows'
+`rationale` field explicitly names a *different governing regulator*, not a vague or missing
+rationale:
+
+| id | query topic | rationale's named regulator |
+|---|---|---|
+| v7-hn-003 | NBFC gold-loan auction process | RBI (prudential norms) |
+| v7-hn-007 | private-company board-meeting frequency | MCA (Companies Act 2013) |
+| v7-hn-010 | TDS rate on dividends, resident shareholder | CBDT (Income Tax Act) |
+| v7-hn-011 | minimum-dividend TDS exemption | CBDT (Income Tax Act) |
+| v7-hn-012 | TDS on dividends, non-resident shareholder | CBDT (Income Tax Act) |
+| v7-hn-026 | de minimis merger-control exemption | CCI (Competition Act) |
+| v7-hn-027 | CCI notification turnover threshold | CCI (Competition Act) |
+| v7-hn-028 | resolution professional fee determination | IBBI (IBC) |
+| v7-hn-030 | interim resolution professional remuneration approval | IBBI (IBC) |
+
+**1 of 10 (`hn-settle`) is (A) — a labeling issue, not a judge-precision gap.** Unlike the 9
+above, its `rationale` is generic ("Seeded from golden_v5; needs human review before adjudicated
+use") — no other-regulator claim — and its query ("How does SEBI's settlement proceedings
+mechanism work for resolving enforcement actions without admission of guilt?") is SEBI's *own*
+topic, not another regulator's. Corpus check: 46 circulars match "settlement" by keyword, but all
+46 are about **trade settlement** (T+0/T+1 cycles, clearing, Settlement Guarantee Fund) — a
+different sense of the word entirely. A second, sense-specific search found exactly **one**
+circular genuinely on point: `SEBI/HO/EFD2/CSD/CIR/P/2019/0000000072`, substantively about
+"settlement application filed under Chapter IX of the SEBI (Settlement Proceedings) Regulations,
+2018." The corpus has real, specific coverage of the exact mechanism the query asks about —
+`hn-settle` should not be labeled a hard negative.
+
+**Step 3 (secondary endpoint) — spot-checked one (B) row.** For `v7-hn-010` (TDS on dividends),
+direct retrieval against the live index surfaces `SEBI/HO/IMD/IMD-RAC-3/P/CIR/2025/125` ("Format
+of 'Disclosure Document' for Portfolio Managers") — a generic "8. Taxation" boilerplate section
+mentioning tax rates and cross-border remittances. Genuine topical vocabulary overlap (taxation,
+rate, remittances-from-India), but it does not answer the query and the query's true governing
+regulator (CBDT) is unrelated to what this circular is actually about. Confirms (B) as a real
+judge-precision gap — the embedder finds generic taxation boilerplate "similar enough" to a
+TDS-specific question — not an unrelated retrieval bug. Not exhaustively repeated for the other 8
+(B) rows given this endpoint is secondary per §2 and the rationale-level evidence for those 8 is
+already unambiguous; flagged here as a scoping choice, not an oversight.
+
+**Disposition, per §3.3 (mixed split, both actions taken, neither more than what's warranted):**
+
+- **`hn-settle` → handed off to the golden-set relabeling process**, per §4's explicit prohibition
+  on relabeling directly from this spec. Not executed here; flagging for
+  `scripts/golden_v7/relabel_repooled.py` / the arbitration queue, mirroring the 2026-07-30
+  hard-negative-fix precedent this spec's own motivation cites.
+- **The 9 (B) rows are reported as a genuine `SubjectSimJudge` precision gap** on wrong-regulator,
+  vocabulary-adjacent queries — per §3.2, **no threshold change proposed here**; this spec's job is
+  diagnosis. A future fix (e.g., a regulator-identity check analogous to `_is_non_sebi_domain()`'s
+  existing keyword filter, extended to catch RBI/MCA/CBDT/CCI/IBBI-governed *topics* discussed in
+  SEBI-adjacent vocabulary, not just explicit regulator-name mentions) is a separate, future prereg
+  — the existing `_is_non_sebi_domain()` filter already catches explicit regulator mentions
+  ("rbi", "gst council", "ibbi", "irda", etc. per `docs/status.md`'s Non-SEBI Domain Filter entry)
+  but evidently does not catch topic-only near-domain queries like these 9, which name no regulator
+  at all in the query text itself.

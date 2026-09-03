@@ -1,0 +1,12 @@
+golden set: /Users/ianpinto/sebi_circular_sota_rag/SEBI circular RAG/eval/golden/golden_v7.jsonl (260 rows)
+Fetching 15 files:   0%|          | 0/15 [00:00<?, ?it/s]Fetching 15 files: 100%|██████████| 15/15 [00:00<00:00, 14838.34it/s]
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 74588.30it/s]
+Fetching 18 files:   0%|          | 0/18 [00:00<?, ?it/s]Fetching 18 files: 100%|██████████| 18/18 [00:00<00:00, 6569.57it/s]
+models loaded
+  50/260  (172s)
+  100/260  (381s)
+  150/260  (637s)
+  200/260  (860s)
+  250/260  (1104s)
+
+wrote /Users/ianpinto/sebi_circular_sota_rag/SEBI circular RAG/reports/jina-abstain-threshold-calibration-2026-08-24.json
