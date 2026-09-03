@@ -36,8 +36,11 @@ def test_score_floor_reason():
 
 def test_subject_gate_reason_and_subject_sim_recorded():
     judge = SubjectSimJudge(HashEmbedder(), threshold=0.99)  # force gate fail
+    # rerank_top must clear the score floor but stay below HYBRID_THRESHOLD (0.15,
+    # recalibrated 2026-09-03) or the hybrid override rescues this instead of
+    # exercising subject_gate. 0.5 (pre-2026-09-03 value) no longer isolates this.
     ans = answer_with_abstention("totally unrelated query terms",
-                                 [(_chunk(), 0.5)], GEN, threshold=0.05,
+                                 [(_chunk(), 0.1)], GEN, threshold=0.05,
                                  judge=judge)
     assert ans.abstained and ans.abstention_reason == "subject_gate"
     assert ans.confidence["subject_sim"] is not None
@@ -60,10 +63,12 @@ def test_certainty_capped_medium_without_gate():
 
 def test_advisory_draft_on_gate_failure_only_when_requested():
     judge = SubjectSimJudge(HashEmbedder(), threshold=0.99)
-    plain = answer_with_abstention("unrelated", [(_chunk(), 0.5)], GEN,
+    # rerank_top below HYBRID_THRESHOLD (0.15, recalibrated 2026-09-03) so this
+    # actually exercises the gate-failure path the test is named for.
+    plain = answer_with_abstention("unrelated", [(_chunk(), 0.1)], GEN,
                                    threshold=0.05, judge=judge)
     assert plain.draft_answer == ""
-    adv = answer_with_abstention("unrelated", [(_chunk(), 0.5)], GEN,
+    adv = answer_with_abstention("unrelated", [(_chunk(), 0.1)], GEN,
                                  threshold=0.05, judge=judge, advisory=True)
     assert adv.abstained and adv.text == ABSTAIN          # authoritative fields untouched
     assert adv.draft_answer.startswith(ADVISORY_PREFIX)   # labelled draft present

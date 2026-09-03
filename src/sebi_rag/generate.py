@@ -724,7 +724,21 @@ def answer_with_abstention(
         # Hybrid gate (2026-08-13): cross-encoder near-ceiling overrides subject_gate.
         # Threshold 0.85: zero false positives over 41 abstain rows, zero rescues needed
         # (word-boundary fix already resolved the subject_gate false abstentions).
-        HYBRID_THRESHOLD = 0.85
+        # RECALIBRATED 2026-09-03 (docs/superpowers/specs/2026-09-03-hybrid-threshold-
+        # jina-prereg.md): 0.85 was calibrated under bge-reranker-v2-m3 (median top-score
+        # 0.98) on 2026-08-13, before the 2026-08-24 jina swap. jina's own observed
+        # ceiling across all 260 golden_v7 rows is 0.67 (reports/jina-abstain-threshold-
+        # calibration-2026-08-24.json) — 0.85 has been unreachable, making this override
+        # unconditionally dead code in production for 9+ days. Checked against the full
+        # golden_v7 set: only 3 of 260 rows ever reach this branch (judge.grounded() is
+        # False after reaching the judge), and all 3 are answerable — zero genuine hard
+        # negatives land here at all (every hard_negative-stratum row that reaches the
+        # judge clears the OR-gate via subject_sim and fails via a different mechanism
+        # instead, see the hard-negative-subject-gate-prereg.md sibling spec). 0.15
+        # rescues all 3 with no observed cost on golden_v7. Caveat carried forward from
+        # the spec: n=3 with zero negative examples is directional, not a statistically
+        # validated absence of risk in production traffic beyond this golden set.
+        HYBRID_THRESHOLD = 0.15
         if not judge.grounded(query, contexts) and rerank_top < HYBRID_THRESHOLD:
             return _abstain("subject_gate")
     text = generator.generate(query, contexts)

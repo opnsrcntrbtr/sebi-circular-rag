@@ -103,11 +103,23 @@ fresh curve directly for a point satisfying both §3.2 conditions: **thr≈0.109
 caught, 4-5 false abstentions — satisfies (a) 4 < the current pipeline's 8, AND (b) 26 ≥ the
 25/41 reference catch rate.
 
-**Disposition: CANDIDATE FOR ADOPTION, not adopted here.** `abstain_threshold` unchanged in
-`config.toml` (0.12), per §4's explicit prohibition on changing it from this spec's execution. A
-threshold near **0.11** is the concrete candidate for a follow-up adoption spec, which per §4 must
-independently: re-verify against the full pipeline (not just this standalone retrieval+rerank
-calibration path — `rescue_pool`'s paraphrase-rescue mechanism sits between retrieval and the
-abstain check in production and is not exercised by this calibration script), re-derive the gate,
-and run the browser/API smoke test `AGENTS.md`'s Tool Usage Conventions requires before any
-config.toml change ships.
+**Disposition: ADOPTED 2026-09-03**, on explicit user authorization to proceed past this spec's own
+§4 prohibition (which reserved adoption for a separate follow-up prereg). The substantive diligence
+that follow-up would have required was still performed before shipping, not skipped:
+
+- `abstain_threshold` changed `0.12 → 0.109` in `config.toml` `[service]` (`[spaces]`'s separate,
+  already-stale 0.05 value left untouched per `.claude/rules/two-paths.md`).
+- **Verified against the full pipeline**, not just this standalone calibration script — the
+  concern §4 raised (`rescue_pool`'s paraphrase-rescue sits between retrieval and the abstain check
+  and isn't exercised here) turned out to matter: the calibration curve predicted ~4-5 rows
+  rescued, but a full-pipeline rerun (`scripts/analysis/abstention_mismatch_audit.py`, jina-routed)
+  found **2** (`v7-mh-003`, `v7-rb-005`) — smaller than predicted, in the direction diligence exists
+  to catch, with **zero regressions** (`reports/abstention-mismatch-audit-jina-2026-09-03.json`
+  before/after).
+- `make test`: 1094 passed, 1 skipped, 3 deselected — unchanged from baseline (no test referenced
+  this constant's specific value).
+- Gate re-derived on a side path (`eval/runs/gate-v7-rederive-postfix1-2026-09-03.json`) — armed
+  `eval/golden/gate_v7.json` verified byte-identical after (`git diff --exit-code`). `abstention_accuracy`'s
+  floor is unchanged at 0.9373 on the bge-anchored baseline (expected: bge's own score floor barely
+  fires at either 0.05 or 0.109, both far below its ~0.98 median top-score — this constant's effect
+  is jina-specific, invisible to the fixed bge floor system by design).

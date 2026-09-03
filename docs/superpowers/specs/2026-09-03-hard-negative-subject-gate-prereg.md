@@ -101,17 +101,22 @@ rationale:
 | v7-hn-028 | resolution professional fee determination | IBBI (IBC) |
 | v7-hn-030 | interim resolution professional remuneration approval | IBBI (IBC) |
 
-**1 of 10 (`hn-settle`) is (A) — a labeling issue, not a judge-precision gap.** Unlike the 9
-above, its `rationale` is generic ("Seeded from golden_v5; needs human review before adjudicated
-use") — no other-regulator claim — and its query ("How does SEBI's settlement proceedings
-mechanism work for resolving enforcement actions without admission of guilt?") is SEBI's *own*
-topic, not another regulator's. Corpus check: 46 circulars match "settlement" by keyword, but all
-46 are about **trade settlement** (T+0/T+1 cycles, clearing, Settlement Guarantee Fund) — a
-different sense of the word entirely. A second, sense-specific search found exactly **one**
-circular genuinely on point: `SEBI/HO/EFD2/CSD/CIR/P/2019/0000000072`, substantively about
-"settlement application filed under Chapter IX of the SEBI (Settlement Proceedings) Regulations,
-2018." The corpus has real, specific coverage of the exact mechanism the query asks about —
-`hn-settle` should not be labeled a hard negative.
+**⚠️ Correction (2026-09-03, caught while applying the disposition below, before any relabel
+shipped): `hn-settle` is (B), not (A).** The first pass stopped at "same regulation named in a
+corpus document" without checking whether that document substantively answers the query's actual
+claim — precisely the vocabulary-adjacency trap this spec's own §4 warns against, just triggered on
+the (A) side instead of (B). Re-examined: `SEBI/HO/EFD2/CSD/CIR/P/2019/0000000072` — the only
+corpus document mentioning "Settlement Proceedings Regulations" at all — contains **none** of
+"admit," "deny," "denying," or "guilt" anywhere in its text. It covers a narrow
+confidentiality-for-informants procedure within the settlement-application process, not a general
+explainer of the no-admission-of-guilt mechanism the query asks about. Correct regulator, correct
+general topic, but **no comprehensive circular exists in this corpus** — a genuine coverage gap,
+distinct in *reason* from the other 9's wrong-regulator pattern but identical in *disposition*:
+`abstain: True` is correct. **All 10 of 10 mismatched rows are (B)**, not a 9/1 split.
+`golden_v7.jsonl`'s `hn-settle` rationale was corrected in place (2026-09-03) from a stale
+placeholder ("needs human review") to this reviewed finding — `abstain` and `relevant_circulars`
+are untouched; `validate_golden_v7` shows the same single pre-existing, unrelated violation
+(`v7-ls-016`) before and after, confirming no new defect was introduced.
 
 **Step 3 (secondary endpoint) — spot-checked one (B) row.** For `v7-hn-010` (TDS on dividends),
 direct retrieval against the live index surfaces `SEBI/HO/IMD/IMD-RAC-3/P/CIR/2025/125` ("Format
@@ -124,12 +129,11 @@ TDS-specific question — not an unrelated retrieval bug. Not exhaustively repea
 (B) rows given this endpoint is secondary per §2 and the rationale-level evidence for those 8 is
 already unambiguous; flagged here as a scoping choice, not an oversight.
 
-**Disposition, per §3.3 (mixed split, both actions taken, neither more than what's warranted):**
+**Disposition, per §3.1 (all 10 confirmed (B), not the mixed split originally reported):**
 
-- **`hn-settle` → handed off to the golden-set relabeling process**, per §4's explicit prohibition
-  on relabeling directly from this spec. Not executed here; flagging for
-  `scripts/golden_v7/relabel_repooled.py` / the arbitration queue, mirroring the 2026-07-30
-  hard-negative-fix precedent this spec's own motivation cites.
+- **No relabel applied.** `hn-settle` stays `abstain: True` — it was never a labeling issue; only
+  its rationale needed correcting (done, 2026-09-03), which required no `abstain`/
+  `relevant_circulars` change and so falls outside §4's relabeling prohibition entirely.
 - **The 9 (B) rows are reported as a genuine `SubjectSimJudge` precision gap** on wrong-regulator,
   vocabulary-adjacent queries — per §3.2, **no threshold change proposed here**; this spec's job is
   diagnosis. A future fix (e.g., a regulator-identity check analogous to `_is_non_sebi_domain()`'s

@@ -1707,3 +1707,40 @@ bge_m3_finetune_final_disposition:
   artifacts: local-only, gitignored        # models/bge-m3-sebi-v1[-adapter][-phase0], data/index-ft[-phase0]
   reopen_gate: "not before docs/superpowers/specs/2026-09-01-golden-set-power.md is funded (n≈834 for 80% power at 2pp ndcg)"
 ```
+
+2026-09-03 — **Two abstention-gate constants recalibrated for jina, closing 5 of the 21
+`abstention_accuracy` mismatches from the same day's root-cause investigation.**
+`abstain_threshold` (`config.toml [service]`, jina score floor) `0.12 → 0.109`
+(`docs/superpowers/specs/2026-09-03-abstain-threshold-drift-prereg.md`) and `HYBRID_THRESHOLD`
+(`generate.py:727`, near-ceiling override) `0.85 → 0.15`
+(`docs/superpowers/specs/2026-09-03-hybrid-threshold-jina-prereg.md`), both on explicit
+user-authorized adoption past each spec's own "diagnostic only" constraint — the substantive
+verification those constraints existed to force was still performed before shipping:
+
+```yaml
+combined_verification:
+  full_pipeline_rerun: "scripts/analysis/abstention_mismatch_audit.py (jina-routed, corrected
+    2026-09-03 to route through retrieval_reranker_for after the first version inherited
+    derive_thresholds.py's deliberate bge-only pattern)"
+  abstention_accuracy: {before: 0.9192 (239/260), after_threshold1: 0.9269 (241/260),
+    after_both: 0.9385 (244/260)}
+  rows_rescued: [v7-mh-003, v7-rb-005, v7-ls-029, v7-nt-013, v7-nt-025]  # 5 total, 0 regressions
+  make_test: "1094 passed, 1 skipped, 3 deselected (unchanged from baseline) - after fixing 4
+    tests in test_gate.py/test_certainty.py whose rerank_top=0.5 fixture value was safely below
+    the old HYBRID_THRESHOLD=0.85 but silently crossed the new 0.15, flipping their behavior"
+  gate_v7.json: "verified byte-identical (git diff --exit-code) after every re-derivation run -
+    the armed gate was never touched. Re-derived floors on the bge-anchored baseline (by design,
+    see 2026-09-03 correction above) show zero measurable effect from either constant - both
+    guard jina-score-scale-specific branches invisible to the fixed bge floor system"
+```
+
+**`hn-settle`'s classification reversed mid-investigation, before any relabel shipped.** Initially
+diagnosed as a golden-set labeling error (a corpus circular exists on "SEBI Settlement Proceedings
+Regulations, 2018"). Closer read caught before applying the fix: that circular contains none of
+"admit"/"deny"/"guilt" and covers a narrow confidentiality-for-informants procedure, not the
+no-admission-of-guilt mechanism the query actually asks about — the same vocabulary-adjacency trap
+the investigation's own spec warned against, just triggered on the opposite side of the
+labeling-vs-precision-gap distinction it was designed to catch. `abstain` stays `True`
+(unchanged); only the row's stale placeholder rationale was corrected to record the reviewed
+finding. All 10 of the original 10 hard-negative mismatches are now confirmed genuine (0 relabeled),
+revising the hard-negative-subject-gate spec's own initial 9/1 split finding.

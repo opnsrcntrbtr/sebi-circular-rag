@@ -49,14 +49,19 @@ def test_identify_prompt_numbers_excerpts():
 
 
 def test_judge_no_forces_abstention():
-    # rerank_top below hybrid threshold so judge's abstention is respected
-    reranked = [(_chunk(), 0.5)]
+    # rerank_top clears the score floor but stays below HYBRID_THRESHOLD (0.15,
+    # recalibrated 2026-09-03 for jina's scale) so judge's abstention is respected.
+    # 0.5/threshold=0.4 (pre-2026-09-03 values) no longer isolates this: 0.5 now
+    # exceeds HYBRID_THRESHOLD and would be overridden instead of testing this path.
+    reranked = [(_chunk(), 0.1)]
     ans = answer_with_abstention("q", reranked, ExtractiveStubGenerator(),
-                                 threshold=0.4, judge=_StubJudge(False))
+                                 threshold=0.05, judge=_StubJudge(False))
     assert ans.abstained and ans.text == ABSTAIN and ans.citations == []
 
 def test_hybrid_gate_overrides_judge_when_rerank_top_high():
-    """Hybrid gate: rerank_top >= 0.85 overrides judge's abstention."""
+    """Hybrid gate: rerank_top >= HYBRID_THRESHOLD (0.15, recalibrated 2026-09-03 for
+    jina's score scale — see docs/superpowers/specs/2026-09-03-hybrid-threshold-jina-
+    prereg.md) overrides judge's abstention."""
     # Judge says not grounded, but rerank_top is high enough to override
     reranked = [(_chunk(), 0.9)]
     ans = answer_with_abstention("q", reranked, ExtractiveStubGenerator(),
@@ -125,22 +130,24 @@ def test_no_judge_preserves_legacy_behaviour():
                                  threshold=0.4)
     assert not ans.abstained
 
-def test_hybrid_boundary_at_085_passes():
-    """rerank_top exactly at 0.85 overrides judge abstention (HYBRID_THRESHOLD=0.85)."""
-    reranked = [(_chunk(), 0.85)]
+def test_hybrid_boundary_at_015_passes():
+    """rerank_top exactly at 0.15 overrides judge abstention (HYBRID_THRESHOLD=0.15,
+    recalibrated 2026-09-03 for jina's score scale — see docs/superpowers/specs/
+    2026-09-03-hybrid-threshold-jina-prereg.md; was 0.85 under bge-reranker-v2-m3)."""
+    reranked = [(_chunk(), 0.15)]
     j = _StubJudge(False)
     ans = answer_with_abstention("q", reranked, ExtractiveStubGenerator(),
-                                 threshold=0.4, judge=j)
+                                 threshold=0.1, judge=j)
     assert not ans.abstained  # hybrid gate overrides subject_gate at boundary
     assert j.calls == 1       # judge was still invoked
 
 
-def test_hybrid_boundary_below_085_abstains():
-    """rerank_top just below 0.85 does NOT override judge abstention."""
-    reranked = [(_chunk(), 0.849)]
+def test_hybrid_boundary_below_015_abstains():
+    """rerank_top just below 0.15 does NOT override judge abstention."""
+    reranked = [(_chunk(), 0.149)]
     j = _StubJudge(False)
     ans = answer_with_abstention("q", reranked, ExtractiveStubGenerator(),
-                                 threshold=0.4, judge=j)
+                                 threshold=0.1, judge=j)
     assert ans.abstained      # below hybrid threshold → judge abstention respected
     assert ans.abstention_reason == "subject_gate"
 
@@ -179,7 +186,8 @@ def test_section_score_gate_on_subject_sim_judge():
 
 
 def test_hybrid_rescue_overrides_subject_gate():
-    """Hybrid gate rescues when rerank_top >= 0.85 even if judge.grounded() is False."""
+    """Hybrid gate rescues when rerank_top >= HYBRID_THRESHOLD (0.15) even if
+    judge.grounded() is False."""
     from sebi_rag.embeddings import HashEmbedder
     from sebi_rag.generate import SubjectSimJudge
     emb = HashEmbedder()
@@ -188,7 +196,7 @@ def test_hybrid_rescue_overrides_subject_gate():
     reranked = [(_chunk("SEBI/A/1#s#0"), 0.9)]  # high rerank score
     ans = answer_with_abstention("test query", reranked, ExtractiveStubGenerator(),
                                  threshold=0.4, judge=judge)
-    # With high rerank_top (0.9 >= 0.85), hybrid gate overrides subject_gate
+    # With high rerank_top (0.9 >= 0.15), hybrid gate overrides subject_gate
     assert not ans.abstained  # hybrid rescue: rerank_top overrides judge abstention
 
 

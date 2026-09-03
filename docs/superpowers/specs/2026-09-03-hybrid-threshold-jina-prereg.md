@@ -123,15 +123,35 @@ cost** on this golden set. This satisfies the letter of §3 Rule 1 (a value clea
 check) while being closer in spirit to Option B (there was never a real trade-off to make in this
 data) than to a precision-tuned Option A recalibration.
 
-**Disposition: CANDIDATE FOR ADOPTION, held for confirmation — not applied.** Consistent with how
-the other two specs in this investigation were left (diagnosis/candidate, not silently applied),
-this is not patched into `generate.py` without asking, even though §4 only conditionally prohibits
-it (the held-out check *was* run and passes). Recommended candidate: `HYBRID_THRESHOLD = 0.15`,
-rescuing all 3 currently-misclassified rows in this branch. **The explicit caveat required by §3.4
-applies in full and is stronger than originally anticipated**: n=3 is not just underpowered for a
-*statistically confirmed* accuracy gain (as §3.4 already flagged) — the *absence of a negative
-example* in golden_v7's 260 rows is not evidence no such case exists in production traffic. A query
-that is genuinely near-domain-but-wrong-regulator *and* happens to score a high `rerank_top` (the
-exact combination this branch is designed to protect against) could exist in real traffic without
-appearing anywhere in this golden set. Lowering `HYBRID_THRESHOLD` this far is a directional, not a
-validated, fix.
+**Disposition: ADOPTED 2026-09-03**, on explicit user authorization. `HYBRID_THRESHOLD` changed
+`0.85 → 0.15` in `generate.py` (Option A/B distinction collapsed in practice, per the Result above
+— no real trade-off existed in the observed population). **The explicit caveat from §3.4 stands
+unweakened by adoption**: n=3 with zero negative examples means absence of a bad case in golden_v7
+is not evidence none exists in production traffic — a query that is genuinely
+near-domain-but-wrong-regulator *and* happens to score a high `rerank_top` could exist in real
+traffic without appearing anywhere in this golden set. This is a directional fix, verified not to
+regress on every case this golden set can show, not a statistically validated absence of risk.
+Monitoring production `abstention_reason=subject_gate` cases after this ships is the natural way to
+catch a counterexample this golden set couldn't.
+
+**Verification performed:**
+- `scripts/analysis/abstention_mismatch_audit.py` (jina-routed) rerun full-pipeline: rescued all 3
+  target rows (`v7-nt-013`, `v7-nt-025`, `v7-ls-029`) with **zero regressions**
+  (`reports/abstention-mismatch-audit-jina-2026-09-03.json` before/after).
+- **4 tests in `tests/test_gate.py` and `tests/test_certainty.py` broke and were fixed** —
+  discovered a broader issue than this spec anticipated: `rerank_top=0.5` is a common test-fixture
+  value across this codebase's `answer_with_abstention` tests, standing in for "moderate confidence
+  retrieval." It was safely below the old 0.85 threshold; lowering the threshold to 0.15 silently
+  flipped these tests' behavior (the hybrid override now fires where the tests expected subject_gate
+  to hold). Fixed by lowering each affected test's `rerank_top`/`threshold` fixture values below
+  0.15 (matching the constant's new boundary) rather than leaving stale assertions — this is a
+  test-currency fix, not a change to what any test verifies. `tests/test_gate.py`'s two boundary
+  tests (`test_hybrid_boundary_at_085_passes`/`test_hybrid_boundary_below_085_abstains`) were
+  renamed to `..._at_015_.../..._below_015_...` to match.
+- `make test`: 1094 passed, 1 skipped, 3 deselected — same count as baseline, after the 4 fixture
+  fixes above.
+- Gate re-derived on a side path (`eval/runs/gate-v7-rederive-final-2026-09-03.json`), combined with
+  the abstain-threshold fix — armed `eval/golden/gate_v7.json` verified byte-identical after. Floors
+  identical to the abstain-threshold-only re-derivation, confirming this constant has no measurable
+  effect on the bge-anchored floor baseline (expected — the branch it guards is jina-score-scale
+  specific).

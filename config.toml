@@ -24,15 +24,21 @@ reranker_model = "jina"                                # bge | jina
 # COUPLED to reranker_model — changing one without the other is wrong.
 # jina-reranker-v3's score scale is NOT bge's: median top-score 0.45 (bge:
 # 0.98), can go negative (bge: never), so the OLD 0.05 floor barely fires
-# (Jina's own p10 is 0.19). Recalibrated via
+# (Jina's own p10 is 0.19). Recalibrated 2026-08-24 via
 # scripts/analysis/jina_abstain_threshold_calibration.py against golden_v7
-# (reports/jina-abstain-threshold-calibration-2026-08-24.json): 0.12 catches
-# 25 of 41 true abstentions at a cost of 1 of 219 false abstentions (bge's
-# 0.05 catches 29/41 at a cost of 2/204 — Jina's abstain/answerable
-# populations separate less cleanly, so this trades a lower catch rate for an
-# even lower false-abstention cost, per owner decision 2026-08-24). Revert to
-# 0.05 if reranker_model reverts to "bge".
-abstain_threshold = 0.12                               # jina score floor; near-domain
+# (reports/jina-abstain-threshold-calibration-2026-08-24.json): 0.12 caught
+# 25 of 41 true abstentions at a cost of 1 of 219 false abstentions.
+# RE-recalibrated 2026-09-03 (docs/superpowers/specs/2026-09-03-abstain-
+# threshold-drift-prereg.md): the 730->1,490-circular corpus expansion
+# (2026-08-28, four days after the above) shifted the score distribution's
+# interior (not its tails — min/max barely moved), raising 0.12's cost to
+# 7/219 on the current corpus. 0.109 catches 26/41 at a cost of 4/219 —
+# fewer false abstentions AND a higher catch rate than the stale 0.12 value
+# on the current corpus (reports/jina-abstain-threshold-calibration-
+# 2026-09-03.json). Revert to 0.05 if reranker_model reverts to "bge"; if the
+# corpus grows materially again, re-run the calibration script before trusting
+# this value further — it is corpus-size-dependent, not just reranker-dependent.
+abstain_threshold = 0.109                              # jina score floor; near-domain
                                                        # abstention = subject-sim gate (SEBI_RAG_GATE)
 superseded_penalty = 0.3                               # demote superseded chunks in rerank
 rate_per_min = 60                                      # per key/IP
