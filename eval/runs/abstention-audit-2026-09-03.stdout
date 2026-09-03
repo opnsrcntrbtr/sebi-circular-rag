@@ -1,0 +1,139 @@
+{
+  "derived_at": "2026-09-03T07:31:57",
+  "n": 260,
+  "n_correct": 251,
+  "abstention_accuracy": 0.9653846153846154,
+  "n_mismatches": 9
+}
+[
+  {
+    "id": "para-pricedata",
+    "task_type": "body_paraphrase",
+    "review_status": "adjudicated",
+    "expected_abstain": false,
+    "actual_abstained": true,
+    "correct": false,
+    "abstention_reason": "score_floor",
+    "confidence": {
+      "rerank_top": 0.0017,
+      "margin": 0.0002,
+      "subject_sim": null
+    }
+  },
+  {
+    "id": "para-mfborrow",
+    "task_type": "body_paraphrase",
+    "review_status": "adjudicated",
+    "expected_abstain": false,
+    "actual_abstained": true,
+    "correct": false,
+    "abstention_reason": "score_floor",
+    "confidence": {
+      "rerank_top": 0.0165,
+      "margin": 0.0066,
+      "subject_sim": null
+    }
+  },
+  {
+    "id": "para-glitch",
+    "task_type": "body_paraphrase",
+    "review_status": "adjudicated",
+    "expected_abstain": false,
+    "actual_abstained": true,
+    "correct": false,
+    "abstention_reason": "score_floor",
+    "confidence": {
+      "rerank_top": 0.0631,
+      "margin": 0.0323,
+      "subject_sim": null
+    }
+  },
+  {
+    "id": "hn-settle",
+    "task_type": "hard_negative",
+    "review_status": "adjudicated",
+    "expected_abstain": true,
+    "actual_abstained": false,
+    "correct": false,
+    "abstention_reason": "",
+    "confidence": {
+      "rerank_top": 0.1797,
+      "margin": 0.045,
+      "subject_sim": 0.5281,
+      "section_sim": 0.4764
+    }
+  },
+  {
+    "id": "v7-bp-015",
+    "task_type": "body_paraphrase",
+    "review_status": "adjudicated",
+    "expected_abstain": false,
+    "actual_abstained": true,
+    "correct": false,
+    "abstention_reason": "score_floor",
+    "confidence": {
+      "rerank_top": 0.0554,
+      "margin": 0.0007,
+      "subject_sim": null
+    }
+  },
+  {
+    "id": "v7-bp-045",
+    "task_type": "body_paraphrase",
+    "review_status": "adjudicated",
+    "expected_abstain": false,
+    "actual_abstained": true,
+    "correct": false,
+    "abstention_reason": "score_floor",
+    "confidence": {
+      "rerank_top": 0.0973,
+      "margin": 0.0616,
+      "subject_sim": null
+    }
+  },
+  {
+    "id": "v7-hn-007",
+    "task_type": "hard_negative",
+    "review_status": "adjudicated",
+    "expected_abstain": true,
+    "actual_abstained": false,
+    "correct": false,
+    "abstention_reason": "",
+    "confidence": {
+      "rerank_top": 0.2933,
+      "margin": 0.0634,
+      "subject_sim": 0.432,
+      "section_sim": 0.6232
+    }
+  },
+  {
+    "id": "v7-hn-010",
+    "task_type": "hard_negative",
+    "review_status": "adjudicated",
+    "expected_abstain": true,
+    "actual_abstained": false,
+    "correct": false,
+    "abstention_reason": "",
+    "confidence": {
+      "rerank_top": 0.3221,
+      "margin": 0.0526,
+      "subject_sim": 0.5219,
+      "section_sim": 0.449
+    }
+  },
+  {
+    "id": "v7-hn-012",
+    "task_type": "hard_negative",
+    "review_status": "adjudicated",
+    "expected_abstain": true,
+    "actual_abstained": false,
+    "correct": false,
+    "abstention_reason": "",
+    "confidence": {
+      "rerank_top": 0.5251,
+      "margin": 0.1137,
+      "subject_sim": 0.4705,
+      "section_sim": 0.4238
+    }
+  }
+]

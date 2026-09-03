@@ -1,0 +1,4179 @@
+{
+  "derived_at": "2026-09-03T08:55:56",
+  "n": 260,
+  "n_correct": 239,
+  "abstention_accuracy": 0.9192307692307692,
+  "n_mismatches": 21,
+  "mismatches": [
+    {
+      "id": "hn-takeover",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0499,
+        "margin": 0.0002,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "hn-settle",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": false,
+      "correct": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2941,
+        "margin": 0.0522,
+        "subject_sim": 0.5512,
+        "section_sim": 0.566
+      }
+    },
+    {
+      "id": "v7-td-006",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0967,
+        "margin": 0.0029,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-bp-008",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.1029,
+        "margin": 0.0042,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-bp-013",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.1025,
+        "margin": 0.0217,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-nt-013",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "subject_gate",
+      "confidence": {
+        "rerank_top": 0.5202,
+        "margin": 0.1406,
+        "subject_sim": 0.3974,
+        "section_sim": 0.4247
+      }
+    },
+    {
+      "id": "v7-nt-025",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "subject_gate",
+      "confidence": {
+        "rerank_top": 0.4846,
+        "margin": 0.0548,
+        "subject_sim": 0.4105,
+        "section_sim": 0.5451
+      }
+    },
+    {
+      "id": "v7-ls-029",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "subject_gate",
+      "confidence": {
+        "rerank_top": 0.1646,
+        "margin": 0.0531,
+        "subject_sim": 0.4073,
+        "section_sim": 0.4484
+      }
+    },
+    {
+      "id": "v7-ls-038",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0855,
+        "margin": 0.0676,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-ls-040",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0994,
+        "margin": 0.0036,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-mh-003",
+      "task_type": "multi_hop",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.1135,
+        "margin": 0.0277,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-rb-005",
+      "task_type": "repealed_basis",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.1099,
+        "margin": 0.0284,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-003",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": false,
+      "correct": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3453,
+        "margin": 0.2376,
+        "subject_sim": 0.4543,
+        "section_sim": 0.498
+      }
+    },
+    {
+      "id": "v7-hn-007",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": false,
+      "correct": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3987,
+        "margin": 0.3625,
+        "subject_sim": 0.432,
+        "section_sim": 0.6232
+      }
+    },
+    {
+      "id": "v7-hn-010",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": false,
+      "correct": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2843,
+        "margin": 0.2132,
+        "subject_sim": 0.4702,
+        "section_sim": 0.4962
+      }
+    },
+    {
+      "id": "v7-hn-011",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": false,
+      "correct": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3049,
+        "margin": 0.2823,
+        "subject_sim": 0.483,
+        "section_sim": 0.4723
+      }
+    },
+    {
+      "id": "v7-hn-012",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": false,
+      "correct": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3057,
+        "margin": 0.2317,
+        "subject_sim": 0.4705,
+        "section_sim": 0.5136
+      }
+    },
+    {
+      "id": "v7-hn-026",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": false,
+      "correct": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1345,
+        "margin": 0.0789,
+        "subject_sim": 0.5253,
+        "section_sim": 0.4688
+      }
+    },
+    {
+      "id": "v7-hn-027",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": false,
+      "correct": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1208,
+        "margin": 0.0275,
+        "subject_sim": 0.5405,
+        "section_sim": 0.4665
+      }
+    },
+    {
+      "id": "v7-hn-028",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": false,
+      "correct": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3468,
+        "margin": 0.1187,
+        "subject_sim": 0.5167,
+        "section_sim": 0.5536
+      }
+    },
+    {
+      "id": "v7-hn-030",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": false,
+      "correct": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1492,
+        "margin": 0.0913,
+        "subject_sim": 0.5254,
+        "section_sim": 0.4635
+      }
+    }
+  ],
+  "per_row": [
+    {
+      "id": "surv",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3879,
+        "margin": 0.083,
+        "subject_sim": 0.8823,
+        "section_sim": 0.6045
+      }
+    },
+    {
+      "id": "icdr",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2326,
+        "margin": 0.0141,
+        "subject_sim": 0.8424,
+        "section_sim": 0.6229
+      }
+    },
+    {
+      "id": "depo",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3559,
+        "margin": 0.0623,
+        "subject_sim": 0.8447,
+        "section_sim": 0.5913
+      }
+    },
+    {
+      "id": "secc",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3694,
+        "margin": 0.0301,
+        "subject_sim": 0.916,
+        "section_sim": 0.6732
+      }
+    },
+    {
+      "id": "broker",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3844,
+        "margin": 0.2098,
+        "subject_sim": 0.9158,
+        "section_sim": 0.6413
+      }
+    },
+    {
+      "id": "esg",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3959,
+        "margin": 0.0073,
+        "subject_sim": 0.6597,
+        "section_sim": 0.7448
+      }
+    },
+    {
+      "id": "cra",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5633,
+        "margin": 0.1677,
+        "subject_sim": 0.6957,
+        "section_sim": 0.6418
+      }
+    },
+    {
+      "id": "reit",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2112,
+        "margin": 0.0542,
+        "subject_sim": 0.9125,
+        "section_sim": 0.6079
+      }
+    },
+    {
+      "id": "invit",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3566,
+        "margin": 0.0155,
+        "subject_sim": 0.9345,
+        "section_sim": 0.693
+      }
+    },
+    {
+      "id": "pms",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4765,
+        "margin": 0.2515,
+        "subject_sim": 0.6481,
+        "section_sim": 0.0
+      }
+    },
+    {
+      "id": "dt",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5183,
+        "margin": 0.1218,
+        "subject_sim": 0.8079,
+        "section_sim": 0.7134
+      }
+    },
+    {
+      "id": "sse",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4591,
+        "margin": 0.1269,
+        "subject_sim": 0.8345,
+        "section_sim": 0.6029
+      }
+    },
+    {
+      "id": "ia",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3191,
+        "margin": 0.0506,
+        "subject_sim": 0.8821,
+        "section_sim": 0.6275
+      }
+    },
+    {
+      "id": "ra",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3343,
+        "margin": 0.0527,
+        "subject_sim": 0.8963,
+        "section_sim": 0.597
+      }
+    },
+    {
+      "id": "rta",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4256,
+        "margin": 0.1074,
+        "subject_sim": 0.916,
+        "section_sim": 0.7592
+      }
+    },
+    {
+      "id": "matevents",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5237,
+        "margin": 0.0713,
+        "subject_sim": 0.6491,
+        "section_sim": 0.6277
+      }
+    },
+    {
+      "id": "blockdeal",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.381,
+        "margin": 0.0953,
+        "subject_sim": 0.9472,
+        "section_sim": 0.6612
+      }
+    },
+    {
+      "id": "cas",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4228,
+        "margin": 0.0227,
+        "subject_sim": 0.8374,
+        "section_sim": 0.7761
+      }
+    },
+    {
+      "id": "otr",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3724,
+        "margin": 0.0816,
+        "subject_sim": 0.9253,
+        "section_sim": 0.5869
+      }
+    },
+    {
+      "id": "calspread",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4801,
+        "margin": 0.1052,
+        "subject_sim": 0.9557,
+        "section_sim": 0.7027
+      }
+    },
+    {
+      "id": "intraday",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5044,
+        "margin": 0.0527,
+        "subject_sim": 0.9566,
+        "section_sim": 0.6729
+      }
+    },
+    {
+      "id": "disc_doc",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4953,
+        "margin": 0.1195,
+        "subject_sim": 0.9534,
+        "section_sim": 0.7231
+      }
+    },
+    {
+      "id": "pms_transfer",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3715,
+        "margin": 0.0131,
+        "subject_sim": 0.9623,
+        "section_sim": 0.7773
+      }
+    },
+    {
+      "id": "reit_reclass",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4943,
+        "margin": 0.2631,
+        "subject_sim": 0.824,
+        "section_sim": 0.5744
+      }
+    },
+    {
+      "id": "sif",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2779,
+        "margin": 0.0173,
+        "subject_sim": 1.0,
+        "section_sim": 0.5775
+      }
+    },
+    {
+      "id": "pledge",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2956,
+        "margin": 0.0273,
+        "subject_sim": 0.9803,
+        "section_sim": 0.7255
+      }
+    },
+    {
+      "id": "swagat",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3289,
+        "margin": 0.0002,
+        "subject_sim": 0.8917,
+        "section_sim": 0.5265
+      }
+    },
+    {
+      "id": "aif_co",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.536,
+        "margin": 0.1337,
+        "subject_sim": 0.9727,
+        "section_sim": 0.7544
+      }
+    },
+    {
+      "id": "nomination",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.441,
+        "margin": 0.1017,
+        "subject_sim": 0.8291,
+        "section_sim": 0.7226
+      }
+    },
+    {
+      "id": "pricedata",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5099,
+        "margin": 0.1061,
+        "subject_sim": 0.9222,
+        "section_sim": 0.7316
+      }
+    },
+    {
+      "id": "abstain",
+      "task_type": "far_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.013,
+        "margin": 0.0115,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "para-nom",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.265,
+        "margin": 0.0711,
+        "subject_sim": 0.4749,
+        "section_sim": 0.6209
+      }
+    },
+    {
+      "id": "para-pricedata",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2332,
+        "margin": 0.0854,
+        "subject_sim": 0.5233,
+        "section_sim": 0.4734
+      }
+    },
+    {
+      "id": "para-mfmaster",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2978,
+        "margin": 0.0273,
+        "subject_sim": 0.5623,
+        "section_sim": 0.5198
+      }
+    },
+    {
+      "id": "para-aifmaster",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.177,
+        "margin": 0.0452,
+        "subject_sim": 0.5775,
+        "section_sim": 0.6127
+      }
+    },
+    {
+      "id": "para-mfborrow",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2153,
+        "margin": 0.0592,
+        "subject_sim": 0.5922,
+        "section_sim": 0.542
+      }
+    },
+    {
+      "id": "para-freeze",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2359,
+        "margin": 0.1582,
+        "subject_sim": 0.7076,
+        "section_sim": 0.5992
+      }
+    },
+    {
+      "id": "para-cas",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1922,
+        "margin": 0.0543,
+        "subject_sim": 0.5117,
+        "section_sim": 0.5351
+      }
+    },
+    {
+      "id": "para-otr",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4429,
+        "margin": 0.034,
+        "subject_sim": 0.5417,
+        "section_sim": 0.6208
+      }
+    },
+    {
+      "id": "para-parrva",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.561,
+        "margin": 0.2054,
+        "subject_sim": 0.4992,
+        "section_sim": 0.5743
+      }
+    },
+    {
+      "id": "para-glitch",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2466,
+        "margin": 0.1579,
+        "subject_sim": 0.5003,
+        "section_sim": 0.6008
+      }
+    },
+    {
+      "id": "para-block",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3571,
+        "margin": 0.3162,
+        "subject_sim": 0.5399,
+        "section_sim": 0.6269
+      }
+    },
+    {
+      "id": "para-poslimit",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3558,
+        "margin": 0.0031,
+        "subject_sim": 0.6359,
+        "section_sim": 0.5812
+      }
+    },
+    {
+      "id": "para-mii",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5705,
+        "margin": 0.0876,
+        "subject_sim": 0.6242,
+        "section_sim": 0.5478
+      }
+    },
+    {
+      "id": "para-window",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4271,
+        "margin": 0.117,
+        "subject_sim": 0.5857,
+        "section_sim": 0.6238
+      }
+    },
+    {
+      "id": "para-esg",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2162,
+        "margin": 0.0653,
+        "subject_sim": 0.5579,
+        "section_sim": 0.5092
+      }
+    },
+    {
+      "id": "hn-buyback",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2998,
+        "margin": 0.1731,
+        "subject_sim": 0.5606,
+        "section_sim": 0.501
+      }
+    },
+    {
+      "id": "hn-delist",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5327,
+        "margin": 0.3835,
+        "subject_sim": 0.5331,
+        "section_sim": 0.5481
+      }
+    },
+    {
+      "id": "hn-takeover",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0499,
+        "margin": 0.0002,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "hn-esop",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4607,
+        "margin": 0.015,
+        "subject_sim": 0.6449,
+        "section_sim": 0.6315
+      }
+    },
+    {
+      "id": "hn-muni",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2599,
+        "margin": 0.0281,
+        "subject_sim": 0.5688,
+        "section_sim": 0.484
+      }
+    },
+    {
+      "id": "hn-settle",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": false,
+      "correct": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2941,
+        "margin": 0.0522,
+        "subject_sim": 0.5512,
+        "section_sim": 0.566
+      }
+    },
+    {
+      "id": "hn-steward",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1791,
+        "margin": 0.0224,
+        "subject_sim": 0.5732,
+        "section_sim": 0.5154
+      }
+    },
+    {
+      "id": "hn-egr",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.467,
+        "margin": 0.0145,
+        "subject_sim": 0.656,
+        "section_sim": 0.5957
+      }
+    },
+    {
+      "id": "hn-fvci",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3155,
+        "margin": 0.0114,
+        "subject_sim": 0.6381,
+        "section_sim": 0.7195
+      }
+    },
+    {
+      "id": "hn-ipef",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1682,
+        "margin": 0.0049,
+        "subject_sim": 0.6436,
+        "section_sim": 0.7066
+      }
+    },
+    {
+      "id": "v7-td-001",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3895,
+        "margin": 0.2182,
+        "subject_sim": 0.7589,
+        "section_sim": 0.711
+      }
+    },
+    {
+      "id": "v7-td-002",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5129,
+        "margin": 0.1462,
+        "subject_sim": 0.6829,
+        "section_sim": 0.487
+      }
+    },
+    {
+      "id": "v7-td-003",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5339,
+        "margin": 0.226,
+        "subject_sim": 0.6259,
+        "section_sim": 0.6031
+      }
+    },
+    {
+      "id": "v7-td-004",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2208,
+        "margin": 0.1135,
+        "subject_sim": 0.6063,
+        "section_sim": 0.5181
+      }
+    },
+    {
+      "id": "v7-td-005",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1936,
+        "margin": 0.0604,
+        "subject_sim": 0.5653,
+        "section_sim": 0.4795
+      }
+    },
+    {
+      "id": "v7-td-006",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0967,
+        "margin": 0.0029,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-td-007",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4729,
+        "margin": 0.0312,
+        "subject_sim": 0.6896,
+        "section_sim": 0.6326
+      }
+    },
+    {
+      "id": "v7-td-008",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3313,
+        "margin": 0.042,
+        "subject_sim": 0.5805,
+        "section_sim": 0.5012
+      }
+    },
+    {
+      "id": "v7-td-009",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1704,
+        "margin": 0.1152,
+        "subject_sim": 0.5278,
+        "section_sim": 0.493
+      }
+    },
+    {
+      "id": "v7-td-010",
+      "task_type": "title_direct",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1429,
+        "margin": 0.0681,
+        "subject_sim": 0.6986,
+        "section_sim": 0.6949
+      }
+    },
+    {
+      "id": "v7-bp-001",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.45,
+        "margin": 0.1972,
+        "subject_sim": 0.455,
+        "section_sim": 0.5341
+      }
+    },
+    {
+      "id": "v7-bp-002",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.333,
+        "margin": 0.061,
+        "subject_sim": 0.5971,
+        "section_sim": 0.6239
+      }
+    },
+    {
+      "id": "v7-bp-003",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1919,
+        "margin": 0.0177,
+        "subject_sim": 0.5845,
+        "section_sim": 0.6046
+      }
+    },
+    {
+      "id": "v7-bp-004",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1435,
+        "margin": 0.0249,
+        "subject_sim": 0.5005,
+        "section_sim": 0.5225
+      }
+    },
+    {
+      "id": "v7-bp-005",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3475,
+        "margin": 0.0571,
+        "subject_sim": 0.6683,
+        "section_sim": 0.5458
+      }
+    },
+    {
+      "id": "v7-bp-006",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3126,
+        "margin": 0.125,
+        "subject_sim": 0.6014,
+        "section_sim": 0.4218
+      }
+    },
+    {
+      "id": "v7-bp-007",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4733,
+        "margin": 0.1284,
+        "subject_sim": 0.5189,
+        "section_sim": 0.4819
+      }
+    },
+    {
+      "id": "v7-bp-008",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.1029,
+        "margin": 0.0042,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-bp-009",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3261,
+        "margin": 0.0907,
+        "subject_sim": 0.553,
+        "section_sim": 0.7135
+      }
+    },
+    {
+      "id": "v7-bp-010",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4484,
+        "margin": 0.2945,
+        "subject_sim": 0.7471,
+        "section_sim": 0.3553
+      }
+    },
+    {
+      "id": "v7-bp-011",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3742,
+        "margin": 0.0524,
+        "subject_sim": 0.5285,
+        "section_sim": 0.5708
+      }
+    },
+    {
+      "id": "v7-bp-012",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3957,
+        "margin": 0.2207,
+        "subject_sim": 0.5544,
+        "section_sim": 0.5672
+      }
+    },
+    {
+      "id": "v7-bp-013",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.1025,
+        "margin": 0.0217,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-bp-014",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2381,
+        "margin": 0.0,
+        "subject_sim": 0.5233,
+        "section_sim": 0.4829
+      }
+    },
+    {
+      "id": "v7-bp-015",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1357,
+        "margin": 0.0628,
+        "subject_sim": 0.4999,
+        "section_sim": 0.5294
+      }
+    },
+    {
+      "id": "v7-bp-016",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4219,
+        "margin": 0.0753,
+        "subject_sim": 0.4645,
+        "section_sim": 0.5417
+      }
+    },
+    {
+      "id": "v7-bp-017",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1255,
+        "margin": 0.0197,
+        "subject_sim": 0.5238,
+        "section_sim": 0.6656
+      }
+    },
+    {
+      "id": "v7-bp-018",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1633,
+        "margin": 0.0919,
+        "subject_sim": 0.5165,
+        "section_sim": 0.6197
+      }
+    },
+    {
+      "id": "v7-bp-019",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3563,
+        "margin": 0.1857,
+        "subject_sim": 0.6277,
+        "section_sim": 0.5706
+      }
+    },
+    {
+      "id": "v7-bp-020",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3974,
+        "margin": 0.0806,
+        "subject_sim": 0.7287,
+        "section_sim": 0.6573
+      }
+    },
+    {
+      "id": "v7-bp-021",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1572,
+        "margin": 0.0269,
+        "subject_sim": 0.548,
+        "section_sim": 0.5515
+      }
+    },
+    {
+      "id": "v7-bp-022",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3906,
+        "margin": 0.1178,
+        "subject_sim": 0.5254,
+        "section_sim": 0.4961
+      }
+    },
+    {
+      "id": "v7-bp-023",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1787,
+        "margin": 0.0289,
+        "subject_sim": 0.6268,
+        "section_sim": 0.6382
+      }
+    },
+    {
+      "id": "v7-bp-024",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2868,
+        "margin": 0.018,
+        "subject_sim": 0.4688,
+        "section_sim": 0.5842
+      }
+    },
+    {
+      "id": "v7-bp-025",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3929,
+        "margin": 0.0032,
+        "subject_sim": 0.6151,
+        "section_sim": 0.556
+      }
+    },
+    {
+      "id": "v7-bp-026",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1807,
+        "margin": 0.0154,
+        "subject_sim": 0.5544,
+        "section_sim": 0.537
+      }
+    },
+    {
+      "id": "v7-bp-027",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4046,
+        "margin": 0.1469,
+        "subject_sim": 0.4442,
+        "section_sim": 0.4436
+      }
+    },
+    {
+      "id": "v7-bp-028",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3169,
+        "margin": 0.0243,
+        "subject_sim": 0.6486,
+        "section_sim": 0.6614
+      }
+    },
+    {
+      "id": "v7-bp-029",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5096,
+        "margin": 0.0427,
+        "subject_sim": 0.6115,
+        "section_sim": 0.5478
+      }
+    },
+    {
+      "id": "v7-bp-030",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5838,
+        "margin": 0.3224,
+        "subject_sim": 0.5549,
+        "section_sim": 0.4714
+      }
+    },
+    {
+      "id": "v7-bp-031",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3967,
+        "margin": 0.0609,
+        "subject_sim": 0.4881,
+        "section_sim": 0.5205
+      }
+    },
+    {
+      "id": "v7-bp-032",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3003,
+        "margin": 0.1187,
+        "subject_sim": 0.6291,
+        "section_sim": 0.5693
+      }
+    },
+    {
+      "id": "v7-bp-033",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4756,
+        "margin": 0.0174,
+        "subject_sim": 0.5948,
+        "section_sim": 0.5871
+      }
+    },
+    {
+      "id": "v7-bp-034",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2674,
+        "margin": 0.0615,
+        "subject_sim": 0.5941,
+        "section_sim": 0.6048
+      }
+    },
+    {
+      "id": "v7-bp-035",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1933,
+        "margin": 0.0574,
+        "subject_sim": 0.5403,
+        "section_sim": 0.4888
+      }
+    },
+    {
+      "id": "v7-bp-036",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3939,
+        "margin": 0.0537,
+        "subject_sim": 0.5014,
+        "section_sim": 0.5338
+      }
+    },
+    {
+      "id": "v7-bp-037",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5069,
+        "margin": 0.0076,
+        "subject_sim": 0.497,
+        "section_sim": 0.5812
+      }
+    },
+    {
+      "id": "v7-bp-038",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.509,
+        "margin": 0.3578,
+        "subject_sim": 0.5479,
+        "section_sim": 0.579
+      }
+    },
+    {
+      "id": "v7-bp-039",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4119,
+        "margin": 0.1604,
+        "subject_sim": 0.4401,
+        "section_sim": 0.6098
+      }
+    },
+    {
+      "id": "v7-bp-040",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1508,
+        "margin": 0.0778,
+        "subject_sim": 0.5723,
+        "section_sim": 0.5942
+      }
+    },
+    {
+      "id": "v7-bp-041",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1834,
+        "margin": 0.0022,
+        "subject_sim": 0.6833,
+        "section_sim": 0.5187
+      }
+    },
+    {
+      "id": "v7-bp-042",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.424,
+        "margin": 0.2831,
+        "subject_sim": 0.4865,
+        "section_sim": 0.5286
+      }
+    },
+    {
+      "id": "v7-bp-043",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4419,
+        "margin": 0.0753,
+        "subject_sim": 0.7202,
+        "section_sim": 0.7385
+      }
+    },
+    {
+      "id": "v7-bp-044",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3111,
+        "margin": 0.0539,
+        "subject_sim": 0.5157,
+        "section_sim": 0.5441
+      }
+    },
+    {
+      "id": "v7-bp-045",
+      "task_type": "body_paraphrase",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1514,
+        "margin": 0.0073,
+        "subject_sim": 0.5481,
+        "section_sim": 0.5647
+      }
+    },
+    {
+      "id": "v7-nt-001",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2779,
+        "margin": 0.064,
+        "subject_sim": 0.6301,
+        "section_sim": 0.3666
+      }
+    },
+    {
+      "id": "v7-nt-002",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3124,
+        "margin": 0.0619,
+        "subject_sim": 0.5251,
+        "section_sim": 0.607
+      }
+    },
+    {
+      "id": "v7-nt-003",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.417,
+        "margin": 0.0222,
+        "subject_sim": 0.5351,
+        "section_sim": 0.7033
+      }
+    },
+    {
+      "id": "v7-nt-004",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1711,
+        "margin": 0.0348,
+        "subject_sim": 0.4444,
+        "section_sim": 0.5788
+      }
+    },
+    {
+      "id": "v7-nt-005",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1214,
+        "margin": 0.0135,
+        "subject_sim": 0.7092,
+        "section_sim": 0.6079
+      }
+    },
+    {
+      "id": "v7-nt-006",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3771,
+        "margin": 0.0117,
+        "subject_sim": 0.5005,
+        "section_sim": 0.5864
+      }
+    },
+    {
+      "id": "v7-nt-007",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3567,
+        "margin": 0.203,
+        "subject_sim": 0.5263,
+        "section_sim": 0.5334
+      }
+    },
+    {
+      "id": "v7-nt-008",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3574,
+        "margin": 0.1358,
+        "subject_sim": 0.594,
+        "section_sim": 0.5316
+      }
+    },
+    {
+      "id": "v7-nt-009",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5105,
+        "margin": 0.1874,
+        "subject_sim": 0.6688,
+        "section_sim": 0.6232
+      }
+    },
+    {
+      "id": "v7-nt-010",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.344,
+        "margin": 0.1923,
+        "subject_sim": 0.7345,
+        "section_sim": 0.5305
+      }
+    },
+    {
+      "id": "v7-nt-011",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1653,
+        "margin": 0.0371,
+        "subject_sim": 0.7197,
+        "section_sim": 0.5294
+      }
+    },
+    {
+      "id": "v7-nt-012",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4725,
+        "margin": 0.1795,
+        "subject_sim": 0.4848,
+        "section_sim": 0.6538
+      }
+    },
+    {
+      "id": "v7-nt-013",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "subject_gate",
+      "confidence": {
+        "rerank_top": 0.5202,
+        "margin": 0.1406,
+        "subject_sim": 0.3974,
+        "section_sim": 0.4247
+      }
+    },
+    {
+      "id": "v7-nt-014",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5445,
+        "margin": 0.3945,
+        "subject_sim": 0.4639,
+        "section_sim": 0.5978
+      }
+    },
+    {
+      "id": "v7-nt-015",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2244,
+        "margin": 0.0498,
+        "subject_sim": 0.6795,
+        "section_sim": 0.6203
+      }
+    },
+    {
+      "id": "v7-nt-016",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.13,
+        "margin": 0.0199,
+        "subject_sim": 0.5908,
+        "section_sim": 0.505
+      }
+    },
+    {
+      "id": "v7-nt-017",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.269,
+        "margin": 0.0657,
+        "subject_sim": 0.7202,
+        "section_sim": 0.6107
+      }
+    },
+    {
+      "id": "v7-nt-018",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.464,
+        "margin": 0.1218,
+        "subject_sim": 0.4879,
+        "section_sim": 0.4321
+      }
+    },
+    {
+      "id": "v7-nt-019",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3289,
+        "margin": 0.1186,
+        "subject_sim": 0.467,
+        "section_sim": 0.557
+      }
+    },
+    {
+      "id": "v7-nt-020",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.413,
+        "margin": 0.06,
+        "subject_sim": 0.607,
+        "section_sim": 0.6798
+      }
+    },
+    {
+      "id": "v7-nt-021",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3829,
+        "margin": 0.116,
+        "subject_sim": 0.5796,
+        "section_sim": 0.5755
+      }
+    },
+    {
+      "id": "v7-nt-022",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1269,
+        "margin": 0.0046,
+        "subject_sim": 0.6249,
+        "section_sim": 0.5781
+      }
+    },
+    {
+      "id": "v7-nt-023",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.226,
+        "margin": 0.0376,
+        "subject_sim": 0.5063,
+        "section_sim": 0.6397
+      }
+    },
+    {
+      "id": "v7-nt-024",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.423,
+        "margin": 0.0819,
+        "subject_sim": 0.5156,
+        "section_sim": 0.6811
+      }
+    },
+    {
+      "id": "v7-nt-025",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "subject_gate",
+      "confidence": {
+        "rerank_top": 0.4846,
+        "margin": 0.0548,
+        "subject_sim": 0.4105,
+        "section_sim": 0.5451
+      }
+    },
+    {
+      "id": "v7-nt-026",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4757,
+        "margin": 0.1281,
+        "subject_sim": 0.6308,
+        "section_sim": 0.6151
+      }
+    },
+    {
+      "id": "v7-nt-027",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5066,
+        "margin": 0.4256,
+        "subject_sim": 0.4613,
+        "section_sim": 0.5531
+      }
+    },
+    {
+      "id": "v7-nt-028",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4346,
+        "margin": 0.1867,
+        "subject_sim": 0.6595,
+        "section_sim": 0.581
+      }
+    },
+    {
+      "id": "v7-nt-029",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.6562,
+        "margin": 0.5791,
+        "subject_sim": 0.5923,
+        "section_sim": 0.574
+      }
+    },
+    {
+      "id": "v7-nt-030",
+      "task_type": "numeric_table",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5467,
+        "margin": 0.3284,
+        "subject_sim": 0.5837,
+        "section_sim": 0.5098
+      }
+    },
+    {
+      "id": "v7-ls-001",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4594,
+        "margin": 0.0097,
+        "subject_sim": 0.6899,
+        "section_sim": 0.6852
+      }
+    },
+    {
+      "id": "v7-ls-002",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3154,
+        "margin": 0.01,
+        "subject_sim": 0.8032,
+        "section_sim": 0.5376
+      }
+    },
+    {
+      "id": "v7-ls-003",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5605,
+        "margin": 0.412,
+        "subject_sim": 0.5782,
+        "section_sim": 0.6384
+      }
+    },
+    {
+      "id": "v7-ls-004",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5904,
+        "margin": 0.2269,
+        "subject_sim": 0.6617,
+        "section_sim": 0.6573
+      }
+    },
+    {
+      "id": "v7-ls-005",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4577,
+        "margin": 0.2263,
+        "subject_sim": 0.5301,
+        "section_sim": 0.5894
+      }
+    },
+    {
+      "id": "v7-ls-006",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4454,
+        "margin": 0.2014,
+        "subject_sim": 0.6326,
+        "section_sim": 0.6084
+      }
+    },
+    {
+      "id": "v7-ls-007",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3203,
+        "margin": 0.1198,
+        "subject_sim": 0.5822,
+        "section_sim": 0.6072
+      }
+    },
+    {
+      "id": "v7-ls-008",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2252,
+        "margin": 0.0268,
+        "subject_sim": 0.6285,
+        "section_sim": 0.5328
+      }
+    },
+    {
+      "id": "v7-ls-009",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1619,
+        "margin": 0.0337,
+        "subject_sim": 0.6717,
+        "section_sim": 0.5849
+      }
+    },
+    {
+      "id": "v7-ls-010",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4054,
+        "margin": 0.1021,
+        "subject_sim": 0.6904,
+        "section_sim": 0.5404
+      }
+    },
+    {
+      "id": "v7-ls-011",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4463,
+        "margin": 0.0834,
+        "subject_sim": 0.7052,
+        "section_sim": 0.565
+      }
+    },
+    {
+      "id": "v7-ls-012",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4587,
+        "margin": 0.2782,
+        "subject_sim": 0.6478,
+        "section_sim": 0.5295
+      }
+    },
+    {
+      "id": "v7-ls-013",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2045,
+        "margin": 0.0633,
+        "subject_sim": 0.7934,
+        "section_sim": 0.5478
+      }
+    },
+    {
+      "id": "v7-ls-014",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3488,
+        "margin": 0.1032,
+        "subject_sim": 0.6334,
+        "section_sim": 0.6159
+      }
+    },
+    {
+      "id": "v7-ls-015",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3937,
+        "margin": 0.1817,
+        "subject_sim": 0.7454,
+        "section_sim": 0.3821
+      }
+    },
+    {
+      "id": "v7-ls-016",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2242,
+        "margin": 0.0298,
+        "subject_sim": 0.7276,
+        "section_sim": 0.7013
+      }
+    },
+    {
+      "id": "v7-ls-017",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.405,
+        "margin": 0.0011,
+        "subject_sim": 0.7627,
+        "section_sim": 0.6235
+      }
+    },
+    {
+      "id": "v7-ls-018",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.429,
+        "margin": 0.0025,
+        "subject_sim": 0.6963,
+        "section_sim": 0.5565
+      }
+    },
+    {
+      "id": "v7-ls-019",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.6124,
+        "margin": 0.4989,
+        "subject_sim": 0.5018,
+        "section_sim": 0.4934
+      }
+    },
+    {
+      "id": "v7-ls-020",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4099,
+        "margin": 0.1088,
+        "subject_sim": 0.6037,
+        "section_sim": 0.6542
+      }
+    },
+    {
+      "id": "v7-ls-021",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1663,
+        "margin": 0.0197,
+        "subject_sim": 0.7207,
+        "section_sim": 0.6074
+      }
+    },
+    {
+      "id": "v7-ls-022",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.6253,
+        "margin": 0.5579,
+        "subject_sim": 0.6846,
+        "section_sim": 0.6387
+      }
+    },
+    {
+      "id": "v7-ls-023",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4674,
+        "margin": 0.1441,
+        "subject_sim": 0.6953,
+        "section_sim": 0.7249
+      }
+    },
+    {
+      "id": "v7-ls-024",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4078,
+        "margin": 0.0477,
+        "subject_sim": 0.7578,
+        "section_sim": 0.6359
+      }
+    },
+    {
+      "id": "v7-ls-025",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.6333,
+        "margin": 0.266,
+        "subject_sim": 0.6901,
+        "section_sim": 0.5992
+      }
+    },
+    {
+      "id": "v7-ls-026",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5047,
+        "margin": 0.4141,
+        "subject_sim": 0.6475,
+        "section_sim": 0.5206
+      }
+    },
+    {
+      "id": "v7-ls-027",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.256,
+        "margin": 0.1628,
+        "subject_sim": 0.4264,
+        "section_sim": 0.4367
+      }
+    },
+    {
+      "id": "v7-ls-028",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.506,
+        "margin": 0.1649,
+        "subject_sim": 0.4905,
+        "section_sim": 0.4362
+      }
+    },
+    {
+      "id": "v7-ls-029",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "subject_gate",
+      "confidence": {
+        "rerank_top": 0.1646,
+        "margin": 0.0531,
+        "subject_sim": 0.4073,
+        "section_sim": 0.4484
+      }
+    },
+    {
+      "id": "v7-ls-030",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3198,
+        "margin": 0.0525,
+        "subject_sim": 0.6573,
+        "section_sim": 0.6555
+      }
+    },
+    {
+      "id": "v7-ls-031",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3944,
+        "margin": 0.0247,
+        "subject_sim": 0.5628,
+        "section_sim": 0.5626
+      }
+    },
+    {
+      "id": "v7-ls-032",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3596,
+        "margin": 0.0192,
+        "subject_sim": 0.4425,
+        "section_sim": 0.6118
+      }
+    },
+    {
+      "id": "v7-ls-033",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2011,
+        "margin": 0.084,
+        "subject_sim": 0.4439,
+        "section_sim": 0.2945
+      }
+    },
+    {
+      "id": "v7-ls-034",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4958,
+        "margin": 0.5104,
+        "subject_sim": 0.5679,
+        "section_sim": 0.6251
+      }
+    },
+    {
+      "id": "v7-ls-035",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4457,
+        "margin": 0.4643,
+        "subject_sim": 0.5886,
+        "section_sim": 0.5572
+      }
+    },
+    {
+      "id": "v7-ls-036",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2813,
+        "margin": 0.2332,
+        "subject_sim": 0.5833,
+        "section_sim": 0.4887
+      }
+    },
+    {
+      "id": "v7-ls-037",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5738,
+        "margin": 0.2515,
+        "subject_sim": 0.5081,
+        "section_sim": 0.622
+      }
+    },
+    {
+      "id": "v7-ls-038",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0855,
+        "margin": 0.0676,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-ls-039",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.191,
+        "margin": 0.1118,
+        "subject_sim": 0.6667,
+        "section_sim": 0.5093
+      }
+    },
+    {
+      "id": "v7-ls-040",
+      "task_type": "lineage_supersession",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0994,
+        "margin": 0.0036,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-mh-001",
+      "task_type": "multi_hop",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1366,
+        "margin": 0.0313,
+        "subject_sim": 0.599,
+        "section_sim": 0.4807
+      }
+    },
+    {
+      "id": "v7-mh-002",
+      "task_type": "multi_hop",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2942,
+        "margin": 0.0451,
+        "subject_sim": 0.7169,
+        "section_sim": 0.5577
+      }
+    },
+    {
+      "id": "v7-mh-003",
+      "task_type": "multi_hop",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.1135,
+        "margin": 0.0277,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-mh-004",
+      "task_type": "multi_hop",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3089,
+        "margin": 0.1912,
+        "subject_sim": 0.6042,
+        "section_sim": 0.5296
+      }
+    },
+    {
+      "id": "v7-mh-005",
+      "task_type": "multi_hop",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2819,
+        "margin": 0.1248,
+        "subject_sim": 0.7583,
+        "section_sim": 0.5866
+      }
+    },
+    {
+      "id": "v7-mh-006",
+      "task_type": "multi_hop",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1232,
+        "margin": 0.0561,
+        "subject_sim": 0.6404,
+        "section_sim": 0.5438
+      }
+    },
+    {
+      "id": "v7-mh-007",
+      "task_type": "multi_hop",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2215,
+        "margin": 0.1199,
+        "subject_sim": 0.5621,
+        "section_sim": 0.6558
+      }
+    },
+    {
+      "id": "v7-mh-008",
+      "task_type": "multi_hop",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3526,
+        "margin": 0.1883,
+        "subject_sim": 0.5822,
+        "section_sim": 0.5842
+      }
+    },
+    {
+      "id": "v7-mh-009",
+      "task_type": "multi_hop",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.233,
+        "margin": 0.0699,
+        "subject_sim": 0.6262,
+        "section_sim": 0.5908
+      }
+    },
+    {
+      "id": "v7-mh-010",
+      "task_type": "multi_hop",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1885,
+        "margin": 0.0621,
+        "subject_sim": 0.6351,
+        "section_sim": 0.6883
+      }
+    },
+    {
+      "id": "v7-mh-011",
+      "task_type": "multi_hop",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2791,
+        "margin": 0.1566,
+        "subject_sim": 0.5899,
+        "section_sim": 0.5492
+      }
+    },
+    {
+      "id": "v7-mh-012",
+      "task_type": "multi_hop",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1612,
+        "margin": 0.0007,
+        "subject_sim": 0.6197,
+        "section_sim": 0.4345
+      }
+    },
+    {
+      "id": "v7-mh-013",
+      "task_type": "multi_hop",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2213,
+        "margin": 0.0369,
+        "subject_sim": 0.5973,
+        "section_sim": 0.5693
+      }
+    },
+    {
+      "id": "v7-mh-014",
+      "task_type": "multi_hop",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2612,
+        "margin": 0.0863,
+        "subject_sim": 0.5767,
+        "section_sim": 0.3622
+      }
+    },
+    {
+      "id": "v7-mh-015",
+      "task_type": "multi_hop",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1999,
+        "margin": 0.042,
+        "subject_sim": 0.6764,
+        "section_sim": 0.6255
+      }
+    },
+    {
+      "id": "v7-mh-016",
+      "task_type": "multi_hop",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3073,
+        "margin": 0.1447,
+        "subject_sim": 0.6673,
+        "section_sim": 0.6583
+      }
+    },
+    {
+      "id": "v7-mh-017",
+      "task_type": "multi_hop",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1658,
+        "margin": 0.0155,
+        "subject_sim": 0.5706,
+        "section_sim": 0.5093
+      }
+    },
+    {
+      "id": "v7-mh-018",
+      "task_type": "multi_hop",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1696,
+        "margin": 0.024,
+        "subject_sim": 0.6706,
+        "section_sim": 0.6157
+      }
+    },
+    {
+      "id": "v7-mh-019",
+      "task_type": "multi_hop",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3029,
+        "margin": 0.1659,
+        "subject_sim": 0.6455,
+        "section_sim": 0.5723
+      }
+    },
+    {
+      "id": "v7-mh-020",
+      "task_type": "multi_hop",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3544,
+        "margin": 0.2091,
+        "subject_sim": 0.5971,
+        "section_sim": 0.5694
+      }
+    },
+    {
+      "id": "v7-rb-001",
+      "task_type": "repealed_basis",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3626,
+        "margin": 0.2242,
+        "subject_sim": 0.6647,
+        "section_sim": 0.5588
+      }
+    },
+    {
+      "id": "v7-rb-002",
+      "task_type": "repealed_basis",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3697,
+        "margin": 0.0897,
+        "subject_sim": 0.7182,
+        "section_sim": 0.5077
+      }
+    },
+    {
+      "id": "v7-rb-003",
+      "task_type": "repealed_basis",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2285,
+        "margin": 0.0223,
+        "subject_sim": 0.6977,
+        "section_sim": 0.5099
+      }
+    },
+    {
+      "id": "v7-rb-004",
+      "task_type": "repealed_basis",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1594,
+        "margin": 0.0049,
+        "subject_sim": 0.6156,
+        "section_sim": 0.576
+      }
+    },
+    {
+      "id": "v7-rb-005",
+      "task_type": "repealed_basis",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": true,
+      "correct": false,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.1099,
+        "margin": 0.0284,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-rb-006",
+      "task_type": "repealed_basis",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3904,
+        "margin": 0.1201,
+        "subject_sim": 0.5567,
+        "section_sim": 0.4577
+      }
+    },
+    {
+      "id": "v7-rb-007",
+      "task_type": "repealed_basis",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1895,
+        "margin": 0.0468,
+        "subject_sim": 0.4741,
+        "section_sim": 0.5122
+      }
+    },
+    {
+      "id": "v7-rb-008",
+      "task_type": "repealed_basis",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4405,
+        "margin": 0.0827,
+        "subject_sim": 0.8871,
+        "section_sim": 0.5396
+      }
+    },
+    {
+      "id": "v7-rb-009",
+      "task_type": "repealed_basis",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1256,
+        "margin": 0.0083,
+        "subject_sim": 0.7145,
+        "section_sim": 0.4184
+      }
+    },
+    {
+      "id": "v7-rb-010",
+      "task_type": "repealed_basis",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4267,
+        "margin": 0.0042,
+        "subject_sim": 0.6107,
+        "section_sim": 0.3769
+      }
+    },
+    {
+      "id": "v7-rb-011",
+      "task_type": "repealed_basis",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5823,
+        "margin": 0.206,
+        "subject_sim": 0.5853,
+        "section_sim": 0.4621
+      }
+    },
+    {
+      "id": "v7-rb-012",
+      "task_type": "repealed_basis",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1486,
+        "margin": 0.0972,
+        "subject_sim": 0.7178,
+        "section_sim": 0.5279
+      }
+    },
+    {
+      "id": "v7-rb-013",
+      "task_type": "repealed_basis",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3339,
+        "margin": 0.1437,
+        "subject_sim": 0.6511,
+        "section_sim": 0.5399
+      }
+    },
+    {
+      "id": "v7-rb-014",
+      "task_type": "repealed_basis",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.4129,
+        "margin": 0.0492,
+        "subject_sim": 0.5845,
+        "section_sim": 0.5974
+      }
+    },
+    {
+      "id": "v7-rb-015",
+      "task_type": "repealed_basis",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5824,
+        "margin": 0.3638,
+        "subject_sim": 0.6768,
+        "section_sim": 0.5895
+      }
+    },
+    {
+      "id": "v7-rb-016",
+      "task_type": "repealed_basis",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.123,
+        "margin": 0.023,
+        "subject_sim": 0.6356,
+        "section_sim": 0.4892
+      }
+    },
+    {
+      "id": "v7-rb-017",
+      "task_type": "repealed_basis",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1702,
+        "margin": 0.0091,
+        "subject_sim": 0.5601,
+        "section_sim": 0.4662
+      }
+    },
+    {
+      "id": "v7-rb-018",
+      "task_type": "repealed_basis",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1614,
+        "margin": 0.1062,
+        "subject_sim": 0.7052,
+        "section_sim": 0.5378
+      }
+    },
+    {
+      "id": "v7-rb-019",
+      "task_type": "repealed_basis",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2803,
+        "margin": 0.151,
+        "subject_sim": 0.6585,
+        "section_sim": 0.6187
+      }
+    },
+    {
+      "id": "v7-rb-020",
+      "task_type": "repealed_basis",
+      "review_status": "adjudicated",
+      "expected_abstain": false,
+      "actual_abstained": false,
+      "correct": true,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.5537,
+        "margin": 0.2895,
+        "subject_sim": 0.8093,
+        "section_sim": 0.5434
+      }
+    },
+    {
+      "id": "v7-hn-001",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.1081,
+        "margin": 0.0746,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-002",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0739,
+        "margin": 0.0129,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-003",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": false,
+      "correct": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3453,
+        "margin": 0.2376,
+        "subject_sim": 0.4543,
+        "section_sim": 0.498
+      }
+    },
+    {
+      "id": "v7-hn-004",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0572,
+        "margin": 0.027,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-005",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0066,
+        "margin": 0.0032,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-006",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0509,
+        "margin": 0.0218,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-007",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": false,
+      "correct": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3987,
+        "margin": 0.3625,
+        "subject_sim": 0.432,
+        "section_sim": 0.6232
+      }
+    },
+    {
+      "id": "v7-hn-008",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "non_sebi_domain",
+      "confidence": {
+        "rerank_top": 0.1345,
+        "margin": 0.1161,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-009",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "non_sebi_domain",
+      "confidence": {
+        "rerank_top": 0.1658,
+        "margin": 0.0274,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-010",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": false,
+      "correct": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.2843,
+        "margin": 0.2132,
+        "subject_sim": 0.4702,
+        "section_sim": 0.4962
+      }
+    },
+    {
+      "id": "v7-hn-011",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": false,
+      "correct": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3049,
+        "margin": 0.2823,
+        "subject_sim": 0.483,
+        "section_sim": 0.4723
+      }
+    },
+    {
+      "id": "v7-hn-012",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": false,
+      "correct": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3057,
+        "margin": 0.2317,
+        "subject_sim": 0.4705,
+        "section_sim": 0.5136
+      }
+    },
+    {
+      "id": "v7-hn-013",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0501,
+        "margin": 0.0362,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-014",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0665,
+        "margin": 0.016,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-015",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0708,
+        "margin": 0.0075,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-016",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.112,
+        "margin": 0.0277,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-017",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0799,
+        "margin": 0.0126,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-018",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.106,
+        "margin": 0.0529,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-019",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0799,
+        "margin": 0.07,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-020",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.007,
+        "margin": 0.0011,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-021",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0199,
+        "margin": 0.0036,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-022",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.1176,
+        "margin": 0.0898,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-023",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "non_sebi_domain",
+      "confidence": {
+        "rerank_top": 0.1237,
+        "margin": 0.0381,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-024",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0222,
+        "margin": 0.0002,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-025",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0772,
+        "margin": 0.0082,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-026",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": false,
+      "correct": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1345,
+        "margin": 0.0789,
+        "subject_sim": 0.5253,
+        "section_sim": 0.4688
+      }
+    },
+    {
+      "id": "v7-hn-027",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": false,
+      "correct": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1208,
+        "margin": 0.0275,
+        "subject_sim": 0.5405,
+        "section_sim": 0.4665
+      }
+    },
+    {
+      "id": "v7-hn-028",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": false,
+      "correct": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.3468,
+        "margin": 0.1187,
+        "subject_sim": 0.5167,
+        "section_sim": 0.5536
+      }
+    },
+    {
+      "id": "v7-hn-029",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.1088,
+        "margin": 0.0472,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-hn-030",
+      "task_type": "hard_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": false,
+      "correct": false,
+      "abstention_reason": "",
+      "confidence": {
+        "rerank_top": 0.1492,
+        "margin": 0.0913,
+        "subject_sim": 0.5254,
+        "section_sim": 0.4635
+      }
+    },
+    {
+      "id": "v7-fn-001",
+      "task_type": "far_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": -0.0029,
+        "margin": 0.0027,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-fn-002",
+      "task_type": "far_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": -0.0072,
+        "margin": 0.0002,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-fn-003",
+      "task_type": "far_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0271,
+        "margin": 0.0244,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-fn-004",
+      "task_type": "far_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0343,
+        "margin": 0.0472,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-fn-005",
+      "task_type": "far_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": -0.0056,
+        "margin": 0.0107,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-fn-006",
+      "task_type": "far_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0042,
+        "margin": 0.0045,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-fn-007",
+      "task_type": "far_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": 0.0949,
+        "margin": 0.0769,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-fn-008",
+      "task_type": "far_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": -0.042,
+        "margin": 0.0028,
+        "subject_sim": null
+      }
+    },
+    {
+      "id": "v7-fn-009",
+      "task_type": "far_negative",
+      "review_status": "adjudicated",
+      "expected_abstain": true,
+      "actual_abstained": true,
+      "correct": true,
+      "abstention_reason": "score_floor",
+      "confidence": {
+        "rerank_top": -0.0064,
+        "margin": 0.0096,
+        "subject_sim": null
+      }
+    }
+  ]
+}

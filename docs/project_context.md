@@ -165,7 +165,17 @@ gate: eval/golden/gate_v7.json (armed at adjudicated_n=260) — AUTHORITATIVE; r
     citation_precision, abstention_accuracy) are generation-dependent and WILL move if the
     generator changes; the 2026-08-12 stub->MLX re-derivation moved citation_recall 0.7233 ->
     0.8169 and citation_precision 0.1896 -> 0.1577 on an unchanged corpus.
-    RULE: changing the generator, embedder, reranker, or B' margin INVALIDATES these floors.
+    RULE: changing the generator, embedder, corpus size, chunker version, or B' margin
+    INVALIDATES these floors (2026-09-02 re-derivation: corpus 730->1,490 moved every floor;
+    gate_v7.json itself carries no stack fingerprint yet to detect this automatically — see
+    2026-09-03 gate-staleness finding in docs/status.md). The reranker is NOT on this list:
+    scripts/golden_v7/derive_thresholds.py deliberately always uses bge-reranker-v2-m3
+    regardless of config.toml's reranker_model, by design (docs/status.md:907,
+    tests/test_rerank_jina_v3.py) — a reranker swap in production changes what eval_json.py's
+    comparison against these floors MEANS (a fixed bar production must clear), not the floors
+    themselves. (An earlier version of this RULE incorrectly listed reranker as invalidating
+    and claimed the 2026-09-02 re-derivation moved floors via a bge->jina switch that never
+    happened in that script — corrected 2026-09-03, see docs/status.md's correction entry.)
     Re-derive via scripts/golden_v7/derive_thresholds.py before comparing anything against them.
     A candidate model measured against floors derived under a different model is not a
     pass/fail result — it is a category error.
