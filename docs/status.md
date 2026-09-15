@@ -1821,3 +1821,155 @@ determination_2026-09-15:
   action_taken: "documentation only - no code/config changed. Funding the n≈834 expansion itself
     remains a separate decision, not made here."
 ```
+
+2026-09-15 — **golden-set-power expansion FUNDED and started; checkpoint after mining + a
+drafting pipeline validated on real output — not yet at the full ~616-row scale.** Decision
+inputs: single-leg only (`gemini_adjudicate.py` on hold, zero paid API spend authorized),
+targeted stratum allocation (weak strata `numeric_table`/`lineage_supersession` weighted up),
+re-confirmed no stronger power-blocked candidate exists than the bge-m3 fine-tune re-measurement
+(see the determination entry above). Full plan: `.claude/plans/ultra-synchronous-pony.md`.
+
+```yaml
+mining:
+  script: scripts/golden_v7/mine_strata.py
+  changes: "CLI-configurable per-stratum counts (--n-title-direct etc.), defaults unchanged
+    so a bare re-run still reproduces the original golden_v7 mining pass exactly; 3
+    user-approved hard_negative seeds (RERA/EPFO/CBIC), 4 user-approved far_negative seeds
+    (medieval guild trade/coral reef/jazz theory/Rust lifetimes); two new quality filters"
+  output: eval/golden/v7_annotations/candidates_expansion_2026-09-15/ (NOT the original
+    candidates/ dir - would have silently overwritten it, caught before running)
+  counts: {title_direct: 60, body_paraphrase: 120, numeric_table: 140,
+    lineage_supersession: 160, multi_hop: 60, repealed_basis: 50, hard_negative: 13,
+    far_negative: 13}  # 616 total, ~618 target
+  quality_filters_found_live:
+    readability: "_is_readable() - first mining pass surfaced a shredded-table
+      numeric_table candidate (table text broken across many short fragment lines, the
+      same failure the 2026-09-01/02/03 chunker fixes target). Threshold 0.3 (short-line
+      ratio), min_lines=5 guard added after it false-positived on the test suite's 2-line
+      fixtures. Caught 11/140 numeric_table candidates before the guard, 5/140 after."
+    boilerplate: "_has_boilerplate() - same BOILERPLATE_RE pattern as
+      scripts/finetune/synthesize_queries.py's precedent (measured there: up to 11.5%
+      multi_hop, 2.1% lineage_supersession, 1.3% numeric_table). Found live: a chunk
+      matching NUMERIC_RE only via its 'Annexure-A' mention, trailing into a signature
+      block, got a PDF page-footer number ('Page 2 of 4') drafted as its answer before
+      this filter was added."
+```
+
+```yaml
+drafting_pipeline:
+  gap_found: "build_pool.py and adjudicate_draft.py both expect rows already in
+    golden_v7.jsonl with an id+query - neither creates draft rows from raw candidates.
+    That step ('drafting expands variations from these seeds', per mine_strata.py's own
+    code comments) is not a checked-in script - built new: scripts/golden_v7/
+    draft_expansion_rows.py"
+  design: "Per-stratum prompt grounded in the specific mined candidate (not free-generated);
+    output schema matches golden_v7's actual row fields; label_source: '27b-single-leg-
+    draft', review_status: 'draft' (NOT 'adjudicated' - local_adjudicate.py must still
+    score these); output to a NEW staging file
+    (eval/golden/v7_annotations/draft_rows_expansion_2026-09-15.jsonl), never written
+    directly into the live golden_v7.jsonl - merge is a separate, later, explicit step."
+  model_blocker: "Intended model (Qwen3.8-27B, matching local_adjudicate.py's
+    DEFAULT_MODEL) could not load - oMLX prefill memory guard rejected it (~36.27GB vs
+    ~36.16GB dynamic ceiling, another model already loaded). Samples in this checkpoint
+    used the already-loaded Qwen3.6-35B-A3B-oQ4e-mtp-XL-mlx instead - NOT the model the
+    real adjudication run should use. Resolving the memory ceiling (free the other model
+    or raise custom_ceiling_bytes in admin Memory settings) is unresolved, needed before
+    the full run."
+  parser_hardening: "_extract_json() rewritten twice against real failures: (1) the
+    substitute model's untagged multi-paragraph 'thinking' preamble broke a naive
+    first-{-to-last-} span - rewritten to scan for the LAST balanced {...} span,
+    right-to-left; (2) that fix let a literal echo of the prompt's own JSON template
+    ('query': '...') through as a 'valid' answer since a non-empty check doesn't catch
+    a placeholder - added _is_placeholder() rejecting '...'/empty/TBD/TODO/N/A."
+  max_tokens: "500 -> 1500 -> 2500, raised twice after real parse failures (the
+    substitute model's thinking preamble alone ran past 800 tokens single-document,
+    past 1500 for multi_hop's two-document input)"
+  strata_validated: "all 8 (title_direct, body_paraphrase, numeric_table,
+    lineage_supersession, multi_hop, repealed_basis, hard_negative, far_negative) -
+    small samples (1-2 rows each) inspected by hand, all good quality: numeric_table
+    grounded in real regulatory figures ('ten per cent per annum' from Regulation
+    13.5.4, 'minimum of 1%' Extreme Loss Margin - not boilerplate after the filter fix),
+    hard_negative correctly reasons about jurisdiction ('RBI's jurisdiction, not
+    SEBI's') and populates must_not_cite with the BM25 near-match decoys,
+    lineage_supersession/repealed_basis correctly avoid naming circular numbers in the
+    query text itself. Sample files: draft_rows_expansion_2026-09-15.jsonl,
+    draft_rows_retry_2026-09-15.jsonl (scratch, not committed to the reporting set)."
+  full_suite: "1094 passed, 1 skipped, 3 deselected - unchanged, checked after every
+    code edit in this checkpoint"
+not_yet_done:
+  - "Scale mining+drafting to the full ~616 rows (samples only so far, 1-2 per stratum)"
+  - "Resolve the 27B model memory-ceiling blocker before the real adjudication run"
+  - "local_adjudicate.py pass over the drafted rows (single-leg per the funding decision)"
+  - "validate_golden.py on the combined set; single-leg vs two-leg distribution
+    comparison (no agreement.py equivalent exists for single-leg rows - net-new check)"
+  - "Re-derive paired-diff SD on the expanded set; confirm it actually clears n≈834 for
+    2pp-at-80%-power"
+  - "derive_thresholds.py re-run to re-arm gate_v7.json (separate, deliberate step)"
+  - "The payoff step, once the set exists: re-run the bge-m3 fine-tune's held-out
+    comparison to actually resolve its reopen_gate"
+```
+
+2026-09-15 — **Gate stack-fingerprint interlock implemented, tested, and verified
+end-to-end against the live stale gate.** Closes
+`docs/superpowers/specs/2026-09-03-gate-stack-fingerprint-prereg.md` — the fix for the
+exact failure mode this session hit by hand earlier today: the armed gate silently
+comparing against a system that no longer exists, with nothing to detect the drift
+automatically. Built via `superpowers:brainstorming` (Bounded path) +
+`superpowers:test-driven-development`, all new code RED-verified before GREEN.
+
+```yaml
+implementation:
+  gate_select.py: "new stack_matches(gate, live) -> list[str], pure function alongside
+    floors_ok/select_golden. _STACK_AXES = (embed_model, chunker_version, corpus_n,
+    chunk_n, generator, citation_margin, citation_scorer_enabled, abstain_threshold).
+    production_reranker_model deliberately excluded - bge-derived floor vs jina-running
+    production is the expected steady state, not drift. A gate with no 'stack' key
+    returns ALL axes (unverifiable), not a silent pass."
+  derive_thresholds.py: "new stack_from_settings(s, chunker_version, chunk_n, corpus_n)
+    -> dict, wired into main()'s gate_v7.json payload. Sources: Settings.load() (most
+    axes), data/index/meta.json (chunker_version, chunk_n), len(recs) (corpus_n).
+    derivation_reranker recorded as the constant 'bge-reranker-v2-m3' (never read from
+    config, self-documenting only); production_reranker_model recorded from
+    Settings.reranker_model (informational, not compared)."
+  eval_json.py: "stack_matches() called before floors_ok; two new ADDITIVE fields on
+    the gate object - gate_verdict ('pass'|'fail'|'unverifiable'|null) and stack_drift
+    (mismatched axis list). floors_ok's own shape/values are completely unchanged, so
+    existing n8n parsing never breaks - new consumers read gate_verdict for the
+    three-state distinction the spec required."
+  tests: "7 new in tests/test_golden_v7_gate.py, all RED-verified (ImportError on the
+    not-yet-existing name, or a real assertion failure) before implementation: match,
+    single-axis mismatch, production_reranker_model-only-differs (must still report
+    []), missing-stack-key (unverifiable), stack_from_settings round-trips through
+    stack_matches() against itself (locks exact key-name parity - the failure mode
+    that would silently break detection without ever raising an error), reranker
+    constant/informational split, eval_json.py source-text scan confirming
+    stack_matches()/gate_verdict/stack_drift are actually wired (eval_json.py has no
+    main() and boots real MPS models at import, same untestable-directly constraint
+    test_every_derived_floor_is_emitted_by_the_eval_report already works around)."
+  full_suite: "1101 passed, 1 skipped, 3 deselected (was 1094) - zero regressions"
+  select_golden_untouched: "git diff confirms pure insertion in gate_select.py -
+    select_golden's own lines are byte-identical, satisfying spec §3 criterion 3"
+verification_live_run:
+  command: "PYTHONPATH=src .venv/bin/python scripts/eval_json.py"
+  note: "first attempt (task bw5jqj5ri) was killed mid-run by an external interrupt,
+    not a code issue - re-ran clean to completion (task b5w5x2d5u)"
+  result:
+    floors_ok: true   # the stale floors still happen to be cleared by current metrics
+    gate_verdict: "unverifiable"   # correctly overrides what would otherwise be a
+                                    # false "pass" - this is the whole point
+    stack_drift: [embed_model, chunker_version, corpus_n, chunk_n, generator,
+      citation_margin, citation_scorer_enabled, abstain_threshold]   # ALL 8 axes,
+      # because the live gate_v7.json has no 'stack' key at all - the strongest form
+      # of the backward-compat case, not merely a partial mismatch
+  reading: "Before this change, eval_json.py would have reported floors_ok: true with
+    no way to know the comparison was against a system two chunker versions gone.
+    After: gate_verdict: unverifiable makes that fact visible in the same JSON line
+    n8n already parses, without changing what floors_ok itself reports."
+not_done_by_design:
+  - "The currently-armed gate stays unverifiable - not re-derived here. That is W1.1
+    (docs/superpowers/specs/2026-09-03-architecture-review-w1-diagnostics.md),
+    explicitly out of scope per this spec's §4."
+  - "The abstain_threshold/bge-reranker coupling oddity noted during planning
+    (derive_thresholds.py applies jina-calibrated 0.109 to bge-reranked scores) -
+    flagged, not acted on; pre-existing, not introduced by this change."
+```

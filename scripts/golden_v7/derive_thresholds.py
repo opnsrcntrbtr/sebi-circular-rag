@@ -60,6 +60,30 @@ _FLOOR_NAMES = {"recall": "recall_at_k", "context_recall": "context_recall",
                 "abstention": "abstention_accuracy", "citation_precision": "citation_precision"}
 
 
+# 2026-09-15, docs/superpowers/specs/2026-09-03-gate-stack-fingerprint-prereg.md.
+# derivation_reranker is a CONSTANT, not read from config - derive_thresholds.py
+# deliberately always constructs bge-reranker-v2-m3 regardless of
+# Settings.reranker_model (see the spec's §0 correction). production_reranker_model
+# is recorded for information only (not a gate_select._STACK_AXES member) - a
+# mismatch between it and derivation_reranker is the expected steady state, not
+# drift, since the floor baseline is deliberately reranker-independent.
+def stack_from_settings(s, *, chunker_version: str, chunk_n: int, corpus_n: int) -> dict:
+    """Keys must match gate_select._STACK_AXES exactly, or stack_matches() silently
+    stops detecting the axes that drifted under a renamed key."""
+    return {
+        "embed_model": s.embed_model,
+        "derivation_reranker": "bge-reranker-v2-m3",
+        "production_reranker_model": s.reranker_model,
+        "abstain_threshold": s.abstain_threshold,
+        "chunker_version": chunker_version,
+        "corpus_n": corpus_n,
+        "chunk_n": chunk_n,
+        "generator": s.mlx_model,
+        "citation_margin": s.citation_margin,
+        "citation_scorer_enabled": s.citation_scorer_enabled,
+    }
+
+
 def derive_floors(per_query: dict[str, list[float]]) -> dict[str, float]:
     """metric -> per-query score vector, into gate-floor names -> floor value.
 
@@ -119,10 +143,14 @@ def main() -> None:
         citation_margin=s.citation_margin)
 
     scored = [score_row(pipeline, item, s.top_k) for item in adjudicated]
+    meta = json.loads((Path(s.index_dir) / "meta.json").read_text(encoding="utf-8"))
     payload = {
         "adjudicated_n": n,
         "derived_at": dt.datetime.now().isoformat(timespec="seconds"),
         "floors": derive_floors(vectors(scored)),
+        "stack": stack_from_settings(
+            s, chunker_version=meta.get("chunker_version"),
+            chunk_n=meta.get("n"), corpus_n=len(recs)),
     }
     DEFAULT_GATE_PATH.write_text(
         json.dumps(payload, indent=2) + "\n", encoding="utf-8")

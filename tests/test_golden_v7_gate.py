@@ -7,14 +7,16 @@ silently become the thing that gates merges.
 """
 import json
 import sys
+import types
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
-from golden_v7.derive_thresholds import derive_floors  # noqa: E402
+from golden_v7.derive_thresholds import derive_floors, stack_from_settings  # noqa: E402
 from golden_v7.gate_select import (  # noqa: E402
     MIN_ADJUDICATED_N,
     floors_ok,
     select_golden,
+    stack_matches,
 )
 
 V5 = Path("/eval/golden_v5.jsonl")
@@ -100,6 +102,83 @@ def test_no_floors_is_vacuously_ok():
 
 
 # ---------------------------------------------------------------------------
+# stack_matches (2026-09-15, docs/superpowers/specs/2026-09-03-gate-stack-fingerprint-prereg.md)
+# ---------------------------------------------------------------------------
+
+def _stack(**overrides):
+    base = {
+        "embed_model": "BAAI/bge-m3",
+        "chunker_version": "2026-09-03-toc-long-title-merge",
+        "corpus_n": 1490,
+        "chunk_n": 83752,
+        "generator": "mlx-community/Qwen2.5-1.5B-Instruct-4bit",
+        "citation_margin": 0.35,
+        "citation_scorer_enabled": True,
+        "abstain_threshold": 0.109,
+        "production_reranker_model": "jina",
+    }
+    base.update(overrides)
+    return base
+
+
+def test_stack_matches_returns_empty_when_all_axes_match():
+    gate = {"stack": _stack()}
+    assert stack_matches(gate, _stack()) == []
+
+
+def test_stack_matches_reports_mismatched_axis_name():
+    gate = {"stack": _stack(chunker_version="2026-09-01-table-row-merge")}
+    assert stack_matches(gate, _stack()) == ["chunker_version"]
+
+
+def test_stack_matches_ignores_production_reranker_model_difference():
+    """bge-derived floor vs. jina-running production is the expected steady
+    state, not drift - comparing this axis would fire a false alarm on every
+    run for as long as production stays on a non-bge reranker."""
+    gate = {"stack": _stack(production_reranker_model="bge")}
+    assert stack_matches(gate, _stack(production_reranker_model="jina")) == []
+
+
+def test_stack_matches_treats_missing_stack_key_as_unverifiable():
+    """Every gate_v7.json that exists today (including the currently-armed
+    one) has no 'stack' key - this must report as unverifiable, not as a
+    silent pass."""
+    assert stack_matches({"adjudicated_n": 260, "floors": {}}, _stack()) != []
+
+
+def _settings(**overrides):
+    base = dict(embed_model="BAAI/bge-m3", reranker_model="jina",
+                abstain_threshold=0.109, citation_margin=0.35,
+                citation_scorer_enabled=True, mlx_model="mlx-community/Qwen2.5-1.5B-Instruct-4bit")
+    base.update(overrides)
+    return types.SimpleNamespace(**base)
+
+
+def test_stack_from_settings_uses_exact_stack_matches_axis_names():
+    """A stack block whose keys don't exactly match _STACK_AXES would make
+    stack_matches() silently report every comparable axis as always-mismatched
+    (dict.get returns None on both sides only by coincidence) - round-trip
+    through stack_matches() against itself is the contract that actually
+    matters, not just eyeballing the key names."""
+    stack = stack_from_settings(_settings(), chunker_version="2026-09-03-x",
+                                 chunk_n=83752, corpus_n=1490)
+    assert stack_matches({"stack": stack}, stack) == []
+
+
+def test_stack_from_settings_records_but_does_not_compare_reranker_split():
+    """derivation_reranker is a constant (never read from config); production_
+    reranker_model reflects live Settings - both present, only the second is a
+    _STACK_AXES member, and it is deliberately excluded from comparison."""
+    from golden_v7.gate_select import _STACK_AXES
+
+    stack = stack_from_settings(_settings(reranker_model="jina"),
+                                 chunker_version="c", chunk_n=1, corpus_n=1)
+    assert stack["derivation_reranker"] == "bge-reranker-v2-m3"
+    assert stack["production_reranker_model"] == "jina"
+    assert "production_reranker_model" not in _STACK_AXES
+
+
+# ---------------------------------------------------------------------------
 # derive_floors
 # ---------------------------------------------------------------------------
 
@@ -176,6 +255,21 @@ def test_every_derived_floor_is_emitted_by_the_eval_report():
     for floor_name in _FLOOR_NAMES.values():
         assert f'"{floor_name}"' in gate_block, (
             f"{floor_name} is gated but never reported -> gate fails closed")
+
+
+def test_eval_json_calls_stack_matches_and_reports_gate_verdict():
+    """eval_json.py has no main() and boots real MPS models at import, so it
+    cannot be unit-tested directly - same constraint
+    test_every_derived_floor_is_emitted_by_the_eval_report already works
+    around with a source-text scan. Spec's endpoint #2: eval_json.py's
+    reporting path must visibly distinguish verified-pass / verified-fail /
+    unverifiable, never collapsing the third into either of the first two -
+    this locks that stack_matches() is actually wired in, not just imported."""
+    src = (Path(__file__).resolve().parents[1] / "scripts" / "eval_json.py"
+           ).read_text(encoding="utf-8")
+    assert "stack_matches(" in src
+    assert '"gate_verdict"' in src
+    assert '"stack_drift"' in src
 
 
 def test_floor_names_match_the_gate_report_keys():

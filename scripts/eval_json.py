@@ -47,7 +47,8 @@ from sebi_rag.rerank import CrossEncoderReranker, retrieval_reranker_for  # noqa
 from sebi_rag.retrieve import HybridRetriever  # noqa: E402
 from sebi_rag.settings import Settings  # noqa: E402
 
-from golden_v7.gate_select import floors_ok, select_golden  # noqa: E402
+from golden_v7.derive_thresholds import stack_from_settings  # noqa: E402
+from golden_v7.gate_select import floors_ok, select_golden, stack_matches  # noqa: E402
 from golden_v7.score import score_row, vectors  # noqa: E402
 
 GATE_PATH = ROOT / "eval" / "golden" / "gate_v7.json"
@@ -123,12 +124,33 @@ if adjudicated_n:
     }
     # floors_ok is only meaningful when the armed gate file supplied floors;
     # on the v5 fallback there are none to check, so it stays null rather
-    # than reporting a vacuous pass.
+    # than reporting a vacuous pass. Unchanged by the stack-fingerprint check
+    # below - existing n8n rules keying on floors_ok never break.
     try:
-        floors = json.loads(GATE_PATH.read_text(encoding="utf-8"))["floors"]
-    except (OSError, ValueError, KeyError, TypeError):
-        floors = None
+        gate_payload = json.loads(GATE_PATH.read_text(encoding="utf-8"))
+        floors = gate_payload.get("floors")
+    except (OSError, ValueError, TypeError):
+        gate_payload, floors = {}, None
     gate_report["floors_ok"] = floors_ok(gate_report, floors) if floors else None
+
+    # Gate stack-fingerprint interlock (2026-09-15, docs/superpowers/specs/
+    # 2026-09-03-gate-stack-fingerprint-prereg.md): floors_ok compares metric
+    # VALUES only, never asking whether the floors and this measurement describe
+    # the same system. gate_verdict adds that third axis without changing
+    # floors_ok's shape - "unverifiable" (missing/mismatched stack) is never
+    # collapsed into floors_ok's existing True/False/None.
+    _meta = json.loads((Path(s.index_dir) / "meta.json").read_text(encoding="utf-8"))
+    live_stack = stack_from_settings(
+        s, chunker_version=_meta.get("chunker_version"),
+        chunk_n=_meta.get("n"), corpus_n=len(recs))
+    stack_drift = stack_matches(gate_payload, live_stack) if floors else []
+    gate_report["stack_drift"] = stack_drift
+    if gate_report["floors_ok"] is None:
+        gate_report["gate_verdict"] = None
+    elif stack_drift:
+        gate_report["gate_verdict"] = "unverifiable"
+    else:
+        gate_report["gate_verdict"] = "pass" if gate_report["floors_ok"] else "fail"
 
 print(json.dumps({
     "ts": dt.datetime.now().isoformat(timespec="seconds"),

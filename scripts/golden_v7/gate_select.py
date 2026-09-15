@@ -36,6 +36,27 @@ def select_golden(env: dict, gate_path: Path, v5: Path, v7: Path) -> Path:
     return v7 if isinstance(n, int) and n >= MIN_ADJUDICATED_N else v5
 
 
+# Axes compared for drift (2026-09-15, docs/superpowers/specs/2026-09-03-gate-stack-
+# fingerprint-prereg.md). production_reranker_model is deliberately NOT here: the
+# floor baseline is fixed at bge-reranker-v2-m3 by design (derive_thresholds.py never
+# routes through retrieval_reranker_for), so production running a different reranker
+# is the expected steady state, not drift - comparing it would fire a false "stale
+# gate" alarm on every single run for as long as production stays on a non-bge model.
+_STACK_AXES = ("embed_model", "chunker_version", "corpus_n", "chunk_n", "generator",
+               "citation_margin", "citation_scorer_enabled", "abstain_threshold")
+
+
+def stack_matches(gate: dict, live: dict) -> list[str]:
+    """Names of axes where `gate`'s recorded stack differs from `live`'s current
+    one - empty means verified match. A gate with no 'stack' key at all (every
+    gate_v7.json that exists before this lands, including the currently-armed one)
+    returns every axis name: unverifiable, not a silent pass."""
+    stack = gate.get("stack")
+    if not isinstance(stack, dict):
+        return list(_STACK_AXES)
+    return [axis for axis in _STACK_AXES if stack.get(axis) != live.get(axis)]
+
+
 def floors_ok(report_gate: dict, floors: dict) -> bool:
     """True iff every floor's metric is present in `report_gate` and meets it.
 
