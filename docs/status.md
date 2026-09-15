@@ -1973,3 +1973,92 @@ not_done_by_design:
     (derive_thresholds.py applies jina-calibrated 0.109 to bge-reranked scores) -
     flagged, not acted on; pre-existing, not introduced by this change."
 ```
+
+2026-09-16 — **Chunk-quality-metric detector implemented, hand-labeled, and reported.**
+Closes `docs/superpowers/specs/2026-09-03-chunk-quality-metric-prereg.md` — the gap-filler for
+three chunker fixes (2026-09-01/02/03) that shipped with zero production metric. Built via
+`superpowers:brainstorming` (Bounded) + `superpowers:test-driven-development`. Report:
+`reports/chunk-quality-metric-2026-09-16.json`.
+
+**The prereg's own premise was wrong and had to be corrected before any code was written**:
+§1 assumed `chunker_version` is stamped per-chunk in `chunks.jsonl` ("already present per
+`retrieve.py:243`") so multiple chunker versions could be compared side by side. Checked:
+`retrieve.py:243` stamps it into `meta.json` (index-wide), not per-chunk — zero occurrences in
+`chunks.jsonl`. There is also no retained historical snapshot; `make reindex` overwrites
+`chunks.jsonl` in place, so the 2026-09-01/02 chunker versions' actual chunk output no longer
+exists to compare against. **This detector reports a single current-version point measurement**;
+comparison over time is by diffing two runs' saved report JSON, not within one run.
+
+**The originally-scoped detector shapes were also wrong, discovered by hand-labeling against a
+real confirmed defect, not by inspection.** The spec's two whole-chunk classifiers
+(`shredded_row_rate`, `orphan_fragment_rate`) cannot see the actual confirmed defect
+(`SEBI/HO/DDHS/CIR/2021/0000000637`, a single chunk with many numbered rows where row 7's wrapped
+label got split by its own marker landing mid-label: `"Reserves (excluding Revaluation\n7.\nReserve)"`)
+— the chunk has substantial real content (not a bare stub) and starts with its own leading marker
+`"5."` (not an orphan). **Added a third, line-level detector, `is_interleaved_split`**, matched
+directly against this confirmed example before anything else was trusted.
+
+```yaml
+hand_labeling:
+  sample: "62 documents / 24,220 chunks - stratified: 30 TOC-candidate (bare 'N.' line proxy,
+    reconstructed 2026-09-16 since no script for the original 198-doc proxy count was checked
+    in), 20 finstat-candidate (Sl./No.+numbered-lines proxy), 20 negative control (matches
+    neither proxy). Seed 20260916."
+  method: "I drafted labels by reading each detector-positive chunk's EXACT matching triplet
+    (prev/marker/next line), not just a tail preview - user reviewed/corrected before
+    finalizing, per the plan's agreed workflow."
+  iteration: |
+    is_orphan_fragment (v1) fired on every document-preamble boilerplate chunk and every
+    year-prefixed short sentence (e.g. "2011. approval to members of Stock") - both false
+    positives, fixed with a preamble-boilerplate exclusion and a widened leading-marker digit
+    range (1-3 -> 1-4, so a 4-digit year counts as "has its own marker").
+    is_interleaved_split (v1, added after the whole-chunk redesign) measured 0.872 raw
+    precision (102/117) on first hand-labeling pass. Three more false-positive patterns found
+    and fixed via TDD, each against a real example: currency amounts ("Rs\n150."), two already-
+    complete consecutive numbered items (not a split), and date fragments ("ending March\n31.").
+    Precision rose to 0.93 (98/105) - but the "previous line already has its own marker"
+    exclusion (added for the consecutive-items fix) was too broad: it also matched compound
+    clause numbers ("42.43 Illustration...provided at Annexure-"), silently suppressing genuine
+    Annexure-reference splits. Narrowed to exclude only SIMPLE markers, not compound ones
+    (regex \d{1,3}\.\d catches the compound shape) - recall's candidate-miss pool dropped from
+    33 to 28 with no precision cost (still 98/105).
+  final_measurement:
+    interleaved_split: {precision: 0.9333, recall_estimate: 0.925, directional_only: false}
+    shredded_row_stub: {candidates_in_sample: 0, precision: null, recall: null,
+      directional_only: true, note: "genuinely unmeasured, not below-threshold - 0/83752
+      corpus-wide too, this shape may not occur under the current chunker at all"}
+    orphan_fragment: {candidates_in_sample: 0, precision: null, recall: null,
+      directional_only: true, note: "8/83752 corpus-wide but 0 in the 62-doc sample - sample
+      too small to encounter one, not a detector failure"}
+  known_gaps_not_covered: |
+    (1) an item whose own label sits on a separate line from its own marker when the PRECEDING
+    item is complete and self-numbered (e.g. "1. Total Income from Operations" / "2." / "Net
+    Profit..." - CIR/IMD/DF1/69/2016) - suppressed by the same "prev already complete" exclusion
+    that fixes the real consecutive-items false positive, and not disentangled from it;
+    (2) multi-column data-dictionary/form tables where a row's serial number is separated from
+    its field description by intervening table columns;
+    (3) multiple bare markers stacked consecutively ("1.\n2.\n3.\n") followed by unnumbered
+    content, a structurally distinct sub-pattern never targeted;
+    (4) an item whose sentence plausibly continues past the next item's own marker - ambiguous
+    even under direct reading ("8. Implementation of GRC Order...if" / "9." / "In case the stock
+    broker is aggrieved by...").
+    None of these were chased further past this point - diminishing returns against the effort
+    already spent, and precision/recall both already clear the spec's bar decisively.
+```
+
+```yaml
+corpus_wide_result:
+  chunker_version: "2026-09-03-toc-long-title-merge"
+  total_chunks: 83752
+  shredded_row_rate: {count: 0, rate: 0.0}
+  orphan_fragment_rate: {count: 8, rate: 0.000096}
+  interleaved_split_rate: {count: 139, rate: 0.00166}
+  full_suite: "1124 passed, 1 skipped, 3 deselected (was 1094 at session start) - zero
+    regressions across every TDD cycle in this detector's build"
+```
+
+**Not permitted (spec §4), respected**: no retroactive scoring of the three already-shipped
+chunker fixes against these rates as proof of net-positive retrieval effect (this measures chunk
+*shape*, not retrieval quality); no next interleaved-layout fix design decision made here -
+that stays a separate, explicit decision per the 2026-09-02 scoping entry's own precedent;
+detector never extended to fire on `golden_v7` query-answer text.

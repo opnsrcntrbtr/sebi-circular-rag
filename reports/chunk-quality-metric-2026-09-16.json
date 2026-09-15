@@ -1,0 +1,23 @@
+{
+  "derived_at": "2026-09-16T04:23:26",
+  "chunker_version": "2026-09-03-toc-long-title-merge",
+  "total_chunks": 83752,
+  "shredded_row_count": 0,
+  "orphan_fragment_count": 8,
+  "interleaved_split_count": 139,
+  "shredded_row_rate": 0.0,
+  "orphan_fragment_rate": 9.6e-05,
+  "interleaved_split_rate": 0.00166,
+  "shredded_row_precision": null,
+  "shredded_row_recall": null,
+  "shredded_row_directional_only": true,
+  "shredded_row_validation_note": "0 candidates fired in the 62-document/24,220-chunk hand-labeling sample (docs/status.md 2026-09-16 entry) - precision/recall genuinely unmeasured, not merely below threshold. This failure shape appears not to occur under the current chunker version at all (corpus-wide count is also 0).",
+  "orphan_fragment_precision": null,
+  "orphan_fragment_recall": null,
+  "orphan_fragment_directional_only": true,
+  "orphan_fragment_validation_note": "0 candidates fired in the same hand-labeling sample, despite 8 occurrences corpus-wide - the sample (62 of 1,490 docs) was too small to encounter one. Unmeasured, not below-threshold.",
+  "interleaved_split_precision": 0.9333,
+  "interleaved_split_recall": 0.925,
+  "interleaved_split_directional_only": false,
+  "interleaved_split_validation_note": "Measured against a 62-document/24,220-chunk stratified sample (30 TOC-candidate, 20 finstat-candidate, 20 negative-control - docs/status.md's 2026-09-02 scoping entry's proxy surfaces, reconstructed 2026-09-16 since no script for the original proxy was checked in). Precision 98/105 TP measured directly (every positive in-sample hand-read against its exact matching triplet, not just previewed). Recall is an ESTIMATE, not a direct count: 8 genuine misses found in a hand-read sample of 20 (of 33) unflagged bare-marker candidates, scaled to the full 28-candidate pool after a compound-clause-number fix removed ~5 of those misses. Known remaining gaps, NOT covered by this detector: (1) a numbered item whose OWN label is on a separate line from its own marker when the PRECEDING item is complete and self-numbered (e.g. '1. Total Income from Operations' / '2.' / 'Net Profit...' - CIR/IMD/DF1/69/2016), (2) multi-column data-dictionary/form tables where a row's serial number is separated from its field description by intervening table columns, (3) multiple bare markers stacked consecutively ('1.\\n2.\\n3.\\n') followed by unnumbered content, (4) an item whose sentence plausibly continues past the next item's own marker (ambiguous even under direct reading - see docs/status.md)."
+}
