@@ -202,6 +202,5 @@
   "200": "test_synthesize_stratum_uses_cache_when_present",
   "201": "test_settings_citation_scorer_enabled_true",
   "202": "_FakeResponse",
-  "203": "test_settings_citation_scorer_enabled_false",
-  "206": "sebi-rag"
+  "203": "test_settings_citation_scorer_enabled_false"
 }
