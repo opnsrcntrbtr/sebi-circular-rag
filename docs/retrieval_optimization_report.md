@@ -7,6 +7,11 @@ early-exit criteria fixed before any arm ran)
 **Outcome:** all 5 turns run to completion (owner override of the preregistered early-exit rule
 after Turn 2 — see "Early exit and override" below); **no parameter change recommended.**
 
+> **2026-09-15 note:** the `gate_v7.json` floors cited below (0.906/0.6512) were re-derived
+> 2026-09-02 (now 0.8397/0.5934, corpus 730→1,490) — see `.claude/rules/refusal-criteria.md`.
+> This report's own comparisons stay valid as dated observations against the floors live on
+> 2026-08-26; do not read them against the current gate.
+
 ## Summary
 
 | Turn | Variable | Golden set | Result | Verdict |

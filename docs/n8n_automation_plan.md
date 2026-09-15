@@ -107,10 +107,13 @@ canary `0 6 * * *`, digest `0 7 * * *`, smoketest `0 */6 * * *`.
 synced 2026-07-28 for golden_v7 gate
 
 `eval_json.py` resolves the golden set through the **golden_v7 gate** (armed at
-`adjudicated_n=103`); falls back to frozen `golden_v5` (n=56) when the gate is
+`adjudicated_n=260`, current corpus 1,490 circulars — stale as of this doc's last sync,
+2026-09-15 correction); falls back to frozen `golden_v5` (n=56) when the gate is
 not armed. Env `SEBI_RAG_GOLDEN` overrides. It models the **production
-abstention** (score floor 0.05 + subject-sim gate 0.42, two-tier: subject_sim ≥ 0.42
-OR section_sim ≥ 0.60, mirroring api.py). It also emits `injection_flagged` (F4
+abstention** (score floor 0.109 + subject-sim gate 0.42, two-tier: subject_sim ≥ 0.42
+OR section_sim ≥ 0.60, mirroring api.py; score floor is jina-calibrated and has moved
+twice since — 0.05 (bge) → 0.12 (jina, ADR-004) → 0.109 (jina, 2026-09-03 recalibration)).
+It also emits `injection_flagged` (F4
 live scan; known-benign baseline grew from 1 at 207 circulars to ~10 at 705
 circulars — various MIRSD/MRD/CDMRD circulars contain instruction-like regulatory
 text that triggers the 8 pattern classes).

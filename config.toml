@@ -90,5 +90,8 @@ temperature        = 0.2
 top_p              = 0.9
 top_k              = 3
 timeout_s          = 60.0
-abstain_threshold  = 0.05                              # copied from [service]
+abstain_threshold  = 0.05                              # NOT copied from [service] (0.109) — Spaces
+                                                       # runs CrossEncoderReranker (bge, api_spaces.py:87),
+                                                       # and 0.05 is bge's own calibrated floor, deliberately
+                                                       # not tracking [service]'s jina-calibrated value
 superseded_penalty = 0.3                               # copied from [service]

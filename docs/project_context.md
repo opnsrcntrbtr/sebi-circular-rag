@@ -64,7 +64,7 @@ stages:
   - name: generation
     desc: Local LLM. Default MLX-LM Qwen2.5-1.5B-Instruct-4bit (Apple-Silicon native). Ollama optional via SEBI_RAG_GENERATOR (deterministic: temperature 0, fixed seed)
     details:
-      - Abstention gate — TWO SEPARATE SIGNALS ON TWO SCALES, routinely confused: score floor `abstain_threshold = 0.12` on the cross-encoder `rerank_top` (`config.toml [service]`, recalibrated for jina-reranker-v3-mlx per ADR-004, 2026-08-24), and the groundedness gate `subject_sim >= 0.42` / `section_sim >= 0.60` (SubjectSimJudge). Below either → abstain ("I don't know based on the available evidence."); never generate unsupported legal conclusions. ⚠️ 0.4 is the `RAGPipeline` dataclass default (`pipeline.py:41`), NOT production — `Settings.load()` supplies 0.12. Comparing one gate against the other's threshold produced a misclassified diagnostic on 2026-08-18; see `.claude/rules/refusal-criteria.md`.
+      - Abstention gate — TWO SEPARATE SIGNALS ON TWO SCALES, routinely confused: score floor `abstain_threshold = 0.109` on the cross-encoder `rerank_top` (`config.toml [service]`, re-recalibrated 2026-09-03 after the 730→1,490-circular corpus growth shifted jina's score distribution — was 0.12 since ADR-004, 2026-08-24), and the groundedness gate `subject_sim >= 0.42` / `section_sim >= 0.60` (SubjectSimJudge). Below either → abstain ("I don't know based on the available evidence."); never generate unsupported legal conclusions. ⚠️ 0.4 is the `RAGPipeline` dataclass default (`pipeline.py:41`), NOT production — `Settings.load()` supplies 0.109. Comparing one gate against the other's threshold produced a misclassified diagnostic on 2026-08-18; see `.claude/rules/refusal-criteria.md`.
       - ADR-002 certainty architecture: SubjectSimJudge (two-tier groundedness — max cosine(query, subject line) threshold 0.42, section-heading tier at 0.60); MLXJudge (deterministic groundedness judge on MLX, modes: identify/provisions)
       - Confidence bands: high (subject_sim ≥ 0.65 + faithfulness 1.0), medium (passed all gates), low (abstained)
       - Advisory mode: `advisory=True` returns clearly-labelled low-confidence draft answer on gate failure (never authoritative)
@@ -129,20 +129,25 @@ Optimise only validated stages; recommend changes expected to yield ≥10% measu
 
 ### 7.3 Calibrated Retrieval Parameters
 
-Real stack calibration over 728 circulars / 78,585 chunks (golden_v7). ⚠️ The live index is **730 circulars / 78,630 chunks** (`eval/runs/full-eval-2026-08-19.json`); these parameters have not been re-calibrated against it.
+Real stack calibration over 728 circulars / 78,585 chunks (golden_v7). ⚠️ The live index is now
+**1,490 circulars / 83,752 chunks**, chunker `2026-09-03-toc-long-title-merge`
+(`data/index/meta.json`); these parameters have not been re-calibrated against it (the
+`abstain_threshold` below has been, separately — see the 2026-09-03 note).
 
 ```yaml
 params:
   top_k: 10 (default, configurable via SEBI_RAG_TOP_K)
-  abstain_threshold: 0.12 (cross-encoder; configurable via SEBI_RAG_ABSTAIN_THRESHOLD)
+  abstain_threshold: 0.109 (cross-encoder; configurable via SEBI_RAG_ABSTAIN_THRESHOLD)
   subject_sim_threshold: 0.42 (two-tier: subject_sim >= 0.42 OR section_sim >= 0.60)
   section_threshold: 0.60 (configurable via SEBI_RAG_SECT_THRESHOLD)
 index_path: data/index/ (reload 0.34s). Re-run after corpus growth.
 thresholds_are_model_dependent: |
   abstain_threshold is a raw cross-encoder score, so it is meaningful ONLY for the
-  reranker it was calibrated against — currently jina-reranker-v3-mlx (0.12, recalibrated
-  2026-08-24 per ADR-004 via scripts/analysis/jina_abstain_threshold_calibration.py; the
-  prior bge-reranker-v2-m3 value was 0.05). subject_sim / section_sim are cosines in
+  reranker it was calibrated against — currently jina-reranker-v3-mlx (0.109, re-recalibrated
+  2026-09-03 after the 730->1,490-circular corpus growth shifted the score distribution's
+  interior; 0.12 was the 2026-08-24 ADR-004 value; the prior bge-reranker-v2-m3 value was
+  0.05 — owner-picked from the fresh curve each time, not the calibration script's
+  auto-knee, which has misfired twice: 0.355 on 2026-08-24, 0.399 on 2026-09-03). subject_sim / section_sim are cosines in
   bge-m3 embedding space. Swapping either model changes the SCALE these numbers live on,
   not just the optimum — the current value does not transfer to a different reranker.
   Re-calibrate via scripts/calibrate.py before carrying any of these across a model change.
@@ -240,11 +245,13 @@ full_seed_build: ~507s (22,273 chunks at 209 circulars)
 incremental_reindex: ~5s (no-op, all docs reused)
 index_reload: 0.34s
 disk_embeddings_npy: 307 MB (78,585 chunks); scales to ~2 GB at 500k chunks
-# 2026-09-02: corpus at 1,490 circulars; index at 85,131 chunks (chunker_version
-# 2026-09-01-table-row-merge) before today's gap-tolerance chunker fix; a full
-# (non-incremental) reindex under chunker_version 2026-09-02-table-row-gap-merge
-# was in progress at last check (87,959 chunks and climbing) — see docs/status.md's
-# 2026-09-02 gap-tolerance entry for validation status before citing a final count.
+# 2026-09-15 (docs sync, no code change since 2026-09-03): live index is 1,490 circulars,
+# 83,752 chunks, chunker_version 2026-09-03-toc-long-title-merge (data/index/meta.json).
+# Reached via 2026-09-01 table-row-merge (85,131) -> 2026-09-02 gap-merge (84,188) ->
+# 2026-09-03 toc-long-title-merge (83,752); see docs/status.md's dated entries for the
+# per-step chunk-count deltas. The armed golden_v7 gate (eval/golden/gate_v7.json) still
+# describes the 2026-09-01-table-row-merge index — two chunker versions behind — and no
+# production metric has been measured against it yet; see docs/status.md:14.
 ```
 
 
@@ -381,7 +388,7 @@ reproducibility:
 
 ```yaml
 prerequisites:
-  P1: "Labelled SEBI evaluation set — COMPLETED (golden_v7, n=260, adjudicated_n=260, gate armed). Calibrated: top_k=10, abstain_threshold=0.12 (jina-reranker-v3-mlx, ADR-004; was 0.05 under bge-reranker-v2-m3)"
+  P1: "Labelled SEBI evaluation set — COMPLETED (golden_v7, n=260, adjudicated_n=260, gate armed). Calibrated: top_k=10, abstain_threshold=0.109 (jina-reranker-v3-mlx, re-recalibrated 2026-09-03; was 0.12 since ADR-004 2026-08-24, and 0.05 under bge-reranker-v2-m3 before that)"
   P2: "Metadata lineage extraction — COMPLETED (lineage.py, 5 edges, answer-layer warnings wired)"
 ```
 

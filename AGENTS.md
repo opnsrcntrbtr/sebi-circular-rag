@@ -27,7 +27,7 @@ it before citing a specific threshold value; do not restate the numbers here.
 |---------|---------|
 | `make serve` | FastAPI backend on port 8000 |
 | `make ui` | Gradio UI dashboard |
-| `make test` | Offline test suite (867 passed, 2 skipped) |
+| `make test` | Offline test suite (1094 passed, 1 skipped, 3 deselected) |
 | `make reindex` | Annotate corpus + rebuild index |
 | `make index` | Build/persist FAISS+BM25 only |
 | `make scrape` | Fetch SEBI circulars (MAX=N) |
@@ -81,7 +81,7 @@ runbook in `README-spaces.md`.
 ### ⚠️ Never add fields to `CircularMeta`
 
 `hierarchical_chunk()` does `meta=asdict(meta)` (`segment.py:131`), so a new
-`CircularMeta` field lands in every chunk payload (77.8k chunks) and mutates the
+`CircularMeta` field lands in every chunk payload (83,752 chunks) and mutates the
 persisted index. Additive per-circular metadata goes on the corpus JSONL record
 only — see `master_meta.annotate_master_fields` and
 `reg_lineage.annotate_regulation_fields`.

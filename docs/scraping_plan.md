@@ -4,6 +4,10 @@ Last updated: 2026-07-28. Goal: grow `data/corpus/circulars.jsonl` and
 `data/corpus/regulations.jsonl` with real SEBI content from the official source,
 legally and reproducibly.
 
+> **2026-09-15 status note:** the growth goal below has since been met — corpus grew
+> 730→1,490 circulars via a bounded historical scrape on 2026-08-28 (`docs/status.md`).
+> The legality/compliance findings and mechanics below are unaffected.
+
 ## 1. Legality & compliance
 
 - **robots.txt (verified 2026-06-29, re-checked 2026-07-23):** `User-agent: *` with

@@ -1,17 +1,24 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-09-03.
+> Last updated: 2026-09-15 (docs sync only — no code change since 2026-09-03; corrected stale
+> `abstain_threshold`/test-count/chunk-count references across docs to match the live system).
 
 ## Current Snapshot
 
 | Metric | Value |
 |---|---|
 | **bge-m3 SEBI fine-tune** | **CLOSED — NULL, not adopted** (Phases −2/−1/0/1/2 all complete; branch merged whole `2f3555a1` 2026-09-01). `embed_model` stays `BAAI/bge-m3`. Δndcg@10 vs control not significant on any arm; golden_v7 n=216 cannot resolve <4pp anyway. See 2026-09-01 re-analysis + 2026-09-03 closing entries below |
-| **Corpus** | 1,490 SEBI circular records, 85,131 chunks (corpus JSONL ~43 MB; index chunks.jsonl ~313 MB) — grown from 730/78,630 via bounded historical scrape 2026-08-28; chunk count moved 87,959->85,131 via the 2026-09-01 table-row-shredding chunker fix (see dated entries below) |
+| **Corpus** | 1,490 SEBI circular records, 83,752 chunks, chunker `2026-09-03-toc-long-title-merge` (`data/index/meta.json`) — grown from 730/78,630 via bounded historical scrape 2026-08-28; chunk count moved 87,959->85,131->84,188->83,752 via the 2026-09-01/02/03 chunker fixes (see dated entries below) |
 | **Index** | ~1.0 GB at `data/index/` — dense.faiss, bm25/, chunks.jsonl, embeddings.npy, lineage.json (2.1 MB), manifest.json, meta.json; splade.npz absent (eval-only, not rebuilt by `make reindex`) |
 | **Reporting set** | `eval/golden/golden_v7.jsonl` (n=260); **adjudicated_n = 260** |
-| **Gate** | ⚠️ Floor values live in `eval/golden/gate_v7.json` — read it, don't copy numbers here (this row drifted stale once already, see 2026-08-19 sweep below, and again after the 2026-09-02 re-derivation until this 2026-09-03 correction). As of the 2026-09-02T19:56Z derivation the armed floors are recall_at_k 0.8397, context_recall 0.8192, ndcg_at_10 0.5934, citation_recall 0.7347, abstention_accuracy 0.9373, citation_precision 0.1466 — derived under bge-reranker-v2-m3 (fixed by design, `derive_thresholds.py` never routes through `retrieval_reranker_for` — see `.claude/rules/refusal-criteria.md`'s 2026-09-03 correction) + 1,490-circular corpus, chunker `2026-09-01-table-row-merge`. **Stale again as of this correction**: `data/index/meta.json` is now at chunker `2026-09-03-toc-long-title-merge` / 83,752 chunks, two versions past what the armed gate measured; no production metric has been measured against these floors yet. B' ON (`citation_scorer_enabled=true`), margin=0.35 (MLX-parallel sweep knee: P +5.4% vs mechanical, recall 0.8721 on adjudicated answerable n=219). See 2026-09-02 gate re-derivation entry below for full stack and delta table |
+| **Gate** | ⚠️ Floor values live in `eval/golden/gate_v7.json` — read it, don't copy numbers here (this row drifted stale once already, see 2026-08-19 sweep below, and again after the 2026-09-02 re-derivation until this 2026-09-03 correction). As of the 2026-09-02T19:56Z derivation the armed floors are recall_at_k 0.8397, context_recall 0.8192, ndcg_at_10 0.5934, citation_recall 0.7347, abstention_accuracy 0.9373, citation_precision 0.1466 — derived under bge-reranker-v2-m3 (fixed by design, `derive_thresholds.py` never routes through `retrieval_reranker_for` — see `.claude/rules/refusal-criteria.md`'s 2026-09-03 correction) + 1,490-circular corpus, chunker `2026-09-01-table-row-merge`. `data/index/meta.json` is now at chunker
+`2026-09-03-toc-long-title-merge` / 83,752 chunks, two versions past what the armed gate measured
+— **decided 2026-09-15 not to re-derive** (delta is 85,131→83,752 chunks across 19 hand-inspected
+documents, zero false positives, well below golden_v7's detection power; matches the precedent the
+2026-09-01/02 chunker entries already set). **Measured instead**: `eval_json.py` run 2026-09-15
+against the current 83,752-chunk index — `floors_ok: true`, all six metrics clear their floor (see
+dated entry below); closes the "no production metric measured" gap this row used to carry. B' ON (`citation_scorer_enabled=true`), margin=0.35 (MLX-parallel sweep knee: P +5.4% vs mechanical, recall 0.8721 on adjudicated answerable n=219). See 2026-09-02 gate re-derivation entry below for full stack and delta table |
 | **Frozen sets** | `golden_v5` (n=56), `golden_v6` (n=56) |
 | **Epochs** | E1 `4083518f` (4 runs), E2 `913e762c` (20), E3 `8971de0f` (1), E4 `5f626dd9` (10, **current**). Registry `eval/epochs/epochs.jsonl`; 4 unframed runs excluded (ft-traces, iv11-splade-only-*, pool-sweep). `rescore_runs.py` raises `IncomparableFramesError` on cross-frame pairs |
 | **Epoch E5** `2026-08-22` — Benchmark with reranking: recall@10=0.9560 (CrossEncoder bge-reranker-v2-m3, top-n=50) |
@@ -99,7 +106,7 @@ env: SEBI_RAG_GATE | SEBI_RAG_SUBJ_THRESHOLD | SEBI_RAG_SECT_THRESHOLD
 
 > ⚠️ `*_spaces.py` (`api_spaces`, `corpus_spaces`, `generate_spaces`) + root `app.py` = CPU-only HF Spaces demo. **Do not edit when fixing local Apple-Silicon pipeline.** Config in `config.toml [spaces]`; runbook in `README-spaces.md`.
 >
-> ⚠️ **Never add fields to `CircularMeta`** — `hierarchical_chunk()` does `meta=asdict(meta)` (`segment.py:131`), so new fields land in every chunk payload (77.8k chunks). Additive per-circular metadata goes on corpus JSONL record only — see `master_meta.annotate_master_fields` and `reg_lineage.annotate_regulation_fields`.
+> ⚠️ **Never add fields to `CircularMeta`** — `hierarchical_chunk()` does `meta=asdict(meta)` (`segment.py:131`), so new fields land in every chunk payload (83,752 chunks). Additive per-circular metadata goes on corpus JSONL record only — see `master_meta.annotate_master_fields` and `reg_lineage.annotate_regulation_fields`.
 
 ## Completed Phases & Validation
 
@@ -1745,3 +1752,35 @@ labeling-vs-precision-gap distinction it was designed to catch. `abstain` stays 
 (unchanged); only the row's stale placeholder rationale was corrected to record the reviewed
 finding. All 10 of the original 10 hard-negative mismatches are now confirmed genuine (0 relabeled),
 revising the hard-negative-subject-gate spec's own initial 9/1 split finding.
+
+2026-09-15 — **Gate-staleness gap closed by measurement, not re-derivation.** The armed
+`gate_v7.json` floors (derived 2026-09-02, chunker `2026-09-01-table-row-merge`) had gone two
+chunker versions stale against the live index (`2026-09-03-toc-long-title-merge`, 83,752 chunks).
+Decided not to re-derive: the delta since the armed gate (85,131→83,752 chunks) touches only 19 of
+1,490 documents, all hand-inspected with zero false positives (see the 2026-09-03 TOC-long-title
+entry above), and golden_v7 (n=260) cannot resolve an effect this small — the same reasoning the
+2026-09-01 and 2026-09-02 chunker entries already used to skip re-deriving. Ran `eval_json.py`
+instead (real MLX generator, n=260, `data/index/` as of this entry) to get the one thing actually
+missing: a production measurement against the current floors.
+
+```yaml
+measurement_2026-09-15:
+  command: "PYTHONPATH=src .venv/bin/python scripts/eval_json.py"
+  index: {circulars: 1490, chunks: 83752, chunker_version: "2026-09-03-toc-long-title-merge"}
+  floors_ok: true
+  results:
+    recall_at_k:          {observed: 0.8880, floor: 0.8397, margin: +0.0483, result: PASS}
+    context_recall:       {observed: 0.9200, floor: 0.8192, margin: +0.1008, result: PASS}
+    ndcg_at_10:            {observed: 0.6430, floor: 0.5934, margin: +0.0496, result: PASS}
+    citation_recall:       {observed: 0.8490, floor: 0.7347, margin: +0.1143, result: PASS}
+    abstention_accuracy:   {observed: 0.9380, floor: 0.9373, margin: +0.0007, result: PASS}
+    citation_precision:    {observed: 0.1860, floor: 0.1466, margin: +0.0394, result: PASS}
+  raw_output: /tmp/eval_json_2026-09-15.json  # scratch, not committed
+```
+
+**All six pass, but `abstention_accuracy` clears its floor by only +0.0007** — the smallest margin
+of the six by two orders of magnitude, and the same metric the 2026-09-03 root-cause investigation
+was already tuning (`abstain_threshold`, `HYBRID_THRESHOLD` recalibration, entry above). Not a
+blocker — `floors_ok: true` is unambiguous — but the next chunker or corpus change should treat
+this metric as the one with no slack left, not assume the +0.10 margins on `context_recall`/
+`citation_recall` are representative.

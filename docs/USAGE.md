@@ -30,8 +30,10 @@ scrape (SEBI) ─▶ data/raw/*.pdf ─▶ ingest_pdf ─▶ data/corpus/circula
 
 - **Hybrid retrieval:** FAISS dense (bge-m3) + BM25 sparse, fused by Reciprocal Rank
   Fusion. Legal text needs exact matches (circular numbers, dates), hence hybrid.
-- **Reranking:** `bge-reranker-v2-m3` cross-encoder; chunks from superseded circulars
-  are demoted so the in-force version is cited.
+- **Reranking:** `jina-reranker-v3-mlx` cross-encoder orders the retrieval pool (ADR-004,
+  `config.toml [service] reranker_model = "jina"`); `bge-reranker-v2-m3` stays fixed as the
+  separate B′ citation-relevance scorer regardless of `reranker_model`. Chunks from superseded
+  circulars are demoted so the in-force version is cited.
 - **Abstention:** if the top reranked score is below threshold, the system answers
   "I don't know based on the available evidence." rather than guessing.
 - **Faithfulness:** any circular the answer cites in brackets is checked against the
@@ -232,7 +234,7 @@ Edit `config.toml` (`[service]` table) or override any field with `SEBI_RAG_<FIE
 | `generator` | `mlx` | `mlx` (Apple-Silicon native) or `ollama` |
 | `mlx_model` | `mlx-community/Qwen2.5-1.5B-Instruct-4bit` | MLX model; use the 3B for higher groundedness |
 | `top_k` | `3` | contexts passed to the LLM / cited (calibrated) |
-| `abstain_threshold` | `0.40` | cross-encoder score gate for abstention |
+| `abstain_threshold` | `0.109` | cross-encoder score gate for abstention (jina; `pipeline.py`'s 0.40 dataclass default is not what production loads) |
 | `superseded_penalty` | `0.3` | rerank multiplier for superseded chunks (0 = drop) |
 | `rate_per_min` | `60` | requests/min per key or IP |
 | `timeout_s` | `30` | `/query` time budget → 504 |
@@ -342,7 +344,7 @@ make export-datasets   # export publishable dataset configs to dist/datasets
 | `segment.py` | hierarchical, clause-aware chunking + metadata + stable chunk IDs |
 | `embeddings.py` | `Embedder` protocol; `BGEM3Embedder` (MPS); `HashEmbedder` (offline tests) |
 | `retrieve.py` | `DenseIndex` (FAISS), `SparseIndex` (bm25s), `rrf_fuse`, `HybridRetriever` (+ save/load) |
-| `rerank.py` | `CrossEncoderReranker` (bge-reranker-v2-m3); `LexicalReranker` (offline) |
+| `rerank.py` | `CrossEncoderReranker` (bge-reranker-v2-m3; used for the B′ citation scorer and by the HF Spaces demo); `JinaMLXReranker` (jina-reranker-v3-mlx, production retrieval reranker, ADR-004); `LexicalReranker` (offline) |
 | `lineage.py` | supersession graph, re-issue detection, `demote_superseded`, save/load |
 | `generate.py` | `MLXGenerator`, `OllamaGenerator`, abstention gate, `faithfulness` |
 | `pipeline.py` | wires retrieve → rerank → demote → generate; supersession + faithfulness on the answer |
