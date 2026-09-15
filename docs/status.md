@@ -11,7 +11,7 @@
 | **Corpus** | 1,490 SEBI circular records, 85,131 chunks (corpus JSONL ~43 MB; index chunks.jsonl ~313 MB) — grown from 730/78,630 via bounded historical scrape 2026-08-28; chunk count moved 87,959->85,131 via the 2026-09-01 table-row-shredding chunker fix (see dated entries below) |
 | **Index** | ~1.0 GB at `data/index/` — dense.faiss, bm25/, chunks.jsonl, embeddings.npy, lineage.json (2.1 MB), manifest.json, meta.json; splade.npz absent (eval-only, not rebuilt by `make reindex`) |
 | **Reporting set** | `eval/golden/golden_v7.jsonl` (n=260); **adjudicated_n = 260** |
-| **Gate** | ⚠️ Floor values live in `eval/golden/gate_v7.json` — read it, don't copy numbers here (this row drifted stale once already, see 2026-08-19 sweep below, and again after the 2026-09-02 re-derivation until this 2026-09-03 correction). As of the 2026-09-02T19:56Z derivation the armed floors are recall_at_k 0.8397, context_recall 0.8192, ndcg_at_10 0.5934, citation_recall 0.7347, abstention_accuracy 0.9373, citation_precision 0.1466 — derived under jina-reranker-v3-mlx + 1,490-circular corpus, chunker `2026-09-01-table-row-merge`. **Stale again as of this correction**: `data/index/meta.json` is now at chunker `2026-09-03-toc-long-title-merge` / 83,752 chunks, two versions past what the armed gate measured; no production metric has been measured against these floors yet. B' ON (`citation_scorer_enabled=true`), margin=0.35 (MLX-parallel sweep knee: P +5.4% vs mechanical, recall 0.8721 on adjudicated answerable n=219). See 2026-09-02 gate re-derivation entry below for full stack and delta table |
+| **Gate** | ⚠️ Floor values live in `eval/golden/gate_v7.json` — read it, don't copy numbers here (this row drifted stale once already, see 2026-08-19 sweep below, and again after the 2026-09-02 re-derivation until this 2026-09-03 correction). As of the 2026-09-02T19:56Z derivation the armed floors are recall_at_k 0.8397, context_recall 0.8192, ndcg_at_10 0.5934, citation_recall 0.7347, abstention_accuracy 0.9373, citation_precision 0.1466 — derived under bge-reranker-v2-m3 (fixed by design, `derive_thresholds.py` never routes through `retrieval_reranker_for` — see `.claude/rules/refusal-criteria.md`'s 2026-09-03 correction) + 1,490-circular corpus, chunker `2026-09-01-table-row-merge`. **Stale again as of this correction**: `data/index/meta.json` is now at chunker `2026-09-03-toc-long-title-merge` / 83,752 chunks, two versions past what the armed gate measured; no production metric has been measured against these floors yet. B' ON (`citation_scorer_enabled=true`), margin=0.35 (MLX-parallel sweep knee: P +5.4% vs mechanical, recall 0.8721 on adjudicated answerable n=219). See 2026-09-02 gate re-derivation entry below for full stack and delta table |
 | **Frozen sets** | `golden_v5` (n=56), `golden_v6` (n=56) |
 | **Epochs** | E1 `4083518f` (4 runs), E2 `913e762c` (20), E3 `8971de0f` (1), E4 `5f626dd9` (10, **current**). Registry `eval/epochs/epochs.jsonl`; 4 unframed runs excluded (ft-traces, iv11-splade-only-*, pool-sweep). `rescore_runs.py` raises `IncomparableFramesError` on cross-frame pairs |
 | **Epoch E5** `2026-08-22` — Benchmark with reranking: recall@10=0.9560 (CrossEncoder bge-reranker-v2-m3, top-n=50) |
@@ -191,10 +191,11 @@ Low κ on title_direct/multi_hop/numeric_table: spec §7 promotion amendment (20
 - **Root cause:** Mechanical citation of all contexts (generate.py:428-430) — every deduped chunk gets a citation regardless of whether the LLM used it. Chunks ranked 6–10 are tangentially related, diluting precision.
 - **Academic context:** Wallat 2025 shows even RAG-optimized models post-rationalize citations (12–57%); Chaganti 2026 shows faithfulness is bounded by exposure, not source quality. Selective citations would improve precision across all top_k values.
 - **Actionability:** NOT the most actionable signal — it's a trade-off, not an urgent fix. Higher-ROI improvements: retrieval quality (reranker fine-tuning), then selective citations (see `2026-08-03-citation-precision-drop-analysis.md`).
-### Gate floors (260 adjudicated)
+### Gate floors (260 adjudicated) — 2026-08-13 historical record, superseded
 
-Authoritative source: `eval/golden/gate_v7.json` (derived 2026-08-13T15:47Z, MLX generator, B' ON).
-Observed values are the current armed measurement — see Current Snapshot.
+**Not current.** `eval/golden/gate_v7.json` now carries the 2026-09-02T19:56:21 derivation (see
+Current Snapshot's Gate row) — the floors and observed values below describe the 2026-08-13T15:47Z
+run only (MLX generator, B' ON) and are kept for historical comparison.
 
 ```yaml
 adjudicated_n: 260 (>= 100 threshold met)

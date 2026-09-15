@@ -1,7 +1,7 @@
 # Project Context — SEBI Circular RAG
 
 > Authoritative architecture record. Consult before requesting any information.
-> Governed by `SEBI_RAG_Claude_Desktop_Engineering_Handbook.md`. Last updated: 2026-09-02 (corpus growth to 1,490 circulars; reranker moved to jina-reranker-v3-mlx (ADR-004); gate floors re-derived — see `eval/golden/gate_v7.json`).
+> Governed by `SEBI_RAG_Claude_Desktop_Engineering_Handbook.md`. Last updated: 2026-09-03 (corpus growth to 1,490 circulars; production reranker moved to jina-reranker-v3-mlx (ADR-004) — unrelated to the gate, since `derive_thresholds.py` stays on bge-reranker-v2-m3 by design; gate floors re-derived on the corpus-growth axis alone — see `eval/golden/gate_v7.json`).
 
 ## 1. Purpose
 
@@ -157,7 +157,8 @@ abstain_rows: 41 | as_of_dated_rows: 15
 frozen_fallback: golden_v5.jsonl (n=56) — used when v7 gate not armed
 golden_v6: golden_v6.jsonl (n=56) — intermediate set
 gate: eval/golden/gate_v7.json (armed at adjudicated_n=260) — AUTHORITATIVE; read the JSON, not this prose
-  floors (armed under B' selective citations, margin 0.35, derived 2026-08-13 MLX generator): recall_at_k=0.906, context_recall=0.874, ndcg_at_10=0.6512, citation_recall=0.8169, abstention_accuracy=0.9412, citation_precision=0.1577
+  floors (armed under B' selective citations, margin 0.35, derived_at 2026-09-02T19:56:21, bge-reranker-v2-m3, 1,490-circular corpus, MLX generator): recall_at_k=0.8397, context_recall=0.8192, ndcg_at_10=0.5934, citation_recall=0.7347, abstention_accuracy=0.9373, citation_precision=0.1466
+  known_stale_as_of: chunker 2026-09-01-table-row-merge; data/index/meta.json is now at 2026-09-03-toc-long-title-merge (two versions on) — see docs/status.md:14
   floors_are_model_dependent: |
     These floors are NOT properties of the corpus or the golden set. They were derived under a
     specific stack: bge-m3 embedder + bge-reranker-v2-m3 cross-encoder + B' margin 0.35 +
@@ -208,8 +209,9 @@ and did again between this update and the last one (below).
 
 **2026-08-13-derived floors above are now stale — do not cite them.** The bge-reranker-v2-m3 /
 730-circular-corpus stack they describe no longer runs in production. `.claude/rules/refusal-criteria.md`
-is the authoritative floor table (re-derived 2026-09-02 under jina-reranker-v3-mlx + the
-1,490-circular corpus; `eval/golden/gate_v7.json` is the machine-readable source it's built from).
+is the authoritative floor table (re-derived 2026-09-02 under bge-reranker-v2-m3, fixed by design,
++ the 1,490-circular corpus; `eval/golden/gate_v7.json` is the machine-readable source it's built
+from).
 No production metric has been re-measured against the new floors as of this entry — that
 re-measurement, once run, belongs in this section, not the numbers below:
 
