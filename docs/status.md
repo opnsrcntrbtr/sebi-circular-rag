@@ -1784,3 +1784,40 @@ was already tuning (`abstain_threshold`, `HYBRID_THRESHOLD` recalibration, entry
 blocker — `floors_ok: true` is unambiguous — but the next chunker or corpus change should treat
 this metric as the one with no slack left, not assume the +0.10 margins on `context_recall`/
 `citation_recall` are representative.
+
+2026-09-15 — **Next-most-critical-pending-task determination: golden-set-power (n≈834) is it,
+under an "unblocks the most future work" criterion — and the named intervention it should fund is
+already on record.** `docs/superpowers/specs/2026-09-01-golden-set-power.md` withholds a funding
+recommendation "without a named next intervention to spend it on." That intervention already
+exists in this file: L1712's `bge_m3_finetune_final_disposition` block sets
+`reopen_gate: "not before ... golden-set-power.md is funded (n≈834 for 80% power at 2pp ndcg)"`.
+This entry is not a new decision — it's the first place that chain is stated as a standalone
+finding rather than buried inside the fine-tune's own closing entry, so a future session can find
+it without re-deriving it.
+
+```yaml
+determination_2026-09-15:
+  criterion: "unblocks the most future work"
+  answer: "fund/decide docs/superpowers/specs/2026-09-01-golden-set-power.md (n≈834)"
+  why: "three independent workstreams (bge-m3 fine-tune, iv11-splade, the 2026-09-01/02/03
+    chunker fixes) all hit the same golden_v7 (n=260/216 scored) power ceiling - it cannot
+    resolve <4pp ndcg deltas"
+  named_intervention: "bge-m3 SEBI fine-tune re-measurement - reopen_gate already points here,
+    docs/status.md:1712"
+  candidates_checked_and_rejected:
+    iv11_splade: "looked promising exploratorily (positive on all 3 metrics, nDCG p=0.032), but
+      its confirmatory prereg (docs/superpowers/specs/2026-08-12-iv11-splade-confirmatory-
+      prereg.md) preregistered that a sign-flip on confirmation is a CLEAN REJECT, not a
+      power-limited hold, specifically to prevent relitigating it later. Confirmatory run
+      flipped sign (Δ=-0.0068). Reopening it with more power would violate the project's own
+      stated rigor rule - not a good funding target."
+  stale_items_verified_resolved:
+    test_coverage_workstream_3: "flagged pending at docs/status.md:1258 (2026-08-16), actually
+      completed the next day - docs/status.md:1259 (2026-08-17). All four test files exist
+      (test_selective_citations.py, test_attribution.py, test_gate.py, test_non_sebi_filter.py)."
+    crossref_stratum: "docs/corpus-coverage-2026-08-20.md - premise (730-circular corpus) has
+      since changed (1,490 now, +104%), never re-measured. Not independently critical - a
+      symptom of the same power gap, not a separate blocker."
+  action_taken: "documentation only - no code/config changed. Funding the n≈834 expansion itself
+    remains a separate decision, not made here."
+```
