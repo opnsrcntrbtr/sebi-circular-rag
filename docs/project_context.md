@@ -1,7 +1,7 @@
 # Project Context — SEBI Circular RAG
 
 > Authoritative architecture record. Consult before requesting any information.
-> Governed by `SEBI_RAG_Claude_Desktop_Engineering_Handbook.md`. Last updated: 2026-09-03 (corpus growth to 1,490 circulars; production reranker moved to jina-reranker-v3-mlx (ADR-004) — unrelated to the gate, since `derive_thresholds.py` stays on bge-reranker-v2-m3 by design; gate floors re-derived on the corpus-growth axis alone — see `eval/golden/gate_v7.json`).
+> Governed by `SEBI_RAG_Claude_Desktop_Engineering_Handbook.md`. Last updated: 2026-09-16 (corpus growth to 1,490 circulars; production reranker moved to jina-reranker-v3-mlx (ADR-004) — unrelated to the gate, since `derive_thresholds.py` stays on bge-reranker-v2-m3 by design; gate floors re-derived on the corpus-growth axis alone — see `eval/golden/gate_v7.json`; plus the 2026-09-15 gate stack-fingerprint interlock (`aea5949e`) and the 2026-09-16 chunk-quality-metric detector (`18edd0c3`)).
 
 ## 1. Purpose
 
@@ -205,6 +205,8 @@ adjudication_pipeline: scripts/golden_v7/ (seed, mine_strata, build_pool, gate_s
 | `scripts/export_benchmark.py` | BEIR/TREC/RAG benchmark export |
 | `scripts/export_datasets.py` | Dataset export (chunks, corpus, lineage, eval) |
 | `scripts/calibrate.py` | Retrieval calibration sweep (RRF, top-k, threshold) |
+| `scripts/analysis/chunk_quality_metric.py` | Chunk-quality shape detector (`is_shredded_row_stub`, `is_orphan_fragment`, `is_interleaved_split`) — corpus-wide point measurement against the current `chunker_version`, not a cross-version comparison (chunker_version is stamped per-index in `meta.json`, not per-chunk; `make reindex` overwrites `chunks.jsonl` in place with no retained history). Output: `reports/chunk-quality-metric-<date>.json` |
+| `scripts/golden_v7/gate_select.py` (`stack_matches`) / `scripts/golden_v7/derive_thresholds.py` (`stack_from_settings`) | Gate stack-fingerprint interlock (added 2026-09-15, `aea5949e`). `stack_from_settings()` builds a live fingerprint (`embed_model`, `chunker_version`, `corpus_n`, `chunk_n`, `generator`, `citation_margin`, `citation_scorer_enabled`, `abstain_threshold` — the 8 `_STACK_AXES`); `stack_matches(gate, live)` diffs it against the `stack` key recorded in `gate_v7.json` at derivation time, returning the names of any drifted axes (empty = verified match). A gate file with no `stack` key at all — true of every `gate_v7.json` that existed before this landed, including the currently armed one — returns all 8 axes: unverifiable, not a silent pass. `scripts/eval_json.py` surfaces this as `gate_verdict` (`"pass"` / `"fail"` / `"unverifiable"` / `null`) plus `stack_drift`, additive alongside the existing `floors_ok` (unchanged shape, existing consumers unaffected). `derivation_reranker` is recorded for information only and is deliberately NOT a `_STACK_AXES` member — the floor baseline stays fixed at bge-reranker-v2-m3 by design, so production running jina is expected steady state, not drift |
 
 ### 7.6 Current Baseline Numbers (golden_v7, full set, n=260)
 
@@ -250,8 +252,18 @@ disk_embeddings_npy: 307 MB (78,585 chunks); scales to ~2 GB at 500k chunks
 # Reached via 2026-09-01 table-row-merge (85,131) -> 2026-09-02 gap-merge (84,188) ->
 # 2026-09-03 toc-long-title-merge (83,752); see docs/status.md's dated entries for the
 # per-step chunk-count deltas. The armed golden_v7 gate (eval/golden/gate_v7.json) still
-# describes the 2026-09-01-table-row-merge index — two chunker versions behind — and no
-# production metric has been measured against it yet; see docs/status.md:14.
+# describes the 2026-09-01-table-row-merge index — two chunker versions behind. That gap is
+# now closed on two fronts: `eval_json.py` was run 2026-09-15 against the live 83,752-chunk
+# index (floors_ok: true, all six gated metrics clear their floor), and the chunk-quality-
+# metric detector (scripts/analysis/chunk_quality_metric.py) produced a corpus-wide shape
+# measurement 2026-09-16 (reports/chunk-quality-metric-2026-09-16.json: shredded_row_rate
+# 0.0, orphan_fragment_rate 9.6e-05, interleaved_split_rate 0.00166; interleaved_split
+# precision 0.9333 / recall 0.925 hand-validated, the other two directional-only — 0
+# candidates fired in the 62-doc hand-labeling sample). The stack-fingerprint interlock
+# (gate_select.stack_matches, aea5949e) still reports gate_verdict: "unverifiable" —
+# the armed gate_v7.json carries no "stack" key, so all 8 _STACK_AXES are flagged as drift
+# — independent of floors_ok, which still holds true. See docs/status.md's Current Snapshot
+# table and its 2026-09-15/2026-09-16 dated entries.
 ```
 
 
@@ -348,7 +360,7 @@ design_decisions:
 ```
 SEBI circular RAG/
 ├── docs/ — project_context.md (this file), status.md, scraping_plan.md, n8n_automation_plan.md, adr-001/002/003-*.md, graphify-analysis/, assets/, superpowers/{plans/, reports/, specs/}
-├── data/ — raw/ (PDFs + .sha256, 728 records), corpus/ (circulars.jsonl, context_headers_targeted.jsonl, regulations.jsonl), manifests/ (master_circulars.jsonl, master_exceptions.jsonl, regulation_edges.jsonl), index/ (dense.faiss, bm25/, chunks.jsonl, lineage.json, embeddings.npy, manifest.json, meta.json; splade.npz absent)
+├── data/ — raw/ (PDFs + .sha256, 1,496 PDFs / 1,490 corpus records), corpus/ (circulars.jsonl, context_headers_targeted.jsonl, regulations.jsonl), manifests/ (master_circulars.jsonl, master_exceptions.jsonl, regulation_edges.jsonl), index/ (dense.faiss, bm25/, chunks.jsonl, lineage.json, embeddings.npy, manifest.json, meta.json; splade.npz absent)
 ├── src/sebi_rag/ — flat module (no subpackages): __init__.py, api.py, api_spaces.py, pipeline.py, retrieve.py, splade.py, splade_encoder.py, context_headers.py, hyde.py, rerank.py, embeddings.py, segment.py, lineage.py, master_meta.py, metadata.py, generate.py, generate_spaces.py, corpus.py, corpus_spaces.py, eval.py, eval_asof.py, eval_harness.py, benchmark.py, settings.py, device.py, stats.py, expand.py, reg_citations.py, reg_lineage.py, regulations.py, verify_master.py, ui.py, ingest_pdf.py, attribution.py, measure.py |
 ├── scripts/ — build_index.py, calibrate.py, scrape_sebi.py, scrape_regulations.py, build_golden.py, build_golden_v6.py, build_reg_edges.py, build_splade_index.py, eval_json.py, eval_gate.py, eval_asof.py, bench_generators.py, bench_rerankers.py, bench_retrieval.py, export_benchmark.py, export_datasets.py, golden_v7/ (agreement.py, build_pool.py, derive_thresholds.py, gate_select.py, local_adjudicate.py, gemini_adjudicate.py, …), validate_corpus.py, repair_corpus_text.py, renu... |
 ├── tests/ — conftest.py (fixtures, env guards, mock models), fixtures/, test_*.py
@@ -394,7 +406,7 @@ prerequisites:
 
 ## 13. Token Optimization (tracked in status.md)
 
-Three-phase optimization reduced pre-injected context from **99,189 bytes (~24,800 tokens)** to **~10,500 bytes (~2,600 tokens)** — a **92.7% reduction** with zero regression (603 tests pass).
+Three-phase optimization reduced pre-injected context from **99,189 bytes (~24,800 tokens)** to **~10,500 bytes (~2,600 tokens)** — a **92.7% reduction** with zero regression (603 tests pass — the 2026-07 test count at the time of that optimization change, not the current suite size; `make test` now reports 1124 passed, 1 skipped, 3 deselected, see AGENTS.md).
 
 ```yaml
 config:
