@@ -160,7 +160,6 @@
   "158": "autoresearch.sh",
   "159": "Master Circular for Mutual Funds (2026)",
   "160": "test_every_derived_floor_is_emitted_by_the_eval_report",
-  "161": "sebi-rag",
   "162": "floors_ok",
   "163": "validate_golden.py",
   "164": "acquire_missing_pdfs.py",
