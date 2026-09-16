@@ -88,10 +88,10 @@ Optional legs: `SPLADE / HyDE (eval-only, off by default)`
 deps:
   xcode_clt: "* (pin @ validation)"
   homebrew: "* (pin @ validation)"
-  python: "3.12.13 (.venv; system default 3.14.6 unused — no mlx-lm wheel)"
-  uv: "0.12.4 (Homebrew)"
+  python: "3.12.14 (.venv; system default 3.14.7 unused — no mlx-lm wheel)"
+  uv: "0.12.15 (Homebrew)"
   git: "2.55.0 (Homebrew; Apple Git 2.50.1 also present)"
-  mlx: "0.31.3 / MLX-LM 0.31.3 (validated in .venv)"
+  mlx: "0.32.0 / MLX-LM 0.31.3 (validated in .venv)"
   ollama: "0.19+ (MLX backend on Apple Silicon) (* pin @ validation)"
   pytorch_mps: "2.13.0 (required: baseline runtime for bge-m3 embeddings + cross-encoder reranker via sentence-transformers / FlagEmbedding)"
   sentence_transformers: "5.6.0"
@@ -406,7 +406,7 @@ prerequisites:
 
 ## 13. Token Optimization (tracked in status.md)
 
-Three-phase optimization reduced pre-injected context from **99,189 bytes (~24,800 tokens)** to **~10,500 bytes (~2,600 tokens)** — a **92.7% reduction** with zero regression (603 tests pass — the 2026-07 test count at the time of that optimization change, not the current suite size; `make test` now reports 1124 passed, 1 skipped, 3 deselected, see AGENTS.md).
+Three-phase optimization reduced pre-injected context from **99,189 bytes (~24,800 tokens)** to **~10,500 bytes (~2,600 tokens)** — a **92.7% reduction** with zero regression (603 tests pass — the 2026-07 test count at the time of that optimization change, not the current suite size; `make test` now reports 1131 passed, 1 skipped, 3 deselected, see AGENTS.md).
 
 ```yaml
 config:

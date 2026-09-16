@@ -27,9 +27,9 @@ it before citing a specific threshold value; do not restate the numbers here.
 |---------|---------|
 | `make serve` | FastAPI backend on port 8000 |
 | `make ui` | Gradio UI dashboard |
-| `make test` | Offline test suite (1124 passed, 1 skipped, 3 deselected) |
+| `make test` | Offline test suite (1131 passed, 1 skipped, 3 deselected) |
 | `make annotate` | Recompute supersession status only |
-| `make corpus-validate` | Check corpus integrity (duplicate texts, circular_number derivation) |
+| `make corpus-validate` | Check corpus integrity (duplicate texts, circular_number derivation) — not `make validate-corpus`, a different target (see § Testing & Evaluation) |
 | `make reindex` | Annotate corpus + rebuild index |
 | `make index` | Build/persist FAISS+BM25 only |
 | `make scrape` | Fetch SEBI circulars (MAX=N) |
@@ -111,7 +111,9 @@ See `docs/project_context.md` §6 for the full validation sequence (12 steps).
 - `make test` runs `pytest -q -m "not integration"`.
 - Golden sets live in `eval/golden/`; benchmark runs land in `eval/runs/`.
 - `golden_v7.jsonl` (n=260) is the reporting set; CI gates on `adjudicated_n >= 100`.
-- Use `make validate-corpus` after any ingest or repair.
+- Use `make validate-corpus` (`scripts/validate_corpus.py data/corpus/circulars.jsonl`) after any
+  ingest or repair — distinct from `make corpus-validate` (`scripts/corpus_integrity.py`) above;
+  the two names are easy to swap.
 - Interventions are specced in `docs/superpowers/specs/`, planned in `plans/`, results in `reports/`.
 
 ## Workflow
@@ -153,7 +155,7 @@ Claude Code does not — see `docs/oh-my-pi-tooling.md` only if your runtime pro
 - `HF_HUB_DISABLE_XET=1`, `TOKENIZERS_PARALLELISM=false`, `OMP_NUM_THREADS=1`, `PYTORCH_ENABLE_MPS_FALLBACK=1`, `PYTHONPATH=src` — all set via the Makefile `ENV` var
 - `PORT` — default 8000; override with `PORT=9000 make serve`
 
-> **Cache note:** This file is part of the stable prompt prefix (~9.2KB). Do not add timestamps, session IDs, or dynamic content. Changes to any prefix byte invalidate the cache.
+> **Cache note:** This file is part of the stable prompt prefix (~12.6KB). Do not add timestamps, session IDs, or dynamic content. Changes to any prefix byte invalidate the cache.
 
 ## graphify
 

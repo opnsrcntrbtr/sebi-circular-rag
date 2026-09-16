@@ -1,8 +1,8 @@
 # Status — SEBI Circular RAG
 
-> Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-09-16 (docs sync). Two code commits landed since 2026-09-15: `aea5949e`
-> (gate stack-fingerprint interlock) and `18edd0c3` (chunk-quality-metric detector).
+> Records completed work and blockers. Consult before requesting information. Per-entry
+> index of all dated entries + sections at the bottom (`## Index`) — jump there, don't scroll.
+> Last updated 2026-09-16: `aea5949e` (stack-fingerprint interlock), `18edd0c3` (chunk-quality).
 
 ## Current Snapshot
 
@@ -30,7 +30,7 @@ dated entry below); closes the "no production metric measured" gap this row used
 | **v7 strata** | title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10 |
 | **Abstain/as_of rows** | 41 abstain, 15 dated `as_of` |
 | **Draft rows** | 0 draft, 0 seeded (verified against `eval/golden/golden_v7.jsonl` — all 260 rows `review_status: adjudicated`). 2026-09-15 expansion drafts staged, **not merged**: `eval/golden/v7_annotations/draft_rows_expansion_2026-09-15.jsonl`, `eval/golden/v7_annotations/draft_rows_retry_2026-09-15.jsonl` |
-| **Test suite** | 1124 passed, 1 skipped, 3 deselected (2026-09-16); zero failures |
+| **Test suite** | 1131 passed, 1 skipped, 3 deselected (2026-09-16, deploy-space observability fix); zero failures |
 | **Source tree** | 37 Python modules in `src/sebi_rag/` (__init__, api, api_spaces, attribution, benchmark, conformal, context_headers, corpus, corpus_spaces, device, embeddings, eval, eval_asof, eval_harness, expand, generate, generate_spaces, hyde, ingest_pdf, lineage, master_meta, measure, metadata, paraphrase_rescue, pipeline, reg_citations, reg_lineage, regulations, rerank, retrieve, segment, settings, splade, splade_encoder, stats, ui, verify_master); 42 top-level scripts in `scripts/` (incl. bench_retrieval.py, measure.py, hybrid_gate_sweep.py) plus `scripts/analysis/` and `scripts/golden_v7/` |
 | **Golden-v7 pipeline** | 17 scripts in `scripts/golden_v7/` (__init__, adjudicate_draft, agreement, backfill_escalations, build_pool, derive_thresholds, draft_expansion_rows, gate_select, gemini_adjudicate, local_adjudicate, make_packet, mine_strata, relabel_repooled, remap_doc_ids, score, seed_v7, validate_golden) |
 | **V7 annotations** | `eval/golden/v7_annotations/` — votes.jsonl (207 claude records), pools.jsonl (4.2 MB), arbitration_queue.jsonl (65 KB), external_sample.json, gemini/ (21 dirs), qwen/ (150 files), candidates/, packet_human/, `candidates_expansion_2026-09-15/`, `draft_rows_expansion_2026-09-15.jsonl`, `draft_rows_retry_2026-09-15.jsonl` |
@@ -2118,3 +2118,90 @@ verification: "make test -> 1131 passed (1124 baseline + 7 new), 1 skipped, 3 de
   zero regressions; python -m compileall -q app.py src/sebi_rag scripts/deploy_space.py
   clean; live Space confirmed RUNNING post-fix via hf spaces info --expand runtime"
 ```
+
+## Index
+
+Added 2026-09-16 for navigation only — no existing line above this point was renumbered.
+Cross-file citations of the form `docs/status.md:NNN` elsewhere in the repo remain valid.
+
+### Sections
+
+- L7 — Current Snapshot
+- L91 — Source Architecture
+- L112 — Completed Phases & Validation
+- L154 — ADR-001 Findings Status
+- L227 — Known Blockers
+- L240 — Corpus Integrity (2026-07-25 repair)
+- L285 — Citation Recall Variance Analysis (2026-08-04)
+- L319 — E4 Intervention Re-runs (2026-08-12)
+- L369 — Gate now measures the context window, not just the fusion list (2026-08-13)
+- L406 — False abstentions diagnosed — threshold tuning is dead, one lead survives (2026-08-13)
+- L469 — Zero-cite composition under the production generator (2026-08-13)
+- L587 — Gate re-derived under the production generator (2026-08-12)
+- L641 — Stage-loss analysis: the bottleneck is citation selection, not retrieval (2026-08-12)
+- L794 — iv-series: FINAL VERDICT — all five resolved on E4, none adoptable (2026-08-12)
+- L819 — iv11 Confirmatory — REJECTED (2026-08-12)
+- L845 — Last Updated (dated entries — see below)
+- L2067 — HF Space BUILD_ERROR (exit code 128) — infra glitch, observability gap closed (2026-09-16)
+
+### Dated entries (file order — not sorted by date; all under `## Last Updated`)
+
+- L847 `2026-08-27` — Set-Encoder reranker benchmark: BLOCKED (environment), not adopted, no fabricated numbers.
+- L849 `2026-08-27` — Note on the two irreconcilable `make test` baselines above (885/11-failed vs 898/1-failed): neither is reproducible from a fresh checkout of this branch.
+- L851 `2026-08-27` — CORRECTION to the entry above: "this project's pinned `transformers==5.14.1`" misdescribes the dependency mechanism.
+- L853 `2026-08-27` — Hybrid abstention gate experiment (2026-08-13 decision, never run) executed and closed: NULL, safe candidate identified but not adopted.
+- L855 `2026-08-27` — CORRECTION to the entry above: the hybrid-gate sweep ran at `top_k=5`, not prod's `top_k=10` — re-run, verdict unchanged in substance, two descriptive findings corrected.
+- L857 `2026-08-26` — R7 conformal abstention calibration REJECTED — decisively, on accuracy, not on a narrow guardrail.
+- L884 `2026-08-26` — GATE (throwaway, not preregistered): R5 (table-aware ingestion) is knocked out by its own preregistered precondition — zero of the `numeric_table` zero-cite rows are table-fragmentation-caused.
+- L886 `2026-08-26` — SPIKE (throwaway, not preregistered): R6 late chunking is not viable via bge-m3 as currently used — mean pooling underperforms the production CLS pooling by ~8pp even before any late-chunking-specific benefit is applied.
+- L890 `2026-08-25` — B′ citation scorer: jina-reranker-v3 (listwise) REJECTED — precision gain real and large, but zero-cite worsened and it is not primarily a margin-collapse artifact.
+- L904 `2026-08-24` — CORRECTION to the ADR-004 adoption entry below: the reported `eval-asof: 13/13, unchanged from the prior bge baseline` had silently never tested Jina.
+- L910 `2026-08-24` — ADR-004 ADOPTED: jina-reranker-v3-mlx is now the production retrieval reranker, by explicit owner override of the preregistered ≥10% bar. Full regression suite green, `floors_ok: true`.
+- L939 `2026-08-24` — ADR-004 Arm 1: jina-reranker-v3-mlx REJECTED — real, consistent gain on both metrics, neither clears the preregistered 10% bar.
+- L957 `2026-08-23` — R1 §4/§6 cohort run: REJECTED. W1 reproduces the NLI failure shape the spec explicitly warned about — zero-cite 16→47 — despite a real, substantial precision gain.
+- L974 `2026-08-23` — R1 §3.3 retry PASSES: `max_tokens` 512→1024 fixes the truncation, 97.6% parseable (41/42) vs the 80% floor. Arm proceeds to the §4/§6 cohort run.
+- L980 `2026-08-23` — R1 §3.3 degeneracy probe: ABANDONED before the cohort run — 38.1% parseable, floor is 80%. Root cause is `max_tokens=512` truncation, not a reasoning failure.
+- L997 `2026-08-20` — R3 VOID: the cross-reference stratum is not minable at this corpus size; 73.8% of cross-references point outside the corpus.
+- L1018 `2026-08-20` — Roadmap dependencies re-derived after R0 and R2 both closed; R1 unblocked, promoted, and preregistered.
+- L1034 `2026-08-20` — R0 REJECTED: the 7B generator buys ±0.007 on the citation metrics, because emitted citations are architecturally disconnected from the gated ones.
+- L1061 `2026-08-20` — CS1: 69% of the golden_v7 gate rests on labels no human ever checked, and verification effort runs inversely to difficulty.
+- L1098 `2026-08-20` — RETRACTION: the 7B timeout tail was an artifact. 7B is unblocked on latency; the gate costs ~44 min, not 69.9.
+- L1120 `2026-08-20` — R0 generator screen: the 3B target is falsified; 7B is the only size that follows the citation instruction.
+- L1136 `2026-08-20` — P0 prep: generator cost measured. B3 does not fire; 7B is 2.05x, not 4-5x.
+- L1158 `2026-08-19` — Supersession confidence tiering REJECTED on the preregistered guardrail; the exploratory signal was a size confound.
+- L1182 `2026-08-19` — SPLADE artifacts confirmed absent, not stale; two research docs added.
+- L1184 `2026-08-19` — Stale current-state claims swept across agent-facing docs.
+- L1190 `2026-08-19` — CE paraphrase rescue REJECTED on the preregistered guardrail; 2026-08-18 diagnostic corrected.
+- L1222 `2026-08-13` — Gate now measures the context window (`context_recall`), not just the fusion list.
+- L1224 `2026-08-13` — Non-SEBI keyword drift fixed; 1 of 3 false answers resolved.
+- L1226 `2026-08-13` — All 5 false abstentions diagnosed; threshold tuning is dead.
+- L1228 `2026-08-13` — Reranker lever exhausted; found and fixed a real production bug instead.
+- L1230 `2026-08-13` — `superseded_penalty` confirmatory run at 0.5: NOT ADOPTED, 0.3 retained.
+- L1232 `2026-08-13` — `superseded_penalty` sweep run and NOT adopted; 0.3 retained.
+- L1234 `2026-08-13` — Cite-wrong-docs diagnosed: supersession demotion is the top cause of zero-cite, ahead of B′.
+- L1236 `2026-08-13` — B′ exonerated; three distinct citation problems, not one.
+- L1238 `2026-08-12` — Gate re-derived under the production MLX generator.
+- L1240 `2026-08-04` — B' eval: recall=0.943, precision=0.224, citation_recall=0.783, abstention=0.962 (all floors pass).
+- L1242 `2026-08-13` — System stable; 5 false abstentions accepted as known limitations.
+- L1252 `2026-08-13` — Cite-wrong-docs is structural, not a bug.
+- L1253 `2026-08-14` — Workstream 2 (Corpus Expansion) completed.
+- L1254 `2026-08-14` — Streaming generator rewrite.
+- L1256 `2026-08-15` — Spaces UI citation preview fixed (`app.py`, CPU-only demo).
+- L1257 `2026-08-15` — Full eval saved on expanded corpus (728 circulars, 78,585 chunks).
+- L1258 `2026-08-15` — asof-p2 regression fixed (eval-asof 12/13 → 13/13).
+- L1259 `2026-08-16` — Workstream 1 (Margin Sweep) REJECTED.
+- L1271 `2026-08-28` — Phase −1 of the bge-m3 SEBI fine-tuning intervention: bounded corpus scrape + freeze.
+- L1297 `2026-08-28` — Phase 0 of the bge-m3 SEBI fine-tuning intervention: structural-pairs kill switch. GATE VERDICT: PROCEED.
+- L1393 `2026-09-01` — Branch merge triage: `finetune/local-adjudicate-27b` merged to main whole (this entry's own history is now part of main). Two branches initially flagged as "real unmerged work" turned out fully superseded on verification — recorded here so the next reader doesn't re-merge them.
+- L1436 `2026-09-01` — Post-hoc re-analysis: the "Phase 2 regression" above was noise, not signal. Intervention closed as NULL.
+- L1505 `2026-09-02` — Two critical findings from a caveman-review of the fine-tune arc (ff81dd7..HEAD) fixed: index now stamps and enforces embed_model identity.
+- L1565 `2026-09-03` — CORRECTION to the entry above: `stack.reranker: jina-reranker-v3-mlx` is factually wrong.
+- L1673 `2026-09-03` — Full test suite re-verified after the 2026-09-02 UI-sync session: 1092 passed, 1 skipped, 3 deselected.
+- L1675 `2026-09-03` — TOC-wrapped-title pattern (item 4 above, scoping entry's item 1): fixed via `superpowers:test-driven-development`, not deferred further.
+- L1703 `2026-09-03` — bge-m3 SEBI fine-tune: final disposition recorded, question closed.
+- L1720 `2026-09-03` — Two abstention-gate constants recalibrated for jina, closing 5 of the 21 `abstention_accuracy` mismatches from the same day's root-cause investigation.
+- L1757 `2026-09-15` — Gate-staleness gap closed by measurement, not re-derivation.
+- L1789 `2026-09-15` — Next-most-critical-pending-task determination: golden-set-power (n≈834) is it, under an "unblocks the most future work" criterion — and the named intervention it should fund is already on record.
+- L1826 `2026-09-15` — golden-set-power expansion FUNDED and started; checkpoint after mining + a drafting pipeline validated on real output — not yet at the full ~616-row scale.
+- L1913 `2026-09-15` — Gate stack-fingerprint interlock implemented, tested, and verified end-to-end against the live stale gate.
+- L1978 `2026-09-16` — Chunk-quality-metric detector implemented, hand-labeled, and reported.
