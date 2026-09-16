@@ -107,7 +107,7 @@ env: SEBI_RAG_GATE | SEBI_RAG_SUBJ_THRESHOLD | SEBI_RAG_SECT_THRESHOLD
 
 > ⚠️ `*_spaces.py` (`api_spaces`, `corpus_spaces`, `generate_spaces`) + root `app.py` = CPU-only HF Spaces demo. **Do not edit when fixing local Apple-Silicon pipeline.** Config in `config.toml [spaces]`; runbook in `README-spaces.md`.
 >
-> ⚠️ **Never add fields to `CircularMeta`** — `hierarchical_chunk()` does `meta=asdict(meta)` (`segment.py:131`), so new fields land in every chunk payload (83,752 chunks). Additive per-circular metadata goes on corpus JSONL record only — see `master_meta.annotate_master_fields` and `reg_lineage.annotate_regulation_fields`.
+> ⚠️ **Never add fields to `CircularMeta`** — `hierarchical_chunk()` does `meta=asdict(meta)` (`segment.py:340`), so new fields land in every chunk payload (83,752 chunks). Additive per-circular metadata goes on corpus JSONL record only — see `master_meta.annotate_master_fields` and `reg_lineage.annotate_regulation_fields`.
 
 ## Completed Phases & Validation
 

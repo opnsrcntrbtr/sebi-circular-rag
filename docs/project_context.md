@@ -186,7 +186,7 @@ gate: eval/golden/gate_v7.json (armed at adjudicated_n=260) — AUTHORITATIVE; r
     A candidate model measured against floors derived under a different model is not a
     pass/fail result — it is a category error.
   ci_gates: v7 only when adjudicated_n >= 100
-adjudication_pipeline: scripts/golden_v7/ (seed, mine_strata, build_pool, gate_select, local_adjudicate [Qwen3.6-35B-MLX], gemini_adjudicate [on hold], agreement, relabel_repooled, backfill_escalations, derive_thresholds, score)
+adjudication_pipeline: scripts/golden_v7/ (seed, draft_expansion_rows, mine_strata, build_pool, gate_select, local_adjudicate [Qwen3.6-35B-MLX], gemini_adjudicate [on hold], agreement, relabel_repooled, backfill_escalations, derive_thresholds, score, validate_golden)
 ```
 
 ### 7.5 Evaluation Infrastructure
@@ -359,9 +359,9 @@ design_decisions:
 
 ```
 SEBI circular RAG/
-├── docs/ — project_context.md (this file), status.md, scraping_plan.md, n8n_automation_plan.md, adr-001/002/003-*.md, graphify-analysis/, assets/, superpowers/{plans/, reports/, specs/}
+├── docs/ — project_context.md (this file), status.md, scraping_plan.md, n8n_automation_plan.md, adr-001/adr-002/adr-003/adr-004-*.md (4 ADRs), graphify-analysis/, assets/, superpowers/{plans/, reports/, specs/}
 ├── data/ — raw/ (PDFs + .sha256, 1,496 PDFs / 1,490 corpus records), corpus/ (circulars.jsonl, context_headers_targeted.jsonl, regulations.jsonl), manifests/ (master_circulars.jsonl, master_exceptions.jsonl, regulation_edges.jsonl), index/ (dense.faiss, bm25/, chunks.jsonl, lineage.json, embeddings.npy, manifest.json, meta.json; splade.npz absent)
-├── src/sebi_rag/ — flat module (no subpackages): __init__.py, api.py, api_spaces.py, pipeline.py, retrieve.py, splade.py, splade_encoder.py, context_headers.py, hyde.py, rerank.py, embeddings.py, segment.py, lineage.py, master_meta.py, metadata.py, generate.py, generate_spaces.py, corpus.py, corpus_spaces.py, eval.py, eval_asof.py, eval_harness.py, benchmark.py, settings.py, device.py, stats.py, expand.py, reg_citations.py, reg_lineage.py, regulations.py, verify_master.py, ui.py, ingest_pdf.py, attribution.py, measure.py |
+├── src/sebi_rag/ — flat module (no subpackages): __init__.py, api.py, api_spaces.py, pipeline.py, retrieve.py, splade.py, splade_encoder.py, context_headers.py, hyde.py, rerank.py, paraphrase_rescue.py, embeddings.py, segment.py, lineage.py, master_meta.py, metadata.py, generate.py, generate_spaces.py, corpus.py, corpus_spaces.py, eval.py, eval_asof.py, eval_harness.py, conformal.py, benchmark.py, settings.py, device.py, stats.py, expand.py, reg_citations.py, reg_lineage.py, regulations.py, verify_master.py, ui.py, ingest_pdf.py, attribution.py, measure.py |
 ├── scripts/ — build_index.py, calibrate.py, scrape_sebi.py, scrape_regulations.py, build_golden.py, build_golden_v6.py, build_reg_edges.py, build_splade_index.py, eval_json.py, eval_gate.py, eval_asof.py, bench_generators.py, bench_rerankers.py, bench_retrieval.py, export_benchmark.py, export_datasets.py, golden_v7/ (agreement.py, build_pool.py, derive_thresholds.py, gate_select.py, local_adjudicate.py, gemini_adjudicate.py, …), validate_corpus.py, repair_corpus_text.py, renu... |
 ├── tests/ — conftest.py (fixtures, env guards, mock models), fixtures/, test_*.py
 ├── eval/ — golden/ (golden_v1-v7.jsonl, gate_v7.json, v7_annotations/), probes/, runs/
