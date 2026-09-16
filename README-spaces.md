@@ -114,6 +114,31 @@ First query builds the pipeline (model downloads + index fetch): expect a
 few minutes cold, seconds warm for retrieval, longer when the CPU fallback
 generates.
 
+### Troubleshooting: `exit code 128` with an empty build log
+
+Seen 2026-09-16: `hf spaces info <repo> --expand runtime` reports
+`stage: BUILD_ERROR`, `errorMessage: "Job failed with exit code: 128. Reason:
+Error"`, and `hf spaces logs <repo> --build` shows nothing past the
+`===== Build Queued =====` line. **This is an HF infra scheduling failure,
+not a repo defect** — confirmed by a byte-identical diff of `app.py`,
+`requirements.txt` and `config.toml` against the prior (successful) commit,
+and by `git clone` of the Space repo succeeding cleanly. Root-caused via the
+`huggingface-spaces` skill's `references/known-errors.md` § "Exit code 128 /
+containerd / scheduling failure".
+
+**Fix**: click *Restart this Space* on the Space's Settings page (or
+`hf spaces restart <repo> --factory-reboot`). No file change is required —
+do not spend a session diffing commits before trying this first.
+`scripts/deploy_space.py` now prints the Space's post-deploy `stage` and
+`hardware.current`/`requested` after every upload (and a `WARNING:` line
+with the `errorMessage` if `stage == BUILD_ERROR`), so this state is visible
+in the deploy log going forward instead of requiring a manual `hf spaces
+info` check. It compares the runtime's `sha` against the commit it just
+pushed and suppresses the warning when they don't match yet — the read-back
+happens immediately after `upload_folder` returns, before HF has moved the
+Space into `BUILDING` for the new commit, so an unguarded check would
+either reprint the *previous* build's stale error or miss a fresh one.
+
 ## Data, licensing and citation
 
 The corpus is a research snapshot of publicly available SEBI circulars.

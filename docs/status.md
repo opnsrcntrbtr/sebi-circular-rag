@@ -2063,3 +2063,58 @@ chunker fixes against these rates as proof of net-positive retrieval effect (thi
 *shape*, not retrieval quality); no next interleaved-layout fix design decision made here -
 that stays a separate, explicit decision per the 2026-09-02 scoping entry's own precedent;
 detector never extended to fire on `golden_v7` query-answer text.
+
+## HF Space BUILD_ERROR (exit code 128) — infra glitch, observability gap closed (2026-09-16)
+
+```yaml
+incident:
+  space: opnsrcntrbtrian/sebi-circular-rag-demo
+  commit: 7230d67
+  observed_stage: BUILD_ERROR
+  error_message: "Job failed with exit code: 128. Reason: Error"
+  build_log: "===== Build Queued at 2026-09-16 04:47:23 / Commit SHA: 7230d67 ===== (nothing after)"
+root_cause:
+  classification: "HF infra build-scheduling failure, not a repo defect"
+  evidence:
+    - "app.py, requirements.txt, config.toml byte-identical to the prior (successful) commit
+       7a48c1 - only a README.md prose line differed"
+    - "README frontmatter (python_version, sdk_version, hardware) unchanged since 2026-07-10
+       across 11 commits (git show verified)"
+    - "git clone of the Space repo succeeded cleanly, 756K, no LFS/submodule issues"
+    - "control Space opnsrcntrbtrian/csne-find-and-explain, same account, same zero-a10g,
+       stage=RUNNING throughout"
+    - "hardware.current was null at failure time (no slot allocated) vs requested=zero-a10g"
+  ruled_out: [python_version drift, sdk_version unavailable, LFS/clone corruption,
+    account ZeroGPU cap exceeded]
+resolution:
+  action: "Manual 'Restart this Space' (Settings UI), equivalent to
+    hf spaces restart <id> --factory-reboot"
+  result: "same commit 7230d67 rebuilt clean; stage=RUNNING, hardware.current=zero-a10g,
+    replicas.current=1 - no file change required"
+observability_fix:
+  file: scripts/deploy_space.py
+  change: "_report_runtime() + _hardware_warning() added; called after api.upload_folder()
+    on every deploy, passed the just-pushed commit's oid as deployed_sha"
+  behavior: "prints stage/hardware.requested/hardware.current/sha always; prints a WARNING:
+    line with the raw errorMessage on stage=BUILD_ERROR, or on hardware.current=None outside
+    the in-flight stages (BUILDING, BUILD_QUEUED, APP_STARTING); read-back failure itself is
+    caught and non-fatal - upload success is not gated on it"
+  race_guard: "get_space_runtime() called right after upload_folder() commonly still
+    reflects the PREVIOUS build (HF hasn't moved the Space into BUILDING for the new commit
+    yet) - caught in code review before shipping, not in the original plan. Fixed by
+    comparing runtime.raw['sha'] against the CommitInfo.oid upload_folder returned; a
+    mismatch suppresses the warning (state isn't attributable to this deploy) rather than
+    either reprinting a stale BUILD_ERROR or silently missing a fresh one"
+  tests: "tests/test_deploy_space.py (7 cases: 5 original + stale-sha-suppresses,
+    matching-sha-still-warns), pure-function unit tests against _hardware_warning +
+    _report_runtime, no live HfApi call"
+  docs: "README-spaces.md § Troubleshooting: exit code 128 with an empty build log"
+gap_this_closes: "deploy-space.yml (.github/workflows/deploy-space.yml) only guarantees
+  files match main - it never waited for or inspected the rebuild. Same class of gap as the
+  11-day undeployed-fix incident that originally motivated that workflow (see its own
+  header comment); this Space could previously sit in BUILD_ERROR indefinitely with nothing
+  surfacing it."
+verification: "make test -> 1131 passed (1124 baseline + 7 new), 1 skipped, 3 deselected,
+  zero regressions; python -m compileall -q app.py src/sebi_rag scripts/deploy_space.py
+  clean; live Space confirmed RUNNING post-fix via hf spaces info --expand runtime"
+```
