@@ -181,7 +181,7 @@ runbook in `README-spaces.md`.
 
 ### ⚠️ Never add fields to `CircularMeta`
 
-`hierarchical_chunk()` does `meta=asdict(meta)` (`segment.py:131`), so a new
+`hierarchical_chunk()` does `meta=asdict(meta)` (`segment.py:340`), so a new
 `CircularMeta` field lands in every chunk payload (83,752 chunks) and mutates the
 persisted index. Additive per-circular metadata goes on the corpus JSONL record
 only — see `master_meta.annotate_master_fields` and

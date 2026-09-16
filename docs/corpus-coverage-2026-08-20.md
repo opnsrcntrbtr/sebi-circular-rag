@@ -1,5 +1,10 @@
 # Is retrieval saturated, or can the eval set not show otherwise?
 
+> ⚠️ SUPERSEDED 2026-09-16: this memo's premise is the 730-circular corpus; it has not been
+> re-measured against the now-1,490-circular corpus (+104%). See `docs/status.md:1819-1821`
+> (2026-09-15 determination entry) — ruled "not independently critical, a symptom of the same
+> golden-set power gap, not a separate blocker."
+
 **2026-08-20.** Reproduce with `PYTHONPATH=src python scripts/analysis/corpus_coverage.py`
 (`reports/corpus-coverage-2026-08-20.json`). Read-only. **This memo measures exposure, not
 demonstrated harm** — see §5, which is the part that keeps it honest.

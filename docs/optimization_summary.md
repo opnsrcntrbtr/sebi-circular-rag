@@ -2,7 +2,7 @@
 
 ## Overview
 
-Three phases of optimization reduced pre-injected context from **99,189 bytes (~24,800 tokens)** to **~10,500 bytes (~2,600 tokens)** — a **92.7% reduction** with zero regression (603 tests pass).
+Three phases of optimization reduced pre-injected context from **99,189 bytes (~24,800 tokens)** to **~10,500 bytes (~2,600 tokens)** — a **92.7% reduction** with zero regression (603 tests pass ⚠️ SUPERSEDED 2026-09-16: 2026-07 optimization-era count, see `AGENTS.md` for current `make test` total).
 
 ## Implemented Optimizations
 
@@ -59,7 +59,7 @@ Three phases of optimization reduced pre-injected context from **99,189 bytes (~
 
 ## Validation
 
-- [x] 603 tests pass (no regression)
+- [x] 603 tests pass (no regression) ⚠️ SUPERSEDED 2026-09-16: 2026-07 optimization-era count, see `AGENTS.md` for current `make test` total
 - [x] Pre-injected context reduced from 99,189 B to ~10,500 B (92.7%)
 - [x] CLAUDE.md replaced with 350-byte pointer
 - [x] `.pi/SYSTEM.md` created (1,500 B)

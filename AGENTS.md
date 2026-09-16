@@ -27,18 +27,28 @@ it before citing a specific threshold value; do not restate the numbers here.
 |---------|---------|
 | `make serve` | FastAPI backend on port 8000 |
 | `make ui` | Gradio UI dashboard |
-| `make test` | Offline test suite (1094 passed, 1 skipped, 3 deselected) |
+| `make test` | Offline test suite (1124 passed, 1 skipped, 3 deselected) |
+| `make annotate` | Recompute supersession status only |
+| `make corpus-validate` | Check corpus integrity (duplicate texts, circular_number derivation) |
 | `make reindex` | Annotate corpus + rebuild index |
 | `make index` | Build/persist FAISS+BM25 only |
 | `make scrape` | Fetch SEBI circulars (MAX=N) |
 | `make scrape-master` | Fetch master circulars (MAX_MASTER=N) |
 | `make calibrate` | Retrieval calibration sweep |
 | `make eval-asof` | As-of-date golden eval |
+| `make golden-validate` | Validate golden set adjudication |
 | `make bench-retrieval` | Retrieval-only benchmark |
 | `make bench-rerank` | Reranker benchmark |
 | `make benchmark-export` | BEIR/TREC/RAG export |
 | `make export-datasets` | Export dataset configs |
 | `make measure` | Collect pipeline metrics (parsing latency, retrieval recall, MRR, etc.) |
+| `make regression-check` | Regression detection across eval runs |
+| `make qrels` | Generate QRELS for TREC evaluation |
+| `make rescore` | Rescore existing eval runs |
+| `make trec-parity` | TREC runfile parity check |
+| `make telemetry` | Telemetry and profiling collection |
+| `make ops` | Local ops HTTP server for n8n automations (port 8765) |
+| `make deploy-space` | Deploy to Hugging Face Spaces |
 | `make golden-v7-gate` | Arm v7 CI gate (refuses <100 adjudicated) |
 
 For the full target list, read `README.md`.
@@ -80,7 +90,7 @@ runbook in `README-spaces.md`.
 
 ### ⚠️ Never add fields to `CircularMeta`
 
-`hierarchical_chunk()` does `meta=asdict(meta)` (`segment.py:131`), so a new
+`hierarchical_chunk()` does `meta=asdict(meta)` (`segment.py:340`), so a new
 `CircularMeta` field lands in every chunk payload (83,752 chunks) and mutates the
 persisted index. Additive per-circular metadata goes on the corpus JSONL record
 only — see `master_meta.annotate_master_fields` and

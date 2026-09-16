@@ -473,8 +473,8 @@ the record.
 **Measured on this corpus (2026-08-19, `scratchpad/table_frag_probe.py`).**
 
 ```yaml
-tabular_chunks:           1579   # 2.01% of 78,630
-docs_with_tables:          163   # 22.3% of 730 circulars
+tabular_chunks:           1579   # 2.01% of 78,630 ⚠️ SUPERSEDED 2026-09-16: pre-2026-08-28 corpus expansion (now 83,752 chunks, see docs/status.md)
+docs_with_tables:          163   # 22.3% of 730 circulars ⚠️ SUPERSEDED 2026-09-16: pre-expansion corpus (now 1,490 circulars)
 fragmented_chunks:         291   # 18.4% of tabular — open/close mid-table
 multi_space_column_gaps: 0/7986  # column structure destroyed at ingestion
 ```

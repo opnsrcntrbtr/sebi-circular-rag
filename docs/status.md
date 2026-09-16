@@ -1,8 +1,8 @@
 # Status — SEBI Circular RAG
 
 > Records completed work and blockers. Consult before requesting information.
-> Last updated: 2026-09-15 (docs sync only — no code change since 2026-09-03; corrected stale
-> `abstain_threshold`/test-count/chunk-count references across docs to match the live system).
+> Last updated: 2026-09-16 (docs sync). Two code commits landed since 2026-09-15: `aea5949e`
+> (gate stack-fingerprint interlock) and `18edd0c3` (chunk-quality-metric detector).
 
 ## Current Snapshot
 
@@ -18,7 +18,7 @@
 documents, zero false positives, well below golden_v7's detection power; matches the precedent the
 2026-09-01/02 chunker entries already set). **Measured instead**: `eval_json.py` run 2026-09-15
 against the current 83,752-chunk index — `floors_ok: true`, all six metrics clear their floor (see
-dated entry below); closes the "no production metric measured" gap this row used to carry. B' ON (`citation_scorer_enabled=true`), margin=0.35 (MLX-parallel sweep knee: P +5.4% vs mechanical, recall 0.8721 on adjudicated answerable n=219). See 2026-09-02 gate re-derivation entry below for full stack and delta table |
+dated entry below); closes the "no production metric measured" gap this row used to carry. B' ON (`citation_scorer_enabled=true`), margin=0.35 (MLX-parallel sweep knee: P +5.4% vs mechanical, recall 0.8721 on adjudicated answerable n=219). See 2026-09-02 gate re-derivation entry below for full stack and delta table. **2026-09-15 stack-fingerprint interlock** (`aea5949e`, `scripts/golden_v7/gate_select.py`'s `stack_matches()`): `gate_verdict: "unverifiable"` — the armed `eval/golden/gate_v7.json` carries no `stack` key, so `stack_matches()` reports `stack_drift` on all 8 `_STACK_AXES` (`embed_model`, `chunker_version`, `corpus_n`, `chunk_n`, `generator`, `citation_margin`, `citation_scorer_enabled`, `abstain_threshold`). `floors_ok: true` still holds independently — `gate_verdict` is a third, additive axis (`scripts/eval_json.py`'s new `gate_verdict`/`stack_drift` fields) and does not override it |
 | **Frozen sets** | `golden_v5` (n=56), `golden_v6` (n=56) |
 | **Epochs** | E1 `4083518f` (4 runs), E2 `913e762c` (20), E3 `8971de0f` (1), E4 `5f626dd9` (10, **current**). Registry `eval/epochs/epochs.jsonl`; 4 unframed runs excluded (ft-traces, iv11-splade-only-*, pool-sweep). `rescore_runs.py` raises `IncomparableFramesError` on cross-frame pairs |
 | **Epoch E5** `2026-08-22` — Benchmark with reranking: recall@10=0.9560 (CrossEncoder bge-reranker-v2-m3, top-n=50) |
@@ -29,13 +29,14 @@ dated entry below); closes the "no production metric measured" gap this row used
 | **Label tiers** | human 38, arbitrated 13, model_single 114, inherited_v5 30, draft_seeded 65, unknown 0. `label_tier` added; free-text `label_source` preserved. Tiered reporting, **no designated primary set** (`agreement.py --by-tier`) |
 | **v7 strata** | title_direct 40, body_paraphrase 60, numeric_table 30, lineage_supersession 40, multi_hop 20, repealed_basis 20, hard_negative 40, far_negative 10 |
 | **Abstain/as_of rows** | 41 abstain, 15 dated `as_of` |
-| **Draft rows** | 0 draft, 0 seeded |
-| **Test suite** | 885 passed, 2 skipped, 3 deselected (2026-08-25); 4 pre-existing unrelated failures (corpus/segment drift) confirmed present on `main` independent of any change in this file's most recent entries |
-| **Source tree** | 37 Python modules in `src/sebi_rag/` (__init__, api, api_spaces, attribution, benchmark, conformal, context_headers, corpus, corpus_spaces, device, embeddings, eval, eval_asof, eval_harness, expand, generate, generate_spaces, hyde, ingest_pdf, lineage, master_meta, measure, metadata, paraphrase_rescue, pipeline, reg_citations, reg_lineage, regulations, rerank, retrieve, segment, settings, splade, splade_encoder, stats, ui, verify_master); 39 top-level scripts in `scripts/` (incl. bench_retrieval.py, measure.py, hybrid_gate_sweep.py) plus `scripts/analysis/` and `scripts/golden_v7/` |
+| **Draft rows** | 0 draft, 0 seeded (verified against `eval/golden/golden_v7.jsonl` — all 260 rows `review_status: adjudicated`). 2026-09-15 expansion drafts staged, **not merged**: `eval/golden/v7_annotations/draft_rows_expansion_2026-09-15.jsonl`, `eval/golden/v7_annotations/draft_rows_retry_2026-09-15.jsonl` |
+| **Test suite** | 1124 passed, 1 skipped, 3 deselected (2026-09-16); zero failures |
+| **Source tree** | 37 Python modules in `src/sebi_rag/` (__init__, api, api_spaces, attribution, benchmark, conformal, context_headers, corpus, corpus_spaces, device, embeddings, eval, eval_asof, eval_harness, expand, generate, generate_spaces, hyde, ingest_pdf, lineage, master_meta, measure, metadata, paraphrase_rescue, pipeline, reg_citations, reg_lineage, regulations, rerank, retrieve, segment, settings, splade, splade_encoder, stats, ui, verify_master); 42 top-level scripts in `scripts/` (incl. bench_retrieval.py, measure.py, hybrid_gate_sweep.py) plus `scripts/analysis/` and `scripts/golden_v7/` |
 | **Golden-v7 pipeline** | 17 scripts in `scripts/golden_v7/` (__init__, adjudicate_draft, agreement, backfill_escalations, build_pool, derive_thresholds, draft_expansion_rows, gate_select, gemini_adjudicate, local_adjudicate, make_packet, mine_strata, relabel_repooled, remap_doc_ids, score, seed_v7, validate_golden) |
-| **V7 annotations** | `eval/golden/v7_annotations/` — votes.jsonl (207 claude records), pools.jsonl (4.2 MB), arbitration_queue.jsonl (65 KB), external_sample.json, gemini/ (21 dirs), qwen/ (150 files), candidates/, packet_human/ |
+| **V7 annotations** | `eval/golden/v7_annotations/` — votes.jsonl (207 claude records), pools.jsonl (4.2 MB), arbitration_queue.jsonl (65 KB), external_sample.json, gemini/ (21 dirs), qwen/ (150 files), candidates/, packet_human/, `candidates_expansion_2026-09-15/`, `draft_rows_expansion_2026-09-15.jsonl`, `draft_rows_retry_2026-09-15.jsonl` |
 | **E5 benchmark** | `eval/runs/baseline_retrieval_nocer/results.json` — baseline (no rerank) recall@10=0.9468; `eval/runs/baseline_retrieval_rerank_t50/results.json` — with reranking recall@10=0.9560 (+0.9% absolute) |
-| **Documentation** | 3 ADRs (adr-001 architecture review, adr-002 certainty architecture, adr-003 ANE declined), project_context.md, scraping_plan.md, n8n_automation_plan.md, USAGE.md |
+| **Documentation** | 4 ADRs (adr-001 architecture review, adr-002 certainty architecture, adr-003 ANE declined, adr-004 jina-reranker-v3 reassessment), project_context.md, scraping_plan.md, n8n_automation_plan.md, USAGE.md |
+| **Chunk quality** | `reports/chunk-quality-metric-2026-09-16.json` — chunker `2026-09-03-toc-long-title-merge`, 83,752 total chunks: `shredded_row_rate` 0.0 (0 candidates, `shredded_row_directional_only: true`), `orphan_fragment_rate` 9.6e-05 (8 occurrences, `orphan_fragment_directional_only: true`), `interleaved_split_rate` 0.00166 (139 occurrences; `interleaved_split_precision` 0.9333, `interleaved_split_recall` 0.925, `interleaved_split_directional_only: false`) |
 | **Measure pipeline** | `scripts/bench_metrics.py` — 6 metrics: parsing_latency, supersession_precision, temporal_accuracy, retrieval_recall, context_precision, mrr. CLI: `make measure` or `python scripts/bench_metrics.py --smoke`. 37 unit tests in `tests/test_measure.py`. |
 
 ### Hard Negative Fix (2026-07-30)
@@ -59,9 +60,9 @@ dated entry below); closes the "no production metric measured" gap this row used
   - Re-labeled `v7-ls-038`, `v7-ls-039`, `v7-ls-040` as `abstain: False` (as_of rows — pipeline fallback returns answerable content)
 - **Impact:** abstention_accuracy improved from 0.8488 → 0.9731 (+12.43pp); abstain rows: 41/41 = 1.0000
 
-### Production metrics (real stack, 728 circulars)
+### Production metrics (real stack, 1,490 circulars)
 ```yaml
-metrics: # full eval saved 2026-08-15 (eval_json.py, MLX generator, golden_v7 n=260)
+metrics: # full eval saved 2026-08-15 (eval_json.py, MLX generator, golden_v7 n=260) — this dated measurement was actually taken on the 728-circular corpus, before the 2026-08-28 bounded historical scrape grew it to 1,490; heading now names the current corpus size, not the size this measurement ran against
   recall_at_10: 0.943 (full eval; retrieval-only E4-baseline-golden was 0.956)
   context_recall: 0.916
   ndcg_at_10: 0.697
@@ -106,7 +107,7 @@ env: SEBI_RAG_GATE | SEBI_RAG_SUBJ_THRESHOLD | SEBI_RAG_SECT_THRESHOLD
 
 > ⚠️ `*_spaces.py` (`api_spaces`, `corpus_spaces`, `generate_spaces`) + root `app.py` = CPU-only HF Spaces demo. **Do not edit when fixing local Apple-Silicon pipeline.** Config in `config.toml [spaces]`; runbook in `README-spaces.md`.
 >
-> ⚠️ **Never add fields to `CircularMeta`** — `hierarchical_chunk()` does `meta=asdict(meta)` (`segment.py:131`), so new fields land in every chunk payload (83,752 chunks). Additive per-circular metadata goes on corpus JSONL record only — see `master_meta.annotate_master_fields` and `reg_lineage.annotate_regulation_fields`.
+> ⚠️ **Never add fields to `CircularMeta`** — `hierarchical_chunk()` does `meta=asdict(meta)` (`segment.py:340`), so new fields land in every chunk payload (83,752 chunks). Additive per-circular metadata goes on corpus JSONL record only — see `master_meta.annotate_master_fields` and `reg_lineage.annotate_regulation_fields`.
 
 ## Completed Phases & Validation
 
