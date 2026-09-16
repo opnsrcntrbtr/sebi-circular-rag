@@ -168,10 +168,13 @@ instruction-following no-ops:
 
 Run against the live index (`data/index/chunks.jsonl`, 78,630 chunks / 730 circulars). Probe:
 `scratchpad/table_frag_probe.py`.
+> ⚠️ SUPERSEDED 2026-09-16: measured pre-2026-08-28 corpus expansion (now 1,490 circulars /
+> 83,752 chunks, see `docs/status.md`); §5 figures below are not re-measured against the
+> expanded corpus.
 
 ```yaml
 tabular_chunks:            1579     # 2.01% of index
-docs_with_tables:           163     # 22.3% of 730 circulars
+docs_with_tables:           163     # 22.3% of 730 circulars ⚠️ SUPERSEDED 2026-09-16: pre-expansion corpus (now 1,490 circulars)
 fragmented_chunks:          291     # 18.4% of tabular — open or close mid-table
   opens_mid_table:          104
   closes_mid_table:         221
@@ -284,6 +287,7 @@ Chunking does not appear in it.
 Every external claim in this revision was checked against the paper's abstract or full text on
 2026-08-19 and is quoted rather than paraphrased. Every repo claim cites a file and line, or an
 artifact under `reports/`. §5 numbers are reproducible via `scratchpad/table_frag_probe.py`
-against `data/index/chunks.jsonl` at 78,630 chunks.
+against `data/index/chunks.jsonl` at 78,630 chunks. ⚠️ SUPERSEDED 2026-09-16: pre-2026-08-28
+expansion corpus (now 83,752 chunks / 1,490 circulars, see `docs/status.md`).
 
 Claims that could not be verified are marked as such and are not used to justify any priority.
